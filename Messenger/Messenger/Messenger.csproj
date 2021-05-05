@@ -303,6 +303,7 @@
     <None Include="App.config" />
     <None Include="Messenger_TemporaryKey.pfx" />
     <None Include="Settings.XamlStyler" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

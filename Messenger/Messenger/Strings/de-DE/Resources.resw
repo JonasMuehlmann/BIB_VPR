@@ -194,21 +194,11 @@
     <comment>Description text for SchemeActivationSamplePage</comment>
   </data>
   <data name="FirstRun_Body.Text" xml:space="preserve">
-    <value>Replace the content of this dialog with whatever content is appropriate to your app.
-You might want to explain key features or functionality.
-Don't feel restricted to just text. You can also include images and animations if you wish too.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-
-Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</value>
+    <value>Das hier wird beim ersten Start angezeigt</value>
     <comment>First use prompt message body</comment>
   </data>
   <data name="FirstRunDialog.Title" xml:space="preserve">
-    <value>Welcome</value>
+    <value>Herzlich Wilkommen</value>
     <comment>First use prompt message title</comment>
   </data>
   <data name="FirstRunDialog.PrimaryButtonText" xml:space="preserve">
@@ -224,11 +214,11 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>Shell UserInfo button tooltip property</comment>
   </data>
   <data name="LogInPageTitle.Text" xml:space="preserve">
-    <value>LogIn</value>
+    <value>Konto</value>
     <comment>Title for LogIn page</comment>
   </data>
   <data name="LogInButton.Content" xml:space="preserve">
-    <value>Click to log in</value>
+    <value>Einloggen</value>
     <comment>LogIn Button content in LogIn page</comment>
   </data>
   <data name="StatusUnauthorized" xml:space="preserve">
@@ -248,7 +238,7 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>Settings section title for User</comment>
   </data>
   <data name="Settings_LogOut.Content" xml:space="preserve">
-    <value>Log out</value>
+    <value>Ausloggen</value>
     <comment>Settings LogOut user content</comment>
   </data>
 </root>

@@ -34,6 +34,7 @@ namespace Messenger.ViewModels
 
         public LogInViewModel()
         {
+            OnLogin();
         }
 
         private async void OnLogin()
