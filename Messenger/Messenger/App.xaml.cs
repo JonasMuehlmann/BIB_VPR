@@ -24,7 +24,6 @@ namespace Messenger
         public App()
         {
             InitializeComponent();
-            string URI = string.Format("ms-appx-web://Microsoft.AAD.BrokerPlugIn/{0}", WebAuthenticationBroker.GetCurrentApplicationCallbackUri().Host.ToUpper());
             UnhandledException += OnAppUnhandledException;
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.

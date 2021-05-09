@@ -40,6 +40,7 @@ namespace Messenger.Core.Services
             _integratedAuthAvailable = false;
             _client = PublicClientApplicationBuilder.Create(_clientId)
                                                     .WithAuthority(AadAuthorityAudience.AzureAdAndPersonalMicrosoftAccount)
+                                                    .WithDefaultRedirectUri()
                                                     .Build();
         }
 
