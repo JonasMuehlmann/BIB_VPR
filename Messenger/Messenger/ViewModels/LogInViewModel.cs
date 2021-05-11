@@ -43,7 +43,7 @@ namespace Messenger.ViewModels
             StatusMessage = string.Empty;
             var loginResult = await IdentityService.LoginAsync();
             StatusMessage = GetStatusMessage(loginResult);
-            IsBusy = false;
+            IsBusy = false; 
         }
 
         private string GetStatusMessage(LoginResultType loginResult)
