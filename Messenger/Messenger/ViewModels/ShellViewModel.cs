@@ -24,6 +24,9 @@ namespace Messenger.ViewModels
         //private ICommand _loadedCommand;
         //private ICommand _itemInvokedCommand;
         private ICommand _userProfileCommand;
+        private ICommand _TeamCommand;
+        private ICommand _ChatCommand;
+        private ICommand _NotificationCommand;
         private UserViewModel _user;
         private Frame MainFrame { get; set; }
         private Frame SideFrame { get; set; }
@@ -38,7 +41,9 @@ namespace Messenger.ViewModels
         //public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
         public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OnUserProfile));
-
+        public ICommand TeamCommand => _TeamCommand ?? (_TeamCommand = new RelayCommand(OnUserProfile));
+        public ICommand ChatCommand => _ChatCommand ?? (_ChatCommand = new RelayCommand(OnUserProfile));
+        public ICommand NotificationCommand => _NotificationCommand ?? (_NotificationCommand = new RelayCommand(OnUserProfile));
         public UserViewModel User
         {
             get { return _user; }
