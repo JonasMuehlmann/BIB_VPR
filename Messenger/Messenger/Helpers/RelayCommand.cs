@@ -8,6 +8,7 @@ namespace Messenger.Helpers
         private readonly Action _execute;
 
         private readonly Func<bool> _canExecute;
+        private Action<Type> sideNavigation;
 
         public event EventHandler CanExecuteChanged;
 
@@ -20,6 +21,11 @@ namespace Messenger.Helpers
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
+        }
+
+        public RelayCommand(Action<Type> sideNavigation)
+        {
+            this.sideNavigation = sideNavigation;
         }
 
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
