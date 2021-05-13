@@ -15,7 +15,7 @@ namespace Messenger.Views
         {
             InitializeComponent();
             DataContext = ViewModel;
-            ViewModel.Initialize(shellFrame);
+            ViewModel.Initialize(shellFrame, navigationView, KeyboardAccelerators);
         }
     }
 }
