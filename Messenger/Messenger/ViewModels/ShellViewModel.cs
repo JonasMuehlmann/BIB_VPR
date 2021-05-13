@@ -41,9 +41,9 @@ namespace Messenger.ViewModels
         //public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
         public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OnUserProfile));
-        public ICommand TeamCommand => _TeamCommand ?? (_TeamCommand = new RelayCommand(OpenTeamsSidePanel));
-        public ICommand ChatCommand => _ChatCommand ?? (_ChatCommand = new RelayCommand(OpenChatSidePanel));
-        public ICommand NotificationCommand => _NotificationCommand ?? (_NotificationCommand = new RelayCommand(OpenNotificationSidePanel));
+        public ICommand TeamCommand => _TeamCommand ?? (_TeamCommand = new RelayCommand(OnUserProfile));
+        public ICommand ChatCommand => _ChatCommand ?? (_ChatCommand = new RelayCommand(OnUserProfile));
+        public ICommand NotificationCommand => _NotificationCommand ?? (_NotificationCommand = new RelayCommand(OnUserProfile));
         public UserViewModel User
         {
             get { return _user; }
@@ -83,23 +83,6 @@ namespace Messenger.ViewModels
         private void OnUserProfile()
         {
             MainFrame.Navigate(typeof(SettingsPage), null);
-        }
-
-        private void SideNavigation(Type page)
-        {
-            SideFrame.Navigate(page, null);
-        }
-
-        private void OpenTeamsSidePanel() {
-            SideNavigation(typeof(SettingsPage));
-        }
-
-        private void OpenChatSidePanel() {
-            SideNavigation(typeof(SettingsPage));
-        }
-
-        private void OpenNotificationSidePanel() {
-            SideNavigation(typeof(SettingsPage));
         }
     }
 }
