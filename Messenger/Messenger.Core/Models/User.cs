@@ -5,14 +5,16 @@ namespace Messenger.Core.Models
 {
     public class User
     {
+        // From Microsoft
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        
+        public string Photo { get; set; }
 
         public string Email { get; set; }
 
-        public string PhotoURL { get; set; }
-
+        // From Database
         public string Bio { get; set; }
     }
 }
