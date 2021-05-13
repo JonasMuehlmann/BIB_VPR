@@ -98,7 +98,6 @@ namespace Messenger.Services
             return new UserViewModel()
             {
                 Name = userData.DisplayName,
-                UserPrincipalName = userData.UserPrincipalName,
                 Photo = userPhoto
             };
         }
