@@ -6,7 +6,7 @@ namespace Messenger.Core.Models
 {
     public class Team
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
