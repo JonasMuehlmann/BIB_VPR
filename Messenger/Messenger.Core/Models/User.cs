@@ -12,7 +12,7 @@ namespace Messenger.Core.Models
         
         public string Photo { get; set; }
 
-        public string Email { get; set; }
+        public string Mail { get; set; }
 
         // From Database
         public string Bio { get; set; }

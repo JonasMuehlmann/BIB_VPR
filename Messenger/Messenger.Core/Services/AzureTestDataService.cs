@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
+/* This data should be deleted before Release */
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Sample class to show database mapping
+    /// </summary>
     public class SampleTeam
     {
         public int TeamId { get; set; }
@@ -16,35 +19,39 @@ namespace Messenger.Core.Services
         public DateTime CreationDate { get; set; }
     }
 
+    /// <summary>
+    /// Sample service of CRUD operations(Team)
+    /// </summary>
     public class AzureTestDataService : AzureServiceBase
     {
         public async Task<int> CreateTeam(string teamName, string teamDescription)
         {
-            // Create query
+            // 1. Create query
             string query = @"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) "
-                + $"VALUES (@TeamName, @TeamDescription, @CreationDate)";
+                + @"VALUES (@TeamName, @TeamDescription, @CreationDate)";
 
             try
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    // Open connection
+                    // 2. Open connection
                     await connection.OpenAsync();
 
-                    // Create Sql-command
+                    // 3. Create command
                     SqlCommand command = new SqlCommand(query, connection);
 
-                    // Replace parameters with values
+                    // 4. Replace parameters with values(reference the database for the right datatypes)
                     command.Parameters.Add("@TeamName", SqlDbType.NVarChar, 64).Value = teamName;
                     command.Parameters.Add("@TeamDescription", SqlDbType.NVarChar, 64).Value = teamDescription;
                     command.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DateTime.Now;
 
-                    // Returns 1 if successful
+                    // 5. Execute non query(returns 1 on success)
                     return command.ExecuteNonQuery();
                 }
             }
             catch (Exception e)
             {
+                // *. Error handling
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
                 return 0;
             }
@@ -53,30 +60,31 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Gets list of all teams
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Array/List of teams</returns>
         public async Task<IEnumerable<SampleTeam>> GetAllTeams()
         {
-            // Create query
+            // 1. Create query
             const string query = @"SELECT * FROM Teams";
 
             try
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    // Open connection
+                    // 2. Open connection
                     await connection.OpenAsync();
 
-                    // Create adapter
+                    // 3. Create adapter
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                    // Fill into dataset
+                    // 4. Fill into dataset
                     DataSet dataSet = new DataSet();
                     adapter.Fill(dataSet, "Teams");
 
+                    // 5. Destructure dataset
                     List<SampleTeam> teams = new List<SampleTeam>();
                     foreach (DataRow row in dataSet.Tables["Teams"].Rows)
                     {
-                        // Convert to model
+                        // 6. Map to model
                         teams.Add(new SampleTeam()
                         {
                             TeamId = Convert.ToInt32(row["TeamId"]),
@@ -86,11 +94,13 @@ namespace Messenger.Core.Services
                         });
                     }
 
+                    // 7. Returns list of teams
                     return teams;
                 }
             }
             catch (Exception e)
             {
+                // *. Error handling
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
                 return null;
             }
@@ -103,6 +113,7 @@ namespace Messenger.Core.Services
         /// <returns>1(Success)/0(Fail)</returns>
         public async Task<int> UpdateTeam(SampleTeam team)
         {
+            // 1. Create query
             string query = $"UPDATE Teams SET TeamName={team.TeamName}, TeamDescription={team.TeamDescription}"
                 + $"WHERE TeamId={team.TeamId}";
 
@@ -110,16 +121,19 @@ namespace Messenger.Core.Services
             {
                 using (SqlConnection connection = GetConnection())
                 {
+                    // 2. Open connection
                     await connection.OpenAsync();
 
+                    // 3. Create command
                     SqlCommand command = new SqlCommand(query, connection);
 
-                    // Returns 1 if successful
+                    // 4. Execute non query(returns 1 on success)
                     return command.ExecuteNonQuery();
                 }
             }
             catch (Exception e)
             {
+                // *. Error handling
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
                 return 0;
             }
@@ -128,26 +142,30 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Deletes team with given id
         /// </summary>
-        /// <param name="teamId"></param>
+        /// <param name="teamId">Id to delete</param>
         /// <returns>1(Success)/0(Fail)</returns>
         public async Task<int> DeleteTeam(int teamId)
         {
-            string query = @"DELETE FROM Teams WHERE TeamId=" + teamId;
+            // 1. Create query
+            string query = $"DELETE FROM Teams WHERE TeamId={teamId}";
 
             try
             {
                 using (SqlConnection connection = GetConnection())
                 {
+                    // 2. Open connection
                     await connection.OpenAsync();
 
+                    // 3. Create command
                     SqlCommand command = new SqlCommand(query, connection);
 
-                    // Returns 1 if successful
+                    // 4. Execute non query (returns 1 on success)
                     return command.ExecuteNonQuery();
                 }
             }
             catch (Exception e)
             {
+                // *. Error handling
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
                 return 0;
             }

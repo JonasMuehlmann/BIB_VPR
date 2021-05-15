@@ -22,6 +22,8 @@ namespace Messenger.Services
 
         private MicrosoftGraphService MicrosoftGraphService => Singleton<MicrosoftGraphService>.Instance;
 
+        private UserService UserService => Singleton<UserService>.Instance;
+
         public event EventHandler<UserViewModel> UserDataUpdated;
 
         public UserDataService()
@@ -95,9 +97,14 @@ namespace Messenger.Services
                 ? ImageHelper.ImageFromAssetsFile("DefaultIcon.png")
                 : await ImageHelper.ImageFromStringAsync(userData.Photo);
 
+            var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
+
+            // Merged with user model from the application database
             return new UserViewModel()
             {
-                Name = userData.DisplayName,
+                Name = userFromDatabase.DisplayName,
+                Bio = userFromDatabase.Bio,
+                Mail = userFromDatabase.Mail,
                 Photo = userPhoto
             };
         }
