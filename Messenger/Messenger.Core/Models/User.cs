@@ -10,6 +10,8 @@ namespace Messenger.Core.Models
 
         public string DisplayName { get; set; }
         
+        public string NameId { get; set; }
+
         public string Photo { get; set; }
 
         public string Mail { get; set; }
