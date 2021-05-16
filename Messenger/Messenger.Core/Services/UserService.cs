@@ -10,26 +10,38 @@ namespace Messenger.Core.Services
 {
     public class UserService : AzureServiceBase
     {
+        private async Task<bool> UpdateUsername(string userId, string newUsername)
+        {
+            int? newNameId = await DetermineNewNameId(newUsername);
+
+            if (newNameId == null)
+            {
+                return false;
+            }
+
+            string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
+                               + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
+
+            return await SqlHelpers.NonQueryAsync(queryUpdate, GetConnection());
+        }
+
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
             if (columnToChange == "Username")
             {
-                int? newNameId = await DetermineNewNameId(newVal);
-
-                if (newNameId == null)
-                {
-                    return false;
-                }
-
-                string queryUpdateNameId = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';";
-                if (!await SqlHelpers.NonQueryAsync(queryUpdateNameId, GetConnection()))
-                {
-                    return false;  
-                }
+                return await UpdateUsername(userId, newVal);
             }
+            else
+            {
+                if (SqlHelpers.GetColumnType("Users", columnToChange, GetConnection()) == "nvarchar")
+                {
+                    newVal = "'" + newVal + "'";
+                }
 
-            string queryUpdateOther = $"UPDATE Users SET {columnToChange}='{newVal}' WHERE UserId='{userId}';";
-            return await SqlHelpers.NonQueryAsync(queryUpdateOther, GetConnection());
+                string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+
+                return await SqlHelpers.NonQueryAsync(queryUpdateOther, GetConnection());
+            }
         }
 
 
@@ -64,7 +76,7 @@ namespace Messenger.Core.Services
         /// <param name="user">User data from MicrosoftGraphService</param>
         /// <returns>User from the application database</returns>
         public async Task<User> GetOrCreateApplicationUser(User user)
-        { 
+        {
 
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{user.Id}'";
 
@@ -111,8 +123,8 @@ namespace Messenger.Core.Services
 
                         SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
                         insertCommand.ExecuteNonQuery();
-                        
-                        // Return new user 
+
+                        // Return new user
                         return newUser;
                     }
                 }
@@ -137,7 +149,7 @@ namespace Messenger.Core.Services
                 using (SqlConnection connection = GetConnection())
                 {
                     await connection.OpenAsync();
-                    
+
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
                     // Will be null if there is no other user with the same name
                     int? maxNameId = Convert.ToInt32(scalarQuery.ExecuteScalar());
