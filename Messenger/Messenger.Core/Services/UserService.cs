@@ -18,17 +18,20 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         private async Task<bool> UpdateUsername(string userId, string newUsername)
         {
-            int? newNameId = await DetermineNewNameId(newUsername);
-
-            if (newNameId == null)
+            using (SqlConnection connection = GetConnection())
             {
-                return false;
+                int? newNameId = DetermineNewNameId(newUsername, connection);
+
+                if (newNameId == null)
+                {
+                    return false;
+                }
+
+                string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
+                                   + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
+
+                return await SqlHelpers.NonQueryAsync(queryUpdate, connection);
             }
-
-            string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
-                               + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
-
-            return await SqlHelpers.NonQueryAsync(queryUpdate, GetConnection());
         }
 
         /// <summary>
@@ -57,38 +60,44 @@ namespace Messenger.Core.Services
             }
         }
 
+<<<<<<< HEAD
 
         /// <summary>
         /// Create a new user from the specified User object.
         /// </summary>
         /// <param name="newUser">A configured User object to pull data from</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+=======
+>>>>>>> 8f329b0e0e08b2ce4528e35e93c0004f52db6a2c
         public async Task<bool> CreateUser(User newUser)
         {
-            int? newNameId = await DetermineNewNameId(newUser.DisplayName);
-
-            if (newNameId == null)
+            using (SqlConnection connection = GetConnection())
             {
-                return false;
+                int? newNameId = DetermineNewNameId(newUser.DisplayName, connection);
+                if (newNameId == null)
+                {
+                    return false;
+                }
+
+                string query =
+                    $"INSERT INTO Users(UserId, NameId, UserName, Email, Bio) VALUES ('{newUser.Id}',{newNameId}, '{newUser.DisplayName}', '{newUser.Mail}', '{newUser.Bio}');";
+
+                return await SqlHelpers.NonQueryAsync(query, connection);
             }
-
-            string query =
-                $"INSERT INTO Users(UserId, NameId, UserName, Email, Bio) VALUES ('{newUser.Id}',{newNameId}, '{newUser.DisplayName}', '{newUser.Mail}', '{newUser.Bio}');";
-
-
-            return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+<<<<<<< HEAD
 
         /// <summary>
         /// Delete the user with the specified userId.
         /// </summary>
         /// <param name="userId">The id of the user, whose data will be updated</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+=======
+>>>>>>> 8f329b0e0e08b2ce4528e35e93c0004f52db6a2c
         public async Task<bool> DeleteUser(string userId)
         {
             string query = $"DELETE FROM Users WHERE UserId='{userId}';";
-
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
@@ -100,7 +109,6 @@ namespace Messenger.Core.Services
         /// <returns>The existing or newly created User object</returns>
         public async Task<User> GetOrCreateApplicationUser(User user)
         {
-
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{user.Id}'";
 
             try
@@ -129,8 +137,9 @@ namespace Messenger.Core.Services
                     }
                     else
                     {
-                        int? newNameId = await DetermineNewNameId(user.DisplayName);
-                        string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) VALUES ('{user.Id}', {newNameId}, '{user.DisplayName.Split('/')[0].Trim()}', '{user.Mail}')";
+                        string displayName = user.DisplayName.Split('/')[0].Trim();
+                        int? newNameId = DetermineNewNameId(displayName, connection);
+                        string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) VALUES ('{user.Id}', {newNameId}, '{displayName}', '{user.Mail}')";
 
                         if (newNameId == null)
                         {
@@ -165,20 +174,24 @@ namespace Messenger.Core.Services
         /// </summarry>
         /// <param = "username">A username whose nameid is the be determined</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
-        private async Task<int?> DetermineNewNameId(string username)
+        private int? DetermineNewNameId(string username, SqlConnection connection)
         {
             string query = $"SELECT MAX(NameId) FROM USERS WHERE UserName='{username}'";
             try
             {
-                using (SqlConnection connection = GetConnection())
+                SqlCommand scalarQuery = new SqlCommand(query, connection);
+                // Will be System.DBNull if there is no other user with the same name
+                var result = scalarQuery.ExecuteScalar();
+
+                // If non exists, return 0
+                if (result.GetType() == typeof(System.DBNull))
                 {
-                    await connection.OpenAsync();
-
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-                    // Will be null if there is no other user with the same name
-                    int? maxNameId = Convert.ToInt32(scalarQuery.ExecuteScalar());
-
-                    return maxNameId == null ? 0 : maxNameId + 1;
+                    return 0;
+                }
+                // If exists get the max id
+                else
+                {
+                    return Convert.ToInt32(result) + 1;
                 }
             }
             catch (Exception e)

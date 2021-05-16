@@ -44,7 +44,7 @@ namespace Messenger.Core.Helpers
         /// <param name="columnName">A column to check the type of</param>
         /// <param name="connection">An sql connection to run the query on</param>
         /// <returns>Null if the specifid column does not exist in the table, it's type name otherwise</returns>
-        public static string? GetColumnType(string tableName, string columnName, SqlConnection connection)
+        public static string GetColumnType(string tableName, string columnName, SqlConnection connection)
         {
             SqlCommand query = new SqlCommand(
                     $"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';"
