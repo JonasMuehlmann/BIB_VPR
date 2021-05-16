@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -21,7 +24,7 @@ namespace Messenger.Core.Helpers
                 await connection.OpenAsync();
                 SqlCommand command = new SqlCommand(query, connection);
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception e)
             {
@@ -52,6 +55,14 @@ namespace Messenger.Core.Helpers
             );
 
             return Convert.ToString(query.ExecuteScalar());
+        }
+
+        public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
+        {
+            var dataSet = new DataSet();
+            adapter.Fill(dataSet, tableName);
+
+            return dataSet.Tables[tableName].Rows.Cast<DataRow>();
         }
     }
 }
