@@ -78,8 +78,8 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Adds a new member to the team
         /// </summary>
-        /// <param name="userId">User to add as a member</param>
-        /// <param name="teamId">Team to be added to</param>
+        /// <param name="userId">The id of the user to add to the specified team</param>
+        /// <param name="teamId">The id of the team to add the specified user to</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> AddMember(string userId, int teamId)
         {
@@ -89,10 +89,10 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Removes a new member from the team
+        /// Removes a member from the team
         /// </summary>
-        /// <param name="userId">User to be removed</param>
-        /// <param name="teamId">Team to be removed from</param>
+        /// <param name="userId">The id of the user to remove from the specified team</param>
+        /// <param name="teamId">The id of the team to remove the specified user from</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> RemoveMember(string userId, int teamId)
         {
@@ -104,7 +104,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Gets all members in the team
         /// </summary>
-        /// <param name="teamId">Team to get members of</param>
+        /// <param name="teamId">The id of the team to get members of</param>
         /// <returns>An enumerable of User objects</returns>
         public async Task<IEnumerable<User>> GetAllMembers(int teamId)
         {
