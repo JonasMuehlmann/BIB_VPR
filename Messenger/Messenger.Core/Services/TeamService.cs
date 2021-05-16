@@ -12,6 +12,12 @@ namespace Messenger.Core.Services
 {
     public class TeamService : AzureServiceBase
     {
+        /// <summary>
+        /// Create a team with a given name and description.
+        /// </summary>
+        /// <param name="teamName">A name to give the team</param>
+        /// <param name="teamDescription">A description to set for the team, defaults to an empty string</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> CreateTeam(string teamName, string teamDescription = "")
         {
             if (teamName == string.Empty) return false;
@@ -22,6 +28,11 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+        /// <summary>
+        /// Delete a team witha given team id.
+        /// </summary>
+        /// <param name="teamId">The id of the team to delete</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> DeleteTeam(int teamId)
         {
             string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
@@ -29,6 +40,10 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+        /// <summary>
+        /// Return a list of teams.
+        /// </summary>
+        /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeams()
         {
             string query = @"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams;";
@@ -65,6 +80,12 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Add a member with a specified user id to a team with a specified team id.
+        /// </summary>
+        /// <param name="userId">The id of the user to add to the specified team</param>
+        /// <param name="teamid">The id of the team to add the specified user to</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> AddMember(string userId,int teamId)
         {
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
@@ -72,6 +93,12 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+        /// <summary>
+        /// Remove a member with a specified user id from a team with a specified team id.
+        /// </summary>
+        /// <param name="userid">The id of the user to remove from the specified team</param>
+        /// <param name="teamId">The id of the team to remove the specified user from</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> RemoveMember(string userId,int teamId)
         {
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
