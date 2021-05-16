@@ -19,6 +19,17 @@ namespace Messenger.Core.Helpers
                 Bio = row["Bio"].ToString(),
             };
         }
+        
+        public static User UserFromMSGraph(User userdata)
+        {
+            return new User()
+            {
+                Id = userdata.Id,
+                DisplayName = userdata.DisplayName,
+                NameId = userdata.NameId,
+                Mail = userdata.Mail
+            };
+        }
 
         public static Team TeamFromDataRow(DataRow row)
         {
