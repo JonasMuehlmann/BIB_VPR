@@ -25,6 +25,11 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+        /// <summary>
+        /// Delete a team witha given team id.
+        /// </summary>
+        /// <param name="teamId">The id of the team to delete</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> DeleteTeam(int teamId)
         {
             string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
@@ -32,6 +37,10 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+        /// <summary>
+        /// Return a list of teams.
+        /// </summary>
+        /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeams()
         {
             string query = @"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams;";
@@ -56,18 +65,14 @@ namespace Messenger.Core.Services
             }
         }
 
-        #endregion
-
-        #region Members Management
-
-        public async Task<bool> AddMember(string userId, int teamId)
+        public async Task<bool> AddMember(string userId,int teamId)
         {
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
-        public async Task<bool> RemoveMember(string userId, int teamId)
+        public async Task<bool> RemoveMember(string userId,int teamId)
         {
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
 

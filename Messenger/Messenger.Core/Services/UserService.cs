@@ -10,6 +10,12 @@ namespace Messenger.Core.Services
 {
     public class UserService : AzureServiceBase
     {
+        /// <summary>
+        /// Update a specified users name
+        ///</summary>
+        /// <param name="userId">The id of the user, whose name will be updated</param>
+        /// <param name="newUsername">The new username to set</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         private async Task<bool> UpdateUsername(string userId, string newUsername)
         {
             using (SqlConnection connection = GetConnection())
@@ -28,6 +34,13 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Update a specified column for a specified user.
+        ///</summary>
+        /// <param name="userId">The id of the user, whose data will be updated</param>
+        /// <param name="columnToChange">The column to update for the user</param>
+        /// <param name="newVal">The new value for the specifed column for the specified user</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
             if (columnToChange == "Username")
@@ -47,6 +60,12 @@ namespace Messenger.Core.Services
             }
         }
 
+
+        /// <summary>
+        /// Create a new user from the specified User object.
+        /// </summary>
+        /// <param name="newUser">A configured User object to pull data from</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> CreateUser(User newUser)
         {
             using (SqlConnection connection = GetConnection())
@@ -64,6 +83,12 @@ namespace Messenger.Core.Services
             }
         }
 
+
+        /// <summary>
+        /// Delete the user with the specified userId.
+        /// </summary>
+        /// <param name="userId">The id of the user, whose data will be updated</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> DeleteUser(string userId)
         {
             string query = $"DELETE FROM Users WHERE UserId='{userId}';";
@@ -72,10 +97,10 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Gets the user from application database, or create one if not exists.
+        /// Create or retrieve an application user from a specified user object holding a GraphService Id.
         /// </summary>
-        /// <param name="user">User data from MicrosoftGraphService</param>
-        /// <returns>User from the application database</returns>
+        /// <param name="user">A user object holding a GraphService id which will be used to retrieve or create a user</param>
+        /// <returns>The existing or newly created User object</returns>
         public async Task<User> GetOrCreateApplicationUser(User user)
         {
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{user.Id}'";
@@ -86,15 +111,15 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    // Get user from database
+                    // Get application user from database
                     SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
                     DataSet dataSet = new DataSet();
                     adapter.Fill(dataSet, "Users");
 
-                    // Check if user is already in database
+                    // Check if application user is already in database
                     if (dataSet.Tables["Users"].Rows.Count > 0)
                     {
-                        // Return user from database
+                        // Return application user object from database
                         DataRow row = dataSet.Tables["Users"].Rows[0];
                         return new User()
                         {
@@ -114,7 +139,7 @@ namespace Messenger.Core.Services
                         {
                             return null;
                         }
-                        // Create user based on MicrosoftGraphService
+                        // Create Application user based on MicrosoftGraphService user
                         User newUser = new User()
                         {
                             Id = user.Id,
@@ -125,7 +150,7 @@ namespace Messenger.Core.Services
                         SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
                         insertCommand.ExecuteNonQuery();
 
-                        // Return new user
+                        // Return new or existing Application user
                         return newUser;
                     }
                 }
@@ -140,7 +165,8 @@ namespace Messenger.Core.Services
 
         /// <summary>
         /// Determine a usernames new NameId.
-        ///</summarry>
+        /// </summarry>
+        /// <param = "username">A username whose nameid is the be determined</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
         private int? DetermineNewNameId(string username, SqlConnection connection)
         {
