@@ -64,5 +64,20 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        public async Task<bool> AddMember(string userId,int teamId)
+        {
+            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES({userId}, {teamId}, 'placeholder');";
+
+            return await SqlHelpers.NonQueryAsync(query, GetConnection());
+        }
+
+        public async Task<bool> RemoveMember(string userId,int teamId)
+        {
+            string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId='{teamId}';";
+
+            return await SqlHelpers.NonQueryAsync(query, GetConnection());
+        }
+
     }
 }
