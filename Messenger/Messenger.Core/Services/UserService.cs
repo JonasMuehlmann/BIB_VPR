@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Messenger.Core.Models;
 using Messenger.Core.Helpers;
 using System.Data;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
@@ -60,30 +62,6 @@ namespace Messenger.Core.Services
             }
         }
 
-
-        /// <summary>
-        /// Create a new user from the specified User object.
-        /// </summary>
-        /// <param name="newUser">A configured User object to pull data from</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> CreateUser(User newUser)
-        {
-            using (SqlConnection connection = GetConnection())
-            {
-                int? newNameId = DetermineNewNameId(newUser.DisplayName, connection);
-                if (newNameId == null)
-                {
-                    return false;
-                }
-
-                string query =
-                    $"INSERT INTO Users(UserId, NameId, UserName, Email, Bio) VALUES ('{newUser.Id}',{newNameId}, '{newUser.DisplayName}', '{newUser.Mail}', '{newUser.Bio}');";
-
-                return await SqlHelpers.NonQueryAsync(query, connection);
-            }
-        }
-
-
         /// <summary>
         /// Delete the user with the specified userId.
         /// </summary>
@@ -99,11 +77,11 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Create or retrieve an application user from a specified user object holding a GraphService Id.
         /// </summary>
-        /// <param name="user">A user object holding a GraphService id which will be used to retrieve or create a user</param>
+        /// <param name="userdata">A user object holding a GraphService id which will be used to retrieve or create a user</param>
         /// <returns>The existing or newly created User object</returns>
-        public async Task<User> GetOrCreateApplicationUser(User user)
+        public async Task<User> GetOrCreateApplicationUser(User userdata)
         {
-            string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{user.Id}'";
+            string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{userdata.Id}'";
 
             try
             {
@@ -113,45 +91,35 @@ namespace Messenger.Core.Services
 
                     // Get application user from database
                     SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-                    DataSet dataSet = new DataSet();
-                    adapter.Fill(dataSet, "Users");
+                    DataRow[] rows = SqlHelpers.GetRows("Users", adapter).ToArray();
 
                     // Check if application user is already in database
-                    if (dataSet.Tables["Users"].Rows.Count > 0)
+                    if (rows.Length > 0)
                     {
-                        // Return application user object from database
-                        DataRow row = dataSet.Tables["Users"].Rows[0];
-                        return new User()
-                        {
-                            Id = row["UserId"].ToString(),
-                            DisplayName = row["UserName"].ToString(),
-                            Mail = row["Email"].ToString(),
-                            Bio = row["Bio"].ToString()
-                        };
+                        // Exists: return existing application user object from database
+                        return rows
+                            .Select(Mapper.UserFromDataRow)
+                            .FirstOrDefault();
                     }
                     else
                     {
-                        string displayName = user.DisplayName.Split('/')[0].Trim();
+                        // Not exists: create Application user based on MicrosoftGraphService user
+                        // Get a new id for the display name
+                        string displayName = userdata.DisplayName.Split('/')[0].Trim();
                         int? newNameId = DetermineNewNameId(displayName, connection);
-                        string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) VALUES ('{user.Id}', {newNameId}, '{displayName}', '{user.Mail}')";
 
-                        if (newNameId == null)
-                        {
-                            return null;
-                        }
-                        // Create Application user based on MicrosoftGraphService user
-                        User newUser = new User()
-                        {
-                            Id = user.Id,
-                            DisplayName = user.DisplayName,
-                            Mail = user.Mail
-                        };
+                        // Exit if name id is null
+                        if (newNameId == null) return null;
 
-                        SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
-                        insertCommand.ExecuteNonQuery();
+                        // Create and execute query
+                        string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) " +
+                            $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}')";
 
-                        // Return new or existing Application user
-                        return newUser;
+                        await SqlHelpers.NonQueryAsync(insertQuery, connection);
+
+                        // Return the new application user, mapped directly from MSGraph
+                        userdata.NameId = (int)newNameId;
+                        return Mapper.UserFromMSGraph(userdata);
                     }
                 }
             }
@@ -174,19 +142,11 @@ namespace Messenger.Core.Services
             try
             {
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
+
                 // Will be System.DBNull if there is no other user with the same name
                 var result = scalarQuery.ExecuteScalar();
 
-                // If non exists, return 0
-                if (result.GetType() == typeof(System.DBNull))
-                {
-                    return 0;
-                }
-                // If exists get the max id
-                else
-                {
-                    return Convert.ToInt32(result) + 1;
-                }
+                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToInt32(result) + 1;
             }
             catch (Exception e)
             {
