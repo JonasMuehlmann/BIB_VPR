@@ -15,6 +15,12 @@ namespace Messenger.Core.Services
     {
         #region Teams Management
 
+        /// <summary>
+        /// Creates a team with the given name and description
+        /// </summary>
+        /// <param name="teamName">Name of the team</param>
+        /// <param name="teamDescription">Description of the team</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> CreateTeam(string teamName, string teamDescription = "")
         {
             if (teamName == string.Empty) return false;
@@ -26,7 +32,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Delete a team witha given team id.
+        /// Deletes a team with a given team id.
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
@@ -38,7 +44,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Return a list of teams.
+        /// Returns a list of teams.
         /// </summary>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeams()
@@ -65,20 +71,41 @@ namespace Messenger.Core.Services
             }
         }
 
-        public async Task<bool> AddMember(string userId,int teamId)
+        #endregion
+
+        #region Members Management
+
+        /// <summary>
+        /// Adds a new member to the team
+        /// </summary>
+        /// <param name="userId">User to add as a member</param>
+        /// <param name="teamId">Team to be added to</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> AddMember(string userId, int teamId)
         {
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
-        public async Task<bool> RemoveMember(string userId,int teamId)
+        /// <summary>
+        /// Removes a new member from the team
+        /// </summary>
+        /// <param name="userId">User to be removed</param>
+        /// <param name="teamId">Team to be removed from</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> RemoveMember(string userId, int teamId)
         {
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+        /// <summary>
+        /// Gets all members in the team
+        /// </summary>
+        /// <param name="teamId">Team to get members of</param>
+        /// <returns>An enumerable of User objects</returns>
         public async Task<IEnumerable<User>> GetAllMembers(int teamId)
         {
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
