@@ -36,5 +36,16 @@ namespace Messenger.Core.Helpers
 
             return true;
         }
+
+        /// <summary>
+        /// Return a string representing the SQL datatype of the specified column in the specified table.
+        /// </summary>
+        /// <returns>Null if the specifid column does not exist in the table, it's type name otherwise</returns>
+        public static string? GetColumnType(string tableName, string columnName, SqlConnection connection)
+        {
+            SqlCommand query = new SqlCommand($"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';", connection);
+
+            return Convert.ToString(query.ExecuteScalar());
+        }
     }
 }
