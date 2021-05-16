@@ -8,6 +8,11 @@ namespace Messenger.Core.Helpers
 {
     public class Mapper
     {
+        /// <summary>
+        /// Maps to a full user model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped user object</returns>
         public static User UserFromDataRow(DataRow row)
         {
             return new User()
@@ -19,7 +24,12 @@ namespace Messenger.Core.Helpers
                 Bio = row["Bio"].ToString(),
             };
         }
-        
+
+        /// <summary>
+        /// Maps to a user model with minimal information from the MS-Graph service
+        /// </summary>
+        /// <param name="row">User object from the MS-Graph service</param>
+        /// <returns>An user object with the information from MS-Graph</returns>
         public static User UserFromMSGraph(User userdata)
         {
             return new User()
@@ -31,6 +41,11 @@ namespace Messenger.Core.Helpers
             };
         }
 
+        /// <summary>
+        /// Maps to a full team model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped team object</returns>
         public static Team TeamFromDataRow(DataRow row)
         {
             return new Team()

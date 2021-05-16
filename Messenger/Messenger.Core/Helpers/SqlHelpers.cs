@@ -57,6 +57,12 @@ namespace Messenger.Core.Helpers
             return Convert.ToString(query.ExecuteScalar());
         }
 
+        /// <summary>
+        /// Return an enumerable of data rows 
+        /// </summary>
+        /// <param name="tableName">Name of the table to read from</param>
+        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <returns>An enumerable of data rows</returns>
         public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
         {
             var dataSet = new DataSet();
