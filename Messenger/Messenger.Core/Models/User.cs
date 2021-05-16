@@ -9,8 +9,8 @@ namespace Messenger.Core.Models
         public string Id { get; set; }
 
         public string DisplayName { get; set; }
-        
-        public string NameId { get; set; }
+
+        public int NameId { get; set; }
 
         public string Photo { get; set; }
 
