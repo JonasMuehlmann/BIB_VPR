@@ -60,15 +60,12 @@ namespace Messenger.Core.Services
             }
         }
 
-<<<<<<< HEAD
 
         /// <summary>
         /// Create a new user from the specified User object.
         /// </summary>
         /// <param name="newUser">A configured User object to pull data from</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-=======
->>>>>>> 8f329b0e0e08b2ce4528e35e93c0004f52db6a2c
         public async Task<bool> CreateUser(User newUser)
         {
             using (SqlConnection connection = GetConnection())
@@ -86,15 +83,12 @@ namespace Messenger.Core.Services
             }
         }
 
-<<<<<<< HEAD
 
         /// <summary>
         /// Delete the user with the specified userId.
         /// </summary>
         /// <param name="userId">The id of the user, whose data will be updated</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-=======
->>>>>>> 8f329b0e0e08b2ce4528e35e93c0004f52db6a2c
         public async Task<bool> DeleteUser(string userId)
         {
             string query = $"DELETE FROM Users WHERE UserId='{userId}';";
