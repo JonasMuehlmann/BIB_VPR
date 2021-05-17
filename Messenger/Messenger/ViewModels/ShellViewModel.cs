@@ -9,13 +9,11 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.Views;
-
-using Windows.System;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
-
-using WinUI = Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Messenger.ViewModels
 {
@@ -24,9 +22,9 @@ namespace Messenger.ViewModels
         //private ICommand _loadedCommand;
         //private ICommand _itemInvokedCommand;
         private ICommand _userProfileCommand;
-        private ICommand _TeamCommand;
-        private ICommand _ChatCommand;
-        private ICommand _NotificationCommand;
+        private ICommand _teamCommand;
+        private ICommand _chatCommand;
+        private ICommand _notificationCommand;
         private UserViewModel _user;
         private Frame MainFrame { get; set; }
         private Frame SideFrame { get; set; }
@@ -40,10 +38,57 @@ namespace Messenger.ViewModels
 
         //public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
-        public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OnUserProfile));
-        public ICommand TeamCommand => _TeamCommand ?? (_TeamCommand = new RelayCommand(OpenTeamsSidePanel));
-        public ICommand ChatCommand => _ChatCommand ?? (_ChatCommand = new RelayCommand(OpenChatSidePanel));
-        public ICommand NotificationCommand => _NotificationCommand ?? (_NotificationCommand = new RelayCommand(OpenNotificationSidePanel));
+        //chat headline
+        private string _chatName;
+
+        public string ChatName
+        {
+            get { return _chatName; }
+
+            set { Set(ref _chatName, value); }
+        }
+
+
+        public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
+        public ICommand TeamCommand => _teamCommand ?? (_teamCommand = new RelayCommand(OpenTeamsSidePanel));
+        public ICommand ChatCommand => _chatCommand ?? (_chatCommand = new RelayCommand(OpenChatSidePanel));
+        public ICommand NotificationCommand => _notificationCommand ?? (_notificationCommand = new RelayCommand(OpenNotificationSidePanel));
+
+        #region button color properties
+        //button Color bindings
+        private SolidColorBrush _teamButtonColor = new SolidColorBrush((Color)Application.Current.Resources["SystemAccentColor"]);
+
+        public SolidColorBrush TeamButtonColor
+        {
+            get { return _teamButtonColor; }
+            set { Set(ref _teamButtonColor, value); }
+        }
+
+        private SolidColorBrush _chatButtonColor = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
+
+        public SolidColorBrush ChatButtonColor
+        {
+            get { return _chatButtonColor; }
+            set { Set(ref _chatButtonColor, value); }
+        }
+
+        private SolidColorBrush _settingsButtonColor = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
+
+        public SolidColorBrush SettingsButtonColor
+        {
+            get { return _settingsButtonColor; }
+            set { Set(ref _settingsButtonColor, value); }
+        }
+
+        private SolidColorBrush _notificationButtonColor = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
+
+        public SolidColorBrush NotificationButtonColor
+        {
+            get { return _notificationButtonColor; }
+            set { Set(ref _notificationButtonColor, value); }
+        }
+        #endregion
+
         public UserViewModel User
         {
             get { return _user; }
@@ -54,14 +99,18 @@ namespace Messenger.ViewModels
         {
         }
 
-        public void Initialize(Frame frame)
+        public void Initialize(Frame frame, Frame sideFrame)
         {
             //_keyboardAccelerators = keyboardAccelerators;
             MainFrame = frame;
+            SideFrame = sideFrame;
             NavigationService.Frame = frame;
             OnLoaded();
             IdentityService.LoggedOut += OnLoggedOut;
             UserDataService.UserDataUpdated += OnUserDataUpdated;
+
+            //load default pages
+            OpenChatSidePanel();
         }
 
         private async void OnLoaded()
@@ -80,26 +129,87 @@ namespace Messenger.ViewModels
             IdentityService.LoggedOut -= OnLoggedOut;
         }
 
-        private void OnUserProfile()
+
+        #region mainPageNavigation
+        private void MainNavigation(Type page)
         {
-            MainFrame.Navigate(typeof(SettingsPage), null);
+            MainFrame.Navigate(page, this);
         }
 
+        private void OpenSetttingsMainPanel()
+        {
+            ChooseActiveButton("settings");
+            MainNavigation(typeof(SettingsPage));
+        }
+
+        private void OpenChatMainPage()
+        {
+            MainNavigation(typeof(ChatPage));
+        }
+        #endregion
+
+
+        #region sidePageNavigation
         private void SideNavigation(Type page)
         {
-            SideFrame.Navigate(page, null);
+            SideFrame.Navigate(page, this);
+            //if (MainFrame.SourcePageType.Name != "ChatPage") {
+                OpenChatMainPage();
+            //}
+        }
+        private void OpenTeamsSidePanel()
+        {
+            ChooseActiveButton("team");
+            SideNavigation(typeof(TeamNavPage));
         }
 
-        private void OpenTeamsSidePanel() {
-            SideNavigation(typeof(SettingsPage));
+        private void OpenChatSidePanel()
+        {
+            ChooseActiveButton("chat");
+            SideNavigation(typeof(ChatNavPage));
         }
 
-        private void OpenChatSidePanel() {
-            SideNavigation(typeof(SettingsPage));
+        private void OpenNotificationSidePanel()
+        {
+            ChooseActiveButton("notification");
+            SideNavigation(typeof(NotificationNavPage));
         }
+        #endregion
 
-        private void OpenNotificationSidePanel() {
-            SideNavigation(typeof(SettingsPage));
+
+        #region chooseActiveButton
+        //change the active Button color
+        private void ChooseActiveButton(string button) {
+            SolidColorBrush active = new SolidColorBrush((Color)Application.Current.Resources["SystemAccentColor"]);
+            SolidColorBrush inactive = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
+
+            switch (button) {
+                case "team":
+                    TeamButtonColor = active;
+                    NotificationButtonColor = inactive;
+                    ChatButtonColor = inactive;
+                    SettingsButtonColor = inactive;
+                    break;
+                case "chat":
+                    TeamButtonColor = inactive;
+                    NotificationButtonColor = inactive;
+                    ChatButtonColor = active;
+                    SettingsButtonColor = inactive;
+                    break;
+                case "settings":
+                    TeamButtonColor = inactive;
+                    NotificationButtonColor = inactive;
+                    ChatButtonColor = inactive;
+                    SettingsButtonColor = active;
+                    break;
+                case "notification":
+                    TeamButtonColor = inactive;
+                    NotificationButtonColor = active;
+                    ChatButtonColor = inactive;
+                    SettingsButtonColor = inactive;
+                    break;
+            }
         }
+        #endregion
     }
 }

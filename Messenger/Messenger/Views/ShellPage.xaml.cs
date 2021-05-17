@@ -3,6 +3,7 @@
 using Messenger.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Messenger.Views
 {
@@ -15,7 +16,7 @@ namespace Messenger.Views
         {
             InitializeComponent();
             DataContext = ViewModel;
-            ViewModel.Initialize(shellFrame);
+            ViewModel.Initialize(shellFrame, sideFrame, (SolidColorBrush)Resources["SystemTextColor"], (SolidColorBrush)Resources["SystemAccent"]);
         }
     }
 }

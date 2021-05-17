@@ -11,7 +11,12 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush  x:Key="SystemTextColor" Color="{ThemeResource SystemControlPageTextBaseHighBrush}"></SolidColorBrush>
+            <SolidColorBrush  x:Key="SystemAccent" Color="{ThemeResource SystemAccentColor}"></SolidColorBrush>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100"/>
@@ -35,7 +40,7 @@
                 Grid.Column="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-               <SymbolIcon Symbol="People" />
+               <SymbolIcon Symbol="People" Foreground="{x:Bind ViewModel.TeamButtonColor, Mode=OneWay}"/>
             </Button>
             <Button
                 x:Uid="Shell_ChatButton"
@@ -45,7 +50,7 @@
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-               <SymbolIcon Symbol="Comment" />
+                <SymbolIcon Symbol="Comment" Foreground="{x:Bind ViewModel.ChatButtonColor, Mode=OneWay}"/>
             </Button>
             <Button
                 x:Uid="Shell_NotificationButton"
@@ -55,7 +60,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Mail" />
+                <SymbolIcon Symbol="Mail" Foreground="{x:Bind ViewModel.NotificationButtonColor, Mode=OneWay}"/>
             </Button>
         </Grid>
         
@@ -69,16 +74,13 @@
             <SymbolIcon Symbol="People"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"/>
-            <Button
-                x:Uid="Shell_UserInfoButton"
-                Padding="0" Margin="0"
-                Command="{x:Bind ViewModel.UserProfileCommand}"
-                Background="Transparent"
-                Grid.Column="3"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Setting" />
-            </Button>
+            <TextBlock
+                Style="{ThemeResource VCenteredText}"
+                FontWeight="Bold"
+                Text="{x:Bind ViewModel.ChatName, Mode=OneWay}"
+                VerticalAlignment="Center"
+                Grid.Column="1"
+                />
             <Button
                 x:Uid="Shell_UserInfoButton"
                 Padding="0" Margin="0"
@@ -88,6 +90,16 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
                 <SymbolIcon Symbol="Contact" />
+            </Button>
+            <Button
+                x:Uid="Shell_UserInfoButton"
+                Padding="0" Margin="0"
+                Command="{x:Bind ViewModel.UserProfileCommand}"
+                Background="Transparent"
+                Grid.Column="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Setting" Foreground="{x:Bind ViewModel.SettingsButtonColor, Mode=OneWay}"/>
             </Button>
         </Grid>
 
