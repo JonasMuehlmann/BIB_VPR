@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
+using Messenger.Core.Services;
 
 namespace Messenger.Core.Helpers
 {
@@ -28,7 +30,7 @@ namespace Messenger.Core.Helpers
         /// <summary>
         /// Maps to a user model with minimal information from the MS-Graph service
         /// </summary>
-        /// <param name="row">User object from the MS-Graph service</param>
+        /// <param name="userdata">User object from the MS-Graph service</param>
         /// <returns>An user object with the information from MS-Graph</returns>
         public static User UserFromMSGraph(User userdata)
         {
@@ -55,6 +57,50 @@ namespace Messenger.Core.Helpers
                 Description = row["TeamDescription"].ToString(),
                 CreationDate = Convert.ToDateTime(row["CreationDate"].ToString())
             };
+        }
+
+        public static Message MessageFromDataRow(DataRow row, SqlConnection connection)
+        {
+            // Private chats don't have a team name
+            if (row["TeamName"] is System.DBNull)
+            {
+
+                var otherUser = SqlHelpers.GetPartner(Convert.ToInt32(row["RecipientId"]), connection);
+                
+                if (otherUser is null)
+                {
+                    return null;
+                }
+                return new PrivateMessage()
+                {
+                    Id = Convert.ToInt32(row["MessageId"]),
+                    SenderId = row["SenderId"].ToString(),
+                    Content = row["Message"].ToString(),
+                    CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
+                    RecipientId = otherUser
+                };
+            }
+            else
+            {
+                string query = $"SELECT TeamId FROM Memberships WHERE MembershipId = '{row["RecipientId"].ToString()}'";
+                SqlCommand scalarQuery = new SqlCommand(query, connection);
+                var tid = scalarQuery.ExecuteScalar();
+
+                if (tid is DBNull)
+                {
+                    return null;
+                }
+
+                return new TeamMessage()
+                {
+                    Id = Convert.ToInt32(row["MessageId"]),
+                    SenderId = row["SenderId"].ToString(),
+                    Content = row["Message"].ToString(),
+                    CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
+                    ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
+                    TeamId = Convert.ToInt32(tid)
+                };
+            }
         }
     }
 }

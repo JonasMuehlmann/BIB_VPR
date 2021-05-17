@@ -6,7 +6,7 @@ namespace Messenger.Core.Models
     public class TeamMessage : Message
     {
         /// <summary>
-        /// Team where the message was psoted
+        /// Team where the message was posted
         /// </summary>
         public int TeamId { get; set; }
 

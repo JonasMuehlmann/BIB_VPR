@@ -5,6 +5,9 @@ namespace Messenger.Core.Models
     /// </summary>
     public class PrivateMessage : Message
     {
+        /// <summary>
+        /// The id of the user who has received the message
+        /// </summar>
         public string RecipientId { get; set; }
     }
 }

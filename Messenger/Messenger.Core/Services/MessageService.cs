@@ -1,6 +1,11 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using Messenger.Core.Helpers;
+using Messenger.Core.Models;
+
 
 namespace Messenger.Core.Services
 {
@@ -28,16 +33,16 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Retrieve all Messages of a team/chat.
         /// </summary>
-        /// <param name="teamId">The id of a team, whose messages should be retrieved<param>
+        /// <param name="teamId">The id of a team, whose messages should be retrieved</param>
         ///<returns>An enumerable of data rows containing the message data</returns>
-        public async Task<IEnumerable<DataRow>> RetrieveMessages(int teamId)
+        public List<Message> RetrieveMessages(int teamId)
         {
             using (SqlConnection connection = GetConnection())
             {
-                string query = $"SELECT * FROM Messages LEFT JOIN Memberships ON (Messages.RecipientsId = Memberships.MembershipId) WHERE Memberships.TeamId = {recipientId};";
+                string query = $"SELECT * FROM Messages LEFT JOIN Memberships ON (Messages.RecipientsId = Memberships.MembershipId) WHERE Memberships.TeamId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-
-                return SqlHelpers.GetRows("Messages", adapter);
+                
+                return SqlHelpers.GetRows("Messages", adapter).Select(row => Mapper.MessageFromDataRow(row, GetConnection())).ToList();
             }
 
         }
