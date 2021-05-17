@@ -7,13 +7,38 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-            <TextBlock Text="Chat Navigation" Style="{StaticResource VCenteredText}"></TextBlock>
-        </Grid>
+        <ListView x:Name="itemListView"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Height="auto"
+                  Width="auto">
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal" >
+                    <SymbolIcon Symbol="Comment"/>
+                    <TextBlock Text="Hi" Padding="10"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal" >
+                    <SymbolIcon Symbol="Comment"/>
+                    <TextBlock Text="Hello" Padding="10"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal" >
+                    <SymbolIcon Symbol="Comment"/>
+                    <TextBlock Text="Hallo" Padding="10"/>
+                </StackPanel>
+            </ListViewItem>
+        </ListView>
+        <Button x:Name="newChat"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="16"
+                Background="Transparent"
+                BorderBrush="Black">
+            
+            <SymbolIcon Symbol="Add"/>
+        </Button>
     </Grid>
 </Page>
