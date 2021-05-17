@@ -16,7 +16,7 @@ namespace Messenger.Views
         {
             InitializeComponent();
             DataContext = ViewModel;
-            ViewModel.Initialize(shellFrame, sideFrame, (SolidColorBrush)Resources["SystemTextColor"], (SolidColorBrush)Resources["SystemAccent"]);
+            ViewModel.Initialize(shellFrame, sideFrame);
         }
     }
 }
