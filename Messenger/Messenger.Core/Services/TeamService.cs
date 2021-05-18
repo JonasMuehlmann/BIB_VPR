@@ -1,4 +1,5 @@
-﻿using Messenger.Core.Helpers;
+﻿using System;
+using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,30 @@ namespace Messenger.Core.Services
         #region Teams Management
 
         /// <summary>
-        /// Creates a team with the given name and description
+        /// Creates a team with the given name and description and retrieve the sent messages id.
+
         /// </summary>
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> CreateTeam(string teamName, string teamDescription = "")
+        /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
+        public int? CreateTeam(string teamName, string teamDescription = "")
         {
-            if (teamName == string.Empty) return false;
+            if (teamName == string.Empty)
+            {
+                return null;
+            }
 
-            string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
-                $"('{teamName}', '{teamDescription}', GETDATE());";
+            using (SqlConnection connection = GetConnection())
+            {
 
-            return await SqlHelpers.NonQueryAsync(query, GetConnection());
+                string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
+                $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
+
+
+                SqlCommand scalarQuery = new SqlCommand(query, connection);
+
+                return Convert.ToInt32(scalarQuery.ExecuteScalar());
+            }
         }
 
         /// <summary>
