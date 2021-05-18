@@ -70,6 +70,35 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+        /// <summary>
+        /// Returns a list of teams a specified user is a member of.
+        /// </summary>
+        /// <param name="userId">The id of the user whose teams to list</param>
+        /// <returns>An enumerable of Team objects</returns>
+        public async Task<IEnumerable<Team>> GetAllTeams(string userId)
+        {
+            string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) WHERE m.UserId = '{userId}';";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet, "Teams");
+
+                    return dataSet.Tables["Teams"].Rows.Cast<DataRow>().Select(Mapper.TeamFromDataRow);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+                return null;
+            }
+        }
+
 
         #endregion
 
