@@ -18,7 +18,6 @@ namespace Messenger.Core.Services
 
         /// <summary>
         /// Creates a team with the given name and description and retrieve the sent messages id.
-
         /// </summary>
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
@@ -158,6 +157,7 @@ namespace Messenger.Core.Services
                     DataSet dataSet = new DataSet();
                     adapter.Fill(dataSet, "Users");
 
+                    // TODO: Use our Helper Function instead
                     return dataSet.Tables["Users"].Rows.Cast<DataRow>().Select(Mapper.UserFromDataRow);
                 }
             }

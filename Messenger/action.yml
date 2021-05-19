@@ -1,0 +1,21 @@
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name:jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: use this action, test solution dir
+        uses: zyborg/dotnet-tests-report@v1.4.2
+        with:
+          project_path: tests/My.Project.Tests
+          report_name: my_project_tests
+          report_title: My Project Tests
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        uses: zyborg/dotnet-tests-report@v1
+        with:
+          project_path: Messenger.Tests.MSTest
+          report_name: messenger_tests
+          report_title: Messenger Tests
+          github_token: ${{ secrets.GITHUB_TOKEN }}
