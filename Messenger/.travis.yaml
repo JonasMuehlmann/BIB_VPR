@@ -1,6 +1,0 @@
-language: csharp
-dotnet: 5.0
-solution: Messenger.sln
-script:
- - dotnet restore
- - dotnet test
