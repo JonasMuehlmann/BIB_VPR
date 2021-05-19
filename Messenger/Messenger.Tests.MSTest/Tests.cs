@@ -1,54 +1,53 @@
 ﻿using System;
-
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Messenger.Core.Models;
+using Messenger.Core.Services;
 using Messenger.ViewModels;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Messenger.Tests.MSTest
 {
-    // TODO WTS: Add appropriate tests
     [TestClass]
     public class Tests
     {
-        [TestMethod]
-        public void TestMethod1()
+        private UserService userService;
+
+        [TestInitialize]
+        public void Setup()
         {
+            userService = new UserService();
         }
 
-        // TODO WTS: Add tests for functionality you add to ContentGridViewModel.
         [TestMethod]
-        public void TestContentGridViewModelCreation()
+        public void GetOrCreateApplicationUser_Test()
         {
-            // This test is trivial. Add your own tests for the logic you add to the ViewModel.
-            var vm = new ContentGridViewModel();
-            Assert.IsNotNull(vm);
+            Task.Run(async () =>
+            {
+                var data = new User() 
+                { 
+                    Id = "123-456-abc-edf",
+                    DisplayName = "Jay Kim",
+                    Mail = "test.bib@edu.bib"
+                };
+
+                User user = await userService.GetOrCreateApplicationUser(data);
+
+                Assert.IsNotNull(user);
+                Assert.AreEqual(user.Id, "123-456-abc-edf");
+            }).GetAwaiter().GetResult();
         }
 
-        // TODO WTS: Add tests for functionality you add to MainViewModel.
         [TestMethod]
-        public void TestMainViewModelCreation()
+        public void UpdateUsername_Test()
         {
-            // This test is trivial. Add your own tests for the logic you add to the ViewModel.
-            var vm = new MainViewModel();
-            Assert.IsNotNull(vm);
-        }
+            Task.Run(async () =>
+            {
+                bool success = await userService.Update("13a3993dc6752b11", "Bio", "Test Bio");
 
-        // TODO WTS: Add tests for functionality you add to SettingsViewModel.
-        [TestMethod]
-        public void TestSettingsViewModelCreation()
-        {
-            // This test is trivial. Add your own tests for the logic you add to the ViewModel.
-            var vm = new SettingsViewModel();
-            Assert.IsNotNull(vm);
-        }
-
-        // TODO WTS: Add tests for functionality you add to TreeViewViewModel.
-        [TestMethod]
-        public void TestTreeViewViewModelCreation()
-        {
-            // This test is trivial. Add your own tests for the logic you add to the ViewModel.
-            var vm = new TreeViewViewModel();
-            Assert.IsNotNull(vm);
+                Assert.IsTrue(success);
+            }).GetAwaiter().GetResult();
         }
     }
 }
