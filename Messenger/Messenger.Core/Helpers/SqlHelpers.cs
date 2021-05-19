@@ -21,7 +21,7 @@ namespace Messenger.Core.Helpers
         {
             try
             {
-                await connection.OpenAsync();
+                if (connection.State != ConnectionState.Open) await connection.OpenAsync();
                 SqlCommand command = new SqlCommand(query, connection);
 
                 await command.ExecuteNonQueryAsync();
