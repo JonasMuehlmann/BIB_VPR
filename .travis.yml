@@ -1,5 +1,5 @@
 language: csharp
-dotnet: 5.0.203
+dotnet: 5.0.101
 os: windows
 mono: none
 solution: Messenger.sln
