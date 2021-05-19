@@ -58,10 +58,8 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                    DataSet dataSet = new DataSet();
-                    adapter.Fill(dataSet, "Teams");
 
-                    return dataSet.Tables["Teams"].Rows.Cast<DataRow>().Select(Mapper.TeamFromDataRow);
+                    return SqlHelpers.GetRows("Teams",adapter).Select(Mapper.TeamFromDataRow);
                 }
             }
             catch (Exception e)
@@ -86,10 +84,8 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                    DataSet dataSet = new DataSet();
-                    adapter.Fill(dataSet, "Teams");
 
-                    return dataSet.Tables["Teams"].Rows.Cast<DataRow>().Select(Mapper.TeamFromDataRow);
+                    return SqlHelpers.GetRows("Teams",adapter).Select(Mapper.TeamFromDataRow);
                 }
             }
             catch (Exception e)
