@@ -262,7 +262,7 @@
         <templateSelectors:SampleDataTemplateSelector x:Key="TreeViewTemplateSelector"
             CompanyTemplate="{StaticResource CompanyTemplate}"
             OrderTemplate="{StaticResource OrderTemplate}"
-            OrderDetailTemplate="{StaticResource OrderDetailTemplate}" />
+            OrderDetailTemplate="{StaticResource OrderDetailTemplate}"/>
 
         <templateSelectors:SampleDataTemplateSelector x:Key="ContentTemplateSelector"
             CompanyTemplate="{StaticResource CompanyContentTemplate}"

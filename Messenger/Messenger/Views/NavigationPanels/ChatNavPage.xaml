@@ -7,13 +7,6 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-            <TextBlock Text="Chat Navigation" Style="{StaticResource VCenteredText}"></TextBlock>
-        </Grid>
+        <TextBlock Text="Chat Navigation" Style="{StaticResource VCenteredText}"></TextBlock>
     </Grid>
 </Page>

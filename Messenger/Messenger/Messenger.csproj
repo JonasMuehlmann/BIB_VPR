@@ -176,6 +176,7 @@
     <Compile Include="Services\UserActivityService.cs" />
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
+    <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\SampleDataTemplateSelector.cs" />
     <Compile Include="ViewModels\ContentGridDetailViewModel.cs" />
     <Compile Include="ViewModels\ContentGridViewModel.cs" />

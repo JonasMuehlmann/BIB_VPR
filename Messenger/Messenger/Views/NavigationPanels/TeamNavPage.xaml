@@ -1,19 +1,45 @@
-﻿<Page
+﻿<Page xmlns:my="using:Microsoft.UI.Xaml.Controls" 
     x:Class="Messenger.Views.TeamNavPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Style="{StaticResource PageStyle}"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="using:Microsoft.Xaml.Interactivity" xmlns:behaviors="using:Messenger.Behaviors" xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:model="using:Messenger.Core.Models" xmlns:templateSelectors="using:Messenger.TemplateSelectors"
+      Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
+            <my:TreeViewItem
+                AutomationProperties.Name="{x:Bind Name}"
+                ItemsSource="{x:Bind Channels}" IsExpanded="False">
+                <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+            </my:TreeViewItem>
+        </DataTemplate>
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:TeamChannel">
+            <my:TreeViewItem
+                AutomationProperties.Name="{x:Bind ChannelName}">
+                <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+            </my:TreeViewItem>
+        </DataTemplate>
+
+        <templateSelectors:TeamDataTemplateSelector x:Key="TreeViewTemplateSelector"
+            TeamTemplate="{StaticResource TeamTemplate}"
+            TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
+    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-            <TextBlock Text="Team Navigation" Style="{StaticResource VCenteredText}"></TextBlock>
-        </Grid>
+        <my:TreeView
+                x:Name="treeView"
+                Grid.Row="1"
+                SelectionMode="Single"
+                ItemsSource="{x:Bind ViewModel.User.Teams}"
+                ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}">
+
+            <i:Interaction.Behaviors>
+                <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
+                <ic:EventTriggerBehavior EventName="ItemInvoked">
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </my:TreeView>
     </Grid>
 </Page>

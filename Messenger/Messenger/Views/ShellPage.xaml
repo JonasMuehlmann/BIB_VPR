@@ -36,11 +36,12 @@
                 x:Uid="Shell_TeamButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.TeamCommand}"
+                Click="Button_Click"
                 Background="Transparent"
                 Grid.Column="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-               <SymbolIcon Symbol="People" Foreground="{x:Bind ViewModel.TeamButtonColor, Mode=OneWay}"/>
+                <SymbolIcon Symbol="People" Foreground="{x:Bind ViewModel.TeamButtonColor, Mode=OneWay}"/>
             </Button>
             <Button
                 x:Uid="Shell_ChatButton"
