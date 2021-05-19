@@ -1,0 +1,19 @@
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name:jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: use this action, test solution dir
+        uses: zyborg/dotnet-tests-report@v1.4.2
+        with:
+          project_path: Messenger.Tests.MSTest
+          report_name: messenger_tests
+          report_title: Messenger Tests
+          github_token: ${{ secrets.GITHUB_TOKEN }}

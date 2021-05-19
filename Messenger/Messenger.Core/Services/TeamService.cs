@@ -18,7 +18,6 @@ namespace Messenger.Core.Services
 
         /// <summary>
         /// Creates a team with the given name and description and retrieve the sent messages id.
-
         /// </summary>
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
