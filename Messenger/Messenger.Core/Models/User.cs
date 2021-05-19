@@ -29,5 +29,7 @@ namespace Messenger.Core.Models
         public string UserPrincipalName { get; set; }
 
         public string Photo { get; set; }
+
+        public List<string> Userlist { get; set; }
     }
 }
