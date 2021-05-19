@@ -3,6 +3,5 @@ mono: none
 dotnet: 2.1.502
 solution: Messenger.sln
 script:
- - dotnet add package Microsoft.UI.Xaml --version 2.4.3
  - dotnet restore
  - dotnet test Messenger/Messenger.Tests.MSTest/Messenger.Tests.MSTest.csproj
