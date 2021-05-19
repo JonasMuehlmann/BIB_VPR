@@ -53,14 +53,19 @@ namespace Messenger.Core.Services
             }
             else
             {
-                if (SqlHelpers.GetColumnType("Users", columnToChange, GetConnection()) == "nvarchar")
+                using (SqlConnection connection = GetConnection())
                 {
-                    newVal = "'" + newVal + "'";
+                    await connection.OpenAsync();
+
+                    if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
+                    {
+                        newVal = "'" + newVal + "'";
+                    }
+
+                    string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+
+                    return await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
                 }
-
-                string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
-
-                return await SqlHelpers.NonQueryAsync(queryUpdateOther, GetConnection());
             }
         }
 

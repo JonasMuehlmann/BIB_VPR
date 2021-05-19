@@ -38,12 +38,12 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of a team, whose messages should be retrieved</param>
         ///<returns>An enumerable of data rows containing the message data</returns>
-        public async Task<List<Message>> RetrieveMessages(string teamId)
+        public async Task<List<Message>> RetrieveMessages(int teamId)
         {
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"SELECT * FROM Messages Messages.RecipientsId = '{teamId}';";
+                string query = $"SELECT * FROM Messages Messages.RecipientsId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
                 return SqlHelpers.GetRows("Messages", adapter).Select(row => Mapper.MessageFromDataRow(row, GetConnection())).ToList();
