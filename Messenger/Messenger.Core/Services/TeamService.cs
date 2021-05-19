@@ -48,9 +48,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> DeleteTeam(string teamId)
+        public async Task<bool> DeleteTeam(int teamId)
         {
-            string query = $"DELETE FROM Teams WHERE TeamId='{teamId}';";
+            string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
@@ -71,7 +71,7 @@ namespace Messenger.Core.Services
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                    return SqlHelpers.GetRows("Teams",adapter).Select(Mapper.TeamFromDataRow);
+                    return SqlHelpers.GetRows("Teams", adapter).Select(Mapper.TeamFromDataRow);
                 }
             }
             catch (Exception e)
@@ -118,9 +118,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to add to the specified team</param>
         /// <param name="teamId">The id of the team to add the specified user to</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> AddMember(string userId, string teamId)
+        public async Task<bool> AddMember(string userId, int teamId)
         {
-            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', '{teamId}', 'placeholder');";
+            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
@@ -131,9 +131,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to remove from the specified team</param>
         /// <param name="teamId">The id of the team to remove the specified user from</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> RemoveMember(string userId, string teamId)
+        public async Task<bool> RemoveMember(string userId, int teamId)
         {
-            string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId='{teamId}';";
+            string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
@@ -143,9 +143,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to get members of</param>
         /// <returns>An enumerable of User objects</returns>
-        public async Task<IEnumerable<User>> GetAllMembers(string teamId)
+        public async Task<IEnumerable<User>> GetAllMembers(int teamId)
         {
-            string subquery = $"SELECT UserId FROM Memberships WHERE TeamId='{teamId}'";
+            string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
             string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
 
             try
@@ -155,10 +155,8 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                    DataSet dataSet = new DataSet();
-                    adapter.Fill(dataSet, "Users");
 
-                    return dataSet.Tables["Users"].Rows.Cast<DataRow>().Select(Mapper.UserFromDataRow);
+                    return SqlHelpers.GetRows("Users", adapter).Select(Mapper.UserFromDataRow);
                 }
             }
             catch (Exception e)
