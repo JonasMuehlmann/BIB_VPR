@@ -1,7 +1,7 @@
 language: csharp
 os: focal
 mono: none
-dotnet: 3.1
+dotnet: 2.1.502
 solution: Messenger.sln
 script:
  - dotnet restore
