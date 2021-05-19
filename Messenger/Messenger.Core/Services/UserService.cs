@@ -22,6 +22,8 @@ namespace Messenger.Core.Services
         {
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
+
                 int? newNameId = DetermineNewNameId(newUsername, connection);
 
                 if (newNameId == null)

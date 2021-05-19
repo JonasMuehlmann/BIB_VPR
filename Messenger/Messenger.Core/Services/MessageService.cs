@@ -20,10 +20,11 @@ namespace Messenger.Core.Services
         ///<param name="message">The content of the message</param>
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        public int? CreateMessage(int recipientId, string senderId, string message, int? parentMessageId = null)
+        public async Task<int?> CreateMessage(int recipientId, string senderId, string message, int? parentMessageId = null)
         {
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
                 string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate) VALUES({recipientId}, '{senderId}', {parentMessageId}, '{message}', GETDATE(); SELECT SCOPE_IDENTITY();";
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
 
@@ -37,11 +38,12 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of a team, whose messages should be retrieved</param>
         ///<returns>An enumerable of data rows containing the message data</returns>
-        public List<Message> RetrieveMessages(int teamId)
+        public async Task<List<Message>> RetrieveMessages(string teamId)
         {
             using (SqlConnection connection = GetConnection())
             {
-                string query = $"SELECT * FROM Messages LEFT JOIN Memberships ON (Messages.RecipientsId = Memberships.MembershipId) WHERE Memberships.TeamId = {teamId};";
+                await connection.OpenAsync();
+                string query = $"SELECT * FROM Messages Messages.RecipientsId = '{teamId}';";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
                 return SqlHelpers.GetRows("Messages", adapter).Select(row => Mapper.MessageFromDataRow(row, GetConnection())).ToList();

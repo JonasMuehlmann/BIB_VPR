@@ -61,46 +61,14 @@ namespace Messenger.Core.Helpers
 
         public static Message MessageFromDataRow(DataRow row, SqlConnection connection)
         {
-            // Private chats don't have a team name
-            if (row["TeamName"] is System.DBNull)
-            {
-
-                var otherUser = SqlHelpers.GetPartner(Convert.ToInt32(row["RecipientId"]), connection);
-                
-                if (otherUser is null)
-                {
-                    return null;
-                }
-                return new PrivateMessage()
-                {
+                return new Message{
                     Id = Convert.ToInt32(row["MessageId"]),
                     SenderId = row["SenderId"].ToString(),
                     Content = row["Message"].ToString(),
                     CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
-                    RecipientId = otherUser
-                };
-            }
-            else
-            {
-                string query = $"SELECT TeamId FROM Memberships WHERE MembershipId = '{row["RecipientId"].ToString()}'";
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
-                var tid = scalarQuery.ExecuteScalar();
-
-                if (tid is DBNull)
-                {
-                    return null;
-                }
-
-                return new TeamMessage()
-                {
-                    Id = Convert.ToInt32(row["MessageId"]),
-                    SenderId = row["SenderId"].ToString(),
-                    Content = row["Message"].ToString(),
-                    CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
+                    TeamId = Convert.ToInt32(row["TeamId"]),
                     ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
-                    TeamId = Convert.ToInt32(tid)
                 };
-            }
         }
     }
 }
