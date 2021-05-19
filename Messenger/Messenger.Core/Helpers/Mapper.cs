@@ -66,7 +66,6 @@ namespace Messenger.Core.Helpers
                     SenderId = row["SenderId"].ToString(),
                     Content = row["Message"].ToString(),
                     CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
-                    TeamId = Convert.ToInt32(row["TeamId"]),
                     ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
                 };
         }
