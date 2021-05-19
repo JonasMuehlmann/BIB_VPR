@@ -23,7 +23,7 @@ namespace Messenger.Core.Services
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
-        public int? CreateTeam(string teamName, string teamDescription = "")
+        public async Task<int?> CreateTeam(string teamName, string teamDescription = "")
         {
             if (teamName == string.Empty)
             {
@@ -32,7 +32,7 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
-
+                await connection.OpenAsync();
                 string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
                 $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
 
