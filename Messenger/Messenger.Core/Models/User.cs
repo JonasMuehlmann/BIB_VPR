@@ -30,6 +30,8 @@ namespace Messenger.Core.Models
 
         public string Photo { get; set; }
 
+        public List<string> Userlist { get; set; }
+
         public List<Team> Teams { get; set; }
     }
 }
