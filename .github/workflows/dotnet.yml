@@ -11,6 +11,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+        run:
+            working-directory: Messenger/Messenger.Tests.MSTest
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
