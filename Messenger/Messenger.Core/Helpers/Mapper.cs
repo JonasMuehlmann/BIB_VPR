@@ -64,9 +64,9 @@ namespace Messenger.Core.Helpers
                 return new Message{
                     Id = Convert.ToInt32(row["MessageId"]),
                     SenderId = row["SenderId"].ToString(),
+                    RecipientId = Convert.ToInt32(row["TeamId"]),
                     Content = row["Message"].ToString(),
                     CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
-                    TeamId = Convert.ToInt32(row["TeamId"]),
                     ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
                 };
         }
