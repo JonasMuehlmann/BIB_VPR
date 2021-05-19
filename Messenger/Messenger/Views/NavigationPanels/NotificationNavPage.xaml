@@ -7,6 +7,80 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <TextBlock Text="Notification Navigation" Style="{StaticResource VCenteredText}"></TextBlock>
+        <ListView x:Name="Notification" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListView.Resources>
+                <Style TargetType="Grid">
+                    <Setter Property="Margin" Value="20"/>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+            </ListView.Resources>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="User 1"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="1:30 Pm"/>
+                <TextBlock Grid.Row="1" Text="replied in"/>
+                <TextBlock Grid.Row="2" Text="Team2::Channel2"/>
+            </Grid>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="User2"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="1:40 Pm"/>
+                <TextBlock Grid.Row="1" Text="mentioned you in"/>
+                <TextBlock Grid.Row="2" Text="Team2::Channel2"/>
+            </Grid>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="User3"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="2:00 Pm"/>
+                <TextBlock Grid.Row="1" Text="replied in"/>
+                <TextBlock Grid.Row="2" Text="Private Chat"/>
+            </Grid>
+        </ListView>
+
+        <Button x:Name="readAll"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            CornerRadius="15"
+            Background="Transparent"
+            BorderBrush="Black">
+
+            <SymbolIcon Symbol="PostUpdate"/>
+        </Button>
     </Grid>
 </Page>
