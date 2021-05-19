@@ -19,7 +19,7 @@ namespace Messenger.Core.Models
         /// <summary>
         /// Team where the message was posted
         /// </summary>
-        public int TeamId { get; set; }
+        public int RecipientId { get; set; }
 
         /// <summary>
         /// Null in case of a Top-level message
