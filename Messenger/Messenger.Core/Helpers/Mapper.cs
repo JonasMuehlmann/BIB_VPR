@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
+using Messenger.Core.Services;
 
 namespace Messenger.Core.Helpers
 {
@@ -28,7 +30,7 @@ namespace Messenger.Core.Helpers
         /// <summary>
         /// Maps to a user model with minimal information from the MS-Graph service
         /// </summary>
-        /// <param name="row">User object from the MS-Graph service</param>
+        /// <param name="userdata">User object from the MS-Graph service</param>
         /// <returns>An user object with the information from MS-Graph</returns>
         public static User UserFromMSGraph(User userdata)
         {
@@ -55,6 +57,18 @@ namespace Messenger.Core.Helpers
                 Description = row["TeamDescription"].ToString(),
                 CreationDate = Convert.ToDateTime(row["CreationDate"].ToString())
             };
+        }
+
+        public static Message MessageFromDataRow(DataRow row, SqlConnection connection)
+        {
+                return new Message{
+                    Id = Convert.ToInt32(row["MessageId"]),
+                    SenderId = row["SenderId"].ToString(),
+                    Content = row["Message"].ToString(),
+                    CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
+                    TeamId = Convert.ToInt32(row["TeamId"]),
+                    ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
+                };
         }
     }
 }

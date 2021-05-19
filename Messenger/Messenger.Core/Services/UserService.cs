@@ -22,6 +22,8 @@ namespace Messenger.Core.Services
         {
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
+
                 int? newNameId = DetermineNewNameId(newUsername, connection);
 
                 if (newNameId == null)
@@ -133,8 +135,9 @@ namespace Messenger.Core.Services
 
         /// <summary>
         /// Determine a usernames new NameId.
-        /// </summarry>
-        /// <param = "username">A username whose nameid is the be determined</param>
+        /// </summary>
+        /// <param name="username">A username whose nameid is the be determined</param>
+        /// <param name="connection">A connection to the sql database</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
         private int? DetermineNewNameId(string username, SqlConnection connection)
         {
