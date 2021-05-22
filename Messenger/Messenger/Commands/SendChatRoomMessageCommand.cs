@@ -32,7 +32,12 @@ namespace Messenger.Commands
         {
             try
             {
-                await _chatService.SendMessage(new Message() { Content = parameter.ToString() });
+                await _chatService.SendMessage(new Message()
+                {
+                    Content = parameter.ToString(),
+                    CreationTime = DateTime.Now,
+                    SenderId = _viewModel.User.Id
+                });
 
                 _viewModel.ErrorMessage = string.Empty;
             }
