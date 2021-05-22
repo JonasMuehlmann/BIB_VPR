@@ -18,5 +18,11 @@ namespace Messenger.Core.Models
 
         // From Database
         public string Bio { get; set; }
+
+        public override string ToString()
+        {
+
+            return $"User: Id={Id}, DisplayName={DisplayName}, NameId={NameId}, Photo={Photo}, Mail={Mail}, Bio={Bio}";
+        }
     }
 }
