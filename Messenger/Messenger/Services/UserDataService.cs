@@ -102,6 +102,7 @@ namespace Messenger.Services
             // Merged with user model from the application database
             return new UserViewModel()
             {
+                Id = userData.Id,
                 Name = userFromDatabase.DisplayName,
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
