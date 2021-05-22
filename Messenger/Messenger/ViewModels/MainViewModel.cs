@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Messenger.ViewModels
 {
@@ -19,18 +20,29 @@ namespace Messenger.ViewModels
         /* This should be deleted (example code) */
         public ObservableCollection<SampleTeam> SampleTeamsSource { get; } = new ObservableCollection<SampleTeam>();
 
+        public ChatRoomViewModel ChatRoom { get; set; }
+
         public MainViewModel()
         {
-            InitalizeData();
+            ConnectToChatRoom();
         }
 
         private async void InitalizeData()
         {
             /* This should be deleted (example code) */
-            foreach (SampleTeam team in await testDataService.GetAllTeams())
+            /* foreach (SampleTeam team in await testDataService.GetAllTeams())
             {
                 SampleTeamsSource.Add(team);
-            }
+            } */
+        }
+
+        private void ConnectToChatRoom()
+        {
+            HubConnection connection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:5000/chatroom")
+                .Build();
+
+            ChatRoom = ChatRoomViewModel.CreateConnectedViewModel(new Services.SignalRChatService(connection));
         }
     }
 }
