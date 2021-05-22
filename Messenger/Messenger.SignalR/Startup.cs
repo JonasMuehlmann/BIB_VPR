@@ -25,7 +25,7 @@ namespace Messenger.SignalR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR()
-                    .AddAzureSignalR();
+                .AddAzureSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,7 +38,7 @@ namespace Messenger.SignalR
 
             app.UseRouting();
             app.UseFileServer();
-            app.UseAzureSignalR(routes =>
+            app.UseEndpoints(routes =>
             {
                 routes.MapHub<ChatRoom>("/chatroom");
             });
