@@ -1,10 +1,12 @@
 ﻿using Messenger.Commands;
+using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,8 @@ namespace Messenger.ViewModels
 {
     public class ChatRoomViewModel : Observable
     {
+        private UserDataService _userDataService => Singleton<UserDataService>.Instance;
+
         private readonly SignalRChatService _chatService;
 
         private Message _message;
@@ -52,6 +56,14 @@ namespace Messenger.ViewModels
             }
         }
 
+        private UserViewModel _user;
+
+        public UserViewModel User
+        {
+            get { return _user; }
+            set { _user = value; }
+        }
+
         public ICommand SendChatRoomMessageCommand { get => new SendChatRoomMessageCommand(this, _chatService); }
 
         public ObservableCollection<Message> Messages { get; }
@@ -62,6 +74,8 @@ namespace Messenger.ViewModels
             _chatService.MessageReceived += ChatService_MessageReceived;
 
             Messages = new ObservableCollection<Message>();
+
+            GetUser();
         }
 
         public static ChatRoomViewModel CreateConnectedViewModel(SignalRChatService chatService)
@@ -79,8 +93,14 @@ namespace Messenger.ViewModels
             return viewModel;
         }
 
+        private async void GetUser()
+        {
+            User = await _userDataService.GetUserAsync();
+        }
+
         private void ChatService_MessageReceived(Message message)
         {
+            Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId}::{message.CreationTime}");
             Messages.Add(message);
         }
     }
