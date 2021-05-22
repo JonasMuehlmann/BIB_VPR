@@ -22,9 +22,10 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <TextBox Text="" Name="tbxMessage"/>
                 <Button Content="Absenden"
                         Command="{x:Bind ViewModel.ChatRoom.SendChatRoomMessageCommand}"
-                        CommandParameter="Test Message"
+                        CommandParameter="{Binding ElementName=tbxMessage, Path=Text}"
                         />
             </StackPanel>
 

@@ -39,7 +39,7 @@ namespace Messenger.ViewModels
         private void ConnectToChatRoom()
         {
             HubConnection connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5000/chatroom")
+                .WithUrl("https://vpr.azurewebsites.net/chatroom")
                 .Build();
 
             ChatRoom = ChatRoomViewModel.CreateConnectedViewModel(new Services.SignalRChatService(connection));
