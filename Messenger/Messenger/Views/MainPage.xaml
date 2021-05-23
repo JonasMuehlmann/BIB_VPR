@@ -14,7 +14,7 @@
 
             <!-- ** TEST UI FOR SIGNALR ** (will be removed) -->
             <StackPanel>
-                <ListView ItemsSource="{x:Bind ViewModel.ChatRoom.Messages}">
+                <ListView ItemsSource="{x:Bind ViewModel.Hub.Messages}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -24,9 +24,9 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <TextBox Text="" Name="tbxMessage"/>
+                <TextBox Name="tbxMessage"/>
                 <Button Content="Absenden"
-                        Command="{x:Bind ViewModel.ChatRoom.SendChatRoomMessageCommand}"
+                        Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
                         CommandParameter="{Binding ElementName=tbxMessage, Path=Text}"
                         />
             </StackPanel>
