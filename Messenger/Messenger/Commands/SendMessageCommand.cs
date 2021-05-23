@@ -5,20 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Messenger.Core.Services;
 using Messenger.Core.Models;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace Messenger.Commands
 {
-    public class SendChatRoomMessageCommand : ICommand
+    public class SendMessageCommand : ICommand
     {
-        private readonly ChatRoomViewModel _viewModel;
-        private readonly SignalRChatService _chatService;
+        private readonly SignalRHubViewModel _viewModel;
+        private readonly SignalRService _signalRService;
 
-        public SendChatRoomMessageCommand(ChatRoomViewModel viewModel, SignalRChatService chatService)
+        public SendMessageCommand(SignalRHubViewModel viewModel, SignalRService signalRService)
         {
             _viewModel = viewModel;
-            _chatService = chatService;
+            _signalRService = signalRService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -32,18 +34,20 @@ namespace Messenger.Commands
         {
             try
             {
-                await _chatService.SendMessage(new Message()
+                await _signalRService.SendMessage(new Message()
                 {
                     Content = parameter.ToString(),
                     CreationTime = DateTime.Now,
-                    SenderId = _viewModel.User.Id
+                    SenderId = _viewModel.User.Id,
+                    RecipientId = _viewModel.CurrentTeamId
                 });
 
                 _viewModel.ErrorMessage = string.Empty;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _viewModel.ErrorMessage = "Unable to send color message.";
+                Debug.WriteLine($"SignalR Exception: {e.Message}");
+                _viewModel.ErrorMessage = "Unable to send message.";
             }
         }
     }
