@@ -14,8 +14,6 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
-        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
         private SignalRHubViewModel _hub;
 
         #endregion
@@ -40,8 +38,8 @@ namespace Messenger.ViewModels
 
         private void InitializeHub()
         {
-            // Gets connection to the signalR hub (should only be created this way)
-            Hub = SignalRHubViewModel.CreateHubConnection(SignalRService, UserDataService);
+            // Gets connection to the signalR hub
+            Hub = SignalRHubViewModel.CreateConnectedViewModel();
         }
     }
 }
