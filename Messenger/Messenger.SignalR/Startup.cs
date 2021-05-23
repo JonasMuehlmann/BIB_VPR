@@ -40,7 +40,7 @@ namespace Messenger.SignalR
             app.UseFileServer();
             app.UseEndpoints(routes =>
             {
-                routes.MapHub<ChatRoom>("/chatroom");
+                routes.MapHub<ChatHub>("/chathub");
             });
         }
     }
