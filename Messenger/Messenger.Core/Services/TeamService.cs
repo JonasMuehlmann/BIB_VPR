@@ -24,6 +24,9 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
         public async Task<int?> CreateTeam(string teamName, string teamDescription = "")
         {
+            string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
+                $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
+
             if (teamName == string.Empty)
             {
                 return null;
@@ -32,9 +35,6 @@ namespace Messenger.Core.Services
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
-                $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
-
 
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
 
@@ -68,14 +68,13 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-
-                    return SqlHelpers.GetRows("Teams", adapter).Select(Mapper.TeamFromDataRow);
+                    return SqlHelpers
+                        .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+                HandleException(e);
                 return null;
             }
         }
@@ -94,14 +93,13 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-
-                    return SqlHelpers.GetRows("Teams",adapter).Select(Mapper.TeamFromDataRow);
+                    return SqlHelpers
+                        .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+                HandleException(e);
                 return null;
             }
         }
@@ -153,14 +151,39 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-
-                    return SqlHelpers.GetRows("Users", adapter).Select(Mapper.UserFromDataRow);
+                    return SqlHelpers
+                        .MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+                HandleException(e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets all memberships of a user
+        /// </summary>
+        /// <param name="userId">User id for the current user</param>
+        /// <returns>A list of membership objects</returns>
+        public async Task<IList<Membership>> GetAllMembershipByUserId(string userId)
+        {
+            string query = $"SELECT * FROM Memberships WHERE UserId='{userId}'";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    return SqlHelpers
+                        .MapToList(Mapper.MembershipFromDataRow, new SqlDataAdapter(query, connection));
+                }
+            }
+            catch (Exception e)
+            {
+                HandleException(e);
                 return null;
             }
         }
