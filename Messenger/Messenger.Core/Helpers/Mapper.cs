@@ -70,5 +70,21 @@ namespace Messenger.Core.Helpers
                     ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
                 };
         }
+
+        /// <summary>
+        /// Maps to a full membership model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped membership object</returns>
+        public static Membership MembershipFromDataRow(DataRow row)
+        {
+            return new Membership()
+            {
+                MembershipId = Convert.ToInt32(row["MembershipId"]),
+                UserId = row["UserId"].ToString(),
+                UserRole = row["UserRole"].ToString(),
+                TeamId = Convert.ToInt32(row["TeamId"])
+            };
+        }
     }
 }
