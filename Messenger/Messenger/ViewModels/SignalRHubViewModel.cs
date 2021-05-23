@@ -91,7 +91,7 @@ namespace Messenger.ViewModels
             Messages = new ObservableCollection<Message>();
 
             // Loads current user data
-            userDataService.GetUserAsync().ContinueWith((task) =>
+            userDataService.GetUserAsync().ContinueWith(async (task) =>
             {
                 if (task.Exception == null)
                 {
@@ -102,6 +102,9 @@ namespace Messenger.ViewModels
                     ErrorMessage = "Unable to fetch user data";
                     User = null;
                 }
+
+                // Subscribes to hub groups
+                await _signalRService.JoinTeam(CurrentTeamId.ToString());
             });
 
             // Subscribes to "ReceiveMessage" event
