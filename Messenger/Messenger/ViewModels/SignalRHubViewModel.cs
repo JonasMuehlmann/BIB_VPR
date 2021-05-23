@@ -6,6 +6,7 @@ using Messenger.Helpers;
 using Messenger.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -15,7 +16,10 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private readonly SignalRService _signalRService;
+        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
+        private TeamService TeamService => Singleton<TeamService>.Instance;
+
         private Message _message;
         private bool _isConnected;
         private string _errorMessage;
@@ -73,7 +77,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Sends a message with the current team id
         /// </summary>
-        public ICommand SendMessageCommand => new SendMessageCommand(this, _signalRService);
+        public ICommand SendMessageCommand => new SendMessageCommand(this, SignalRService);
 
         /// <summary>
         /// Current target team id to send messages(Message.RecipientsId)
@@ -85,13 +89,12 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="signalRService">SignalRService from the view model (Singleton)</param>
         /// <param name="userDataService">UserDataService from the view model (Singleton)</param>
-        public SignalRHubViewModel(SignalRService signalRService, UserDataService userDataService)
+        public SignalRHubViewModel()
         {
-            _signalRService = signalRService;
             Messages = new ObservableCollection<Message>();
 
             // Loads current user data
-            userDataService.GetUserAsync().ContinueWith(async (task) =>
+            UserDataService.GetUserAsync().ContinueWith(async (task) =>
             {
                 if (task.Exception == null)
                 {
@@ -103,12 +106,25 @@ namespace Messenger.ViewModels
                     User = null;
                 }
 
+                // TODO::Subscribe all memberships
+                var memberships = await TeamService.GetAllMembershipByUserId(User.Id);
+                if (memberships != null && memberships.Count > 0)
+                {
+                    memberships
+                        .Select(async (membership) =>
+                        {
+                            string groupName = membership.TeamId.ToString();
+
+                            await SignalRService.JoinTeam(groupName);
+                        });
+                }
+
                 // Subscribes to hub groups
-                await _signalRService.JoinTeam(CurrentTeamId.ToString());
+                await SignalRService.JoinTeam(CurrentTeamId.ToString());
             });
 
             // Subscribes to "ReceiveMessage" event
-            _signalRService.MessageReceived += ChatService_MessageReceived;
+            SignalRService.MessageReceived += ChatService_MessageReceived;
         }
 
         /// <summary>
@@ -117,12 +133,12 @@ namespace Messenger.ViewModels
         /// <param name="signalRService"></param>
         /// <param name="userDataService"></param>
         /// <returns></returns>
-        public static SignalRHubViewModel CreateHubConnection(SignalRService signalRService, UserDataService userDataService)
+        public static SignalRHubViewModel CreateConnectedViewModel()
         {
-            SignalRHubViewModel viewModel = new SignalRHubViewModel(signalRService, userDataService);
+            SignalRHubViewModel viewModel = new SignalRHubViewModel();
 
-            // Connects to the hub with the pre-configured setting
-            signalRService.ConnectToHub().ContinueWith(task =>
+            // Connects the ViewModel to the hub with the preconfigured setting
+            viewModel.SignalRService.ConnectToHub().ContinueWith(task =>
             {
                 if (task.Exception != null)
                 {
