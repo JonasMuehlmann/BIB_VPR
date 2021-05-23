@@ -1,13 +1,8 @@
 ﻿using System;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Text;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Messenger.Core.Services
@@ -78,12 +73,13 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+        
         /// <summary>
         /// Returns a list of teams a specified user is a member of.
         /// </summary>
         /// <param name="userId">The id of the user whose teams to list</param>
         /// <returns>An enumerable of Team objects</returns>
-        public async Task<IEnumerable<Team>> GetAllTeams(string userId)
+        public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
         {
             string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) WHERE m.UserId = '{userId}';";
 
@@ -103,7 +99,6 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
-
 
         #endregion
 
@@ -140,7 +135,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to get members of</param>
         /// <returns>An enumerable of User objects</returns>
-        public async Task<IEnumerable<User>> GetAllMembers(int teamId)
+        public async Task<IEnumerable<User>> GetAllUsersByTeamId(int teamId)
         {
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
             string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";

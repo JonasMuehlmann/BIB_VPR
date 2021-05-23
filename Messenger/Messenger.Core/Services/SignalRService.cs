@@ -13,6 +13,7 @@ namespace Messenger.Core.Services
         #region Private
 
         private const string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
+        
         private readonly HubConnection _connection;
 
         #endregion
