@@ -1,8 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Messenger.Core.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+
+using System;
+using System.Data.SqlClient;
 
 namespace Messenger.Tests.MSTest
 {
@@ -33,19 +38,41 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+
         /// <summary>
         /// Should fetch the existing user from database
         /// </summary>
         [TestMethod]
-        public void GetOrCreateApplicationUser_Test()
+        public void GetOrCreateApplicationUserExisting_Test()
         {
             Task.Run(async () =>
             {
                 var data = new User() { Id = "123-456-abc-edf" };
-                User user = await userService.GetOrCreateApplicationUser(data);
+                User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-                Assert.IsNotNull(user);
-                Assert.AreEqual(user.Mail, "test.bib@edu.bib");
+
+                Assert.IsNotNull(retrievedUser);
+                Assert.AreEqual(retrievedUser.Mail, "test.bib@edu.bib");
+
+            }).GetAwaiter().GetResult();
+        }
+
+
+        public void GetOrCreateApplicationUseraNew_Test()
+        {
+            string id = "123-456-abc-edg";
+
+            User referenceUser = new User{
+                Id = id
+            };
+
+            Task.Run(async () =>
+            {
+                var data = new User() { Id =  id};
+                User createdUser = await userService.GetOrCreateApplicationUser(data);
+
+                Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
+
             }).GetAwaiter().GetResult();
         }
 
@@ -57,9 +84,19 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                bool success = await userService.Update("7b0a54c3-f992-4bbd-abab-8028565287b3", "UserName", "Jay Kim");
+                string id = "123-456-abc-edf";
+
+                User userBefore = await userService.GetUser(id);
+                string newName = "JayKim94";
+                userBefore.DisplayName = newName;
+
+                bool success = await userService.UpdateUsername(id, newName);
+
+                User userAfter = await userService.GetUser(id);
 
                 Assert.IsTrue(success);
+                Assert.AreEqual(userBefore.ToString(), userAfter.ToString());
+
             }).GetAwaiter().GetResult();
         }
 
@@ -71,7 +108,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                bool success = await userService.Update("7b0a54c3-f992-4bbd-abab-8028565287b3", "Bio", "Updated bio");
+                bool success = await userService.Update("123-456-abc-edf", "Bio", "Updated bio");
 
                 Assert.IsTrue(success);
             }).GetAwaiter().GetResult();
@@ -85,10 +122,42 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                bool success = await userService.DeleteUser("123-456-abc-edf");
+                string id = "123-456-abc-edf";
+                bool success = await userService.DeleteUser(id);
+
 
                 Assert.IsTrue(success);
+                Assert.IsNull(await userService.GetUser(id));
+
             }).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Should delete user from the setup, expects true
+        /// </summary>
+        [TestMethod]
+        public void DeleteNonExistentUser_Test()
+        {
+            Task.Run(async () =>
+            {
+                string id = "djdsdjksdjskdjskdjdksj";
+                bool success = await userService.DeleteUser(id);
+
+
+                Assert.IsFalse(success);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        ~UserServiceTest()
+        {
+            // Reset DB
+            string query = "DELETE FROM Users;"
+                         + "DELETE FROM Messages;"
+                         + "DELETE FROM Teams;"
+                         + "DELETE FROM Memberships;";
+
+            SqlHelpers.NonQueryAsync(query, userService.GetConnection());
         }
     }
 }
