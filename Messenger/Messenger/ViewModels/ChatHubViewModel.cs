@@ -72,7 +72,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Dictionary for connected teams and their messages
         /// </summary>
-        public ConcurrentDictionary<int, ObservableCollection<Message>> ConnectedTeams { get; }
+        public ConcurrentDictionary<int, ObservableCollection<Message>> MessagesByConnectedTeam { get; }
 
         /// <summary>
         /// Collection of messages from the dictionary to be shown on UI
@@ -81,7 +81,7 @@ namespace Messenger.ViewModels
         {
             get
             {
-                return ConnectedTeams.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
+                return MessagesByConnectedTeam.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
             }
         }
 
@@ -112,7 +112,7 @@ namespace Messenger.ViewModels
 
         public ChatHubViewModel()
         {
-            ConnectedTeams = new ConcurrentDictionary<int, ObservableCollection<Message>>();
+            MessagesByConnectedTeam = new ConcurrentDictionary<int, ObservableCollection<Message>>();
 
             // Loads current user data
             UserDataService.GetUserAsync().ContinueWith(async (task) =>
@@ -174,7 +174,7 @@ namespace Messenger.ViewModels
             // TODO::Save to Database::Messenger.Core.Services.MessageService
 
             // Updates to UI
-            ConnectedTeams.AddOrUpdate(
+            MessagesByConnectedTeam.AddOrUpdate(
                 message.RecipientId,
                 new ObservableCollection<Message>() { message },
                 (key, collection) => {
