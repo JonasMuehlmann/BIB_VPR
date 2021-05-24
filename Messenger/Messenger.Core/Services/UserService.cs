@@ -33,10 +33,6 @@ namespace Messenger.Core.Services
 
                 string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
                                    + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
-                // string query = "SELECT COUNT(*) FROM Users;";
-                // SqlCommand cmd = new SqlCommand(query, connection);
-                // Console.WriteLine(cmd.ExecuteScalar());
-
 
                 return await SqlHelpers.NonQueryAsync(queryUpdate, connection);
             }
@@ -51,26 +47,23 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
-
             if (columnToChange == "Username")
             {
                 return await UpdateUsername(userId, newVal);
             }
-            else
+
+            using (SqlConnection connection = GetConnection())
             {
-                using (SqlConnection connection = GetConnection())
+                await connection.OpenAsync();
+
+                if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
                 {
-                    await connection.OpenAsync();
-
-                    if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
-                    {
-                        newVal = "'" + newVal + "'";
-                    }
-
-                    string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
-
-                    return await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
+                    newVal = "'" + newVal + "'";
                 }
+
+                string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+
+                return await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
             }
         }
 
