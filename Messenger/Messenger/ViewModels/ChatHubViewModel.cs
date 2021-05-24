@@ -218,12 +218,17 @@ namespace Messenger.ViewModels
         #region Helpers
 
         /// <summary>
-        /// Connects the current user to teams of which user has a membership
+        /// Connects the given user to the teams he is a member of
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        private async Task ConnectToTeams(string userId)
+        /// <param name="userId">The user to connect to his teams</param>
+        /// <returns>An awaitable task</returns>
+        private async Task ConnectToTeams()
         {
+            if (User == null)
+            {
+                return;
+            }
+
             var memberships = await TeamService.GetAllMembershipByUserId(User.Id);
 
             if (memberships == null || memberships.Count <= 0)
