@@ -110,11 +110,6 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        /// <summary>
-        /// Constructor with services only
-        /// </summary>
-        /// <param name="signalRService">SignalRService from the view model (Singleton)</param>
-        /// <param name="userDataService">UserDataService from the view model (Singleton)</param>
         public ChatHubViewModel()
         {
             ConnectedTeams = new ConcurrentDictionary<int, ObservableCollection<Message>>();
@@ -127,8 +122,8 @@ namespace Messenger.ViewModels
                     User = task.Result;
 
                     // Subscribes to hub groups
-                    // await ConnectToTeams(User.Id);
-                    await SignalRService.JoinTeam(CurrentTeamId.ToString());
+                    await ConnectToTeams(User.Id);
+                    //await SignalRService.JoinTeam(CurrentTeamId.ToString());
 
                     // Subscribes to "ReceiveMessage" event
                     SignalRService.MessageReceived += ChatService_MessageReceived;
@@ -144,9 +139,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Returns SignalRHubViewModel with the pre-configured connection
         /// </summary>
-        /// <param name="signalRService"></param>
-        /// <param name="userDataService"></param>
-        /// <returns></returns>
+        /// <returns>ChatHubViewModel with the connection to SignalR-service</returns>
         public static ChatHubViewModel CreateConnectedViewModel()
         {
             ChatHubViewModel viewModel = new ChatHubViewModel();
@@ -170,6 +163,10 @@ namespace Messenger.ViewModels
 
         #region Events
 
+        /// <summary>
+        /// Fires on "ReceiveMessage" Hub-method
+        /// </summary>
+        /// <param name="message">Message received from the hub</param>
         private void ChatService_MessageReceived(Message message)
         {
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
@@ -190,6 +187,11 @@ namespace Messenger.ViewModels
 
         #region Helpers
 
+        /// <summary>
+        /// Connects the current user to teams of which user has a membership
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task ConnectToTeams(string userId)
         {
             var memberships = await TeamService.GetAllMembershipByUserId(User.Id);
