@@ -30,17 +30,24 @@ namespace Messenger.Commands
             return true;
         }
 
+        /// <summary>
+        /// Sends a new message to the hub and saves it to database
+        /// </summary>
+        /// <param name="parameter">Content of a message</param>
         public async void Execute(object parameter)
         {
             try
             {
-                await _signalRService.SendMessage(new Message()
+                // creates new message based on the current view model
+                Message message = new Message()
                 {
                     Content = parameter.ToString(),
                     CreationTime = DateTime.Now,
                     SenderId = _viewModel.User.Id,
                     RecipientId = _viewModel.CurrentTeamId
-                });
+                };
+
+                await _signalRService.SendMessage(message);
 
                 _viewModel.ErrorMessage = string.Empty;
             }

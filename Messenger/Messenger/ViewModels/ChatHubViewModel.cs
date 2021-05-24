@@ -24,6 +24,7 @@ namespace Messenger.ViewModels
         private Message _message;
         private bool _isConnected;
         private string _errorMessage;
+        private int _currentTeamId = 1;
         private UserViewModel _user;
 
         #endregion
@@ -97,16 +98,25 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Current target team id to send messages(Message.RecipientsId)
         /// </summary>
-        public int CurrentTeamId = 1;
-
+        public int CurrentTeamId
+        {
+            get { return _currentTeamId; }
+            set { _currentTeamId = value; }
+        }
+        
         #endregion
 
         #region Commands
 
         /// <summary>
-        /// Command: Sends a message with the current team id
+        /// Command: sends a message with the current team id
         /// </summary>
         public ICommand SendMessageCommand => new SendMessageCommand(this, SignalRService);
+
+        /// <summary>
+        /// Command: switch current team id
+        /// </summary>
+        public ICommand SwitchTeamCommand => new RelayCommand<int>(SwitchTeam);
 
         #endregion
 
@@ -160,6 +170,20 @@ namespace Messenger.ViewModels
 
             return viewModel;
         }
+
+        #region UI-Commands
+
+        private void SwitchTeam(int teamId)
+        {
+            if (teamId < 0)
+            {
+                return;
+            }
+
+            CurrentTeamId = teamId;
+        }
+
+        #endregion
 
         #region Events
 
