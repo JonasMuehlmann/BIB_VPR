@@ -14,10 +14,10 @@ namespace Messenger.Commands
 {
     public class SendMessageCommand : ICommand
     {
-        private readonly SignalRHubViewModel _viewModel;
+        private readonly ChatHubViewModel _viewModel;
         private readonly SignalRService _signalRService;
 
-        public SendMessageCommand(SignalRHubViewModel viewModel, SignalRService signalRService)
+        public SendMessageCommand(ChatHubViewModel viewModel, SignalRService signalRService)
         {
             _viewModel = viewModel;
             _signalRService = signalRService;

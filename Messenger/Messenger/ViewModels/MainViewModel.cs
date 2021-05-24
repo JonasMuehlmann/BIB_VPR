@@ -14,14 +14,14 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private SignalRHubViewModel _hub;
+        private ChatHubViewModel _hub;
 
         #endregion
 
         /// <summary>
         /// SignalR hub with an established connection, preconfigured with the current user data
         /// </summary>
-        public SignalRHubViewModel Hub
+        public ChatHubViewModel Hub
         {
             get { return _hub; }
             set
@@ -39,7 +39,7 @@ namespace Messenger.ViewModels
         private void InitializeHub()
         {
             // Gets connection to the signalR hub
-            Hub = SignalRHubViewModel.CreateConnectedViewModel();
+            Hub = ChatHubViewModel.CreateConnectedViewModel();
         }
     }
 }

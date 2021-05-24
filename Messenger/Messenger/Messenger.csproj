@@ -178,7 +178,7 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\SampleDataTemplateSelector.cs" />
-    <Compile Include="ViewModels\SignalRHubViewModel.cs" />
+    <Compile Include="ViewModels\ChatHubViewModel.cs" />
     <Compile Include="ViewModels\ContentGridDetailViewModel.cs" />
     <Compile Include="ViewModels\ContentGridViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />

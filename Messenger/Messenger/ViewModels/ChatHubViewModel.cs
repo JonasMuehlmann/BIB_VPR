@@ -4,6 +4,7 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 
 namespace Messenger.ViewModels
 {
-    public class SignalRHubViewModel : Observable
+    public class ChatHubViewModel : Observable
     {
         #region Private
 
@@ -27,6 +28,11 @@ namespace Messenger.ViewModels
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// Message to send out
+        /// </summary>
         public Message Message
         {
             get { return _message; }
@@ -37,6 +43,9 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Status of connection to the hub
+        /// </summary>
         public bool IsConnected
         {
             get { return _isConnected; }
@@ -61,9 +70,20 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
-        /// Collection of messages to be shown on UI
+        /// Dictionary for connected teams and their messages
         /// </summary>
-        public ObservableCollection<Message> Messages { get; }
+        public ConcurrentDictionary<int, ObservableCollection<Message>> ConnectedTeams { get; }
+
+        /// <summary>
+        /// Collection of messages from the dictionary to be shown on UI
+        /// </summary>
+        public ObservableCollection<Message> Messages
+        {
+            get
+            {
+                return ConnectedTeams.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
+            }
+        }
 
         /// <summary>
         /// Currently logged-in user
@@ -75,23 +95,29 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
-        /// Sends a message with the current team id
-        /// </summary>
-        public ICommand SendMessageCommand => new SendMessageCommand(this, SignalRService);
-
-        /// <summary>
         /// Current target team id to send messages(Message.RecipientsId)
         /// </summary>
         public int CurrentTeamId = 1;
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Command: Sends a message with the current team id
+        /// </summary>
+        public ICommand SendMessageCommand => new SendMessageCommand(this, SignalRService);
+
+        #endregion
 
         /// <summary>
         /// Constructor with services only
         /// </summary>
         /// <param name="signalRService">SignalRService from the view model (Singleton)</param>
         /// <param name="userDataService">UserDataService from the view model (Singleton)</param>
-        public SignalRHubViewModel()
+        public ChatHubViewModel()
         {
-            Messages = new ObservableCollection<Message>();
+            ConnectedTeams = new ConcurrentDictionary<int, ObservableCollection<Message>>();
 
             // Loads current user data
             UserDataService.GetUserAsync().ContinueWith(async (task) =>
@@ -99,32 +125,20 @@ namespace Messenger.ViewModels
                 if (task.Exception == null)
                 {
                     User = task.Result;
+
+                    // Subscribes to hub groups
+                    // await ConnectToTeams(User.Id);
+                    await SignalRService.JoinTeam(CurrentTeamId.ToString());
+
+                    // Subscribes to "ReceiveMessage" event
+                    SignalRService.MessageReceived += ChatService_MessageReceived;
                 }
                 else
                 {
                     ErrorMessage = "Unable to fetch user data";
                     User = null;
                 }
-
-                // TODO::Subscribe all memberships
-                var memberships = await TeamService.GetAllMembershipByUserId(User.Id);
-                if (memberships != null && memberships.Count > 0)
-                {
-                    memberships
-                        .Select(async (membership) =>
-                        {
-                            string groupName = membership.TeamId.ToString();
-
-                            await SignalRService.JoinTeam(groupName);
-                        });
-                }
-
-                // Subscribes to hub groups
-                await SignalRService.JoinTeam(CurrentTeamId.ToString());
             });
-
-            // Subscribes to "ReceiveMessage" event
-            SignalRService.MessageReceived += ChatService_MessageReceived;
         }
 
         /// <summary>
@@ -133,9 +147,9 @@ namespace Messenger.ViewModels
         /// <param name="signalRService"></param>
         /// <param name="userDataService"></param>
         /// <returns></returns>
-        public static SignalRHubViewModel CreateConnectedViewModel()
+        public static ChatHubViewModel CreateConnectedViewModel()
         {
-            SignalRHubViewModel viewModel = new SignalRHubViewModel();
+            ChatHubViewModel viewModel = new ChatHubViewModel();
 
             // Connects the ViewModel to the hub with the preconfigured setting
             viewModel.SignalRService.ConnectToHub().ContinueWith(task =>
@@ -154,6 +168,8 @@ namespace Messenger.ViewModels
             return viewModel;
         }
 
+        #region Events
+
         private void ChatService_MessageReceived(Message message)
         {
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
@@ -161,7 +177,35 @@ namespace Messenger.ViewModels
             // TODO::Save to Database::Messenger.Core.Services.MessageService
 
             // Updates to UI
-            Messages.Add(message);
+            ConnectedTeams.AddOrUpdate(
+                message.RecipientId,
+                new ObservableCollection<Message>() { message },
+                (key, collection) => {
+                    collection.Add(message);
+                    return collection;
+                });
         }
+
+        #endregion
+
+        #region Helpers
+
+        private async Task ConnectToTeams(string userId)
+        {
+            var memberships = await TeamService.GetAllMembershipByUserId(User.Id);
+
+            if (memberships == null || memberships.Count <= 0)
+            {
+                return;
+            }
+
+            // Subscribes to hub groups
+            foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
+            {
+                await SignalRService.JoinTeam(teamId);
+            }
+        }
+
+        #endregion
     }
 }
