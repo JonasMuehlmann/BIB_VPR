@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Tests.MSTest", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Core", "Messenger.Core\Messenger.Core.csproj", "{B834A83F-3675-4A90-A852-45B1ACBFCE11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.SignalR", "Messenger.SignalR\Messenger.SignalR.csproj", "{06BDFC56-6789-4D28-82B7-7C8B6EA7625A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.SignalR", "Messenger.SignalR\Messenger.SignalR.csproj", "{06BDFC56-6789-4D28-82B7-7C8B6EA7625A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Core.Tests.MSTest", "Messenger.Core.Tests.MSTest\Messenger.Core.Tests.MSTest.csproj", "{734400F4-8F4A-46C4-80B9-6B508208B03D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Core.Tests.MSTest", "Messenger.Core.Tests.MSTest\Messenger.Core.Tests.MSTest.csproj", "{734400F4-8F4A-46C4-80B9-6B508208B03D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +36,7 @@ Global
 		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|ARM64.Deploy.0 = Debug|ARM64
 		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|x64.ActiveCfg = Debug|x64
 		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|x64.Build.0 = Debug|x64
+		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|x64.Deploy.0 = Debug|x64
 		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|x86.ActiveCfg = Debug|x86
 		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|x86.Build.0 = Debug|x86
 		{2931183E-6C51-4959-BE15-60519CD51F1B}.Debug|x86.Deploy.0 = Debug|x86

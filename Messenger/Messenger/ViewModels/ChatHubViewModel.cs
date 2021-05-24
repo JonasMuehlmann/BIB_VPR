@@ -4,6 +4,7 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -24,8 +25,9 @@ namespace Messenger.ViewModels
         private Message _message;
         private bool _isConnected;
         private string _errorMessage;
-        private int _currentTeamId = 1;
+        private uint _currentTeamId = 1;
         private UserViewModel _user;
+        private ObservableCollection<Message> _messages;
 
         #endregion
 
@@ -73,16 +75,18 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Dictionary for connected teams and their messages
         /// </summary>
-        public ConcurrentDictionary<int, ObservableCollection<Message>> MessagesByConnectedTeam { get; }
+        public ConcurrentDictionary<uint, ObservableCollection<Message>> MessagesByConnectedTeam { get; }
 
         /// <summary>
         /// Collection of messages from the dictionary to be shown on UI
         /// </summary>
         public ObservableCollection<Message> Messages
         {
-            get
+            get { return _messages; }
+            set
             {
-                return MessagesByConnectedTeam.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
+                _messages = value;
+                Set(ref _messages, value);
             }
         }
 
@@ -98,10 +102,14 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Current target team id to send messages(Message.RecipientsId)
         /// </summary>
-        public int CurrentTeamId
+        public uint CurrentTeamId
         {
             get { return _currentTeamId; }
-            set { _currentTeamId = value; }
+            set
+            {
+                _currentTeamId = value;
+                Set(ref _currentTeamId, value);
+            }
         }
         
         #endregion
@@ -116,13 +124,13 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Command: switch current team id
         /// </summary>
-        public ICommand SwitchTeamCommand => new RelayCommand<int>(SwitchTeam);
+        public ICommand SwitchTeamCommand => new RelayCommand<string>(SwitchTeam);
 
         #endregion
 
         private ChatHubViewModel()
         {
-            MessagesByConnectedTeam = new ConcurrentDictionary<int, ObservableCollection<Message>>();
+            MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<Message>>();
 
             // Loads current user data
             UserDataService.GetUserAsync().ContinueWith(async (task) =>
@@ -132,8 +140,10 @@ namespace Messenger.ViewModels
                     User = task.Result;
 
                     // Subscribes to hub groups
-                    await ConnectToTeams(User.Id);
-                    //await SignalRService.JoinTeam(CurrentTeamId.ToString());
+                    // await ConnectToTeams(User.Id);
+                    await SignalRService.JoinTeam("1");
+                    await SignalRService.JoinTeam("2");
+                    await SignalRService.JoinTeam("3");
 
                     // Subscribes to "ReceiveMessage" event
                     SignalRService.MessageReceived += ChatService_MessageReceived;
@@ -173,14 +183,10 @@ namespace Messenger.ViewModels
 
         #region UI-Commands
 
-        private void SwitchTeam(int teamId)
+        private void SwitchTeam(string teamId)
         {
-            if (teamId < 0)
-            {
-                return;
-            }
-
-            CurrentTeamId = teamId;
+            CurrentTeamId = Convert.ToUInt32(teamId);
+            Messages = MessagesByConnectedTeam.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
         }
 
         #endregion
