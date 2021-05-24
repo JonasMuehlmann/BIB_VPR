@@ -16,15 +16,19 @@ namespace Messenger.Core.Helpers
         /// </summary>
         /// <param name="query">A query to run</param>
         /// <param name="connection">An sql connection to run the query on</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public static async Task<bool> NonQueryAsync(string query, SqlConnection connection)
         {
             try
             {
-                if (connection.State != ConnectionState.Open) await connection.OpenAsync();
+                if (connection.State != ConnectionState.Open)
+                {
+                    await connection.OpenAsync();
+                }
                 SqlCommand command = new SqlCommand(query, connection);
 
-                await command.ExecuteNonQueryAsync();
+                return Convert.ToBoolean(await command.ExecuteNonQueryAsync());
+
             }
             catch (Exception e)
             {
@@ -36,8 +40,6 @@ namespace Messenger.Core.Helpers
             {
                 connection.Dispose();
             }
-
-            return true;
         }
 
         /// <summary>
