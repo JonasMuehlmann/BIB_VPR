@@ -110,7 +110,7 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        public ChatHubViewModel()
+        private ChatHubViewModel()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<int, ObservableCollection<Message>>();
 
@@ -140,7 +140,7 @@ namespace Messenger.ViewModels
         /// Returns SignalRHubViewModel with the pre-configured connection
         /// </summary>
         /// <returns>ChatHubViewModel with the connection to SignalR-service</returns>
-        public static ChatHubViewModel CreateConnectedViewModel()
+        public static ChatHubViewModel CreateAndConnect()
         {
             ChatHubViewModel viewModel = new ChatHubViewModel();
 

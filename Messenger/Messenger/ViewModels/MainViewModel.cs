@@ -39,7 +39,7 @@ namespace Messenger.ViewModels
         private void InitializeHub()
         {
             // Gets connection to the signalR hub
-            Hub = ChatHubViewModel.CreateConnectedViewModel();
+            Hub = ChatHubViewModel.CreateAndConnect();
         }
     }
 }
