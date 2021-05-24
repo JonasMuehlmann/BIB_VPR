@@ -18,7 +18,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose name will be updated</param>
         /// <param name="newUsername">The new username to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        private async Task<bool> UpdateUsername(string userId, string newUsername)
+        public async Task<bool> UpdateUsername(string userId, string newUsername)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -33,6 +33,10 @@ namespace Messenger.Core.Services
 
                 string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
                                    + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
+                // string query = "SELECT COUNT(*) FROM Users;";
+                // SqlCommand cmd = new SqlCommand(query, connection);
+                // Console.WriteLine(cmd.ExecuteScalar());
+
 
                 return await SqlHelpers.NonQueryAsync(queryUpdate, connection);
             }
@@ -47,6 +51,7 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
+
             if (columnToChange == "Username")
             {
                 return await UpdateUsername(userId, newVal);
@@ -128,6 +133,41 @@ namespace Messenger.Core.Services
                         userdata.NameId = (int)newNameId;
                         return Mapper.UserFromMSGraph(userdata);
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Construct a User object from data that belongs to the user identified by userId.
+        /// </summary>
+        /// <param name="userid">The id of the user to retrieve</param>
+        /// <returns></returns>
+        public async Task<User> GetUser(string userId)
+        {
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{userId}'";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var rows = SqlHelpers.GetRows("User", adapter);
+
+                    if (rows.Count() == 0)
+                    {
+                        return null;
+                    }
+
+                    return rows.Select(Mapper.UserFromDataRow).First();
                 }
             }
             catch (Exception e)
