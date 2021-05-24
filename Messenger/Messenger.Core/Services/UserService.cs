@@ -43,7 +43,7 @@ namespace Messenger.Core.Services
                         // Not exists: create Application user based on MicrosoftGraphService user
                         // Get a new id for the display name
                         string displayName = userdata.DisplayName.Split('/')[0].Trim();
-                        int? newNameId = DetermineNewNameId(displayName, connection);
+                        uint? newNameId = DetermineNewNameId(displayName, connection);
 
                         // Exit if name id is null
                         if (newNameId == null) return null;
@@ -55,7 +55,7 @@ namespace Messenger.Core.Services
                         await SqlHelpers.NonQueryAsync(insertQuery, connection);
 
                         // Return the new application user, mapped directly from MSGraph
-                        userdata.NameId = (int)newNameId;
+                        userdata.NameId = Convert.ToUInt32(newNameId);
                         return Mapper.UserFromMSGraph(userdata);
                     }
                 }
@@ -119,7 +119,7 @@ namespace Messenger.Core.Services
         /// <param name="username">A username whose nameid is the be determined</param>
         /// <param name="connection">A connection to the sql database</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
-        private int? DetermineNewNameId(string username, SqlConnection connection)
+        private uint? DetermineNewNameId(string username, SqlConnection connection)
         {
             string query = $"SELECT MAX(NameId) FROM USERS WHERE UserName='{username}'";
             try
@@ -129,7 +129,7 @@ namespace Messenger.Core.Services
                 // Will be System.DBNull if there is no other user with the same name
                 var result = scalarQuery.ExecuteScalar();
 
-                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToInt32(result) + 1;
+                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToUInt32(result) + 1;
             }
             catch (Exception e)
             {
@@ -152,7 +152,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                int? newNameId = DetermineNewNameId(newUsername, connection);
+                uint? newNameId = DetermineNewNameId(newUsername, connection);
 
                 if (newNameId == null)
                 {

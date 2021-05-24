@@ -42,7 +42,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> DeleteTeam(int teamId)
+        public async Task<bool> DeleteTeam(uint teamId)
         {
             string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
 
@@ -110,7 +110,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to add to the specified team</param>
         /// <param name="teamId">The id of the team to add the specified user to</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> AddMember(string userId, int teamId)
+        public async Task<bool> AddMember(string userId, uint teamId)
         {
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
@@ -123,7 +123,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to remove from the specified team</param>
         /// <param name="teamId">The id of the team to remove the specified user from</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> RemoveMember(string userId, int teamId)
+        public async Task<bool> RemoveMember(string userId, uint teamId)
         {
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
 
@@ -135,7 +135,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to get members of</param>
         /// <returns>An enumerable of User objects</returns>
-        public async Task<IEnumerable<User>> GetAllUsersByTeamId(int teamId)
+        public async Task<IEnumerable<User>> GetAllUsersByTeamId(uint teamId)
         {
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
             string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
