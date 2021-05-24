@@ -14,7 +14,7 @@
 
             <!-- ** TEST UI FOR SIGNALR ** (will be removed) -->
             <StackPanel>
-                <ListView ItemsSource="{x:Bind ViewModel.ChatRoom.Messages}">
+                <ListView ItemsSource="{x:Bind ViewModel.Hub.Messages}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -24,10 +24,22 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <TextBox Text="" Name="tbxMessage"/>
+                <TextBox Name="tbxMessage"/>
                 <Button Content="Absenden"
-                        Command="{x:Bind ViewModel.ChatRoom.SendChatRoomMessageCommand}"
+                        Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
                         CommandParameter="{Binding ElementName=tbxMessage, Path=Text}"
+                        />
+                <Button Content="Team 1"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="1"
+                        />
+                <Button Content="Team 2"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="2"
+                        />
+                <Button Content="Team 3"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="3"
                         />
             </StackPanel>
         </Grid>

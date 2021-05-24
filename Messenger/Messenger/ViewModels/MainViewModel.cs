@@ -2,29 +2,44 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Input;
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.Helpers;
-using Microsoft.AspNetCore.SignalR.Client;
+using Messenger.Services;
 
 namespace Messenger.ViewModels
 {
     public class MainViewModel : Observable
     {
-        public ChatRoomViewModel ChatRoom { get; set; }
+        #region Private
+
+        private ChatHubViewModel _hub;
+
+        #endregion
+
+        /// <summary>
+        /// SignalR hub with an established connection, preconfigured with the current user data
+        /// </summary>
+        public ChatHubViewModel Hub
+        {
+            get { return _hub; }
+            set
+            {
+                _hub = value;
+                Set(ref _hub, value);
+            }
+        }
 
         public MainViewModel()
         {
-            //ConnectToChatRoom();
+            InitializeHub();
         }
 
-        private void ConnectToChatRoom()
+        private void InitializeHub()
         {
-            HubConnection connection = new HubConnectionBuilder()
-                .WithUrl("https://vpr.azurewebsites.net/chatroom")
-                .Build();
-
-            ChatRoom = ChatRoomViewModel.CreateConnectedViewModel(new Services.SignalRChatService(connection));
+            // Gets connection to the signalR hub
+            Hub = ChatHubViewModel.CreateAndConnect();
         }
     }
 }
