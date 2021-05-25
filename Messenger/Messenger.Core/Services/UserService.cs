@@ -108,10 +108,13 @@ namespace Messenger.Core.Services
                     }
                     else
                     {
+
                         // Not exists: create Application user based on MicrosoftGraphService user
                         // Get a new id for the display name
+                        // FIX: Strings are default initialized to null
                         string displayName = userdata.DisplayName.Split('/')[0].Trim();
                         int? newNameId = DetermineNewNameId(displayName, connection);
+
 
                         // Exit if name id is null
                         if (newNameId == null) return null;
@@ -124,6 +127,11 @@ namespace Messenger.Core.Services
 
                         // Return the new application user, mapped directly from MSGraph
                         userdata.NameId = (int)newNameId;
+
+
+                        // Console.WriteLine(userdata);
+                        // Console.WriteLine(Mapper.UserFromMSGraph(userdata));
+
                         return Mapper.UserFromMSGraph(userdata);
                     }
                 }

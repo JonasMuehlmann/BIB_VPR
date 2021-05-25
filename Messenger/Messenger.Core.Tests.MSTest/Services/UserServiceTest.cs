@@ -39,42 +39,79 @@ namespace Messenger.Tests.MSTest
         }
 
 
+        // /// <summary>
+        // /// Should fetch the existing user from database
+        // /// </summary>
+        // [TestMethod]
+        // public void GetOrCreateApplicationUserExisting_Test()
+        // {
+        //     Task.Run(async () =>
+        //     {
+        //         var data = new User() { Id = "123-456-abc-edf" };
+        //         User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+
+
+        //         Assert.IsNotNull(retrievedUser);
+        //         Assert.AreEqual(retrievedUser.Mail, "test.bib@edu.bib");
+
+        //     }).GetAwaiter().GetResult();
+        // }
+
+
         /// <summary>
         /// Should fetch the existing user from database
         /// </summary>
         [TestMethod]
-        public void GetOrCreateApplicationUserExisting_Test()
+        public void GetOrCreateApplicationUserFirstNameId_Test()
         {
             Task.Run(async () =>
             {
-                var data = new User() { Id = "123-456-abc-edf" };
+                var data = new User { Id = "xyz" };
+
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-
-                Assert.IsNotNull(retrievedUser);
-                Assert.AreEqual(retrievedUser.Mail, "test.bib@edu.bib");
+                Assert.AreEqual(retrievedUser.NameId, 1);
 
             }).GetAwaiter().GetResult();
         }
 
 
-        public void GetOrCreateApplicationUseraNew_Test()
-        {
-            string id = "123-456-abc-edg";
+        // /// <summary>
+        // /// Should fetch the existing user from database
+        // /// </summary>
+        // [TestMethod]
+        // public void GetOrCreateApplicationUserSecondNameId_Test()
+        // {
+        //     Task.Run(async () =>
+        //     {
+        //         var data = new User() { Id = "123" };
+        //         User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-            User referenceUser = new User{
-                Id = id
-            };
 
-            Task.Run(async () =>
-            {
-                var data = new User() { Id =  id};
-                User createdUser = await userService.GetOrCreateApplicationUser(data);
+        //         Assert.AreEqual(retrievedUser.NameId, 2);
 
-                Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
+        //     }).GetAwaiter().GetResult();
+        // }
 
-            }).GetAwaiter().GetResult();
-        }
+
+        // public void GetOrCreateApplicationUserNew_Test()
+        // {
+        //     string id = "123-456-abc-edg";
+
+        //     User referenceUser = new User{
+        //         Id = id
+        //     };
+
+        //     Task.Run(async () =>
+        //     {
+        //         var data = new User() { Id =  id};
+        //         User createdUser = await userService.GetOrCreateApplicationUser(data);
+
+        //         Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
+
+        //     }).GetAwaiter().GetResult();
+        // }
+        //
 
         /// <summary>
         /// Should update username, expects true
