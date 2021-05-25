@@ -26,7 +26,7 @@
             TeamTemplate="{StaticResource TeamTemplate}"
             TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
     </Page.Resources>
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
         <my:TreeView
                 x:Name="treeView"
                 Grid.Row="1"

@@ -251,4 +251,8 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>Log out</value>
     <comment>Settings LogOut user content</comment>
   </data>
+  <data name="Chat_NewChat.PlaceholderText" xml:space="preserve">
+    <value>New chat</value>
+    <comment>Start new chat</comment>
+  </data>
 </root>

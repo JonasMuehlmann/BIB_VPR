@@ -54,41 +54,6 @@ namespace Messenger.ViewModels
         public ICommand ChatCommand => _chatCommand ?? (_chatCommand = new RelayCommand(OpenChatSidePanel));
         public ICommand NotificationCommand => _notificationCommand ?? (_notificationCommand = new RelayCommand(OpenNotificationSidePanel));
 
-        #region button color properties
-        //button Color bindings
-        private SolidColorBrush _teamButtonColor = new SolidColorBrush((Color)Application.Current.Resources["SystemAccentColor"]);
-
-        public SolidColorBrush TeamButtonColor
-        {
-            get { return _teamButtonColor; }
-            set { Set(ref _teamButtonColor, value); }
-        }
-
-        private SolidColorBrush _chatButtonColor = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
-
-        public SolidColorBrush ChatButtonColor
-        {
-            get { return _chatButtonColor; }
-            set { Set(ref _chatButtonColor, value); }
-        }
-
-        private SolidColorBrush _settingsButtonColor = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
-
-        public SolidColorBrush SettingsButtonColor
-        {
-            get { return _settingsButtonColor; }
-            set { Set(ref _settingsButtonColor, value); }
-        }
-
-        private SolidColorBrush _notificationButtonColor = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
-
-        public SolidColorBrush NotificationButtonColor
-        {
-            get { return _notificationButtonColor; }
-            set { Set(ref _notificationButtonColor, value); }
-        }
-        #endregion
-
         public UserViewModel User
         {
             get { return _user; }
@@ -138,7 +103,6 @@ namespace Messenger.ViewModels
 
         private void OpenSetttingsMainPanel()
         {
-            ChooseActiveButton("settings");
             MainNavigation(typeof(SettingsPage));
         }
 
@@ -159,56 +123,17 @@ namespace Messenger.ViewModels
         }
         private void OpenTeamsSidePanel()
         {
-            ChooseActiveButton("team");
             SideNavigation(typeof(TeamNavPage));
         }
 
         private void OpenChatSidePanel()
         {
-            ChooseActiveButton("chat");
             SideNavigation(typeof(ChatNavPage));
         }
 
         private void OpenNotificationSidePanel()
         {
-            ChooseActiveButton("notification");
             SideNavigation(typeof(NotificationNavPage));
-        }
-        #endregion
-
-
-        #region chooseActiveButton
-        //change the active Button color
-        private void ChooseActiveButton(string button) {
-            SolidColorBrush active = new SolidColorBrush((Color)Application.Current.Resources["SystemAccentColor"]);
-            SolidColorBrush inactive = (SolidColorBrush)Application.Current.Resources["SystemControlPageTextBaseHighBrush"];
-
-            switch (button) {
-                case "team":
-                    TeamButtonColor = active;
-                    NotificationButtonColor = inactive;
-                    ChatButtonColor = inactive;
-                    SettingsButtonColor = inactive;
-                    break;
-                case "chat":
-                    TeamButtonColor = inactive;
-                    NotificationButtonColor = inactive;
-                    ChatButtonColor = active;
-                    SettingsButtonColor = inactive;
-                    break;
-                case "settings":
-                    TeamButtonColor = inactive;
-                    NotificationButtonColor = inactive;
-                    ChatButtonColor = inactive;
-                    SettingsButtonColor = active;
-                    break;
-                case "notification":
-                    TeamButtonColor = inactive;
-                    NotificationButtonColor = active;
-                    ChatButtonColor = inactive;
-                    SettingsButtonColor = inactive;
-                    break;
-            }
         }
         #endregion
     }

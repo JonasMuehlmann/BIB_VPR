@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <SolidColorBrush  x:Key="SystemTextColor" Color="{ThemeResource SystemControlPageTextBaseHighBrush}"></SolidColorBrush>
+            <SolidColorBrush  x:Key="SystemTextColor" Color="{ThemeResource SystemBaseHighColor}"></SolidColorBrush>
             <SolidColorBrush  x:Key="SystemAccent" Color="{ThemeResource SystemAccentColor}"></SolidColorBrush>
         </ResourceDictionary>
     </Page.Resources>
@@ -36,32 +36,34 @@
                 x:Uid="Shell_TeamButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.TeamCommand}"
-                Click="Button_Click"
+                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="People" Foreground="{x:Bind ViewModel.TeamButtonColor, Mode=OneWay}"/>
+                <SymbolIcon Symbol="People"/>
             </Button>
             <Button
                 x:Uid="Shell_ChatButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.ChatCommand}"
+                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Comment" Foreground="{x:Bind ViewModel.ChatButtonColor, Mode=OneWay}"/>
+                <SymbolIcon Symbol="Comment" x:Name="ChatIcon" Foreground="{ThemeResource SystemAccentColor}"/>
             </Button>
             <Button
                 x:Uid="Shell_NotificationButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.NotificationCommand}"
+                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Mail" Foreground="{x:Bind ViewModel.NotificationButtonColor, Mode=OneWay}"/>
+                <SymbolIcon Symbol="Mail"/>
             </Button>
         </Grid>
         
@@ -86,21 +88,23 @@
                 x:Uid="Shell_UserInfoButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.UserProfileCommand}"
+                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Contact" />
+                <SymbolIcon Symbol="Contact"/>
             </Button>
             <Button
-                x:Uid="Shell_UserInfoButton"
+                x:Uid="Shell_SettingsButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.UserProfileCommand}"
+                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Setting" Foreground="{x:Bind ViewModel.SettingsButtonColor, Mode=OneWay}"/>
+                <SymbolIcon Symbol="Setting"/>
             </Button>
         </Grid>
 

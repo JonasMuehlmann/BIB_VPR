@@ -7,50 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <ListView x:Name="itemListView"
-                  HorizontalAlignment="Left"
+    <Grid x:Name="ContentArea"  Margin="{StaticResource MediumLeftMargin}">
+        <StackPanel>
+            <ListView x:Name="itemListView"
+                  HorizontalAlignment="Stretch"
                   VerticalAlignment="Top"
                   Height="auto"
                   Width="auto"
                   ItemsSource="{x:Bind ViewModel.User.Userlist}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" >
-                        <SymbolIcon Symbol="Comment"/>
-                        <TextBlock  Text="{Binding}" Padding="10"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <!--<ListViewItem >
-                <StackPanel Orientation="Horizontal" >
-                    <SymbolIcon Symbol="Comment"/>
-                    <TextBlock  Text="Hi" Padding="10"/>
-                </StackPanel>
-            </>
-            <ListViewItem>
-                <StackPanel Orientation="Horizontal" >
-                    <SymbolIcon Symbol="Comment"/>
-                    <TextBlock Text="Hello" Padding="10"/>
-                </StackPanel>
-            </ListViewItem>
-            <ListViewItem>
-                <StackPanel Orientation="Horizontal" >
-                    <SymbolIcon Symbol="Comment"/>
-                    <TextBlock Text="Hallo" Padding="10"/>
-                </StackPanel>
-            </ListViewItem>-->
-        </ListView>
-        <TextBox x:Name="SearchField"
-                   Width="30"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <SymbolIcon Symbol="Comment"/>
+                            <TextBlock  Text="{Binding}" Padding="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBox x:Uid="Chat_NewChat"
+                     x:Name="SearchField"
                    Height="30"
-                   HorizontalAlignment="Left"
-                   Margin="30"
-                   Foreground="Gray"
-                   BorderBrush="Black"
+                   HorizontalAlignment="Stretch"
+                   Margin="5"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"
                    Visibility="Collapsed"
                    />
-        
+        </StackPanel>
         <Button x:Name="newChat"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
@@ -61,7 +45,7 @@
                 Click="newChat_Click"
                 Margin="20 10 10 10"
                 >
-     
+
             <SymbolIcon Symbol="Add"
                         Opacity="0.9"/>
         </Button>
