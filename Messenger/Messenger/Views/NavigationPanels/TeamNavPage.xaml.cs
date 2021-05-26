@@ -16,13 +16,12 @@ namespace Messenger.Views
             InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter as string != "")
             {
                 ViewModel.ShellViewModel = e.Parameter as ShellViewModel;
             }
-            await ViewModel.LoadDataAsync();
         }
     }
 }

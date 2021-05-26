@@ -39,8 +39,6 @@ namespace Messenger.ViewModels
             set => Set(ref _user, value);
         }
 
-        public ObservableCollection<SampleCompany> SampleItems { get; } = new ObservableCollection<SampleCompany>();
-
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
 
         public TeamNavViewModel()
@@ -50,16 +48,6 @@ namespace Messenger.ViewModels
             User.Teams.Add(new Team() { Name = "T1", Channels = new List<TeamChannel>()});
             User.Teams[0].Channels.Add(new TeamChannel() { ChannelName = "C1" });
             User.Teams[0].Channels.Add(new TeamChannel() { ChannelName = "C2" });
-        }
-
-
-        public async Task LoadDataAsync()
-        {
-            var data = await SampleDataService.GetTreeViewDataAsync();
-            foreach (var item in data)
-            {
-                SampleItems.Add(item);
-            }
         }
 
         private void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
