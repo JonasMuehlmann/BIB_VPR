@@ -1,14 +1,12 @@
-﻿using Messenger.Commands;
+﻿using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -120,12 +118,15 @@ namespace Messenger.ViewModels
         public ICommand SendMessageCommand => new SendMessageCommand(this, MessengerService);
 
         /// <summary>
-        /// Command: switch current team id
+        /// Command: switch currently selected team
         /// </summary>
-        public ICommand SwitchTeamCommand => new RelayCommand<string>(SwitchTeam);
+        public ICommand SwitchTeamCommand => new SwitchTeamCommand(this);
 
         #endregion
 
+        /// <summary>
+        /// ChatHubViewModel should only be created through the factory method below
+        /// </summary>
         private ChatHubViewModel()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<Message>>();
@@ -185,20 +186,6 @@ namespace Messenger.ViewModels
                 });
         }
 
-        #region UI-Commands
-
-        /// <summary>
-        /// Switch the team to be shown on the view
-        /// </summary>
-        /// <param name="teamId">Id of a team</param>
-        private void SwitchTeam(string teamId)
-        {
-            CurrentTeamId = Convert.ToUInt32(teamId);
-            Messages = MessagesByConnectedTeam.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
-        }
-
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -209,9 +196,7 @@ namespace Messenger.ViewModels
         {
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
 
-            // TODO::Save to Database::Messenger.Core.Services.MessageService
-
-            // Updates to UI
+            // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
                 message.RecipientId,
                 new ObservableCollection<Message>() { message },

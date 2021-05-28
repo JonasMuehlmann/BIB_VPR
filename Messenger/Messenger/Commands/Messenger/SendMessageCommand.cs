@@ -1,16 +1,10 @@
-﻿using Messenger.Services;
-using Messenger.ViewModels;
+﻿using Messenger.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Messenger.Core.Services;
 using Messenger.Core.Models;
 using System.Windows.Input;
-using System.Diagnostics;
 
-namespace Messenger.Commands
+namespace Messenger.Commands.Messenger
 {
     public class SendMessageCommand : ICommand
     {
