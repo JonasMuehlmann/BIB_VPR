@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +37,32 @@ namespace Messenger.Core.Services
         /// Starts the connection with the preset
         /// </summary>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task ConnectToHub()
+        public async Task Open()
         {
-            await _connection.StartAsync();
+            try
+            {
+                await _connection.StartAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Signal-R Exception: {e.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Closes the connection with the hub
+        /// </summary>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task Close()
+        {
+            try
+            {
+                await _connection.StopAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Signal-R Exception: {e.Message}");
+            }
         }
 
         /// <summary>
