@@ -53,8 +53,7 @@ namespace Messenger.Commands
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"SignalR Exception: {e.Message}");
-                _viewModel.ErrorMessage = "Unable to send message.";
+                _viewModel.ErrorMessage = $"Unable to send message. {e.Message}";
             }
         }
     }
