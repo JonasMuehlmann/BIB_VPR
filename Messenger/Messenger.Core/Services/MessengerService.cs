@@ -3,11 +3,15 @@ using Messenger.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Container service class for message service, team service and signal-r service
+    /// </summary>
     public class MessengerService
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
@@ -16,11 +20,62 @@ namespace Messenger.Core.Services
 
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
+        #region Initializers
+
+        /// <summary>
+        /// Connects the given user to the teams he is a member of
+        /// </summary>
+        /// <param name="userId">The user to connect to his teams</param>
+        /// <returns>true on success, false on invalid user id (error will be handled in each service)</returns>
+        public async Task<bool> Initialize(string userId)
+        {
+            // Open the connection to hub
+            await SignalRService.Open();
+
+            // Check the validity of user id
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                Debug.WriteLine($"Messenger Exception: invalid user id");
+                return false;
+            }
+
+            var memberships = await TeamService.GetAllMembershipByUserId(userId);
+
+            // Exit if the user has no membership
+            if (memberships.Count <= 0)
+            {
+                Debug.WriteLine($"No membership found");
+                return true;
+            }
+
+            // Subscribe to corresponding hub groups
+            //foreach (var teamId in memberships.Select(m => m.TeamId.ToString())) 
+            //{
+            //    await SignalRService.JoinTeam(teamId);
+            //}
+            await SignalRService.JoinTeam("1");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Registers the action from the view model to signal-r event
+        /// </summary>
+        /// <param name="onMessageReceived">Action to run upon receiving a message</param>
+        public void RegisterListener(Action<Message> onMessageReceived)
+        {
+            SignalRService.MessageReceived += onMessageReceived;
+        }
+
+        #endregion
+
+        #region Commands
+
         /// <summary>
         /// Saves the message to the database and broadcasts simultaneously to the connected Signal-R hub
         /// </summary>
         /// <param name="message">A complete message object to send</param>
-        /// <returns>true on success, false on failure (error will be handled in each service)</returns>
+        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> SendMessage(Message message)
         {
             // Check the validity of the message
@@ -34,9 +89,9 @@ namespace Messenger.Core.Services
             {
                 // Save to database with the parent message id
                 await MessageService.CreateMessage(
-                    message.RecipientId, 
-                    message.SenderId, 
-                    message.Content, 
+                    message.RecipientId,
+                    message.SenderId,
+                    message.Content,
                     message.ParentMessageId);
             }
             else
@@ -54,6 +109,15 @@ namespace Messenger.Core.Services
             return true;
         }
 
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Checks the validity of the message to be sent
+        /// </summary>
+        /// <param name="message">A complete message object to be sent</param>
+        /// <returns>true on valid, false on invalid</returns>
         private bool ValidateMessage(Message message)
         {
             // Sender / Recipient Id
@@ -75,5 +139,7 @@ namespace Messenger.Core.Services
             // Valid
             return true;
         }
+
+        #endregion
     }
 }
