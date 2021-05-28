@@ -26,6 +26,11 @@ namespace Messenger.Core.Models
         /// </summary>
         public int? ParentMessageId { get; set; }
 
+        public Message()
+        {
+            SenderId = "";
+            Content = "";
+        }
         public override string ToString()
         {
             return $"Message: Id={Id}, SenderId={SenderId}, Content={Content}, CreationTime={CreationTime.ToString()}, RecipientId={RecipientId}, ParentMessageId={ParentMessageId}";
