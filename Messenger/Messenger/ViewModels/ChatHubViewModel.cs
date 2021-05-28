@@ -21,6 +21,7 @@ namespace Messenger.ViewModels
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
         private TeamService TeamService => Singleton<TeamService>.Instance;
+        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
 
         private Message _message;
         private bool _isConnected;
@@ -119,7 +120,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Command: sends a message with the current team id
         /// </summary>
-        public ICommand SendMessageCommand => new SendMessageCommand(this, SignalRService);
+        public ICommand SendMessageCommand => new SendMessageCommand(this, MessengerService);
 
         /// <summary>
         /// Command: switch current team id
