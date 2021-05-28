@@ -18,7 +18,6 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
 
         private Message _message;
@@ -131,7 +130,7 @@ namespace Messenger.ViewModels
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<Message>>();
 
-            // Start listening to "ReceiveMessage" event
+            // Bind to "ReceiveMessage" event
             MessengerService.RegisterListener(OnMessageReceived);
         }
 
@@ -163,9 +162,10 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Loads the current user data and initialize messenger service with the user id
         /// </summary>
+        /// <returns>Task to be awaited</returns>
         public Task Initialize()
         {
-            return UserDataService
+            return Singleton<UserDataService>.Instance
                 .GetUserAsync()
                 .ContinueWith((task) =>
                 {
