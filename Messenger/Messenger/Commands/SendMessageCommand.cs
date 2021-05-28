@@ -15,12 +15,12 @@ namespace Messenger.Commands
     public class SendMessageCommand : ICommand
     {
         private readonly ChatHubViewModel _viewModel;
-        private readonly SignalRService _signalRService;
+        private readonly MessengerService _messengerService;
 
-        public SendMessageCommand(ChatHubViewModel viewModel, SignalRService signalRService)
+        public SendMessageCommand(ChatHubViewModel viewModel, MessengerService messengerService)
         {
             _viewModel = viewModel;
-            _signalRService = signalRService;
+            _messengerService = messengerService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -47,7 +47,7 @@ namespace Messenger.Commands
                     RecipientId = _viewModel.CurrentTeamId
                 };
 
-                await _signalRService.SendMessage(message);
+                await _messengerService.SendMessage(message);
 
                 _viewModel.ErrorMessage = string.Empty;
             }
