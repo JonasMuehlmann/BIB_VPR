@@ -27,7 +27,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The user to connect to his teams</param>
         /// <returns>true on success, false on invalid user id (error will be handled in each service)</returns>
-        public async Task<bool> Initialize(string userId)
+        public async Task Initialize(string userId)
         {
             // Open the connection to hub
             await SignalRService.Open();
@@ -36,7 +36,7 @@ namespace Messenger.Core.Services
             if (string.IsNullOrWhiteSpace(userId))
             {
                 Debug.WriteLine($"Messenger Exception: invalid user id");
-                return false;
+                return;
             }
 
             var memberships = await TeamService.GetAllMembershipByUserId(userId);
@@ -45,17 +45,14 @@ namespace Messenger.Core.Services
             if (memberships.Count <= 0)
             {
                 Debug.WriteLine($"No membership found");
-                return true;
+                return;
             }
 
             // Subscribe to corresponding hub groups
-            //foreach (var teamId in memberships.Select(m => m.TeamId.ToString())) 
-            //{
-            //    await SignalRService.JoinTeam(teamId);
-            //}
-            await SignalRService.JoinTeam("1");
-
-            return true;
+            foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
+            {
+                await SignalRService.JoinTeam(teamId);
+            }
         }
 
         /// <summary>
@@ -76,12 +73,12 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">A complete message object to send</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> SendMessage(Message message)
+        public async Task SendMessage(Message message)
         {
             // Check the validity of the message
             if (!ValidateMessage(message))
             {
-                return false;
+                return;
             }
 
             // Check if the message is a reply of a message
@@ -106,7 +103,7 @@ namespace Messenger.Core.Services
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
 
-            return true;
+            return;
         }
 
         #endregion
