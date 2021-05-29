@@ -17,6 +17,8 @@ namespace Messenger.Core.Services
 
         public SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
 
+        public static SqlConnection GetConnection(string connectionString) => new SqlConnection(connectionString);
+
         public void SetTestMode(string connectionString)
         {
             testConnectionString = connectionString;
