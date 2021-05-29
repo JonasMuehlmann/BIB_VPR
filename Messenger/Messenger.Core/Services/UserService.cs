@@ -17,7 +17,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose data will be updated</param>
         /// <param name="columnToChange">The column to update for the user</param>
         /// <param name="newVal">The new value for the specifed column for the specified user</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
             if (columnToChange == "Username")
@@ -70,7 +70,7 @@ namespace Messenger.Core.Services
         /// Delete the user with the specified userId.
         /// </summary>
         /// <param name="userId">The id of the user, whose data will be updated</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> DeleteUser(string userId)
         {
             string query = $"DELETE FROM Users WHERE UserId='{userId}';";
