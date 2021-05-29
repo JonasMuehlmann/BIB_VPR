@@ -71,7 +71,7 @@ namespace Messenger.Tests.MSTest
 
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-                Assert.AreEqual(retrievedUser.NameId, 0);
+                Assert.AreEqual(0u, retrievedUser.NameId);
 
             }).GetAwaiter().GetResult();
         }
@@ -88,8 +88,7 @@ namespace Messenger.Tests.MSTest
                 var data = new User() { Id = "123" };
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-
-                Assert.AreEqual(retrievedUser.NameId, 1);
+                Assert.AreEqual(1u, retrievedUser.NameId);
 
             }).GetAwaiter().GetResult();
         }
