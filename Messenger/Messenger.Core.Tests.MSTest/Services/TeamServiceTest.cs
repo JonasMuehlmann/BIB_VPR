@@ -58,12 +58,25 @@ namespace Messenger.Tests.MSTest
         }
 
         [TestMethod]
+        public void GetAllTeams_Test()
+        {
+            Task.Run(async () =>
+            {
+                var teams = await teamService.GetAllTeams();
+
+                Assert.IsTrue(Enumerable.Count(teams) > 0);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
         public void DeleteTeam_Test()
         {
             Task.Run(async () =>
             {
             // FIX: Tests like this one depend on other tests having run before it
-               bool success = await teamService.DeleteTeam(0u);
+               bool success = await teamService.DeleteTeam(1u);
+
 
                Assert.IsTrue(success);
 
@@ -76,24 +89,13 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
             // FIX: Tests like this one depend on other tests having run before it
-               bool success = await teamService.DeleteTeam(0u);
+               bool success = await teamService.DeleteTeam(1u);
 
                Assert.IsFalse(success);
 
             }).GetAwaiter().GetResult();
         }
 
-        [TestMethod]
-        public void GetAllTeams_Test()
-        {
-            Task.Run(async () =>
-            {
-                var teams = await teamService.GetAllTeams();
-
-                Assert.IsTrue(Enumerable.Count(teams) > 0);
-
-            }).GetAwaiter().GetResult();
-        }
 
         [TestMethod]
         public void GetAllTeamsNoneExist_Test()
@@ -203,7 +205,6 @@ namespace Messenger.Tests.MSTest
                 Assert.IsTrue(numMembersAfter + 1 == numMembersBefore);
 
             }).GetAwaiter().GetResult();
-
         }
 
         [TestMethod]
@@ -226,7 +227,7 @@ namespace Messenger.Tests.MSTest
                 int numMembersBefore = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 
                 bool success = await teamService.RemoveMember("myTestUserId", teamId.Value);
-                Assert.IsTrue(success);
+                Assert.IsFalse(success);
 
                 int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 
@@ -235,5 +236,5 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
 
         }
-        }
+    }
 }
