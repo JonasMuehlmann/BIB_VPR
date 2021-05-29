@@ -235,24 +235,5 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
 
         }
-
-        [ClassCleanup]
-        public static void Cleanup()
-        {
-            // Reset DB
-            string query = "DELETE FROM memberships;"
-                         + "DELETE FROM messages;"
-                         + "DELETE FROM teams;"
-                         + "DELETE FROM users;";
-
-            using (SqlConnection connection = userService.GetConnection())
-            {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(query, connection);
-                bool result = Convert.ToBoolean(cmd.ExecuteNonQuery());
-
-                Assert.IsTrue(result);
-            }
-        }
     }
 }
