@@ -1,14 +1,12 @@
-﻿using Messenger.Commands;
+﻿using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -18,9 +16,7 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
-        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
-        private TeamService TeamService => Singleton<TeamService>.Instance;
+        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
 
         private Message _message;
         private bool _isConnected;
@@ -119,41 +115,24 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Command: sends a message with the current team id
         /// </summary>
-        public ICommand SendMessageCommand => new SendMessageCommand(this, SignalRService);
+        public ICommand SendMessageCommand => new SendMessageCommand(this, MessengerService);
 
         /// <summary>
-        /// Command: switch current team id
+        /// Command: switch currently selected team
         /// </summary>
-        public ICommand SwitchTeamCommand => new RelayCommand<string>(SwitchTeam);
+        public ICommand SwitchTeamCommand => new SwitchTeamCommand(this);
 
         #endregion
 
+        /// <summary>
+        /// ChatHubViewModel should only be created through the factory method below
+        /// </summary>
         private ChatHubViewModel()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<Message>>();
 
-            // Loads current user data
-            UserDataService.GetUserAsync().ContinueWith(async (task) =>
-            {
-                if (task.Exception == null)
-                {
-                    User = task.Result;
-
-                    // Subscribes to hub groups
-                    // await ConnectToTeams(User.Id);
-                    await SignalRService.JoinTeam("1");
-                    await SignalRService.JoinTeam("2");
-                    await SignalRService.JoinTeam("3");
-
-                    // Subscribes to "ReceiveMessage" event
-                    SignalRService.MessageReceived += ChatService_MessageReceived;
-                }
-                else
-                {
-                    ErrorMessage = "Unable to fetch user data";
-                    User = null;
-                }
-            });
+            // Bind to "ReceiveMessage" event
+            MessengerService.RegisterListener(OnMessageReceived);
         }
 
         /// <summary>
@@ -164,32 +143,48 @@ namespace Messenger.ViewModels
         {
             ChatHubViewModel viewModel = new ChatHubViewModel();
 
-            // Connects the ViewModel to the hub with the preconfigured setting
-            viewModel.SignalRService.ConnectToHub().ContinueWith(task =>
-            {
-                if (task.Exception != null)
+            viewModel
+                .Initialize()
+                .ContinueWith(task =>
                 {
-                    viewModel.ErrorMessage = "Unable to connect to chat room";
-                    viewModel.IsConnected = false;
-                }
-                else
-                {
-                    viewModel.IsConnected = true;
-                }
-            });
+                    if (viewModel.IsConnected)
+                    {
+                        Debug.WriteLine("Connected to the hub.");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to connect.");
+                    }
+                });
 
             return viewModel;
         }
 
-        #region UI-Commands
-
-        private void SwitchTeam(string teamId)
+        /// <summary>
+        /// Loads the current user data and initialize messenger service with the user id
+        /// </summary>
+        /// <returns>Task to be awaited</returns>
+        public Task Initialize()
         {
-            CurrentTeamId = Convert.ToUInt32(teamId);
-            Messages = MessagesByConnectedTeam.GetOrAdd(CurrentTeamId, new ObservableCollection<Message>());
-        }
+            return Singleton<UserDataService>.Instance
+                .GetUserAsync()
+                .ContinueWith((task) =>
+                {
+                    if (task.Exception != null)
+                    {
+                        ErrorMessage = "Unable to fetch user data";
+                        IsConnected = false;
+                    }
+                    else
+                    {
+                        User = task.Result;
 
-        #endregion
+                        // Initialize messenger service upon success
+                        MessengerService.Initialize(User.Id).Wait();
+                        IsConnected = true;
+                    }
+                });
+        }
 
         #region Events
 
@@ -197,13 +192,11 @@ namespace Messenger.ViewModels
         /// Fires on "ReceiveMessage" Hub-method
         /// </summary>
         /// <param name="message">Message received from the hub</param>
-        private void ChatService_MessageReceived(Message message)
+        private void OnMessageReceived(Message message)
         {
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
 
-            // TODO::Save to Database::Messenger.Core.Services.MessageService
-
-            // Updates to UI
+            // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
                 message.RecipientId,
                 new ObservableCollection<Message>() { message },
@@ -211,36 +204,6 @@ namespace Messenger.ViewModels
                     collection.Add(message);
                     return collection;
                 });
-        }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Connects the given user to the teams he is a member of
-        /// </summary>
-        /// <param name="userId">The user to connect to his teams</param>
-        /// <returns>An awaitable task</returns>
-        private async Task ConnectToTeams()
-        {
-            if (User == null)
-            {
-                return;
-            }
-
-            var memberships = await TeamService.GetAllMembershipByUserId(User.Id);
-
-            if (memberships == null || memberships.Count <= 0)
-            {
-                return;
-            }
-
-            // Subscribes to hub groups
-            foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
-            {
-                await SignalRService.JoinTeam(teamId);
-            }
         }
 
         #endregion

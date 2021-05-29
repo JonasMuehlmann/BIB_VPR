@@ -1,26 +1,20 @@
-﻿using Messenger.Services;
-using Messenger.ViewModels;
+﻿using Messenger.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Messenger.Core.Services;
 using Messenger.Core.Models;
 using System.Windows.Input;
-using System.Diagnostics;
 
-namespace Messenger.Commands
+namespace Messenger.Commands.Messenger
 {
     public class SendMessageCommand : ICommand
     {
         private readonly ChatHubViewModel _viewModel;
-        private readonly SignalRService _signalRService;
+        private readonly MessengerService _messengerService;
 
-        public SendMessageCommand(ChatHubViewModel viewModel, SignalRService signalRService)
+        public SendMessageCommand(ChatHubViewModel viewModel, MessengerService messengerService)
         {
             _viewModel = viewModel;
-            _signalRService = signalRService;
+            _messengerService = messengerService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -47,14 +41,13 @@ namespace Messenger.Commands
                     RecipientId = _viewModel.CurrentTeamId
                 };
 
-                await _signalRService.SendMessage(message);
+                await _messengerService.SendMessage(message);
 
                 _viewModel.ErrorMessage = string.Empty;
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"SignalR Exception: {e.Message}");
-                _viewModel.ErrorMessage = "Unable to send message.";
+                _viewModel.ErrorMessage = $"Unable to send message. {e.Message}";
             }
         }
     }

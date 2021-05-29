@@ -3,7 +3,10 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Messenger.Core.Services
 {
@@ -12,12 +15,12 @@ namespace Messenger.Core.Services
         #region Teams Management
 
         /// <summary>
-        /// Creates a team with the given name and description and retrieve the sent messages id.
+        /// Creates a team with the given name and description and retrieve the new team's id.
         /// </summary>
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
-        public async Task<int?> CreateTeam(string teamName, string teamDescription = "")
+        public async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
         {
             string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
                 $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
@@ -33,7 +36,7 @@ namespace Messenger.Core.Services
 
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                return Convert.ToInt32(scalarQuery.ExecuteScalar());
+                return Convert.ToUInt32(scalarQuery.ExecuteScalar());
             }
         }
 
@@ -41,7 +44,7 @@ namespace Messenger.Core.Services
         /// Deletes a team with a given team id.
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
             string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
@@ -73,7 +76,7 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Returns a list of teams a specified user is a member of.
         /// </summary>
@@ -109,7 +112,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to add to the specified team</param>
         /// <param name="teamId">The id of the team to add the specified user to</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> AddMember(string userId, uint teamId)
         {
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
@@ -122,7 +125,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to remove from the specified team</param>
         /// <param name="teamId">The id of the team to remove the specified user from</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> RemoveMember(string userId, uint teamId)
         {
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
@@ -183,6 +186,30 @@ namespace Messenger.Core.Services
             }
         }
 
+        public async Task<IEnumerable<User>> GetAllMembers(uint teamId)
+        {
+            string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
+            string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet, "Users");
+
+                    return dataSet.Tables["Users"].Rows.Cast<DataRow>().Select(Mapper.UserFromDataRow);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+                return null;
+            }
+        }
         #endregion
     }
 }
