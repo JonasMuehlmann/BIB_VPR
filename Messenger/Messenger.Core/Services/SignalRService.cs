@@ -19,6 +19,21 @@ namespace Messenger.Core.Services
 
         #endregion
 
+        public string ConnectionId
+        {
+            get
+            {
+                if (_connection.State == HubConnectionState.Connected)
+                {
+                    return _connection.ConnectionId;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         /// <summary>
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>

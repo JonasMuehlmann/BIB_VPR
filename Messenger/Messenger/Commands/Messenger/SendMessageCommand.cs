@@ -41,7 +41,8 @@ namespace Messenger.Commands.Messenger
                     RecipientId = _viewModel.CurrentTeamId
                 };
 
-                await _messengerService.SendMessage(message);
+                //await _messengerService.SendMessage(message);
+                await _messengerService.CreateTeam("Test");
 
                 _viewModel.ErrorMessage = string.Empty;
             }

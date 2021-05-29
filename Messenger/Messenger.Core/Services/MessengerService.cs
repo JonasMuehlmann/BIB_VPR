@@ -35,7 +35,7 @@ namespace Messenger.Core.Services
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
             {
-                Debug.WriteLine($"Messenger Exception: invalid user id");
+                HandleException(nameof(this.Initialize), "invalid user id");
                 return;
             }
 
@@ -44,7 +44,7 @@ namespace Messenger.Core.Services
             // Exit if the user has no membership
             if (memberships.Count <= 0)
             {
-                Debug.WriteLine($"No membership found");
+                HandleException(nameof(this.Initialize), "no membership found");
                 return;
             }
 
@@ -78,6 +78,7 @@ namespace Messenger.Core.Services
             // Check the validity of the message
             if (!ValidateMessage(message))
             {
+                HandleException(nameof(this.SendMessage), "invalid message object");
                 return;
             }
 
@@ -104,6 +105,33 @@ namespace Messenger.Core.Services
             await SignalRService.SendMessage(message);
 
             return;
+        }
+
+        public async Task CreateTeam(string creatorId, string teamName, string teamDescription = "")
+        {
+            // Create and save to database
+            int? teamId = await TeamService.CreateTeam(teamName, teamDescription);
+            
+            if (teamId != null)
+            {
+                HandleException(nameof(this.CreateTeam), "invalid team id");
+                return;
+            }
+
+            // Create and join the new hub group of the team
+            await SignalRService.JoinTeam(teamId.ToString());
+        }
+
+        public async Task AddMember(string memberId, uint teamId)
+        {
+            if (string.IsNullOrWhiteSpace(memberId))
+            {
+                HandleException(nameof(this.AddMember), "invalid member id");
+                return;
+            }
+
+            // Create membership for the user and save to database
+            await TeamService.AddMember(memberId, teamId);
         }
 
         #endregion
@@ -135,6 +163,12 @@ namespace Messenger.Core.Services
 
             // Valid
             return true;
+        }
+
+        private void HandleException(string methodName, string reason)
+        {
+            Debug.Write($"Core.MessengerService::{methodName} failed. ");
+            Debug.WriteLine($"(Reason: {reason})");
         }
 
         #endregion
