@@ -2,35 +2,44 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Input;
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Services;
 
 namespace Messenger.ViewModels
 {
     public class MainViewModel : Observable
     {
-        /// <summary>
-        /// Shows an example of using service in view model, and adding the data to source for the view
-        /// </summary>
-        /* This should be deleted (example code) */
-        private AzureTestDataService testDataService => Singleton<AzureTestDataService>.Instance;
+        #region Private
 
-        /* This should be deleted (example code) */
-        public ObservableCollection<SampleTeam> SampleTeamsSource { get; } = new ObservableCollection<SampleTeam>();
+        private ChatHubViewModel _hub;
+
+        #endregion
+
+        /// <summary>
+        /// SignalR hub with an established connection, preconfigured with the current user data
+        /// </summary>
+        public ChatHubViewModel Hub
+        {
+            get { return _hub; }
+            set
+            {
+                _hub = value;
+                Set(ref _hub, value);
+            }
+        }
 
         public MainViewModel()
         {
-            InitalizeData();
+            InitializeHub();
         }
 
-        private async void InitalizeData()
+        private void InitializeHub()
         {
-            /* This should be deleted (example code) */
-            foreach (SampleTeam team in await testDataService.GetAllTeams())
-            {
-                SampleTeamsSource.Add(team);
-            }
+            // Gets connection to the signalR hub
+            Hub = ChatHubViewModel.CreateAndConnect();
         }
     }
 }
