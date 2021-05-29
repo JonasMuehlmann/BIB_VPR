@@ -44,7 +44,7 @@ namespace Messenger.Core.Services
         /// Deletes a team with a given team id.
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
             string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
@@ -112,7 +112,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to add to the specified team</param>
         /// <param name="teamId">The id of the team to add the specified user to</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> AddMember(string userId, uint teamId)
         {
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
@@ -125,7 +125,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to remove from the specified team</param>
         /// <param name="teamId">The id of the team to remove the specified user from</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> RemoveMember(string userId, uint teamId)
         {
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
