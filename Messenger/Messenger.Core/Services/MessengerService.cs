@@ -1,10 +1,8 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Messenger.Core.Services
@@ -69,7 +67,7 @@ namespace Messenger.Core.Services
         #region Commands
 
         /// <summary>
-        /// Saves the message to the database and broadcasts simultaneously to the connected Signal-R hub
+        /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
         /// <param name="message">A complete message object to send</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
@@ -107,6 +105,13 @@ namespace Messenger.Core.Services
             return;
         }
 
+        /// <summary>
+        /// Saves new team to database and join the hub group of the team
+        /// </summary>
+        /// <param name="creatorId">Creator user id</param>
+        /// <param name="teamName">Name of the team</param>
+        /// <param name="teamDescription">Description of the team(optional)</param>
+        /// <returns>Task to be awaited</returns>
         public async Task CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
             // Create and save to database
@@ -122,6 +127,12 @@ namespace Messenger.Core.Services
             await SignalRService.JoinTeam(teamId.ToString());
         }
 
+        /// <summary>
+        /// Saves new membership to database and add the user to the hub group of the team
+        /// </summary>
+        /// <param name="memberId">User id to add</param>
+        /// <param name="teamId">Team to be added</param>
+        /// <returns>Task to be awaited</returns>
         public async Task AddMember(string memberId, uint teamId)
         {
             if (string.IsNullOrWhiteSpace(memberId))
@@ -165,6 +176,11 @@ namespace Messenger.Core.Services
             return true;
         }
 
+        /// <summary>
+        /// Handles MessengerService specific exception
+        /// </summary>
+        /// <param name="methodName">Name of the method that raised exception</param>
+        /// <param name="reason">Reason for the exception</param>
         private void HandleException(string methodName, string reason)
         {
             Debug.Write($"Core.MessengerService::{methodName} failed. ");

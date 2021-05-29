@@ -16,6 +16,7 @@ namespace Messenger.SignalR
     {
         /// <summary>
         /// Global cache dictionary for connected users
+        /// Maps the user name to the list of connection ids which are created when connecting to the hub(multiple connections are allowed)
         /// </summary>
         public static ConcurrentDictionary<string, List<string>> ConnectedUsers = new ConcurrentDictionary<string, List<string>>();
 
