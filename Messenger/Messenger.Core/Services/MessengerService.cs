@@ -82,7 +82,7 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            // Save to database 
+            // Save to database
             await MessageService.CreateMessage(
                 message.RecipientId,
                 message.SenderId,
@@ -105,8 +105,8 @@ namespace Messenger.Core.Services
         public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
             // Create and save to database
-            int? teamId = await TeamService.CreateTeam(teamName, teamDescription);
-            
+            uint? teamId = await TeamService.CreateTeam(teamName, teamDescription);
+
             if (teamId == null)
             {
                 HandleException(nameof(this.CreateTeam), "invalid team id");
@@ -156,7 +156,7 @@ namespace Messenger.Core.Services
                 Debug.WriteLine("Messenger Exception: invalid sender/recipient id");
                 return false;
             }
-            
+
             // Content
             if (string.IsNullOrWhiteSpace(message.Content))
             {
