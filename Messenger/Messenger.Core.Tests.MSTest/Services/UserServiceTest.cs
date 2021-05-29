@@ -2,6 +2,8 @@
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Core.Helpers;
+using System.Data.SqlClient;
+using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -67,7 +69,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var data = new User { Id = "xyz" };
+                var data = new User { Id = "xyz", DisplayName = "foobar" };
 
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
@@ -85,7 +87,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var data = new User() { Id = "123" };
+                var data = new User() { Id = "123", DisplayName = "foobar" };
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
 
@@ -187,15 +189,23 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
-        ~UserServiceTest()
+        [AssemblyCleanup]
+        public static void Cleanup()
         {
             // Reset DB
-            string query = "DELETE FROM Users;"
+            string query = "DELETE FROM Memberships;"
                          + "DELETE FROM Messages;"
                          + "DELETE FROM Teams;"
-                         + "DELETE FROM Memberships;";
+                         + "DELETE FROM Users;";
 
-            SqlHelpers.NonQueryAsync(query, userService.GetConnection());
+            using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                bool result = Convert.ToBoolean(cmd.ExecuteNonQuery());
+
+                Assert.IsTrue(result);
+            }
         }
     }
 }
