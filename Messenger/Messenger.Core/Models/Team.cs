@@ -15,5 +15,16 @@ namespace Messenger.Core.Models
         public DateTime CreationDate { get; set; }
 
         public List<User> Members { get; set; }
+
+        public Team()
+        {
+            Name = "";
+            Description = "";
+        }
+
+        public override string ToString()
+        {
+            return $"Team: Id={Id}, Name={Name}, Description={Description}, CreationDate={CreationDate.ToString()}, Members=[{string.Join(",", Members)}]";
+        }
     }
 }

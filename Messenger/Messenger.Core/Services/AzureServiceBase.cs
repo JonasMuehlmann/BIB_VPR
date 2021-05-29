@@ -17,7 +17,7 @@ namespace Messenger.Core.Services
 
         #endregion
 
-        protected SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
+        public SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
 
         public void SetTestMode(string connectionString)
         {

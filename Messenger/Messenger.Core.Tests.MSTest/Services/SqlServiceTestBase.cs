@@ -5,7 +5,7 @@ namespace Messenger.Tests.MSTest
 {
     public abstract class SqlServiceTestBase
     {
-        private const string TEST_CONNECTION_STRING = @"Server=tcp:vpr.database.windows.net,1433;Initial Catalog=TEST_VPR_DATABASE;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private const string TEST_CONNECTION_STRING = @"Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         /// <summary>
         /// Returns the requested service with the test mode activated
