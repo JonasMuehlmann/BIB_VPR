@@ -25,7 +25,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The user to connect to his teams</param>
         /// <returns>true on success, false on invalid user id (error will be handled in each service)</returns>
-        public async Task Initialize(string userId)
+        public async Task<bool> Initialize(string userId)
         {
             // Open the connection to hub
             await SignalRService.Open();
@@ -34,7 +34,7 @@ namespace Messenger.Core.Services
             if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.Initialize), "invalid user id");
-                return;
+                return false;
             }
 
             var memberships = await TeamService.GetAllMembershipByUserId(userId);
@@ -43,7 +43,7 @@ namespace Messenger.Core.Services
             if (memberships.Count <= 0)
             {
                 HandleException(nameof(this.Initialize), "no membership found");
-                return;
+                return false;
             }
 
             // Subscribe to corresponding hub groups
@@ -51,6 +51,8 @@ namespace Messenger.Core.Services
             {
                 await SignalRService.JoinTeam(teamId);
             }
+
+            return true;
         }
 
         /// <summary>
@@ -71,38 +73,26 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">A complete message object to send</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task SendMessage(Message message)
+        public async Task<bool> SendMessage(Message message)
         {
             // Check the validity of the message
             if (!ValidateMessage(message))
             {
                 HandleException(nameof(this.SendMessage), "invalid message object");
-                return;
+                return false;
             }
 
-            // Check if the message is a reply of a message
-            if (message.ParentMessageId != null)
-            {
-                // Save to database with the parent message id
-                await MessageService.CreateMessage(
-                    message.RecipientId,
-                    message.SenderId,
-                    message.Content,
-                    message.ParentMessageId);
-            }
-            else
-            {
-                // Save to database without the parent message id(null)
-                await MessageService.CreateMessage(
-                    message.RecipientId,
-                    message.SenderId,
-                    message.Content);
-            }
+            // Save to database 
+            await MessageService.CreateMessage(
+                message.RecipientId,
+                message.SenderId,
+                message.Content,
+                message.ParentMessageId);
 
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
 
-            return;
+            return true;
         }
 
         /// <summary>
@@ -111,20 +101,22 @@ namespace Messenger.Core.Services
         /// <param name="creatorId">Creator user id</param>
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team(optional)</param>
-        /// <returns>Task to be awaited</returns>
-        public async Task CreateTeam(string creatorId, string teamName, string teamDescription = "")
+        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
+        public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
             // Create and save to database
             int? teamId = await TeamService.CreateTeam(teamName, teamDescription);
             
-            if (teamId != null)
+            if (teamId == null)
             {
                 HandleException(nameof(this.CreateTeam), "invalid team id");
-                return;
+                return false;
             }
 
             // Create and join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
+
+            return true;
         }
 
         /// <summary>
@@ -132,17 +124,19 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="memberId">User id to add</param>
         /// <param name="teamId">Team to be added</param>
-        /// <returns>Task to be awaited</returns>
-        public async Task AddMember(string memberId, uint teamId)
+        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
+        public async Task<bool> AddMember(string memberId, uint teamId)
         {
             if (string.IsNullOrWhiteSpace(memberId))
             {
                 HandleException(nameof(this.AddMember), "invalid member id");
-                return;
+                return false;
             }
 
             // Create membership for the user and save to database
             await TeamService.AddMember(memberId, teamId);
+
+            return true;
         }
 
         #endregion
@@ -157,9 +151,7 @@ namespace Messenger.Core.Services
         private bool ValidateMessage(Message message)
         {
             // Sender / Recipient Id
-            if (message == null
-                || !uint.TryParse(message.RecipientId.ToString(), out uint recipientId)
-                || string.IsNullOrWhiteSpace(message.SenderId))
+            if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
             {
                 Debug.WriteLine("Messenger Exception: invalid sender/recipient id");
                 return false;
