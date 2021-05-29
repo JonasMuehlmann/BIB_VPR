@@ -4,39 +4,44 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Messenger.Core.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!-- content goes here -->
-            
-            <!--#region Example code (should be deleted) -->
-            <ListView ItemsSource="{x:Bind ViewModel.SampleTeamsSource}">
-                <ListView.Resources>
-                    <Style TargetType="TextBlock" x:Key="TextStyle" BasedOn="{StaticResource SubheaderTextBlockStyle}">
-                        <Setter Property="Margin" Value="0 0 15 0" />
-                    </Style>
-                </ListView.Resources>
-                <!-- Item -->
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <!-- Binds to properties -->
-                            <TextBlock Style="{StaticResource TextStyle}" Grid.Column="0" Text="{Binding TeamId}" />
-                            <TextBlock Style="{StaticResource TextStyle}" Grid.Column="1" Text="{Binding TeamName}" />
-                            <TextBlock Style="{StaticResource TextStyle}" Grid.Column="2" Text="{Binding TeamDescription}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <!--#endregion-->
+
+            <!-- ** TEST UI FOR SIGNALR ** (will be removed) -->
+            <StackPanel>
+                <ListView ItemsSource="{x:Bind ViewModel.Hub.Messages}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Content}"
+                                           Foreground="Red"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBox Name="tbxMessage"/>
+                <Button Content="Absenden"
+                        Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
+                        CommandParameter="{Binding ElementName=tbxMessage, Path=Text}"
+                        />
+                <Button Content="Team 1"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="1"
+                        />
+                <Button Content="Team 2"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="2"
+                        />
+                <Button Content="Team 3"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="3"
+                        />
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

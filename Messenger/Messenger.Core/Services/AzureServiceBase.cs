@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Messenger.Core.Services
 {
@@ -21,6 +23,11 @@ namespace Messenger.Core.Services
         {
             testConnectionString = connectionString;
             testMode = true;
+        }
+
+        protected void HandleException(Exception e)
+        {
+            Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
         }
     }
 }

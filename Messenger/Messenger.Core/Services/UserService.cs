@@ -6,7 +6,6 @@ using Messenger.Core.Models;
 using Messenger.Core.Helpers;
 using System.Data;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
@@ -113,7 +112,7 @@ namespace Messenger.Core.Services
                         // Get a new id for the display name
                         // FIX: Strings are default initialized to null
                         string displayName = userdata.DisplayName.Split('/')[0].Trim();
-                        int? newNameId = DetermineNewNameId(displayName, connection);
+                        uint? newNameId = DetermineNewNameId(displayName, connection);
 
 
                         // Exit if name id is null
@@ -126,11 +125,8 @@ namespace Messenger.Core.Services
                         await SqlHelpers.NonQueryAsync(insertQuery, connection);
 
                         // Return the new application user, mapped directly from MSGraph
-                        userdata.NameId = (int)newNameId;
 
-
-                        // Console.WriteLine(userdata);
-                        // Console.WriteLine(Mapper.UserFromMSGraph(userdata));
+                        userdata.NameId = Convert.ToUInt32(newNameId);
 
                         return Mapper.UserFromMSGraph(userdata);
                     }
@@ -143,6 +139,51 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+        
+        /// <summary>
+        /// Update a specified column for a specified user.
+        ///</summary>
+        /// <param name="userId">The id of the user, whose data will be updated</param>
+        /// <param name="columnToChange">The column to update for the user</param>
+        /// <param name="newVal">The new value for the specifed column for the specified user</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> Update(string userId, string columnToChange, string newVal)
+        {
+            if (columnToChange == "Username")
+            {
+                return await UpdateUsername(userId, newVal);
+            }
+            else
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
+                    {
+                        newVal = "'" + newVal + "'";
+                    }
+
+                    string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+
+                    return await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete the user with the specified userId.
+        /// </summary>
+        /// <param name="userId">The id of the user, whose data will be updated</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> DeleteUser(string userId)
+        {
+            string query = $"DELETE FROM Users WHERE UserId='{userId}';";
+
+            return await SqlHelpers.NonQueryAsync(query, GetConnection());
+        }
+
+        #region Helpers
 
         /// <summary>
         /// Construct a User object from data that belongs to the user identified by userId.
@@ -185,7 +226,7 @@ namespace Messenger.Core.Services
         /// <param name="username">A username whose nameid is the be determined</param>
         /// <param name="connection">A connection to the sql database</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
-        private int? DetermineNewNameId(string username, SqlConnection connection)
+        private uint? DetermineNewNameId(string username, SqlConnection connection)
         {
             string query = $"SELECT MAX(NameId) FROM USERS WHERE UserName='{username}'";
             try
@@ -195,7 +236,7 @@ namespace Messenger.Core.Services
                 // Will be System.DBNull if there is no other user with the same name
                 var result = scalarQuery.ExecuteScalar();
 
-                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToInt32(result) + 1;
+                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToUInt32(result) + 1;
             }
             catch (Exception e)
             {
@@ -205,5 +246,33 @@ namespace Messenger.Core.Services
             }
 
         }
+
+        /// <summary>
+        /// Update a specified users name
+        ///</summary>
+        /// <param name="userId">The id of the user, whose name will be updated</param>
+        /// <param name="newUsername">The new username to set</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        private async Task<bool> UpdateUsername(string userId, string newUsername)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                uint? newNameId = DetermineNewNameId(newUsername, connection);
+
+                if (newNameId == null)
+                {
+                    return false;
+                }
+
+                string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
+                                   + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
+
+                return await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+            }
+        }
+
+        #endregion
     }
 }
