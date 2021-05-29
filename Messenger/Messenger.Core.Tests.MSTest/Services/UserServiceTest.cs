@@ -87,7 +87,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var data = new User() { Id = "123", DisplayName = "foobar" };
+                var data = new User() { Id = "1234", DisplayName = "foobar" };
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
                 Assert.AreEqual(1u, retrievedUser.NameId);
@@ -195,7 +195,10 @@ namespace Messenger.Tests.MSTest
             string query = "DELETE FROM Memberships;"
                          + "DELETE FROM Messages;"
                          + "DELETE FROM Teams;"
-                         + "DELETE FROM Users;";
+                         + "DELETE FROM Users;"
+                         + "DBCC CHECKIDENT (Memberships, RESEED, 0);"
+                         + "DBCC CHECKIDENT (Messages, RESEED, 0);"
+                         + "DBCC CHECKIDENT (Teams, RESEED, 0);";
 
             using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
             {
