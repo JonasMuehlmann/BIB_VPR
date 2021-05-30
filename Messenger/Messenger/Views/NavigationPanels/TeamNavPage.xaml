@@ -27,19 +27,46 @@
             TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
     </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
-        <my:TreeView
+        <StackPanel>
+            <my:TreeView
                 x:Name="treeView"
                 Grid.Row="1"
                 SelectionMode="Single"
                 ItemsSource="{x:Bind ViewModel.User.Teams}"
                 ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}">
 
-            <i:Interaction.Behaviors>
-                <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
-                <ic:EventTriggerBehavior EventName="ItemInvoked">
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
-                </ic:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
-        </my:TreeView>
+                <i:Interaction.Behaviors>
+                    <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
+                    <ic:EventTriggerBehavior EventName="ItemInvoked">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </my:TreeView>
+
+            <TextBox x:Uid="Team_NewTeam"
+                   x:Name="SearchField"
+                   Height="30"
+                   HorizontalAlignment="Stretch"
+                   Margin="5"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"
+                   Visibility="Collapsed"
+                   />
+        </StackPanel>
+        <Button x:Name="newChat"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="17"
+                BorderThickness="0.8"
+                Background="Transparent"
+                BorderBrush="Black"
+                Click="NewTeam_Click"
+                Margin="20 10 10 10"
+                >
+
+            <SymbolIcon Symbol="Add"
+                        Opacity="0.9"/>
+        </Button>
     </Grid>
 </Page>

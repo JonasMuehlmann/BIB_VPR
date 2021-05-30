@@ -42,12 +42,13 @@
                 BorderThickness="0.8"
                 Background="Transparent"
                 BorderBrush="Black"
-                Click="newChat_Click"
+                Click="NewChat_Click"
                 Margin="20 10 10 10"
                 >
 
             <SymbolIcon Symbol="Add"
-                        Opacity="0.9"/>
+                        Opacity="0.9"
+                        />
         </Button>
     </Grid>
 </Page>

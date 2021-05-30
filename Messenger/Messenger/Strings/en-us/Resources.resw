@@ -255,4 +255,8 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>New chat</value>
     <comment>Start new chat</comment>
   </data>
+  <data name="Team_NewTeam.PlaceholderText" xml:space="preserve">
+    <value>Teamname</value>
+    <comment>Add some new Team name</comment>
+  </data>
 </root>

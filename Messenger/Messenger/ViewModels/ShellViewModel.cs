@@ -114,6 +114,11 @@ namespace Messenger.ViewModels
 
 
         #region sidePageNavigation
+
+        /// <summary>
+        /// Opens the side Navigationpanels and the MainChatPanel
+        /// </summary>
+        /// <param name="page"></param>
         private void SideNavigation(Type page)
         {
             SideFrame.Navigate(page, this);

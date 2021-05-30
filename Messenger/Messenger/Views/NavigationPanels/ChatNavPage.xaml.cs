@@ -26,9 +26,21 @@ namespace Messenger.Views
             //Console.WriteLine(e.Parameter as string);
         }
 
-        private void newChat_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void NewChat_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            SearchField.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            SymbolIcon newChatIcon = (sender as Button).Content as SymbolIcon;
+           
+
+            if(SearchField.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            {
+                SearchField.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                newChatIcon.Symbol = Symbol.Add;
+            }
+            else
+            {
+                SearchField.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                newChatIcon.Symbol = Symbol.Remove;
+            }
         }
     }
 }
