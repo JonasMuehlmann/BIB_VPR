@@ -30,8 +30,16 @@ namespace Messenger.Core.Models
 
         public override string ToString()
         {
-
             return $"User: Id={Id}, DisplayName={DisplayName}, NameId={NameId}, Photo={Photo}, Mail={Mail}, Bio={Bio}";
         }
+
+        // TODO: Cleanup
+        public string Surname { get; set; }
+
+        public string UserPrincipalName { get; set; }
+
+        public List<string> Userlist { get; set; }
+
+        public List<Team> Teams { get; set; }
     }
 }
