@@ -1,8 +1,10 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using Messenger.Models;
 using Messenger.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+
 
 namespace Messenger.Views
 {
@@ -10,9 +12,11 @@ namespace Messenger.Views
     {
         public NotificationNavViewModel ViewModel { get; } = new NotificationNavViewModel();
 
+
         public NotificationNavPage()
         {
             InitializeComponent();
+            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
