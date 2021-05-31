@@ -7,6 +7,7 @@
     xmlns:models="using:Messenger.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
         <!--Template Design-->
         <ListView ItemsSource="{x:Bind ViewModel.Notifications, Mode=OneWay}" HorizontalContentAlignment="Stretch">
