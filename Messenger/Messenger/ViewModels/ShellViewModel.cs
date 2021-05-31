@@ -19,24 +19,40 @@ namespace Messenger.ViewModels
 {
     public class ShellViewModel : Observable
     {
-        //private ICommand _loadedCommand;
-        //private ICommand _itemInvokedCommand;
+        private readonly KeyboardAccelerator _altLeftKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu);
+        private readonly KeyboardAccelerator _backKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.GoBack);
+
+        private bool _isBackEnabled;
+        private IList<KeyboardAccelerator> _keyboardAccelerators;
+        private WinUI.NavigationView _navigationView;
+        private WinUI.NavigationViewItem _selected;
+        private ICommand _loadedCommand;
+        private ICommand _itemInvokedCommand;
         private ICommand _userProfileCommand;
         private ICommand _teamCommand;
         private ICommand _chatCommand;
         private ICommand _notificationCommand;
         private UserViewModel _user;
-        private Frame MainFrame { get; set; }
-        private Frame SideFrame { get; set; }
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
 
-        //TODO Load again
-        //public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
+        public bool IsBackEnabled
+        {
+            get { return _isBackEnabled; }
+            set { Set(ref _isBackEnabled, value); }
+        }
 
-        //public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
+        public WinUI.NavigationViewItem Selected
+        {
+            get { return _selected; }
+            set { Set(ref _selected, value); }
+        }
+
+        public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
+
+        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
         //chat headline
         private string _chatName;
@@ -69,6 +85,7 @@ namespace Messenger.ViewModels
             //_keyboardAccelerators = keyboardAccelerators;
             MainFrame = frame;
             SideFrame = sideFrame;
+
             NavigationService.Frame = frame;
             OnLoaded();
             IdentityService.LoggedOut += OnLoggedOut;
@@ -80,6 +97,8 @@ namespace Messenger.ViewModels
 
         private async void OnLoaded()
         {
+            // Keyboard accelerators are added here to avoid showing 'Alt + left' tooltip on the page.
+            // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
             User = await UserDataService.GetUserAsync();
         }
 

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Messenger.Core.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
@@ -14,6 +15,40 @@
                 Place your content here.
             -->
             <TextBlock Text="Chat MainPage" Style="{StaticResource VCenteredText}"></TextBlock>
+            <!-- content goes here -->
+
+            <!-- ** TEST UI FOR SIGNALR ** (will be removed) -->
+            <!-- TODO: What to do with this?
+            <StackPanel>
+                <ListView ItemsSource="{x:Bind ViewModel.Hub.Messages}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Content}"
+                                           Foreground="Red"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBox Name="tbxMessage"/>
+                <Button Content="Absenden"
+                        Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
+                        CommandParameter="{Binding ElementName=tbxMessage, Path=Text}"
+                        />
+                <Button Content="Team 1"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="1"
+                        />
+                <Button Content="Team 2"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="2"
+                        />
+                <Button Content="Team 3"
+                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
+                        CommandParameter="3"
+                        />
+            </StackPanel>
+            -->
         </Grid>
     </Grid>
 </Page>

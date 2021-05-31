@@ -10,7 +10,17 @@ namespace Messenger.ViewModels
     {
         private string _name;
         private string _userPrincipalName;
+        private string _bio;
+        private string _mail;
         private BitmapImage _photo;
+
+        private string _id;
+
+        public string Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         public string Name
         {
@@ -22,6 +32,18 @@ namespace Messenger.ViewModels
         {
             get => _userPrincipalName;
             set => Set(ref _userPrincipalName, value);
+        }
+
+        public string Bio
+        {
+            get { return _bio; }
+            set { _bio = value; }
+        }
+
+        public string Mail
+        {
+            get { return _mail; }
+            set { _mail = value; }
         }
 
         public BitmapImage Photo
