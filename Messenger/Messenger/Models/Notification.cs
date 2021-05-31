@@ -6,19 +6,36 @@ using System.Threading.Tasks;
 
 namespace Messenger.Models
 {
-    class Notification
+    public class Notification
     {
         public string User { get; set; }
-        public DateTime whenSent { get; set; }
-        public string kindOfMessage { get; set; }
-        public string whereSent { get; set; }
+        public DateTime WhenSent { get; set; }
+        public string KindOfMessage { get; set; }
+        public string WhereSent { get; set; }
 
-        public Notification(string user, DateTime whenSent, string kindOfMessage, string whereSent)
+
+    }
+
+    public class NotificationManager
+    {
+        ///<summary>
+        ///GetNotifications() fügt Testdaten zu einer Liste hinzu und gibt dann diese Liste wieder
+        ///</summary>
+        ///<returns>
+        ///gibt eine Liste von Testdaten wieder
+        ///</returns>
+        public static List<Notification> GetNotifications()
         {
-            User = user;
-            this.whenSent = whenSent;
-            this.kindOfMessage = kindOfMessage;
-            this.whereSent = whereSent;
+            //Test Daten
+            List<Notification> notifications = new List<Notification>();
+
+            notifications.Add(new Notification { User = "Mark", WhenSent = new DateTime(2021, 5, 18), KindOfMessage = "replied in", WhereSent = "Private Chat" });
+            notifications.Add(new Notification { User = "Lisa", WhenSent = new DateTime(2020, 9, 28), KindOfMessage = "mentioned you in", WhereSent = "Team2::Channel2" });
+            notifications.Add(new Notification { User = "Anton", WhenSent = new DateTime(2021, 1, 4), KindOfMessage = "replied in", WhereSent = "Team2::Channel2" });
+            notifications.Add(new Notification { User = "Anton", WhenSent = new DateTime(2021, 1, 4), KindOfMessage = "replied in", WhereSent = "Team2::Channel2" });
+            notifications.Add(new Notification { User = "Anton", WhenSent = new DateTime(2021, 1, 4), KindOfMessage = "replied in", WhereSent = "Team2::Channel2" });
+
+            return notifications;
         }
     }
 }

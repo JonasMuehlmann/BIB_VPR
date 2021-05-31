@@ -4,73 +4,32 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Messenger.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <ListView x:Name="Notification" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <ListView.Resources>
-                <Style TargetType="Grid">
-                    <Setter Property="Margin" Value="20"/>
-                </Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Margin" Value="5"/>
-                </Style>
-            </ListView.Resources>
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+        <!--Template Design-->
+        <ListView ItemsSource="{x:Bind ViewModel.Notifications, Mode=OneWay}" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Notification">
+                    <Grid Width="275">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
 
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Text="User 1"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="1:30 Pm"/>
-                <TextBlock Grid.Row="1" Text="replied in"/>
-                <TextBlock Grid.Row="2" Text="Team2::Channel2"/>
-            </Grid>
-
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Text="User2"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="1:40 Pm"/>
-                <TextBlock Grid.Row="1" Text="mentioned you in"/>
-                <TextBlock Grid.Row="2" Text="Team2::Channel2"/>
-            </Grid>
-
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Text="User3"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="2:00 Pm"/>
-                <TextBlock Grid.Row="1" Text="replied in"/>
-                <TextBlock Grid.Row="2" Text="Private Chat"/>
-            </Grid>
+                        <TextBlock Grid.Row="0" Text="{x:Bind User}" FontWeight="Bold" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind WhenSent}" HorizontalAlignment="Right"/>
+                        <TextBlock Grid.Row="1" Text="{x:Bind KindOfMessage}"/>
+                        <TextBlock Grid.Row="2" Text="{x:Bind WhereSent}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Button x:Name="readAll"
