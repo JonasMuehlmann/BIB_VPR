@@ -22,6 +22,7 @@ namespace Messenger.Core.Models
         {
             Name = "";
             Description = "";
+            Members = new List<User>();
         }
 
         public override string ToString()

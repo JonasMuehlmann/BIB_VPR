@@ -34,12 +34,7 @@ namespace Messenger.Core.Models
         }
 
         // TODO: Cleanup
-        public string Surname { get; set; }
-
-        public string UserPrincipalName { get; set; }
 
         public List<string> Userlist { get; set; }
-
-        public List<Team> Teams { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Messenger.Core.Models;
 using Messenger.Helpers;
 
 using Windows.UI.Xaml.Media.Imaging;
@@ -54,6 +54,10 @@ namespace Messenger.ViewModels
 
         public UserViewModel()
         {
+        }
+
+        public User ToUserObject() {
+            return new User() { Id = Id, DisplayName = UserPrincipalName, NameId = 0, Photo = "", Mail = Mail, Bio = Bio};
         }
     }
 }

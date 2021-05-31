@@ -84,7 +84,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
         {
-            string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) WHERE m.UserId = '{userId}';";
+            string query = $"SELECT t.TeamId, TeamName, TeamDescription, CreationDate FROM Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) WHERE m.UserId = '{userId}';";
 
             try
             {
@@ -115,7 +115,7 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> AddMember(string userId, uint teamId)
         {
-            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
+            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', '{teamId}', 'placeholder');";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }

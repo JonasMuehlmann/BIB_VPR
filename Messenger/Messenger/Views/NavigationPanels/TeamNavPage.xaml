@@ -27,23 +27,24 @@
             TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
     </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
-        <StackPanel>
-            <my:TreeView
+        <ScrollViewer>
+            <StackPanel Margin="0,0,0, 20">
+                <my:TreeView
                 x:Name="treeView"
                 Grid.Row="1"
                 SelectionMode="Single"
-                ItemsSource="{x:Bind ViewModel.User.Teams}"
+                ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                 ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}">
 
-                <i:Interaction.Behaviors>
-                    <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
-                    <ic:EventTriggerBehavior EventName="ItemInvoked">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </my:TreeView>
+                    <i:Interaction.Behaviors>
+                        <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
+                        <ic:EventTriggerBehavior EventName="ItemInvoked">
+                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </my:TreeView>
 
-            <TextBox x:Uid="Team_NewTeam"
+                <TextBox x:Uid="Team_NewTeam"
                    x:Name="SearchField"
                    Height="30"
                    HorizontalAlignment="Stretch"
@@ -51,9 +52,10 @@
                    Foreground="{ThemeResource SystemBaseHighColor}"
                    Background="{ThemeResource SystemAltLowColor}"
                    BorderBrush="{ThemeResource SystemAccentColor}"
-                   Visibility="Collapsed"
-                   />
-        </StackPanel>
+                   KeyDown="NewTeam_KeyDown"
+                   Visibility="Collapsed"/>
+            </StackPanel>
+        </ScrollViewer>
         <Button x:Name="newChat"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
