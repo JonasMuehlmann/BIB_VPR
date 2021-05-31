@@ -49,6 +49,49 @@
                         />
             </StackPanel>
             -->
+            <StackPanel VerticalAlignment="Center">
+                <Border Padding="5" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <Grid>
+                    <Border CornerRadius="10"
+                            Background="Transparent">
+
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Width="70"
+                                   Height="50"/>
+                            <Button x:Name="Reply" Click="Reply_Click">
+                                <SymbolIcon Symbol="Emoji"/>
+                            </Button>
+                            <Button x:Name="React" Click="React_Click">
+                                <SymbolIcon Symbol="Globe"></SymbolIcon>
+                            </Button>
+
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Bottom"
+                        Margin="50"
+                        HorizontalAlignment="Center">
+            <TextBox Width="200"
+                     Padding="0,0,30,0"
+                     Height="30"
+                     FontSize="20"/>
+                
+                <Button Background="Transparent">
+                    <SymbolIcon Symbol="Accept" />
+                </Button>
+            </StackPanel>
+
+
         </Grid>
     </Grid>
 </Page>
