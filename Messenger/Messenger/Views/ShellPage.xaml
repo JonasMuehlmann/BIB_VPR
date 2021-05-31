@@ -91,7 +91,7 @@
                 Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="2"
-                HorizontalAlignmen="Stretch"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
                 <SymbolIcon Symbol="Contact"/>
             </Button>

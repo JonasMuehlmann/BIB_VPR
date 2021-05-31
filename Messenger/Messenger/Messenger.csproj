@@ -181,8 +181,6 @@
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
     <Compile Include="ViewModels\ChatHubViewModel.cs" />
-    <Compile Include="ViewModels\ContentGridDetailViewModel.cs" />
-    <Compile Include="ViewModels\ContentGridViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
     <Compile Include="ViewModels\NavigationPanels\TeamNavViewModel.cs" />
