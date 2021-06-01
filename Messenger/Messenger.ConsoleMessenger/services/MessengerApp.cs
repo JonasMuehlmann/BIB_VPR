@@ -10,7 +10,6 @@ namespace Messenger.ConsoleMessenger
         public MessengerApp(ILogger<MessengerApp> log)
         {
             _log = log;
-            _config = config;
         }
 
         public void Run()
