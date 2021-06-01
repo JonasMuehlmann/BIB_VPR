@@ -25,5 +25,15 @@ namespace Messenger.Views
             }
             //Console.WriteLine(e.Parameter as string);
         }
+
+        private void Reply_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
+
+        private void React_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
     }
 }
