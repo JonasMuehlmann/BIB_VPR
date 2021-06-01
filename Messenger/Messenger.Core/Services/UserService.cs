@@ -193,7 +193,7 @@ namespace Messenger.Core.Services
                 // Will be System.DBNull if there is no other user with the same name
                 var result = scalarQuery.ExecuteScalar();
 
-                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToUInt32(result) + 1;
+                return result is DBNull ? 0 : Convert.ToUInt32(result) + 1;
             }
             catch (SqlException e)
             {
