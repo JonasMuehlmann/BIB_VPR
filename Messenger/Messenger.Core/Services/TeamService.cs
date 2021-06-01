@@ -49,7 +49,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
-            string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
+            string query = $"DELETE FROM Memberships WHERE TeamId={teamId};"
+                         + $"DELETE FROM Teams WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
