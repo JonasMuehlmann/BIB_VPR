@@ -44,8 +44,7 @@ namespace Messenger.Core.Services
                 string query = $"SELECT * FROM Messages Messages.RecipientsId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                return SqlHelpers
-                    .MapToList(Mapper.MessageFromDataRow, adapter);
+                return SqlHelpers .MapToList(Mapper.MessageFromDataRow, adapter);
             }
         }
     }
