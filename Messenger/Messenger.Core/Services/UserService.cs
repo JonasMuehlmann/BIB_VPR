@@ -66,17 +66,6 @@ namespace Messenger.Core.Services
             }
         }
 
-        /// <summary>
-        /// Delete the user with the specified userId.
-        /// </summary>
-        /// <param name="userId">The id of the user, whose data will be updated</param>
-        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
-        public async Task<bool> DeleteUser(string userId)
-        {
-            string query = $"DELETE FROM Users WHERE UserId='{userId}';";
-
-            return await SqlHelpers.NonQueryAsync(query, GetConnection());
-        }
 
         /// <summary>
         /// Create or retrieve an application user from a specified user object holding a GraphService Id.
@@ -132,12 +121,25 @@ namespace Messenger.Core.Services
                     }
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
                 return null;
             }
+        }
+
+
+        /// <summary>
+        /// Delete the user with the specified userId.
+        /// </summary>
+        /// <param name="userId">The id of the user, whose data will be updated</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> DeleteUser(string userId)
+        {
+            string query = $"DELETE FROM Users WHERE UserId='{userId}';";
+
+            return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
         #region Helpers
@@ -169,7 +171,7 @@ namespace Messenger.Core.Services
                     return rows.Select(Mapper.UserFromDataRow).First();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
@@ -193,9 +195,9 @@ namespace Messenger.Core.Services
                 // Will be System.DBNull if there is no other user with the same name
                 var result = scalarQuery.ExecuteScalar();
 
-                return result.GetType() == typeof(DBNull) ? 0 : Convert.ToUInt32(result) + 1;
+                return result is DBNull ? 0 : Convert.ToUInt32(result) + 1;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 

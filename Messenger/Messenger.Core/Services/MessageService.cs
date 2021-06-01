@@ -25,7 +25,9 @@ namespace Messenger.Core.Services
                 string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate) VALUES({recipientId}, '{senderId}', {parentMessageId}, '{message}', GETDATE(); SELECT SCOPE_IDENTITY();";
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                return Convert.ToUInt32(scalarQuery.ExecuteScalar());
+                var result = scalarQuery.ExecuteScalar();
+
+                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
             }
         }
 
@@ -42,8 +44,7 @@ namespace Messenger.Core.Services
                 string query = $"SELECT * FROM Messages Messages.RecipientsId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                return SqlHelpers
-                    .MapToList(Mapper.MessageFromDataRow, adapter);
+                return SqlHelpers .MapToList(Mapper.MessageFromDataRow, adapter);
             }
         }
     }

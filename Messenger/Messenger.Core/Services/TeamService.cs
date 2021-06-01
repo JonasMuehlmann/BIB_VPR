@@ -36,7 +36,9 @@ namespace Messenger.Core.Services
 
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                return Convert.ToUInt32(scalarQuery.ExecuteScalar());
+                var result = scalarQuery.ExecuteScalar();
+
+                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
             }
         }
 
@@ -47,7 +49,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
-            string query = $"DELETE FROM Teams WHERE TeamId={teamId};";
+            string query = $"DELETE FROM Memberships WHERE TeamId={teamId};"
+                         + $"DELETE FROM Teams WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
@@ -70,7 +73,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -96,7 +99,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -153,7 +156,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -179,7 +182,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.MembershipFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -204,7 +207,7 @@ namespace Messenger.Core.Services
                     return dataSet.Tables["Users"].Rows.Cast<DataRow>().Select(Mapper.UserFromDataRow);
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
                 return null;
