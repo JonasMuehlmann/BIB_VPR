@@ -46,7 +46,7 @@ namespace Messenger.Core.Services
                 string query = $"SELECT * FROM Messages Messages.RecipientsId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                return SqlHelpers.GetRows("Messages", adapter).Select(row => Mapper.MessageFromDataRow(row, GetConnection())).ToList();
+                return SqlHelpers.GetRows("Messages", adapter).Select(row => Mapper.MessageFromDataRow(row)).ToList();
             }
 
         }
