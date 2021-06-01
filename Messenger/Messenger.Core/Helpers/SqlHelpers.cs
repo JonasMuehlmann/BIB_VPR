@@ -59,7 +59,7 @@ namespace Messenger.Core.Helpers
 
             var result = query.ExecuteScalar();
 
-            return  result is DBNull ? null : result.ToString();
+            return  TryConvertDbValue(result, Convert.ToString);
         }
 
         /// <summary>
@@ -111,7 +111,25 @@ namespace Messenger.Core.Helpers
             SqlCommand scalarQuery = new SqlCommand(query, connection);
             var        otherUser   = scalarQuery.ExecuteScalar();
 
-            return otherUser is DBNull ? null : otherUser.ToString();
+            return TryConvertDbValue(otherUser, Convert.ToString);
+        }
+
+
+        /// <summary>
+        /// Convert a value that can be DBNull using a specified converter
+        /// </summary>
+        /// <typeparam name="T">A type to convert value to</typeparam>
+        /// <param name="value">A value to convert to T>
+        /// <param name="converter">A converter function to use for converting value>
+        /// <returns>null or the wanted type T</returns>
+        public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+
+            return converter(value);
         }
     }
 }

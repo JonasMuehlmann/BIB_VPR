@@ -27,11 +27,7 @@ namespace Messenger.Core.Services
 
                 var result = scalarQuery.ExecuteScalar();
 
-                if (result.GetType() == typeof(DBNull))
-                {
-                   return null;
-                }
-                return Convert.ToUInt32(result);
+                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
             }
         }
 
