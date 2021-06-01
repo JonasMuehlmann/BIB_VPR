@@ -17,7 +17,7 @@ namespace Messenger.ViewModels
             }
             set {
                 _shellViewModel = value;
-                _shellViewModel.ChatName = "Maoin";
+                _shellViewModel.ChatName = "Chatname";
             } }
 
         public NotificationNavViewModel()

@@ -34,7 +34,7 @@ namespace Messenger.ViewModels
             }
             set {
                 _shellViewModel = value;
-                _shellViewModel.ChatName = "Maoin";
+                _shellViewModel.ChatName = "Chatname";
             }
         }
 
@@ -62,7 +62,6 @@ namespace Messenger.ViewModels
         {
             InitAsync();
         }
-
 
         private void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
             => SelectedItem = args.InvokedItem;

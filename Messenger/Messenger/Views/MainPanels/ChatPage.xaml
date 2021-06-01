@@ -10,11 +10,14 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
             <!--
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
-            <TextBlock Text="Chat MainPage" Style="{StaticResource VCenteredText}"></TextBlock>
             <!-- content goes here -->
 
             <!-- ** TEST UI FOR SIGNALR ** (will be removed) -->
@@ -49,6 +52,131 @@
                         />
             </StackPanel>
             -->
+            <ScrollViewer Grid.Row="0">
+                <StackPanel>
+                    <Grid Margin="{StaticResource MediumTopMargin}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"
+                            Padding="5" 
+                            VerticalAlignment="Top"
+                            CornerRadius="10"
+                            Background="{ThemeResource SystemAccentColorDark3}"
+                            Margin="{StaticResource MediumLeftMargin}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="User"
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   Margin="{StaticResource MediumLeftMargin}"
+                                   />
+                                    <TextBlock HorizontalAlignment="Right" FontSize="12" VerticalAlignment="Center" Text="01.01.2021 2.30pm" Margin="{StaticResource MediumRightMargin}"/>
+                                </Grid>
+                                <TextBlock Grid.Row="2" Margin="{StaticResource MediumLeftRightMargin}" TextWrapping="WrapWholeWords" Text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <TextBlock
+                            x:Uid="Chat_Reply"
+                            VerticalAlignment="Center"
+                            TextAlignment="Center"
+                            Margin="{StaticResource MediumLeftMargin}"/>
+                                    <Button x:Name="Reply" Click="Reply_Click" Background="Transparent">
+                                        <SymbolIcon Symbol="Redo" Foreground="{ThemeResource SystemBaseHighColor}"/>
+                                    </Button>
+                                    <TextBlock
+                            x:Uid="Chat_React"
+                            VerticalAlignment="Center"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" Margin="{StaticResource MediumLeftMargin}"/>
+                                    <Button x:Name="React" Click="React_Click" Background="Transparent">
+                                        <SymbolIcon Symbol="Globe"  Foreground="{ThemeResource SystemBaseHighColor}"></SymbolIcon>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Margin="{StaticResource MediumTopMargin}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="1"
+                            Padding="5" 
+                            VerticalAlignment="Top"
+                            CornerRadius="10"
+                            Background="{ThemeResource SystemAccentColorDark3}"
+                            Margin="{StaticResource MediumRightMargin}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="User"
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   Margin="{StaticResource MediumLeftMargin}"
+                                   />
+                                    <TextBlock
+                                    HorizontalAlignment="Right"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Text="01.01.2021 2.30pm"
+                                    Margin="{StaticResource MediumRightMargin}"/>
+                                </Grid>
+                                <TextBlock Grid.Row="2" Margin="{StaticResource MediumLeftRightMargin}" TextWrapping="WrapWholeWords" Text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <TextBlock
+                                    x:Uid="Chat_Reply"
+                                    VerticalAlignment="Center"
+                                    TextAlignment="Center"
+                                    Margin="{StaticResource MediumLeftMargin}"/>
+                                    <Button Click="Reply_Click" Background="Transparent">
+                                        <SymbolIcon Symbol="Redo" Foreground="{ThemeResource SystemBaseHighColor}"/>
+                                    </Button>
+                                    <TextBlock
+                                    x:Uid="Chat_React"
+                                    VerticalAlignment="Center"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap"
+                                    Margin="{StaticResource MediumLeftMargin}"/>
+                                    <Button Click="React_Click" Background="Transparent">
+                                        <SymbolIcon Symbol="Globe"  Foreground="{ThemeResource SystemBaseHighColor}"></SymbolIcon>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            
+            <StackPanel Grid.Row="1" Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBox
+                    x:Uid="Chat_MessageSend"
+                    Width="300"
+                    Padding="0,0,30,0"
+                    Height="40"
+                    FontSize="20"/>
+
+                <Button Background="Transparent" BorderBrush="Gray" Height="40" Width="60">
+                    <SymbolIcon Symbol="Accept" />
+                </Button>
+            </StackPanel>
+
+
         </Grid>
     </Grid>
 </Page>
