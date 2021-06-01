@@ -2,12 +2,11 @@
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Core.Helpers;
+using System.Data.SqlClient;
+using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
-using System;
-using System.Data.SqlClient;
 
 namespace Messenger.Tests.MSTest
 {
@@ -20,7 +19,11 @@ namespace Messenger.Tests.MSTest
         #region Private
 
         private UserService userService;
-        private User sampleUser = new User() { Id = "123-456-abc-edf", DisplayName = "Jay Kim / PBT3H19AKI", Mail = "test.bib@edu.bib" };
+        private User sampleUser = new User() {
+            Id = "123-456-abc-edf",
+            DisplayName = "Jay Kim / PBT3H19AKI",
+            Mail = "test.bib@edu.bib"
+            };
 
         #endregion
 
@@ -39,23 +42,23 @@ namespace Messenger.Tests.MSTest
         }
 
 
-        // /// <summary>
-        // /// Should fetch the existing user from database
-        // /// </summary>
-        // [TestMethod]
-        // public void GetOrCreateApplicationUserExisting_Test()
-        // {
-        //     Task.Run(async () =>
-        //     {
-        //         var data = new User() { Id = "123-456-abc-edf" };
-        //         User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+        /// <summary>
+        /// Should fetch the existing user from database
+        /// </summary>
+        [TestMethod]
+        public void GetOrCreateApplicationUserExisting_Test()
+        {
+            Task.Run(async () =>
+            {
+                var data = new User() { Id = "123-456-abc-edf", DisplayName="testUser"};
+                User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
 
-        //         Assert.IsNotNull(retrievedUser);
-        //         Assert.AreEqual(retrievedUser.Mail, "test.bib@edu.bib");
+                Assert.IsNotNull(retrievedUser);
+                Assert.AreEqual(retrievedUser.Mail, "test.bib@edu.bib");
 
-        //     }).GetAwaiter().GetResult();
-        // }
+            }).GetAwaiter().GetResult();
+        }
 
 
         /// <summary>
@@ -66,9 +69,27 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var data = new User { Id = "xyz" };
+                var data = new User { Id = "xyz", DisplayName = "foobar" };
 
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+
+                Assert.AreEqual(retrievedUser.NameId, 0);
+
+            }).GetAwaiter().GetResult();
+        }
+
+
+        /// <summary>
+        /// Should fetch the existing user from database
+        /// </summary>
+        [TestMethod]
+        public void GetOrCreateApplicationUserSecondNameId_Test()
+        {
+            Task.Run(async () =>
+            {
+                var data = new User() { Id = "123", DisplayName = "foobar" };
+                User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+
 
                 Assert.AreEqual(retrievedUser.NameId, 1);
 
@@ -76,42 +97,24 @@ namespace Messenger.Tests.MSTest
         }
 
 
-        // /// <summary>
-        // /// Should fetch the existing user from database
-        // /// </summary>
-        // [TestMethod]
-        // public void GetOrCreateApplicationUserSecondNameId_Test()
-        // {
-        //     Task.Run(async () =>
-        //     {
-        //         var data = new User() { Id = "123" };
-        //         User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+         public void GetOrCreateApplicationUserNew_Test()
+         {
+             string id = "123-456-abc-edg";
 
+             User referenceUser = new User{
+                 Id = id
+             };
 
-        //         Assert.AreEqual(retrievedUser.NameId, 2);
+             Task.Run(async () =>
+             {
+                 var data = new User() { Id =  id};
+                 User createdUser = await userService.GetOrCreateApplicationUser(data);
 
-        //     }).GetAwaiter().GetResult();
-        // }
+                 Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
 
+             }).GetAwaiter().GetResult();
+         }
 
-        // public void GetOrCreateApplicationUserNew_Test()
-        // {
-        //     string id = "123-456-abc-edg";
-
-        //     User referenceUser = new User{
-        //         Id = id
-        //     };
-
-        //     Task.Run(async () =>
-        //     {
-        //         var data = new User() { Id =  id};
-        //         User createdUser = await userService.GetOrCreateApplicationUser(data);
-
-        //         Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
-
-        //     }).GetAwaiter().GetResult();
-        // }
-        //
 
         /// <summary>
         /// Should update username, expects true
@@ -186,15 +189,23 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
-        ~UserServiceTest()
+        [AssemblyCleanup]
+        public static void Cleanup()
         {
             // Reset DB
-            string query = "DELETE FROM Users;"
+            string query = "DELETE FROM Memberships;"
                          + "DELETE FROM Messages;"
                          + "DELETE FROM Teams;"
-                         + "DELETE FROM Memberships;";
+                         + "DELETE FROM Users;";
 
-            SqlHelpers.NonQueryAsync(query, userService.GetConnection());
+            using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                bool result = Convert.ToBoolean(cmd.ExecuteNonQuery());
+
+                Assert.IsTrue(result);
+            }
         }
     }
 }

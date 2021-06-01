@@ -73,6 +73,25 @@ namespace Messenger.Core.Helpers
             return dataSet.Tables[tableName].Rows.Cast<DataRow>();
         }
 
+        /// <summary>
+        /// Maps to a list of target type instances
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mapper">Mapper function for the target type</param>
+        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <returns></returns>
+        public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
+        {
+            string tableName = nameof(T) + 's';
+            
+            var dataSet = new DataSet();
+            adapter.Fill(dataSet, tableName);
+
+            return dataSet.Tables[tableName].Rows
+                .Cast<DataRow>()
+                .Select(mapper)
+                .ToList();
+        }
 
         /// <summary>
         /// In a private chat, retrieve the conversation partner's user id

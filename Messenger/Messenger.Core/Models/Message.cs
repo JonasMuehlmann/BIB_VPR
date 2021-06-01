@@ -8,7 +8,7 @@ namespace Messenger.Core.Models
     /// </summary>
     public class Message
     {
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         public string SenderId { get; set; }
 
@@ -19,13 +19,19 @@ namespace Messenger.Core.Models
         /// <summary>
         /// Team where the message was posted
         /// </summary>
-        public int RecipientId { get; set; }
+        public uint RecipientId { get; set; }
 
         /// <summary>
         /// Null in case of a Top-level message
         /// </summary>
-        public int? ParentMessageId { get; set; }
 
+        public uint? ParentMessageId { get; set; }
+
+        public Message()
+        {
+            SenderId = "";
+            Content = "";
+        }
         public override string ToString()
         {
             return $"Message: Id={Id}, SenderId={SenderId}, Content={Content}, CreationTime={CreationTime.ToString()}, RecipientId={RecipientId}, ParentMessageId={ParentMessageId}";

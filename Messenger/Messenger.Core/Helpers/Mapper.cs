@@ -21,7 +21,7 @@ namespace Messenger.Core.Helpers
             {
                 Id = row["UserId"].ToString(),
                 DisplayName = row["UserName"].ToString(),
-                NameId = Convert.ToInt32(row["NameId"]),
+                NameId = Convert.ToUInt32(row["NameId"]),
                 Mail = row["Email"].ToString(),
                 Bio = row["Bio"].ToString(),
             };
@@ -52,23 +52,45 @@ namespace Messenger.Core.Helpers
         {
             return new Team()
             {
-                Id = Convert.ToInt32(row["TeamId"]),
+                Id = Convert.ToUInt32(row["TeamId"]),
                 Name = row["TeamName"].ToString(),
                 Description = row["TeamDescription"].ToString(),
                 CreationDate = Convert.ToDateTime(row["CreationDate"].ToString())
             };
         }
 
+        /// <summary>
+        /// Maps to a full message model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped message object</returns>
         public static Message MessageFromDataRow(DataRow row)
         {
-                return new Message{
-                    Id = Convert.ToInt32(row["MessageId"]),
-                    SenderId = row["SenderId"].ToString(),
-                    RecipientId = Convert.ToInt32(row["TeamId"]),
-                    Content = row["Message"].ToString(),
-                    CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
-                    ParentMessageId = Convert.ToInt32(row["ParentMessageId"]),
-                };
+            return new Message()
+            {
+                Id = Convert.ToUInt32(row["MessageId"]),
+                SenderId = row["SenderId"].ToString(),
+                RecipientId = Convert.ToUInt32(row["TeamId"]),
+                Content = row["Message"].ToString(),
+                CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
+                ParentMessageId = Convert.ToUInt32(row["ParentMessageId"])
+            };
+        }
+
+        /// <summary>
+        /// Maps to a full membership model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped membership object</returns>
+        public static Membership MembershipFromDataRow(DataRow row)
+        {
+            return new Membership()
+            {
+                MembershipId = Convert.ToUInt32(row["MembershipId"]),
+                UserId = row["UserId"].ToString(),
+                UserRole = row["UserRole"].ToString(),
+                TeamId = Convert.ToUInt32(row["TeamId"])
+            };
         }
     }
 }

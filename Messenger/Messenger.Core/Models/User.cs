@@ -10,7 +10,7 @@ namespace Messenger.Core.Models
 
         public string DisplayName { get; set; }
 
-        public int NameId { get; set; }
+        public uint NameId { get; set; }
 
         public string Photo { get; set; }
 
@@ -18,6 +18,15 @@ namespace Messenger.Core.Models
 
         // From Database
         public string Bio { get; set; }
+
+        public User()
+        {
+            Id = "";
+            DisplayName = "";
+            Photo = "";
+            Mail = "";
+            Bio = "";
+        }
 
         public override string ToString()
         {

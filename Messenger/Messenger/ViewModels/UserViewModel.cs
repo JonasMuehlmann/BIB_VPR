@@ -14,6 +14,14 @@ namespace Messenger.ViewModels
         private string _mail;
         private BitmapImage _photo;
 
+        private string _id;
+
+        public string Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public string Name
         {
             get => _name;
