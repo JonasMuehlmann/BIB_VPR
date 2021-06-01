@@ -70,7 +70,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -96,7 +96,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -153,7 +153,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -179,7 +179,7 @@ namespace Messenger.Core.Services
                         .MapToList(Mapper.MembershipFromDataRow, new SqlDataAdapter(query, connection));
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 HandleException(e);
                 return null;
@@ -204,7 +204,7 @@ namespace Messenger.Core.Services
                     return dataSet.Tables["Users"].Rows.Cast<DataRow>().Select(Mapper.UserFromDataRow);
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
                 return null;

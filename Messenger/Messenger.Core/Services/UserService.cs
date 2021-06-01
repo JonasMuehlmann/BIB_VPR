@@ -132,7 +132,7 @@ namespace Messenger.Core.Services
                     }
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
@@ -169,7 +169,7 @@ namespace Messenger.Core.Services
                     return rows.Select(Mapper.UserFromDataRow).First();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
@@ -195,7 +195,7 @@ namespace Messenger.Core.Services
 
                 return result.GetType() == typeof(DBNull) ? 0 : Convert.ToUInt32(result) + 1;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
