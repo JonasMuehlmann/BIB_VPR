@@ -36,7 +36,13 @@ namespace Messenger.Core.Services
 
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                return Convert.ToUInt32(scalarQuery.ExecuteScalar());
+                var result = scalarQuery.ExecuteScalar();
+
+                if (result.GetType() == typeof(DBNull))
+                {
+                   return null;
+                }
+                return Convert.ToUInt32(result);
             }
         }
 

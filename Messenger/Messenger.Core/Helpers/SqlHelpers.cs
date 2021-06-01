@@ -27,6 +27,7 @@ namespace Messenger.Core.Helpers
                 }
                 SqlCommand command = new SqlCommand(query, connection);
 
+
                 return Convert.ToBoolean(await command.ExecuteNonQueryAsync());
 
             }
@@ -56,7 +57,9 @@ namespace Messenger.Core.Helpers
                     ,connection
             );
 
-            return Convert.ToString(query.ExecuteScalar());
+            var result = query.ExecuteScalar();
+
+            return  result is DBNull ? null : result.ToString();
         }
 
         /// <summary>
