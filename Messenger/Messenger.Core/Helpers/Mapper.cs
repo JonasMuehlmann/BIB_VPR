@@ -59,7 +59,7 @@ namespace Messenger.Core.Helpers
             };
         }
 
-        public static Message MessageFromDataRow(DataRow row, SqlConnection connection)
+        public static Message MessageFromDataRow(DataRow row)
         {
                 return new Message{
                     Id = Convert.ToInt32(row["MessageId"]),
