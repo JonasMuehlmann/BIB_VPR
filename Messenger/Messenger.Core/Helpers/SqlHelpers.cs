@@ -83,7 +83,7 @@ namespace Messenger.Core.Helpers
         public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
         {
             string tableName = nameof(T) + 's';
-            
+
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
 

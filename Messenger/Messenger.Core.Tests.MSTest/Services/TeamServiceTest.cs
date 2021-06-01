@@ -35,7 +35,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-               int? teamId = await teamService.CreateTeam("MyExampleTeam");
+               uint? teamId = await teamService.CreateTeam("MyExampleTeam");
 
                Assert.IsNotNull(teamId);
 
@@ -50,35 +50,9 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-               int? teamId = await teamService.CreateTeam("");
+               uint? teamId = await teamService.CreateTeam("");
 
                Assert.IsNull(teamId);
-
-            }).GetAwaiter().GetResult();
-        }
-
-        [TestMethod]
-        public void DeleteTeam_Test()
-        {
-            Task.Run(async () =>
-            {
-            // FIX: Tests like this one depend on other tests having run before it
-               bool success = await teamService.DeleteTeam(0);
-
-               Assert.IsTrue(success);
-
-            }).GetAwaiter().GetResult();
-        }
-
-        [TestMethod]
-        public void DeleteTeamNonexistent_Test()
-        {
-            Task.Run(async () =>
-            {
-            // FIX: Tests like this one depend on other tests having run before it
-               bool success = await teamService.DeleteTeam(0);
-
-               Assert.IsFalse(success);
 
             }).GetAwaiter().GetResult();
         }
@@ -94,6 +68,34 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void DeleteTeam_Test()
+        {
+            Task.Run(async () =>
+            {
+            // FIX: Tests like this one depend on other tests having run before it
+               bool success = await teamService.DeleteTeam(1u);
+
+
+               Assert.IsTrue(success);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void DeleteTeamNonexistent_Test()
+        {
+            Task.Run(async () =>
+            {
+            // FIX: Tests like this one depend on other tests having run before it
+               bool success = await teamService.DeleteTeam(1u);
+
+               Assert.IsFalse(success);
+
+            }).GetAwaiter().GetResult();
+        }
+
 
         [TestMethod]
         public void GetAllTeamsNoneExist_Test()
@@ -122,7 +124,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                int? teamId = await teamService.CreateTeam("abc");
+                uint? teamId = await teamService.CreateTeam("abc");
                 Assert.IsNotNull(teamId);
 
                 string userId = (await userService.GetOrCreateApplicationUser(
@@ -148,14 +150,14 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                int? teamId;
+                uint? teamId;
 
                 using (SqlConnection connection = teamService.GetConnection())
                 {
                     connection.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT TeamId FROM teams WHERE TeamName='abc';", connection);
-                    teamId = Convert.ToInt32(cmd.ExecuteScalar());
+                    teamId = Convert.ToUInt32(cmd.ExecuteScalar());
                 }
 
                 Assert.IsNotNull(teamId);
@@ -181,14 +183,14 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                int? teamId;
+                uint? teamId;
 
                 using (SqlConnection connection = teamService.GetConnection())
                 {
                     connection.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT TeamId FROM teams WHERE TeamName='abc';", connection);
-                    teamId = Convert.ToInt32(cmd.ExecuteScalar());
+                    teamId = Convert.ToUInt32(cmd.ExecuteScalar());
                 }
 
                 Assert.IsNotNull(teamId);
@@ -203,7 +205,6 @@ namespace Messenger.Tests.MSTest
                 Assert.IsTrue(numMembersAfter + 1 == numMembersBefore);
 
             }).GetAwaiter().GetResult();
-
         }
 
         [TestMethod]
@@ -211,14 +212,14 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                int? teamId;
+                uint? teamId;
 
                 using (SqlConnection connection = teamService.GetConnection())
                 {
                     connection.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT TeamId FROM teams WHERE TeamName='abc';", connection);
-                    teamId = Convert.ToInt32(cmd.ExecuteScalar());
+                    teamId = Convert.ToUInt32(cmd.ExecuteScalar());
                 }
 
                 Assert.IsNotNull(teamId);
@@ -226,7 +227,7 @@ namespace Messenger.Tests.MSTest
                 int numMembersBefore = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 
                 bool success = await teamService.RemoveMember("myTestUserId", teamId.Value);
-                Assert.IsTrue(success);
+                Assert.IsFalse(success);
 
                 int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 

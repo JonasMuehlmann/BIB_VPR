@@ -241,4 +241,12 @@
     <value>Ausloggen</value>
     <comment>Settings LogOut user content</comment>
   </data>
+  <data name="Chat_NewChat.PlaceholderText" xml:space="preserve">
+    <value>Neuer Chat</value>
+    <comment>Neuen Chat starten</comment>
+  </data>
+  <data name="Team_NewTeam.PlaceholderText" xml:space="preserve">
+    <value>Teamname</value>
+    <comment>Neues Team hinzufügen</comment>
+  </data>
 </root>

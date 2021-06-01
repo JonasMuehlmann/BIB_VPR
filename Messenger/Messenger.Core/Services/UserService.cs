@@ -12,6 +12,35 @@ namespace Messenger.Core.Services
     public class UserService : AzureServiceBase
     {
         /// <summary>
+        /// Update a specified column for a specified user.
+        ///</summary>
+        /// <param name="userId">The id of the user, whose data will be updated</param>
+        /// <param name="columnToChange">The column to update for the user</param>
+        /// <param name="newVal">The new value for the specifed column for the specified user</param>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
+        public async Task<bool> Update(string userId, string columnToChange, string newVal)
+        {
+            if (columnToChange == "Username")
+            {
+                return await UpdateUsername(userId, newVal);
+            }
+
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
+                {
+                    newVal = "'" + newVal + "'";
+                }
+
+                string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+
+                return await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
+            }
+        }
+
+        /// <summary>
         /// Update a specified users name
         ///</summary>
         /// <param name="userId">The id of the user, whose name will be updated</param>
@@ -34,35 +63,6 @@ namespace Messenger.Core.Services
                                    + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
 
                 return await SqlHelpers.NonQueryAsync(queryUpdate, connection);
-            }
-        }
-
-        /// <summary>
-        /// Update a specified column for a specified user.
-        ///</summary>
-        /// <param name="userId">The id of the user, whose data will be updated</param>
-        /// <param name="columnToChange">The column to update for the user</param>
-        /// <param name="newVal">The new value for the specifed column for the specified user</param>
-        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public async Task<bool> Update(string userId, string columnToChange, string newVal)
-        {
-            if (columnToChange == "Username")
-            {
-                return await UpdateUsername(userId, newVal);
-            }
-
-            using (SqlConnection connection = GetConnection())
-            {
-                await connection.OpenAsync();
-
-                if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
-                {
-                    newVal = "'" + newVal + "'";
-                }
-
-                string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
-
-                return await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
             }
         }
 

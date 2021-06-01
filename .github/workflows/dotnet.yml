@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, unstable ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, unstable ]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
 
     defaults:
         run:
-            working-directory: Messenger/Messenger.Tests.MSTest
+            working-directory: Messenger/Messenger.Core.Tests.MSTest
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
