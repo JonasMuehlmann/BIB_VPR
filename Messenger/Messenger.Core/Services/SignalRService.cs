@@ -15,7 +15,7 @@ namespace Messenger.Core.Services
 
         private const string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
         
-        private readonly HubConnection _connection;
+        private HubConnection _connection;
 
         #endregion
 
@@ -44,6 +44,8 @@ namespace Messenger.Core.Services
             _connection = new HubConnectionBuilder()
                 .WithUrl(HUB_URL)
                 .Build();
+
+            _connection.Closed += Reconnect;
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
         }
@@ -99,5 +101,28 @@ namespace Messenger.Core.Services
         {
             await _connection.SendAsync("SendMessage", message);
         }
+
+        #region Helpers
+
+        private async Task Reconnect(Exception e)
+        {
+            await Task.Delay(500);
+            _connection = await CreateHubConnection();
+            await _connection.StartAsync();
+        }
+
+        private async Task<HubConnection> CreateHubConnection()
+        {
+            HubConnection hubConnection = new HubConnectionBuilder()
+                .WithUrl(HUB_URL)
+                .Build();
+
+            hubConnection.Closed += Reconnect;
+
+            await hubConnection.StartAsync();
+            return hubConnection;
+        }
+
+        #endregion
     }
 }

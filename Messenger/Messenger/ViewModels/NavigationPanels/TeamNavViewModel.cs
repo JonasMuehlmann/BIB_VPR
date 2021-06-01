@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
@@ -22,21 +23,18 @@ namespace Messenger.ViewModels
         private object _selectedItem;
         private UserViewModel _user;
 
-        public IEnumerable<Team> _teams;
+        private ObservableCollection<Team> _teams;
 
-
-        private TeamService TeamService => Singleton<TeamService>.Instance;
-        private UserService UserService => Singleton<UserService>.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
 
-
+        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
 
         public ShellViewModel ShellViewModel { get {
                 return _shellViewModel;
             }
             set {
                 _shellViewModel = value;
-                _shellViewModel.ChatName = "Maoin";
+                _shellViewModel.ChatName = "Chatname";
             }
         }
 
@@ -52,7 +50,7 @@ namespace Messenger.ViewModels
             set => Set(ref _user, value);
         }
 
-        public IEnumerable<Team> Teams
+        public ObservableCollection<Team> Teams
         {
             get => _teams;
             set => Set(ref _teams, value);
@@ -62,60 +60,39 @@ namespace Messenger.ViewModels
 
         public TeamNavViewModel()
         {
-            
             InitAsync();
-            
-            //User = new User();
-            //User.Teams = new List<Team>();
-            //User.Teams.Add(new Team() { Name = "T1", Channels = new List<TeamChannel>()});
-            //User.Teams[0].Channels.Add(new TeamChannel() { ChannelName = "C1" });
-            //User.Teams[0].Channels.Add(new TeamChannel() { ChannelName = "C2" });
         }
-
 
         private void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
             => SelectedItem = args.InvokedItem;
 
         private async void InitAsync() {
-            User = await UserDataService.GetUserAsync();
-            await UserService.GetOrCreateApplicationUser(User.ToUserObject());
-
-            //uint? tid = await TeamService.CreateTeam("test 01");
-            //if(tid != null)
-            //{
-            //    await TeamService.AddMember(User.Id, tid.Value);
-            //}
-
-            //tid = await TeamService.CreateTeam("test 02");
-            //if(tid != null)
-            //{
-            //    await TeamService.AddMember(User.Id, tid.Value);
-            //}
-
-            //tid = await TeamService.CreateTeam("test 02");
-            //if(tid != null)
-            //{
-            //    await TeamService.AddMember(User.Id, tid.Value);
-            //}
-            
-
-            LoadTeams();
+            Teams = new ObservableCollection<Team>();
+            await UserDataService.GetUserAsync()
+                .ContinueWith((task) =>
+                {
+                    if (task.Exception != null)
+                    {
+                        User = task.Result;
+                        LoadTeams();
+                    }
+                });
         }
 
-        //TODO user and userviewmodel impl fix
         private async void LoadTeams() {
-            Teams = await TeamService.GetAllTeamsByUserId(User.Id);
-            Console.WriteLine(string.Join(",", Teams));
-        }
+            // Load all teams with the current user id
+            var teams = await MessengerService.LoadTeams(User.Id);
 
-        public async void NewTeam(string name) {
-            uint? tid = await TeamService.CreateTeam(name);
-            if(tid != null)
+            // Add to the view
+            Teams.Clear();
+            foreach (var item in teams)
             {
-                await TeamService.AddMember(User.Id, tid.Value);
-                LoadTeams();
+                Teams.Add(item);
             }
         }
 
+        public async void NewTeam(string name) {
+            await MessengerService.CreateTeam(User.Id, name);
+        }
     }
 }
