@@ -18,7 +18,7 @@ namespace Messenger.ConsoleMessenger
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Build())
                 .Enrich.FromLogContext()
-                .WriteTo.Console()
+                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
                 .CreateLogger();
 
             Log.Logger.Information("Setting up the application...");
@@ -35,6 +35,7 @@ namespace Messenger.ConsoleMessenger
             // Create the instance of MessengerApp with the dependencies
             var app = ActivatorUtilities.CreateInstance<MessengerApp>(host.Services);
             app.Run();
+            Console.ReadKey();
         }
 
         /// <summary>
