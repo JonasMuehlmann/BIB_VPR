@@ -11,7 +11,85 @@
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
 
+            <Border
+                x:Name="addUserBorder"
+                VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{ThemeResource SystemAccentColor}"
+                    BorderThickness="1"
+                    CornerRadius="3" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBox x:Uid="Team_NewTeam"
+                   x:Name="SearchField"
+                         PlaceholderText="Add user"
+                   Height="30"
+                   Margin="-1"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"/>
+                    <ListView>
+                        <Border VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
+                            BorderThickness="1"
+                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
+                            <Grid VerticalAlignment="Center">
+                                <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
+                                    <Grid>
+                                        <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                              StrokeThickness="1.5"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"></Line>
+                                        <Line Stroke="{ThemeResource SystemAccentColor}" X1="1" X2="1" Y1="0" Y2="15"
+                                              StrokeThickness="1.5"
+                                              Margin="0,0.4,8,0"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"></Line>
+                                    </Grid>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </ListView>
+                </StackPanel>
+            </Border>
 
+            <Border
+                x:Name="removeUserBorder"
+                VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{ThemeResource SystemAccentColor}"
+                    BorderThickness="1"
+                    CornerRadius="3">
+                <StackPanel>
+                    <TextBox x:Uid="Team_NewTeam"
+                         PlaceholderText="Add user"
+                   Height="30"
+                   Margin="-1"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"/>
+                    <ListView>
+                        <Border VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
+                            BorderThickness="1"
+                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
+                            <Grid VerticalAlignment="Center">
+                                <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
+                                    <Grid>
+                                        <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                              StrokeThickness="1.5"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"></Line>
+                                    </Grid>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </ListView>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Page>
