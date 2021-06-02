@@ -47,13 +47,13 @@ namespace Messenger.Core.Services
 
 
         /// <summary>
-        /// Lists all private chats starting with the last private in which a message was sent
+        /// Lists all private chats starting with the last private chat in which a message was sent
         /// </summary>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllPrivateChats()
         {
             string query = @"SELECT t.TeamId, t.CreationDate 
-                            FROM Teams t,  Messages mes 
+                            FROM Teams t,  Messages m 
                             WHERE TeamName IS NULL;
                             AND t.TeamId = m.RecipientId
                             ORDER BY m.CeationTime DESC;";
