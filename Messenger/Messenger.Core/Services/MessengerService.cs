@@ -58,9 +58,14 @@ namespace Messenger.Core.Services
         /// Registers the action from the view model to signal-r event
         /// </summary>
         /// <param name="onMessageReceived">Action to run upon receiving a message</param>
-        public void RegisterListener(Action<Message> onMessageReceived)
+        public void RegisterListenerForMessages(Action<Message> onMessageReceived)
         {
             SignalRService.MessageReceived += onMessageReceived;
+        }
+
+        public void RegisterListenerForInvites(Action<uint> onInviteReceived)
+        {
+            SignalRService.InviteReceived += onInviteReceived;
         }
 
         #endregion
@@ -125,16 +130,24 @@ namespace Messenger.Core.Services
         /// <param name="memberId">User id to add</param>
         /// <param name="teamId">Team to be added</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> AddMember(string memberId, uint teamId)
+        public async Task<bool> AddMember(string userId, uint teamId)
         {
-            if (string.IsNullOrWhiteSpace(memberId))
+            if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.AddMember), "invalid member id");
                 return false;
             }
 
             // Create membership for the user and save to database
-            await TeamService.AddMember(memberId, teamId);
+            await TeamService.AddMember(userId, teamId);
+
+            return true;
+        }
+
+        public async Task<bool> JoinHub(string userId, string teamId)
+        {
+            // Listen for messages of the team
+            await SignalRService.AddToTeam(userId, teamId.ToString());
 
             return true;
         }
