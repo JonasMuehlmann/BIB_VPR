@@ -22,7 +22,7 @@ namespace Messenger.Core.Services
         /// <returns>The teamId of the created Team</returns>
         public async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
-            uint? teamID = null;
+            uint teamID;
             // Add myself and other user as members
            try
            {
@@ -35,15 +35,46 @@ namespace Messenger.Core.Services
                var team = command.ExecuteScalar();
 
                teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);              
-               await AddMember(myUserId, Convert.ToUInt32(teamID));
-               await AddMember(otherUserId, Convert.ToUInt32(teamID));
+               await AddMember(myUserId, teamID);
+               await AddMember(otherUserId, teamID);
            }catch (SqlException e)
            {
                Debug.WriteLine($"Database Exception: {e.Message}");
+               return null;
            }
            return teamID;
         }
-        
-        
+
+
+        /// <summary>
+        /// Lists all private chats starting with the last private in which a message was sent
+        /// </summary>
+        /// <returns>An enumerable of Team objects</returns>
+        public async Task<IEnumerable<Team>> GetAllPrivateChats()
+        {
+            string query = @"SELECT t.TeamId, t.CreationDate 
+                            FROM Teams t,  Messages mes 
+                            WHERE TeamName IS NULL;
+                            AND t.TeamId = m.RecipientId
+                            ORDER BY m.CeationTime DESC;";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    return SqlHelpers
+                        .MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, connection));
+                }
+            }
+            catch (SqlException e)
+            {
+                HandleException(e);
+                return null;
+            }
+        }
+
+
     }
 }
