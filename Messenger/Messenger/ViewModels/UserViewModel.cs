@@ -13,7 +13,7 @@ namespace Messenger.ViewModels
         private string _bio;
         private string _mail;
         private BitmapImage _photo;
-
+        private string _connectionId;
         private string _id;
 
         public string Id
@@ -50,6 +50,12 @@ namespace Messenger.ViewModels
         {
             get => _photo;
             set => Set(ref _photo, value);
+        }
+
+        public string ConnectionId
+        {
+            get { return _connectionId; }
+            set { _connectionId = value; }
         }
 
         public UserViewModel()
