@@ -18,6 +18,7 @@ namespace Messenger.ViewModels
 
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+        private UserService UserService => Singleton<UserService>.Instance;
 
         private Message _message;
         private bool _isConnected;
@@ -149,6 +150,7 @@ namespace Messenger.ViewModels
             Messages.Clear();
             foreach (var message in messages)
             {
+                message.Sender = await UserService.GetUser(message.SenderId);
                 Messages.Add(message);
             }
         }
@@ -170,9 +172,10 @@ namespace Messenger.ViewModels
 
         #region Helpers
 
-        private void AddMessageToCollection(Message message)
+        private async void AddMessageToCollection(Message message)
         {
-            uint team = message.RecipientId;
+            var team = message.RecipientId;
+            message.Sender = await UserService.GetUser(message.SenderId);
 
             // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
