@@ -68,15 +68,8 @@ namespace Messenger.ViewModels
 
         private async void InitAsync() {
             Teams = new ObservableCollection<Team>();
-            await UserDataService.GetUserAsync()
-                .ContinueWith((task) =>
-                {
-                    if (task.Exception != null)
-                    {
-                        User = task.Result;
-                        LoadTeams();
-                    }
-                });
+            User = await UserDataService.GetUserAsync();
+            LoadTeams();
         }
 
         private async void LoadTeams() {

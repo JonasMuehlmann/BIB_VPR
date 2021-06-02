@@ -28,6 +28,8 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false on error</returns>
         public async Task<bool> Initialize(string userId)
         {
+            await SignalRService.Open();
+
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -44,8 +46,6 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            // Subscribe to corresponding hub groups
-            await SignalRService.Open();
             foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
             {
                 await SignalRService.JoinTeam(teamId);
@@ -147,6 +147,11 @@ namespace Messenger.Core.Services
         public async Task<IEnumerable<Team>> LoadTeams(string userId)
         {
             return await TeamService.GetAllTeamsByUserId(userId);
+        }
+
+        public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
+        {
+            return await MessageService.RetrieveMessages(teamId);
         }
 
         #endregion

@@ -17,6 +17,8 @@ namespace Messenger.ViewModels
         #region Private
 
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
+        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+        private UserService UserService => Singleton<UserService>.Instance;
 
         private Message _message;
         private bool _isConnected;
@@ -125,65 +127,32 @@ namespace Messenger.ViewModels
         #endregion
 
         /// <summary>
-        /// ChatHubViewModel should only be created through the factory method below
+        /// ChatHubViewModel connects to signal-r hub and listens for messages
         /// </summary>
-        private ChatHubViewModel()
+        public ChatHubViewModel()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<Message>>();
+            Messages = new ObservableCollection<Message>();
+
+            CurrentTeamId = 1;
 
             // Bind to "ReceiveMessage" event
             MessengerService.RegisterListener(OnMessageReceived);
+
+            LoadAsync();
         }
 
-        /// <summary>
-        /// Returns SignalRHubViewModel with the pre-configured connection
-        /// </summary>
-        /// <returns>ChatHubViewModel with the connection to SignalR-service</returns>
-        public static ChatHubViewModel CreateAndConnect()
+        public async void LoadAsync()
         {
-            ChatHubViewModel viewModel = new ChatHubViewModel();
+            User = await UserDataService.GetUserAsync();
 
-            viewModel
-                .Initialize()
-                .ContinueWith(task =>
-                {
-                    if (viewModel.IsConnected)
-                    {
-                        Debug.WriteLine("Connected to the hub.");
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Failed to connect.");
-                    }
-                });
-
-            return viewModel;
-        }
-
-        /// <summary>
-        /// Loads the current user data and initialize messenger service with the user id
-        /// </summary>
-        /// <returns>Task to be awaited</returns>
-        public Task Initialize()
-        {
-            return Singleton<UserDataService>.Instance
-                .GetUserAsync()
-                .ContinueWith((task) =>
-                {
-                    if (task.Exception != null)
-                    {
-                        ErrorMessage = "Unable to fetch user data";
-                        IsConnected = false;
-                    }
-                    else
-                    {
-                        User = task.Result;
-
-                        // Initialize messenger service upon success
-                        MessengerService.Initialize(User.Id).Wait();
-                        IsConnected = true;
-                    }
-                });
+            var messages = await MessengerService.LoadMessages(CurrentTeamId);
+            Messages.Clear();
+            foreach (var message in messages)
+            {
+                message.Sender = await UserService.GetUser(message.SenderId);
+                Messages.Add(message);
+            }
         }
 
         #region Events
@@ -196,14 +165,31 @@ namespace Messenger.ViewModels
         {
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
 
+            AddMessageToCollection(message);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private async void AddMessageToCollection(Message message)
+        {
+            var team = message.RecipientId;
+            message.Sender = await UserService.GetUser(message.SenderId);
+
             // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
-                message.RecipientId,
+                team,
                 new ObservableCollection<Message>() { message },
                 (key, collection) => {
                     collection.Add(message);
                     return collection;
                 });
+
+            if (team == CurrentTeamId)
+            {
+                Messages.Add(message);
+            }
         }
 
         #endregion

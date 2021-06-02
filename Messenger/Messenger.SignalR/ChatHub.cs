@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
@@ -14,62 +15,6 @@ namespace Messenger.SignalR
     /// </summary>
     public class ChatHub : Hub
     {
-        /// <summary>
-        /// Global cache dictionary for connected users
-        /// Maps the user name to the list of connection ids which are created when connecting to the hub(multiple connections are allowed)
-        /// </summary>
-        public static ConcurrentDictionary<string, List<string>> ConnectedUsers = new ConcurrentDictionary<string, List<string>>();
-
-        /// <summary>
-        /// Adds a current connection to the global cache dictionary
-        /// </summary>
-        /// <returns>Task to be awaited</returns>
-        public override Task OnConnectedAsync()
-        {
-            Trace.TraceInformation($"MapHub started. ID: {Context.ConnectionId}");
-
-            string username = Context.User.Identity.Name;
-
-            // Try to get a list of existing user connections from the cache
-            List<string> userConnectionIds;
-            ConnectedUsers.TryGetValue(username, out userConnectionIds);
-
-            // First user connection
-            if (userConnectionIds == null)
-            {
-                userConnectionIds = new List<string>();
-            }
-
-            // Add current connection id
-            userConnectionIds.Add(Context.ConnectionId);
-            
-            // Update global dictionary of connected users
-            ConnectedUsers.TryAdd(username, userConnectionIds);
-
-            return base.OnConnectedAsync();
-        }
-
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            string username = Context.User.Identity.Name;
-
-            List<string> userConnectionIds;
-            ConnectedUsers.TryGetValue(username, out userConnectionIds);
-
-            // Remove current connection id from the list of the current user connections
-            userConnectionIds.Remove(Context.ConnectionId);
-
-            // If there are no more connections for the user,
-            // remove the user from the global dictionary
-            if (userConnectionIds.Count == 0)
-            {
-                List<string> garbage; // to be collected by the garbage collector
-                ConnectedUsers.TryRemove(username, out garbage);
-            }
-
-            return base.OnDisconnectedAsync(exception);
-        }
-
         /// <summary>
         /// Adds the current connection id to a client group on the hub
         /// </summary>
@@ -100,7 +45,7 @@ namespace Messenger.SignalR
         {
             string groupName = message.RecipientId.ToString();
             
-            await Clients.GroupExcept(groupName, Context.ConnectionId).SendAsync("ReceiveMessage", message);
+            await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
         }
     }
 }

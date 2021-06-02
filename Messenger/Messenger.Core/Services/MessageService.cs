@@ -17,14 +17,27 @@ namespace Messenger.Core.Services
         ///<param name="message">The content of the message</param>
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        public async Task<uint?> CreateMessage(uint recipientId, string senderId, string message, uint? parentMessageId = null)
+        public async Task<uint?> CreateMessage(uint recipientsId, string senderId, string message, uint? parentMessageId = null)
         {
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate) VALUES({recipientId}, '{senderId}', {parentMessageId}, '{message}', GETDATE(); SELECT SCOPE_IDENTITY();";
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
 
+                string query = $"INSERT INTO Messages " +
+                        $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId) " +
+                        $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE()";
+
+                if (parentMessageId != null)
+                {
+                    query += $", {parentMessageId}) ";
+                }    
+                else
+                {
+                    query += ", NULL); ";
+                }
+                query += "SELECT SCOPE_IDENTITY();";
+
+                SqlCommand scalarQuery = new SqlCommand(query, connection);
                 var result = scalarQuery.ExecuteScalar();
 
                 return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
@@ -41,10 +54,10 @@ namespace Messenger.Core.Services
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"SELECT * FROM Messages Messages.RecipientsId = {teamId};";
+                string query = $"SELECT * FROM Messages WHERE RecipientId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                return SqlHelpers .MapToList(Mapper.MessageFromDataRow, adapter);
+                return SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
             }
         }
     }
