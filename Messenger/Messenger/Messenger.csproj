@@ -152,6 +152,8 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
+    <Compile Include="Commands\Messenger\SwitchTeamCommand.cs" />
+    <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\SampleDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\ChatHubViewModel.cs" />
     <Compile Include="ViewModels\ContentGridDetailViewModel.cs" />
     <Compile Include="ViewModels\ContentGridViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
@@ -303,6 +306,7 @@
     <None Include="App.config" />
     <None Include="Messenger_TemporaryKey.pfx" />
     <None Include="Settings.XamlStyler" />
+    <PRIResource Include="Strings\kr-KR\Resources.resw" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
