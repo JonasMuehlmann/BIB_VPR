@@ -33,6 +33,8 @@ namespace Messenger.Core.Services
         /// </summary>
         public event Action<Message> MessageReceived;
 
+        public event Action<uint> InviteReceived;
+
         public SignalRService()
         {
             _connection = new HubConnectionBuilder()
@@ -44,6 +46,7 @@ namespace Messenger.Core.Services
                 .Build();
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
+            _connection.On<uint>("InviteReceived", (teamId) => InviteReceived?.Invoke(teamId));
         }
 
         /// <summary>
@@ -106,6 +109,11 @@ namespace Messenger.Core.Services
         public async Task SendMessage(Message message)
         {
             await _connection.SendAsync("SendMessage", message);
+        }
+
+        public async Task AddToTeam(string connectionId, string teamId)
+        {
+            await _connection.SendAsync("AddToTeam", connectionId, teamId);
         }
 
         #region Helpers
