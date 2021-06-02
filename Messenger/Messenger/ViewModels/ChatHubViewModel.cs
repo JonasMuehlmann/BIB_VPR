@@ -137,7 +137,9 @@ namespace Messenger.ViewModels
             CurrentTeamId = 1;
 
             // Bind to "ReceiveMessage" event
-            MessengerService.RegisterListener(OnMessageReceived);
+            MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            // Bind to "ReceiveInvite" event
+            MessengerService.RegisterListenerForInvites(OnInviteReceived);
 
             LoadAsync();
         }
@@ -166,6 +168,11 @@ namespace Messenger.ViewModels
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
 
             AddMessageToCollection(message);
+        }
+
+        private async void OnInviteReceived(uint teamId)
+        {
+            await MessengerService.JoinTeam(User.Id, teamId.ToString());
         }
 
         #endregion
