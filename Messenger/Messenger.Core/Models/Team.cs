@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
-
+using System.Text;
 
 namespace Messenger.Core.Models
 {
     public class Team
     {
+        public List<TeamChannel> Channels { get; set; }
+
         public uint Id { get; set; }
 
         public string Name { get; set; }
@@ -20,6 +22,7 @@ namespace Messenger.Core.Models
         {
             Name = "";
             Description = "";
+            Members = new List<User>();
         }
 
         public override string ToString()

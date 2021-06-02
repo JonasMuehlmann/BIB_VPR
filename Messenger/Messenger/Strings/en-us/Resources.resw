@@ -251,4 +251,24 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>Log out</value>
     <comment>Settings LogOut user content</comment>
   </data>
+  <data name="Chat_NewChat.PlaceholderText" xml:space="preserve">
+    <value>New chat</value>
+    <comment>Start new chat</comment>
+  </data>
+  <data name="Team_NewTeam.PlaceholderText" xml:space="preserve">
+    <value>Teamname</value>
+    <comment>Add some new Team name</comment>
+  </data>
+  <data name="Chat_MessageSend.PlaceholderText" xml:space="preserve">
+    <value>Enter some Message</value>
+    <comment>Message enter box</comment>
+  </data>
+  <data name="Chat_React.Text" xml:space="preserve">
+    <value>React</value>
+    <comment>React text</comment>
+  </data>
+  <data name="Chat_Reply.Text" xml:space="preserve">
+    <value>Reply</value>
+    <comment>Reply text</comment>
+  </data>
 </root>

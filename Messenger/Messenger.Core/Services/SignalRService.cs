@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace Messenger.Core.Services
 
         private const string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
         
-        private readonly HubConnection _connection;
+        private HubConnection _connection;
 
         #endregion
 
@@ -23,14 +24,7 @@ namespace Messenger.Core.Services
         {
             get
             {
-                if (_connection.State == HubConnectionState.Connected)
-                {
-                    return _connection.ConnectionId;
-                }
-                else
-                {
-                    return null;
-                }
+                return _connection.ConnectionId;
             }
         }
 
@@ -43,6 +37,10 @@ namespace Messenger.Core.Services
         {
             _connection = new HubConnectionBuilder()
                 .WithUrl(HUB_URL)
+                .ConfigureLogging(log =>
+                {
+                    log.AddConsole();
+                })
                 .Build();
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
@@ -56,11 +54,14 @@ namespace Messenger.Core.Services
         {
             try
             {
-                await _connection.StartAsync();
+                if (_connection.State == HubConnectionState.Disconnected)
+                {
+                    await _connection.StartAsync();
+                }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Signal-R Exception: {e.Message}");
+                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.Open)} : {e.Message}");
             }
         }
 
@@ -76,7 +77,7 @@ namespace Messenger.Core.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Signal-R Exception: {e.Message}");
+                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.Close)} : {e.Message}");
             }
         }
 
@@ -87,7 +88,14 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task JoinTeam(string teamId)
         {
-            await _connection.SendAsync("JoinTeam", teamId);
+            try
+            {
+                await _connection.SendAsync("JoinTeam", teamId);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.JoinTeam)} : {e.Message}");
+            }
         }
 
         /// <summary>
@@ -99,5 +107,28 @@ namespace Messenger.Core.Services
         {
             await _connection.SendAsync("SendMessage", message);
         }
+
+        #region Helpers
+
+        private async Task Reconnect(Exception e)
+        {
+            await Task.Delay(500);
+            _connection = await CreateHubConnection();
+            await _connection.StartAsync();
+        }
+
+        private async Task<HubConnection> CreateHubConnection()
+        {
+            HubConnection hubConnection = new HubConnectionBuilder()
+                .WithUrl(HUB_URL)
+                .Build();
+
+            hubConnection.Closed += Reconnect;
+
+            await hubConnection.StartAsync();
+            return hubConnection;
+        }
+
+        #endregion
     }
 }

@@ -24,8 +24,9 @@ namespace Messenger.Core.Models
         /// <summary>
         /// Null in case of a Top-level message
         /// </summary>
-
         public uint? ParentMessageId { get; set; }
+
+        public User Sender { get; set; }
 
         public Message()
         {

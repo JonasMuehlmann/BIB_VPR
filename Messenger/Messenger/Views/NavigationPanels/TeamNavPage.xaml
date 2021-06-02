@@ -1,0 +1,74 @@
+﻿<Page xmlns:my="using:Microsoft.UI.Xaml.Controls" 
+    x:Class="Messenger.Views.TeamNavPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="using:Microsoft.Xaml.Interactivity" xmlns:behaviors="using:Messenger.Behaviors" xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:model="using:Messenger.Core.Models" xmlns:templateSelectors="using:Messenger.TemplateSelectors"
+      Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
+            <my:TreeViewItem
+                AutomationProperties.Name="{x:Bind Name}"
+                ItemsSource="{x:Bind Channels}" IsExpanded="False">
+                <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+            </my:TreeViewItem>
+        </DataTemplate>
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:TeamChannel">
+            <my:TreeViewItem
+                AutomationProperties.Name="{x:Bind ChannelName}">
+                <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+            </my:TreeViewItem>
+        </DataTemplate>
+
+        <templateSelectors:TeamDataTemplateSelector x:Key="TreeViewTemplateSelector"
+            TeamTemplate="{StaticResource TeamTemplate}"
+            TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
+    </Page.Resources>
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+        <ScrollViewer>
+            <StackPanel Margin="0,0,0, 20">
+                <my:TreeView
+                x:Name="treeView"
+                Grid.Row="1"
+                SelectionMode="Single"
+                ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
+                ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}">
+
+                    <i:Interaction.Behaviors>
+                        <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
+                        <ic:EventTriggerBehavior EventName="ItemInvoked">
+                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </my:TreeView>
+
+                <TextBox x:Uid="Team_NewTeam"
+                   x:Name="SearchField"
+                   Height="30"
+                   HorizontalAlignment="Stretch"
+                   Margin="5"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"
+                   KeyDown="NewTeam_KeyDown"
+                   Visibility="Collapsed"/>
+            </StackPanel>
+        </ScrollViewer>
+        <Button x:Name="newChat"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="17"
+                BorderThickness="0.8"
+                Background="Transparent"
+                BorderBrush="Black"
+                Click="NewTeam_Click"
+                Margin="20 10 10 10"
+                >
+
+            <SymbolIcon Symbol="Add"
+                        Opacity="0.9"/>
+        </Button>
+    </Grid>
+</Page>

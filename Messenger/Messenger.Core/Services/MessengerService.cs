@@ -1,6 +1,7 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,10 +25,9 @@ namespace Messenger.Core.Services
         /// Connects the given user to the teams he is a member of
         /// </summary>
         /// <param name="userId">The user to connect to his teams</param>
-        /// <returns>true on success, false on invalid user id (error will be handled in each service)</returns>
+        /// <returns>True on success, false on error</returns>
         public async Task<bool> Initialize(string userId)
         {
-            // Open the connection to hub
             await SignalRService.Open();
 
             // Check the validity of user id
@@ -46,7 +46,6 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            // Subscribe to corresponding hub groups
             foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
             {
                 await SignalRService.JoinTeam(teamId);
@@ -115,6 +114,7 @@ namespace Messenger.Core.Services
 
             // Create and join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
+            await AddMember(creatorId, (uint)teamId);
 
             return true;
         }
@@ -137,6 +137,21 @@ namespace Messenger.Core.Services
             await TeamService.AddMember(memberId, teamId);
 
             return true;
+        }
+
+        /// <summary>
+        /// Load all teams those the current user has membership of
+        /// </summary>
+        /// <param name="userId">Current user id</param>
+        /// <returns>List of teams</returns>
+        public async Task<IEnumerable<Team>> LoadTeams(string userId)
+        {
+            return await TeamService.GetAllTeamsByUserId(userId);
+        }
+
+        public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
+        {
+            return await MessageService.RetrieveMessages(teamId);
         }
 
         #endregion

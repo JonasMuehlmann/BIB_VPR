@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="Messenger.Views.ChatNavPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:model="using:Messenger.Core.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea"  Margin="{StaticResource MediumLeftMargin}">
+        <StackPanel>
+            <ListView x:Name="itemListView"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top"
+                  Height="auto"
+                  Width="auto"
+                  ItemsSource="{x:Bind ViewModel.User.Userlist}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <SymbolIcon Symbol="Comment"/>
+                            <TextBlock  Text="{Binding}" Padding="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBox x:Uid="Chat_NewChat"
+                     x:Name="SearchField"
+                   Height="30"
+                   HorizontalAlignment="Stretch"
+                   Margin="5"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"
+                   Visibility="Collapsed"
+                   />
+        </StackPanel>
+        <Button x:Name="newChat"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="17"
+                BorderThickness="0.8"
+                Background="Transparent"
+                BorderBrush="Black"
+                Click="NewChat_Click"
+                Margin="20 10 10 10"
+                >
+
+            <SymbolIcon Symbol="Add"
+                        Opacity="0.9"
+                        />
+        </Button>
+    </Grid>
+</Page>
