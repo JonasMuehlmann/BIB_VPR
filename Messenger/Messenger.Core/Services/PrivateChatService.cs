@@ -20,9 +20,9 @@ namespace Messenger.Core.Services
         /// <param name="myUserId">user-Id of the Creator</param>
         /// <param name="otherUserId">user-Id of the other Person</param>
         /// <returns>The teamId of the created Team</returns>
-        public async Task<int> CreatePrivateChat(string myUserId, string otherUserId)
+        public async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
-            int teamID = -1;
+            uint? teamID = null;
             // Add myself and other user as members
            try
            {
@@ -32,10 +32,11 @@ namespace Messenger.Core.Services
             
             
                SqlCommand command = new SqlCommand(query, GetConnection());
-               teamID = (int)command.ExecuteScalar();
-               
-               AddMember(myUserId, teamID);
-               AddMember(otherUserId, teamID);
+               var team = command.ExecuteScalar();
+
+               teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);              
+               await AddMember(myUserId, Convert.ToUInt32(teamID));
+               await AddMember(otherUserId, Convert.ToUInt32(teamID));
            }catch (SqlException e)
            {
                Debug.WriteLine($"Database Exception: {e.Message}");
