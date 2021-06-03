@@ -1,12 +1,13 @@
-﻿using Messenger.Core.Helpers;
-using Messenger.Core.Models;
-using Messenger.Core.Services;
-using Messenger.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
+using Messenger.Core.Helpers;
+using Messenger.Core.Models;
+using Messenger.Core.Services;
+using Messenger.ViewModels;
 
 namespace Messenger.Services
 {
@@ -75,8 +76,10 @@ namespace Messenger.Services
                 return null;
             }
 
+            uint teamId = (uint)CurrentTeamId;
+
             // Checks the cache if the messages has been loaded for the team
-            if (MessagesByConnectedTeam.TryGetValue((uint)CurrentTeamId, out List<Message> fromCache))
+            if (MessagesByConnectedTeam.TryGetValue(teamId, out List<Message> fromCache))
             {
                 // Loads from cache
                 return fromCache;
@@ -84,7 +87,10 @@ namespace Messenger.Services
             else
             {
                 // Loads from database
-                return await MessengerService.LoadMessages((uint)CurrentTeamId);
+                var fromDb = await MessengerService.LoadMessages(teamId);
+                CreateEntryForCurrentTeam(fromDb);
+
+                return fromDb;
             }
         }
 
@@ -132,6 +138,8 @@ namespace Messenger.Services
             TeamSwitched?.Invoke(this, await GetMessages());
         }
 
+        #region Events
+
         /// <summary>
         /// Loads the sender information and saves the message to the cache
         /// Fires on "ReceiveMessage"
@@ -140,8 +148,8 @@ namespace Messenger.Services
         /// <param name="message">Received message object</param>
         private async void OnMessageReceived(object sender, Message message)
         {
-            Debug.WriteLine($"ChatHubService.{nameof(this.OnMessageReceived)}::" +
-                $"{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
+            Debug.WriteLine($"{nameof(ChatHubService)}.{nameof(this.OnMessageReceived)} :: " +
+                $"{message.Content} From {message.SenderId} To Team #{message.RecipientId} :: {message.CreationTime}");
 
             var teamId = message.RecipientId;
 
@@ -152,9 +160,10 @@ namespace Messenger.Services
             MessagesByConnectedTeam.AddOrUpdate(
                 teamId,
                 new List<Message>() { message },
-                (key, collection) => {
-                    collection.Add(message);
-                    return collection;
+                (key, list) =>
+                {
+                    list.Add(message);
+                    return list;
                 });
 
             // Invoke registered ui events
@@ -168,11 +177,47 @@ namespace Messenger.Services
         /// <param name="teamId">Id of the team that the user was invited to</param>
         private void OnInvitationReceived(object sender, uint teamId)
         {
-            Debug.WriteLine($"ChatHubService.{nameof(this.OnInvitationReceived)}::" +
-                $"Invitation To Team #{teamId}");
+            Debug.WriteLine($"{nameof(ChatHubService)}.{nameof(this.OnInvitationReceived)} :: " +
+                $"Invited To Team #{teamId} :: Listening to Hub #{teamId}");
 
             // Invoke registered ui events
             InvitationReceived?.Invoke(this, teamId);
         }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Safely creates a new entry in concurrent dictionary for a team
+        /// </summary>
+        /// <param name="messages">List of messages to initialize with</param>
+        private void CreateEntryForCurrentTeam(IEnumerable<Message> messages)
+        {
+            MessagesByConnectedTeam.AddOrUpdate(
+                (uint)CurrentTeamId,
+                (key) =>
+                {
+                    List<Message> list = new List<Message>();
+                    foreach (var message in messages)
+                    {
+                        list.Add(message);
+                    }
+
+                    return list;
+                },
+                (key, list) =>
+                {
+                    list.Clear();
+                    foreach (var message in messages)
+                    {
+                        list.Add(message);
+                    }
+
+                    return list;
+                });
+        }
+
+        #endregion
     }
 }
