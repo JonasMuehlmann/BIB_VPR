@@ -46,7 +46,7 @@ namespace Messenger.Core.Services
                 .Build();
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
-            _connection.On<uint>("InviteReceived", (teamId) => InviteReceived?.Invoke(teamId));
+            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(teamId));
         }
 
         /// <summary>
