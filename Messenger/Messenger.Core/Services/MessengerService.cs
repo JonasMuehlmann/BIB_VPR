@@ -58,12 +58,12 @@ namespace Messenger.Core.Services
         /// Registers the action from the view model to signal-r event
         /// </summary>
         /// <param name="onMessageReceived">Action to run upon receiving a message</param>
-        public void RegisterListenerForMessages(Action<Message> onMessageReceived)
+        public void RegisterListenerForMessages(EventHandler<Message> onMessageReceived)
         {
             SignalRService.MessageReceived += onMessageReceived;
         }
 
-        public void RegisterListenerForInvites(Action<uint> onInviteReceived)
+        public void RegisterListenerForInvites(EventHandler<uint> onInviteReceived)
         {
             SignalRService.InviteReceived += onInviteReceived;
         }
