@@ -31,9 +31,9 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>
-        public event Action<Message> MessageReceived;
+        public event EventHandler<Message> MessageReceived;
 
-        public event Action<uint> InviteReceived;
+        public event EventHandler<uint> InviteReceived;
 
         public SignalRService()
         {
@@ -45,8 +45,8 @@ namespace Messenger.Core.Services
                 })
                 .Build();
 
-            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
-            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(teamId));
+            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
+            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
         }
 
         /// <summary>
