@@ -23,24 +23,14 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                string query = $"INSERT INTO Messages " +
-                        $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId) " +
-                        $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE()";
+                string correctedParentMessageId = parentMessageId is null ? "NULL" : Convert.ToString(parentMessageId);
 
-                if (parentMessageId != null)
-                {
-                    query += $", {parentMessageId}) ";
-                }    
-                else
-                {
-                    query += ", NULL); ";
-                }
-                query += "SELECT SCOPE_IDENTITY();";
+                string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate)"
+                             + $"VALUES({recipientsId}, '{senderId}', {correctedParentMessageId}, '{message}', GETDATE()); SELECT SCOPE_IDENTITY();";
 
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
-                var result = scalarQuery.ExecuteScalar();
 
-                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                return Convert.ToUInt32(scalarQuery.ExecuteScalar());
             }
         }
 
