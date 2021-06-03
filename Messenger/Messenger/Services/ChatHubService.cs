@@ -5,6 +5,7 @@ using Messenger.ViewModels;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Messenger.Services
@@ -19,16 +20,26 @@ namespace Messenger.Services
 
         #endregion
 
+        #region Properties
+
         public ConcurrentDictionary<uint, List<Message>> MessagesByConnectedTeam { get; }
 
         public uint? CurrentTeamId { get; set; }
 
         public UserViewModel CurrentUser { get; private set; }
 
+        #endregion
+
         #region Event Handlers
 
+        /// <summary>
+        /// Event handler for "ReceiveMessage"
+        /// </summary>
         public event EventHandler<Message> MessageReceived;
 
+        /// <summary>
+        /// Event handler for "ReceiveInvitation"
+        /// </summary>
         public event EventHandler<uint> InvitationReceived;
 
         #endregion
@@ -44,12 +55,14 @@ namespace Messenger.Services
         {
             CurrentUser = await UserDataService.GetUserAsync();
 
-            MessengerService.RegisterListenerForMessages(MessageReceived);
-            MessengerService.RegisterListenerForInvites(InvitationReceived);
-
-            MessageReceived += OnMessageReceived;
+            MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            MessengerService.RegisterListenerForInvites(OnInvitationReceived);
         }
 
+        /// <summary>
+        /// Gets all messages of the current team
+        /// </summary>
+        /// <returns>List of messages</returns>
         public async Task<IEnumerable<Message>> GetMessages()
         {
             if (CurrentTeamId == null)
@@ -70,6 +83,10 @@ namespace Messenger.Services
             }
         }
 
+        /// <summary>
+        /// Gets the list of teams of the current user
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Team>> GetTeamsList()
         {
             if (CurrentUser == null)
@@ -80,6 +97,11 @@ namespace Messenger.Services
             return await MessengerService.LoadTeams(CurrentUser.Id);
         }
 
+        /// <summary>
+        /// Sends a message to the current team
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public async Task SendMessage(string content)
         {
             var message = new Message()
@@ -93,8 +115,17 @@ namespace Messenger.Services
             await MessengerService.SendMessage(message);
         }
 
+        /// <summary>
+        /// Loads the sender information and saves the message to the cache
+        /// Fires on "ReceiveMessage"
+        /// </summary>
+        /// <param name="sender">Service that triggered this event</param>
+        /// <param name="message">Received message object</param>
         private async void OnMessageReceived(object sender, Message message)
         {
+            Debug.WriteLine($"ChatHubService.{nameof(this.OnMessageReceived)}::" +
+                $"{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
+
             var teamId = message.RecipientId;
 
             // Loads user data of the sender
@@ -108,6 +139,23 @@ namespace Messenger.Services
                     collection.Add(message);
                     return collection;
                 });
+
+            // Invoke registered ui events
+            MessageReceived?.Invoke(this, message);
+        }
+
+        /// <summary>
+        /// Fires on "ReceiveInvitation"
+        /// </summary>
+        /// <param name="sender">Service that triggered this event</param>
+        /// <param name="teamId">Id of the team that the user was invited to</param>
+        private void OnInvitationReceived(object sender, uint teamId)
+        {
+            Debug.WriteLine($"ChatHubService.{nameof(this.OnInvitationReceived)}::" +
+                $"Invitation To Team #{teamId}");
+
+            // Invoke registered ui events
+            InvitationReceived?.Invoke(this, teamId);
         }
     }
 }
