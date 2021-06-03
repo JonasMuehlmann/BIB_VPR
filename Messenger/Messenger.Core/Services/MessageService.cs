@@ -54,7 +54,11 @@ namespace Messenger.Core.Services
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"SELECT * FROM Messages WHERE RecipientId = {teamId};";
+                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, " +
+                    $"u.UserId, u.NameId, u.UserName " +
+                    $"FROM Messages m " +
+                    $"LEFT JOIN Users u ON m.SenderId = u.UserId " +
+                    $"WHERE RecipientId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
                 return SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
