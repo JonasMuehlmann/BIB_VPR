@@ -111,6 +111,12 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("SendMessage", message);
         }
 
+        /// <summary>
+        /// Adds the user to the hub group
+        /// </summary>
+        /// <param name="connectionId">Signal-R connection id of the user</param>
+        /// <param name="teamId">Id the of team to add user to</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task AddToTeam(string connectionId, string teamId)
         {
             await _connection.SendAsync("AddToTeam", connectionId, teamId);

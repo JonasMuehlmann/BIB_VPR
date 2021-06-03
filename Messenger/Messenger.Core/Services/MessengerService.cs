@@ -144,14 +144,17 @@ namespace Messenger.Core.Services
             // Create membership for the user and save to database
             await TeamService.AddMember(userId, teamId);
 
-            // Add user to the hub group
-            await SignalRService.AddToTeam(connectionId, teamId.ToString());
+            // Add user to the hub group if the user has connection Id
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                await SignalRService.AddToTeam(connectionId, teamId.ToString());
+            }
 
             return true;
         }
 
         /// <summary>
-        /// Load all teams those the current user has membership of
+        /// Load all teams the current user has membership of
         /// </summary>
         /// <param name="userId">Current user id</param>
         /// <returns>List of teams</returns>
@@ -160,6 +163,11 @@ namespace Messenger.Core.Services
             return await TeamService.GetAllTeamsByUserId(userId);
         }
 
+        /// <summary>
+        /// Load all messages of the team
+        /// </summary>
+        /// <param name="teamId">Id of the team to load messsages from</param>
+        /// <returns>List of messages</returns>
         public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
         {
             return await MessageService.RetrieveMessages(teamId);

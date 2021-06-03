@@ -45,10 +45,10 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Retrieve all Messages of a team/chat.
+        /// Retrieve all Messages of a team/chat with user data of the sender
         /// </summary>
         /// <param name="teamId">The id of a team, whose messages should be retrieved</param>
-        ///<returns>An enumerable of data rows containing the message data</returns>
+        /// <returns>An enumerable of data rows containing the message data</returns>
         public async Task<IList<Message>> RetrieveMessages(uint teamId)
         {
             using (SqlConnection connection = GetConnection())

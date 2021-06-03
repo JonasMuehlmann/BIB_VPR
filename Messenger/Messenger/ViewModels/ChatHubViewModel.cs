@@ -145,6 +145,10 @@ namespace Messenger.ViewModels
             AddMessageToCollection(message);
         }
 
+        /// <summary>
+        /// Fires on "ReceiveInvitation" Hub-method
+        /// </summary>
+        /// <param name="teamId"></param>
         private void OnInviteReceived(uint teamId)
         {
             Debug.WriteLine($"Joined the chat:: Team #{teamId}");
@@ -154,6 +158,10 @@ namespace Messenger.ViewModels
 
         #region Helpers
 
+        /// <summary>
+        /// Asynchronously loads messages either from cache or database
+        /// </summary>
+        /// <param name="teamId">Current team id</param>
         private async void LoadMessages(uint teamId)
         {
             ObservableCollection<Message> fromCache = new ObservableCollection<Message>();
@@ -172,26 +180,37 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Adds the message to the cache
+        /// </summary>
+        /// <param name="message">A complete message object to be added</param>
         private async void AddMessageToCollection(Message message)
         {
-            var team = message.RecipientId;
+            var teamId = message.RecipientId;
+
+            // Loads user data of the sender
             message.Sender = await UserService.GetUser(message.SenderId);
 
             // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
-                team,
+                teamId,
                 new ObservableCollection<Message>() { message },
                 (key, collection) => {
                     collection.Add(message);
                     return collection;
                 });
 
-            if (team == CurrentTeamId)
+            // Adds to the messages list if the message is for the current team 
+            if (teamId == CurrentTeamId)
             {
                 Messages.Add(message);
             }
         }
 
+        /// <summary>
+        /// Updates UI with the given messages
+        /// </summary>
+        /// <param name="messages">List of messages to be updated on the view</param>
         private void UpdateMessagesView(IEnumerable<Message> messages)
         {
             Messages.Clear();
