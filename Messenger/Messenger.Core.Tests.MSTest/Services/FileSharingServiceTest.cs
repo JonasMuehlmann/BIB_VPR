@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using System.IO;
 using System.Data.SqlClient;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
@@ -30,7 +31,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                string fileName = await fileSharingService.Upload(@"/home/jonas/test.txt");
+                string fileName = await fileSharingService.Upload(Path.GetTempFileName());
 
                 bool success = await fileSharingService.Download(fileName);
 
