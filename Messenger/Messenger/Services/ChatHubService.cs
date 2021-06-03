@@ -33,14 +33,19 @@ namespace Messenger.Services
         #region Event Handlers
 
         /// <summary>
-        /// Event handler for "ReceiveMessage"
+        /// Event handler for "ReceiveMessage"(SignalR)
         /// </summary>
         public event EventHandler<Message> MessageReceived;
 
         /// <summary>
-        /// Event handler for "ReceiveInvitation"
+        /// Event handler for "ReceiveInvitation"(SignalR)
         /// </summary>
         public event EventHandler<uint> InvitationReceived;
+
+        /// <summary>
+        /// Event handler for switching teams
+        /// </summary>
+        public event EventHandler<IEnumerable<Message>> TeamSwitched;
 
         #endregion
 
@@ -86,7 +91,7 @@ namespace Messenger.Services
         /// <summary>
         /// Gets the list of teams of the current user
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task<IEnumerable<Team>> GetTeamsList()
         {
             if (CurrentUser == null)
@@ -101,7 +106,7 @@ namespace Messenger.Services
         /// Sends a message to the current team
         /// </summary>
         /// <param name="content"></param>
-        /// <returns></returns>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task SendMessage(string content)
         {
             var message = new Message()
@@ -113,6 +118,18 @@ namespace Messenger.Services
             };
 
             await MessengerService.SendMessage(message);
+        }
+
+        /// <summary>
+        /// Updates current team id and invokes registered ui events
+        /// </summary>
+        /// <param name="teamId">Id of the team to switch to</param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task SwitchTeam(uint teamId)
+        {
+            CurrentTeamId = teamId;
+            // Invokes ui events with the list of messages of the team
+            TeamSwitched?.Invoke(this, await GetMessages());
         }
 
         /// <summary>
