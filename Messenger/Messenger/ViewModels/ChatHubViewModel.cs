@@ -170,9 +170,9 @@ namespace Messenger.ViewModels
             AddMessageToCollection(message);
         }
 
-        private async void OnInviteReceived(uint teamId)
+        private void OnInviteReceived(uint teamId)
         {
-            await MessengerService.JoinTeam(User.Id, teamId.ToString());
+            Debug.WriteLine($"Joined the chat:: Team #{teamId}");
         }
 
         #endregion

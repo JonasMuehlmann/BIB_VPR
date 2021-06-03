@@ -108,7 +108,7 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
-            // Create and save to database
+            // Create team and save to database
             uint? teamId = await TeamService.CreateTeam(teamName, teamDescription);
 
             if (teamId == null)
@@ -116,10 +116,12 @@ namespace Messenger.Core.Services
                 HandleException(nameof(this.CreateTeam), "invalid team id");
                 return false;
             }
+            
+            // Create membership for the creator and save to database
+            await TeamService.AddMember(creatorId, (uint)teamId);
 
-            // Create and join the new hub group of the team
+            // Join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
-            await AddMember(creatorId, (uint)teamId);
 
             return true;
         }
@@ -127,27 +129,23 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Saves new membership to database and add the user to the hub group of the team
         /// </summary>
-        /// <param name="memberId">User id to add</param>
-        /// <param name="teamId">Team to be added</param>
+        /// <param name="userId">User id to add</param>
+        /// <param name="connectionId">Connection id of the user to add</param>
+        /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> AddMember(string userId, uint teamId)
+        public async Task<bool> InviteUser(string userId, string connectionId, uint teamId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
-                HandleException(nameof(this.AddMember), "invalid member id");
+                HandleException(nameof(this.InviteUser), "invalid member id");
                 return false;
             }
 
             // Create membership for the user and save to database
             await TeamService.AddMember(userId, teamId);
 
-            return true;
-        }
-
-        public async Task<bool> JoinHub(string userId, string teamId)
-        {
-            // Listen for messages of the team
-            await SignalRService.AddToTeam(userId, teamId.ToString());
+            // Add user to the hub group
+            await SignalRService.AddToTeam(connectionId, teamId.ToString());
 
             return true;
         }
