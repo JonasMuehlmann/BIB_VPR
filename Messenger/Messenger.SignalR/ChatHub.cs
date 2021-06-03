@@ -33,7 +33,11 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task AddToTeam(string connectionId, string teamId)
         {
+            // Create if no group with the given team id exists
             await Groups.AddToGroupAsync(connectionId, teamId);
+
+            // Notify target client with team id
+            await Clients.Client(connectionId).SendAsync("ReceiveInvitation", Convert.ToUInt32(teamId));
         }
 
         /// <summary>

@@ -45,16 +45,20 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Retrieve all Messages of a team/chat.
+        /// Retrieve all Messages of a team/chat with user data of the sender
         /// </summary>
         /// <param name="teamId">The id of a team, whose messages should be retrieved</param>
-        ///<returns>An enumerable of data rows containing the message data</returns>
+        /// <returns>An enumerable of data rows containing the message data</returns>
         public async Task<IList<Message>> RetrieveMessages(uint teamId)
         {
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"SELECT * FROM Messages WHERE RecipientId = {teamId};";
+                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, " +
+                    $"u.UserId, u.NameId, u.UserName " +
+                    $"FROM Messages m " +
+                    $"LEFT JOIN Users u ON m.SenderId = u.UserId " +
+                    $"WHERE RecipientId = {teamId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
                 return SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);

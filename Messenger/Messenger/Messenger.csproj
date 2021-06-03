@@ -152,7 +152,6 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
-    <Compile Include="Commands\Messenger\SwitchTeamCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />

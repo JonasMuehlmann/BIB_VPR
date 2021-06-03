@@ -111,7 +111,8 @@ namespace Messenger.Services
                 Name = userFromDatabase.DisplayName,
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
-                Photo = userPhoto
+                Photo = userPhoto,
+                ConnectionId = Singleton<SignalRService>.Instance.ConnectionId
             };
         }
 
