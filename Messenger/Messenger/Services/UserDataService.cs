@@ -112,7 +112,7 @@ namespace Messenger.Services
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
                 Photo = userPhoto,
-                Teams = new List<Team>(teams),
+                Teams = teams != null ? new List<Team>(teams) : new List<Team>(),
                 ConnectionId = Singleton<SignalRService>.Instance.ConnectionId
             };
         }
