@@ -55,6 +55,7 @@ namespace Messenger.Services
         private async void OnLoggedIn(object sender, EventArgs e)
         {
             _user = await GetUserFromGraphApiAsync();
+            
             UserDataUpdated?.Invoke(this, _user);
         }
 
@@ -113,7 +114,6 @@ namespace Messenger.Services
                 Mail = userFromDatabase.Mail,
                 Photo = userPhoto,
                 Teams = teams != null ? new List<Team>(teams) : new List<Team>(),
-                ConnectionId = Singleton<SignalRService>.Instance.ConnectionId
             };
         }
 
