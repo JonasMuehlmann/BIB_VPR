@@ -25,8 +25,8 @@ namespace Messenger.Core.Services
         /// Connects the given user to the teams he is a member of
         /// </summary>
         /// <param name="userId">The user to connect to his teams</param>
-        /// <returns>True on success, false on error</returns>
-        public async Task<bool> Initialize(string userId)
+        /// <returns>List of teams the user has membership of, null if none exists</returns>
+        public async Task<IList<Team>> Initialize(string userId)
         {
             await SignalRService.Open();
 
@@ -34,24 +34,26 @@ namespace Messenger.Core.Services
             if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.Initialize), "invalid user id");
-                return false;
+                return null;
             }
 
-            var memberships = await TeamService.GetAllMembershipByUserId(userId);
+            var teams = await TeamService.GetAllTeamsByUserId(userId);
 
-            // Exit if the user has no membership
-            if (memberships.Count <= 0)
+            // Exit if the user has no team
+            if (teams == null || teams.Count() <= 0)
             {
-                HandleException(nameof(this.Initialize), "no membership found");
-                return false;
+                return null;
             }
 
-            foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
+            List<Team> result = new List<Team>();
+            // Join the signal-r hub
+            foreach (var team in teams)
             {
-                await SignalRService.JoinTeam(teamId);
+                await SignalRService.JoinTeam(team.Id.ToString());
+                result.Add(team);
             }
 
-            return true;
+            return result;
         }
 
         /// <summary>
