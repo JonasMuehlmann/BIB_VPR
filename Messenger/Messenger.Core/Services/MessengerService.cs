@@ -19,6 +19,8 @@ namespace Messenger.Core.Services
 
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
+        private FileSharingService FileSharingService => Singleton<FileSharingService>.Instance;
+
         #region Initializers
 
         /// <summary>
@@ -76,8 +78,9 @@ namespace Messenger.Core.Services
         /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
         /// <param name="message">A complete message object to send</param>
+        /// <param name="attachmentFilePaths">An Enumerable of paths of files to attach to the message</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> SendMessage(Message message)
+        public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
             // Check the validity of the message
             if (!ValidateMessage(message))
@@ -86,12 +89,18 @@ namespace Messenger.Core.Services
                 return false;
             }
 
+            foreach (var attachmentFilePath in attachmentFilePaths)
+            {
+                message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+            }
+
             // Save to database
             await MessageService.CreateMessage(
                 message.RecipientId,
                 message.SenderId,
                 message.Content,
-                message.ParentMessageId);
+                message.ParentMessageId,
+                message.AttachmentsBlobName);
 
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
@@ -116,7 +125,7 @@ namespace Messenger.Core.Services
                 HandleException(nameof(this.CreateTeam), "invalid team id");
                 return false;
             }
-            
+
             // Create membership for the creator and save to database
             await TeamService.AddMember(creatorId, (uint)teamId);
 

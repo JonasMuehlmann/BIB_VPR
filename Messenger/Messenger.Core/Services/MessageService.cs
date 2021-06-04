@@ -17,8 +17,13 @@ namespace Messenger.Core.Services
         ///<param name="senderId">The id of the message's sender</param>
         ///<param name="message">The content of the message</param>
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
+        ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        public async Task<uint?> CreateMessage(uint recipientsId, string senderId, string message, uint? parentMessageId = null)
+        public async Task<uint?> CreateMessage(uint recipientsId,
+                                               string senderId,
+                                               string message,
+                                               uint? parentMessageId = null,
+                                               IEnumerable<string> attachmentBlobNames = null)
         {
             try
             {
@@ -26,23 +31,23 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string correctedParentMessageId = parentMessageId is null ? "NULL" : Convert.ToString(parentMessageId);
+                    string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
+                    string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
 
-                    string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate)"
-                                + $"VALUES({recipientsId}, '{senderId}', {correctedParentMessageId}, '{message}', GETDATE()); SELECT SCOPE_IDENTITY();";
+                    string query = $"INSERT INTO Messages " +
+                                   $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentBlobNames) " +
+                                   $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}; SELECT SCOPE_IDENTITY();";
 
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-
-                    var result = scalarQuery.ExecuteScalar();
-
+                    var        result      = scalarQuery.ExecuteScalar();
+                
                     return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
                 }
             }
             catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
-
+                
                 return null;
             }
         }
