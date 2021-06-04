@@ -42,12 +42,20 @@ namespace Messenger.Core.Services
         /// Download a file into the local cache
         /// </summary>
         /// <param name="blobFileName">A blob file to download</param>
+        /// <param name="destinationDirectory">Where to save the file, defaults to the local application cache</param>
         /// <returns>True on success, false otherwise</returns>
-        public async Task<bool> Download(string blobFileName)
+        public async Task<bool> Download(string blobFileName, string destinationDirectory = "")
         {
             try
             {
                 var containerClient = ConnectToContainer();
+
+                // NOTE: destinationDirectory can not be assigned localFileCachePath
+                // as a default because the expression assigning to it is not constant(compile time)
+                if (destinationDirectory == string.Empty)
+                {
+                    destinationDirectory = localFileCachePath;
+                }
 
                 if (!Directory.Exists(localFileCachePath))
                 {
