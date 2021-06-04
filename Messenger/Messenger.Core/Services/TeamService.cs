@@ -56,7 +56,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Returns a list of teams.
+        /// Gets the list of all existing teams.
         /// </summary>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeams()
@@ -81,14 +81,47 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Returns a list of teams a specified user is a member of.
+        /// Gets the team with the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team to retrieve</param>
+        /// <returns>A complete Team object</returns>
+        public async Task<Team> GetTeam(uint teamId)
+        {
+            string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate " +
+                $"FROM Teams " +
+                $"WHERE TeamId = {teamId};";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+
+                    return SqlHelpers
+                        .GetRows("Teams", adapter)
+                        .Select(Mapper.TeamFromDataRow)
+                        .FirstOrDefault();
+                }
+            }
+            catch (SqlException e)
+            {
+                HandleException(e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the list of teams the user has a membership of.
         /// </summary>
         /// <param name="userId">The id of the user whose teams to list</param>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
         {
-            string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate FROM " +
-                $"Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
+            string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate " +
+                $"FROM Teams t " +
+                $"LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
                 $"WHERE m.UserId = '{userId}';";
 
             try

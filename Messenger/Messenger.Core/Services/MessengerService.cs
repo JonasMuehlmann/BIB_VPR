@@ -166,6 +166,16 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Gets the team with the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team to retrieve</param>
+        /// <returns>A complete Team object</returns>
+        public async Task<Team> GetTeam(uint teamId)
+        {
+            return await TeamService.GetTeam(teamId);
+        }
+
+        /// <summary>
         /// Load all messages of the team
         /// </summary>
         /// <param name="teamId">Id of the team to load messsages from</param>
