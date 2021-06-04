@@ -101,8 +101,8 @@ namespace Messenger.Services
 
             var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
 
-            // Connect to signal-r hub
-            await InitializeSignalR(userData.Id);
+            // Connect to signal-r hub and retrieve the team list
+            var teams = await InitializeSignalR(userData.Id);
 
             // Merged with user model from the application database
             return new UserViewModel()
@@ -112,6 +112,7 @@ namespace Messenger.Services
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
                 Photo = userPhoto,
+                Teams = new List<Team>(teams),
                 ConnectionId = Singleton<SignalRService>.Instance.ConnectionId
             };
         }
@@ -125,9 +126,9 @@ namespace Messenger.Services
             };
         }
 
-        private async Task InitializeSignalR(string userId)
+        private async Task<IList<Team>> InitializeSignalR(string userId)
         {
-            await MessengerService.Initialize(userId);
+            return await MessengerService.Initialize(userId);
         }
     }
 }

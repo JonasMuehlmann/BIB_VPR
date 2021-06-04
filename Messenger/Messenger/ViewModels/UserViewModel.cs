@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 
@@ -15,6 +16,7 @@ namespace Messenger.ViewModels
         private BitmapImage _photo;
         private string _connectionId;
         private string _id;
+        private List<Team> _teams = new List<Team>();
 
         public string Id
         {
@@ -55,7 +57,21 @@ namespace Messenger.ViewModels
         public string ConnectionId
         {
             get { return _connectionId; }
-            set { _connectionId = value; }
+            set
+            {
+                _connectionId = value;
+                Set(ref _connectionId, value);
+            }
+        }
+
+        public List<Team> Teams
+        {
+            get { return _teams; }
+            set
+            {
+                _teams = value;
+                Set(ref _teams, value);
+            }
         }
 
         public UserViewModel()
