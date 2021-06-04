@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Messenger.Models;
 using Messenger.ViewModels;
 
 namespace Messenger.Services
@@ -141,6 +142,11 @@ namespace Messenger.Services
             CurrentTeamId = teamId;
             // Invokes ui events with the list of messages of the team
             TeamSwitched?.Invoke(this, await GetMessages());
+        }
+
+        public async Task InviteUser(Invitation invitation)
+        {
+            await MessengerService.InviteUser(invitation.UserId, Convert.ToUInt32(invitation.TeamId));
         }
 
         #region Events
