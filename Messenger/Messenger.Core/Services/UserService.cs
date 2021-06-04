@@ -91,34 +91,31 @@ namespace Messenger.Core.Services
                     {
                         // Exists: return existing application user object from database
                         return rows
-                            .Select(Mapper.UserFromDataRow)
-                            .FirstOrDefault();
+                              .Select(Mapper.UserFromDataRow)
+                              .FirstOrDefault();
                     }
-                    else
-                    {
 
-                        // Not exists: create Application user based on MicrosoftGraphService user
-                        // Get a new id for the display name
-                        // FIX: Strings are default initialized to null
-                        string displayName = userdata.DisplayName.Split('/')[0].Trim();
-                        uint? newNameId = DetermineNewNameId(displayName, connection);
+                    // Not exists: create Application user based on MicrosoftGraphService user
+                    // Get a new id for the display name
+                    // FIX: Strings are default initialized to null
+                    string displayName = userdata.DisplayName.Split('/')[0].Trim();
+                    uint? newNameId = DetermineNewNameId(displayName, connection);
 
 
-                        // Exit if name id is null
-                        if (newNameId == null) return null;
+                    // Exit if name id is null
+                    if (newNameId == null) return null;
 
-                        // Create and execute query
-                        string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) " +
-                            $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}')";
+                    // Create and execute query
+                    string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) "
+                                        + $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}')";
 
-                        await SqlHelpers.NonQueryAsync(insertQuery, connection);
+                    await SqlHelpers.NonQueryAsync(insertQuery, connection);
 
-                        // Return the new application user, mapped directly from MSGraph
+                    // Return the new application user, mapped directly from MSGraph
 
-                        userdata.NameId = Convert.ToUInt32(newNameId);
+                    userdata.NameId = Convert.ToUInt32(newNameId);
 
-                        return Mapper.UserFromMSGraph(userdata);
-                    }
+                    return Mapper.UserFromMSGraph(userdata);
                 }
             }
             catch (SqlException e)

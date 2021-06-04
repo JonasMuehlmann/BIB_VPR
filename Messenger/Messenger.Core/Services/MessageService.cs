@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -24,21 +25,32 @@ namespace Messenger.Core.Services
                                                uint? parentMessageId = null,
                                                IEnumerable<string> attachmentBlobNames = null)
         {
-            using (SqlConnection connection = GetConnection())
+            try
             {
-                await connection.OpenAsync();
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
 
-                string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
-                string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
+                    string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
+                    string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
 
-                string query = $"INSERT INTO Messages " +
-                        $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentBlobNames) " +
-                        $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}; SELECT SCOPE_IDENTITY();";
+                    string query = $"INSERT INTO Messages " +
+                                   $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
+                                   $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
 
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
-                var        result      = scalarQuery.ExecuteScalar();
-                
-                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    Console.WriteLine(query);
+
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+                    var        result      = scalarQuery.ExecuteScalar();
+
+                    return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
             }
         }
 
@@ -53,11 +65,11 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, " +
-                    $"u.UserId, u.NameId, u.UserName " +
-                    $"FROM Messages m " +
-                    $"LEFT JOIN Users u ON m.SenderId = u.UserId " +
-                    $"WHERE RecipientId = {teamId};";
+                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+                             + $"u.UserId, u.NameId, u.UserName "
+                             + $"FROM Messages m "
+                             + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
+                             + $"WHERE RecipientId = {teamId};";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
