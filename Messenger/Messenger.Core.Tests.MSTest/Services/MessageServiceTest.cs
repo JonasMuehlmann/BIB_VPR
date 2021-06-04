@@ -32,17 +32,7 @@ namespace Messenger.Tests.MSTest
             teamService = InitializeTestMode<TeamService>();
         }
 
-        /*
-         [TestMethod]
-         public void _Test()
-         {
 
-            Task.Run(async () =>
-            {
-
-            }).GetAwaiter().GetResult();
-         }
-         */
         [TestMethod]
         public void CreateMessage_Test()
         {
