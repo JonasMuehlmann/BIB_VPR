@@ -22,23 +22,32 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
         public async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
         {
-            string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
-                $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
+            string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES "
+                         + $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
 
             if (teamName == string.Empty)
             {
                 return null;
             }
 
-            using (SqlConnection connection = GetConnection())
+            try
             {
-                await connection.OpenAsync();
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
 
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                var result = scalarQuery.ExecuteScalar();
 
-                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    var result = scalarQuery.ExecuteScalar();
+
+                    return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+                return null;
             }
         }
 
@@ -76,6 +85,7 @@ namespace Messenger.Core.Services
             catch (SqlException e)
             {
                 HandleException(e);
+
                 return null;
             }
         }
@@ -102,6 +112,7 @@ namespace Messenger.Core.Services
             catch (SqlException e)
             {
                 HandleException(e);
+
                 return null;
             }
         }
@@ -210,6 +221,7 @@ namespace Messenger.Core.Services
             catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+
                 return null;
             }
         }

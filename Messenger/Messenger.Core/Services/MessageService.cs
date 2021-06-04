@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -19,20 +20,30 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
         public async Task<uint?> CreateMessage(uint recipientsId, string senderId, string message, uint? parentMessageId = null)
         {
-            using (SqlConnection connection = GetConnection())
+            try
             {
-                await connection.OpenAsync();
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
 
-                string correctedParentMessageId = parentMessageId is null ? "NULL" : Convert.ToString(parentMessageId);
+                    string correctedParentMessageId = parentMessageId is null ? "NULL" : Convert.ToString(parentMessageId);
 
-                string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate)"
-                             + $"VALUES({recipientsId}, '{senderId}', {correctedParentMessageId}, '{message}', GETDATE()); SELECT SCOPE_IDENTITY();";
+                    string query = $"INSERT INTO Messages(RecipientId, SenderId, ParentMessageId, Message, CreationDate)"
+                                + $"VALUES({recipientsId}, '{senderId}', {correctedParentMessageId}, '{message}', GETDATE()); SELECT SCOPE_IDENTITY();";
 
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                var result = scalarQuery.ExecuteScalar();
 
-                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    var result = scalarQuery.ExecuteScalar();
+
+                    return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
             }
         }
 
@@ -46,11 +57,13 @@ namespace Messenger.Core.Services
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
-                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, " +
-                    $"u.UserId, u.NameId, u.UserName " +
-                    $"FROM Messages m " +
-                    $"LEFT JOIN Users u ON m.SenderId = u.UserId " +
-                    $"WHERE RecipientId = {teamId};";
+
+                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+                             + $"u.UserId, u.NameId, u.UserName "
+                             + $"FROM Messages m "
+                             + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
+                             + $"WHERE RecipientId = {teamId};";
+
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
                 return SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
