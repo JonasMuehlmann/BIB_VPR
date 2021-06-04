@@ -23,7 +23,7 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            fileSharingService = InitializeTestMode<FileSharingService>();
+            fileSharingService = new FileSharingService();
         }
 
         [TestMethod]
