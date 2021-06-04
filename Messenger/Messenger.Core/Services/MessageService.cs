@@ -35,19 +35,21 @@ namespace Messenger.Core.Services
                     string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
 
                     string query = $"INSERT INTO Messages " +
-                                   $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentBlobNames) " +
-                                   $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}; SELECT SCOPE_IDENTITY();";
+                                   $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
+                                   $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
+
+                    Console.WriteLine(query);
 
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
                     var        result      = scalarQuery.ExecuteScalar();
-                
+
                     return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
                 }
             }
             catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
-                
+
                 return null;
             }
         }
