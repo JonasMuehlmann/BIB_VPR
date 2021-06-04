@@ -37,7 +37,7 @@ namespace Messenger.Core.Services
 
                 SqlCommand scalarQuery = new SqlCommand(query, connection);
                 var        result      = scalarQuery.ExecuteScalar();
-
+                
                 return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
             }
         }
