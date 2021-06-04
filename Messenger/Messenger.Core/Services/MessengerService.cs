@@ -28,7 +28,7 @@ namespace Messenger.Core.Services
         /// <returns>List of teams the user has membership of, null if none exists</returns>
         public async Task<IList<Team>> Initialize(string userId)
         {
-            await SignalRService.Open();
+            await SignalRService.Open(userId);
 
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
@@ -135,22 +135,19 @@ namespace Messenger.Core.Services
         /// <param name="connectionId">Connection id of the user to add</param>
         /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> InviteUser(User user, uint teamId)
+        public async Task<bool> InviteUser(string userId, uint teamId)
         {
-            if (string.IsNullOrWhiteSpace(user.Id))
+            if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.InviteUser), "invalid member id");
                 return false;
             }
 
             // Create membership for the user and save to database
-            await TeamService.AddMember(user.Id, teamId);
+            await TeamService.AddMember(userId, teamId);
 
-            // Add user to the hub group if the user has connection Id
-            if (!string.IsNullOrEmpty(user.ConnectionId))
-            {
-                await SignalRService.AddToTeam(user.ConnectionId, teamId.ToString());
-            }
+            // Add user to the hub group if the user is connected (will be handled in SignalR)
+            await SignalRService.AddToTeam(userId, teamId.ToString());
 
             return true;
         }
