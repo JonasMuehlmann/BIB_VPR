@@ -87,7 +87,9 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
         {
-            string query = $"SELECT t.TeamId, TeamName, TeamDescription, CreationDate FROM Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) WHERE m.UserId = '{userId}';";
+            string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate FROM " +
+                $"Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
+                $"WHERE m.UserId = '{userId}';";
 
             try
             {
