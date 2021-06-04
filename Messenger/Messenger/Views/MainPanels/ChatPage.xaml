@@ -53,7 +53,7 @@
             </StackPanel>
             -->
             <ScrollViewer Grid.Row="0">
-                <ListView ItemsSource="{x:Bind ViewModel.Hub.Messages}">
+                <ListView ItemsSource="{x:Bind ViewModel.Messages}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="{StaticResource MediumTopMargin}">
@@ -129,7 +129,7 @@
                 <Button
                     Background="Transparent"
                     BorderBrush="Gray"
-                    Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
+                    Command="{x:Bind ViewModel.SendMessageCommand}"
                     CommandParameter="{Binding ElementName=tbxContent, Path=Text}"
                     Height="40" Width="60">
                     <SymbolIcon Symbol="Accept" />

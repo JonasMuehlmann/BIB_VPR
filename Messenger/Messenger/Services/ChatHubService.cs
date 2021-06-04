@@ -11,6 +11,10 @@ using Messenger.ViewModels;
 
 namespace Messenger.Services
 {
+    /// <summary>
+    /// Service aggregator and container class for the state management
+    /// View models can subscribe to this service for corresponding ui events (MessageReceived, InvitationReceived, etc.)
+    /// </summary>
     public class ChatHubService
     {
         #region Private
@@ -96,6 +100,7 @@ namespace Messenger.Services
 
         /// <summary>
         /// Gets the list of teams of the current user
+        /// Should only be used to 'reload', since the list should be already loaded in UserViewModel.Teams
         /// </summary>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task<IEnumerable<Team>> GetTeamsList()
@@ -179,6 +184,18 @@ namespace Messenger.Services
         {
             Debug.WriteLine($"{nameof(ChatHubService)}.{nameof(this.OnInvitationReceived)} :: " +
                 $"Invited To Team #{teamId} :: Listening to Hub #{teamId}");
+
+            // Add to the team list of the current user
+            MessengerService
+                .GetTeam(teamId)
+                .ContinueWith(task =>
+                {
+                    if (task.IsCompletedSuccessfully)
+                    {
+                        var team = task.Result;
+                        CurrentUser.Teams.Add(team);
+                    }
+                });
 
             // Invoke registered ui events
             InvitationReceived?.Invoke(this, teamId);
