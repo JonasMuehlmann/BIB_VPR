@@ -60,6 +60,15 @@ namespace Messenger.Core.Services
                                                     .Build();
         }
 
+        public void InitializeConsoleForAadMultipleOrgs(string clientId)
+        {
+            _integratedAuthAvailable = false;
+            _client = PublicClientApplicationBuilder.Create(clientId)
+                                                    .WithAuthority(AadAuthorityAudience.AzureAdMultipleOrgs)
+                                                    .WithRedirectUri("http://localhost")
+                                                    .Build();
+        }
+
         public bool IsLoggedIn() => _authenticationResult != null;
 
         public async Task<LoginResultType> LoginAsync()
@@ -74,6 +83,7 @@ namespace Messenger.Core.Services
                 var accounts = await _client.GetAccountsAsync();
                 _authenticationResult = await _client.AcquireTokenInteractive(_graphScopes)
                                                      .WithAccount(accounts.FirstOrDefault())
+                                                     .WithSystemWebViewOptions(new SystemWebViewOptions())
                                                      .ExecuteAsync();
                 if (!IsAuthorized())
                 {
