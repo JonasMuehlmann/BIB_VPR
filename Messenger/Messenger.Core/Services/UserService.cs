@@ -142,7 +142,12 @@ namespace Messenger.Core.Services
                     logger.Information($"newNameId has been determined as {newNameId}");
 
                     // Exit if name id is null
-                    if (newNameId == null) return null;
+                    if (newNameId == null)
+                    {
+                        logger.Information("newNameId has value null, returning null");
+
+                        return null;
+                    }
 
                     // Create and execute query
                     string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) "
@@ -166,9 +171,7 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}");
-
-                logger.Information($"Return value: null");
+                logger.Information(e, $"Return value: null");
 
                 return null;
             }
@@ -243,9 +246,7 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}");
-
-                logger.Information($"Return value: null");
+                logger.Information(e, $"Return value: null");
 
                 return null;
             }
@@ -282,9 +283,7 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}");
-
-                logger.Information($"Return value: null");
+                logger.Information(e, $"Return value: null");
 
                 return null;
             }
