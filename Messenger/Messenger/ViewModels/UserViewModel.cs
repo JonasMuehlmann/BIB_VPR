@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 
@@ -13,8 +14,8 @@ namespace Messenger.ViewModels
         private string _bio;
         private string _mail;
         private BitmapImage _photo;
-
         private string _id;
+        private List<Team> _teams = new List<Team>();
 
         public string Id
         {
@@ -50,6 +51,16 @@ namespace Messenger.ViewModels
         {
             get => _photo;
             set => Set(ref _photo, value);
+        }
+
+        public List<Team> Teams
+        {
+            get { return _teams; }
+            set
+            {
+                _teams = value;
+                Set(ref _teams, value);
+            }
         }
 
         public UserViewModel()

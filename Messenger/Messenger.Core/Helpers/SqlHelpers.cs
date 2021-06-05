@@ -31,7 +31,7 @@ namespace Messenger.Core.Helpers
                 return Convert.ToBoolean(await command.ExecuteNonQueryAsync());
 
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
@@ -57,9 +57,18 @@ namespace Messenger.Core.Helpers
                     ,connection
             );
 
-            var result = query.ExecuteScalar();
+            try
+            {
+                var result = query.ExecuteScalar();
 
-            return  TryConvertDbValue(result, Convert.ToString);
+                return  TryConvertDbValue(result, Convert.ToString);
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
+            }
         }
 
         /// <summary>
@@ -109,9 +118,18 @@ namespace Messenger.Core.Helpers
                          + $"WHERE t.TeamId != '{teamId}'";
 
             SqlCommand scalarQuery = new SqlCommand(query, connection);
-            var        otherUser   = scalarQuery.ExecuteScalar();
+            try
+            {
+                var        otherUser   = scalarQuery.ExecuteScalar();
 
-            return TryConvertDbValue(otherUser, Convert.ToString);
+                return TryConvertDbValue(otherUser, Convert.ToString);
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
+            }
         }
 
 

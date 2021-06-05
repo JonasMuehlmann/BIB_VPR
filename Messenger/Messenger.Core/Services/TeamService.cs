@@ -22,23 +22,32 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
         public async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
         {
-            string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES " +
-                $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
+            string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES "
+                         + $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
 
             if (teamName == string.Empty)
             {
                 return null;
             }
 
-            using (SqlConnection connection = GetConnection())
+            try
             {
-                await connection.OpenAsync();
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
 
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                var result = scalarQuery.ExecuteScalar();
 
-                return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    var result = scalarQuery.ExecuteScalar();
+
+                    return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+                return null;
             }
         }
 
@@ -56,7 +65,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Returns a list of teams.
+        /// Gets the list of all existing teams.
         /// </summary>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeams()
@@ -76,18 +85,54 @@ namespace Messenger.Core.Services
             catch (SqlException e)
             {
                 HandleException(e);
+
                 return null;
             }
         }
 
         /// <summary>
-        /// Returns a list of teams a specified user is a member of.
+        /// Gets the team with the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team to retrieve</param>
+        /// <returns>A complete Team object</returns>
+        public async Task<Team> GetTeam(uint teamId)
+        {
+            string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate " +
+                $"FROM Teams " +
+                $"WHERE TeamId = {teamId};";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+
+                    return SqlHelpers
+                        .GetRows("Teams", adapter)
+                        .Select(Mapper.TeamFromDataRow)
+                        .FirstOrDefault();
+                }
+            }
+            catch (SqlException e)
+            {
+                HandleException(e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the list of teams the user has a membership of.
         /// </summary>
         /// <param name="userId">The id of the user whose teams to list</param>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
         {
-            string query = $"SELECT t.TeamId, TeamName, TeamDescription, CreationDate FROM Teams t LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) WHERE m.UserId = '{userId}';";
+            string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate " +
+                $"FROM Teams t " +
+                $"LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
+                $"WHERE m.UserId = '{userId}';";
 
             try
             {
@@ -102,6 +147,7 @@ namespace Messenger.Core.Services
             catch (SqlException e)
             {
                 HandleException(e);
+
                 return null;
             }
         }
@@ -210,6 +256,7 @@ namespace Messenger.Core.Services
             catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
+
                 return null;
             }
         }

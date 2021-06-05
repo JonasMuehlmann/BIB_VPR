@@ -19,48 +19,57 @@ namespace Messenger.Core.Services
 
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
+        private FileSharingService FileSharingService => Singleton<FileSharingService>.Instance;
+
         #region Initializers
 
         /// <summary>
         /// Connects the given user to the teams he is a member of
         /// </summary>
         /// <param name="userId">The user to connect to his teams</param>
-        /// <returns>True on success, false on error</returns>
-        public async Task<bool> Initialize(string userId)
+        /// <returns>List of teams the user has membership of, null if none exists</returns>
+        public async Task<IList<Team>> Initialize(string userId)
         {
-            await SignalRService.Open();
+            await SignalRService.Open(userId);
 
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.Initialize), "invalid user id");
-                return false;
+                return null;
             }
 
-            var memberships = await TeamService.GetAllMembershipByUserId(userId);
+            var teams = await TeamService.GetAllTeamsByUserId(userId);
 
-            // Exit if the user has no membership
-            if (memberships.Count <= 0)
+            // Exit if the user has no team
+            if (teams == null || teams.Count() <= 0)
             {
-                HandleException(nameof(this.Initialize), "no membership found");
-                return false;
+                return null;
             }
 
-            foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
+            List<Team> result = new List<Team>();
+            // Join the signal-r hub
+            foreach (var team in teams)
             {
-                await SignalRService.JoinTeam(teamId);
+                await SignalRService.JoinTeam(team.Id.ToString());
+                result.Add(team);
             }
 
-            return true;
+            return result;
         }
 
         /// <summary>
         /// Registers the action from the view model to signal-r event
         /// </summary>
         /// <param name="onMessageReceived">Action to run upon receiving a message</param>
-        public void RegisterListener(Action<Message> onMessageReceived)
+        public void RegisterListenerForMessages(EventHandler<Message> onMessageReceived)
         {
             SignalRService.MessageReceived += onMessageReceived;
+        }
+
+        public void RegisterListenerForInvites(EventHandler<uint> onInviteReceived)
+        {
+            SignalRService.InviteReceived += onInviteReceived;
         }
 
         #endregion
@@ -71,8 +80,9 @@ namespace Messenger.Core.Services
         /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
         /// <param name="message">A complete message object to send</param>
+        /// <param name="attachmentFilePaths">An Enumerable of paths of files to attach to the message</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> SendMessage(Message message)
+        public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
             // Check the validity of the message
             if (!ValidateMessage(message))
@@ -81,12 +91,18 @@ namespace Messenger.Core.Services
                 return false;
             }
 
+            foreach (var attachmentFilePath in attachmentFilePaths)
+            {
+                message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+            }
+
             // Save to database
             await MessageService.CreateMessage(
                 message.RecipientId,
                 message.SenderId,
                 message.Content,
-                message.ParentMessageId);
+                message.ParentMessageId,
+                message.AttachmentsBlobName);
 
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
@@ -103,7 +119,7 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
-            // Create and save to database
+            // Create team and save to database
             uint? teamId = await TeamService.CreateTeam(teamName, teamDescription);
 
             if (teamId == null)
@@ -112,9 +128,11 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            // Create and join the new hub group of the team
+            // Create membership for the creator and save to database
+            await TeamService.AddMember(creatorId, (uint)teamId);
+
+            // Join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
-            await AddMember(creatorId, (uint)teamId);
 
             return true;
         }
@@ -122,25 +140,28 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Saves new membership to database and add the user to the hub group of the team
         /// </summary>
-        /// <param name="memberId">User id to add</param>
-        /// <param name="teamId">Team to be added</param>
+        /// <param name="userId">User id to add</param>
+        /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> AddMember(string memberId, uint teamId)
+        public async Task<bool> InviteUser(string userId, uint teamId)
         {
-            if (string.IsNullOrWhiteSpace(memberId))
+            if (string.IsNullOrWhiteSpace(userId))
             {
-                HandleException(nameof(this.AddMember), "invalid member id");
+                HandleException(nameof(this.InviteUser), "invalid member id");
                 return false;
             }
 
             // Create membership for the user and save to database
-            await TeamService.AddMember(memberId, teamId);
+            await TeamService.AddMember(userId, teamId);
+
+            // Add user to the hub group if the user is connected (will be handled in SignalR)
+            await SignalRService.AddToTeam(userId, teamId.ToString());
 
             return true;
         }
 
         /// <summary>
-        /// Load all teams those the current user has membership of
+        /// Load all teams the current user has membership of
         /// </summary>
         /// <param name="userId">Current user id</param>
         /// <returns>List of teams</returns>
@@ -149,6 +170,21 @@ namespace Messenger.Core.Services
             return await TeamService.GetAllTeamsByUserId(userId);
         }
 
+        /// <summary>
+        /// Gets the team with the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team to retrieve</param>
+        /// <returns>A complete Team object</returns>
+        public async Task<Team> GetTeam(uint teamId)
+        {
+            return await TeamService.GetTeam(teamId);
+        }
+
+        /// <summary>
+        /// Load all messages of the team
+        /// </summary>
+        /// <param name="teamId">Id of the team to load messsages from</param>
+        /// <returns>List of messages</returns>
         public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
         {
             return await MessageService.RetrieveMessages(teamId);
