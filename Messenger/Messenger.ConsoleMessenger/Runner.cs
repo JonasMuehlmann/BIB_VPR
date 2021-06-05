@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Messenger.ConsoleMessenger
 {
-    class Program
+    class Runner
     {
         static void Main(string[] args)
         {
