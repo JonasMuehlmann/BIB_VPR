@@ -132,7 +132,6 @@ namespace Messenger.Core.Services
         /// Saves new membership to database and add the user to the hub group of the team
         /// </summary>
         /// <param name="userId">User id to add</param>
-        /// <param name="connectionId">Connection id of the user to add</param>
         /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> InviteUser(string userId, uint teamId)

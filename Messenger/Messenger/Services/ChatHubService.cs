@@ -103,7 +103,7 @@ namespace Messenger.Services
         /// Gets the list of teams of the current user
         /// Should only be used to 'reload', since the list should be already loaded in UserViewModel.Teams
         /// </summary>
-        /// <returns>Asynchronous task to be awaited</returns>
+        /// <returns>List of teams</returns>
         public async Task<IEnumerable<Team>> GetTeamsList()
         {
             if (CurrentUser == null)

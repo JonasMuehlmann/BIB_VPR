@@ -46,7 +46,7 @@ namespace Messenger.SignalR
         /// <summary>
         /// Adds the given connection id to a client group on the hub
         /// </summary>
-        /// <param name="connectionId">Current connection id of the user</param>
+        /// <param name="userId">Id of the user logged in</param>
         /// <param name="teamId">Client group name to be added to</param>
         /// <returns>Task to be awaited</returns>
         public async Task AddToTeam(string userId, string teamId)
