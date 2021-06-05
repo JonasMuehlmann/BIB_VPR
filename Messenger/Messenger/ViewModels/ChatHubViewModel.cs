@@ -110,9 +110,9 @@ namespace Messenger.ViewModels
             CurrentTeamId = 1;
 
             // Bind to "ReceiveMessage" event
-            MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            //MessengerService.RegisterListenerForMessages(OnMessageReceived);
             // Bind to "ReceiveInvite" event
-            MessengerService.RegisterListenerForInvites(OnInviteReceived);
+            //MessengerService.RegisterListenerForInvites(OnInviteReceived);
 
             LoadAsync();
         }

@@ -31,9 +31,9 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>
-        public event Action<Message> MessageReceived;
+        public event EventHandler<Message> MessageReceived;
 
-        public event Action<uint> InviteReceived;
+        public event EventHandler<uint> InviteReceived;
 
         public SignalRService()
         {
@@ -45,21 +45,23 @@ namespace Messenger.Core.Services
                 })
                 .Build();
 
-            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
-            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(teamId));
+            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
+            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
         }
 
         /// <summary>
         /// Starts the connection with the preset
         /// </summary>
+        /// <param name="userId">Id of the current user</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task Open()
+        public async Task Open(string userId)
         {
             try
             {
                 if (_connection.State == HubConnectionState.Disconnected)
                 {
                     await _connection.StartAsync();
+                    await _connection.SendAsync("Register", userId);
                 }
             }
             catch (Exception e)
@@ -114,12 +116,12 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Adds the user to the hub group
         /// </summary>
-        /// <param name="connectionId">Signal-R connection id of the user</param>
+        /// <param name="userId">Id of the user to add</param>
         /// <param name="teamId">Id the of team to add user to</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task AddToTeam(string connectionId, string teamId)
+        public async Task AddToTeam(string userId, string teamId)
         {
-            await _connection.SendAsync("AddToTeam", connectionId, teamId);
+            await _connection.SendAsync("AddToTeam", userId, teamId);
         }
 
         #region Helpers

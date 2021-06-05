@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.SignalR.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -15,6 +16,23 @@ namespace Messenger.SignalR
     /// </summary>
     public class ChatHub : Hub
     {
+        private readonly static ConnectionMapping _connections = new ConnectionMapping();
+
+        private string _userId;
+
+        /// <summary>
+        /// Adds the current connection id to the given user id
+        /// </summary>
+        /// <param name="userId">Id of the user logged in</param>
+        /// <returns>Task to be awaited</returns>
+        public Task Register(string userId)
+        {
+            _userId = userId;
+            _connections.Add(userId, Context.ConnectionId);
+
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// Adds the current connection id to a client group on the hub
         /// </summary>
@@ -28,16 +46,19 @@ namespace Messenger.SignalR
         /// <summary>
         /// Adds the given connection id to a client group on the hub
         /// </summary>
-        /// <param name="connectionId">Current connection id of the user</param>
+        /// <param name="userId">Id of the user logged in</param>
         /// <param name="teamId">Client group name to be added to</param>
         /// <returns>Task to be awaited</returns>
-        public async Task AddToTeam(string connectionId, string teamId)
+        public async Task AddToTeam(string userId, string teamId)
         {
-            // Create if no group with the given team id exists
-            await Groups.AddToGroupAsync(connectionId, teamId);
+            foreach (var connectionId in _connections.GetConnections(userId))
+            {
+                // Add the user to the hub group
+                await Groups.AddToGroupAsync(connectionId, teamId);
 
-            // Notify target client with team id
-            await Clients.Client(connectionId).SendAsync("ReceiveInvitation", Convert.ToUInt32(teamId));
+                // Notify target client with team id
+                await Clients.Client(connectionId).SendAsync("ReceiveInvitation", Convert.ToUInt32(teamId));
+            }
         }
 
         /// <summary>
@@ -50,6 +71,18 @@ namespace Messenger.SignalR
             string groupName = message.RecipientId.ToString();
             
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+        }
+
+        /// <summary>
+        /// Removes the current connection id on disconnection
+        /// </summary>
+        /// <param name="exception">Exceptions to be handled on disconnection(handled by SignalR)</param>
+        /// <returns>Task to be awaited</returns>
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            _connections.Remove(_userId, Context.ConnectionId);
+
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }
