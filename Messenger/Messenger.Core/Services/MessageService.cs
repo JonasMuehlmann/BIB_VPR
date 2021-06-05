@@ -38,8 +38,6 @@ namespace Messenger.Core.Services
                                    $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
                                    $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
 
-                    Console.WriteLine(query);
-
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
                     var        result      = scalarQuery.ExecuteScalar();
 
