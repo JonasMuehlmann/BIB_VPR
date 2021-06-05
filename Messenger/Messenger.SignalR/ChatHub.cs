@@ -20,6 +20,11 @@ namespace Messenger.SignalR
 
         private string _userId;
 
+        /// <summary>
+        /// Adds the current connection id to the given user id
+        /// </summary>
+        /// <param name="userId">Id of the user logged in</param>
+        /// <returns>Task to be awaited</returns>
         public Task Register(string userId)
         {
             _userId = userId;
@@ -68,6 +73,11 @@ namespace Messenger.SignalR
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
         }
 
+        /// <summary>
+        /// Removes the current connection id on disconnection
+        /// </summary>
+        /// <param name="exception">Exceptions to be handled on disconnection(handled by SignalR)</param>
+        /// <returns>Task to be awaited</returns>
         public override Task OnDisconnectedAsync(Exception exception)
         {
             _connections.Remove(_userId, Context.ConnectionId);
