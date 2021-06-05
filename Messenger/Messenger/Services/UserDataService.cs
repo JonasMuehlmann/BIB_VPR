@@ -55,6 +55,7 @@ namespace Messenger.Services
         private async void OnLoggedIn(object sender, EventArgs e)
         {
             _user = await GetUserFromGraphApiAsync();
+            
             UserDataUpdated?.Invoke(this, _user);
         }
 
@@ -101,8 +102,8 @@ namespace Messenger.Services
 
             var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
 
-            // Connect to signal-r hub
-            await InitializeSignalR(userData.Id);
+            // Connect to signal-r hub and retrieve the team list
+            var teams = await InitializeSignalR(userData.Id);
 
             // Merged with user model from the application database
             return new UserViewModel()
@@ -112,7 +113,7 @@ namespace Messenger.Services
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
                 Photo = userPhoto,
-                ConnectionId = Singleton<SignalRService>.Instance.ConnectionId
+                Teams = teams != null ? new List<Team>(teams) : new List<Team>(),
             };
         }
 
@@ -125,9 +126,9 @@ namespace Messenger.Services
             };
         }
 
-        private async Task InitializeSignalR(string userId)
+        private async Task<IList<Team>> InitializeSignalR(string userId)
         {
-            await MessengerService.Initialize(userId);
+            return await MessengerService.Initialize(userId);
         }
     }
 }
