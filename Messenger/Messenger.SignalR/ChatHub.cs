@@ -16,7 +16,7 @@ namespace Messenger.SignalR
     /// </summary>
     public class ChatHub : Hub
     {
-        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
+        private readonly static ConnectionMapping _connections = new ConnectionMapping();
 
         private string _userId;
 
