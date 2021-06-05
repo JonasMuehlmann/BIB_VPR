@@ -6,10 +6,9 @@ namespace Messenger.SignalR.Models
     /// <summary>
     /// Thread-safe dictionary mapping class for connection ids
     /// </summary>
-    /// <typeparam name="T">Keys are user ids from microsoft accounts</typeparam>
-    public class ConnectionMapping<T>
+    public class ConnectionMapping
     {
-        private readonly Dictionary<T, HashSet<string>> _connections = new Dictionary<T, HashSet<string>>();
+        private readonly Dictionary<string, HashSet<string>> _connections = new Dictionary<string, HashSet<string>>();
 
         public int Count
         {
@@ -22,19 +21,19 @@ namespace Messenger.SignalR.Models
         /// <summary>
         /// Adds a new connection id under the user id
         /// </summary>
-        /// <param name="key">Id of the user logged in</param>
+        /// <param name="userId">Id of the user logged in</param>
         /// <param name="connectionId">Current connection id of the application</param>
-        public void Add(T key, string connectionId)
+        public void Add(string userId, string connectionId)
         {
             // Locks other thread access to the shared resource
             // Any other thread waits until the lock is released
             lock (_connections)
             {
                 HashSet<string> connections;
-                if (!_connections.TryGetValue(key, out connections))
+                if (!_connections.TryGetValue(userId, out connections))
                 {
                     connections = new HashSet<string>();
-                    _connections.Add(key, connections);
+                    _connections.Add(userId, connections);
                 }
 
                 lock (connections)
@@ -47,12 +46,12 @@ namespace Messenger.SignalR.Models
         /// <summary>
         /// Gets all connection ids registered under the user id
         /// </summary>
-        /// <param name="key">Id of the user logged in</param>
+        /// <param name="userId">Id of the user logged in</param>
         /// <returns>List of connection ids, empty enumerable if none exists</returns>
-        public IEnumerable<string> GetConnections(T key)
+        public IEnumerable<string> GetConnections(string userId)
         {
             HashSet<string> connections;
-            if (_connections.TryGetValue(key, out connections))
+            if (_connections.TryGetValue(userId, out connections))
             {
                 return connections;
             }
@@ -63,14 +62,14 @@ namespace Messenger.SignalR.Models
         /// <summary>
         /// Safely removes the connection id from the registered list under the user id
         /// </summary>
-        /// <param name="key">Id of the user logged in</param>
+        /// <param name="userId">Id of the user logged in</param>
         /// <param name="connectionId">Connection id to remove from the list</param>
-        public void Remove(T key, string connectionId)
+        public void Remove(string userId, string connectionId)
         {
             lock (_connections)
             {
                 HashSet<string> connections;
-                if (!_connections.TryGetValue(key, out connections))
+                if (!_connections.TryGetValue(userId, out connections))
                 {
                     return;
                 }
@@ -81,7 +80,7 @@ namespace Messenger.SignalR.Models
 
                     if (connections.Count == 0)
                     {
-                        _connections.Remove(key);
+                        _connections.Remove(userId);
                     }
                 }
             }
