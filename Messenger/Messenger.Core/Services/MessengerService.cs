@@ -32,12 +32,6 @@ namespace Messenger.Core.Services
         {
             await SignalRService.Open(userId);
 
-            // Option to skip the data access with user id
-            if (!withAuthentification)
-            {
-                return true;
-            }
-
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -91,7 +85,7 @@ namespace Messenger.Core.Services
         public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
             // Check the validity of the message
-            if (validate && !ValidateMessage(message))
+            if (!ValidateMessage(message))
             {
                 HandleException(nameof(this.SendMessage), "invalid message object");
                 return false;
