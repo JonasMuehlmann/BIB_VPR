@@ -19,9 +19,6 @@ namespace Messenger.Core.Models
         // From Database
         public string Bio { get; set; }
 
-        // From SignalR
-        public string ConnectionId { get; set; }
-
         public User()
         {
             Id = "";
@@ -29,7 +26,6 @@ namespace Messenger.Core.Models
             Photo = "";
             Mail = "";
             Bio = "";
-            ConnectionId = "";
         }
 
         public override string ToString()

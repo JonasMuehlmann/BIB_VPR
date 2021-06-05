@@ -27,45 +27,47 @@ namespace Messenger.Core.Services
         /// Connects the given user to the teams he is a member of
         /// </summary>
         /// <param name="userId">The user to connect to his teams</param>
-        /// <returns>True on success, false on error</returns>
-        public async Task<bool> Initialize(string userId)
+        /// <returns>List of teams the user has membership of, null if none exists</returns>
+        public async Task<IList<Team>> Initialize(string userId)
         {
-            await SignalRService.Open();
+            await SignalRService.Open(userId);
 
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.Initialize), "invalid user id");
-                return false;
+                return null;
             }
 
-            var memberships = await TeamService.GetAllMembershipByUserId(userId);
+            var teams = await TeamService.GetAllTeamsByUserId(userId);
 
-            // Exit if the user has no membership
-            if (memberships.Count <= 0)
+            // Exit if the user has no team
+            if (teams == null || teams.Count() <= 0)
             {
-                HandleException(nameof(this.Initialize), "no membership found");
-                return false;
+                return null;
             }
 
-            foreach (var teamId in memberships.Select(m => m.TeamId.ToString()))
+            List<Team> result = new List<Team>();
+            // Join the signal-r hub
+            foreach (var team in teams)
             {
-                await SignalRService.JoinTeam(teamId);
+                await SignalRService.JoinTeam(team.Id.ToString());
+                result.Add(team);
             }
 
-            return true;
+            return result;
         }
 
         /// <summary>
         /// Registers the action from the view model to signal-r event
         /// </summary>
         /// <param name="onMessageReceived">Action to run upon receiving a message</param>
-        public void RegisterListenerForMessages(Action<Message> onMessageReceived)
+        public void RegisterListenerForMessages(EventHandler<Message> onMessageReceived)
         {
             SignalRService.MessageReceived += onMessageReceived;
         }
 
-        public void RegisterListenerForInvites(Action<uint> onInviteReceived)
+        public void RegisterListenerForInvites(EventHandler<uint> onInviteReceived)
         {
             SignalRService.InviteReceived += onInviteReceived;
         }
@@ -139,25 +141,21 @@ namespace Messenger.Core.Services
         /// Saves new membership to database and add the user to the hub group of the team
         /// </summary>
         /// <param name="userId">User id to add</param>
-        /// <param name="connectionId">Connection id of the user to add</param>
         /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> InviteUser(User user, uint teamId)
+        public async Task<bool> InviteUser(string userId, uint teamId)
         {
-            if (string.IsNullOrWhiteSpace(user.Id))
+            if (string.IsNullOrWhiteSpace(userId))
             {
                 HandleException(nameof(this.InviteUser), "invalid member id");
                 return false;
             }
 
             // Create membership for the user and save to database
-            await TeamService.AddMember(user.Id, teamId);
+            await TeamService.AddMember(userId, teamId);
 
-            // Add user to the hub group if the user has connection Id
-            if (!string.IsNullOrEmpty(user.ConnectionId))
-            {
-                await SignalRService.AddToTeam(user.ConnectionId, teamId.ToString());
-            }
+            // Add user to the hub group if the user is connected (will be handled in SignalR)
+            await SignalRService.AddToTeam(userId, teamId.ToString());
 
             return true;
         }
@@ -170,6 +168,16 @@ namespace Messenger.Core.Services
         public async Task<IEnumerable<Team>> LoadTeams(string userId)
         {
             return await TeamService.GetAllTeamsByUserId(userId);
+        }
+
+        /// <summary>
+        /// Gets the team with the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team to retrieve</param>
+        /// <returns>A complete Team object</returns>
+        public async Task<Team> GetTeam(uint teamId)
+        {
+            return await TeamService.GetTeam(teamId);
         }
 
         /// <summary>
