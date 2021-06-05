@@ -110,8 +110,6 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
-                HandleException(e);
-
                 logger.Information(e, "Return value: null");
 
                 return null;
@@ -145,7 +143,6 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
-                HandleException(e);
                 return null;
             }
         }
@@ -160,7 +157,7 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("Method","GetAllTeamsByUserId");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
-            
+
             string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate " +
                 $"FROM Teams t " +
                 $"LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +

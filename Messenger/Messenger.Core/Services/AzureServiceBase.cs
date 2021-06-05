@@ -33,10 +33,5 @@ namespace Messenger.Core.Services
             testConnectionString = connectionString;
             testMode = true;
         }
-
-        protected void HandleException(Exception e)
-        {
-            Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
-        }
     }
 }

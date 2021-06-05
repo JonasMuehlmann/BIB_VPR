@@ -277,18 +277,6 @@ namespace Messenger.Core.Services
 
             return true;
         }
-
-        /// <summary>
-        /// Handles MessengerService specific exception
-        /// </summary>
-        /// <param name="methodName">Name of the method that raised exception</param>
-        /// <param name="reason">Reason for the exception</param>
-        private void HandleException(string methodName, string reason)
-        {
-            Debug.Write($"Core.MessengerService::{methodName} failed. ");
-            Debug.WriteLine($"(Reason: {reason})");
-        }
-
         #endregion
     }
 }
