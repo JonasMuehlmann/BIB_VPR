@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Messenger.ConsoleMessenger.Interfaces;
+using Messenger.ConsoleMessenger.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -18,7 +20,7 @@ namespace Messenger.ConsoleMessenger
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Build())
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
+                .WriteTo.Console(outputTemplate: "{Timestamp: HH:mm:ss} [{Level}] ({Method}) {Message}{NewLine}{Exception}")
                 .CreateLogger();
 
             Log.Logger.Information("Setting up the application...");

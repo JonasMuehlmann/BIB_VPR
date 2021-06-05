@@ -1,4 +1,4 @@
-﻿namespace Messenger.ConsoleMessenger
+﻿namespace Messenger.ConsoleMessenger.Interfaces
 {
     public interface IMessengerApp
     {
