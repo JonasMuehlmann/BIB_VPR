@@ -164,7 +164,7 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> AddMember(string userId, uint teamId)
         {
-            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', '{teamId}', 'placeholder');";
+            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
@@ -180,33 +180,6 @@ namespace Messenger.Core.Services
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
-        }
-
-        /// <summary>
-        /// Gets all members in the team
-        /// </summary>
-        /// <param name="teamId">The id of the team to get members of</param>
-        /// <returns>An enumerable of User objects</returns>
-        public async Task<IEnumerable<User>> GetAllUsersByTeamId(uint teamId)
-        {
-            string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
-            string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
-
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
-
-                    return SqlHelpers
-                        .MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
-                }
-            }
-            catch (SqlException e)
-            {
-                HandleException(e);
-                return null;
-            }
         }
 
         /// <summary>
