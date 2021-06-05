@@ -123,6 +123,10 @@ namespace Messenger.Core.Services
         /// <returns>A complete Team object</returns>
         public async Task<Team> GetTeam(uint teamId)
         {
+            Serilog.Context.LogContext.PushProperty("Method","GetTeam");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
+
             string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate " +
                 $"FROM Teams " +
                 $"WHERE TeamId = {teamId};";
@@ -135,14 +139,22 @@ namespace Messenger.Core.Services
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                    return SqlHelpers
-                        .GetRows("Teams", adapter)
-                        .Select(Mapper.TeamFromDataRow)
-                        .FirstOrDefault();
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = SqlHelpers
+                                .GetRows("Teams", adapter)
+                                .Select(Mapper.TeamFromDataRow)
+                                .FirstOrDefault();
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
                 }
             }
             catch (SqlException e)
             {
+                logger.Information(e, $"Return value: null");
+
                 return null;
             }
         }
