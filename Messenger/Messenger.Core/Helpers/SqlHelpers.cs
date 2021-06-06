@@ -27,10 +27,11 @@ namespace Messenger.Core.Helpers
                 }
                 SqlCommand command = new SqlCommand(query, connection);
 
+
                 return Convert.ToBoolean(await command.ExecuteNonQueryAsync());
 
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 Debug.WriteLine($"Database Exception: {e.Message}");
 
@@ -56,7 +57,18 @@ namespace Messenger.Core.Helpers
                     ,connection
             );
 
-            return Convert.ToString(query.ExecuteScalar());
+            try
+            {
+                var result = query.ExecuteScalar();
+
+                return  TryConvertDbValue(result, Convert.ToString);
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
+            }
         }
 
         /// <summary>
@@ -106,9 +118,36 @@ namespace Messenger.Core.Helpers
                          + $"WHERE t.TeamId != '{teamId}'";
 
             SqlCommand scalarQuery = new SqlCommand(query, connection);
-            var        otherUser   = scalarQuery.ExecuteScalar();
+            try
+            {
+                var        otherUser   = scalarQuery.ExecuteScalar();
 
-            return otherUser is DBNull ? null : otherUser.ToString();
+                return TryConvertDbValue(otherUser, Convert.ToString);
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine($"Database Exception: {e.Message}");
+
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Convert a value that can be DBNull using a specified converter
+        /// </summary>
+        /// <typeparam name="T">A type to convert value to</typeparam>
+        /// <param name="value">A value to convert to T>
+        /// <param name="converter">A converter function to use for converting value>
+        /// <returns>null or the wanted type T</returns>
+        public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+
+            return converter(value);
         }
     }
 }

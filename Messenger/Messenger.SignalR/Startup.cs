@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +24,11 @@ namespace Messenger.SignalR
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR()
+            services
+                .AddSignalR(o =>
+                {
+                    o.EnableDetailedErrors = true;
+                })
                 .AddAzureSignalR();
         }
 
@@ -39,7 +44,12 @@ namespace Messenger.SignalR
             app.UseFileServer();
             app.UseEndpoints(routes =>
             {
-                routes.MapHub<ChatHub>("/chathub");
+                routes.MapHub<ChatHub>("/chathub", options =>
+                {
+                    options.Transports =
+                        HttpTransportType.WebSockets |
+                        HttpTransportType.LongPolling;
+                });
             });
         }
     }

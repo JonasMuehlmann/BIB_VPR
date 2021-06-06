@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace Messenger.Core.Services
 
         private const string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
         
-        private readonly HubConnection _connection;
+        private HubConnection _connection;
 
         #endregion
 
@@ -23,44 +24,49 @@ namespace Messenger.Core.Services
         {
             get
             {
-                if (_connection.State == HubConnectionState.Connected)
-                {
-                    return _connection.ConnectionId;
-                }
-                else
-                {
-                    return null;
-                }
+                return _connection.ConnectionId;
             }
         }
 
         /// <summary>
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>
-        public event Action<Message> MessageReceived;
+        public event EventHandler<Message> MessageReceived;
+
+        public event EventHandler<uint> InviteReceived;
 
         public SignalRService()
         {
             _connection = new HubConnectionBuilder()
                 .WithUrl(HUB_URL)
+                .ConfigureLogging(log =>
+                {
+                    log.AddConsole();
+                })
                 .Build();
 
-            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(message));
+            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
+            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
         }
 
         /// <summary>
         /// Starts the connection with the preset
         /// </summary>
+        /// <param name="userId">Id of the current user</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task Open()
+        public async Task Open(string userId)
         {
             try
             {
-                await _connection.StartAsync();
+                if (_connection.State == HubConnectionState.Disconnected)
+                {
+                    await _connection.StartAsync();
+                    await _connection.SendAsync("Register", userId);
+                }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Signal-R Exception: {e.Message}");
+                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.Open)} : {e.Message}");
             }
         }
 
@@ -76,7 +82,7 @@ namespace Messenger.Core.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Signal-R Exception: {e.Message}");
+                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.Close)} : {e.Message}");
             }
         }
 
@@ -87,7 +93,14 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task JoinTeam(string teamId)
         {
-            await _connection.SendAsync("JoinTeam", teamId);
+            try
+            {
+                await _connection.SendAsync("JoinTeam", teamId);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.JoinTeam)} : {e.Message}");
+            }
         }
 
         /// <summary>
@@ -99,5 +112,39 @@ namespace Messenger.Core.Services
         {
             await _connection.SendAsync("SendMessage", message);
         }
+
+        /// <summary>
+        /// Adds the user to the hub group
+        /// </summary>
+        /// <param name="userId">Id of the user to add</param>
+        /// <param name="teamId">Id the of team to add user to</param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task AddToTeam(string userId, string teamId)
+        {
+            await _connection.SendAsync("AddToTeam", userId, teamId);
+        }
+
+        #region Helpers
+
+        private async Task Reconnect(Exception e)
+        {
+            await Task.Delay(500);
+            _connection = await CreateHubConnection();
+            await _connection.StartAsync();
+        }
+
+        private async Task<HubConnection> CreateHubConnection()
+        {
+            HubConnection hubConnection = new HubConnectionBuilder()
+                .WithUrl(HUB_URL)
+                .Build();
+
+            hubConnection.Closed += Reconnect;
+
+            await hubConnection.StartAsync();
+            return hubConnection;
+        }
+
+        #endregion
     }
 }

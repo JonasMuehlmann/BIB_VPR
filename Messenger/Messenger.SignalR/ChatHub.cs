@@ -1,4 +1,6 @@
 ﻿using Messenger.Core.Models;
+using Messenger.SignalR.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
@@ -14,60 +16,21 @@ namespace Messenger.SignalR
     /// </summary>
     public class ChatHub : Hub
     {
-        /// <summary>
-        /// Global cache dictionary for connected users
-        /// Maps the user name to the list of connection ids which are created when connecting to the hub(multiple connections are allowed)
-        /// </summary>
-        public static ConcurrentDictionary<string, List<string>> ConnectedUsers = new ConcurrentDictionary<string, List<string>>();
+        private readonly static ConnectionMapping _connections = new ConnectionMapping();
+
+        private string _userId;
 
         /// <summary>
-        /// Adds a current connection to the global cache dictionary
+        /// Adds the current connection id to the given user id
         /// </summary>
+        /// <param name="userId">Id of the user logged in</param>
         /// <returns>Task to be awaited</returns>
-        public override Task OnConnectedAsync()
+        public Task Register(string userId)
         {
-            Trace.TraceInformation($"MapHub started. ID: {Context.ConnectionId}");
+            _userId = userId;
+            _connections.Add(userId, Context.ConnectionId);
 
-            string username = Context.User.Identity.Name;
-
-            // Try to get a list of existing user connections from the cache
-            List<string> userConnectionIds;
-            ConnectedUsers.TryGetValue(username, out userConnectionIds);
-
-            // First user connection
-            if (userConnectionIds == null)
-            {
-                userConnectionIds = new List<string>();
-            }
-
-            // Add current connection id
-            userConnectionIds.Add(Context.ConnectionId);
-            
-            // Update global dictionary of connected users
-            ConnectedUsers.TryAdd(username, userConnectionIds);
-
-            return base.OnConnectedAsync();
-        }
-
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            string username = Context.User.Identity.Name;
-
-            List<string> userConnectionIds;
-            ConnectedUsers.TryGetValue(username, out userConnectionIds);
-
-            // Remove current connection id from the list of the current user connections
-            userConnectionIds.Remove(Context.ConnectionId);
-
-            // If there are no more connections for the user,
-            // remove the user from the global dictionary
-            if (userConnectionIds.Count == 0)
-            {
-                List<string> garbage; // to be collected by the garbage collector
-                ConnectedUsers.TryRemove(username, out garbage);
-            }
-
-            return base.OnDisconnectedAsync(exception);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -83,12 +46,19 @@ namespace Messenger.SignalR
         /// <summary>
         /// Adds the given connection id to a client group on the hub
         /// </summary>
-        /// <param name="connectionId">Current connection id of the user</param>
+        /// <param name="userId">Id of the user logged in</param>
         /// <param name="teamId">Client group name to be added to</param>
         /// <returns>Task to be awaited</returns>
-        public async Task AddToTeam(string connectionId, string teamId)
+        public async Task AddToTeam(string userId, string teamId)
         {
-            await Groups.AddToGroupAsync(connectionId, teamId);
+            foreach (var connectionId in _connections.GetConnections(userId))
+            {
+                // Add the user to the hub group
+                await Groups.AddToGroupAsync(connectionId, teamId);
+
+                // Notify target client with team id
+                await Clients.Client(connectionId).SendAsync("ReceiveInvitation", Convert.ToUInt32(teamId));
+            }
         }
 
         /// <summary>
@@ -100,7 +70,19 @@ namespace Messenger.SignalR
         {
             string groupName = message.RecipientId.ToString();
             
-            await Clients.GroupExcept(groupName, Context.ConnectionId).SendAsync("ReceiveMessage", message);
+            await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+        }
+
+        /// <summary>
+        /// Removes the current connection id on disconnection
+        /// </summary>
+        /// <param name="exception">Exceptions to be handled on disconnection(handled by SignalR)</param>
+        /// <returns>Task to be awaited</returns>
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            _connections.Remove(_userId, Context.ConnectionId);
+
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

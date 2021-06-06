@@ -4,11 +4,16 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Core;
 
 namespace Messenger.ViewModels
 {
@@ -17,9 +22,9 @@ namespace Messenger.ViewModels
         #region Private
 
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
+        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+        private UserService UserService => Singleton<UserService>.Instance;
 
-        private Message _message;
-        private bool _isConnected;
         private string _errorMessage;
         private uint _currentTeamId = 1;
         private UserViewModel _user;
@@ -28,32 +33,6 @@ namespace Messenger.ViewModels
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Message to send out
-        /// </summary>
-        public Message Message
-        {
-            get { return _message; }
-            set
-            {
-                _message = value;
-                Set(ref _message, value);
-            }
-        }
-
-        /// <summary>
-        /// Status of connection to the hub
-        /// </summary>
-        public bool IsConnected
-        {
-            get { return _isConnected; }
-            set
-            {
-                _isConnected = value;
-                Set(ref _isConnected, value);
-            }
-        }
 
         /// <summary>
         /// Error messages from SignalR operations, returns string.Empty if there is no Exception
@@ -105,6 +84,7 @@ namespace Messenger.ViewModels
             {
                 _currentTeamId = value;
                 Set(ref _currentTeamId, value);
+                LoadMessages(value);
             }
         }
         
@@ -117,76 +97,42 @@ namespace Messenger.ViewModels
         /// </summary>
         public ICommand SendMessageCommand => new SendMessageCommand(this, MessengerService);
 
-        /// <summary>
-        /// Command: switch currently selected team
-        /// </summary>
-        public ICommand SwitchTeamCommand => new SwitchTeamCommand(this);
-
         #endregion
 
         /// <summary>
-        /// ChatHubViewModel should only be created through the factory method below
+        /// ChatHubViewModel connects to signal-r hub and listens for messages
         /// </summary>
-        private ChatHubViewModel()
+        public ChatHubViewModel()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<Message>>();
+            Messages = new ObservableCollection<Message>();
+
+            CurrentTeamId = 1;
 
             // Bind to "ReceiveMessage" event
-            MessengerService.RegisterListener(OnMessageReceived);
+            //MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            // Bind to "ReceiveInvite" event
+            //MessengerService.RegisterListenerForInvites(OnInviteReceived);
+
+            LoadAsync();
         }
 
         /// <summary>
-        /// Returns SignalRHubViewModel with the pre-configured connection
+        /// Safely calls asynchronous methods on UI-Thread
         /// </summary>
-        /// <returns>ChatHubViewModel with the connection to SignalR-service</returns>
-        public static ChatHubViewModel CreateAndConnect()
+        public async void LoadAsync()
         {
-            ChatHubViewModel viewModel = new ChatHubViewModel();
-
-            viewModel
-                .Initialize()
-                .ContinueWith(task =>
+            await CoreWindow
+                .GetForCurrentThread()
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    if (viewModel.IsConnected)
-                    {
-                        Debug.WriteLine("Connected to the hub.");
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Failed to connect.");
-                    }
-                });
-
-            return viewModel;
-        }
-
-        /// <summary>
-        /// Loads the current user data and initialize messenger service with the user id
-        /// </summary>
-        /// <returns>Task to be awaited</returns>
-        public Task Initialize()
-        {
-            return Singleton<UserDataService>.Instance
-                .GetUserAsync()
-                .ContinueWith((task) =>
-                {
-                    if (task.Exception != null)
-                    {
-                        ErrorMessage = "Unable to fetch user data";
-                        IsConnected = false;
-                    }
-                    else
-                    {
-                        User = task.Result;
-
-                        // Initialize messenger service upon success
-                        MessengerService.Initialize(User.Id).Wait();
-                        IsConnected = true;
-                    }
+                    User = await UserDataService.GetUserAsync();
+                    LoadMessages(CurrentTeamId);
                 });
         }
 
-        #region Events
+        #region Signal-R Events
 
         /// <summary>
         /// Fires on "ReceiveMessage" Hub-method
@@ -196,14 +142,82 @@ namespace Messenger.ViewModels
         {
             Debug.WriteLine($"Message Received::{message.Content} From {message.SenderId} To Team #{message.RecipientId}::{message.CreationTime}");
 
+            AddMessageToCollection(message);
+        }
+
+        /// <summary>
+        /// Fires on "ReceiveInvitation" Hub-method
+        /// </summary>
+        /// <param name="teamId"></param>
+        private void OnInviteReceived(uint teamId)
+        {
+            Debug.WriteLine($"Joined the chat:: Team #{teamId}");
+        }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Asynchronously loads messages either from cache or database
+        /// </summary>
+        /// <param name="teamId">Current team id</param>
+        private async void LoadMessages(uint teamId)
+        {
+            ObservableCollection<Message> fromCache = new ObservableCollection<Message>();
+
+            // Checks the cache if the messages has not yet been loaded for the team
+            if (!MessagesByConnectedTeam.TryGetValue(teamId, out fromCache))
+            {
+                // Loads from database
+                var fromDB = await MessengerService.LoadMessages(teamId);
+                UpdateMessagesView(fromDB);
+            }
+            else
+            {
+                // Loads from cache
+                UpdateMessagesView(fromCache);
+            }
+        }
+
+        /// <summary>
+        /// Adds the message to the cache
+        /// </summary>
+        /// <param name="message">A complete message object to be added</param>
+        private async void AddMessageToCollection(Message message)
+        {
+            var teamId = message.RecipientId;
+
+            // Loads user data of the sender
+            message.Sender = await UserService.GetUser(message.SenderId);
+
             // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
-                message.RecipientId,
+                teamId,
                 new ObservableCollection<Message>() { message },
                 (key, collection) => {
                     collection.Add(message);
                     return collection;
                 });
+
+            // Adds to the messages list if the message is for the current team 
+            if (teamId == CurrentTeamId)
+            {
+                Messages.Add(message);
+            }
+        }
+
+        /// <summary>
+        /// Updates UI with the given messages
+        /// </summary>
+        /// <param name="messages">List of messages to be updated on the view</param>
+        private void UpdateMessagesView(IEnumerable<Message> messages)
+        {
+            Messages.Clear();
+            foreach (var message in messages)
+            {
+                Messages.Add(message);
+            }
         }
 
         #endregion

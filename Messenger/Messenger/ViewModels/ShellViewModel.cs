@@ -9,51 +9,48 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.Views;
-
-using Windows.System;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
-
-using WinUI = Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Messenger.ViewModels
 {
     public class ShellViewModel : Observable
     {
-        private readonly KeyboardAccelerator _altLeftKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu);
-        private readonly KeyboardAccelerator _backKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.GoBack);
 
-        private bool _isBackEnabled;
-        private IList<KeyboardAccelerator> _keyboardAccelerators;
-        private WinUI.NavigationView _navigationView;
-        private WinUI.NavigationViewItem _selected;
-        private ICommand _loadedCommand;
-        private ICommand _itemInvokedCommand;
         private ICommand _userProfileCommand;
+        private ICommand _teamCommand;
+        private ICommand _chatCommand;
+        private ICommand _notificationCommand;
         private UserViewModel _user;
+        private Frame MainFrame { get; set; }
+        private Frame SideFrame { get; set; }
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
 
-        public bool IsBackEnabled
+        //public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
+
+        //public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
+
+        //chat headline
+        private string _chatName;
+
+        public string ChatName
         {
-            get { return _isBackEnabled; }
-            set { Set(ref _isBackEnabled, value); }
+            get { return _chatName; }
+
+            set { Set(ref _chatName, value); }
         }
 
-        public WinUI.NavigationViewItem Selected
-        {
-            get { return _selected; }
-            set { Set(ref _selected, value); }
-        }
 
-        public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
-
-        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
-
-        public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OnUserProfile));
+        public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
+        public ICommand TeamCommand => _teamCommand ?? (_teamCommand = new RelayCommand(OpenTeamsSidePanel));
+        public ICommand ChatCommand => _chatCommand ?? (_chatCommand = new RelayCommand(OpenChatSidePanel));
+        public ICommand NotificationCommand => _notificationCommand ?? (_notificationCommand = new RelayCommand(OpenNotificationSidePanel));
 
         public UserViewModel User
         {
@@ -65,24 +62,25 @@ namespace Messenger.ViewModels
         {
         }
 
-        public void Initialize(Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
+        public void Initialize(Frame frame, Frame sideFrame)
         {
-            _navigationView = navigationView;
-            _keyboardAccelerators = keyboardAccelerators;
+            //_keyboardAccelerators = keyboardAccelerators;
+            MainFrame = frame;
+            SideFrame = sideFrame;
+
             NavigationService.Frame = frame;
-            NavigationService.NavigationFailed += Frame_NavigationFailed;
-            NavigationService.Navigated += Frame_Navigated;
-            _navigationView.BackRequested += OnBackRequested;
+            OnLoaded();
             IdentityService.LoggedOut += OnLoggedOut;
             UserDataService.UserDataUpdated += OnUserDataUpdated;
+
+            //load default pages
+            OpenChatSidePanel();
         }
 
         private async void OnLoaded()
         {
             // Keyboard accelerators are added here to avoid showing 'Alt + left' tooltip on the page.
             // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
-            _keyboardAccelerators.Add(_altLeftKeyboardAccelerator);
-            _keyboardAccelerators.Add(_backKeyboardAccelerator);
             User = await UserDataService.GetUserAsync();
         }
 
@@ -93,98 +91,56 @@ namespace Messenger.ViewModels
 
         private void OnLoggedOut(object sender, EventArgs e)
         {
-            NavigationService.NavigationFailed -= Frame_NavigationFailed;
-            NavigationService.Navigated -= Frame_Navigated;
-            _navigationView.BackRequested -= OnBackRequested;
             UserDataService.UserDataUpdated -= OnUserDataUpdated;
             IdentityService.LoggedOut -= OnLoggedOut;
         }
 
-        private void OnUserProfile()
+
+        #region mainPageNavigation
+        private void MainNavigation(Type page)
         {
-            NavigationService.Navigate<SettingsPage>();
+            MainFrame.Navigate(page, this);
         }
 
-        private void OnItemInvoked(WinUI.NavigationViewItemInvokedEventArgs args)
+        private void OpenSetttingsMainPanel()
         {
-            if (args.IsSettingsInvoked)
-            {
-                NavigationService.Navigate(typeof(SettingsPage), null, args.RecommendedNavigationTransitionInfo);
-            }
-            else if (args.InvokedItemContainer is WinUI.NavigationViewItem selectedItem)
-            {
-                var pageType = selectedItem.GetValue(NavHelper.NavigateToProperty) as Type;
-                NavigationService.Navigate(pageType, null, args.RecommendedNavigationTransitionInfo);
-            }
+            MainNavigation(typeof(SettingsPage));
         }
 
-        private void OnBackRequested(WinUI.NavigationView sender, WinUI.NavigationViewBackRequestedEventArgs args)
+        private void OpenChatMainPage()
         {
-            NavigationService.GoBack();
+            MainNavigation(typeof(ChatPage));
+        }
+        #endregion
+
+
+        #region sidePageNavigation
+
+        /// <summary>
+        /// Opens the side Navigationpanels and the MainChatPanel
+        /// </summary>
+        /// <param name="page"></param>
+        private void SideNavigation(Type page)
+        {
+            SideFrame.Navigate(page, this);
+            //if (MainFrame.SourcePageType.Name != "ChatPage") {
+                OpenChatMainPage();
+            //}
+        }
+        private void OpenTeamsSidePanel()
+        {
+            SideNavigation(typeof(TeamNavPage));
         }
 
-        private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OpenChatSidePanel()
         {
-            throw e.Exception;
+            SideNavigation(typeof(ChatNavPage));
         }
 
-        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        private void OpenNotificationSidePanel()
         {
-            IsBackEnabled = NavigationService.CanGoBack;
-            if (e.SourcePageType == typeof(SettingsPage))
-            {
-                Selected = _navigationView.SettingsItem as WinUI.NavigationViewItem;
-                return;
-            }
-
-            var selectedItem = GetSelectedItem(_navigationView.MenuItems, e.SourcePageType);
-            if (selectedItem != null)
-            {
-                Selected = selectedItem;
-            }
+            SideNavigation(typeof(NotificationNavPage));
         }
-
-        private WinUI.NavigationViewItem GetSelectedItem(IEnumerable<object> menuItems, Type pageType)
-        {
-            foreach (var item in menuItems.OfType<WinUI.NavigationViewItem>())
-            {
-                if (IsMenuItemForPageType(item, pageType))
-                {
-                    return item;
-                }
-
-                var selectedChild = GetSelectedItem(item.MenuItems, pageType);
-                if (selectedChild != null)
-                {
-                    return selectedChild;
-                }
-            }
-
-            return null;
-        }
-
-        private bool IsMenuItemForPageType(WinUI.NavigationViewItem menuItem, Type sourcePageType)
-        {
-            var pageType = menuItem.GetValue(NavHelper.NavigateToProperty) as Type;
-            return pageType == sourcePageType;
-        }
-
-        private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
-        {
-            var keyboardAccelerator = new KeyboardAccelerator() { Key = key };
-            if (modifiers.HasValue)
-            {
-                keyboardAccelerator.Modifiers = modifiers.Value;
-            }
-
-            keyboardAccelerator.Invoked += OnKeyboardAcceleratorInvoked;
-            return keyboardAccelerator;
-        }
-
-        private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-        {
-            var result = NavigationService.GoBack();
-            args.Handled = result;
-        }
+        #endregion
     }
 }

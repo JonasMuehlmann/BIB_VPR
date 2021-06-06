@@ -20,6 +20,8 @@ namespace Messenger.Services
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
+        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
+
         private MicrosoftGraphService MicrosoftGraphService => Singleton<MicrosoftGraphService>.Instance;
 
         private UserService UserService => Singleton<UserService>.Instance;
@@ -53,6 +55,7 @@ namespace Messenger.Services
         private async void OnLoggedIn(object sender, EventArgs e)
         {
             _user = await GetUserFromGraphApiAsync();
+            
             UserDataUpdated?.Invoke(this, _user);
         }
 
@@ -99,6 +102,9 @@ namespace Messenger.Services
 
             var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
 
+            // Connect to signal-r hub and retrieve the team list
+            var teams = await InitializeSignalR(userData.Id);
+
             // Merged with user model from the application database
             return new UserViewModel()
             {
@@ -106,7 +112,8 @@ namespace Messenger.Services
                 Name = userFromDatabase.DisplayName,
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
-                Photo = userPhoto
+                Photo = userPhoto,
+                Teams = teams != null ? new List<Team>(teams) : new List<Team>(),
             };
         }
 
@@ -117,6 +124,11 @@ namespace Messenger.Services
                 Name = IdentityService.GetAccountUserName(),
                 Photo = ImageHelper.ImageFromAssetsFile("DefaultIcon.png")
             };
+        }
+
+        private async Task<IList<Team>> InitializeSignalR(string userId)
+        {
+            return await MessengerService.Initialize(userId);
         }
     }
 }

@@ -11,82 +11,109 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
-
-    <i:Interaction.Behaviors>
-        <ic:EventTriggerBehavior EventName="Loaded">
-            <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
-        </ic:EventTriggerBehavior>
-    </i:Interaction.Behaviors>
-
-    <winui:NavigationView
-        x:Name="navigationView"
-        IsBackButtonVisible="Visible"
-        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
-        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True"
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-        <winui:NavigationView.MenuItems>
-            <!--
-            TODO WTS: Change the symbols for each item as appropriate for your app
-            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
-            Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
-            Edit String/en-US/Resources.resw: Add a menu item title for each page
-            -->
-            <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Document" helpers:NavHelper.NavigateTo="views:MainPage" />
-            <winui:NavigationViewItem x:Uid="Shell_TreeView" Icon="Document" helpers:NavHelper.NavigateTo="views:TreeViewPage" />
-            <winui:NavigationViewItem x:Uid="Shell_ContentGrid" Icon="Document" helpers:NavHelper.NavigateTo="views:ContentGridPage" />
-            <winui:NavigationViewItem x:Uid="Shell_SchemeActivationSample" Icon="Document" helpers:NavHelper.NavigateTo="views:SchemeActivationSamplePage" />
-        </winui:NavigationView.MenuItems>
-        <i:Interaction.Behaviors>
-            <behaviors:NavigationViewHeaderBehavior
-                DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
-                <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <TextBlock
-                                Text="{Binding}"
-                                Style="{ThemeResource TitleTextBlockStyle}"
-                                Margin="{StaticResource SmallLeftRightMargin}" />
-                        </Grid>
-                    </DataTemplate>
-                </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-            </behaviors:NavigationViewHeaderBehavior>
-            <ic:EventTriggerBehavior EventName="ItemInvoked">
-                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
-            </ic:EventTriggerBehavior>
-        </i:Interaction.Behaviors>
-        <winui:NavigationView.PaneFooter>
+    <Page.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush  x:Key="SystemTextColor" Color="{ThemeResource SystemBaseHighColor}"></SolidColorBrush>
+            <SolidColorBrush  x:Key="SystemAccent" Color="{ThemeResource SystemAccentColor}"></SolidColorBrush>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" MaxHeight="100"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Uid="Shell_TeamButton"
+                Padding="0" Margin="0"
+                Command="{x:Bind ViewModel.TeamCommand}"
+                Click="NavigationButton_Clicked"
+                Background="Transparent"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="People"/>
+            </Button>
+            <Button
+                x:Uid="Shell_ChatButton"
+                Padding="0" Margin="0"
+                Command="{x:Bind ViewModel.ChatCommand}"
+                Click="NavigationButton_Clicked"
+                Background="Transparent"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Comment" x:Name="ChatIcon" Foreground="{ThemeResource SystemAccentColor}"/>
+            </Button>
+            <Button
+                x:Uid="Shell_NotificationButton"
+                Padding="0" Margin="0"
+                Command="{x:Bind ViewModel.NotificationCommand}"
+                Click="NavigationButton_Clicked"
+                Background="Transparent"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Mail"/>
+            </Button>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MaxWidth="100"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="1*" MaxWidth="100"/>
+                <ColumnDefinition Width="1*" MaxWidth="100"/>
+            </Grid.ColumnDefinitions>
+            <SymbolIcon Symbol="People"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"/>
+            <TextBlock
+                Style="{ThemeResource VCenteredText}"
+                FontWeight="Bold"
+                Text="{x:Bind ViewModel.ChatName, Mode=OneWay}"
+                VerticalAlignment="Center"
+                Grid.Column="1"
+                />
             <Button
                 x:Uid="Shell_UserInfoButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.UserProfileCommand}"
+                Click="NavigationButton_Clicked"
                 Background="Transparent"
+                Grid.Column="2"
                 HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left">
-                <Grid Height="40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="38" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Ellipse
-                        Grid.Column="0"
-                        Width="24"
-                        Height="24"
-                        HorizontalAlignment="Center">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.User.Photo, Mode=OneWay}" Stretch="UniformToFill" />
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <TextBlock
-                        Grid.Column="1"
-                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
-                        VerticalAlignment="Center"
-                        Style="{ThemeResource BodyTextBlockStyle}" />
-                </Grid>
+                VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Contact"/>
             </Button>
-        </winui:NavigationView.PaneFooter>
-        <Grid>
+            <Button
+                x:Uid="Shell_SettingsButton"
+                Padding="0" Margin="0"
+                Command="{x:Bind ViewModel.UserProfileCommand}"
+                Click="NavigationButton_Clicked"
+                Background="Transparent"
+                Grid.Column="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Setting"/>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Frame x:Name="sideFrame" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
             <Frame x:Name="shellFrame" />
         </Grid>
-    </winui:NavigationView>
+        
+    </Grid>
 </Page>

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using Messenger.Core.Services;
+using Messenger.Core.Helpers;
 
 namespace Messenger.Core.Helpers
 {
@@ -19,11 +20,11 @@ namespace Messenger.Core.Helpers
         {
             return new User()
             {
-                Id = row["UserId"].ToString(),
-                DisplayName = row["UserName"].ToString(),
-                NameId = Convert.ToUInt32(row["NameId"]),
-                Mail = row["Email"].ToString(),
-                Bio = row["Bio"].ToString(),
+                Id          = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                DisplayName = SqlHelpers.TryConvertDbValue(row["UserName"], Convert.ToString),
+                NameId      = SqlHelpers.TryConvertDbValue(row["NameId"], Convert.ToUInt32),
+                Mail        = SqlHelpers.TryConvertDbValue(row["Email"], Convert.ToString),
+                Bio         = SqlHelpers.TryConvertDbValue(row["Bio"], Convert.ToString),
             };
         }
 
@@ -36,10 +37,10 @@ namespace Messenger.Core.Helpers
         {
             return new User()
             {
-                Id = userdata.Id,
+                Id          = userdata.Id,
                 DisplayName = userdata.DisplayName,
-                NameId = userdata.NameId,
-                Mail = userdata.Mail
+                NameId      = userdata.NameId,
+                Mail        = userdata.Mail
             };
         }
 
@@ -52,10 +53,10 @@ namespace Messenger.Core.Helpers
         {
             return new Team()
             {
-                Id = Convert.ToUInt32(row["TeamId"]),
-                Name = row["TeamName"].ToString(),
-                Description = row["TeamDescription"].ToString(),
-                CreationDate = Convert.ToDateTime(row["CreationDate"].ToString())
+                Id           = SqlHelpers.TryConvertDbValue(row["TeamId"],Convert.ToUInt32),
+                Name         = SqlHelpers.TryConvertDbValue(row["TeamName"], Convert.ToString),
+                Description  = SqlHelpers.TryConvertDbValue(row["TeamDescription"], Convert.ToString),
+                CreationDate = SqlHelpers.TryConvertDbValue(row["CreationDate"].ToString(), Convert.ToDateTime)
             };
         }
 
@@ -66,14 +67,22 @@ namespace Messenger.Core.Helpers
         /// <returns>A fully-mapped message object</returns>
         public static Message MessageFromDataRow(DataRow row)
         {
-            return new Message() 
+            var sender = new User()
             {
-                Id = Convert.ToUInt32(row["MessageId"]),
-                SenderId = row["SenderId"].ToString(),
-                RecipientId = Convert.ToUInt32(row["TeamId"]),
-                Content = row["Message"].ToString(),
-                CreationTime = Convert.ToDateTime(row["CreationDate"].ToString()),
-                ParentMessageId = Convert.ToUInt32(row["ParentMessageId"])
+                Id              = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                NameId          = SqlHelpers.TryConvertDbValue(row["NameId"], Convert.ToUInt32),
+                DisplayName     = SqlHelpers.TryConvertDbValue(row["UserName"], Convert.ToString)
+            };
+
+            return new Message()
+            {
+                Id              = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
+                SenderId        = SqlHelpers.TryConvertDbValue(row["SenderId"], Convert.ToString),
+                RecipientId     = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToUInt32),
+                Content         = SqlHelpers.TryConvertDbValue(row["Message"], Convert.ToString),
+                CreationTime    = SqlHelpers.TryConvertDbValue(row["CreationDate"].ToString(), Convert.ToDateTime),
+                ParentMessageId = SqlHelpers.TryConvertDbValue(row["ParentMessageId"], Convert.ToUInt32),
+                Sender          = sender
             };
         }
 
@@ -86,10 +95,10 @@ namespace Messenger.Core.Helpers
         {
             return new Membership()
             {
-                MembershipId = Convert.ToUInt32(row["MembershipId"]),
-                UserId = row["UserId"].ToString(),
-                UserRole = row["UserRole"].ToString(),
-                TeamId = Convert.ToUInt32(row["TeamId"])
+                MembershipId = SqlHelpers.TryConvertDbValue(row["MembershipId"], Convert.ToUInt32),
+                UserId       = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                UserRole     = SqlHelpers.TryConvertDbValue(row["UserRole"], Convert.ToString),
+                TeamId       = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
     }

@@ -5,13 +5,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace Messenger.TemplateSelectors
 {
-    public class SampleDataTemplateSelector : DataTemplateSelector
+    public class TeamDataTemplateSelector: DataTemplateSelector
     {
-        public DataTemplate CompanyTemplate { get; set; }
+        public DataTemplate TeamTemplate { get; set; }
 
-        public DataTemplate OrderTemplate { get; set; }
-
-        public DataTemplate OrderDetailTemplate { get; set; }
+        public DataTemplate TeamChannelTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
@@ -27,12 +25,10 @@ namespace Messenger.TemplateSelectors
         {
             switch (item)
             {
-                case SampleCompany company:
-                    return CompanyTemplate;
-                case SampleOrder order:
-                    return OrderTemplate;
-                case SampleOrderDetail orderDetail:
-                    return OrderDetailTemplate;
+                case Team team:
+                    return TeamTemplate;
+                case TeamChannel teamChannel:
+                    return TeamChannelTemplate;
             }
 
             return null;

@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using Messenger.Core.Models;
 using Messenger.Helpers;
 
 using Windows.UI.Xaml.Media.Imaging;
@@ -13,8 +14,8 @@ namespace Messenger.ViewModels
         private string _bio;
         private string _mail;
         private BitmapImage _photo;
-
         private string _id;
+        private List<Team> _teams = new List<Team>();
 
         public string Id
         {
@@ -52,8 +53,22 @@ namespace Messenger.ViewModels
             set => Set(ref _photo, value);
         }
 
+        public List<Team> Teams
+        {
+            get { return _teams; }
+            set
+            {
+                _teams = value;
+                Set(ref _teams, value);
+            }
+        }
+
         public UserViewModel()
         {
+        }
+
+        public User ToUserObject() {
+            return new User() { Id = Id, DisplayName = UserPrincipalName, NameId = 0, Photo = "", Mail = Mail, Bio = Bio};
         }
     }
 }
