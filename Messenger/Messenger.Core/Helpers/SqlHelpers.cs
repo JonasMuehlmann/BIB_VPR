@@ -128,7 +128,7 @@ namespace Messenger.Core.Helpers
         {
             Serilog.Context.LogContext.PushProperty("Method","MapToList");
             Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called with parameters mapper={mapper.Method.Name}")
+            logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
             string tableName = nameof(T) + 's';
 
@@ -157,11 +157,11 @@ namespace Messenger.Core.Helpers
         {
             Serilog.Context.LogContext.PushProperty("Method","GetPartner");
             Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called with parameters teamId={teamId}")
+            logger.Information($"Function called with parameters teamId={teamId}");
 
             // NOTE: Private Chats currently only support 1 Members
             string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId"
-                         + $"WHERE t.TeamId != {teamId}";
+                         + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
 
             SqlCommand scalarQuery = new SqlCommand(query, connection);
             try
