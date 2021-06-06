@@ -104,7 +104,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}");
 
             // NOTE: Private Chats currently only support 1 Members
-            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId"
+            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId "
                          + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
 
             try
