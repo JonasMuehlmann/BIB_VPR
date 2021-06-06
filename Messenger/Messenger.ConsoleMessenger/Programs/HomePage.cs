@@ -9,7 +9,7 @@ namespace Messenger.ConsoleMessenger.Programs
     class HomePage : MenuPage
     {
         public HomePage(Program program)
-            : base("Teams", program,
+            : base("Home", program,
                   new Option("Join Team", () => { program.NavigateTo<ChatPage>(); }))
         {
         }
