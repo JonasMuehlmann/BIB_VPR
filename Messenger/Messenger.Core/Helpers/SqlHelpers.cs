@@ -148,44 +148,6 @@ namespace Messenger.Core.Helpers
         }
 
         /// <summary>
-        /// In a private chat, retrieve the conversation partner's user id
-        /// </summary>
-        /// <param name="teamId">the id of the team belonging to the private chat</param>
-        /// <param name="connection">A connection to the used sql database</param>
-        /// <returns>The user id of the conversation partner</returns>
-        public static string GetPartner(uint teamId, SqlConnection connection)
-        {
-            Serilog.Context.LogContext.PushProperty("Method","GetPartner");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called with parameters teamId={teamId}");
-
-            // NOTE: Private Chats currently only support 1 Members
-            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId"
-                         + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
-
-            SqlCommand scalarQuery = new SqlCommand(query, connection);
-            try
-            {
-                var        otherUser   = scalarQuery.ExecuteScalar();
-
-                logger.Information($"Running the following query: {query}");
-
-                var result = TryConvertDbValue(otherUser, Convert.ToString);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e,"Return value: null");
-
-                return null;
-            }
-        }
-
-
-        /// <summary>
         /// Convert a value that can be DBNull using a specified converter
         /// </summary>
         /// <typeparam name="T">A type to convert value to</typeparam>

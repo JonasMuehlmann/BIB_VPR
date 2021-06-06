@@ -86,7 +86,49 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
-        return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
+            return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
+        }
+
+
+        /// <summary>
+        /// In a private chat, retrieve the conversation partner's user id
+        /// </summary>
+        /// <param name="teamId">the id of the team belonging to the private chat</param>
+        /// <param name="connection">A connection to the used sql database</param>
+        /// <returns>The user id of the conversation partner</returns>
+        public string GetPartner(uint teamId)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","GetPartner");
+            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            // NOTE: Private Chats currently only support 1 Members
+            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId"
+                         + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
+
+            try
+            {
+
+                using(SqlConnection connection = GetConnection())
+                {
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+                    var        otherUser   = scalarQuery.ExecuteScalar();
+
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e,"Return value: null");
+
+                return null;
+            }
         }
     }
 }
