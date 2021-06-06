@@ -208,6 +208,11 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Retrieve all user who are members of the specified team
+        /// </summary>
+        /// <param name="teamId">The id of a team to retrieve users from</param>
+        ///<returns>Enumerable of User objects representing the teams members</returns>
         public async Task<IEnumerable<User>> GetAllMembers(uint teamId)
         {
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
