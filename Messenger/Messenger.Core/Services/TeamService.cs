@@ -338,7 +338,7 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     logger.Information($"Running the following query: {query}");
-                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRows, new SqlDataAdapter(query, connection));
+                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
 
                     logger.Information($"Return value: {result}");
 
