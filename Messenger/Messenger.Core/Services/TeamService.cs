@@ -322,6 +322,36 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        public async Task<IList<Channel>> GetAllChannelsByTeamId(uint teamId)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            string query = $"SELECT * FROM Channels WHERE TeamId={teamId}";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    logger.Information($"Running the following query: {query}");
+                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRows, new SqlDataAdapter(query, connection));
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
         #endregion
     }
 }
