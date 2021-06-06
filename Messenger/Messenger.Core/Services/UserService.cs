@@ -95,6 +95,35 @@ namespace Messenger.Core.Services
 
 
         /// <summary>
+        /// Update a specified users email
+        ///</summary>
+        /// <param name="userId">The id of the user, whose email will be updated</param>
+        /// <param name="newUsername">The new email to set</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> UpdateUserMail(string userId, string newMail)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","UpdateUserMail");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
+
+            // TODO: Validate email
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                string queryUpdate = $"UPDATE Users SET Email={newMail} WHERE UserId='{userId}';";
+
+                logger.Information($"Running the following query: {queryUpdate}");
+
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+        }
+        /// <summary>
         /// Create or retrieve an application user from a specified user object holding a GraphService Id.
         /// </summary>
         /// <param name="userdata">A user object holding a GraphService id which will be used to retrieve or create a user</param>
