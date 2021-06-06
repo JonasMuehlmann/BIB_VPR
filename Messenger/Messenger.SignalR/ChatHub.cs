@@ -32,8 +32,8 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public Task Register(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","Register");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","Register");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -50,8 +50,8 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task JoinTeam(string teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","JoinTeam");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","JoinTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameter teamId={teamId}");
 
@@ -68,8 +68,8 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task AddToTeam(string userId, string teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","AddToTeam");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","AddToTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
@@ -94,8 +94,8 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task SendMessage(Message message)
         {
-            Serilog.Context.LogContext.PushProperty("Method","SendMessage");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters message={message}");
 
@@ -113,8 +113,8 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            Serilog.Context.LogContext.PushProperty("Method","OnDisconnectedAsync");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","OnDisconnectedAsync");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called");
 
