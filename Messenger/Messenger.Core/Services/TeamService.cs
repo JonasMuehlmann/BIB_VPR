@@ -213,7 +213,7 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("Method","AddMember");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
-            
+
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
 
@@ -306,13 +306,9 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                    DataSet dataSet = new DataSet();
-
                     logger.Information($"Running the following query: {query}");
-                    adapter.Fill(dataSet, "Users");
 
-                    var result = dataSet.Tables["Users"].Rows.Cast<DataRow>().Select(Mapper.UserFromDataRow);
+                    var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
 
                     logger.Information($"Return value: {result}");
 
