@@ -14,17 +14,17 @@ namespace Messenger.Core.Services
     {
         public async Task<uint?> CreateChannel(string channelName, uint teamId)
         {
-            ;
+            throw new NotSupportedException();
         }
 
         public async Task<bool> RemoveChannel(uint channelId, uint teamId)
         {
-            ;
+            throw new NotSupportedException();
         }
 
         public async Task<bool> RenameChannel(string channelName, uint channelId)
         {
-            ;
+            throw new NotSupportedException();
         }
     }
 }
