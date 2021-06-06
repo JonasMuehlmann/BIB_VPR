@@ -69,7 +69,7 @@ namespace Messenger.Core.Services
         /// Deletes a team with a given team id.
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
             string query = $"DELETE FROM Memberships WHERE TeamId={teamId};"

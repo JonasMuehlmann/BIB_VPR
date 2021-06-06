@@ -60,10 +60,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of the channel to delete</param>
         /// <param name="teamId">The id of the team to delete which contains the channel to delete</param>
-        /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> RemoveChannel(uint channelId, uint teamId)
         {
-
             Serilog.Context.LogContext.PushProperty("Method","RemoveChannel");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
 
@@ -77,7 +76,6 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
-
         }
 
         /// <summary>
