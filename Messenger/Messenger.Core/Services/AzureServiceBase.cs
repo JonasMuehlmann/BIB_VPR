@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using Serilog;
 using Serilog.Context;
+using Messenger.Core.Helpers;
 
 namespace Messenger.Core.Services
 {
@@ -17,11 +18,7 @@ namespace Messenger.Core.Services
 
         private string testConnectionString;
 
-        public ILogger logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
-                .CreateLogger();
-
+        public ILogger logger => GlobalLogger.Instance;
         #endregion
 
         public SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
