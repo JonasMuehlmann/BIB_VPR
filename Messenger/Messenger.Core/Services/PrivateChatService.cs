@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog.Context;
 
 
 namespace Messenger.Core.Services
@@ -22,8 +23,8 @@ namespace Messenger.Core.Services
         /// <returns>The teamId of the created Team</returns>
         public async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","CreatePrivateChat");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreatePrivateChat");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters myUserId={myUserId}, otherUserId={otherUserId}");
 
             uint? teamID;
@@ -82,11 +83,53 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
-        return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
+            return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
+        }
+
+
+        /// <summary>
+        /// In a private chat, retrieve the conversation partner's user id
+        /// </summary>
+        /// <param name="teamId">the id of the team belonging to the private chat</param>
+        /// <param name="connection">A connection to the used sql database</param>
+        /// <returns>The user id of the conversation partner</returns>
+        public string GetPartner(uint teamId)
+        {
+            LogContext.PushProperty("Method","GetPartner");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            // NOTE: Private Chats currently only support 1 Members
+            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId "
+                         + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
+
+            try
+            {
+
+                using(SqlConnection connection = GetConnection())
+                {
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+                    var        otherUser   = scalarQuery.ExecuteScalar();
+
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e,"Return value: null");
+
+                return null;
+            }
         }
     }
 }
