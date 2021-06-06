@@ -279,7 +279,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Return value: {result}");
 
-                return (uint?)result;
+                return (uint)result;
             }
             catch (SqlException e)
             {
