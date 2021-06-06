@@ -94,5 +94,46 @@ namespace Messenger.Core.Services
                 return result;
             }
         }
+
+        /// <summary>
+        /// Set the content of a specified message to a specified text
+        /// <summary>
+        /// <param name="messageId">The id of the message to edit</param>
+        /// <param name="newContent">The new content of the message</param>
+        /// <returns>True if the message got edited successfully, false otherwise</returns>
+        public async Task<bool> EditMessage(uint messageId, string newContent)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","EditMessage");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, newChatIcon={newContent}");
+
+
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                string query = $"UPDATE Messages SET Content='{newContent}' WHERE MessageId={messageId};";
+
+                logger.Information($"Running the following query: {query}");
+
+                try
+                {
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+
+                    var        result      = scalarQuery.ExecuteScalar();
+                    result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+
+                    logger.Information($"Return value: {result}");
+
+                    return (bool)result;
+                }
+                catch (SqlException e)
+                {
+                    logger.Information(e, $"Return value: false");
+
+                    return false;
+                }
+            }
+        }
     }
 }
