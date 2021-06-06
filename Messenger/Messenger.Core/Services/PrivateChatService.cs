@@ -76,8 +76,9 @@ namespace Messenger.Core.Services
 
 
         /// <summary>
-        /// Lists all private chats starting with the last private chat in which a message was sent
+        /// Lists all private chats of a specified user
         /// </summary>
+        /// <param name="userId">the id of a user to retrieve private chats of</param>
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
