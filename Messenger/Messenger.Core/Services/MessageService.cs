@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
+using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
@@ -25,6 +26,9 @@ namespace Messenger.Core.Services
                                                uint? parentMessageId = null,
                                                IEnumerable<string> attachmentBlobNames = null)
         {
+            LogContext.PushProperty("Method","CreateMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
             try
             {
                 using (SqlConnection connection = GetConnection())
@@ -34,19 +38,28 @@ namespace Messenger.Core.Services
                     string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
                     string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
 
+                    logger.Information($"attachmentBlobNames has been corrected to {attachmentBlobNames}");
+                    logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");
+
                     string query = $"INSERT INTO Messages " +
                                    $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
                                    $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
 
+                    logger.Information($"Running the following query: {query}");
+
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
                     var        result      = scalarQuery.ExecuteScalar();
 
-                    return SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+
+                    logger.Information($"Return value: {result}");
+
+                    return (uint?)result;
                 }
             }
             catch (SqlException e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}");
+                logger.Information(e, $"Return value: null");
 
                 return null;
             }
@@ -61,6 +74,10 @@ namespace Messenger.Core.Services
         {
             using (SqlConnection connection = GetConnection())
             {
+                LogContext.PushProperty("Method","RetrieveMessages");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters teamId={teamId}");
+
                 await connection.OpenAsync();
 
                 string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
@@ -71,7 +88,11 @@ namespace Messenger.Core.Services
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
 
-                return SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
+                logger.Information($"Running the following query: {query}");
+
+                var result = SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
+
+                return result;
             }
         }
     }

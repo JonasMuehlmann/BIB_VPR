@@ -2,6 +2,9 @@
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using Serilog;
+using Serilog.Context;
+using Messenger.Core.Helpers;
 
 namespace Messenger.Core.Services
 {
@@ -15,6 +18,7 @@ namespace Messenger.Core.Services
 
         private string testConnectionString;
 
+        public ILogger logger => GlobalLogger.Instance;
         #endregion
 
         public SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
@@ -25,11 +29,6 @@ namespace Messenger.Core.Services
         {
             testConnectionString = connectionString;
             testMode = true;
-        }
-
-        protected void HandleException(Exception e)
-        {
-            Debug.WriteLine($"Database Exception: {e.Message}/{e.InnerException?.Message}");
         }
     }
 }
