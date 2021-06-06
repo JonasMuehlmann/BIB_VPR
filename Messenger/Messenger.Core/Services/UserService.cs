@@ -154,6 +154,37 @@ namespace Messenger.Core.Services
             }
         }
 
+
+        /// <summary>
+        /// Update a specified users bio
+        ///</summary>
+        /// <param name="userId">The id of the user, whose  biowill be updated</param>
+        /// <param name="newBio">The new  bioto set</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> UpdateUserBio(string userId, string newBio)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","UpdateUserMail");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
+
+            //TODO: Check for valid photo
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                string queryUpdate = $"UPDATE Users SET Bio={newBio} WHERE UserId='{userId}';";
+
+                logger.Information($"Running the following query: {queryUpdate}");
+
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Create or retrieve an application user from a specified user object holding a GraphService Id.
         /// </summary>
