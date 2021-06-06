@@ -38,7 +38,10 @@ namespace Messenger.ConsoleMessenger
         public MessengerApp(ILogger<MessengerApp> log)
         {
             IdentityService.InitializeConsoleForAadMultipleOrgs(CLIENT_ID);
+            
+            // Force to initialize with the given connection string
             UserService.SetTestMode(CONNECTION_STRING);
+
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
 
             _log = log;
@@ -59,7 +62,6 @@ namespace Messenger.ConsoleMessenger
             if (isLoggedIn)
             {
                 OnLoginSuccess();
-                
 
                 MessengerProgram
                     .CreateProgram(_user)
@@ -81,7 +83,6 @@ namespace Messenger.ConsoleMessenger
                 switch (result)
                 {
                     case LoginResultType.Success:
-                        
                         return true;
                     case LoginResultType.CancelledByUser:
                         _log.LogError("Authentication cancelled");
@@ -177,6 +178,7 @@ namespace Messenger.ConsoleMessenger
             var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
 
             // Connect to signal-r hub
+            // Optional parameter for connection string was given to initialize with it
             await MessengerService.Initialize(userData.Id, CONNECTION_STRING);
 
             // Merged with user model from the application database
