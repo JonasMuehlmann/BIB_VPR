@@ -123,6 +123,37 @@ namespace Messenger.Core.Services
                 return result;
             }
         }
+
+        /// <summary>
+        /// Update a specified users photo
+        ///</summary>
+        /// <param name="userId">The id of the user, whose photo will be updated</param>
+        /// <param name="newPhoto">The new photo to set</param>
+        /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
+        public async Task<bool> UpdateUserPhoto(string userId, string newPhoto)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","UpdateUserMail");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
+
+            //TODO: Check for valid photo
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                string queryUpdate = $"UPDATE Users SET Photo={newPhoto} WHERE UserId='{userId}';";
+
+                logger.Information($"Running the following query: {queryUpdate}");
+
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Create or retrieve an application user from a specified user object holding a GraphService Id.
         /// </summary>
