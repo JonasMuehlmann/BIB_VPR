@@ -77,6 +77,8 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
+
+
         /// <summary>
         /// Change the specified teams name
         /// </summary>
@@ -93,7 +95,7 @@ namespace Messenger.Core.Services
 
             if (teamName == string.Empty)
             {
-                logger.Information("Return value: null");
+                logger.Information("Return value: false");
 
                 return false;
             }
@@ -105,6 +107,49 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     string query = $"UPDATE Teams SET TeamName='{teamName}' WHERE TeamId={teamId};";
+
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+
+
+                    logger.Information($"Running the following query: {scalarQuery}");
+
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
+                                                          Convert.ToBoolean);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, "Return value: false");
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Change the specified teams description
+        /// </summary>
+        /// <param name="teamId">Id of the team which's should be changed</param>
+        /// <param name="description">New description of the team</param>
+        /// <returns>True, if the teams name was changed, false otherwise</returns>
+        public async Task<bool> ChangeTeamDescription(uint teamId, string description)
+        {
+
+            Serilog.Context.LogContext.PushProperty("Method","ChangeTeamDescription");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamId={teamId}, description={description}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $"UPDATE Teams SET Description='{description}' WHERE TeamId={teamId};";
 
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
