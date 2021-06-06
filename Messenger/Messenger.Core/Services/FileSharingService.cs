@@ -24,12 +24,7 @@ namespace Messenger.Core.Services
         private const string containerName = "attachments";
         public readonly string localFileCachePath = Path.Combine(Path.GetTempPath(), "BIB_VPR" + Path.DirectorySeparatorChar);
 
-        public ILogger logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
-                .CreateLogger();
-
-
+        public ILogger logger => GlobalLogger.Instance;
 
         /// <summary>
         /// Connect to our blob container
