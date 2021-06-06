@@ -22,7 +22,12 @@ namespace Messenger.Core.Services
         /// <returns>The teamId of the created Team</returns>
         public async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
+            Serilog.Context.LogContext.PushProperty("Method","CreatePrivateChat");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters myUserId={myUserId}, otherUserId={otherUserId}");
+            
             uint? teamID;
+            
             // Add myself and other user as members
            try
            {
@@ -37,23 +42,34 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     SqlCommand command = new SqlCommand(query, connection);
+                    
+                    logger.Information($"Running the following query: {query}");
+                    
                     var team = command.ExecuteScalar();
 
                     teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
+                    
+                    logger.Information($"teamID has been determined as {teamID}");
                 }
-                    var success1 = await AddMember(myUserId, teamID.Value);
-                    var success2 = await AddMember(otherUserId, teamID.Value);
+                
+                var success1 = await AddMember(myUserId, teamID.Value);
+                var success2 = await AddMember(otherUserId, teamID.Value);
 
-                    if (!success1 && success2)
-                    {
-                        return null;
-                    }
-
-                    return teamID;
+                if (!success1 && success2)
+                {
+                    logger.Information("Could not add one or both users(s) to the team");
+                    logger.Information($"Return value: null");
+                        
+                    return null;
+                }
+                    
+                logger.Information($"Return value: {teamID}");
+                    
+                return teamID;
            }
            catch (SqlException e)
            {
-                Debug.WriteLine($"Database Exception: {e.Message}");
+                logger.Information(e, $"Return value: null");
                 return null;
            }
         }
@@ -65,6 +81,10 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
+            Serilog.Context.LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}");
+
         return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
         }
     }
