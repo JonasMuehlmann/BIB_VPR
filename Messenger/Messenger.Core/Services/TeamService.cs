@@ -210,12 +210,12 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> AddMember(string userId, uint teamId)
         {
-
             Serilog.Context.LogContext.PushProperty("Method","AddMember");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+            
+            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
 
-            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', '{teamId}', 'placeholder');";
 
             logger.Information($"Running the following query: {query}");
 
@@ -247,46 +247,6 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
-        }
-
-        /// <summary>
-        /// Gets all members in the team
-        /// </summary>
-        /// <param name="teamId">The id of the team to get members of</param>
-        /// <returns>An enumerable of User objects</returns>
-        public async Task<IEnumerable<User>> GetAllUsersByTeamId(uint teamId)
-        {
-
-            Serilog.Context.LogContext.PushProperty("Method","GetAllUsersByTeamId");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters teamId={teamId}");
-
-            string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
-            string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
-
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.MapToList(Mapper.UserFromDataRow,
-                                                      new SqlDataAdapter(query, connection));
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-
-                logger.Information(e, $"Return value: null");
-
-                return null;
-            }
         }
 
         /// <summary>
@@ -326,6 +286,11 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Retrieve all user who are members of the specified team
+        /// </summary>
+        /// <param name="teamId">The id of a team to retrieve users from</param>
+        ///<returns>Enumerable of User objects representing the teams members</returns>
         public async Task<IEnumerable<User>> GetAllMembers(uint teamId)
         {
             Serilog.Context.LogContext.PushProperty("Method","GetAllMembers");

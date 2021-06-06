@@ -117,9 +117,12 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            foreach (var attachmentFilePath in attachmentFilePaths)
+            if (attachmentFilePaths != null)
             {
-                message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+                foreach (var attachmentFilePath in attachmentFilePaths)
+                {
+                    message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+                }
             }
 
             logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}");

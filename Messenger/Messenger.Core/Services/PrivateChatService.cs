@@ -25,37 +25,51 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("Method","CreatePrivateChat");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters myUserId={myUserId}, otherUserId={otherUserId}");
-
-            uint teamID;
+            
+            uint? teamID;
+            
             // Add myself and other user as members
            try
            {
-                string query = $"INSERT INTO Teams (CreationDate) VALUES "
-                             + $"( GETDATE());"
-                             + "SELECT CAST(SCOPE_IDENTITY() AS int)";
+               string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
+                              $"('', GETDATE());"
+                              + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
 
-                SqlCommand command = new SqlCommand(query, GetConnection());
+                using(SqlConnection connection = GetConnection())
+                {
 
-                logger.Information($"Running the following query: {query}");
+                    await connection.OpenAsync();
 
-                var team = command.ExecuteScalar();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    
+                    logger.Information($"Running the following query: {query}");
+                    
+                    var team = command.ExecuteScalar();
 
-                teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
+                    teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
+                    
+                    logger.Information($"teamID has been determined as {teamID}");
+                }
+                
+                var success1 = await AddMember(myUserId, teamID.Value);
+                var success2 = await AddMember(otherUserId, teamID.Value);
 
-                logger.Information($"teamID has been determined as {teamID}");
-
-                await AddMember(myUserId, teamID);
-                await AddMember(otherUserId, teamID);
-
+                if (!success1 && success2)
+                {
+                    logger.Information("Could not add one or both users(s) to the team");
+                    logger.Information($"Return value: null");
+                        
+                    return null;
+                }
+                    
                 logger.Information($"Return value: {teamID}");
-
+                    
                 return teamID;
            }
            catch (SqlException e)
            {
                 logger.Information(e, $"Return value: null");
-
                 return null;
            }
         }
@@ -65,41 +79,13 @@ namespace Messenger.Core.Services
         /// Lists all private chats starting with the last private chat in which a message was sent
         /// </summary>
         /// <returns>An enumerable of Team objects</returns>
-        public async Task<IEnumerable<Team>> GetAllPrivateChats()
+        public async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllPrivateChats");
+            Serilog.Context.LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called");
+            logger.Information($"Function called with parameters userId={userId}");
 
-            string query = @"SELECT t.TeamId, t.CreationDate
-                            FROM Teams t,  Messages m
-                            WHERE TeamName IS NULL;
-                            AND t.TeamId = m.RecipientId
-                            ORDER BY m.CeationTime DESC;";
-
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.MapToList(Mapper.TeamFromDataRow,
-                                                      new SqlDataAdapter(query, connection));
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
-
-                return null;
-            }
+        return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
         }
-
-
     }
 }
