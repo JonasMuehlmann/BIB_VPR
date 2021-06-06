@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog.Context;
 
 
 namespace Messenger.Core.Services
@@ -22,8 +23,8 @@ namespace Messenger.Core.Services
         /// <returns>The teamId of the created Team</returns>
         public async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","CreatePrivateChat");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreatePrivateChat");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters myUserId={myUserId}, otherUserId={otherUserId}");
 
             uint? teamID;
@@ -82,8 +83,8 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
             return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
@@ -98,8 +99,8 @@ namespace Messenger.Core.Services
         /// <returns>The user id of the conversation partner</returns>
         public string GetPartner(uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetPartner");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            LogContext.PushProperty("Method","GetPartner");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters teamId={teamId}");
 
             // NOTE: Private Chats currently only support 1 Members

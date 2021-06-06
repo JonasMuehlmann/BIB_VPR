@@ -26,8 +26,8 @@ namespace Messenger.Core.Helpers
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public static async Task<bool> NonQueryAsync(string query, SqlConnection connection)
         {
-            Serilog.Context.LogContext.PushProperty("Method","NonQueryAsync");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            LogContext.PushProperty("Method","NonQueryAsync");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters query={query}");
 
             try
@@ -66,8 +66,8 @@ namespace Messenger.Core.Helpers
         /// <returns>Null if the specifid column does not exist in the table, it's type name otherwise</returns>
         public static string GetColumnType(string tableName, string columnName, SqlConnection connection)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetColumnType");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            LogContext.PushProperty("Method","GetColumnType");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters tableName={tableName}, columnName={columnName}");
 
             SqlCommand query = new SqlCommand(
@@ -103,8 +103,8 @@ namespace Messenger.Core.Helpers
         /// <returns>An enumerable of data rows</returns>
         public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetRows");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            LogContext.PushProperty("Method","GetRows");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters tableName={tableName}");
 
             var dataSet = new DataSet();
@@ -126,8 +126,8 @@ namespace Messenger.Core.Helpers
         /// <returns></returns>
         public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
         {
-            Serilog.Context.LogContext.PushProperty("Method","MapToList");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            LogContext.PushProperty("Method","MapToList");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
             string tableName = nameof(T) + 's';

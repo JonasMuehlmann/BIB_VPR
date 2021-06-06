@@ -36,8 +36,8 @@ namespace Messenger.Core.Services
         /// <returns>List of teams the user has membership of, null if none exists</returns>
         public async Task<IList<Team>> Initialize(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","Initialize");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","Initialize");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
             await SignalRService.Open(userId);
@@ -105,8 +105,8 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
-            Serilog.Context.LogContext.PushProperty("Method","SendMessage");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
             // Check the validity of the message
             if (!ValidateMessage(message))
@@ -153,8 +153,8 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
-            Serilog.Context.LogContext.PushProperty("Method","CreateTeam");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters creatorId={creatorId}, teamName={teamName}, teamDescription={teamDescription}");
 
             // Create team and save to database
@@ -188,8 +188,8 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> InviteUser(string userId, uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","InviteUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","InviteUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             if (string.IsNullOrWhiteSpace(userId))
@@ -253,8 +253,8 @@ namespace Messenger.Core.Services
         /// <returns>true on valid, false on invalid</returns>
         private bool ValidateMessage(Message message)
         {
-            Serilog.Context.LogContext.PushProperty("Method","ValidateMessage");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","ValidateMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters message={message}");
 
             // Sender / Recipient Id
