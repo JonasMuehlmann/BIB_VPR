@@ -261,4 +261,12 @@
     <value>Antworten</value>
     <comment>Reply text</comment>
   </data>
+  <data name="Team_AddTeamMember.PlaceholderText" xml:space="preserve">
+    <value>Nutzer hinzufügen</value>
+    <comment>Benutzer zum Team hinzufügen</comment>
+  </data>
+  <data name="Team_RemoveTeamMember.PlaceholderText" xml:space="preserve">
+    <value>Nutzer entfernen</value>
+    <comment>Benutzer entfernen </comment>
+  </data>
 </root>

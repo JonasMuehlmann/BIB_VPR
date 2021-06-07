@@ -271,4 +271,12 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>Reply</value>
     <comment>Reply text</comment>
   </data>
+  <data name="Team_AddTeamMember.PlaceholderText" xml:space="preserve">
+    <value>Add User</value>
+    <comment>Add user to Team</comment>
+  </data>
+  <data name="Team_RemoveTeamMember.PlaceholderText" xml:space="preserve">
+    <value>Remove User</value>
+    <comment>Remove user to Team</comment>
+  </data>
 </root>
