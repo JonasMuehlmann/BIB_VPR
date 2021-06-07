@@ -5,12 +5,15 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
+using Serilog.Context;
 
 
 namespace Messenger.Core.Helpers
 {
     public class SqlHelpers
     {
+        static ILogger logger = GlobalLogger.Instance;
         /// <summary>
         /// Run the specified query on the specified connection.
         /// </summary>
@@ -94,7 +97,12 @@ namespace Messenger.Core.Helpers
         /// <returns></returns>
         public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
         {
-            string tableName = nameof(T) + 's';
+            Serilog.Context.LogContext.PushProperty("Method","MapToList");
+            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+
+            string tableName = typeof(T).Name + 's';
+
+            logger.Information($"Table name has been determined as {tableName}");
 
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
