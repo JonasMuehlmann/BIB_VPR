@@ -21,7 +21,7 @@ namespace Messenger.Core.Services
 
         private HubConnection _connection;
 
-        public ILogger logger = GlobalLogger.Instance;
+        public Serilog.ILogger logger = GlobalLogger.Instance;
 
         #endregion
 
@@ -79,7 +79,7 @@ namespace Messenger.Core.Services
             }
             catch (Exception e)
             {
-                logger.Information(e)
+                logger.Information(e, "Returning");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Messenger.Core.Services
             }
             catch (Exception e)
             {
-                logger.Information(e)
+                logger.Information(e,"Returning");
             }
         }
 
@@ -126,7 +126,7 @@ namespace Messenger.Core.Services
             }
             catch (Exception e)
             {
-                logger.Information(e)
+                logger.Information(e, "Returning");
             }
         }
 
