@@ -27,5 +27,12 @@ namespace Messenger.Views
             base.OnNavigatingFrom(e);
             ViewModel.UnregisterEvents();
         }
+
+        private void EditButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            UserNametbx.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+        }
     }
 }

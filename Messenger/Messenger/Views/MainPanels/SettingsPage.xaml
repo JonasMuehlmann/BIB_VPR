@@ -64,9 +64,14 @@
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Margin="{StaticResource SmallLeftMargin}">
-                    <TextBlock
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="UserNametbk"
                         Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
                         Style="{ThemeResource BodyTextBlockStyle}" />
+                        <TextBox x:Name="UserNametbx" Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" Visibility="Collapsed"/>
+                        <Button FontFamily="Segoe MDL2 Assets" FontSize="12" Content="&#xE70F;" Margin="10" Background="Transparent" BorderBrush="Transparent" Click="EditButton_Click">
+                        </Button>
+                    </StackPanel>
                     <TextBlock
                         Text="{x:Bind ViewModel.User.UserPrincipalName, Mode=OneWay}"
                         Margin="{StaticResource XSmallTopMargin}"
