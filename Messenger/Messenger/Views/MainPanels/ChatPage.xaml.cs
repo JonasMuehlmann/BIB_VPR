@@ -4,6 +4,8 @@ using Messenger.ViewModels;
 
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.Storage.Pickers;
+
 
 namespace Messenger.Views
 {
@@ -34,6 +36,19 @@ namespace Messenger.Views
         private void React_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
 
+        }
+
+        private void SelectFile_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+
+
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add(".jpeg");
+            openPicker.FileTypeFilter.Add(".png");
+
+            
         }
     }
 }
