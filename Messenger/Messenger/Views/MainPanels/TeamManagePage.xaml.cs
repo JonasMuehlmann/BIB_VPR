@@ -33,12 +33,16 @@ namespace Messenger.Views
         {
             RemoveMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
             AddMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 3);
+            removeUserBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            addUserBorder.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
         private void RemoveMember_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             AddMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
             RemoveMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 3);
+            removeUserBorder.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            addUserBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
     }
 }
