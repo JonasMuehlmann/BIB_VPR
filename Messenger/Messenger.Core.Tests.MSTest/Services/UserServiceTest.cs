@@ -192,8 +192,8 @@ namespace Messenger.Tests.MSTest
         public static void Cleanup()
         {
             // Reset DB
-            string query = "DELETE FROM Memberships;"
-                         + "DELETE FROM Messages;"
+            string query = "DELETE FROM Messages;"
+                         + "DELETE FROM Memberships;"
                          + "DELETE FROM Teams;"
                          + "DELETE FROM Users;"
                          + "DBCC CHECKIDENT (Memberships, RESEED, 0);"
