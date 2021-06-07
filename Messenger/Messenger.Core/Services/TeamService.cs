@@ -47,7 +47,7 @@ namespace Messenger.Core.Services
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
 
-                    logger.Information($"Running the following query: {scalarQuery}");
+                    logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
                                                           Convert.ToUInt32);
@@ -329,7 +329,7 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            string query = $"SELECT * FROM Channels WHERE TeamId={teamId}";
+            string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId}";
 
             try
             {
@@ -338,7 +338,7 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     logger.Information($"Running the following query: {query}");
-                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
+                    var result = SqlHelpers.MapToList(Mapper. ChannelFromDataRow, new SqlDataAdapter(query, connection));
 
                     logger.Information($"Return value: {result}");
 
