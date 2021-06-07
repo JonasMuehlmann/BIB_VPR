@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Messenger.Core.Helpers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -14,14 +15,7 @@ namespace Messenger.ConsoleMessenger
             var builder = new ConfigurationBuilder();
             BuildConfig(builder);
 
-            // Create Serilog with the configuration
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Build())
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp: HH:mm:ss} [{Level}] ({Method}) {Message}{NewLine}{Exception}")
-                .CreateLogger();
-
-            Log.Logger.Information("Setting up the application...");
+            GlobalLogger.Instance.Debug("Setting up the application...");
 
             // Register services to Host (dependency injection)
             var host = Host.CreateDefaultBuilder()
@@ -29,7 +23,6 @@ namespace Messenger.ConsoleMessenger
                 {
                     services.AddTransient<IMessengerApp, MessengerApp>();
                 })
-                .UseSerilog()
                 .Build();
 
             // Create the instance of MessengerApp with the dependencies

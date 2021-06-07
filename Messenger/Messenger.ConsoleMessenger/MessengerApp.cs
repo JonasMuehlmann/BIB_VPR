@@ -2,8 +2,8 @@
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Microsoft.Extensions.Logging;
 using Serilog.Context;
+using Serilog;
 using System;
 using System.Threading.Tasks;
 
@@ -29,13 +29,13 @@ namespace Messenger.ConsoleMessenger
         
         private UserService UserService => Singleton<UserService>.Instance;
 
-        private readonly ILogger<MessengerApp> _log;
+        private readonly ILogger _log;
         
         private User _user { get; set; }
 
         #endregion
 
-        public MessengerApp(ILogger<MessengerApp> log)
+        public MessengerApp()
         {
             IdentityService.InitializeConsoleForAadMultipleOrgs(CLIENT_ID);
             
@@ -44,7 +44,7 @@ namespace Messenger.ConsoleMessenger
 
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
 
-            _log = log;
+            _log = GlobalLogger.Instance;
         }
 
         /// <summary>
@@ -52,11 +52,10 @@ namespace Messenger.ConsoleMessenger
         /// </summary>
         public void Run()
         {
-            using (LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name))
-            {
-                Console.ForegroundColor = ConsoleColor.Gray;
-                _log.LogInformation("Application starting");
-            }
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            _log.Fatal("Application starting");
 
             var isLoggedIn = Authenticate().GetAwaiter().GetResult();
             if (isLoggedIn)
@@ -77,21 +76,22 @@ namespace Messenger.ConsoleMessenger
         {
             using (LogContext.PushProperty("Method", nameof(Authenticate)))
             {
-                _log.LogInformation("Authentication in progress...");
+                _log.Debug("Authentication in progress...");
                 var result = await IdentityService.LoginAsync();
 
                 switch (result)
                 {
                     case LoginResultType.Success:
+                        _log.Fatal("Login Success");
                         return true;
                     case LoginResultType.CancelledByUser:
-                        _log.LogError("Authentication cancelled");
+                        _log.Fatal("Authentication cancelled");
                         break;
                     case LoginResultType.NoNetworkAvailable:
-                        _log.LogError("No network available");
+                        _log.Fatal("No network available");
                         break;
                     default:
-                        _log.LogError("Login failed");
+                        _log.Fatal("Login failed");
                         break;
                 }
 
@@ -108,15 +108,15 @@ namespace Messenger.ConsoleMessenger
         {
             using (LogContext.PushProperty("Method", nameof(OnLoginSuccess)))
             {
-                _log.LogInformation("Login Success");
-                _log.LogInformation("Connecting to Signal-R...");
+                
+                _log.Fatal("Connecting to Signal-R...");
 
                 var user = GetUserFromGraphApiAsync().GetAwaiter().GetResult();
 
                 _user = user;
 
-                _log.LogInformation("All done! Logged in as {username} ({mail})", user.DisplayName, user.Mail);
-                _log.LogInformation("Running the messenger program...\n");
+                _log.Fatal("All done! Logged in as {username} ({mail})", user.DisplayName, user.Mail);
+                _log.Fatal("Running the messenger program...\n");
             }
         }
 
@@ -136,14 +136,14 @@ namespace Messenger.ConsoleMessenger
                 if (isFromSelf)
                 {
                     // Hub received the message and broadcasted back
-                    _log.LogInformation("Message was sent successfully! @ {0} as {1}",
+                    _log.Fatal("Message was sent successfully! @ {0} as {1}",
                         message.CreationTime,
                         message.Sender.DisplayName);
                 }
                 else
                 {
                     // Message broadcasted from a member
-                    _log.LogInformation("Message Received! {0} says: {1} @{2}",
+                    _log.Fatal("Message Received! {0} says: {1} @{2}",
                         message.Sender.DisplayName,
                         message.Content,
                         message.CreationTime);
