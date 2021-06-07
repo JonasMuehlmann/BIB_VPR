@@ -31,13 +31,13 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $"INSERT INTO Channels (ChannelName,ChannelId) VALUES "
+                    string query = $"INSERT INTO Channels (ChannelName, TeamId) VALUES "
                                  + $"('{channelName}', {teamId}); SELECT SCOPE_IDENTITY();";
 
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
 
-                    logger.Information($"Running the following query: {scalarQuery}");
+                    logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
                                                           Convert.ToUInt32);
@@ -56,19 +56,18 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Deletes a channel with a given channelId in a specified team
+        /// Deletes a channel with a given channelId
         /// </summary>
         /// <param name="channelId">The id of the channel to delete</param>
-        /// <param name="teamId">The id of the team to delete which contains the channel to delete</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        public async Task<bool> RemoveChannel(uint channelId, uint teamId)
+        public async Task<bool> RemoveChannel(uint channelId)
         {
             Serilog.Context.LogContext.PushProperty("Method","RemoveChannel");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-            logger.Information($"Function called with parameters channelId={channelId}, teamId={teamId}");
+            logger.Information($"Function called with parameters channelId={channelId}");
 
-            string query = $"DELETE FROM Channels WHERE ChannelId={channelId} AND TeamId={teamId};";
+            string query = $"DELETE FROM Channels WHERE ChannelId={channelId};";
 
             logger.Information($"Running the following query: {query}");
 
