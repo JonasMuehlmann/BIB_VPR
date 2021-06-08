@@ -132,6 +132,11 @@ namespace Messenger.Services
             await MessengerService.SendMessage(message);
         }
 
+        public async Task CreateTeam(string teamName, string teamDescription)
+        {
+            // TODO
+        }
+
         /// <summary>
         /// Updates current team id and invokes registered ui events
         /// </summary>
