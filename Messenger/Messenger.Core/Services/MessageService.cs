@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
+using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
@@ -25,8 +26,8 @@ namespace Messenger.Core.Services
                                                uint? parentMessageId = null,
                                                IEnumerable<string> attachmentBlobNames = null)
         {
-            Serilog.Context.LogContext.PushProperty("Method","CreateMessage");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreateMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
             try
             {
@@ -73,8 +74,8 @@ namespace Messenger.Core.Services
         {
             using (SqlConnection connection = GetConnection())
             {
-                Serilog.Context.LogContext.PushProperty("Method","RetrieveMessages");
-                Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+                LogContext.PushProperty("Method","RetrieveMessages");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters teamId={teamId}");
 
                 await connection.OpenAsync();

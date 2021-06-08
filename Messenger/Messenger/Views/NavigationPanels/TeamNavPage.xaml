@@ -34,7 +34,10 @@
                 Grid.Row="1"
                 SelectionMode="Single"
                 ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
-                ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}">
+                ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}"
+                AllowDrop="False"
+                CanReorderItems="False"
+                CanDragItems="False">
 
                     <i:Interaction.Behaviors>
                         <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
