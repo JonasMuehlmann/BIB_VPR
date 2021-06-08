@@ -125,9 +125,9 @@
                       Visibility="Visible">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <Border Background="{ThemeResource SystemAltHighColor}" Padding="5">
                                 <TextBlock Text="Moin" />
-                            </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
