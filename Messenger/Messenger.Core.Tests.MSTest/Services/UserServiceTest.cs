@@ -204,9 +204,7 @@ namespace Messenger.Tests.MSTest
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);
-                bool result = Convert.ToBoolean(cmd.ExecuteNonQuery());
-
-                Assert.IsTrue(result);
+                cmd.ExecuteNonQuery();
             }
         }
     }
