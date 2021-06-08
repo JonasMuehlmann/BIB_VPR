@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.SqlClient;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
@@ -9,71 +6,80 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
-
+using Microsoft.UI.Xaml.Controls;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
     public class TeamNavViewModel : Observable
     {
+        #region Privates
+
         private ShellViewModel _shellViewModel;
         private ICommand _itemInvokedCommand;
-        private object _selectedItem;
-        private UserViewModel _user;
-
+        private Team _selectedTeam;
         private ObservableCollection<Team> _teams;
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+        private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
-        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
+        #endregion
 
-        public ShellViewModel ShellViewModel { get {
+        public ShellViewModel ShellViewModel
+        {
+            get
+            {
                 return _shellViewModel;
             }
-            set {
+            set
+            {
                 _shellViewModel = value;
+                Set(ref _shellViewModel, value);
             }
         }
 
-        public object SelectedItem
+        public Team SelectedTeam
         {
-            get => _selectedItem;
-            set => Set(ref _selectedItem, value);
-        }
-
-        public UserViewModel User
-        {
-            get => _user;
-            set => Set(ref _user, value);
+            get
+            {
+                return _selectedTeam;
+            }
+            set
+            {
+                SelectedTeam = value;
+                Set(ref _selectedTeam, value);
+            }
         }
 
         public ObservableCollection<Team> Teams
         {
-            get => _teams;
-            set => Set(ref _teams, value);
+            get
+            {
+                return _teams;
+            }
+            set
+            {
+                _teams = value;
+                Set(ref _teams, value);
+            }
         }
 
-        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
+        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<TreeViewItemInvokedEventArgs>(OnItemInvoked));
 
         public TeamNavViewModel()
         {
-            InitAsync();
+            Initialize();
+
+            
         }
 
-        private void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
-            => SelectedItem = args.InvokedItem;
-
-        private async void InitAsync() {
+        private async void Initialize() {
             Teams = new ObservableCollection<Team>();
-            User = await UserDataService.GetUserAsync();
-            LoadTeams();
+            await LoadTeamsAsync();
         }
 
-        private async void LoadTeams() {
+        private async Task LoadTeamsAsync() {
             // Load all teams with the current user id
-            var teams = await MessengerService.LoadTeams(User.Id);
+            var teams = await ChatHubService.GetTeamsList();
 
             // Add to the view
             Teams.Clear();
@@ -83,9 +89,15 @@ namespace Messenger.ViewModels
             }
         }
 
-        public async void NewTeam(string name) {
-            await MessengerService.CreateTeam(User.Id, name);
-            LoadTeams();
+        public async void NewTeam(string name, string description) {
+            await ChatHubService.CreateTeam(name, description);
+            await LoadTeamsAsync();
+        }
+
+        private async void OnItemInvoked(TreeViewItemInvokedEventArgs args)
+        {
+            uint teamId = (args.InvokedItem as Team).Id;
+            await ChatHubService.SwitchTeam(teamId);
         }
     }
 }
