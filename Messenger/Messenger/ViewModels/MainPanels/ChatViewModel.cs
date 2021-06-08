@@ -6,6 +6,8 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Services;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Navigation;
 
 namespace Messenger.ViewModels
@@ -40,7 +42,15 @@ namespace Messenger.ViewModels
             }
         }
 
+        private IReadOnlyList<StorageFile> _selectedFiles;
+
+        public IReadOnlyList<StorageFile> SelectedFiles {
+            get { return _selectedFiles; }
+            set { _selectedFiles = value; }
+        }
+
         public ICommand SendMessageCommand => new RelayCommand<string>(SendMessage);
+        public ICommand OpenFilesCommand => new RelayCommand(OpenFiles);
 
         public ChatViewModel()
         {
@@ -74,6 +84,20 @@ namespace Messenger.ViewModels
             if (message.RecipientId == Hub.CurrentTeamId)
             {
                 Messages.Add(message);
+            }
+        }
+
+        private async void OpenFiles() {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.FileTypeFilter.Add("*");
+            IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
+
+            if (files.Count > 0)
+            {
+                SelectedFiles = files;
+                foreach (var f in files) {
+                    Console.WriteLine(f.DisplayName);
+                }
             }
         }
     }

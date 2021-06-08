@@ -135,9 +135,8 @@
                     <SymbolIcon Symbol="Accept" />
                 </Button>
 
-
                 <Button
-                    Click="SelectFile_Click"
+                    Command="{x:Bind ViewModel.OpenFilesCommand}"
                     BorderBrush="Gray"
                     Background="Transparent"
                     Height="40" Width="60">
