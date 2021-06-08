@@ -98,7 +98,7 @@ namespace Messenger.Core.Services
         /// Update a specified users email
         ///</summary>
         /// <param name="userId">The id of the user, whose email will be updated</param>
-        /// <param name="newUsername">The new email to set</param>
+        /// <param name="newMail">The new email to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> UpdateUserMail(string userId, string newMail)
         {
@@ -112,7 +112,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                string queryUpdate = $"UPDATE Users SET Email={newMail} WHERE UserId='{userId}';";
+                string queryUpdate = $"UPDATE Users SET Email='{newMail}' WHERE UserId='{userId}';";
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
@@ -142,7 +142,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                string queryUpdate = $"UPDATE Users SET Photo={newPhoto} WHERE UserId='{userId}';";
+                string queryUpdate = $"UPDATE Users SET PhotoURL='{newPhoto}' WHERE UserId='{userId}';";
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
@@ -173,7 +173,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                string queryUpdate = $"UPDATE Users SET Bio={newBio} WHERE UserId='{userId}';";
+                string queryUpdate = $"UPDATE Users SET Bio='{newBio}' WHERE UserId='{userId}';";
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
