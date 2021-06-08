@@ -245,5 +245,29 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
 
         }
+
+        [TestMethod]
+        public void ChangeTeamName_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            var newSuffix = "After";
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Before");
+
+                Assert.IsNotNull(teamId);
+
+                var success = await teamService.ChangeTeamName(teamId.Value, testName + newSuffix);
+
+
+                Assert.IsTrue(success);
+
+                var newName = (await teamService.GetTeam(teamId.Value)).Name;
+
+                Assert.IsTrue(newName == testName + newSuffix);
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }
