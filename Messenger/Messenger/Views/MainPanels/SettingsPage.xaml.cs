@@ -10,6 +10,7 @@ namespace Messenger.Views
     // TODO WTS: Change the URL for your privacy policy in the Resource File, currently set to https://YourPrivacyUrlGoesHere
     public sealed partial class SettingsPage : Page
     {
+        public bool editUserNameMode = false;
         public SettingsViewModel ViewModel { get; } = new SettingsViewModel();
 
         public SettingsPage()
@@ -30,9 +31,21 @@ namespace Messenger.Views
 
         private void EditButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            UserNametbx.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+            if (editUserNameMode == false)
+            {
+                UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                UserNametbx.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                editUserNameMode = true;
+            }
+            else if (editUserNameMode == true)
+            {
+                UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                UserNametbk.Text = UserNametbx.Text;
+                editUserNameMode = false;
+            }
+
         }
     }
 }
