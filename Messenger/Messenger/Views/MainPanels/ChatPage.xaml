@@ -12,7 +12,7 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
             <!--
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
@@ -114,38 +114,52 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollViewer>
-            
-            <StackPanel Grid.Row="1" Orientation="Horizontal"
-                        VerticalAlignment="Center"
+            <StackPanel Grid.Row="1" VerticalAlignment="Center"
                         HorizontalAlignment="Center">
-                <TextBox
-                    x:Uid="Chat_MessageSend"
-                    Name="tbxContent"
-                    Width="300"
-                    Padding="0,0,30,0"
-                    Height="40"
-                    FontSize="20"/>
+                <ListView Height="100"
+                      x:Name="AttachmentListView"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Background="White"
+                      BorderBrush="Gray"
+                      Visibility="Visible">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Moin" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox
+                            x:Uid="Chat_MessageSend"
+                            Name="tbxContent"
+                            Width="300"
+                            Padding="0,0,30,0"
+                            Height="40"
+                            FontSize="20"/>
 
-                <Button
-                    Background="Transparent"
-                    BorderBrush="Gray"
-                    Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
-                    CommandParameter="{Binding ElementName=tbxContent, Path=Text}"
-                    Height="40" Width="60">
-                    <SymbolIcon Symbol="Accept" />
-                </Button>
+                    <Button
+                            Background="Transparent"
+                            BorderBrush="Gray"
+                            Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
+                            CommandParameter="{Binding ElementName=tbxContent, Path=Text}"
+                            Height="40" Width="60">
+                        <SymbolIcon Symbol="Accept" />
+                    </Button>
 
 
-                <Button
+                    <Button
                     Click="SelectFile_Click"
                     BorderBrush="Gray"
                     Background="Transparent"
                     Height="40" Width="60">
-                    <SymbolIcon Symbol="NewWindow"/>
-                </Button>
+                        <SymbolIcon Symbol="NewWindow"/>
+                    </Button>
+
+                </StackPanel>
             </StackPanel>
-
-
         </Grid>
     </Grid>
 </Page>
