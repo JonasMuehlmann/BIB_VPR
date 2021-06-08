@@ -5,7 +5,9 @@ using Messenger.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage.Pickers;
-
+using Windows.Storage;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Messenger.Views
 {
@@ -38,17 +40,19 @@ namespace Messenger.Views
 
         }
 
-        private void SelectFile_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void SelectFile_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            FileOpenPicker openPicker = new FileOpenPicker();
-
-
-            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            openPicker.FileTypeFilter.Add(".jpg");
-            openPicker.FileTypeFilter.Add(".jpeg");
-            openPicker.FileTypeFilter.Add(".png");
-
             
+            FileOpenPicker openPicker = new FileOpenPicker();
+            
+            openPicker.FileTypeFilter.Add("*");
+           IReadOnlyList <StorageFile> files = await openPicker.PickMultipleFilesAsync();
+            
+            if (files.Count > 0)
+            {
+            // Application now has read/write access to the picked file OutputTextBlock.Text = "Picked photo: " + file.Name; } else { OutputTextBlock.Text = "Operation cancelled."; }
+
+            }
         }
     }
 }
