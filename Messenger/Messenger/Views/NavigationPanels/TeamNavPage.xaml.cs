@@ -43,10 +43,11 @@ namespace Messenger.Views
 
         private void NewTeam_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter) {
+            if (e.Key == VirtualKey.Enter)
+            {
                 TextBox tb = sender as TextBox;
 
-                ViewModel.NewTeam(tb.Text);
+                ViewModel.NewTeam(tb.Text, "");
             }
         }
     }

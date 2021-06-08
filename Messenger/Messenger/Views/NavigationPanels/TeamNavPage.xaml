@@ -11,8 +11,14 @@
         <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind Name}"
-                ItemsSource="{x:Bind Channels}" IsExpanded="False">
-                <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                IsExpanded="False">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock>
+                        <Run Text="#" />
+                        <Run Text="{x:Bind Id}" />
+                    </TextBlock>
+                </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
         <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:TeamChannel">
@@ -30,15 +36,14 @@
         <ScrollViewer>
             <StackPanel Margin="0,0,0, 20">
                 <my:TreeView
-                x:Name="treeView"
-                Grid.Row="1"
-                SelectionMode="Single"
-                ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
-                ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}"
-                AllowDrop="False"
-                CanReorderItems="False"
-                CanDragItems="False">
-
+                    x:Name="treeView"
+                    Grid.Row="1"
+                    SelectionMode="Single"
+                    ItemsSource="{x:Bind ViewModel.Teams, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}"
+                    AllowDrop="False"
+                    CanReorderItems="False"
+                    CanDragItems="False">
                     <i:Interaction.Behaviors>
                         <behaviors:TreeViewCollapseBehavior x:Name="collapseBehavior" />
                         <ic:EventTriggerBehavior EventName="ItemInvoked">
@@ -69,7 +74,6 @@
                 Click="NewTeam_Click"
                 Margin="20 10 10 10"
                 >
-
             <SymbolIcon Symbol="Add"
                         Opacity="0.9"/>
         </Button>
