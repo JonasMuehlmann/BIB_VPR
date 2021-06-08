@@ -42,7 +42,7 @@ namespace Messenger.Views
             {
                 UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                UserNametbk.Text = UserNametbx.Text;
+                ViewModel.User.Name = UserNametbx.Text;
                 editUserNameMode = false;
             }
 
