@@ -38,16 +38,16 @@ namespace Messenger.ConsoleMessenger.Programs
             Teams = BuildTeamsList(_userId);
             foreach (var team in Teams)
             {
-                Output.WriteLine(ConsoleColor.Green, "Team #{0,2} {1}", team.Id, team.Name);
+                Output.WriteLine(ConsoleColor.Green, $"Team #{team.Id, 2} {team.Name}");
             }
 
             // User selecting the team
             uint teamId = (uint)Input.ReadInt("Select a team: ", 1, 99);
-            Output.WriteLine("\nEntering team {0}...", teamId);
+            Output.WriteLine($"\nEntering team {teamId}...");
 
             // User entering the team
             Team selectedTeam = Teams.Where(t => t.Id == teamId).FirstOrDefault();
-            Output.WriteLine("You are now in Team '{0}'#{1}", selectedTeam.Name, selectedTeam.Id);
+            Output.WriteLine($"You are now in Team '{selectedTeam.Name}'#{selectedTeam.Id}");
 
             // Shows all the messages in the selected team
             LoadMessages(selectedTeam);
