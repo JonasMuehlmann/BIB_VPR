@@ -127,12 +127,14 @@ namespace Messenger.Core.Helpers
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
-            string tableName = nameof(T) + 's';
+            string tableName = typeof(T).Name + 's';
 
             logger.Information($"tableName has been determined as {tableName}");
 
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
+
+            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
             var result = dataSet.Tables[tableName].Rows
                          .Cast<DataRow>()

@@ -330,7 +330,7 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId}";
+            string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
 
             try
             {
@@ -339,7 +339,11 @@ namespace Messenger.Core.Services
                     await connection.OpenAsync();
 
                     logger.Information($"Running the following query: {query}");
-                    var result = SqlHelpers.MapToList(Mapper. ChannelFromDataRow, new SqlDataAdapter(query, connection));
+                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
+
+                    // NOTE: This is needed for the below log line to have the correct properties
+                    Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+                    Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                     logger.Information($"Return value: {result}");
 
