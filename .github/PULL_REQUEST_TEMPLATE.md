@@ -6,7 +6,7 @@
 - [ ] New code has been integrated with the `MessengerService` if appropiate
 - [ ] New code has been integrated with the `SignalRService` if appropiate
 - [ ] New functions or classes have been documented in the _Entwurfsdokumentation_
-- [ ] Changes introduce no commented out code
+- [ ] Changes introduce no commented out code or `Console.Writeline()` statements used for debugging
 
 # Related issues:
 <!-- list of issue closing directives
