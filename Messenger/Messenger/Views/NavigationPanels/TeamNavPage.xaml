@@ -82,6 +82,11 @@
     <!--#region Content-->
     
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <ScrollViewer>
             <StackPanel
                 Margin="0 0 0 20">
