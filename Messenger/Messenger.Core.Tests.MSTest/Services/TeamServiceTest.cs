@@ -123,7 +123,7 @@ namespace Messenger.Tests.MSTest
 
                 var teams = await teamService.GetAllTeams();
 
-                Assert.IsTrue(Enumerable.Count(teams) == 0);
+                Assert.AreEqual(Enumerable.Count(teams), 0);
 
             }).GetAwaiter().GetResult();
         }
@@ -182,7 +182,7 @@ namespace Messenger.Tests.MSTest
 
                 int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 
-                Assert.IsTrue(numMembersBefore == numMembersAfter);
+                Assert.AreEqual(numMembersBefore, numMembersAfter);
 
             }).GetAwaiter().GetResult();
         }
@@ -211,7 +211,7 @@ namespace Messenger.Tests.MSTest
 
                 int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 
-                Assert.IsTrue(numMembersAfter + 1 == numMembersBefore);
+                Assert.AreEqual(numMembersAfter + 1, numMembersBefore);
 
             }).GetAwaiter().GetResult();
         }
@@ -240,7 +240,7 @@ namespace Messenger.Tests.MSTest
 
                 int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
 
-                Assert.IsTrue(numMembersAfter == numMembersBefore);
+                Assert.AreEqual(numMembersAfter, numMembersBefore);
 
             }).GetAwaiter().GetResult();
 
@@ -260,12 +260,34 @@ namespace Messenger.Tests.MSTest
 
                 var success = await teamService.ChangeTeamName(teamId.Value, testName + newSuffix);
 
-
                 Assert.IsTrue(success);
 
                 var newName = (await teamService.GetTeam(teamId.Value)).Name;
 
-                Assert.IsTrue(newName == testName + newSuffix);
+                Assert.AreEqual(newName, testName + newSuffix);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void ChangeTeamDescription_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            var newSuffix = "After";
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Before");
+
+                Assert.IsNotNull(teamId);
+
+                var success = await teamService.ChangeTeamDescription(teamId.Value, testName + newSuffix);
+
+                Assert.IsTrue(success);
+
+                var newDescription = (await teamService.GetTeam(teamId.Value)).Description;
+
+                Assert.AreEqual(newDescription, testName + newSuffix);
 
             }).GetAwaiter().GetResult();
         }

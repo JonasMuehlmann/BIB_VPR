@@ -48,10 +48,10 @@ namespace Messenger.Core.Services
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
 
-                    logger.Information($"Running the following query: {scalarQuery}");
+                    logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
-                                                          Convert.ToUInt32);
+                                                              Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 
@@ -112,11 +112,12 @@ namespace Messenger.Core.Services
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
 
-                    logger.Information($"Running the following query: {scalarQuery}");
+                    logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
                                                           Convert.ToBoolean);
 
+                    // FIX: Changes name but still returns false
                     logger.Information($"Return value: {result}");
 
                     return result;
@@ -150,12 +151,12 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $"UPDATE Teams SET Description='{description}' WHERE TeamId={teamId};";
+                    string query = $"UPDATE Teams SET TeamDescription='{description}' WHERE TeamId={teamId};";
 
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
 
-                    logger.Information($"Running the following query: {scalarQuery}");
+                    logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
                                                           Convert.ToBoolean);
