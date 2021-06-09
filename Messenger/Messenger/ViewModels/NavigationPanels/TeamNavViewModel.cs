@@ -74,11 +74,13 @@ namespace Messenger.ViewModels
 
         private async void Initialize() {
             Teams = new ObservableCollection<Team>();
-            await LoadTeamsAsync();
+            foreach (var team in ChatHubService.CurrentUser.Teams)
+            {
+                Teams.Add(team);
+            }
         }
 
         private async Task LoadTeamsAsync() {
-            // Load all teams with the current user id
             var teams = await ChatHubService.GetTeamsList();
 
             // Add to the view

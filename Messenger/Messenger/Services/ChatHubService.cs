@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Linq;
 
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
@@ -66,6 +67,17 @@ namespace Messenger.Services
         {
             CurrentUser = await UserDataService.GetUserAsync();
 
+            if (CurrentUser.Teams.Count > 0)
+            {
+                foreach (Team team in CurrentUser.Teams)
+                {
+                    var messages = await MessengerService.LoadMessages(team.Id);
+                    CreateEntryForCurrentTeam(team.Id, messages);
+                }
+
+                CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
+            }
+
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
         }
@@ -93,7 +105,7 @@ namespace Messenger.Services
             {
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
-                CreateEntryForCurrentTeam(fromDb);
+                CreateEntryForCurrentTeam((uint)CurrentTeamId, fromDb);
 
                 return fromDb;
             }
@@ -219,11 +231,12 @@ namespace Messenger.Services
         /// <summary>
         /// Safely creates a new entry in concurrent dictionary for a team
         /// </summary>
+        /// <param name="teamId">Id of the team for the entry</param>
         /// <param name="messages">List of messages to initialize with</param>
-        private void CreateEntryForCurrentTeam(IEnumerable<Message> messages)
+        private void CreateEntryForCurrentTeam(uint teamId, IEnumerable<Message> messages)
         {
             MessagesByConnectedTeam.AddOrUpdate(
-                (uint)CurrentTeamId,
+                teamId,
                 (key) =>
                 {
                     List<Message> list = new List<Message>();

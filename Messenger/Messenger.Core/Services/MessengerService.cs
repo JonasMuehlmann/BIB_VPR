@@ -102,9 +102,16 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
+            if (attachmentFilePaths == null)
+            {
+                attachmentFilePaths = Enumerable.Empty<string>();
+            }
+
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
+            
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
+
             // Check the validity of the message
             if (!ValidateMessage(message))
             {
