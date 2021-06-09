@@ -24,6 +24,7 @@ namespace Messenger.ViewModels
         private ICommand _teamCommand;
         private ICommand _chatCommand;
         private ICommand _notificationCommand;
+        private ICommand _teamManagerCommand;
         private UserViewModel _user;
         private Frame MainFrame { get; set; }
         private Frame SideFrame { get; set; }
@@ -50,6 +51,7 @@ namespace Messenger.ViewModels
         public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
         public ICommand TeamCommand => _teamCommand ?? (_teamCommand = new RelayCommand(OpenTeamsSidePanel));
         public ICommand ChatCommand => _chatCommand ?? (_chatCommand = new RelayCommand(OpenChatSidePanel));
+        public ICommand OpenTeamManager => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
         public ICommand NotificationCommand => _notificationCommand ?? (_notificationCommand = new RelayCommand(OpenNotificationSidePanel));
 
         public UserViewModel User
@@ -110,6 +112,11 @@ namespace Messenger.ViewModels
         private void OpenChatMainPage()
         {
             MainNavigation(typeof(ChatPage));
+        }
+
+        private void OpenTeamManagePage()
+        {
+            MainNavigation(typeof(TeamManagePage));
         }
         #endregion
 

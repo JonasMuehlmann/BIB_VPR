@@ -41,6 +41,9 @@ namespace Messenger.Tests.MSTest
            {
                 var _ = await userService.GetOrCreateApplicationUser(new User(){Id="user1"});
                 var teamId = await teamService.CreateTeam("MyTestTeam");
+
+                Assert.IsNotNull(teamId);
+
                 var result = await messageService.CreateMessage(teamId.Value,"user1", "my message text");
 
                 Assert.IsTrue(result.Value > 0);
@@ -48,5 +51,41 @@ namespace Messenger.Tests.MSTest
            }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void RetrieveMessages_Test()
+        {
+            Task.Run(async () =>
+            {
+            var _ = await userService.GetOrCreateApplicationUser(new User(){Id="user1"});
+                var teamId = await teamService.CreateTeam("MyTestTeam123");
+
+                Assert.IsNotNull(teamId);
+
+                var result = await messageService.CreateMessage(teamId.Value,"user1", "my message text");
+
+                var messages = await messageService.RetrieveMessages(teamId.Value);
+
+                Assert.IsTrue(messages.Count > 0);
+                Assert.IsNotNull(messages[0]);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void RetrieveMessagesNoneExist_Test()
+        {
+            Task.Run(async () =>
+            {
+                var _ = await userService.GetOrCreateApplicationUser(new User(){Id="user1"});
+                var teamId = await teamService.CreateTeam("MyTestTeamXYZ");
+
+                Assert.IsNotNull(teamId);
+
+                var messages = await messageService.RetrieveMessages(teamId.Value);
+
+                Assert.IsTrue(messages.Count == 0);
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }

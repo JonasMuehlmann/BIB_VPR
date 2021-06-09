@@ -10,7 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-
+using Serilog;
+using Serilog.Context;
 
 
 namespace Messenger.Core.Services
@@ -23,8 +24,7 @@ namespace Messenger.Core.Services
         private const string containerName = "attachments";
         public readonly string localFileCachePath = Path.Combine(Path.GetTempPath(), "BIB_VPR" + Path.DirectorySeparatorChar);
 
-
-
+        public ILogger logger => GlobalLogger.Instance;
 
         /// <summary>
         /// Connect to our blob container
@@ -32,8 +32,16 @@ namespace Messenger.Core.Services
         /// <returns>BlobContainerClient object with established connection</returns>
         private BlobContainerClient ConnectToContainer()
         {
+            LogContext.PushProperty("Method","ConnectToContainer");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called");
+
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobServiceConnectionString);
-            return blobServiceClient.GetBlobContainerClient(containerName);
+            var result = blobServiceClient.GetBlobContainerClient(containerName);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
 
         /// <summary>
@@ -44,6 +52,10 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false otherwise</returns>
         public async Task<bool> Download(string blobFileName, string destinationDirectory = "")
         {
+            LogContext.PushProperty("Method","Download");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters  blobFileName={blobFileName}, destinationDirectory={destinationDirectory}");
+
             try
             {
                 var containerClient = ConnectToContainer();
@@ -53,23 +65,29 @@ namespace Messenger.Core.Services
                 if (destinationDirectory == string.Empty)
                 {
                     destinationDirectory = localFileCachePath;
+
+                    logger.Information($"destinationDirectory has been set to {localFileCachePath}");
                 }
 
-                if (!Directory.Exists(localFileCachePath))
+                if (!Directory.Exists(destinationDirectory))
                 {
-                    Directory.CreateDirectory(localFileCachePath);
+                    Directory.CreateDirectory(destinationDirectory);
+
+                    logger.Information($"created local directory {destinationDirectory}");
                 }
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                await blobClient.DownloadToAsync(Path.Combine(localFileCachePath, blobFileName));
+                var result = await blobClient.DownloadToAsync(Path.Combine(destinationDirectory, blobFileName));
+
+                logger.Information($"Return value: {result}");
 
                 return true;
             }
             // TODO:Find better exception(s) to catch
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                logger.Information(e, $"Return value: false");
 
                 return false;
             }
@@ -82,10 +100,16 @@ namespace Messenger.Core.Services
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public async Task<string> Upload(string filePath)
         {
+            LogContext.PushProperty("Method","Upload");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters filePath={filePath}");
+
             // Adding GUID for deduplication
             string blobFileName = Path.GetFileNameWithoutExtension(filePath)
                                 + Path.GetExtension(filePath)
                                 + "." + Guid.NewGuid().ToString();
+
+            logger.Information($"set blobFileName to {blobFileName} from filePath={filePath}");
 
             try
             {
@@ -98,13 +122,16 @@ namespace Messenger.Core.Services
                 {
                     var result = await blobClient.UploadAsync(uploadFileStream, true);
 
+                    logger.Information($"result={result}");
+                    logger.Information($"Return value: {blobFileName}");
+
                     return blobFileName;
                 }
             }
             // TODO:Find better exception(s) to catch
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                logger.Information(e, $"Return value: null");
 
                 return null;
             }

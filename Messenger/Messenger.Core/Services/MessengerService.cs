@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
+using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
@@ -21,6 +23,7 @@ namespace Messenger.Core.Services
 
         private FileSharingService FileSharingService => Singleton<FileSharingService>.Instance;
 
+        public ILogger logger => GlobalLogger.Instance;
         #region Initializers
 
         /// <summary>
@@ -30,12 +33,18 @@ namespace Messenger.Core.Services
         /// <returns>List of teams the user has membership of, null if none exists</returns>
         public async Task<IList<Team>> Initialize(string userId)
         {
+            LogContext.PushProperty("Method","Initialize");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}");
+
             await SignalRService.Open(userId);
 
             // Check the validity of user id
             if (string.IsNullOrWhiteSpace(userId))
             {
-                HandleException(nameof(this.Initialize), "invalid user id");
+                logger.Information($"userId has been determined invalid");
+                logger.Information($"Return value: null");
+
                 return null;
             }
 
@@ -44,8 +53,13 @@ namespace Messenger.Core.Services
             // Exit if the user has no team
             if (teams == null || teams.Count() <= 0)
             {
+                logger.Information($"No teams found for the current user");
+                logger.Information($"Return value: null");
+
                 return null;
             }
+
+            logger.Information($"Loaded the following teams for the current user: {string.Join(", ", teams)}");
 
             List<Team> result = new List<Team>();
             // Join the signal-r hub
@@ -53,7 +67,11 @@ namespace Messenger.Core.Services
             {
                 await SignalRService.JoinTeam(team.Id.ToString());
                 result.Add(team);
+
+                logger.Information($"Connected the current user to the team {team.Id}");
             }
+
+            logger.Information($"Return value: {result}");
 
             return result;
         }
@@ -84,17 +102,27 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
+            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
             // Check the validity of the message
             if (!ValidateMessage(message))
             {
-                HandleException(nameof(this.SendMessage), "invalid message object");
+                logger.Information($"message object has been determined invalid");
+                logger.Information($"Return value: false");
+
                 return false;
             }
 
-            foreach (var attachmentFilePath in attachmentFilePaths)
+            if (attachmentFilePaths != null)
             {
-                message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+                foreach (var attachmentFilePath in attachmentFilePaths)
+                {
+                    message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+                }
             }
+
+            logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}");
 
             // Save to database
             await MessageService.CreateMessage(
@@ -106,6 +134,9 @@ namespace Messenger.Core.Services
 
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
+
+            logger.Information($"Broadcasts the following message to the hub: {message}");
+            logger.Information($"Return value: true");
 
             return true;
         }
@@ -119,20 +150,29 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
+            LogContext.PushProperty("Method","CreateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters creatorId={creatorId}, teamName={teamName}, teamDescription={teamDescription}");
+
             // Create team and save to database
             uint? teamId = await TeamService.CreateTeam(teamName, teamDescription);
 
             if (teamId == null)
             {
-                HandleException(nameof(this.CreateTeam), "invalid team id");
+                logger.Information($"could not create the team");
+                logger.Information($"Return value: false");
                 return false;
             }
 
             // Create membership for the creator and save to database
             await TeamService.AddMember(creatorId, (uint)teamId);
+            logger.Information($"Added the user identified by {creatorId} to the team identified by {(uint)teamId}");
 
             // Join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
+            logger.Information($"Joined the hub of the team identified by {teamId}");
+
+            logger.Information($"Return value: true");
 
             return true;
         }
@@ -145,18 +185,27 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> InviteUser(string userId, uint teamId)
         {
+            LogContext.PushProperty("Method","InviteUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+
             if (string.IsNullOrWhiteSpace(userId))
             {
-                HandleException(nameof(this.InviteUser), "invalid member id");
+                logger.Information($"userId has been determined invalid");
+                logger.Information($"Return value: false");
+
                 return false;
             }
 
             // Create membership for the user and save to database
             await TeamService.AddMember(userId, teamId);
+            logger.Information($"added the user identified by {userId} to the team identified by {teamId}");
 
             // Add user to the hub group if the user is connected (will be handled in SignalR)
             await SignalRService.AddToTeam(userId, teamId.ToString());
+            logger.Information($"Joined the user identified by {userId} to the team identified by {teamId}");
 
+            logger.Information($"Return value: true");
             return true;
         }
 
@@ -201,35 +250,33 @@ namespace Messenger.Core.Services
         /// <returns>true on valid, false on invalid</returns>
         private bool ValidateMessage(Message message)
         {
+            LogContext.PushProperty("Method","ValidateMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters message={message}");
+
             // Sender / Recipient Id
             if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
             {
-                Debug.WriteLine("Messenger Exception: invalid sender/recipient id");
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
                 return false;
             }
 
             // Content
             if (string.IsNullOrWhiteSpace(message.Content))
             {
-                Debug.WriteLine("Messenger Exception: no content found to be sent");
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
                 return false;
             }
 
             // Valid
+            logger.Information($"Return value: true");
+
             return true;
         }
-
-        /// <summary>
-        /// Handles MessengerService specific exception
-        /// </summary>
-        /// <param name="methodName">Name of the method that raised exception</param>
-        /// <param name="reason">Reason for the exception</param>
-        private void HandleException(string methodName, string reason)
-        {
-            Debug.Write($"Core.MessengerService::{methodName} failed. ");
-            Debug.WriteLine($"(Reason: {reason})");
-        }
-
         #endregion
     }
 }
