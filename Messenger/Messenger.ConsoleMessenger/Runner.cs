@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Context;
 using System;
 using System.IO;
 
@@ -12,10 +13,13 @@ namespace Messenger.ConsoleMessenger
     {
         static void Main(string[] args)
         {
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", "Main");
+
             var builder = new ConfigurationBuilder();
             BuildConfig(builder);
 
-            GlobalLogger.Instance.Debug("Setting up the application...");
+            GlobalLogger.Instance.Fatal("Setting up the application...");
 
             // Register services to Host (dependency injection)
             var host = Host.CreateDefaultBuilder()

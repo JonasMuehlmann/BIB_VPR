@@ -62,6 +62,7 @@ namespace Messenger.ConsoleMessenger
             {
                 OnLoginSuccess();
 
+                _log.Fatal("Running the messenger program...\n");
                 MessengerProgram
                     .CreateProgram(_user)
                     .Run();
@@ -74,29 +75,28 @@ namespace Messenger.ConsoleMessenger
         /// <returns></returns>
         private async Task<bool> Authenticate()
         {
-            using (LogContext.PushProperty("Method", nameof(Authenticate)))
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            _log.Debug("Authentication in progress...");
+            var result = await IdentityService.LoginAsync();
+
+            switch (result)
             {
-                _log.Debug("Authentication in progress...");
-                var result = await IdentityService.LoginAsync();
-
-                switch (result)
-                {
-                    case LoginResultType.Success:
-                        _log.Fatal("Login Success");
-                        return true;
-                    case LoginResultType.CancelledByUser:
-                        _log.Fatal("Authentication cancelled");
-                        break;
-                    case LoginResultType.NoNetworkAvailable:
-                        _log.Fatal("No network available");
-                        break;
-                    default:
-                        _log.Fatal("Login failed");
-                        break;
-                }
-
-                return false;
+                case LoginResultType.Success:
+                    _log.Fatal("Login Success");
+                    return true;
+                case LoginResultType.CancelledByUser:
+                    _log.Fatal("Authentication cancelled");
+                    break;
+                case LoginResultType.NoNetworkAvailable:
+                    _log.Fatal("No network available");
+                    break;
+                default:
+                    _log.Fatal("Login failed");
+                    break;
             }
+
+            return false;
         }
 
         #region Events
@@ -106,18 +106,14 @@ namespace Messenger.ConsoleMessenger
         /// </summary>
         private void OnLoginSuccess()
         {
-            using (LogContext.PushProperty("Method", nameof(OnLoginSuccess)))
-            {
-                
-                _log.Fatal("Connecting to Signal-R...");
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            
+            _log.Fatal("Authentication success! Starting the process to get the current user data...");
+            var user = GetUserFromGraphApiAsync().GetAwaiter().GetResult();
 
-                var user = GetUserFromGraphApiAsync().GetAwaiter().GetResult();
-
-                _user = user;
-
-                _log.Fatal("All done! Logged in as {username} ({mail})", user.DisplayName, user.Mail);
-                _log.Fatal("Running the messenger program...\n");
-            }
+            _log.Fatal("All done! Logged in as {username} ({mail})", user.DisplayName, user.Mail);
+            _user = user;
         }
 
         /// <summary>
@@ -127,27 +123,27 @@ namespace Messenger.ConsoleMessenger
         /// <param name="message">Message object retrieved from the event</param>
         private void OnMessageReceived(object sender, Message message)
         {
-            using (LogContext.PushProperty("Method", nameof(OnMessageReceived)))
-            {
-                message.Sender = UserService.GetUser(message.SenderId).GetAwaiter().GetResult();
-            
-                bool isFromSelf = message.SenderId == _user.Id;
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            _log.Fatal("Getting the sender information...");
+            message.Sender = UserService.GetUser(message.SenderId).GetAwaiter().GetResult();
 
-                if (isFromSelf)
-                {
-                    // Hub received the message and broadcasted back
-                    _log.Fatal("Message was sent successfully! @ {0} as {1}",
-                        message.CreationTime,
-                        message.Sender.DisplayName);
-                }
-                else
-                {
-                    // Message broadcasted from a member
-                    _log.Fatal("Message Received! {0} says: {1} @{2}",
-                        message.Sender.DisplayName,
-                        message.Content,
-                        message.CreationTime);
-                }
+            bool isFromSelf = message.SenderId == _user.Id;
+
+            if (isFromSelf)
+            {
+                // Hub received the message and broadcasted back
+                _log.Fatal("Message was sent successfully! @ {0} as {1}",
+                    message.CreationTime,
+                    message.Sender.DisplayName);
+            }
+            else
+            {
+                // Message broadcasted from a member
+                _log.Fatal("Message Received! {0} says: {1} @{2}",
+                    message.Sender.DisplayName,
+                    message.Content,
+                    message.CreationTime);
             }
         }
 
@@ -155,32 +151,53 @@ namespace Messenger.ConsoleMessenger
 
         #region Helpers
 
+        /// <summary>
+        /// Gets the user information from Microsoft Graph Service and maps to the user model
+        /// </summary>
+        /// <returns>A complete user object</returns>
         private async Task<User> GetUserFromGraphApiAsync()
         {
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            _log.Fatal("Getting access token for the microsoft graph service...");
             var accessToken = await IdentityService.GetAccessTokenForGraphAsync();
+
             if (string.IsNullOrEmpty(accessToken))
             {
+                _log.Fatal("Failed to acquire the token.");
                 return null;
             }
 
+            _log.Fatal("Getting user data from the microsoft graph service...");
             var userData = await MicrosoftGraphService.GetUserInfoAsync(accessToken);
 
             return await GetUserModelFromData(userData);
         }
 
+        /// <summary>
+        /// Gets the user data from the database and merges with the data from Microsoft Graph Service
+        /// </summary>
+        /// <param name="userData">User data from Microsoft Graph Service</param>
+        /// <returns>A complete user object</returns>
         private async Task<User> GetUserModelFromData(User userData)
         {
+            LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             if (userData == null)
             {
+                _log.Fatal("Failed to fetch user data from the microsoft graph service.");
                 return null;
             }
 
+            _log.Fatal("Getting the user from the database...");
             var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
 
             // Connect to signal-r hub
             // Optional parameter for connection string was given to initialize with it
+            _log.Fatal("Connecting to signal-r hub with the current user data...");
             await MessengerService.Initialize(userData.Id, CONNECTION_STRING);
 
+            _log.Information($"Current user: {userData}");
             // Merged with user model from the application database
             return new User()
             {

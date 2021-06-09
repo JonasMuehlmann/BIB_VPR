@@ -3,6 +3,7 @@ using Messenger.ConsoleMessenger.Models;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Messenger.ConsoleMessenger.Programs
     class ChatPage : Page
     {
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
+
+        private ILogger _logger => GlobalLogger.Instance;
 
         private string _userId;
 
@@ -83,8 +86,10 @@ namespace Messenger.ConsoleMessenger.Programs
         /// <param name="team">Team to load messages from</param>
         private void LoadMessages(Team team)
         {
+            _logger.Information("Loading messages with the current team id {0}", team.Id);
             var messages = MessengerService.LoadMessages(team.Id).GetAwaiter().GetResult() ?? Enumerable.Empty<Message>();
-            
+
+            _logger.Information("Total of {0} messages were loaded.", messages.Count());
             Output.WriteLine("");
             foreach (var message in messages)
             {
@@ -105,28 +110,16 @@ namespace Messenger.ConsoleMessenger.Programs
                 content = Input.ReadString($"[Enter] to send >> ");
             }
 
-            var message = BuildMessage(content, _userId, teamId);
-
-            MessengerService.SendMessage(message).GetAwaiter().GetResult();
-            Input.ReadString(string.Empty);
-        }
-
-        /// <summary>
-        /// Returns a complete message instance
-        /// </summary>
-        /// <param name="content">Content of the message</param>
-        /// <param name="userId">Id of the user signed in</param>
-        /// <param name="teamId">Id of the team the user is in</param>
-        /// <returns>A complete message instance</returns>
-        private Message BuildMessage(string content, string userId, uint teamId)
-        {
-            return new Message()
+            var message = new Message()
             {
                 Content = content,
-                SenderId = userId,
+                SenderId = _userId,
                 RecipientId = teamId,
                 CreationTime = DateTime.Now
             };
+
+            MessengerService.SendMessage(message).GetAwaiter().GetResult();
+            Input.ReadString(string.Empty);
         }
 
         /// <summary>
@@ -136,11 +129,15 @@ namespace Messenger.ConsoleMessenger.Programs
         /// <returns>A list of teams</returns>
         private IList<Team> BuildTeamsList(string userId)
         {
-            return MessengerService
-                .LoadTeams(userId)
-                .GetAwaiter()
-                .GetResult()
-                .ToList();
+            var teams = MessengerService
+                        .LoadTeams(userId)
+                        .GetAwaiter()
+                        .GetResult()
+                        .ToList();
+
+            _logger.Information("Following teams are loaded: {0}", string.Join(", ", teams.Select(t => t.Name)));
+
+            return teams;
         }
 
         /// <summary>
@@ -150,11 +147,9 @@ namespace Messenger.ConsoleMessenger.Programs
         private void PrintMessage(Message message)
         {
             bool isFromSelf = message.SenderId == _userId;
+            string sender = isFromSelf ? "You" : message.Sender.DisplayName;
 
-            Output.WriteLine("[ {0} ]: {1} {2}",
-                isFromSelf ? "You" : message.Sender.DisplayName,
-                message.Content,
-                message.CreationTime);
+            Output.WriteLine($"[ {sender} ]: {message.Content} @{message.CreationTime}");
         }
     }
 }
