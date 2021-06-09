@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Messenger.Core.Models"
+    xmlns:models="using:Messenger.Core.Models" xmlns:storage="using:Windows.Storage"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
@@ -115,18 +115,24 @@
                 </ListView>
             </ScrollViewer>
             <StackPanel Grid.Row="1" VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                <ListView Height="100"
+                        HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
+
+                <ListView Height="80"
                       x:Name="AttachmentListView"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Background="White"
+                      HorizontalAlignment="Stretch"
                       BorderBrush="Gray"
-                      Visibility="Visible">
+                      Visibility="Visible"
+                          Background="{StaticResource SystemChromeLowColor}"
+                      ItemsSource="{x:Bind ViewModel.SelectedFiles, Mode=OneWay}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="{ThemeResource SystemAltHighColor}" Padding="5">
-                                <TextBlock Text="Moin" />
+                        <DataTemplate x:DataType="storage:StorageFile">
+                            <Border Background="{ThemeResource SystemAccentColorDark3}" Padding="10,8,10,8" HorizontalAlignment="Stretch" CornerRadius="5">
+                                <TextBlock Text="{Binding DisplayName}" Foreground="White"/>
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>

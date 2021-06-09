@@ -46,7 +46,7 @@ namespace Messenger.ViewModels
 
         public IReadOnlyList<StorageFile> SelectedFiles {
             get { return _selectedFiles; }
-            set { _selectedFiles = value; }
+            set { Set(ref _selectedFiles, value); }
         }
 
         public ICommand SendMessageCommand => new RelayCommand<string>(SendMessage);
