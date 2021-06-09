@@ -60,22 +60,22 @@
             <StackPanel Margin="{StaticResource SmallTopMargin}" Orientation="Horizontal">
                 <Ellipse Width="64" Height="64">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{x:Bind ViewModel.User.Photo, Mode=OneWay}" Stretch="UniformToFill" />
+                        <ImageBrush ImageSource="{x:Bind ViewModel.User.Photo, Mode=OneWay}" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Margin="{StaticResource SmallLeftMargin}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="UserNametbk"
                         Text="{x:Bind ViewModel.User.Name, Mode=TwoWay}"
-                        Style="{ThemeResource BodyTextBlockStyle}" />
-                        <TextBox x:Name="UserNametbx" Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" Visibility="Collapsed"/>
-                        <Button FontFamily="Segoe MDL2 Assets" FontSize="12" Content="&#xE70F;" Margin="10" Background="Transparent" BorderBrush="Transparent" Click="EditButton_Click">
+                        Style="{ThemeResource BodyTextBlockStyle}"/>
+                        <TextBox x:Name="UserNametbx" Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" Visibility="Collapsed" KeyDown="UserNametbx_KeyDown"/>
+                        <Button FontFamily="Segoe MDL2 Assets" FontSize="15" Content="&#xE70F;" Margin="10" Background="Transparent" BorderBrush="Transparent" Click="EditButton_Click">
                         </Button>
                     </StackPanel>
                     <TextBlock
                         Text="{x:Bind ViewModel.User.UserPrincipalName, Mode=OneWay}"
                         Margin="{StaticResource XSmallTopMargin}"
-                        Style="{ThemeResource BodyTextBlockStyle}" />
+                        Style="{ThemeResource BodyTextBlockStyle}"/>
                 </StackPanel>
             </StackPanel>
             <HyperlinkButton
