@@ -11,6 +11,8 @@ namespace Messenger.Core.Services
 {
     public class UserService : AzureServiceBase
     {
+        // TODO: Maybe use an enum of values like User.Name?
+        // TODO: Prevent changing user id
         /// <summary>
         /// Update a specified column for a specified user.
         ///</summary>
