@@ -114,7 +114,7 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {query}");
 
-                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(),
                                                           Convert.ToBoolean);
 
                     // FIX: Changes name but still returns false
@@ -158,8 +158,8 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {query}");
 
-                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
-                                                          Convert.ToBoolean);
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(),
+                                                              Convert.ToBoolean);
 
                     logger.Information($"Return value: {result}");
 
