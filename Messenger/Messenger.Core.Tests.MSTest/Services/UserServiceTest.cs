@@ -194,10 +194,12 @@ namespace Messenger.Tests.MSTest
             // Reset DB
             string query = "DELETE FROM Messages;"
                          + "DELETE FROM Memberships;"
+                         + "DELETE FROM Channels;"
                          + "DELETE FROM Teams;"
                          + "DELETE FROM Users;"
                          + "DBCC CHECKIDENT (Memberships, RESEED, 0);"
                          + "DBCC CHECKIDENT (Messages, RESEED, 0);"
+                         + "DBCC CHECKIDENT (Channels, RESEED, 0);"
                          + "DBCC CHECKIDENT (Teams, RESEED, 0);";
 
             using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
