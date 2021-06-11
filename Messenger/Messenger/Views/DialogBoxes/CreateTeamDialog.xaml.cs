@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace Messenger.Views.DialogBoxes
 {
@@ -23,6 +11,9 @@ namespace Messenger.Views.DialogBoxes
             set { SetValue(TeamNameProperty, value); }
         }
 
+        /// <summary>
+        /// Name of the team to create
+        /// </summary>
         public static readonly DependencyProperty TeamNameProperty =
             DependencyProperty.Register("TeamName", typeof(string), typeof(CreateTeamDialog), new PropertyMetadata(string.Empty));
 
@@ -32,6 +23,9 @@ namespace Messenger.Views.DialogBoxes
             set { SetValue(TeamDescriptionProperty, value); }
         }
 
+        /// <summary>
+        /// Description of the team to create (optional)
+        /// </summary>
         public static readonly DependencyProperty TeamDescriptionProperty =
             DependencyProperty.Register("TeamDescription", typeof(string), typeof(CreateTeamDialog), new PropertyMetadata(string.Empty));
 
@@ -40,12 +34,22 @@ namespace Messenger.Views.DialogBoxes
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Fires if user clicks the confirm button
+        /// </summary>
+        /// <param name="sender">Sender type is ContentDialog</param>
+        /// <param name="args">Click event args</param>
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             if (string.IsNullOrEmpty(TeamName))
             {
                 args.Cancel = true;
                 errorTextBlock.Text = "Team name is required.";
+            }
+            else if (TeamName.Length < 3)
+            {
+                args.Cancel = true;
+                errorTextBlock.Text = "Name should have at least 3 letters.";
             }
         }
 
