@@ -111,7 +111,7 @@
         <Button
             x:Name="newChat"
             Style="{StaticResource NewTeamButtonStyle}"
-            Click="NewTeam_Click">
+            Command="{x:Bind ViewModel.CreateTeamCommand}">
             <SymbolIcon
                 Symbol="Add"
                 Opacity="0.9"
