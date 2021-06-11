@@ -23,21 +23,5 @@ namespace Messenger.Views
                 ViewModel.ShellViewModel = e.Parameter as ShellViewModel;
             }
         }
-
-        private void NewTeam_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            SymbolIcon newTeamIcon = (sender as Button).Content as SymbolIcon;
-
-            if (SearchField.Visibility == Windows.UI.Xaml.Visibility.Visible)
-            {
-                SearchField.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                newTeamIcon.Symbol = Symbol.Add;
-            }
-            else
-            {
-                SearchField.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                newTeamIcon.Symbol = Symbol.Remove;
-            }
-        }
     }
 }

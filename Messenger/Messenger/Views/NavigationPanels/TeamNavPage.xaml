@@ -17,9 +17,14 @@
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind Name}"
                 IsExpanded="False">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
-                    <TextBlock>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="DodgerBlue"
+                        Opacity=".5">
                         <Run Text="#" />
                         <Run Text="{x:Bind Id}" />
                     </TextBlock>
@@ -99,12 +104,6 @@
                         UpdateSourceTrigger=PropertyChanged,
                         Mode=TwoWay}"
                     ItemTemplateSelector="{StaticResource TreeViewTemplateSelector}"
-                    />
-                <TextBox
-                    x:Uid="Team_NewTeam"
-                    x:Name="SearchField"
-                    KeyDown="NewTeam_KeyDown"
-                    Style="{StaticResource SearchFieldStyle}"
                     />
             </StackPanel>
         </ScrollViewer>
