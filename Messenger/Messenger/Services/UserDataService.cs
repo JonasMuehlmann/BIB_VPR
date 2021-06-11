@@ -26,6 +26,8 @@ namespace Messenger.Services
 
         private UserService UserService => Singleton<UserService>.Instance;
 
+        public bool IsOnline => _user != null;
+
         public event EventHandler<UserViewModel> UserDataUpdated;
 
         public UserDataService()
