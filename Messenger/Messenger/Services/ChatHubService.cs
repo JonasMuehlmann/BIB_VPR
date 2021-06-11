@@ -73,6 +73,7 @@ namespace Messenger.Services
         {
             CurrentUser = await UserDataService.GetUserAsync();
 
+            // Loads messages for teams the current user has joined
             if (CurrentUser.Teams.Count > 0)
             {
                 foreach (Team team in CurrentUser.Teams)
@@ -81,6 +82,7 @@ namespace Messenger.Services
                     CreateEntryForCurrentTeam(team.Id, messages);
                 }
 
+                // Sets the first team as the selected team
                 CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
             }
 
@@ -92,6 +94,8 @@ namespace Messenger.Services
         {
             CurrentUser = user;
         }
+
+        #region Message
 
         /// <summary>
         /// Gets all messages of the current team
@@ -123,6 +127,28 @@ namespace Messenger.Services
         }
 
         /// <summary>
+        /// Sends a message to the current team
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task SendMessage(string content)
+        {
+            var message = new Message()
+            {
+                Content = content,
+                CreationTime = DateTime.Now,
+                SenderId = CurrentUser.Id,
+                RecipientId = (uint)CurrentTeamId
+            };
+
+            await MessengerService.SendMessage(message);
+        }
+
+        #endregion
+
+        #region Team
+
+        /// <summary>
         /// Gets the list of teams of the current user
         /// Should only be used to 'reload', since the list should be already loaded in UserViewModel.Teams
         /// </summary>
@@ -146,24 +172,13 @@ namespace Messenger.Services
             return teams;
         }
 
+
         /// <summary>
-        /// Sends a message to the current team
+        /// Creates a new team and invokes registered events(TeamsUpdated)
         /// </summary>
-        /// <param name="content"></param>
-        /// <returns>Asynchronous task to be awaited</returns>
-        public async Task SendMessage(string content)
-        {
-            var message = new Message()
-            {
-                Content = content,
-                CreationTime = DateTime.Now,
-                SenderId = CurrentUser.Id,
-                RecipientId = (uint)CurrentTeamId
-            };
-
-            await MessengerService.SendMessage(message);
-        }
-
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <returns></returns>
         public async Task CreateTeam(string teamName, string teamDescription)
         {
             uint? teamId = await MessengerService.CreateTeam(CurrentUser.Id, teamName, teamDescription);
@@ -177,7 +192,7 @@ namespace Messenger.Services
         }
 
         /// <summary>
-        /// Updates current team id and invokes registered ui events
+        /// Updates current team id and invokes registered events(TeamSwitched)
         /// </summary>
         /// <param name="teamId">Id of the team to switch to</param>
         /// <returns>Asynchronous task to be awaited</returns>
@@ -188,10 +203,21 @@ namespace Messenger.Services
             TeamSwitched?.Invoke(this, await GetMessages());
         }
 
+        #endregion
+
+        #region Member
+
+        /// <summary>
+        /// Adds the user to the target team
+        /// </summary>
+        /// <param name="invitation">Model to build required fields, used only under UI-logic</param>
+        /// <returns>Task to be awaited</returns>
         public async Task InviteUser(Invitation invitation)
         {
             await MessengerService.InviteUser(invitation.UserId, Convert.ToUInt32(invitation.TeamId));
         }
+
+        #endregion
 
         #region Events
 
@@ -221,7 +247,7 @@ namespace Messenger.Services
                     return list;
                 });
 
-            // Invoke registered ui events
+            // Invoke registered events
             MessageReceived?.Invoke(this, message);
         }
 
@@ -247,7 +273,7 @@ namespace Messenger.Services
                     }
                 });
 
-            // Invoke registered ui events
+            // Invoke registered events
             InvitationReceived?.Invoke(this, teamId);
         }
 
