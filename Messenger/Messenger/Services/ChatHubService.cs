@@ -54,11 +54,17 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<IEnumerable<Message>> TeamSwitched;
 
+        /// <summary>
+        /// Event handler for updates in teams list
+        /// </summary>
+        public event EventHandler<IEnumerable<Team>> TeamsUpdated;
+
         #endregion
 
         public ChatHubService()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, List<Message>>();
+            UserDataService.UserDataUpdated += OnLoggedIn;
 
             Initialize();
         }
@@ -80,6 +86,11 @@ namespace Messenger.Services
 
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
+        }
+
+        private void OnLoggedIn(object sender, UserViewModel user)
+        {
+            CurrentUser = user;
         }
 
         /// <summary>
@@ -123,7 +134,16 @@ namespace Messenger.Services
                 return null;
             }
 
-            return await MessengerService.LoadTeams(CurrentUser.Id);
+            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+
+            // Updates the teams list under the current user
+            CurrentUser.Teams.Clear();
+            foreach (var team in teams)
+            {
+                CurrentUser.Teams.Add(team);
+            }
+
+            return teams;
         }
 
         /// <summary>
@@ -146,7 +166,14 @@ namespace Messenger.Services
 
         public async Task CreateTeam(string teamName, string teamDescription)
         {
-            // TODO
+            uint? teamId = await MessengerService.CreateTeam(CurrentUser.Id, teamName, teamDescription);
+
+            if (teamId != null)
+            {
+                await SwitchTeam((uint)teamId);
+            }
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
         }
 
         /// <summary>
