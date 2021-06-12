@@ -77,6 +77,28 @@ namespace Messenger.Core.Services
 
             return result;
         }
+        /// <summary>
+        /// Deletes all channel from a specified team
+        /// </summary>
+        /// <param name="teamId">The id of the team to clear the channels from</param>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
+        public async Task<bool> RemoveAllChannels(uint teamId)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","RemoveAllChannels");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            string query = $"DELETE FROM Channels WHERE TeamId={teamId};";
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
 
         /// <summary>
         /// Rename a specified channel
