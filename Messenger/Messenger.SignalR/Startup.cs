@@ -25,10 +25,7 @@ namespace Messenger.SignalR
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddSignalR(o =>
-                {
-                    o.EnableDetailedErrors = true;
-                })
+                .AddSignalR()
                 .AddAzureSignalR();
         }
 
