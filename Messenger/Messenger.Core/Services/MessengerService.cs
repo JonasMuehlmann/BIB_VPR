@@ -17,6 +17,8 @@ namespace Messenger.Core.Services
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
 
+        private ChannelService ChannelService => Singleton<ChannelService>.Instance;
+
         private TeamService TeamService => Singleton<TeamService>.Instance;
 
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
@@ -142,7 +144,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Saves new team to database and join the hub group of the team
+        /// Saves new team to database, create a main channel and join the hub group of the team
         /// </summary>
         /// <param name="creatorId">Creator user id</param>
         /// <param name="teamName">Name of the team</param>
@@ -168,6 +170,16 @@ namespace Messenger.Core.Services
             await TeamService.AddMember(creatorId, (uint)teamId);
             logger.Information($"Added the user identified by {creatorId} to the team identified by {(uint)teamId}");
 
+            uint? channelId = await ChannelService.CreateChannel("main", teamId.Value);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the team's main channel");
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={teamId.Value}");
             // Join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
             logger.Information($"Joined the hub of the team identified by {teamId}");
