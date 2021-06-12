@@ -87,7 +87,10 @@ namespace Messenger.ViewModels
             }
         }
 
-        private async void OpenFiles() {
+        /// <summary>
+        /// The Method is responsible for opening file to attach to the message
+        /// </summary>
+        private async void SelectFiles() {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.FileTypeFilter.Add("*");
             IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
