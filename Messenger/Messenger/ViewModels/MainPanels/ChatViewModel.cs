@@ -46,6 +46,7 @@ namespace Messenger.ViewModels
         {
             Messages = new ObservableCollection<Message>();
             Hub.MessageReceived += OnMessageReceived;
+            Hub.TeamSwitched += OnTeamSwitched;
             LoadAsync();
         }
 
@@ -75,6 +76,11 @@ namespace Messenger.ViewModels
             {
                 Messages.Add(message);
             }
+        }
+
+        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        {
+            UpdateView(messages);
         }
     }
 }
