@@ -56,6 +56,7 @@ namespace Messenger.ViewModels
         {
             Messages = new ObservableCollection<Message>();
             Hub.MessageReceived += OnMessageReceived;
+            Hub.TeamSwitched += OnTeamSwitched;
             LoadAsync();
         }
 
@@ -87,10 +88,8 @@ namespace Messenger.ViewModels
             }
         }
 
-        /// <summary>
-        /// The Method is responsible for opening file to attach to the message
-        /// </summary>
-        private async void SelectFiles() {
+        private async void SelectFiles() 
+        {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.FileTypeFilter.Add("*");
             IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
@@ -99,6 +98,11 @@ namespace Messenger.ViewModels
             {
                 SelectedFiles = files;
             }
+        }
+        
+        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        {
+            UpdateView(messages);
         }
     }
 }
