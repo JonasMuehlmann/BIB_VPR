@@ -134,6 +134,15 @@
                     Height="40" Width="60">
                     <SymbolIcon Symbol="Accept" />
                 </Button>
+
+
+                <Button
+                    Click="SelectFile_Click"
+                    BorderBrush="Gray"
+                    Background="Transparent"
+                    Height="40" Width="60">
+                    <SymbolIcon Symbol="NewWindow"/>
+                </Button>
             </StackPanel>
 
 

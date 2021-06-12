@@ -34,7 +34,6 @@ namespace Messenger.ViewModels
             }
             set {
                 _shellViewModel = value;
-                _shellViewModel.ChatName = "Chatname";
             }
         }
 
@@ -86,6 +85,7 @@ namespace Messenger.ViewModels
 
         public async void NewTeam(string name) {
             await MessengerService.CreateTeam(User.Id, name);
+            LoadTeams();
         }
     }
 }

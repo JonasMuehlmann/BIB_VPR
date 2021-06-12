@@ -1,0 +1,133 @@
+﻿<Page
+    x:Class="Messenger.Views.TeamManagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Messenger.Core.Models"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <StackPanel>
+                <!--add and remove users navigation-->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="10"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="CornerRadius" Value="0"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button x:Name="AddMember" Content="Add" Click="AddMember_Click"></Button>
+                    <Button x:Name="RemoveMember" Content="Remove" Click="RemoveMember_Click"></Button>
+                </StackPanel>
+
+                <!--add new users to team field-->
+                <Border
+                    x:Name="addUserBorder"
+                    HorizontalAlignment="Left"
+                    Margin="10,30,0,0"
+                    BorderBrush="{ThemeResource SystemAccentColor}"
+                    BorderThickness="1"
+                    CornerRadius="3" Visibility="Visible">
+                    <StackPanel>
+                        <TextBox x:Uid="Team_AddTeamMember"
+                            x:Name="SearchField"
+                   Height="30"
+                   Margin="-1"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"/>
+                        <ListView >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <ContentPresenter/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <Border VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
+                            BorderThickness="1"
+                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
+                                <Grid VerticalAlignment="Center">
+                                    <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
+                                        <Grid>
+                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                              StrokeThickness="1.5"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"></Line>
+                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="1" X2="1" Y1="0" Y2="15"
+                                              StrokeThickness="1.5"
+                                              Margin="0,0.4,8,0"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"></Line>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+
+                <Border
+                    x:Name="removeUserBorder"
+                    Margin="10,30,0,0"
+                    HorizontalAlignment="Left"
+                    BorderBrush="{ThemeResource SystemAccentColor}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBox x:Uid="Team_RemoveTeamMember"
+                   Height="30"
+                   Margin="-1"
+                   Foreground="{ThemeResource SystemBaseHighColor}"
+                   Background="{ThemeResource SystemAltLowColor}"
+                   BorderBrush="{ThemeResource SystemAccentColor}"/>
+                        <ListView>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <ContentPresenter/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <Border VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
+                            BorderThickness="1"
+                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
+                                <Grid VerticalAlignment="Center">
+                                    <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
+                                        <Grid>
+                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                              StrokeThickness="1.5"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"></Line>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

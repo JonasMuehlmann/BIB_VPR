@@ -40,7 +40,7 @@ namespace Messenger.Core.Services
                     logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
-                                                          Convert.ToUInt32);
+                                                              Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 
@@ -72,6 +72,7 @@ namespace Messenger.Core.Services
             logger.Information($"Running the following query: {query}");
 
             var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
             logger.Information($"Return value: {result}");
 
             return result;
