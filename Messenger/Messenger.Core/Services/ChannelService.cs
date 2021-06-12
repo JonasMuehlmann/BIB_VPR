@@ -79,7 +79,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Rename a specified channe;
+        /// Rename a specified channel
         /// </summary>
         /// <param name="channelName">the new name of the channel></param>
         /// <param name="channelId">the id of the channel to rename</param>
