@@ -98,9 +98,6 @@ namespace Messenger.ViewModels
             if (files.Count > 0)
             {
                 SelectedFiles = files;
-                foreach (var f in files) {
-                    Console.WriteLine(f.DisplayName);
-                }
             }
         }
     }
