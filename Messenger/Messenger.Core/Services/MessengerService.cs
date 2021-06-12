@@ -163,6 +163,7 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"could not create the team");
                 logger.Information($"Return value: false");
+
                 return false;
             }
 
@@ -212,13 +213,43 @@ namespace Messenger.Core.Services
             return result;
         }
         /// <summary>
+        /// Add a channel to a spiecified team
+        /// </summary>
+        /// <param name="teamId">Id of the team to add the channel to</param>
+        /// <param name="channelName">Name of the newly created channel</param>
+        /// <returns>True if the channel was successfully created, false otherwise</returns>
+        public async Task<bool>CreateChannel(string channelName, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameChaannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
+
+            // TODO: Integrate with SignalR
+
+            var channelId = await ChannelService.CreateChannel(channelName, teamId);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the channel");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+
+            logger.Information($"Return value: true");
+
+            return true;
+        }
+
+        /// <summary>
         /// Rename A channel and notify other clients
         /// </summary>
         /// <param name="channelId">Id of the channel to rename</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
         public async Task<bool>RenameChannel(string channelName, uint channelId)
         {
-            LogContext.PushProperty("Method", "RenameChaannel");
+            LogContext.PushProperty("Method", "RenameChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters channelName={channelName}, channelId={channelId}");
 
