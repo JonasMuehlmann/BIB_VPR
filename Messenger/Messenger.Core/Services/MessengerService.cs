@@ -212,6 +212,7 @@ namespace Messenger.Core.Services
 
             return result;
         }
+
         /// <summary>
         /// Add a channel to a spiecified team
         /// </summary>
@@ -238,6 +239,26 @@ namespace Messenger.Core.Services
 
 
             logger.Information($"Return value: true");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Remove a specified channel from it's team
+        /// </summary>
+        /// <param name="channelId">Id of the channel to delete</param>
+        /// ""
+        public async Task<bool>RemoveChannel(uint channelId)
+        {
+            LogContext.PushProperty("Method", "RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters channelId={channelId}");
+
+            // TODO: Integrate with SignalR
+
+            var result = await ChannelService.RemoveChannel(channelId);
+
+            logger.Information($"Return value: {result}");
 
             return true;
         }
