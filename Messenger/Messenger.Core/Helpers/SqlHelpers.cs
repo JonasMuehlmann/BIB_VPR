@@ -14,6 +14,7 @@ namespace Messenger.Core.Helpers
     public class SqlHelpers
     {
         static ILogger logger = GlobalLogger.Instance;
+
         /// <summary>
         /// Run the specified query on the specified connection.
         /// </summary>
@@ -122,17 +123,18 @@ namespace Messenger.Core.Helpers
         /// <returns></returns>
         public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
         {
-            Serilog.Context.LogContext.PushProperty("Method","MapToList");
-            Serilog.Context.LogContext.PushProperty("SourceContext", "SqlHelpers");
+            LogContext.PushProperty("Method","MapToList");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
             string tableName = typeof(T).Name + 's';
-
-            logger.Information($"Table name has been determined as {tableName}");
 
             logger.Information($"tableName has been determined as {tableName}");
 
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
+
+            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
             var result = dataSet.Tables[tableName].Rows
                          .Cast<DataRow>()

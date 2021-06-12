@@ -40,6 +40,7 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
 
                 Assert.IsNotNull(channelId);
+
             }).GetAwaiter().GetResult();
         }
 
@@ -47,6 +48,7 @@ namespace Messenger.Tests.MSTest
         public void RemoveChannel_Test()
         {
             string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
                 uint? teamId = await teamService.CreateTeam(testName + "Team");
@@ -63,8 +65,6 @@ namespace Messenger.Tests.MSTest
 
                 var numChannelsAfter = (await teamService.GetAllChannelsByTeamId(teamId.Value)).Count();
 
-
-
                 teamService.logger.Information($"{numChannelsBefore}");
                 teamService.logger.Information($"{numChannelsAfter}");
 
@@ -74,5 +74,6 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
     }
 }
