@@ -55,11 +55,11 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsNotNull(teamId);
 
-                var numChannelsBefore = (await teamService.GetAllChannelsByTeamId(teamId.Value)).Count();
-
                 uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
 
                 Assert.IsNotNull(channelId);
+
+                var numChannelsBefore = (await teamService.GetAllChannelsByTeamId(teamId.Value)).Count();
 
                 bool success = await channelService.RemoveChannel(channelId.Value);
 
