@@ -50,7 +50,7 @@ namespace Messenger.ViewModels
         }
 
         public ICommand SendMessageCommand => new RelayCommand<string>(SendMessage);
-        public ICommand OpenFilesCommand => new RelayCommand(OpenFiles);
+        public ICommand OpenFilesCommand => new RelayCommand(SelectFiles);
 
         public ChatViewModel()
         {
