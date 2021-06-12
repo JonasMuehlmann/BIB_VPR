@@ -204,8 +204,28 @@ namespace Messenger.Core.Services
             var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
 
             // TODO: Integrate with SignalR
-            //
+
             var result = didDeleteTeamAndMemberships && didDeleteChannels;
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+        /// <summary>
+        /// Rename A channel and notify other clients
+        /// </summary>
+        /// <param name="channelId">Id of the channel to rename</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public async Task<bool>RenameChannel(string channelName, uint channelId)
+        {
+            LogContext.PushProperty("Method", "RenameChaannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters channelName={channelName}, channelId={channelId}");
+
+            // TODO: Integrate with SignalR
+
+            var result = await ChannelService.RenameChannel(channelName, channelId);
+
 
             logger.Information($"Return value: {result}");
 
