@@ -190,6 +190,29 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Delete a team alongside it's channels and memberships
+        /// </summary>
+        /// <param name="teamId">The id of the team to delete</param>
+        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        public async Task<bool> DeleteTeam(uint teamId)
+        {
+            LogContext.PushProperty("Method", "DeleteTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
+            var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
+
+            // TODO: Integrate with SignalR
+            //
+            var result = didDeleteTeamAndMemberships && didDeleteChannels;
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
         /// Saves new membership to database and add the user to the hub group of the team
         /// </summary>
         /// <param name="userId">User id to add</param>
