@@ -34,11 +34,16 @@ namespace Messenger.Tests.MSTest
         public void Initialize()
         {
             userService = InitializeTestMode<UserService>();
+
+            userService.logger.Information("Creating example user!");
+
             // setting up example data for delete operation
             Task.Run(async () =>
             {
                 await userService.GetOrCreateApplicationUser(sampleUser);
             }).GetAwaiter().GetResult();
+
+            userService.logger.Information("Finished creating example user!");
         }
 
 
@@ -208,6 +213,37 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(result);
             }
+        }
+
+        [TestMethod]
+        public void ChangeBio_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var userId = testName + "UserId";
+
+                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Bio=testName + "Bio"});
+                Assert.IsNotNull(user);
+
+                string oldBio = user.Bio;
+                //TODO: REMOVE
+                userService.logger.Information($"{oldBio}");
+
+                Assert.AreEqual(oldBio, testName + "Bio");
+
+                var success = await userService.UpdateUserBio(userId, oldBio + "New");
+                Assert.IsTrue(success);
+
+                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                Assert.IsNotNull(user);
+
+                string newBio = user.Bio;
+
+                Assert.AreEqual(oldBio + "New", newBio);
+
+            }).GetAwaiter().GetResult();
         }
     }
 }
