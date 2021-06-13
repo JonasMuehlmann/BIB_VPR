@@ -110,9 +110,16 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
         {
+            if (attachmentFilePaths == null)
+            {
+                attachmentFilePaths = Enumerable.Empty<string>();
+            }
+
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
+            
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
+
             // Check the validity of the message
             if (!ValidateMessage(message))
             {
@@ -155,8 +162,8 @@ namespace Messenger.Core.Services
         /// <param name="creatorId">Creator user id</param>
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team(optional)</param>
-        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> CreateTeam(string creatorId, string teamName, string teamDescription = "")
+        /// <returns>Id of the newly created team on success, null on fail (error will be handled in each service)</returns>
+        public async Task<uint?> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
             LogContext.PushProperty("Method","CreateTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -169,7 +176,7 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"could not create the team");
                 logger.Information($"Return value: false");
-                return false;
+                return null;
             }
 
             // Create membership for the creator and save to database
@@ -182,7 +189,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Return value: true");
 
-            return true;
+            return teamId;
         }
 
         /// <summary>
