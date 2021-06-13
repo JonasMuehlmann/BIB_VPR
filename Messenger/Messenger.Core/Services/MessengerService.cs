@@ -119,7 +119,7 @@ namespace Messenger.Core.Services
 
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            
+
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
 
             // Check the validity of the message
@@ -178,7 +178,7 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"could not create the team");
                 logger.Information($"Return value: null");
-              
+
                 return null;
             }
 
@@ -192,7 +192,8 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"could not create the team's main channel");
                 logger.Information($"Return value: false");
-                return false;
+
+                return null;
             }
 
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={teamId.Value}");
