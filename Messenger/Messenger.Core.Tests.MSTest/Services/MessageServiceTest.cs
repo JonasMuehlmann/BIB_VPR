@@ -96,14 +96,12 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 uint? teamId = await teamService.CreateTeam(testName + "Team");
-
                 Assert.IsNotNull(teamId);
-                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
 
+                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
                 uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
-
                 Assert.IsNotNull(messageId);
 
                 var messages = (await messageService.RetrieveMessages(teamId.Value));
@@ -124,6 +122,36 @@ namespace Messenger.Tests.MSTest
 
 
                 Assert.AreEqual(oldContent + "NewContent", newContent);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void RemoveMessage_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
+
+                var  numMessagesBefore = (await messageService.RetrieveMessages(teamId.Value)).Count();
+
+                var success = await messageService.DeleteMessage(messageId.Value);
+                Assert.IsTrue(success);
+
+                var numMessagesAfter = (await messageService.RetrieveMessages(teamId.Value)).Count();
+
+                Assert.IsTrue(numMessagesAfter < numMessagesBefore);
+
 
             }).GetAwaiter().GetResult();
         }
