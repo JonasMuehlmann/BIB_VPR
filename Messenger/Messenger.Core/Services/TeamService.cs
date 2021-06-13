@@ -70,7 +70,7 @@ namespace Messenger.Core.Services
         /// Deletes a team with a given team id.
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
             string query = $"DELETE FROM Memberships WHERE TeamId={teamId};"
@@ -310,6 +310,41 @@ namespace Messenger.Core.Services
                     logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve a team's channels
+        /// </summary>
+        /// <param name="teamId">The id of the team to retrieve channels from</param>
+        /// <returns>A list of the team's channels</returns>
+        public async Task<IList<Channel>> GetAllChannelsByTeamId(uint teamId)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            string query = $"SELECT * FROM Channels WHERE TeamId={teamId}";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    logger.Information($"Running the following query: {query}");
+                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
 
                     logger.Information($"Return value: {result}");
 

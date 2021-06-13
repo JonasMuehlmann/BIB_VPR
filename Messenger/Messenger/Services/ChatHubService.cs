@@ -3,8 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Serilog.Context;
+using Serilog;
 using System.Linq;
-
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
@@ -35,6 +36,7 @@ namespace Messenger.Services
 
         public UserViewModel CurrentUser { get; private set; }
 
+        public ILogger logger = GlobalLogger.Instance;
         #endregion
 
         #region Event Handlers
@@ -103,8 +105,16 @@ namespace Messenger.Services
         /// <returns>List of messages</returns>
         public async Task<IEnumerable<Message>> GetMessages()
         {
+            LogContext.PushProperty("Method","GetMessages");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
             if (CurrentTeamId == null)
             {
+                logger.Information("No current team set, exiting");
+                logger.Information("Return value: null");
+
                 return null;
             }
 
@@ -114,6 +124,8 @@ namespace Messenger.Services
             if (MessagesByConnectedTeam.TryGetValue(teamId, out List<Message> fromCache))
             {
                 // Loads from cache
+                logger.Information($"Return value: {fromCache}");
+
                 return fromCache;
             }
             else
@@ -121,6 +133,8 @@ namespace Messenger.Services
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
                 CreateEntryForCurrentTeam((uint)CurrentTeamId, fromDb);
+
+                logger.Information($"Return value: {fromDb}");
 
                 return fromDb;
             }
@@ -155,11 +169,19 @@ namespace Messenger.Services
         /// <returns>List of teams</returns>
         public async Task<IEnumerable<Team>> GetTeamsList()
         {
+            LogContext.PushProperty("Method","GetTeamsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
+
             if (CurrentUser == null)
             {
+                logger.Information("Return value: null");
+
                 return null;
             }
-
+          
             var teams = await MessengerService.LoadTeams(CurrentUser.Id);
 
             // Updates the teams list under the current user
@@ -181,13 +203,17 @@ namespace Messenger.Services
         /// <returns></returns>
         public async Task CreateTeam(string teamName, string teamDescription)
         {
+            LogContext.PushProperty("Method","CreateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
+
             uint? teamId = await MessengerService.CreateTeam(CurrentUser.Id, teamName, teamDescription);
 
             if (teamId != null)
             {
                 await SwitchTeam((uint)teamId);
             }
-
             TeamsUpdated?.Invoke(this, await GetTeamsList());
         }
 
@@ -198,6 +224,11 @@ namespace Messenger.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task SwitchTeam(uint teamId)
         {
+            LogContext.PushProperty("Method","SwitchTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter teamId={teamId}");
+
             CurrentTeamId = teamId;
             // Invokes ui events with the list of messages of the team
             TeamSwitched?.Invoke(this, await GetMessages());
@@ -214,6 +245,11 @@ namespace Messenger.Services
         /// <returns>Task to be awaited</returns>
         public async Task InviteUser(Invitation invitation)
         {
+            LogContext.PushProperty("Method","InviteUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter invitation={invitation}");
+
             await MessengerService.InviteUser(invitation.UserId, Convert.ToUInt32(invitation.TeamId));
         }
 
@@ -288,6 +324,11 @@ namespace Messenger.Services
         /// <param name="messages">List of messages to initialize with</param>
         private void CreateEntryForCurrentTeam(uint teamId, IEnumerable<Message> messages)
         {
+            LogContext.PushProperty("Method","CreateEntryForCurrentTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
             MessagesByConnectedTeam.AddOrUpdate(
                 teamId,
                 (key) =>
