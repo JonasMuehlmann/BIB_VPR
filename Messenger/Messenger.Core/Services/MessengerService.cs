@@ -324,6 +324,27 @@ namespace Messenger.Core.Services
             return result;
         }
 
-                #endregion
+        /// <summary>
+        /// Update A user's Photo
+        /// </summary>
+        /// <param name="userId">Id of the user whos photo should be updated</param>
+        /// <param name="newPhoto">The new photo of the user</param>
+        /// <returns>True if the photo was successfully updated, false otherwise</returns>
+        public async Task<bool>UpdateUserPhoto(string userId, string newPhoto)
+        {
+            LogContext.PushProperty("Method", "UpdateUserPhoto");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
+
+            // TODO: Integrate with SignalR
+
+            var result = await UserService.UpdateUserPhoto(userId, newPhoto);
+
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+        #endregion
     }
 }
