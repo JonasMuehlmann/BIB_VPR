@@ -13,7 +13,8 @@ namespace Messenger.Core.Helpers
 {
     public class SqlHelpers
     {
-        static ILogger logger = GlobalLogger.Instance;
+        public static ILogger logger => GlobalLogger.Instance;
+
 
         /// <summary>
         /// Run the specified query on the specified connection.
