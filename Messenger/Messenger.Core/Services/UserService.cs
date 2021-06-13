@@ -200,7 +200,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameter userdata={userdata}");
 
-            string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{userdata.Id}'";
+            string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userdata.Id}'";
 
             logger.Information($"Running the following query: {selectQuery}");
 
@@ -232,6 +232,9 @@ namespace Messenger.Core.Services
 
                     uint? newNameId = DetermineNewNameId(displayName, connection);
 
+                    Serilog.Context.LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+                    Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                     logger.Information($"newNameId has been determined as {newNameId}");
 
                     // Exit if name id is null
@@ -243,8 +246,8 @@ namespace Messenger.Core.Services
                     }
 
                     // Create and execute query
-                    string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email) "
-                                        + $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}')";
+                    string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email, PhotoURL, Bio) "
+                                        + $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}', '{userdata.Photo}', '{userdata.Bio}')";
 
                     logger.Information($"Running the following query: {insertQuery}");
 
@@ -315,7 +318,7 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserId='{userId}'";
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userId}'";
 
                     logger.Information($"Running the following query: {selectQuery}");
 
