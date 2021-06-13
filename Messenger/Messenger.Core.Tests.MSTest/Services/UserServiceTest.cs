@@ -271,6 +271,33 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void ChangePhoto_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var userId = testName + "UserId";
+
+                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Photo=testName + "Photo"});
+                Assert.IsNotNull(user);
+
+                string oldEmail = user.Photo;
+                Assert.AreEqual(oldEmail, testName + "Photo");
+
+                var success = await userService.UpdateUserPhoto(userId, oldEmail + "New");
+                Assert.IsTrue(success);
+
+                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                Assert.IsNotNull(user);
+
+                string newPhoto = user.Photo;
+
+                Assert.AreEqual(oldEmail + "New", newPhoto);
+
+            }).GetAwaiter().GetResult();
+        }
 
     }
 }
