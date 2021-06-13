@@ -87,5 +87,45 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void RenameMessage_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+
+                Assert.IsNotNull(userId);
+
+                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+
+                Assert.IsNotNull(messageId);
+
+                var messages = (await messageService.RetrieveMessages(teamId.Value));
+
+                Assert.AreEqual(messages.Count(), 1);
+
+                var oldContent = messages[0].Content;
+
+                bool success = await messageService.EditMessage(messageId.Value, testName + "MessageNewContent");
+
+                Assert.IsTrue(success);
+
+                messages = (await messageService.RetrieveMessages(teamId.Value));
+
+                Assert.AreEqual(messages.Count(), 1);
+
+                var newContent = messages[0].Content;
+
+
+                Assert.AreEqual(oldContent + "NewContent", newContent);
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }
