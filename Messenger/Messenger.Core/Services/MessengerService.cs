@@ -312,6 +312,28 @@ namespace Messenger.Core.Services
 
             return result;
         }
+
+        /// <summary>
+        /// Change a messages content and notify other clients
+        /// </summary>
+        /// <param name="messageId">Id of the message to edit</param>
+        /// <param name="newContent">New content of the message</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public async Task<bool>EditMessage(uint messageId,string newContent)
+        {
+            LogContext.PushProperty("Method", "EditMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
+
+            // TODO: Integrate with SignalR
+
+            var result = await MessageService.EditMessage(messageId, newContent);
+
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
         #endregion
     }
 }
