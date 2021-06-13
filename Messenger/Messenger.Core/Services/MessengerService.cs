@@ -117,7 +117,7 @@ namespace Messenger.Core.Services
 
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            
+
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
 
             // Check the validity of the message
@@ -291,6 +291,26 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: true");
 
             return true;
+        }
+
+        /// <summary>
+        /// Delete a Message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to delete</param>
+        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        public async Task<bool> DeleteMessage(uint messageId)
+        {
+            LogContext.PushProperty("Method", "DeleteMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            var result = await MessageService.DeleteMessage(messageId);
+
+            // TODO: Integrate with SignalR
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
         #endregion
     }

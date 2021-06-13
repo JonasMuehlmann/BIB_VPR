@@ -142,7 +142,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
-        public async Task<bool> EditMessage(uint messageId)
+        public async Task<bool> DeleteMessage(uint messageId)
         {
             Serilog.Context.LogContext.PushProperty("Method","DeleteMessage");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
