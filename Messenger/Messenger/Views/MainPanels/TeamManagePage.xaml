@@ -7,71 +7,114 @@
     xmlns:models="using:Messenger.Core.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+    <Page.Resources>
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}"/>
+        </Style>
+        <Style x:Key="AddUserBorderStyle" TargetType="Border">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="10 30 0 0" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Visibility" Value="Visible" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+        <Style x:Key="SearchFieldStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="-1" />
+            <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
+            <Setter Property="Background" Value="{ThemeResource SystemAltLowColor}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+        </Style>
+        <Style x:Key="MembersViewItemContainerStyle" TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ItemContainerBorderStyle" TargetType="Border">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColorLight3}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="MinWidth" Value="250" />
+            <Setter Property="Padding" Value="10 0 10 0" />
+            <Setter Property="Margin" Value="8" />
+        </Style>
+    </Page.Resources>
+    
+    <Grid
+        x:Name="ContentArea"
+        Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <StackPanel>
                 <!--add and remove users navigation-->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Margin" Value="10"/>
-                            <Setter Property="FontSize" Value="20"/>
-                            <Setter Property="CornerRadius" Value="0"/>
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <Button x:Name="AddMember" Content="Add" Click="AddMember_Click"></Button>
-                    <Button x:Name="RemoveMember" Content="Remove" Click="RemoveMember_Click"></Button>
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top">
+                    <Button
+                        x:Name="AddMember"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Content="Add"
+                        Click="AddMember_Click"
+                        />
+                    <Button
+                        x:Name="RemoveMember"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Content="Remove"
+                        Click="RemoveMember_Click"
+                        />
                 </StackPanel>
 
                 <!--add new users to team field-->
                 <Border
                     x:Name="addUserBorder"
-                    HorizontalAlignment="Left"
-                    Margin="10,30,0,0"
-                    BorderBrush="{ThemeResource SystemAccentColor}"
-                    BorderThickness="1"
-                    CornerRadius="3" Visibility="Visible">
+                    Style="{StaticResource AddUserBorderStyle}">
                     <StackPanel>
-                        <TextBox x:Uid="Team_AddTeamMember"
+                        <TextBox
+                            x:Uid="Team_AddTeamMember"
                             x:Name="SearchField"
-                   Height="30"
-                   Margin="-1"
-                   Foreground="{ThemeResource SystemBaseHighColor}"
-                   Background="{ThemeResource SystemAltLowColor}"
-                   BorderBrush="{ThemeResource SystemAccentColor}"/>
-                        <ListView >
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate>
-                                                <ContentPresenter/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <Border VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
-                            BorderThickness="1"
-                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
-                                <Grid VerticalAlignment="Center">
-                                    <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
+                            Style="{StaticResource SearchFieldStyle}"
+                            />
+                        <ListView
+                            ItemContainerStyle="{StaticResource MembersViewItemContainerStyle}">
+                            <Border
+                                Style="{StaticResource ItemContainerBorderStyle}">
+                                <Grid
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        Text="Hallo"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        />
+                                    <Button
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Height="25">
                                         <Grid>
-                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
-                                              StrokeThickness="1.5"
-                                              HorizontalAlignment="Right"
-                                              VerticalAlignment="Center"></Line>
-                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="1" X2="1" Y1="0" Y2="15"
-                                              StrokeThickness="1.5"
-                                              Margin="0,0.4,8,0"
-                                              HorizontalAlignment="Right"
-                                              VerticalAlignment="Center"></Line>
+                                            <Line
+                                                Stroke="{ThemeResource SystemAccentColor}"
+                                                X1="0" X2="15" Y1="1" Y2="1"
+                                                StrokeThickness="1.5"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                />
+                                            <Line
+                                                Stroke="{ThemeResource SystemAccentColor}"
+                                                X1="1" X2="1" Y1="0" Y2="15"
+                                                StrokeThickness="1.5"
+                                                Margin="0,0.4,8,0"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                />
                                         </Grid>
                                     </Button>
                                 </Grid>
