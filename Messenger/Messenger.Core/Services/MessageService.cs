@@ -38,7 +38,7 @@ namespace Messenger.Core.Services
                     string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
                     string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
 
-                    logger.Information($"attachmentBlobNames has been corrected to {attachmentBlobNames}");
+                    logger.Information($"attachmentBlobNames has been corrected to {correctedAttachmentBlobNames}");
                     logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");
 
                     string query = $"INSERT INTO Messages " +
@@ -113,7 +113,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                string query = $"UPDATE Messages SET Content='{newContent}' WHERE MessageId={messageId};";
+                string query = $"UPDATE Messages SET Message='{newContent}' WHERE MessageId={messageId};";
 
                 logger.Information($"Running the following query: {query}");
 
@@ -121,12 +121,11 @@ namespace Messenger.Core.Services
                 {
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                    var        result      = scalarQuery.ExecuteScalar();
-                    result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(), Convert.ToBoolean);
 
                     logger.Information($"Return value: {result}");
 
-                    return (bool)result;
+                    return result;
                 }
                 catch (SqlException e)
                 {
@@ -161,12 +160,11 @@ namespace Messenger.Core.Services
                 {
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                    var        result      = scalarQuery.ExecuteScalar();
-                    result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(), Convert.ToBoolean);
 
                     logger.Information($"Return value: {result}");
 
-                    return (bool)result;
+                    return result;
                 }
                 catch (SqlException e)
                 {
