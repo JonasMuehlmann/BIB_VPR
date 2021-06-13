@@ -302,6 +302,28 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        /// <summary>
+        /// Update A user's bio
+        /// </summary>
+        /// <param name="userId">Id of the user whos Bio should be updated</param>
+        /// <param name="newBio">The new bio of the user</param>
+        /// <returns>True if the bio was successfully updated, false otherwise</returns>
+        public async Task<bool>UpdateUserBio(string userId, string newBio)
+        {
+            LogContext.PushProperty("Method", "UpdateUserBio");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
+
+            // TODO: Integrate with SignalR
+
+            var result = await UserService.UpdateUserBio(userId, newBio);
+
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
                 #endregion
     }
 }
