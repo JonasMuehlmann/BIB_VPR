@@ -13,10 +13,7 @@ namespace Messenger.Core.Helpers
 {
     public class SqlHelpers
     {
-        public static ILogger logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
-                .CreateLogger();
+        public static ILogger logger => GlobalLogger.Instance;
 
         /// <summary>
         /// Run the specified query on the specified connection.

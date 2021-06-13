@@ -8,6 +8,10 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea"  Margin="{StaticResource MediumLeftMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <StackPanel>
             <ListView x:Name="itemListView"
                   HorizontalAlignment="Stretch"
@@ -24,6 +28,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Bottom">
+                
             <TextBox x:Uid="Chat_NewChat"
                      x:Name="SearchField"
                    Height="30"
@@ -32,23 +41,21 @@
                    Foreground="{ThemeResource SystemBaseHighColor}"
                    Background="{ThemeResource SystemAltLowColor}"
                    BorderBrush="{ThemeResource SystemAccentColor}"
-                   Visibility="Collapsed"
-                   />
-        </StackPanel>
-        <Button x:Name="newChat"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right"
-                CornerRadius="17"
-                BorderThickness="0.8"
-                Background="Transparent"
-                BorderBrush="Black"
-                Click="NewChat_Click"
-                Margin="20 10 10 10"
-                >
+                   Visibility="Collapsed" />
+                
+                <Button x:Name="newChat"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   CornerRadius="17"
+                   BorderThickness="0.8"
+                   Background="Transparent"
+                   BorderBrush="Black"
+                   Click="NewChat_Click"
+                   Margin="20 10 10 10">
 
-            <SymbolIcon Symbol="Add"
-                        Opacity="0.9"
-                        />
-        </Button>
+                <SymbolIcon Symbol="Add"
+                        Opacity="0.9"/>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>
