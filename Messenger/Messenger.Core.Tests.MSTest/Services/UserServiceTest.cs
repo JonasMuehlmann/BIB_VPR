@@ -228,9 +228,6 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(user);
 
                 string oldBio = user.Bio;
-                //TODO: REMOVE
-                userService.logger.Information($"{oldBio}");
-
                 Assert.AreEqual(oldBio, testName + "Bio");
 
                 var success = await userService.UpdateUserBio(userId, oldBio + "New");
@@ -245,5 +242,35 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void ChangeMail_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var userId = testName + "UserId";
+
+                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Mail=testName + "Mail"});
+                Assert.IsNotNull(user);
+
+                string oldEmail = user.Mail;
+                Assert.AreEqual(oldEmail, testName + "Mail");
+
+                var success = await userService.UpdateUserMail(userId, oldEmail + "New");
+                Assert.IsTrue(success);
+
+                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                Assert.IsNotNull(user);
+
+                string newMail = user.Mail;
+
+                Assert.AreEqual(oldEmail + "New", newMail);
+
+            }).GetAwaiter().GetResult();
+        }
+
+
     }
 }
