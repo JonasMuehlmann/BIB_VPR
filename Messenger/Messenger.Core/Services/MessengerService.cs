@@ -198,7 +198,27 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        /// <summary>
+        /// Change a specified team's description and notify other clients
+        /// </summary>
+        /// <param name="teamDescription">New description of the team</param>
+        /// <param name="teamId">Id of the team to rename</param>
+        /// <returns>True if the team's description was successfully changed, false otherwise</returns>
+        public async Task<bool>ChangeTeamDescription(string teamDescription, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamDescription={teamDescription}, teamId={teamId}");
 
+            // TODO: Integrate with SignalR
+
+            var result = await TeamService.ChangeTeamDescription(teamId, teamDescription);
+
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
 
         /// <summary>
         /// Saves new membership to database and add the user to the hub group of the team
