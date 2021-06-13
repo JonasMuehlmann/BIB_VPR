@@ -17,6 +17,8 @@ namespace Messenger.Core.Services
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
 
+        private UserService UserService => Singleton<UserService>.Instance;
+
         private TeamService TeamService => Singleton<TeamService>.Instance;
 
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
@@ -277,6 +279,29 @@ namespace Messenger.Core.Services
 
             return true;
         }
-        #endregion
+        ///
+        /// <summary>
+        /// Update A user's email
+        /// </summary>
+        /// <param name="userId">Id of the user whos email should be updated</param>
+        /// <param name="newEmail">The new email of the user</param>
+        /// <returns>True if the email was successfully updated, false otherwise</returns>
+        public async Task<bool>UpdateUserEmail(string userId, string newEmail)
+        {
+            LogContext.PushProperty("Method", "UpdateUserEmail");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
+
+            // TODO: Integrate with SignalR
+
+            var result = await UserService.UpdateUserMail(userId, newEmail);
+
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+                #endregion
     }
 }
