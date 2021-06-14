@@ -69,7 +69,7 @@ namespace Messenger.SignalR
         public async Task SendMessage(Message message)
         {
             string groupName = message.RecipientId.ToString();
-            
+
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
         }
 
@@ -83,6 +83,11 @@ namespace Messenger.SignalR
             _connections.Remove(_userId, Context.ConnectionId);
 
             return base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            await Clients.Group(user.Id.ToString()).SendAsync("UserUpdated", user);
         }
     }
 }

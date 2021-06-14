@@ -92,6 +92,11 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+        public void RegisterListenerForUserUpdate(EventHandler<User> onUserUpdated)
+        {
+            SignalRService.UserUpdated += onUserUpdate;
+        }
+
         #endregion
 
         #region Commands
@@ -292,10 +297,12 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
 
-            // TODO: Integrate with SignalR
-
+            // TODOIntegrate with SignalR
             var result = await UserService.UpdateUserMail(userId, newEmail);
 
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
 
             logger.Information($"Return value: {result}");
 
@@ -314,9 +321,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
-            // TODO: Integrate with SignalR
-
             var result = await UserService.UpdateUserBio(userId, newBio);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
 
 
             logger.Information($"Return value: {result}");
@@ -336,9 +345,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
 
-            // TODO: Integrate with SignalR
-
             var result = await UserService.UpdateUserPhoto(userId, newPhoto);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
 
 
             logger.Information($"Return value: {result}");
