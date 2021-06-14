@@ -7,6 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Serilog.Context;
+using Serilog;
 
 namespace Messenger.Core.Services
 {
@@ -117,6 +119,54 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
+        }
+
+        /// <summary>
+        /// Construct a Channel object from data that belongs to the channel identified by channelId.
+        /// </summary>
+        /// <param name="channelId">The id of the channel to retrieve</param>
+        /// <returns></returns>
+        public async Task<Channel> GetChannel(string channelId)
+        {
+            LogContext.PushProperty("Method","GetChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters channelId={channelId}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT ChannelId, NameId, ChannelName, TeamId FROM Channels WHERE ChannelId={channelId}";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var rows = SqlHelpers.GetRows("Channel", adapter);
+
+                    if (rows.Count() == 0)
+                    {
+                        logger.Information($"Return value: null");
+
+                        return null;
+                    }
+
+                    var result = rows.Select(Mapper.ChannelFromDataRow).First();
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
         }
     }
 }
