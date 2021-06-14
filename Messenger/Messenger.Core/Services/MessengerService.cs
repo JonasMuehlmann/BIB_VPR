@@ -94,7 +94,7 @@ namespace Messenger.Core.Services
 
         public void RegisterListenerForUserUpdate(EventHandler<User> onUserUpdated)
         {
-            SignalRService.UserUpdated += onUserUpdate;
+            SignalRService.UserUpdated += onUserUpdated;
         }
 
         #endregion
