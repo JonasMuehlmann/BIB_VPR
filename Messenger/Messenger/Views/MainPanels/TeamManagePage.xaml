@@ -48,7 +48,7 @@
             <Setter Property="Margin" Value="8" />
         </Style>
     </Page.Resources>
-    
+
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
@@ -67,6 +67,7 @@
                         />
                     <Button
                         x:Name="RemoveMember"
+                        Command="{x:Bind ViewModel.RemoveTeamMembers}"
                         Style="{StaticResource ActionButtonStyle}"
                         Content="Remove"
                         Click="RemoveMember_Click"
@@ -133,12 +134,15 @@
                     Visibility="Collapsed">
                     <StackPanel>
                         <TextBox x:Uid="Team_RemoveTeamMember"
-                   Height="30"
-                   Margin="-1"
+                                 Height="30"
+                                 Margin="-1"
+                                 KeyUp="{x:Bind ViewModel.SearchInput}"
                    Foreground="{ThemeResource SystemBaseHighColor}"
                    Background="{ThemeResource SystemAltLowColor}"
-                   BorderBrush="{ThemeResource SystemAccentColor}"/>
-                        <ListView>
+                   BorderBrush="{ThemeResource SystemAccentColor}"
+                                 />
+                        <ListView ItemsSource="{x:Bind ViewModel.Members, UpdateSourceTrigger=PropertyChanged,
+                                  Mode=TwoWay}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template">
@@ -150,23 +154,27 @@
                                     </Setter>
                                 </Style>
                             </ListView.ItemContainerStyle>
-                            <Border VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
-                            BorderThickness="1"
-                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
-                                <Grid VerticalAlignment="Center">
-                                    <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
-                                        <Grid>
-                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
-                                              StrokeThickness="1.5"
-                                              HorizontalAlignment="Right"
-                                              VerticalAlignment="Center"></Line>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
+                                            BorderThickness="1"
+                                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
+                                        <Grid VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
+                                                <Grid>
+                                                    <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                                  StrokeThickness="1.5"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"></Line>
+                                                </Grid>
+                                            </Button>
                                         </Grid>
-                                    </Button>
-                                </Grid>
-                            </Border>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
                 </Border>
