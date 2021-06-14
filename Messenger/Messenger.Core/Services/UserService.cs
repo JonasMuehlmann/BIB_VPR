@@ -7,6 +7,7 @@ using Messenger.Core.Helpers;
 using System.Data;
 using System.Linq;
 using Serilog.Context;
+using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
@@ -384,6 +385,48 @@ namespace Messenger.Core.Services
 
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Retrieve the UserNames and NameIds of the top 10 matches for the given
+        /// userName
+        /// </summary>
+        /// <param name="userName">User name to retrieve matches for</param>
+        /// <returns>List of top 10 matched User names</returns>
+        public async Task<IList<string>> SearchUser(string userName)
+        {
+            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName) ;";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var result = SqlHelpers.GetRows("Users", adapter).Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+
+
         }
 
 
