@@ -302,7 +302,7 @@ namespace Messenger.Core.Services
         /// Construct a User object from data that belongs to the user identified by userId.
         /// </summary>
         /// <param name="userid">The id of the user to retrieve</param>
-        /// <returns></returns>
+        /// <returns>A full User object</returns>
         public async Task<User> GetUser(string userId)
         {
             LogContext.PushProperty("Method","GetUser");
@@ -345,6 +345,47 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Construct a User object from a given UserName and NameId
+        /// </summary>
+        /// <param name="userName">The Name of the user to retrieve</param>
+        /// <param name="nameId">The NameId of the user to retrieve</param>
+        /// <returns>A full User object</returns>
+        public async Task<IList<User>> GetUser(string userName, int nameId)
+        {
+            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserName='{userName}'";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, adapter);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Determine a usernames new NameId.
