@@ -366,7 +366,7 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserName='{userName}'";
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
 
                     logger.Information($"Running the following query: {selectQuery}");
 
@@ -406,14 +406,20 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName) ;";
+                    string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
 
                     logger.Information($"Running the following query: {selectQuery}");
 
                     SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
 
-                    var result = SqlHelpers.GetRows("Users", adapter).Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
+                    var rows = SqlHelpers.GetRows("Users", adapter);
 
+                    LogContext.PushProperty("Method","SearchUser");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+                    logger.Information($"Retrieved {rows.Count()} rows");
+
+                    var result = rows.Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
                     logger.Information($"Return value: {result}");
 
                     return result;
