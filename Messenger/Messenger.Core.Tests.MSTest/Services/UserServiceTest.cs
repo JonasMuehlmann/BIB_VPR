@@ -212,7 +212,7 @@ namespace Messenger.Tests.MSTest
                                      , new User(){Id="Id15", NameId=0, DisplayName="jdhsjdhjdhj uSeR dksdskdjkdjsk"}
                                  };
 
-                var userMatchString = "User1#000000,User1#000001,TheUser2#000000,AnotherUser#000000,YetAnotherUser#00000,ThisIsAUser#00000,AUserThisBe#000000,Deez Nuts User#000000,jdhsjdhjdhjuserdksdskdjkdjsk#000000,jdhsjdhjdhj uSeR dksdskdjkdjsk#000000";
+                var userMatchString = "User1#000000,User1#000001,TheUser2#000000,AnotherUser#000000,ThisIsAUser#000000,AUserThisBe#000000,YetAnotherUser#000000,Deez Nuts User#000000,jdhsjdhjdhjuserdksdskdjkdjsk#000000,jdhsjdhjdhj uSeR dksdskdjkdjsk#000000";
 
                 foreach (var user in users)
                 {
