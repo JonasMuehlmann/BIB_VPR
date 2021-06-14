@@ -79,7 +79,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40"/>
                                     <RowDefinition Height="10"/>
-                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>

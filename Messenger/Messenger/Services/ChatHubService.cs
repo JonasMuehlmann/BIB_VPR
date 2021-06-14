@@ -10,6 +10,7 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
 using Messenger.ViewModels;
+using Windows.Storage;
 
 namespace Messenger.Services
 {
@@ -129,10 +130,16 @@ namespace Messenger.Services
         /// <summary>
         /// Sends a message to the current team
         /// </summary>
-        /// <param name="content"></param>
+        /// <param name="content">Content to be written in the message</param>
+        /// <param name="files">Attachment files to upload</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task SendMessage(string content)
+        public async Task SendMessage(string content, IEnumerable<StorageFile> files = null)
         {
+            if (CurrentUser == null)
+            {
+                return;
+            }
+
             var message = new Message()
             {
                 Content = content,
@@ -141,7 +148,9 @@ namespace Messenger.Services
                 RecipientId = (uint)CurrentTeamId
             };
 
-            await MessengerService.SendMessage(message);
+            var attachments = (files != null) ? files.Select(f => f.Path) : null;
+
+            await MessengerService.SendMessage(message, attachments);
         }
 
         #endregion

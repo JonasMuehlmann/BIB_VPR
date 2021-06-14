@@ -21,6 +21,7 @@
                 />
             <controls:SendMessageControl
                 Grid.Row="1"
+                Attachments="{x:Bind ViewModel.SelectedFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SendMessageCommand="{x:Bind ViewModel.SendMessageCommand}"
                 OpenFilesCommand="{x:Bind ViewModel.OpenFilesCommand}"
                 />
