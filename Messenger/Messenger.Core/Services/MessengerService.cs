@@ -98,6 +98,11 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+        public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
+        {
+            SignalRService.TeamUpdated += onTeamUpdated;
+        }
+
         #endregion
 
         #region Commands
@@ -117,7 +122,7 @@ namespace Messenger.Core.Services
 
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            
+
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
 
             // Check the validity of the message
@@ -203,10 +208,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamName={teamName}, teamId={teamId}");
 
-            // TODO: Integrate with SignalR
-
             var result = await TeamService.ChangeTeamName(teamId, teamName);
 
+            var team = await TeamService.GetTeam(teamId);
+
+            await SignalRService.UpdateTeam(team);
 
             logger.Information($"Return value: {result}");
 
