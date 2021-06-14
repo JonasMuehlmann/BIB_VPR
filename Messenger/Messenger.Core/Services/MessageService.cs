@@ -1,10 +1,12 @@
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using Messenger.Core.Helpers;
 using Messenger.Core.Models;
+using Messenger.Core.Helpers;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using Serilog.Context;
 
 namespace Messenger.Core.Services
@@ -91,6 +93,44 @@ namespace Messenger.Core.Services
                 logger.Information($"Running the following query: {query}");
 
                 var result = SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve a message from a given MessageId
+        /// </summary>
+        /// <param name="messageId">The id of the message to retrieve</param>
+        /// <returns>A complete message object</returns>
+        public async Task<Message> GetMessage(uint messageId)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                LogContext.PushProperty("Method","RetrieveMessage");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}");
+
+                await connection.OpenAsync();
+
+                string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate "
+                             + $"FROM Messages"
+                             + $"WHERE MessageId={messageId};";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+
+                var rows = SqlHelpers.GetRows("Message", adapter);
+
+                if (rows.Count() == 0)
+                {
+                    logger.Information($"Return value: null");
+
+                    return null;
+                }
+
+                var result = rows.Select(Mapper.MessageFromDataRow).First();
+
+                logger.Information($"Return value: {result}");
 
                 return result;
             }
