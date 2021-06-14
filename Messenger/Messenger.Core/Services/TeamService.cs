@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
@@ -23,8 +24,8 @@ namespace Messenger.Core.Services
         public async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","CreateTeam");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
 
@@ -69,7 +70,7 @@ namespace Messenger.Core.Services
         /// Deletes a team with a given team id.
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise</returns>
+        /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> DeleteTeam(uint teamId)
         {
             string query = $"DELETE FROM Memberships WHERE TeamId={teamId};"
@@ -84,8 +85,8 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeams()
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllTeams");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllTeams");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called");
 
@@ -123,8 +124,8 @@ namespace Messenger.Core.Services
         /// <returns>A complete Team object</returns>
         public async Task<Team> GetTeam(uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetTeam");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
 
             string query = $"SELECT TeamId, TeamName, TeamDescription, CreationDate " +
@@ -166,8 +167,8 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllTeamsByUserId");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllTeamsByUserId");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
             string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate " +
@@ -210,8 +211,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> AddMember(string userId, uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","AddMember");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","AddMember");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
@@ -234,8 +235,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> RemoveMember(string userId, uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","RemoveMember");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","RemoveMember");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             string query = $"DELETE FROM Memberships WHERE UserId='{userId}' AND TeamId={teamId};";
@@ -256,8 +257,8 @@ namespace Messenger.Core.Services
         /// <returns>A list of membership objects</returns>
         public async Task<IList<Membership>> GetAllMembershipByUserId(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllMembershipByUserId");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllMembershipByUserId");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
             string query = $"SELECT * FROM Memberships WHERE UserId='{userId}'";
@@ -293,8 +294,8 @@ namespace Messenger.Core.Services
         ///<returns>Enumerable of User objects representing the teams members</returns>
         public async Task<IEnumerable<User>> GetAllMembers(uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllMembers");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllMembers");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
 
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
@@ -309,6 +310,41 @@ namespace Messenger.Core.Services
                     logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, connection));
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve a team's channels
+        /// </summary>
+        /// <param name="teamId">The id of the team to retrieve channels from</param>
+        /// <returns>A list of the team's channels</returns>
+        public async Task<IList<Channel>> GetAllChannelsByTeamId(uint teamId)
+        {
+            Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            string query = $"SELECT * FROM Channels WHERE TeamId={teamId}";
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    logger.Information($"Running the following query: {query}");
+                    var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
 
                     logger.Information($"Return value: {result}");
 

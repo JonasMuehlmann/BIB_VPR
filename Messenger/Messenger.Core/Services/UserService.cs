@@ -6,6 +6,7 @@ using Messenger.Core.Models;
 using Messenger.Core.Helpers;
 using System.Data;
 using System.Linq;
+using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
@@ -22,8 +23,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
-            Serilog.Context.LogContext.PushProperty("Method","Update");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","Update");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, columnToChange={columnToChange}, newVal={newVal}");
 
@@ -63,8 +64,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> UpdateUsername(string userId, string newUsername)
         {
-            Serilog.Context.LogContext.PushProperty("Method","UpdateUsername");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","UpdateUsername");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, newUsername={newUsername}");
 
@@ -195,8 +196,8 @@ namespace Messenger.Core.Services
         public async Task<User> GetOrCreateApplicationUser(User userdata)
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","GetOrCreateApplicationUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameter userdata={userdata}");
 
@@ -279,8 +280,8 @@ namespace Messenger.Core.Services
         public async Task<bool> DeleteUser(string userId)
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","DeleteUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","DeleteUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -304,8 +305,8 @@ namespace Messenger.Core.Services
         /// <returns></returns>
         public async Task<User> GetUser(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -353,8 +354,8 @@ namespace Messenger.Core.Services
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
         private uint? DetermineNewNameId(string username, SqlConnection connection)
         {
-            Serilog.Context.LogContext.PushProperty("Method","DetermineNewNameId");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","DetermineNewNameId");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters username={username},connection={connection}");
 
