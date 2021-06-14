@@ -40,6 +40,8 @@ namespace Messenger.Core.Services
 
         public event EventHandler<uint> InviteReceived;
 
+        public event EventHandler<Message> MessageUpdated;
+
         public SignalRService()
         {
             _connection = new HubConnectionBuilder()
@@ -52,6 +54,7 @@ namespace Messenger.Core.Services
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
             _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
+            _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(this, message));
         }
 
         /// <summary>
@@ -163,6 +166,11 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("AddToTeam", userId, teamId);
 
             logger.Information($"Adding the user identified by userId={userId} to the hub group identified by {teamId}");
+        }
+
+        public async Task UpdateMessage(Message message)
+        {
+            await _connection.SendAsync("MessageUpdate", message);
         }
 
         #region Helpers

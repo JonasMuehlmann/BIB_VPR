@@ -106,6 +106,11 @@ namespace Messenger.SignalR
             logger.Information($"Sending message to the group with the name {groupName}");
         }
 
+        public async Task UpdateMessage(Message message)
+        {
+            await Clients.Group(message.Id.ToString()).SendAsync("MessageUpdated", message);
+        }
+
         /// <summary>
         /// Removes the current connection id on disconnection
         /// </summary>
