@@ -126,7 +126,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of the channel to retrieve</param>
         /// <returns></returns>
-        public async Task<Channel> GetChannel(string channelId)
+        public async Task<Channel> GetChannel(uint channelId)
         {
             LogContext.PushProperty("Method","GetChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);

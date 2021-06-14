@@ -100,6 +100,11 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+        public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
+        {
+            SignalRService.ChannelUpdated += onChannelUpdated;
+        }
+
         #endregion
 
         #region Commands
@@ -294,6 +299,9 @@ namespace Messenger.Core.Services
 
             var result = await ChannelService.RenameChannel(channelName, channelId);
 
+            var channel = await ChannelService.GetChannel(channelId);
+
+            await SignalRService.UpdateChannel(channel);
 
             logger.Information($"Return value: {result}");
 

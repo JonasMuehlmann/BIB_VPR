@@ -15,7 +15,7 @@ namespace Messenger.Core.Services
         #region Private
 
         private const string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
-        
+
         private HubConnection _connection;
 
         #endregion
@@ -35,6 +35,8 @@ namespace Messenger.Core.Services
 
         public event EventHandler<uint> InviteReceived;
 
+        public event EventHandler<Channel> ChannelUpdated;
+
         public SignalRService()
         {
             _connection = new HubConnectionBuilder()
@@ -47,6 +49,7 @@ namespace Messenger.Core.Services
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
             _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
+            _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
         }
 
         /// <summary>
@@ -122,6 +125,11 @@ namespace Messenger.Core.Services
         public async Task AddToTeam(string userId, string teamId)
         {
             await _connection.SendAsync("AddToTeam", userId, teamId);
+        }
+
+        public async Task UpdateChannel(Channel channel)
+        {
+            await _connection.SendAsync("ChannelUpdate", channel);
         }
 
         #region Helpers
