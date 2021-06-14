@@ -169,6 +169,11 @@ namespace Messenger.Core.Services
             logger.Information($"Adding the user identified by userId={userId} to the hub group identified by {teamId}");
         }
 
+        public async Task UpdateTeam(Team team)
+        {
+            await _connection.SendAsync("UpdateTeam", team);
+        }
+
         #region Helpers
 
         private async Task Reconnect(Exception e)
@@ -203,11 +208,6 @@ namespace Messenger.Core.Services
             logger.Information($"Building a new connection to the hub");
 
             return hubConnection;
-        }
-
-        public async Task UpdateTeam(Team team)
-        {
-            await _connection.SendAsync("TeamUpdate", team);
         }
 
         #endregion
