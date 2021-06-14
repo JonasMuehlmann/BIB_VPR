@@ -101,5 +101,19 @@ namespace Messenger.Core.Helpers
                 TeamId       = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
+        /// <summary>
+        /// Maps to a full Channe; model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped Channe; object</returns>
+        public static Channel ChannelFromDataRow(DataRow row)
+        {
+            return new Channel()
+            {
+                ChannelId   = SqlHelpers.TryConvertDbValue(row["ChannelId"], Convert.ToUInt32),
+                ChannelName = SqlHelpers.TryConvertDbValue(row["ChannelName"], Convert.ToString),
+                TeamId      = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
+            };
+        }
     }
 }
