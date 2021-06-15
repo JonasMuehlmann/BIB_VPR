@@ -174,7 +174,7 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateMessage(Message message)
         {
-            await _connection.SendAsync("MessageUpdate", message);
+            await _connection.SendAsync("UpdateMessage", message);
         }
 
         #region Helpers
