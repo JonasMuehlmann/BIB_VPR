@@ -106,7 +106,7 @@ namespace Messenger.Core.Services
         {
             Serilog.Context.LogContext.PushProperty("Method","EditMessage");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}, newChatIcon={newContent}");
+            logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
 
             using (SqlConnection connection = GetConnection())
