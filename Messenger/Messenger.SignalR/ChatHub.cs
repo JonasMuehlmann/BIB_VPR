@@ -106,6 +106,11 @@ namespace Messenger.SignalR
             logger.Information($"Sending message to the group with the name {groupName}");
         }
 
+        public async Task UpdateChanel(Channel channel)
+        {
+            await Clients.Group(channel.TeamId.ToString()).SendAsync("ChannelUpdated", channel);
+        }
+
         /// <summary>
         /// Send updated message to the recipients
         /// </summary>
