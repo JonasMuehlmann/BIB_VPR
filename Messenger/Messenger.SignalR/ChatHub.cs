@@ -69,8 +69,13 @@ namespace Messenger.SignalR
         public async Task SendMessage(Message message)
         {
             string groupName = message.RecipientId.ToString();
-            
+
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+        }
+
+        public async Task UpdateChanel(Channel channel)
+        {
+            await Clients.Group(channel.TeamId.ToString()).SendAsync("ChannelUpdated", channel);
         }
 
         /// <summary>

@@ -129,7 +129,7 @@ namespace Messenger.Core.Services
 
         public async Task UpdateChannel(Channel channel)
         {
-            await _connection.SendAsync("ChannelUpdate", channel);
+            await _connection.SendAsync("UpdateChannel", channel);
         }
 
         #region Helpers
