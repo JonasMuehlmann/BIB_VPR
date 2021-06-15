@@ -231,10 +231,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamDescription={teamDescription}, teamId={teamId}");
 
-            // TODO: Integrate with SignalR
-
             var result = await TeamService.ChangeTeamDescription(teamId, teamDescription);
 
+            var team = await TeamService.GetTeam(teamId);
+
+            await SignalRService.UpdateTeam(team);
 
             logger.Information($"Return value: {result}");
 
