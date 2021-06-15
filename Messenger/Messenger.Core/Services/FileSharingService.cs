@@ -155,7 +155,7 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                // Read and upload file
+                    // Read and upload file
                     var result = await blobClient.DeleteIfExistsAsync();
 
                     logger.Information($"result: {result}");
