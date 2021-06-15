@@ -66,7 +66,7 @@
                 <StackPanel Margin="{StaticResource SmallLeftMargin}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="UserNametbk"
-                        Text="{x:Bind ViewModel.User.Name, Mode=TwoWay}"
+                        Text="{x:Bind ViewModel.User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         MinWidth="200"/>
                         <TextBox x:Name="UserNametbx" MinWidth="200" Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" Visibility="Collapsed" KeyDown="UserNametbx_KeyDown"/>
