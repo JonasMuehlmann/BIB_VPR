@@ -225,8 +225,6 @@ namespace Messenger.Core.Services
             var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
             var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
 
-            // TODO: Integrate with SignalR
-
             var result = didDeleteTeamAndMemberships && didDeleteChannels;
 
             logger.Information($"Return value: {result}");
@@ -246,8 +244,6 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
-            // TODO: Integrate with SignalR
-
             var channelId = await ChannelService.CreateChannel(channelName, teamId);
 
             if (channelId == null)
@@ -258,6 +254,9 @@ namespace Messenger.Core.Services
                 return false;
             }
 
+            var channel = await ChannelService.GetChannel(channelId.Value);
+
+            await SignalRService.UpdateChannel(channel);
 
             logger.Information($"Return value: true");
 
@@ -275,9 +274,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            // TODO: Integrate with SignalR
-
             var result = await ChannelService.RemoveChannel(channelId);
+
+            var channel = await ChannelService.GetChannel(channelId);
+
+            await SignalRService.UpdateChannel(channel);
 
             logger.Information($"Return value: {result}");
 
@@ -294,8 +295,6 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("Method", "RenameChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters channelName={channelName}, channelId={channelId}");
-
-            // TODO: Integrate with SignalR
 
             var result = await ChannelService.RenameChannel(channelName, channelId);
 
