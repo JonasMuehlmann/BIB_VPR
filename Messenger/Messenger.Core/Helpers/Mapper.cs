@@ -102,10 +102,11 @@ namespace Messenger.Core.Helpers
             };
         }
         /// <summary>
-        /// Maps to a full Channe; model from the data rows
+        /// Maps to a full Channel model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
-        /// <returns>A fully-mapped Channe; object</returns>
+        /// <returns>A fully-mapped Channel object</returns>
+
         public static Channel ChannelFromDataRow(DataRow row)
         {
             return new Channel()
