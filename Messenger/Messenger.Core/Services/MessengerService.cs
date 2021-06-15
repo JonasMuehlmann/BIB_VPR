@@ -284,7 +284,7 @@ namespace Messenger.Core.Services
 
             return true;
         }
-        ///
+
         /// <summary>
         /// Update A user's email
         /// </summary>
@@ -336,15 +336,15 @@ namespace Messenger.Core.Services
         /// Update A user's Photo
         /// </summary>
         /// <param name="userId">Id of the user whos photo should be updated</param>
-        /// <param name="newPhoto">The new photo of the user</param>
+        /// <param name="newPhotoURL">The new photo of the user</param>
         /// <returns>True if the photo was successfully updated, false otherwise</returns>
-        public async Task<bool>UpdateUserPhoto(string userId, string newPhoto)
+        public async Task<bool>UpdateUserPhoto(string userId, string newPhotoURL)
         {
             LogContext.PushProperty("Method", "UpdateUserPhoto");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
+            logger.Information($"Function called with parameters userId={userId}, newPhotoURL={newPhotoURL}");
 
-            var result = await UserService.UpdateUserPhoto(userId, newPhoto);
+            var result = await UserService.UpdateUserPhoto(userId, newPhotoURL);
 
             var user = await UserService.GetUser(userId);
 
