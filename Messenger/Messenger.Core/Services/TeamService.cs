@@ -117,7 +117,6 @@ namespace Messenger.Core.Services
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(),
                                                           Convert.ToBoolean);
 
-                    // FIX: Changes name but still returns false
                     logger.Information($"Return value: {result}");
 
                     return result;
