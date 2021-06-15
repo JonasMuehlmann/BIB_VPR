@@ -201,6 +201,7 @@ namespace Messenger.Core.Services
         /// Rename A team and notify other clients
         /// </summary>
         /// <param name="teamId">Id of the team to rename</param>
+        /// <param name="teamName">The new team name</param>
         /// <returns>True if the team was successfully renamed, false otherwise</returns>
         public async Task<bool>ChangeTeamName(string teamName, uint teamId)
         {
