@@ -215,5 +215,36 @@ namespace Messenger.Core.Services
             }
         }
 
+
+        /// <summary>
+        /// Retrieve the Blob File Names of files attached to a specified message
+        /// </summary>
+        /// <param name="teamId">The message to retrieve Blob File Names from</param>
+        /// <returns>An enumerable of Blob File Names</returns>
+        public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}");
+
+                await connection.OpenAsync();
+
+                string query = $"SELECT attachmentsBlobNames "
+                             + $"FROM Messages"
+                             + $"WHERE MessageId={messageId};";
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                logger.Information($"Running the following query: {query}");
+
+                var blobFileString = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToString);
+
+                var result = blobFileString.Split(',');
+
+                return result;
+            }
+        }
     }
 }
