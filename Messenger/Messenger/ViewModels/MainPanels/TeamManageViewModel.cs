@@ -21,11 +21,11 @@ namespace Messenger.ViewModels
         private ObservableCollection<User> _membersView;
         private List<User> _membersStore;
         private ICommand _removeTeamMembers;
+        private ICommand _removeTeamMemberClick;
         private KeyEventHandler _searchBoxInput;
 
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
-        private TeamService TeamService => Singleton<TeamService>.Instance;
         #endregion
 
 
@@ -49,11 +49,17 @@ namespace Messenger.ViewModels
             }
             set
             {
+                //TODO add UserNull handling
+                if (value.Count == 0 || value == null)
+                {
+                    value.Add(new User() { DisplayName = "Keine Nutzer gefunden" });
+                }
                 Set(ref _membersView, value);
             }
         }
 
         public ICommand RemoveTeamMembers => _removeTeamMembers ?? (_removeTeamMembers = new RelayCommand(LoadTeamMembersAsync));
+        public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
         public KeyEventHandler SearchInput => _searchBoxInput ?? (_searchBoxInput = new KeyEventHandler(SearchTextBoxKeyUp));
 
         public UserViewModel CurrentUser => ChatHubService.CurrentUser;
@@ -62,20 +68,6 @@ namespace Messenger.ViewModels
         {
             Members = new ObservableCollection<User>();
             _membersStore = new List<User>();
-            UserDataService.UserDataUpdated += OnUserDataUpdated;
-        }
-
-
-
-
-        /// <summary>
-        /// Fires on UserDataUpdated(mostly once on log-in) and refreshes the view
-        /// This prevents the view model to read from default user, which is not wanted here
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="user">UserViewModel of the current user</param>
-        private void OnUserDataUpdated(object sender, UserViewModel user)
-        {
         }
 
         /// <summary>
@@ -84,20 +76,30 @@ namespace Messenger.ViewModels
         private async void LoadTeamMembersAsync() {
             if (ChatHubService.CurrentTeamId != null)
             {
-                IEnumerable<User> members = await TeamService.GetAllMembers((uint)ChatHubService.CurrentTeamId);
+                IEnumerable<User> members = await ChatHubService.GetTeamMembers((uint)ChatHubService.CurrentTeamId);
 
-                Members.Clear();
                 _membersStore.Clear();
 
                 foreach (var user in members) {
                     _membersStore.Add(user);
-                    Members.Add(user);
                 }
+                Members = CopyList(_membersStore);
             }
         }
 
+        /// <summary>
+        /// Removes some user from Team
+        /// </summary>
+        /// <param name="userId"></param>
+        private async void RemoveUserAsync(string userId)
+        {
+            if (ChatHubService.CurrentTeamId != null)
+            {
+                await ChatHubService.RemoveUser(userId, (uint)ChatHubService.CurrentTeamId);
+                LoadTeamMembersAsync();
+            }
+        }
 
-        //TODO add UserNull handling
 
         /// <summary>
         /// The method ist Triggered when a user enters something in the user search box. It searches for the Members than
@@ -116,6 +118,7 @@ namespace Messenger.ViewModels
             }
         }
 
+        #region Helpers
 
         /// <summary>
         /// The method copies the stored MemberList to the ViewMemberlist to safe data traffic, when searching the users
@@ -130,5 +133,6 @@ namespace Messenger.ViewModels
             }
             return memb;
         }
+        #endregion
     }
 }

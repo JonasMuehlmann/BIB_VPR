@@ -253,6 +253,46 @@ namespace Messenger.Services
             await MessengerService.InviteUser(invitation.UserId, Convert.ToUInt32(invitation.TeamId));
         }
 
+        /// <summary>
+        /// Removes a user from a specific Team
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="teamId"></param>
+        /// <returns>Task to be awaited</returns>
+        public async Task RemoveUser(string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RemoveUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+
+
+            await MessengerService.RemoveUser(userId, teamId);
+        }
+
+        /// <summary>
+        /// Get all team Members of a team
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<User>> GetTeamMembers(uint teamId)
+        {
+            LogContext.PushProperty("Method", "GetTeamMembers");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
+            if (CurrentUser == null)
+            {
+                logger.Information("Return value: null");
+
+                return null;
+            }
+
+            return await MessengerService.LoadTeamMembers(teamId);
+        }
+
+
         #endregion
 
         #region Events

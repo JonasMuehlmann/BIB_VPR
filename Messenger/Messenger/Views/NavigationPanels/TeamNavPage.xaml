@@ -89,7 +89,7 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="60"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer>
@@ -109,6 +109,7 @@
         </ScrollViewer>
         <Button
             x:Name="newChat"
+            Grid.Row="1"
             Style="{StaticResource NewTeamButtonStyle}"
             Command="{x:Bind ViewModel.CreateTeamCommand}">
             <SymbolIcon
