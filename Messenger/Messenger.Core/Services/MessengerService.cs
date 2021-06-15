@@ -98,6 +98,11 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+        public void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
+        {
+            SignalRService.MessageUpdated += onMessageUpdated;
+        }
+
         #endregion
 
         #region Commands
@@ -332,10 +337,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
-            // TODO: Integrate with SignalR
-
             var result = await MessageService.EditMessage(messageId, newContent);
 
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message);
 
             logger.Information($"Return value: {result}");
 
