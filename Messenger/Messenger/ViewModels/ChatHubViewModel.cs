@@ -4,11 +4,16 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Core;
 
 namespace Messenger.ViewModels
 {
@@ -20,8 +25,6 @@ namespace Messenger.ViewModels
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private UserService UserService => Singleton<UserService>.Instance;
 
-        private Message _message;
-        private bool _isConnected;
         private string _errorMessage;
         private uint _currentTeamId = 1;
         private UserViewModel _user;
@@ -30,32 +33,6 @@ namespace Messenger.ViewModels
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Message to send out
-        /// </summary>
-        public Message Message
-        {
-            get { return _message; }
-            set
-            {
-                _message = value;
-                Set(ref _message, value);
-            }
-        }
-
-        /// <summary>
-        /// Status of connection to the hub
-        /// </summary>
-        public bool IsConnected
-        {
-            get { return _isConnected; }
-            set
-            {
-                _isConnected = value;
-                Set(ref _isConnected, value);
-            }
-        }
 
         /// <summary>
         /// Error messages from SignalR operations, returns string.Empty if there is no Exception
@@ -107,6 +84,7 @@ namespace Messenger.ViewModels
             {
                 _currentTeamId = value;
                 Set(ref _currentTeamId, value);
+                LoadMessages(value);
             }
         }
         
@@ -118,11 +96,6 @@ namespace Messenger.ViewModels
         /// Command: sends a message with the current team id
         /// </summary>
         public ICommand SendMessageCommand => new SendMessageCommand(this, MessengerService);
-
-        /// <summary>
-        /// Command: switch currently selected team
-        /// </summary>
-        public ICommand SwitchTeamCommand => new SwitchTeamCommand(this);
 
         #endregion
 
@@ -137,25 +110,29 @@ namespace Messenger.ViewModels
             CurrentTeamId = 1;
 
             // Bind to "ReceiveMessage" event
-            MessengerService.RegisterListener(OnMessageReceived);
+            //MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            // Bind to "ReceiveInvite" event
+            //MessengerService.RegisterListenerForInvites(OnInviteReceived);
 
             LoadAsync();
         }
 
+        /// <summary>
+        /// Safely calls asynchronous methods on UI-Thread
+        /// </summary>
         public async void LoadAsync()
         {
-            User = await UserDataService.GetUserAsync();
-
-            var messages = await MessengerService.LoadMessages(CurrentTeamId);
-            Messages.Clear();
-            foreach (var message in messages)
-            {
-                message.Sender = await UserService.GetUser(message.SenderId);
-                Messages.Add(message);
-            }
+            await CoreWindow
+                .GetForCurrentThread()
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    User = await UserDataService.GetUserAsync();
+                    LoadMessages(CurrentTeamId);
+                });
         }
 
-        #region Events
+        #region Signal-R Events
 
         /// <summary>
         /// Fires on "ReceiveMessage" Hub-method
@@ -168,25 +145,76 @@ namespace Messenger.ViewModels
             AddMessageToCollection(message);
         }
 
+        /// <summary>
+        /// Fires on "ReceiveInvitation" Hub-method
+        /// </summary>
+        /// <param name="teamId"></param>
+        private void OnInviteReceived(uint teamId)
+        {
+            Debug.WriteLine($"Joined the chat:: Team #{teamId}");
+        }
+
         #endregion
 
         #region Helpers
 
+        /// <summary>
+        /// Asynchronously loads messages either from cache or database
+        /// </summary>
+        /// <param name="teamId">Current team id</param>
+        private async void LoadMessages(uint teamId)
+        {
+            ObservableCollection<Message> fromCache = new ObservableCollection<Message>();
+
+            // Checks the cache if the messages has not yet been loaded for the team
+            if (!MessagesByConnectedTeam.TryGetValue(teamId, out fromCache))
+            {
+                // Loads from database
+                var fromDB = await MessengerService.LoadMessages(teamId);
+                UpdateMessagesView(fromDB);
+            }
+            else
+            {
+                // Loads from cache
+                UpdateMessagesView(fromCache);
+            }
+        }
+
+        /// <summary>
+        /// Adds the message to the cache
+        /// </summary>
+        /// <param name="message">A complete message object to be added</param>
         private async void AddMessageToCollection(Message message)
         {
-            var team = message.RecipientId;
+            var teamId = message.RecipientId;
+
+            // Loads user data of the sender
             message.Sender = await UserService.GetUser(message.SenderId);
 
             // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
-                team,
+                teamId,
                 new ObservableCollection<Message>() { message },
                 (key, collection) => {
                     collection.Add(message);
                     return collection;
                 });
 
-            if (team == CurrentTeamId)
+            // Adds to the messages list if the message is for the current team 
+            if (teamId == CurrentTeamId)
+            {
+                Messages.Add(message);
+            }
+        }
+
+        /// <summary>
+        /// Updates UI with the given messages
+        /// </summary>
+        /// <param name="messages">List of messages to be updated on the view</param>
+        private void UpdateMessagesView(IEnumerable<Message> messages)
+        {
+            Messages.Clear();
+            foreach (var message in messages)
             {
                 Messages.Add(message);
             }

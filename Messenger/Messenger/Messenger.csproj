@@ -152,8 +152,13 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
-    <Compile Include="Commands\Messenger\SwitchTeamCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
+    <Compile Include="Controls\ChatControls\MessagesListControl.xaml.cs">
+      <DependentUpon>MessagesListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
+      <DependentUpon>SendMessageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -163,9 +168,11 @@
     <Compile Include="Models\DragDropCompletedData.cs" />
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
+    <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
+    <Compile Include="Services\ChatHubService.cs" />
     <Compile Include="Services\DragAndDrop\DragDropService.cs" />
     <Compile Include="Services\DragAndDrop\DropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\ListViewDropConfiguration.cs" />
@@ -191,6 +198,9 @@
     <Compile Include="ViewModels\MainPanels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\DialogBoxes\CreateTeamDialog.xaml.cs">
+      <DependentUpon>CreateTeamDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FirstRunDialog.xaml.cs">
       <DependentUpon>FirstRunDialog.xaml</DependentUpon>
     </Compile>
@@ -229,6 +239,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ChatControls\MessagesListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -246,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\CreateTeamDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -74,11 +74,20 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-            // FIX: Tests like this one depend on other tests having run before it
-               bool success = await teamService.DeleteTeam(1u);
+                using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
+                {
+                    string query = "SET IDENTITY_INSERT Teams ON;INSERT INTO Teams(TeamId, TeamName, TeamDescription, CreationDate) Values(9999999, 'foo', 'desc', GETDATE());";
+
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    bool result = Convert.ToBoolean(cmd.ExecuteNonQuery());
+                }
+
+                // FIX: Tests like this one depend on other tests having run before it
+                bool success = await teamService.DeleteTeam(9999999u);
 
 
-               Assert.IsTrue(success);
+                Assert.IsTrue(success);
 
             }).GetAwaiter().GetResult();
         }
@@ -88,10 +97,10 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-            // FIX: Tests like this one depend on other tests having run before it
-               bool success = await teamService.DeleteTeam(1u);
+                // FIX: Tests like this one depend on other tests having run before it
+                bool success = await teamService.DeleteTeam(9999999u);
 
-               Assert.IsFalse(success);
+                Assert.IsFalse(success);
 
             }).GetAwaiter().GetResult();
         }
@@ -107,7 +116,7 @@ namespace Messenger.Tests.MSTest
                 {
                     await connection.OpenAsync();
 
-                    string query = "DELETE FROM memberships;DELETE FROM teams;";
+                    string query = "DELETE FROM messages; DELETE FROM memberships;DELETE FROM channels; DELETE FROM teams;";
 
                     await SqlHelpers.NonQueryAsync(query, connection);
                 }

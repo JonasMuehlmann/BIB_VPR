@@ -4,6 +4,10 @@ using Messenger.ViewModels;
 
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Messenger.Views
 {

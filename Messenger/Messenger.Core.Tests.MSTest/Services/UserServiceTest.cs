@@ -4,6 +4,7 @@ using Messenger.Core.Services;
 using Messenger.Core.Helpers;
 using System.Data.SqlClient;
 using System;
+using System.Collections.Generic;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -188,25 +189,63 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void SearchUser_Test()
+        {
+            Task.Run(async () =>
+            {
+                List<User> users = new List<User>{
+                                       new User(){Id="Id1", NameId=0, DisplayName="User1"}
+                                     , new User(){Id="Id2", NameId=1, DisplayName="User1"}
+                                     , new User(){Id="Id3", NameId=0, DisplayName="TheUser2"}
+                                     , new User(){Id="Id4", NameId=0, DisplayName="AnotherUser"}
+                                     , new User(){Id="Id5", NameId=0, DisplayName="YetAnotherUser"}
+                                     , new User(){Id="Id6", NameId=0, DisplayName="ThisIsAUser"}
+                                     , new User(){Id="Id7", NameId=0, DisplayName="AUserThisBe"}
+                                     , new User(){Id="Id8", NameId=0, DisplayName="SomeText"}
+                                     , new User(){Id="Id9", NameId=0, DisplayName="Yeet"}
+                                     , new User(){Id="Id10", NameId=0, DisplayName="Oi mate"}
+                                     , new User(){Id="Id11", NameId=0, DisplayName="Deez Nuts User"}
+                                     , new User(){Id="Id12", NameId=0, DisplayName="  "}
+                                     , new User(){Id="Id13", NameId=0, DisplayName="jdhsjdhjdhjuserdksdskdjkdjsk"}
+                                     , new User(){Id="Id14", NameId=0, DisplayName="ksjdksjdahdj"}
+                                     , new User(){Id="Id15", NameId=0, DisplayName="jdhsjdhjdhj uSeR dksdskdjkdjsk"}
+                                 };
+
+                var userMatchString = "User1#000000,User1#000001,TheUser2#000000,AnotherUser#000000,ThisIsAUser#000000,AUserThisBe#000000,YetAnotherUser#000000,Deez Nuts User#000000,jdhsjdhjdhjuserdksdskdjkdjsk#000000,jdhsjdhjdhj uSeR dksdskdjkdjsk#000000";
+
+                foreach (var user in users)
+                {
+                    Assert.IsNotNull(await userService.GetOrCreateApplicationUser(user));
+                }
+
+                var userMatches = await userService.SearchUser("User");
+                Assert.IsNotNull(userMatches);
+
+                Assert.AreEqual(userMatchString, string.Join(",", userMatches));
+
+            }).GetAwaiter().GetResult();
+
+        }
         [AssemblyCleanup]
         public static void Cleanup()
         {
             // Reset DB
-            string query = "DELETE FROM Memberships;"
-                         + "DELETE FROM Messages;"
+            string query = "DELETE FROM Messages;"
+                         + "DELETE FROM Memberships;"
+                         + "DELETE FROM Channels;"
                          + "DELETE FROM Teams;"
                          + "DELETE FROM Users;"
                          + "DBCC CHECKIDENT (Memberships, RESEED, 0);"
                          + "DBCC CHECKIDENT (Messages, RESEED, 0);"
+                         + "DBCC CHECKIDENT (Channels, RESEED, 0);"
                          + "DBCC CHECKIDENT (Teams, RESEED, 0);";
 
             using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);
-                bool result = Convert.ToBoolean(cmd.ExecuteNonQuery());
-
-                Assert.IsTrue(result);
+                cmd.ExecuteNonQuery();
             }
         }
     }

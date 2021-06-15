@@ -67,6 +67,13 @@ namespace Messenger.Core.Helpers
         /// <returns>A fully-mapped message object</returns>
         public static Message MessageFromDataRow(DataRow row)
         {
+            var sender = new User()
+            {
+                Id              = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                NameId          = SqlHelpers.TryConvertDbValue(row["NameId"], Convert.ToUInt32),
+                DisplayName     = SqlHelpers.TryConvertDbValue(row["UserName"], Convert.ToString)
+            };
+
             return new Message()
             {
                 Id              = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
@@ -74,7 +81,8 @@ namespace Messenger.Core.Helpers
                 RecipientId     = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToUInt32),
                 Content         = SqlHelpers.TryConvertDbValue(row["Message"], Convert.ToString),
                 CreationTime    = SqlHelpers.TryConvertDbValue(row["CreationDate"].ToString(), Convert.ToDateTime),
-                ParentMessageId = SqlHelpers.TryConvertDbValue(row["ParentMessageId"], Convert.ToUInt32)
+                ParentMessageId = SqlHelpers.TryConvertDbValue(row["ParentMessageId"], Convert.ToUInt32),
+                Sender          = sender
             };
         }
 
@@ -91,6 +99,21 @@ namespace Messenger.Core.Helpers
                 UserId       = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
                 UserRole     = SqlHelpers.TryConvertDbValue(row["UserRole"], Convert.ToString),
                 TeamId       = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
+            };
+        }
+        /// <summary>
+        /// Maps to a full Channel model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully-mapped Channel object</returns>
+
+        public static Channel ChannelFromDataRow(DataRow row)
+        {
+            return new Channel()
+            {
+                ChannelId   = SqlHelpers.TryConvertDbValue(row["ChannelId"], Convert.ToUInt32),
+                ChannelName = SqlHelpers.TryConvertDbValue(row["ChannelName"], Convert.ToString),
+                TeamId      = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
     }
