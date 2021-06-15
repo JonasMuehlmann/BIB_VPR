@@ -311,7 +311,9 @@ namespace Messenger.Core.Services
 
             var result = await MessageService.DeleteMessage(messageId);
 
-            // TODO: Integrate with SignalR
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message);
 
             logger.Information($"Return value: {result}");
 
