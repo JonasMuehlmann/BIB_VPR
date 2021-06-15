@@ -40,7 +40,10 @@ namespace Messenger.Core.Services
 
         public event EventHandler<uint> InviteReceived;
 
+
         public event EventHandler<Team> TeamUpdated;
+
+        public event EventHandler<Channel> ChannelUpdated;
 
         public SignalRService()
         {
@@ -55,6 +58,7 @@ namespace Messenger.Core.Services
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
             _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
             _connection.On<Team>("TeamUpdated", (team) => TeamUpdated?.Invoke(this, team));
+            _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
 
         }
 
@@ -178,6 +182,12 @@ namespace Messenger.Core.Services
         public async Task UpdateTeam(Team team)
         {
             await _connection.SendAsync("UpdateTeam", team);
+        }
+      
+        public async Task UpdateChannel(Channel channel)
+        {
+            await _connection.SendAsync("UpdateChannel", channel);
+
         }
 
         #region Helpers

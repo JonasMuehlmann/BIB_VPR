@@ -116,7 +116,7 @@ namespace Messenger.Tests.MSTest
                 {
                     await connection.OpenAsync();
 
-                    string query = "DELETE FROM messages; DELETE FROM memberships;DELETE FROM teams;";
+                    string query = "DELETE FROM messages; DELETE FROM memberships;DELETE FROM channels; DELETE FROM teams;";
 
                     await SqlHelpers.NonQueryAsync(query, connection);
                 }

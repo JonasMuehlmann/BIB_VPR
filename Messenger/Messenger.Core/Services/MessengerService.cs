@@ -17,6 +17,8 @@ namespace Messenger.Core.Services
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
 
+        private ChannelService ChannelService => Singleton<ChannelService>.Instance;
+
         private TeamService TeamService => Singleton<TeamService>.Instance;
 
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
@@ -98,9 +100,15 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+
         public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
         {
             SignalRService.TeamUpdated += onTeamUpdated;
+
+        public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
+        {
+            SignalRService.ChannelUpdated += onChannelUpdated;
+
         }
 
         #endregion
@@ -162,7 +170,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Saves new team to database and join the hub group of the team
+        /// Saves new team to database, create a main channel and join the hub group of the team
         /// </summary>
         /// <param name="creatorId">Creator user id</param>
         /// <param name="teamName">Name of the team</param>
@@ -180,7 +188,8 @@ namespace Messenger.Core.Services
             if (teamId == null)
             {
                 logger.Information($"could not create the team");
-                logger.Information($"Return value: false");
+                logger.Information($"Return value: null");
+
                 return null;
             }
 
@@ -188,6 +197,17 @@ namespace Messenger.Core.Services
             await TeamService.AddMember(creatorId, (uint)teamId);
             logger.Information($"Added the user identified by {creatorId} to the team identified by {(uint)teamId}");
 
+            uint? channelId = await ChannelService.CreateChannel("main", teamId.Value);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the team's main channel");
+                logger.Information($"Return value: false");
+
+                return null;
+            }
+
+            logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={teamId.Value}");
             // Join the new hub group of the team
             await SignalRService.JoinTeam(teamId.ToString());
             logger.Information($"Joined the hub of the team identified by {teamId}");
@@ -215,6 +235,21 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateTeam(team);
 
+        /// Delete a team alongside it's channels and memberships
+        /// </summary>
+        /// <param name="teamId">The id of the team to delete</param>
+        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        public async Task<bool> DeleteTeam(uint teamId)
+        {
+            LogContext.PushProperty("Method", "DeleteTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
+            var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
+
+            var result = didDeleteTeamAndMemberships && didDeleteChannels;
+
             logger.Information($"Return value: {result}");
 
             return result;
@@ -237,6 +272,77 @@ namespace Messenger.Core.Services
             var team = await TeamService.GetTeam(teamId);
 
             await SignalRService.UpdateTeam(team);
+        }
+         
+        /// Add a channel to a spiecified team
+        /// </summary>
+        /// <param name="teamId">Id of the team to add the channel to</param>
+        /// <param name="channelName">Name of the newly created channel</param>
+        /// <returns>True if the channel was successfully created, false otherwise</returns>
+        public async Task<bool>CreateChannel(string channelName, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameChaannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
+
+            var channelId = await ChannelService.CreateChannel(channelName, teamId);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the channel");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            var channel = await ChannelService.GetChannel(channelId.Value);
+
+            await SignalRService.UpdateChannel(channel);
+
+            logger.Information($"Return value: true");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Remove a specified channel from it's team
+        /// </summary>
+        /// <param name="channelId">Id of the channel to delete</param>
+        /// <returns>An awaitable task</returns>
+        public async Task<bool>RemoveChannel(uint channelId)
+        {
+            LogContext.PushProperty("Method", "RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters channelId={channelId}");
+
+            var result = await ChannelService.RemoveChannel(channelId);
+
+            var channel = await ChannelService.GetChannel(channelId);
+
+            await SignalRService.UpdateChannel(channel);
+
+            logger.Information($"Return value: {result}");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Rename A channel and notify other clients
+        /// </summary>
+        /// <param name="channelId">Id of the channel to rename</param>
+        /// <param name="channelName">The new name of the channel</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public async Task<bool>RenameChannel(string channelName, uint channelId)
+        {
+            LogContext.PushProperty("Method", "RenameChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters channelName={channelName}, channelId={channelId}");
+
+            var result = await ChannelService.RenameChannel(channelName, channelId);
+
+            var channel = await ChannelService.GetChannel(channelId);
+
+            await SignalRService.UpdateChannel(channel);
 
             logger.Information($"Return value: {result}");
 

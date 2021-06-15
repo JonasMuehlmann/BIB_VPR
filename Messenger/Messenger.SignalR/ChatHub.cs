@@ -73,6 +73,11 @@ namespace Messenger.SignalR
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
         }
 
+        public async Task UpdateChanel(Channel channel)
+        {
+            await Clients.Group(channel.TeamId.ToString()).SendAsync("ChannelUpdated", channel);
+        }
+
         /// <summary>
         /// Removes the current connection id on disconnection
         /// </summary>
