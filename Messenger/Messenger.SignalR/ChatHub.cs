@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Core.Helpers;
 using Messenger.SignalR.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -7,6 +8,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Serilog.Context;
+using Serilog;
 
 namespace Messenger.SignalR
 {
@@ -20,6 +23,8 @@ namespace Messenger.SignalR
 
         private string _userId;
 
+        public ILogger logger => GlobalLogger.Instance;
+
         /// <summary>
         /// Adds the current connection id to the given user id
         /// </summary>
@@ -27,6 +32,11 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public Task Register(string userId)
         {
+            LogContext.PushProperty("Method","Register");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}");
+
             _userId = userId;
             _connections.Add(userId, Context.ConnectionId);
 
@@ -40,7 +50,14 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task JoinTeam(string teamId)
         {
+            LogContext.PushProperty("Method","JoinTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter teamId={teamId}");
+
             await Groups.AddToGroupAsync(Context.ConnectionId, teamId);
+
+            logger.Information($"Adding user identified by connectionId={Context.ConnectionId} to the team identified by {teamId}");
         }
 
         /// <summary>
@@ -51,13 +68,22 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task AddToTeam(string userId, string teamId)
         {
+            LogContext.PushProperty("Method","AddToTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+
             foreach (var connectionId in _connections.GetConnections(userId))
             {
                 // Add the user to the hub group
                 await Groups.AddToGroupAsync(connectionId, teamId);
 
+            logger.Information($"Adding user identified by connectionId={Context.ConnectionId} to the team identified by {teamId}");
+
                 // Notify target client with team id
                 await Clients.Client(connectionId).SendAsync("ReceiveInvitation", Convert.ToUInt32(teamId));
+
+                logger.Information($"Sending invitation to the user identified by {userId}");
             }
         }
 
@@ -68,9 +94,16 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task SendMessage(Message message)
         {
+            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters message={message}");
+
             string groupName = message.RecipientId.ToString();
 
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+
+            logger.Information($"Sending message to the group with the name {groupName}");
         }
 
         public async Task UpdateChanel(Channel channel)
@@ -85,7 +118,14 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public override Task OnDisconnectedAsync(Exception exception)
         {
+            LogContext.PushProperty("Method","OnDisconnectedAsync");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
             _connections.Remove(_userId, Context.ConnectionId);
+
+            logger.Information($"Closed the session with connectionId={Context.ConnectionId}");
 
             return base.OnDisconnectedAsync(exception);
         }

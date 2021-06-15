@@ -106,6 +106,7 @@ namespace Messenger.Core.Helpers
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully-mapped Channel object</returns>
+
         public static Channel ChannelFromDataRow(DataRow row)
         {
             return new Channel()

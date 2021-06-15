@@ -333,7 +333,6 @@ namespace Messenger.Core.Services
             Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
-
             string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
 
             try

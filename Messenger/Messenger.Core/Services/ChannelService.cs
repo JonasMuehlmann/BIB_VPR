@@ -10,6 +10,7 @@ using System.Diagnostics;
 using Serilog.Context;
 using Serilog;
 
+
 namespace Messenger.Core.Services
 {
     public class ChannelService: AzureServiceBase
@@ -120,7 +121,6 @@ namespace Messenger.Core.Services
 
             return result;
         }
-
         /// <summary>
         /// Construct a Channel object from data that belongs to the channel identified by channelId.
         /// </summary>
