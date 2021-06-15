@@ -323,6 +323,11 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Retrieve all channels of a team
+        /// </summary>
+        /// <param name="teamId">The id of the team to retrieve channels from</param>
+        /// <returns>A list of channel objects</returns>
         public async Task<IList<Channel>> GetAllChannelsByTeamId(uint teamId)
         {
             Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
