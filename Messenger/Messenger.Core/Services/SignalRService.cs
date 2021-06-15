@@ -167,7 +167,11 @@ namespace Messenger.Core.Services
 
             logger.Information($"Adding the user identified by userId={userId} to the hub group identified by {teamId}");
         }
-
+        /// <summary>
+        /// Update a message's data and notify other clients
+        /// </summary>
+        /// <param name="message">The updated message object</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateMessage(Message message)
         {
             await _connection.SendAsync("MessageUpdate", message);
