@@ -267,7 +267,7 @@ namespace Messenger.Core.Services
         /// Remove a specified channel from it's team
         /// </summary>
         /// <param name="channelId">Id of the channel to delete</param>
-        /// <returns>An awaitable taask</returns>
+        /// <returns>An awaitable task</returns>
         public async Task<bool>RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method", "RemoveChannel");
@@ -289,6 +289,7 @@ namespace Messenger.Core.Services
         /// Rename A channel and notify other clients
         /// </summary>
         /// <param name="channelId">Id of the channel to rename</param>
+        /// <param name="channelName">The new name of the channel</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
         public async Task<bool>RenameChannel(string channelName, uint channelId)
         {
