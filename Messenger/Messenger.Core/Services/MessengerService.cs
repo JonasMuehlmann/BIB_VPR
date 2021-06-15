@@ -267,7 +267,7 @@ namespace Messenger.Core.Services
         /// Remove a specified channel from it's team
         /// </summary>
         /// <param name="channelId">Id of the channel to delete</param>
-        /// ""
+        /// <returns>An awaitable taask</returns>
         public async Task<bool>RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method", "RemoveChannel");
