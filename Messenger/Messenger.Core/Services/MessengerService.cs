@@ -297,7 +297,6 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
 
-            // TODOIntegrate with SignalR
             var result = await UserService.UpdateUserMail(userId, newEmail);
 
             var user = await UserService.GetUser(userId);
