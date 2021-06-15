@@ -7,11 +7,14 @@ using Messenger.Core.Helpers;
 using System.Data;
 using System.Linq;
 using Serilog.Context;
+using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
     public class UserService : AzureServiceBase
     {
+        // TODO: Maybe use an enum of values like User.Name?
+        // TODO: Prevent changing user id
         /// <summary>
         /// Update a specified column for a specified user.
         ///</summary>
@@ -300,7 +303,7 @@ namespace Messenger.Core.Services
         /// Construct a User object from data that belongs to the user identified by userId.
         /// </summary>
         /// <param name="userid">The id of the user to retrieve</param>
-        /// <returns></returns>
+        /// <returns>A full User object</returns>
         public async Task<User> GetUser(string userId)
         {
             LogContext.PushProperty("Method","GetUser");
@@ -343,6 +346,95 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Construct a User object from a given UserName and NameId
+        /// </summary>
+        /// <param name="userName">The Name of the user to retrieve</param>
+        /// <param name="nameId">The NameId of the user to retrieve</param>
+        /// <returns>A full User object</returns>
+        public async Task<IList<User>> GetUser(string userName, int nameId)
+        {
+            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, adapter);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve the UserNames and NameIds of the top 10 matches for the given
+        /// userName
+        /// </summary>
+        /// <param name="userName">User name to retrieve matches for</param>
+        /// <returns>List of top 10 matched User names</returns>
+        public async Task<IList<string>> SearchUser(string userName)
+        {
+            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var rows = SqlHelpers.GetRows("Users", adapter);
+
+                    LogContext.PushProperty("Method","SearchUser");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+                    logger.Information($"Retrieved {rows.Count()} rows");
+
+                    var result = rows.Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+
+
+        }
+
 
         /// <summary>
         /// Determine a usernames new NameId.

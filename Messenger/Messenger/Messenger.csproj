@@ -153,6 +153,12 @@
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
+    <Compile Include="Controls\ChatControls\MessagesListControl.xaml.cs">
+      <DependentUpon>MessagesListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
+      <DependentUpon>SendMessageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -233,6 +239,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ChatControls\MessagesListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
