@@ -106,6 +106,11 @@ namespace Messenger.SignalR
             logger.Information($"Sending message to the group with the name {groupName}");
         }
 
+        /// <summary>
+        /// Send updated message to the recipients
+        /// </summary>
+        /// <param name="message">A complete message object to be sent</param>
+        /// <returns>Task to be awaited</returns>
         public async Task UpdateMessage(Message message)
         {
             await Clients.Group(message.Id.ToString()).SendAsync("MessageUpdated", message);
