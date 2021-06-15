@@ -306,6 +306,13 @@ namespace Messenger.Core.Services
 
             var result = await MessageService.DeleteMessage(messageId);
 
+            var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
+
+            foreach (var blobFileName in blobFileNames)
+            {
+                result &= await FileSharingService.Delete(blobFileName);
+            }
+
             // TODO: Integrate with SignalR
 
             logger.Information($"Return value: {result}");
