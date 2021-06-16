@@ -110,7 +110,6 @@
         </ScrollViewer>
         <Button
             x:Name="newChat"
-            Grid.Row="1"
             Style="{StaticResource NewTeamButtonStyle}"
             Command="{x:Bind ViewModel.CreateTeamCommand}"
             Grid.Row="1">
