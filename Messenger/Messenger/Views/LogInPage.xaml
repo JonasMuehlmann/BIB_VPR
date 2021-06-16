@@ -7,7 +7,11 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <Style x:Key="TitleStyle" TargetType="TextBlock" BasedOn="{StaticResource TitleTextBlockStyle}">
+        <!--#region STYLES -->
+        <Style x:Key="OuterGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="125" />
+        </Style>
+        <Style x:Key="TitleStyle" TargetType="TextBlock" BasedOn="{ThemeResource HeaderTextBlockStyle}">
             <Setter Property="FontSize" Value="125" />
             <Setter Property="FontFamily" Value="Century Gothic" />
             <Setter Property="CharacterSpacing" Value="-50" />
@@ -15,7 +19,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="0 40 0 0" />
         </Style>
-        <Style x:Key="SubtitleStyle" TargetType="TextBlock" BasedOn="{StaticResource
+        <Style x:Key="SubtitleStyle" TargetType="TextBlock" BasedOn="{ThemeResource
 ListSubTitleStyle}">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="20" />
@@ -28,20 +32,27 @@ ListSubTitleStyle}">
             <Setter Property="MinHeight" Value="40" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
+        <Style x:Key="FooterTextStyle" TargetType="TextBlock" BasedOn="{ThemeResource CaptionTextBlockStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <!--#endregion-->
     </Page.Resources>
     <Grid
-        x:Name="ContentArea"
-        Margin="125">
+        Style="{StaticResource OuterGrid}"
+        x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <!-- APP HEADER -->
         <StackPanel>
             <TextBlock
-                Grid.Row="0"
                 Style="{StaticResource TitleStyle}"
+                Grid.Row="0"
                 Text="Messenger"
                 />
             <TextBlock
@@ -49,22 +60,26 @@ ListSubTitleStyle}">
                 Text="bib Internation College"
                 />
         </StackPanel>
+        
+        <!-- LOGIN BUTTON -->
         <Button
             Grid.Row="1"
             x:Uid="LogInButton"
             Command="{x:Bind ViewModel.LoginCommand}"
             Style="{StaticResource LoginButtonStyle}"
             />
+
+        <!-- LOGIN STATUS MESSAGE -->
         <TextBlock
             Grid.Row="2"
             Margin="{StaticResource MediumTopMargin}"
             Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
             Style="{StaticResource BodyTextBlockStyle}" />
+
+        <!-- FOOTER TEXT -->
         <TextBlock
             Grid.Row="3"
-            Style="{StaticResource CaptionTextBlockStyle}"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
+            Style="{StaticResource FooterTextStyle}"
             Text="PBT3H19A @ 2021"
             />
     </Grid>
