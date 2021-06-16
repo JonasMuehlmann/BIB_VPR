@@ -40,7 +40,11 @@ namespace Messenger.Core.Services
 
         public event EventHandler<uint> InviteReceived;
 
+
+        public event EventHandler<Message> MessageUpdated;
+
         public event EventHandler<Channel> ChannelUpdated;
+
 
         public SignalRService()
         {
@@ -54,7 +58,11 @@ namespace Messenger.Core.Services
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
             _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
+
+            _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(this, message));
+
             _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
+
         }
 
         /// <summary>
@@ -166,6 +174,15 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("AddToTeam", userId, teamId);
 
             logger.Information($"Adding the user identified by userId={userId} to the hub group identified by {teamId}");
+        }
+        /// <summary>
+        /// Update a message's data and notify other clients
+        /// </summary>
+        /// <param name="message">The updated message object</param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task UpdateMessage(Message message)
+        {
+            await _connection.SendAsync("UpdateMessage", message);
         }
 
         public async Task UpdateChannel(Channel channel)
