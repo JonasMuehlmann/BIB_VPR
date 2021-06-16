@@ -24,6 +24,7 @@ namespace Messenger.Core.Helpers
                 DisplayName = SqlHelpers.TryConvertDbValue(row["UserName"], Convert.ToString),
                 NameId      = SqlHelpers.TryConvertDbValue(row["NameId"], Convert.ToUInt32),
                 Mail        = SqlHelpers.TryConvertDbValue(row["Email"], Convert.ToString),
+                Photo       = SqlHelpers.TryConvertDbValue(row["PhotoURL"], Convert.ToString),
                 Bio         = SqlHelpers.TryConvertDbValue(row["Bio"], Convert.ToString),
             };
         }
@@ -40,7 +41,9 @@ namespace Messenger.Core.Helpers
                 Id          = userdata.Id,
                 DisplayName = userdata.DisplayName,
                 NameId      = userdata.NameId,
-                Mail        = userdata.Mail
+                Mail        = userdata.Mail,
+                Photo       = userdata.Photo,
+                Bio         = userdata.Bio
             };
         }
 
