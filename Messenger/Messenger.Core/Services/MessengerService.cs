@@ -17,11 +17,9 @@ namespace Messenger.Core.Services
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
 
-<<<<<<< HEAD
         private ChannelService ChannelService => Singleton<ChannelService>.Instance;
-=======
+
         private UserService UserService => Singleton<UserService>.Instance;
->>>>>>> origin
 
         private TeamService TeamService => Singleton<TeamService>.Instance;
 
@@ -104,7 +102,6 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
-<<<<<<< HEAD
 
         public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
         {
@@ -119,12 +116,11 @@ namespace Messenger.Core.Services
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
+        }
 
-=======
         public void RegisterListenerForUserUpdate(EventHandler<User> onUserUpdated)
         {
             SignalRService.UserUpdated += onUserUpdated;
->>>>>>> origin
         }
 
         #endregion
@@ -516,7 +512,6 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-<<<<<<< HEAD
         /// Delete a Message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
@@ -539,7 +534,12 @@ namespace Messenger.Core.Services
             {
                 result &= await FileSharingService.Delete(blobFileName);
             }
-=======
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// Update A user's email
         /// </summary>
         /// <param name="userId">Id of the user whos email should be updated</param>
@@ -580,7 +580,6 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateUser(user);
 
->>>>>>> origin
 
             logger.Information($"Return value: {result}");
 
@@ -588,7 +587,6 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-<<<<<<< HEAD
         /// Change a messages content and notify other clients
         /// </summary>
         /// <param name="messageId">Id of the message to edit</param>
@@ -605,7 +603,13 @@ namespace Messenger.Core.Services
             var message = await MessageService.GetMessage(messageId);
 
             await SignalRService.UpdateMessage(message);
-=======
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
         /// Update A user's Photo
         /// </summary>
         /// <param name="userId">Id of the user whos photo should be updated</param>
@@ -623,7 +627,6 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateUser(user);
 
->>>>>>> origin
 
             logger.Information($"Return value: {result}");
 
