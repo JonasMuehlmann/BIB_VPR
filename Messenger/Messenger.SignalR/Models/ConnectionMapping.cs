@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Serilog.Context;
+using Serilog;
+using Messenger.Core.Helpers;
 
 namespace Messenger.SignalR.Models
 {
@@ -18,6 +21,8 @@ namespace Messenger.SignalR.Models
             }
         }
 
+        public ILogger logger = GlobalLogger.Instance;
+
         /// <summary>
         /// Adds a new connection id under the user id
         /// </summary>
@@ -25,6 +30,11 @@ namespace Messenger.SignalR.Models
         /// <param name="connectionId">Current connection id of the application</param>
         public void Add(string userId, string connectionId)
         {
+            LogContext.PushProperty("Method","Add");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, connectionId={connectionId}");
+
             // Locks other thread access to the shared resource
             // Any other thread waits until the lock is released
             lock (_connections)
@@ -41,6 +51,8 @@ namespace Messenger.SignalR.Models
                     connections.Add(connectionId);
                 }
             }
+
+            logger.Information($"Established new connection with connectionId={connectionId} for user identified by userId={userId}");
         }
 
         /// <summary>
@@ -50,12 +62,19 @@ namespace Messenger.SignalR.Models
         /// <returns>List of connection ids, empty enumerable if none exists</returns>
         public IEnumerable<string> GetConnections(string userId)
         {
+            LogContext.PushProperty("Method","GetConnections");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter userId={userId}");
+
             HashSet<string> connections;
             if (_connections.TryGetValue(userId, out connections))
             {
+                logger.Information("Returning established connections of the user identified by userId={userId}");
                 return connections;
             }
 
+            logger.Information("No established connections exist for the user identified by userId={userId}");
             return Enumerable.Empty<string>();
         }
 
@@ -66,11 +85,17 @@ namespace Messenger.SignalR.Models
         /// <param name="connectionId">Connection id to remove from the list</param>
         public void Remove(string userId, string connectionId)
         {
+            LogContext.PushProperty("Method","Remove");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, connectionId={connectionId}");
+
             lock (_connections)
             {
                 HashSet<string> connections;
                 if (!_connections.TryGetValue(userId, out connections))
                 {
+                    logger.Information($"No established connections exist for the user identified by userId={userId}");
                     return;
                 }
 
@@ -84,6 +109,7 @@ namespace Messenger.SignalR.Models
                     }
                 }
             }
+            logger.Information($"Closed the session with connectionId={connectionId} of the user identified by userId={userId}");
         }
     }
 }

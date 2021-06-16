@@ -13,10 +13,8 @@ namespace Messenger.Core.Helpers
 {
     public class SqlHelpers
     {
-        public static ILogger logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
-                .CreateLogger();
+        public static ILogger logger => GlobalLogger.Instance;
+
 
         /// <summary>
         /// Run the specified query on the specified connection.
@@ -130,12 +128,14 @@ namespace Messenger.Core.Helpers
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
-            string tableName = nameof(T) + 's';
+            string tableName = typeof(T).Name + 's';
 
             logger.Information($"tableName has been determined as {tableName}");
 
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
+
+            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
             var result = dataSet.Tables[tableName].Rows
                          .Cast<DataRow>()
@@ -161,7 +161,11 @@ namespace Messenger.Core.Helpers
                 return null;
             }
 
-            return converter(value);
+            var converted = converter(value);
+
+            logger.Information($"Converted value from {value} to {converted}");
+
+            return converted;
         }
     }
 }

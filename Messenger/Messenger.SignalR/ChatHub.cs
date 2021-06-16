@@ -69,8 +69,23 @@ namespace Messenger.SignalR
         public async Task SendMessage(Message message)
         {
             string groupName = message.RecipientId.ToString();
-            
+
             await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+        }
+
+        public async Task UpdateChanel(Channel channel)
+        {
+            await Clients.Group(channel.TeamId.ToString()).SendAsync("ChannelUpdated", channel);
+        }
+
+        /// <summary>
+        /// Send updated message to the recipients
+        /// </summary>
+        /// <param name="message">A complete message object to be sent</param>
+        /// <returns>Task to be awaited</returns>
+        public async Task UpdateMessage(Message message)
+        {
+            await Clients.Group(message.Id.ToString()).SendAsync("MessageUpdated", message);
         }
 
         /// <summary>
@@ -83,6 +98,11 @@ namespace Messenger.SignalR
             _connections.Remove(_userId, Context.ConnectionId);
 
             return base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task UpdateTeam(Team team)
+        {
+            await Clients.Group(team.Id.ToString()).SendAsync("TeamUpdated", team);
         }
     }
 }
