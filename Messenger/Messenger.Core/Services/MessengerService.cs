@@ -100,9 +100,22 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+
+        public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
+        {
+            SignalRService.TeamUpdated += onTeamUpdated;
+        }
+
+
+        public void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
+        {
+            SignalRService.MessageUpdated += onMessageUpdated;
+        }
+      
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
+
         }
 
         #endregion
@@ -212,6 +225,28 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Rename A team and notify other clients
+        /// </summary>
+        /// <param name="teamId">Id of the team to rename</param>
+        /// <param name="teamName">The new team name</param>
+        /// <returns>True if the team was successfully renamed, false otherwise</returns>
+        public async Task<bool>ChangeTeamName(string teamName, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamName={teamName}, teamId={teamId}");
+
+            var result = await TeamService.ChangeTeamName(teamId, teamName);
+
+            var team = await TeamService.GetTeam(teamId);
+
+            await SignalRService.UpdateTeam(team);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
@@ -233,6 +268,28 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Change a specified team's description and notify other clients
+        /// </summary>
+        /// <param name="teamDescription">New description of the team</param>
+        /// <param name="teamId">Id of the team to rename</param>
+        /// <returns>True if the team's description was successfully changed, false otherwise</returns>
+        public async Task<bool>ChangeTeamDescription(string teamDescription, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamDescription={teamDescription}, teamId={teamId}");
+
+            var result = await TeamService.ChangeTeamDescription(teamId, teamDescription);
+
+            var team = await TeamService.GetTeam(teamId);
+
+            await SignalRService.UpdateTeam(team);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// Add a channel to a spiecified team
         /// </summary>
         /// <param name="teamId">Id of the team to add the channel to</param>
@@ -340,6 +397,35 @@ namespace Messenger.Core.Services
             return true;
         }
 
+
+        /// <summary>
+        /// Removes a user from a specific team
+        /// </summary>
+        /// <param name="userId">User id to add</param>
+        /// <param name="teamId">Id of the team to add the user to</param>
+        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
+        public async Task<bool> RemoveUser(string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RemoveUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                logger.Information($"userId has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Create membership for the user and save to database
+            await TeamService.RemoveMember(userId, teamId);
+            logger.Information($"added the user identified by {userId} to the team identified by {teamId}");
+
+            logger.Information($"Return value: true");
+            return true;
+        }
+
         /// <summary>
         /// Load all teams the current user has membership of
         /// </summary>
@@ -368,6 +454,17 @@ namespace Messenger.Core.Services
         public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
         {
             return await MessageService.RetrieveMessages(teamId);
+        }
+
+
+        /// <summary>
+        /// Load all users in current Team
+        /// </summary>
+        /// <param name="userId">Current user id</param>
+        /// <returns>List of teams</returns>
+        public async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
+        {
+            return await TeamService.GetAllMembers(teamId);
         }
 
         #endregion
@@ -407,6 +504,58 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: true");
 
             return true;
+        }
+
+        /// <summary>
+        /// Delete a Message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to delete</param>
+        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        public async Task<bool> DeleteMessage(uint messageId)
+        {
+            LogContext.PushProperty("Method", "DeleteMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            var result = await MessageService.DeleteMessage(messageId);
+
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message);
+
+            var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
+
+            foreach (var blobFileName in blobFileNames)
+            {
+                result &= await FileSharingService.Delete(blobFileName);
+            }
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Change a messages content and notify other clients
+        /// </summary>
+        /// <param name="messageId">Id of the message to edit</param>
+        /// <param name="newContent">New content of the message</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public async Task<bool>EditMessage(uint messageId,string newContent)
+        {
+            LogContext.PushProperty("Method", "EditMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
+
+            var result = await MessageService.EditMessage(messageId, newContent);
+
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
         #endregion
     }
