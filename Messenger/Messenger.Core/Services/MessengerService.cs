@@ -397,6 +397,35 @@ namespace Messenger.Core.Services
             return true;
         }
 
+
+        /// <summary>
+        /// Removes a user from a specific team
+        /// </summary>
+        /// <param name="userId">User id to add</param>
+        /// <param name="teamId">Id of the team to add the user to</param>
+        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
+        public async Task<bool> RemoveUser(string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RemoveUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                logger.Information($"userId has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Create membership for the user and save to database
+            await TeamService.RemoveMember(userId, teamId);
+            logger.Information($"added the user identified by {userId} to the team identified by {teamId}");
+
+            logger.Information($"Return value: true");
+            return true;
+        }
+
         /// <summary>
         /// Load all teams the current user has membership of
         /// </summary>
@@ -425,6 +454,17 @@ namespace Messenger.Core.Services
         public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
         {
             return await MessageService.RetrieveMessages(teamId);
+        }
+
+
+        /// <summary>
+        /// Load all users in current Team
+        /// </summary>
+        /// <param name="userId">Current user id</param>
+        /// <returns>List of teams</returns>
+        public async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
+        {
+            return await TeamService.GetAllMembers(teamId);
         }
 
         #endregion
