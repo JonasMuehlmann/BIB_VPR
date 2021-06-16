@@ -17,6 +17,7 @@ namespace Messenger.Core.Services
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
 
+
         private ChannelService ChannelService => Singleton<ChannelService>.Instance;
 
         private UserService UserService => Singleton<UserService>.Instance;
@@ -608,7 +609,6 @@ namespace Messenger.Core.Services
 
             return result;
         }
-
 
         /// Update A user's Photo
         /// </summary>
