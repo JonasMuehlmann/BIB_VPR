@@ -136,5 +136,40 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Delete a blob file
+        /// </summary>
+        /// <param name="blobFileName">A blob file name to delete</param>
+        /// <returns>true if successfully deleted, false otherwise</returns>
+        public async Task<bool> Delete(string blobFileName)
+        {
+            LogContext.PushProperty("Method","Delete");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters blobFileName={blobFileName}");
+
+
+            try
+            {
+                var containerClient = ConnectToContainer();
+
+                BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
+
+                    // Read and upload file
+                    var result = await blobClient.DeleteIfExistsAsync();
+
+                    logger.Information($"result: {result}");
+
+                    return result;
+            }
+            // TODO:Find better exception(s) to catch
+            catch(Exception e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return false;
+            }
+        }
+
     }
 }
