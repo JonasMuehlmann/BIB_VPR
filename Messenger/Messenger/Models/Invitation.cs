@@ -4,13 +4,14 @@
     {
         public string UserId { get; set; }
 
-        public string TeamId { get; set; }
+        public uint TeamId { get; set; }
 
-        public Invitation()
+        public Invitation(string userId, uint teamId)
         {
-            UserId = "";
-            TeamId = "";
+            UserId = userId;
+            TeamId = teamId;
         }
+
         public override string ToString()
         {
             return $"Invitation: UserId={UserId} TeamId={TeamId}";

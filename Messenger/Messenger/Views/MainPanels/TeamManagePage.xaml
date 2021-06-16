@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page x:Name="bindHelp"
     x:Class="Messenger.Views.TeamManagePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -33,7 +33,11 @@
         <Style x:Key="MembersViewItemContainerStyle" TargetType="ListViewItem">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate />
+                    <ControlTemplate>
+                        <Grid>
+                            <ContentPresenter/>
+                        </Grid>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -48,7 +52,7 @@
             <Setter Property="Margin" Value="8" />
         </Style>
     </Page.Resources>
-    
+
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
@@ -61,12 +65,14 @@
                     VerticalAlignment="Top">
                     <Button
                         x:Name="AddMember"
+                        Command="{x:Bind ViewModel.AddTeamMembers}"
                         Style="{StaticResource ActionButtonStyle}"
                         Content="Add"
                         Click="AddMember_Click"
                         />
                     <Button
                         x:Name="RemoveMember"
+                        Command="{x:Bind ViewModel.RemoveTeamMembers}"
                         Style="{StaticResource ActionButtonStyle}"
                         Content="Remove"
                         Click="RemoveMember_Click"
@@ -82,91 +88,84 @@
                             x:Uid="Team_AddTeamMember"
                             x:Name="SearchField"
                             Style="{StaticResource SearchFieldStyle}"
+                            KeyUp="{x:Bind ViewModel.AddSearchInput}"
                             />
                         <ListView
-                            ItemContainerStyle="{StaticResource MembersViewItemContainerStyle}">
-                            <Border
-                                Style="{StaticResource ItemContainerBorderStyle}">
-                                <Grid
-                                    VerticalAlignment="Center">
-                                    <TextBlock
-                                        Text="Hallo"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        />
-                                    <Button
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center"
-                                        Background="Transparent"
-                                        Height="25">
-                                        <Grid>
-                                            <Line
-                                                Stroke="{ThemeResource SystemAccentColor}"
-                                                X1="0" X2="15" Y1="1" Y2="1"
-                                                StrokeThickness="1.5"
-                                                HorizontalAlignment="Right"
+                            ItemContainerStyle="{StaticResource MembersViewItemContainerStyle}"
+                            ItemsSource="{x:Bind ViewModel.Members, UpdateSourceTrigger=PropertyChanged,
+                                  Mode=TwoWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Style="{StaticResource ItemContainerBorderStyle}">
+                                        <Grid
+                                             VerticalAlignment="Center">
+                                            <TextBlock
+                                                Text="{Binding DisplayName}"
+                                                HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 />
-                                            <Line
-                                                Stroke="{ThemeResource SystemAccentColor}"
-                                                X1="1" X2="1" Y1="0" Y2="15"
-                                                StrokeThickness="1.5"
-                                                Margin="0,0.4,8,0"
+                                            <Button
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Center"
-                                                />
+                                                Background="Transparent"
+                                                Command="{Binding ViewModel.AddTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding DisplayName}"
+                                                Height="25">
+                                                <Grid>
+                                                    <Line
+                                                        Stroke="{ThemeResource SystemAccentColor}"
+                                                        X1="0" X2="15" Y1="1" Y2="1"
+                                                        StrokeThickness="1.5"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        />
+                                                    <Line
+                                                        Stroke="{ThemeResource SystemAccentColor}"
+                                                        X1="1" X2="1" Y1="0" Y2="15"
+                                                        StrokeThickness="1.5"
+                                                        Margin="0,0.4,8,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        />
+                                                </Grid>
+                                            </Button>
                                         </Grid>
-                                    </Button>
-                                </Grid>
-                            </Border>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
                 </Border>
 
                 <Border
                     x:Name="removeUserBorder"
-                    Margin="10,30,0,0"
-                    HorizontalAlignment="Left"
-                    BorderBrush="{ThemeResource SystemAccentColor}"
-                    BorderThickness="1"
-                    CornerRadius="3"
+                    Style="{StaticResource AddUserBorderStyle}"
                     Visibility="Collapsed">
                     <StackPanel>
                         <TextBox x:Uid="Team_RemoveTeamMember"
-                   Height="30"
-                   Margin="-1"
-                   Foreground="{ThemeResource SystemBaseHighColor}"
-                   Background="{ThemeResource SystemAltLowColor}"
-                   BorderBrush="{ThemeResource SystemAccentColor}"/>
-                        <ListView>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate>
-                                                <ContentPresenter/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <Border VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            BorderBrush="{ThemeResource SystemAccentColorLight3}"
-                            BorderThickness="1"
-                            CornerRadius="3" MinWidth="250" Padding="10, 0, 10, 0" Margin="8">
-                                <Grid VerticalAlignment="Center">
-                                    <TextBlock Text="Hallo" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25">
-                                        <Grid>
-                                            <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
-                                              StrokeThickness="1.5"
-                                              HorizontalAlignment="Right"
-                                              VerticalAlignment="Center"></Line>
+                                 Style="{StaticResource SearchFieldStyle}"
+                                 KeyUp="{x:Bind ViewModel.RemoveSearchInput}"
+                                 />
+                        <ListView ItemContainerStyle="{StaticResource MembersViewItemContainerStyle}"
+                                  ItemsSource="{x:Bind ViewModel.Members, UpdateSourceTrigger=PropertyChanged,
+                                  Mode=TwoWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource ItemContainerBorderStyle}">
+                                        <Grid VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25" Command="{Binding ViewModel.RemoveTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding Id}">
+                                                <Grid>
+                                                    <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                                  StrokeThickness="1.5"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"></Line>
+                                                </Grid>
+                                            </Button>
                                         </Grid>
-                                    </Button>
-                                </Grid>
-                            </Border>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
                 </Border>
