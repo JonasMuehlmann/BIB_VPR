@@ -34,11 +34,16 @@ namespace Messenger.Tests.MSTest
         public void Initialize()
         {
             userService = InitializeTestMode<UserService>();
+
+            userService.logger.Information("Creating example user!");
+
             // setting up example data for delete operation
             Task.Run(async () =>
             {
                 await userService.GetOrCreateApplicationUser(sampleUser);
             }).GetAwaiter().GetResult();
+
+            userService.logger.Information("Finished creating example user!");
         }
 
 
@@ -209,5 +214,90 @@ namespace Messenger.Tests.MSTest
                 Assert.IsTrue(result);
             }
         }
+
+        [TestMethod]
+        public void ChangeBio_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var userId = testName + "UserId";
+
+                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Bio=testName + "Bio"});
+                Assert.IsNotNull(user);
+
+                string oldBio = user.Bio;
+                Assert.AreEqual(oldBio, testName + "Bio");
+
+                var success = await userService.UpdateUserBio(userId, oldBio + "New");
+                Assert.IsTrue(success);
+
+                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                Assert.IsNotNull(user);
+
+                string newBio = user.Bio;
+
+                Assert.AreEqual(oldBio + "New", newBio);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void ChangeMail_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var userId = testName + "UserId";
+
+                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Mail=testName + "Mail"});
+                Assert.IsNotNull(user);
+
+                string oldEmail = user.Mail;
+                Assert.AreEqual(oldEmail, testName + "Mail");
+
+                var success = await userService.UpdateUserMail(userId, oldEmail + "New");
+                Assert.IsTrue(success);
+
+                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                Assert.IsNotNull(user);
+
+                string newMail = user.Mail;
+
+                Assert.AreEqual(oldEmail + "New", newMail);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void ChangePhoto_Test()
+        {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var userId = testName + "UserId";
+
+                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Photo=testName + "Photo"});
+                Assert.IsNotNull(user);
+
+                string oldEmail = user.Photo;
+                Assert.AreEqual(oldEmail, testName + "Photo");
+
+                var success = await userService.UpdateUserPhoto(userId, oldEmail + "New");
+                Assert.IsTrue(success);
+
+                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                Assert.IsNotNull(user);
+
+                string newPhoto = user.Photo;
+
+                Assert.AreEqual(oldEmail + "New", newPhoto);
+
+            }).GetAwaiter().GetResult();
+        }
+
     }
 }
