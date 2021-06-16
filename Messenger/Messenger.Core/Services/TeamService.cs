@@ -23,7 +23,6 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
         public async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
         {
-
             LogContext.PushProperty("Method","CreateTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
@@ -48,10 +47,10 @@ namespace Messenger.Core.Services
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
 
-                    logger.Information($"Running the following query: {scalarQuery}");
+                    logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
-                                                          Convert.ToUInt32);
+                                                              Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 
@@ -325,17 +324,16 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Retrieve a team's channels
+        /// Retrieve all channels of a team
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve channels from</param>
-        /// <returns>A list of the team's channels</returns>
+        /// <returns>A list of channel objects</returns>
         public async Task<IList<Channel>> GetAllChannelsByTeamId(uint teamId)
         {
             Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
-
-            string query = $"SELECT * FROM Channels WHERE TeamId={teamId}";
+            string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
 
             try
             {
@@ -345,6 +343,10 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {query}");
                     var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
+
+                    // NOTE: This is needed for the below log line to have the correct properties
+                    Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+                    Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                     logger.Information($"Return value: {result}");
 
