@@ -11,7 +11,7 @@
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="125" />
         </Style>
-        <Style x:Key="TitleStyle" TargetType="TextBlock" BasedOn="{ThemeResource HeaderTextBlockStyle}">
+        <Style x:Key="TitleStyle" TargetType="TextBlock" BasedOn="{StaticResource HeaderTextBlockStyle}">
             <Setter Property="FontSize" Value="125" />
             <Setter Property="FontFamily" Value="Century Gothic" />
             <Setter Property="CharacterSpacing" Value="-50" />
@@ -19,7 +19,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="0 40 0 0" />
         </Style>
-        <Style x:Key="SubtitleStyle" TargetType="TextBlock" BasedOn="{ThemeResource
+        <Style x:Key="SubtitleStyle" TargetType="TextBlock" BasedOn="{StaticResource
 ListSubTitleStyle}">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="20" />
@@ -32,7 +32,7 @@ ListSubTitleStyle}">
             <Setter Property="MinHeight" Value="40" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
-        <Style x:Key="FooterTextStyle" TargetType="TextBlock" BasedOn="{ThemeResource CaptionTextBlockStyle}">
+        <Style x:Key="FooterTextStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
         </Style>
