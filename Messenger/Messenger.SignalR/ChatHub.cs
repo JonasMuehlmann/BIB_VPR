@@ -104,5 +104,9 @@ namespace Messenger.SignalR
         {
             await Clients.Group(team.Id.ToString()).SendAsync("TeamUpdated", team);
         }
+        public async Task UpdateUser(User user)
+        {
+            await Clients.Group(user.Id).SendAsync("UserUpdated", user);
+        }
     }
 }

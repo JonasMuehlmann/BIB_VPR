@@ -17,7 +17,10 @@ namespace Messenger.Core.Services
     {
         private MessageService MessageService => Singleton<MessageService>.Instance;
 
+
         private ChannelService ChannelService => Singleton<ChannelService>.Instance;
+
+        private UserService UserService => Singleton<UserService>.Instance;
 
         private TeamService TeamService => Singleton<TeamService>.Instance;
 
@@ -106,16 +109,19 @@ namespace Messenger.Core.Services
             SignalRService.TeamUpdated += onTeamUpdated;
         }
 
-
         public void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
         {
             SignalRService.MessageUpdated += onMessageUpdated;
         }
-      
+
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
+        }
 
+        public void RegisterListenerForUserUpdate(EventHandler<User> onUserUpdated)
+        {
+            SignalRService.UserUpdated += onUserUpdated;
         }
 
         #endregion
@@ -535,6 +541,52 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        /// Update A user's email
+        /// </summary>
+        /// <param name="userId">Id of the user whos email should be updated</param>
+        /// <param name="newEmail">The new email of the user</param>
+        /// <returns>True if the email was successfully updated, false otherwise</returns>
+        public async Task<bool>UpdateUserEmail(string userId, string newEmail)
+        {
+            LogContext.PushProperty("Method", "UpdateUserEmail");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
+
+            var result = await UserService.UpdateUserMail(userId, newEmail);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Update A user's bio
+        /// </summary>
+        /// <param name="userId">Id of the user whos Bio should be updated</param>
+        /// <param name="newBio">The new bio of the user</param>
+        /// <returns>True if the bio was successfully updated, false otherwise</returns>
+        public async Task<bool>UpdateUserBio(string userId, string newBio)
+        {
+            LogContext.PushProperty("Method", "UpdateUserBio");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
+
+            var result = await UserService.UpdateUserBio(userId, newBio);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// <summary>
         /// Change a messages content and notify other clients
         /// </summary>
@@ -552,6 +604,29 @@ namespace Messenger.Core.Services
             var message = await MessageService.GetMessage(messageId);
 
             await SignalRService.UpdateMessage(message);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// Update A user's Photo
+        /// </summary>
+        /// <param name="userId">Id of the user whos photo should be updated</param>
+        /// <param name="newPhotoURL">The new photo of the user</param>
+        /// <returns>True if the photo was successfully updated, false otherwise</returns>
+        public async Task<bool>UpdateUserPhoto(string userId, string newPhotoURL)
+        {
+            LogContext.PushProperty("Method", "UpdateUserPhoto");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, newPhotoURL={newPhotoURL}");
+
+            var result = await UserService.UpdateUserPhoto(userId, newPhotoURL);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
 
             logger.Information($"Return value: {result}");
 

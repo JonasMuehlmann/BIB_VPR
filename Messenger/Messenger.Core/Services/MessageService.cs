@@ -183,7 +183,6 @@ namespace Messenger.Core.Services
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
         public async Task<bool> DeleteMessage(uint messageId)
-
         {
             Serilog.Context.LogContext.PushProperty("Method","DeleteMessage");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -202,9 +201,9 @@ namespace Messenger.Core.Services
                 {
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
+
                     var        numAffectedRows = scalarQuery.ExecuteNonQuery();
                     var result = SqlHelpers.TryConvertDbValue(numAffectedRows, Convert.ToBoolean);
-
 
                     logger.Information($"Return value: {result}");
 
