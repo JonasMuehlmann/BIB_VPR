@@ -104,6 +104,7 @@ namespace Messenger.Core.Services
         public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
         {
             SignalRService.TeamUpdated += onTeamUpdated;
+        }
 
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
@@ -235,6 +236,11 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateTeam(team);
 
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
@@ -272,8 +278,12 @@ namespace Messenger.Core.Services
             var team = await TeamService.GetTeam(teamId);
 
             await SignalRService.UpdateTeam(team);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
-         
+
         /// Add a channel to a spiecified team
         /// </summary>
         /// <param name="teamId">Id of the team to add the channel to</param>
