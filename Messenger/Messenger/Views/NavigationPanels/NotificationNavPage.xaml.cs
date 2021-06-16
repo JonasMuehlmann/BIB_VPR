@@ -16,15 +16,6 @@ namespace Messenger.Views
         public NotificationNavPage()
         {
             InitializeComponent();
-            
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (e.Parameter as string != "")
-            {
-                ViewModel.ShellViewModel = e.Parameter as ShellViewModel;
-            }
         }
     }
 }
