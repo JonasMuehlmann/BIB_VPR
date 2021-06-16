@@ -100,6 +100,13 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
+
+        public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
+        {
+            SignalRService.TeamUpdated += onTeamUpdated;
+        }
+
+
         public void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
         {
             SignalRService.MessageUpdated += onMessageUpdated;
@@ -108,6 +115,7 @@ namespace Messenger.Core.Services
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
+
         }
 
         #endregion
@@ -217,6 +225,28 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Rename A team and notify other clients
+        /// </summary>
+        /// <param name="teamId">Id of the team to rename</param>
+        /// <param name="teamName">The new team name</param>
+        /// <returns>True if the team was successfully renamed, false otherwise</returns>
+        public async Task<bool>ChangeTeamName(string teamName, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamName={teamName}, teamId={teamId}");
+
+            var result = await TeamService.ChangeTeamName(teamId, teamName);
+
+            var team = await TeamService.GetTeam(teamId);
+
+            await SignalRService.UpdateTeam(team);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
@@ -238,6 +268,28 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Change a specified team's description and notify other clients
+        /// </summary>
+        /// <param name="teamDescription">New description of the team</param>
+        /// <param name="teamId">Id of the team to rename</param>
+        /// <returns>True if the team's description was successfully changed, false otherwise</returns>
+        public async Task<bool>ChangeTeamDescription(string teamDescription, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RenameTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamDescription={teamDescription}, teamId={teamId}");
+
+            var result = await TeamService.ChangeTeamDescription(teamId, teamDescription);
+
+            var team = await TeamService.GetTeam(teamId);
+
+            await SignalRService.UpdateTeam(team);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// Add a channel to a spiecified team
         /// </summary>
         /// <param name="teamId">Id of the team to add the channel to</param>
