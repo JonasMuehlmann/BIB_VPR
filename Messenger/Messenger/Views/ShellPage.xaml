@@ -4,12 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:behaviors="using:Messenger.Behaviors"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
-    xmlns:helpers="using:Messenger.Helpers"
-    xmlns:views="using:Messenger.Views"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Messenger.Controls.Navigation"
     mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -26,47 +21,13 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button
-                x:Uid="Shell_TeamButton"
-                Padding="0" Margin="0"
-                Command="{x:Bind ViewModel.TeamCommand}"
-                Click="NavigationButton_Clicked"
-                Background="Transparent"
-                Grid.Column="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="People"/>
-            </Button>
-            <Button
-                x:Uid="Shell_ChatButton"
-                Padding="0" Margin="0"
-                Command="{x:Bind ViewModel.ChatCommand}"
-                Click="NavigationButton_Clicked"
-                Background="Transparent"
-                Grid.Column="1"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Comment" x:Name="ChatIcon" Foreground="{ThemeResource SystemAccentColor}"/>
-            </Button>
-            <Button
-                x:Uid="Shell_NotificationButton"
-                Padding="0" Margin="0"
-                Command="{x:Bind ViewModel.NotificationCommand}"
-                Click="NavigationButton_Clicked"
-                Background="Transparent"
-                Grid.Column="2"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Mail"/>
-            </Button>
-        </Grid>
-        
+        <controls:SideNavigation
+            NavigateToTeams="{x:Bind ViewModel.NavigateToTeamsCommmand}"
+            NavigateToChats="{x:Bind ViewModel.NavigateToChatsCommand}"
+            NavigateToNotifications="{x:Bind ViewModel.NavigateToNotificationsCommand}"
+            CurrentPageName="{x:Bind ViewModel.CurrentPageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" MaxWidth="100"/>
@@ -80,7 +41,7 @@
             <TextBlock
                 Style="{ThemeResource VCenteredText}"
                 FontWeight="Bold"
-                Text="{x:Bind ViewModel.ChatName, Mode=OneWay}"
+                Text="{x:Bind ViewModel.CurrentTeamName, Mode=OneWay}"
                 VerticalAlignment="Center"
                 Grid.Column="1"
                 />
@@ -88,7 +49,6 @@
                 x:Uid="Shell_UserInfoButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.OpenTeamManager}"
-                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
@@ -99,7 +59,6 @@
                 x:Uid="Shell_SettingsButton"
                 Padding="0" Margin="0"
                 Command="{x:Bind ViewModel.UserProfileCommand}"
-                Click="NavigationButton_Clicked"
                 Background="Transparent"
                 Grid.Column="3"
                 HorizontalAlignment="Stretch"
