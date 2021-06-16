@@ -259,7 +259,86 @@ namespace Messenger.Services
 
             logger.Information($"Function called with parameter invitation={invitation}");
 
-            await MessengerService.InviteUser(invitation.UserId, Convert.ToUInt32(invitation.TeamId));
+            await MessengerService.InviteUser(invitation.UserId, invitation.TeamId);
+        }
+
+        /// <summary>
+        /// Removes a user from a specific Team
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="teamId"></param>
+        /// <returns>Task to be awaited</returns>
+        public async Task RemoveUser(string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RemoveUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+
+            await MessengerService.RemoveUser(userId, teamId);
+        }
+
+        /// <summary>
+        /// Returns a user by username and nameId
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="nameId"></param>
+        /// <returns></returns>
+        public async Task<IList<User>> GetUser(string username, uint nameId)
+        {
+            LogContext.PushProperty("Method", "RemoveUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters username={username}, nameId={nameId}");
+
+            if (CurrentUser == null)
+            {
+                logger.Information("Return value: null");
+
+                return null;
+            }
+
+            return await UserService.GetUser(username, nameId);
+        }
+
+        /// <summary>
+        /// Get all team Members of a team
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<User>> GetTeamMembers(uint teamId)
+        {
+            LogContext.PushProperty("Method", "GetTeamMembers");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function with parameters teamId={teamId}");
+
+            if (CurrentUser == null)
+            {
+                logger.Information("Return value: null");
+
+                return null;
+            }
+
+            return await MessengerService.LoadTeamMembers(teamId);
+        }
+
+
+        public async Task<IList<string>> SearchUser(string username)
+        {
+            LogContext.PushProperty("Method", "SearchUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters username={username}");
+
+            if (CurrentUser == null)
+            {
+                logger.Information("Return value: null");
+
+                return null;
+            }
+
+            return await UserService.SearchUser(username);
         }
 
         #endregion

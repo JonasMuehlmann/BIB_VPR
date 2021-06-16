@@ -353,7 +353,7 @@ namespace Messenger.Core.Services
         /// <param name="userName">The Name of the user to retrieve</param>
         /// <param name="nameId">The NameId of the user to retrieve</param>
         /// <returns>A full User object</returns>
-        public async Task<IList<User>> GetUser(string userName, int nameId)
+        public async Task<IList<User>> GetUser(string userName, uint nameId)
         {
             LogContext.PushProperty("Method","GetUser");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -431,8 +431,6 @@ namespace Messenger.Core.Services
 
                 return null;
             }
-
-
         }
 
 

@@ -86,7 +86,7 @@ namespace Messenger.ViewModels
         /// </summary>
         private async void LoadTeamsAsync()
         {
-            if (UserDataService.IsOnline)
+            if (CurrentUser != null)
             {
                 var user = await UserDataService.GetUserAsync();
 
