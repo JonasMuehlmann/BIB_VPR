@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
@@ -94,9 +95,16 @@ namespace Messenger.ViewModels
 
             NavigationService.Frame = frame;
             IdentityService.LoggedOut += OnLoggedOut;
+            ChatHubService.TeamSwitched += OnTeamSwitched;
 
             // Sets the default side panel to TeamNavView
             OpenTeamsSidePanel();
+        }
+
+        private async void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        {
+            var team = await ChatHubService.GetCurrentTeam();
+            CurrentTeamName = team.Name;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
@@ -114,11 +122,13 @@ namespace Messenger.ViewModels
         private void OpenSetttingsMainPanel()
         {
             MainNavigation(typeof(SettingsPage));
+            CurrentTeamName = string.Empty;
         }
 
         private void OpenChatMainPage()
         {
             MainNavigation(typeof(ChatPage));
+            CurrentTeamName = string.Empty;
         }
 
         private void OpenTeamManagePage()
