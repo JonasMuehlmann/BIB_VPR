@@ -71,15 +71,15 @@ namespace Messenger.ViewModels
 
         #region Commands
 
-        public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
-
         public ICommand NavigateToTeamsCommmand => _navigateToTeamsCommmand ?? (_navigateToTeamsCommmand = new RelayCommand(OpenTeamsSidePanel));
 
         public ICommand NavigateToChatsCommand => _navigateToChatsCommand ?? (_navigateToChatsCommand = new RelayCommand(OpenChatSidePanel));
 
         public ICommand NavigateToNotificationsCommand => _navigateToNotificationsCommand ?? (_navigateToNotificationsCommand = new RelayCommand(OpenNotificationSidePanel));
 
-        public ICommand OpenTeamManager => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
+        public ICommand OpenUserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
+
+        public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
 
         #endregion
 
@@ -98,6 +98,7 @@ namespace Messenger.ViewModels
             // Sets the default side panel to TeamNavView
             OpenTeamsSidePanel();
         }
+
         private void OnLoggedOut(object sender, EventArgs e)
         {
             IdentityService.LoggedOut -= OnLoggedOut;

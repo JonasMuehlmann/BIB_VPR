@@ -21,18 +21,22 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <ContentPresenter />
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Grid.Column="0">
+    <Grid
+        HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!-- TEAMS -->
         <RadioButton
@@ -42,28 +46,27 @@
             Command="{x:Bind NavigateToTeams}"
             IsChecked="True">
             <SymbolIcon
-                    x:Name="TeamIcon"
-                    Symbol="People"
-                    Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
+                x:Name="TeamIcon"
+                Symbol="People">
             </SymbolIcon>
             <i:Interaction.Behaviors>
                 <ic:DataTriggerBehavior
-                        Binding="{Binding IsChecked, ElementName=TeamsButton}"
-                        Value="True">
+                    Binding="{Binding IsChecked, ElementName=TeamsButton}"
+                    Value="True">
                     <ic:ChangePropertyAction
-                            TargetObject="{Binding ElementName=TeamIcon}"
-                            PropertyName="Foreground"
-                            Value="{StaticResource SystemAccentColor}"
-                            />
+                        TargetObject="{Binding ElementName=TeamIcon}"
+                        PropertyName="Foreground"
+                        Value="{StaticResource ActivatedButtonBrush}"
+                        />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
-                        Binding="{Binding IsChecked, ElementName=TeamsButton}"
-                        Value="False">
+                    Binding="{Binding IsChecked, ElementName=TeamsButton}"
+                    Value="False">
                     <ic:ChangePropertyAction
-                            TargetObject="{Binding ElementName=TeamIcon}"
-                            PropertyName="Foreground"
-                            Value="{StaticResource AppBarItemForegroundThemeBrush}"
-                            />
+                        TargetObject="{Binding ElementName=TeamIcon}"
+                        PropertyName="Foreground"
+                        Value="{ThemeResource SystemAccentColor}"
+                        />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
         </RadioButton>
@@ -80,22 +83,22 @@
             </SymbolIcon>
             <i:Interaction.Behaviors>
                 <ic:DataTriggerBehavior
-                        Binding="{Binding IsChecked, ElementName=ChatsButton}"
-                        Value="True">
+                    Binding="{Binding IsChecked, ElementName=ChatsButton}"
+                    Value="True">
                     <ic:ChangePropertyAction
-                            TargetObject="{Binding ElementName=ChatIcon}"
-                            PropertyName="Foreground"
-                            Value="{StaticResource SystemAccentColor}"
-                            />
+                        TargetObject="{Binding ElementName=ChatIcon}"
+                        PropertyName="Foreground"
+                        Value="{StaticResource ActivatedButtonBrush}"
+                        />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
-                        Binding="{Binding IsChecked, ElementName=ChatsButton}"
-                        Value="False">
+                    Binding="{Binding IsChecked, ElementName=ChatsButton}"
+                    Value="False">
                     <ic:ChangePropertyAction
-                            TargetObject="{Binding ElementName=ChatIcon}"
-                            PropertyName="Foreground"
-                            Value="{StaticResource AppBarItemForegroundThemeBrush}"
-                            />
+                        TargetObject="{Binding ElementName=ChatIcon}"
+                        PropertyName="Foreground"
+                        Value="{StaticResource SystemAccentColor}"
+                        />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
         </RadioButton>
@@ -117,7 +120,7 @@
                     <ic:ChangePropertyAction
                             TargetObject="{Binding ElementName=NotificationIcon}"
                             PropertyName="Foreground"
-                            Value="{StaticResource SystemAccentColor}"
+                            Value="{StaticResource ActivatedButtonBrush}"
                             />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
@@ -126,7 +129,7 @@
                     <ic:ChangePropertyAction
                             TargetObject="{Binding ElementName=NotificationIcon}"
                             PropertyName="Foreground"
-                            Value="{StaticResource AppBarItemForegroundThemeBrush}"
+                            Value="{StaticResource SystemAccentColor}"
                             />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>

@@ -159,6 +159,9 @@
     <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Navigation\NavigationHeader.xaml.cs">
+      <DependentUpon>NavigationHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Navigation\SideNavigation.xaml.cs">
       <DependentUpon>SideNavigation.xaml</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Navigation\NavigationHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
