@@ -44,6 +44,7 @@ namespace Messenger.Core.Services
         public event EventHandler<Team> TeamUpdated;
         public event EventHandler<Message> MessageUpdated;
 
+
         public event EventHandler<Channel> ChannelUpdated;
 
 

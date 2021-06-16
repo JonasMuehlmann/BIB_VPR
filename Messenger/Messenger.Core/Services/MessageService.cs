@@ -155,6 +155,7 @@ namespace Messenger.Core.Services
 
                 string query = $"UPDATE Messages SET Message='{newContent}' WHERE MessageId={messageId};";
 
+
                 logger.Information($"Running the following query: {query}");
 
                 try
@@ -183,6 +184,7 @@ namespace Messenger.Core.Services
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
         public async Task<bool> DeleteMessage(uint messageId)
         public async Task<bool>DeleteMessage(uint messageId)
+
         {
             Serilog.Context.LogContext.PushProperty("Method","DeleteMessage");
             Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -201,7 +203,7 @@ namespace Messenger.Core.Services
                 {
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 
-                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(), Convert.ToBoolean);
+
                     var        numAffectedRows = scalarQuery.ExecuteNonQuery();
                     var result = SqlHelpers.TryConvertDbValue(numAffectedRows, Convert.ToBoolean);
 
@@ -217,7 +219,6 @@ namespace Messenger.Core.Services
                 }
             }
         }
-
 
         /// <summary>
         /// Retrieve the Blob File Names of files attached to a specified message
