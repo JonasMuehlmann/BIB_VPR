@@ -243,6 +243,16 @@ namespace Messenger.Services
             TeamSwitched?.Invoke(this, await GetMessages());
         }
 
+        public async Task<Team> GetCurrentTeam()
+        {
+            if (CurrentTeamId == null)
+            {
+                return null;
+            }
+
+            return await MessengerService.GetTeam((uint)CurrentTeamId);
+        }
+
         #endregion
 
         #region Member
