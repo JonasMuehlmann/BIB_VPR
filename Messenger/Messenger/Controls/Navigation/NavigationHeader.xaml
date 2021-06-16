@@ -19,6 +19,7 @@
         <SymbolIcon
             Symbol="People"
             />
+        <StackPanel Orientation="Horizontal">
         <TextBlock
             Style="{ThemeResource VCenteredText}"
             FontWeight="Bold"
@@ -26,6 +27,9 @@
             VerticalAlignment="Center"
             Grid.Column="1"
             />
+
+            <!--Ryan Button with Pen symbol-->
+        </StackPanel>
         <Button
             Padding="0" Margin="0"
             Command="{x:Bind OpenTeamManagerCommand}"
