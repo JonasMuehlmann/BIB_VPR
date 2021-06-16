@@ -34,7 +34,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <ContentPresenter/>
+                        <Grid>
+                            <ContentPresenter/>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -102,12 +104,12 @@
                                                 Text="{Binding DisplayName}"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                />  
+                                                />
                                             <Button
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Center"
                                                 Background="Transparent"
-                                                Command="{Binding ViewModel.AddTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding Bio}"
+                                                Command="{Binding ViewModel.AddTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding DisplayName}"
                                                 Height="25">
                                                 <Grid>
                                                     <Line
@@ -116,7 +118,7 @@
                                                         StrokeThickness="1.5"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
-                                                        />  
+                                                        />
                                                     <Line
                                                         Stroke="{ThemeResource SystemAccentColor}"
                                                         X1="1" X2="1" Y1="0" Y2="15"

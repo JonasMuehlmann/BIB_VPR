@@ -132,7 +132,7 @@ namespace Messenger.ViewModels
                 if (user != null && user.Count == 1)
                 {
                     await ChatHubService.InviteUser(new Models.Invitation(user[0].Id, (uint)ChatHubService.CurrentTeamId));
-                    LoadTeamMembersAsync();
+                    InitAddTeamMembers();
                 }
             }
         }
@@ -168,7 +168,7 @@ namespace Messenger.ViewModels
             var usernames = await ChatHubService.SearchUser(searchBox.Text);
             foreach (var username in usernames)
             {
-                Members.Add(new User() {DisplayName = username.Split("#")[0], Bio = username });
+                Members.Add(new User() {DisplayName = username});
             }
         }
 
@@ -178,7 +178,7 @@ namespace Messenger.ViewModels
         /// The method copies the stored MemberList to the ViewMemberlist to safe data traffic, when searching the users
         /// </summary>
         /// <param name="memberList"></param>
-        /// <returns></returns>
+        /// <returns>a copy of the given list on input</returns>
         private ObservableCollection<User> CopyList(List<User> memberList) {
             ObservableCollection<User> memb = new ObservableCollection<User>();
             foreach (var user in memberList)
