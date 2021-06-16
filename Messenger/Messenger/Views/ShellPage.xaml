@@ -31,7 +31,7 @@
             Grid.Column="1"
             OpenProfileCommand="{x:Bind ViewModel.OpenUserProfileCommand}"
             OpenTeamManagerCommand="{x:Bind ViewModel.OpenTeamManagerCommand}"
-            CurrentTeamName="{x:Bind ViewModel.CurrentTeamName}"
+            CurrentTeamName="{x:Bind ViewModel.CurrentTeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             />
         <Grid Grid.Row="1" Grid.Column="0">
             <Frame x:Name="sideFrame" />
