@@ -104,7 +104,7 @@ namespace Messenger.Core.Services
         {
             SignalRService.MessageUpdated += onMessageUpdated;
         }
-      
+
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
@@ -192,8 +192,12 @@ namespace Messenger.Core.Services
                 return null;
             }
 
-            // Create membership for the creator and save to database
-            await TeamService.AddMember(creatorId, (uint)teamId);
+            // Create membership for the creator and save to database, also make him the
+            // admin
+            await TeamService.AddMember(creatorId, teamId.Value);
+            await TeamService.AddRole("admin", teamId.Value);
+            await TeamService.AssignRole("admin", creatorId, teamId.Value);
+
             logger.Information($"Added the user identified by {creatorId} to the team identified by {(uint)teamId}");
 
             uint? channelId = await ChannelService.CreateChannel("main", teamId.Value);
