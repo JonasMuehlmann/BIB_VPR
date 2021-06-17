@@ -473,7 +473,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}, role={role}");
 
-            string query = $"SELECT * FROM Users s WHERE (s.UserId IN SELECT m.UserId FROM Memberships m WHERE m.teamId={teamId});";
+            string query = $"SELECT * FROM Users s WHERE s.UserId IN (SELECT m.UserId FROM Memberships m WHERE m.teamId={teamId});";
 
 
             logger.Information($"Running the following query: {query}");
