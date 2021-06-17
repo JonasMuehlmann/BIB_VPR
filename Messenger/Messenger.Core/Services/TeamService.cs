@@ -436,6 +436,29 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        /// <summary>
+        ///	List all roles available in a specified team
+        /// </summary>
+        /// <param name="teamId">The id of the team to retrieve roles from</param>
+        /// <returns>A list of available role names</returns>
+        IList<string> ListRoles(uint teamId)
+        {
+
+            LogContext.PushProperty("Method","AssignRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameter teamId={teamId}");
+
+            string query = $"SELECT Role FROM Memberships WHERE teamId={teamId};";
+
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = SqlHelpers.MapToList(Convert.ToString, new SqlDataAdapter(query, GetConnection()));
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
         #endregion
     }
 }
