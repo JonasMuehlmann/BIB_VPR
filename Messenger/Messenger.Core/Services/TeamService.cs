@@ -411,6 +411,31 @@ namespace Messenger.Core.Services
             return result;
         }
 
-                #endregion
+        /// <summary>
+        ///	Unassign a team's member a role
+        /// </summary>
+        /// <param name="role">The name of the role to unassign from the user</param>
+        /// <param name="userId">The id of the user to unassign the role from</param>
+        /// <param name="teamId">The team to unassign a role from a member in</param>
+        /// <returns>True if successful, false otherwise</returns>
+        public async Task<bool> UnAssignRole(string role, string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method","AssignRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
+
+            string query = $"UPDATE Memberships Set Role ='' WHERE teamId={teamId} AND userId='{userId}';";
+
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        #endregion
     }
 }
