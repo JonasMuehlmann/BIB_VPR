@@ -367,7 +367,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <returns>True if successful, false otherwise</returns>
-        async Task<bool> AddRole(string role, uint teamId)
+        public async Task<bool> AddRole(string role, uint teamId)
         {
 
             LogContext.PushProperty("Method","AddRole");
@@ -385,6 +385,32 @@ namespace Messenger.Core.Services
 
             return result;
         }
-        #endregion
+
+        /// <summary>
+        ///	Assign a team's member a role
+        /// </summary>
+        /// <param name="role">The name of the role to assign to the user</param>
+        /// <param name="userId">The id of the user to assign the role to</param>
+        /// <param name="teamId">The team to assign a role to a member in</param>
+        /// <returns>True if successful, false otherwise</returns>
+        public async Task<bool> AssignRole(string role, string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method","AssignRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
+
+            string query = $"UPDATE Memberships Set Role ='{role}' WHERE teamId={teamId} AND userId='{userId}';";
+
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+                #endregion
     }
 }
