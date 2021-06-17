@@ -360,6 +360,31 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        /// <summary>
+        ///	Add a role to a team with the specified teamId
+        /// </summary>
+        /// <param name="role">The name of the role to add</param>
+        /// <param name="teamId">The id of the team to add the role to</param>
+        /// <returns>True if successful, false otherwise</returns>
+        async Task<bool> AddRole(string role, uint teamId)
+        {
+
+            LogContext.PushProperty("Method","AddRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}");
+
+            string query = $"UPDATE Teams SET Roles= Roles + IIF(LEN(Roles) = 0, ',{role}', '{role}');";
+
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
         #endregion
     }
 }
