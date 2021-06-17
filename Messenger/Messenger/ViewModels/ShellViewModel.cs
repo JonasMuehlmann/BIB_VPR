@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
@@ -19,44 +20,69 @@ namespace Messenger.ViewModels
 {
     public class ShellViewModel : Observable
     {
+        #region Private
 
         private ICommand _userProfileCommand;
-        private ICommand _teamCommand;
-        private ICommand _chatCommand;
-        private ICommand _notificationCommand;
-        private UserViewModel _user;
-        private Frame MainFrame { get; set; }
-        private Frame SideFrame { get; set; }
+
+        private ICommand _navigateToTeamsCommmand;
+
+        private ICommand _navigateToChatsCommand;
+
+        private ICommand _navigateToNotificationsCommand;
+
+        private ICommand _teamManagerCommand;
+
+        private string _currentTeamName;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+        private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
-        //public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
+        private Frame MainFrame { get; set; }
 
-        //public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
+        private Frame SideFrame { get; set; }
 
-        //chat headline
-        private string _chatName;
+        #endregion
 
-        public string ChatName
+        public string CurrentTeamName
         {
-            get { return _chatName; }
-
-            set { Set(ref _chatName, value); }
+            get
+            {
+                return _currentTeamName;
+            }
+            set
+            {
+                Set(ref _currentTeamName, value);
+            }
         }
 
+        private string _currentPageName;
 
-        public ICommand UserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
-        public ICommand TeamCommand => _teamCommand ?? (_teamCommand = new RelayCommand(OpenTeamsSidePanel));
-        public ICommand ChatCommand => _chatCommand ?? (_chatCommand = new RelayCommand(OpenChatSidePanel));
-        public ICommand NotificationCommand => _notificationCommand ?? (_notificationCommand = new RelayCommand(OpenNotificationSidePanel));
-
-        public UserViewModel User
+        public string CurrentPageName
         {
-            get { return _user; }
-            set { Set(ref _user, value); }
+            get
+            {
+                return _currentPageName;
+            }
+            set
+            {
+                Set(ref _currentPageName, value);
+            }
         }
+
+        #region Commands
+
+        public ICommand NavigateToTeamsCommmand => _navigateToTeamsCommmand ?? (_navigateToTeamsCommmand = new RelayCommand(OpenTeamsSidePanel));
+
+        public ICommand NavigateToChatsCommand => _navigateToChatsCommand ?? (_navigateToChatsCommand = new RelayCommand(OpenChatSidePanel));
+
+        public ICommand NavigateToNotificationsCommand => _navigateToNotificationsCommand ?? (_navigateToNotificationsCommand = new RelayCommand(OpenNotificationSidePanel));
+
+        public ICommand OpenUserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
+
+        public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
+
+        #endregion
 
         public ShellViewModel()
         {
@@ -64,39 +90,30 @@ namespace Messenger.ViewModels
 
         public void Initialize(Frame frame, Frame sideFrame)
         {
-            //_keyboardAccelerators = keyboardAccelerators;
             MainFrame = frame;
             SideFrame = sideFrame;
 
             NavigationService.Frame = frame;
-            OnLoaded();
             IdentityService.LoggedOut += OnLoggedOut;
-            UserDataService.UserDataUpdated += OnUserDataUpdated;
+            ChatHubService.TeamSwitched += OnTeamSwitched;
 
-            //load default pages
-            OpenChatSidePanel();
+            // Sets the default side panel to TeamNavView
+            OpenTeamsSidePanel();
         }
 
-        private async void OnLoaded()
+        private async void OnTeamSwitched(object sender, IEnumerable<Message> messages)
         {
-            // Keyboard accelerators are added here to avoid showing 'Alt + left' tooltip on the page.
-            // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
-            User = await UserDataService.GetUserAsync();
-        }
-
-        private void OnUserDataUpdated(object sender, UserViewModel userData)
-        {
-            User = userData;
+            var team = await ChatHubService.GetCurrentTeam();
+            CurrentTeamName = team.Name;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
         {
-            UserDataService.UserDataUpdated -= OnUserDataUpdated;
             IdentityService.LoggedOut -= OnLoggedOut;
         }
 
+        #region Main Page Navigation
 
-        #region mainPageNavigation
         private void MainNavigation(Type page)
         {
             MainFrame.Navigate(page, this);
@@ -105,16 +122,24 @@ namespace Messenger.ViewModels
         private void OpenSetttingsMainPanel()
         {
             MainNavigation(typeof(SettingsPage));
+            CurrentTeamName = string.Empty;
         }
 
         private void OpenChatMainPage()
         {
             MainNavigation(typeof(ChatPage));
+            CurrentTeamName = string.Empty;
         }
+
+        private void OpenTeamManagePage()
+        {
+            MainNavigation(typeof(TeamManagePage));
+        }
+
         #endregion
 
 
-        #region sidePageNavigation
+        #region Side Page Navigation
 
         /// <summary>
         /// Opens the side Navigationpanels and the MainChatPanel
@@ -123,9 +148,8 @@ namespace Messenger.ViewModels
         private void SideNavigation(Type page)
         {
             SideFrame.Navigate(page, this);
-            //if (MainFrame.SourcePageType.Name != "ChatPage") {
-                OpenChatMainPage();
-            //}
+            OpenChatMainPage();
+            CurrentPageName = page.Name;
         }
         private void OpenTeamsSidePanel()
         {
@@ -141,6 +165,7 @@ namespace Messenger.ViewModels
         {
             SideNavigation(typeof(NotificationNavPage));
         }
+
         #endregion
     }
 }

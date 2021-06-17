@@ -1,8 +1,6 @@
 name: .NET
 
 on:
-  push:
-    branches: [ main, unstable ]
   pull_request:
     branches: [ main, unstable ]
 

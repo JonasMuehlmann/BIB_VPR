@@ -32,8 +32,8 @@ namespace Messenger.Core.Services
         /// <returns>BlobContainerClient object with established connection</returns>
         private BlobContainerClient ConnectToContainer()
         {
-            Serilog.Context.LogContext.PushProperty("Method","ConnectToContainer");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","ConnectToContainer");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called");
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobServiceConnectionString);
@@ -52,8 +52,8 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false otherwise</returns>
         public async Task<bool> Download(string blobFileName, string destinationDirectory = "")
         {
-            Serilog.Context.LogContext.PushProperty("Method","Download");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","Download");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters  blobFileName={blobFileName}, destinationDirectory={destinationDirectory}");
 
             try
@@ -100,8 +100,8 @@ namespace Messenger.Core.Services
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public async Task<string> Upload(string filePath)
         {
-            Serilog.Context.LogContext.PushProperty("Method","Upload");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","Upload");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters filePath={filePath}");
 
             // Adding GUID for deduplication
@@ -136,5 +136,40 @@ namespace Messenger.Core.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Delete a blob file
+        /// </summary>
+        /// <param name="blobFileName">A blob file name to delete</param>
+        /// <returns>true if successfully deleted, false otherwise</returns>
+        public async Task<bool> Delete(string blobFileName)
+        {
+            LogContext.PushProperty("Method","Delete");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters blobFileName={blobFileName}");
+
+
+            try
+            {
+                var containerClient = ConnectToContainer();
+
+                BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
+
+                    // Read and upload file
+                    var result = await blobClient.DeleteIfExistsAsync();
+
+                    logger.Information($"result: {result}");
+
+                    return result;
+            }
+            // TODO:Find better exception(s) to catch
+            catch(Exception e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return false;
+            }
+        }
+
     }
 }

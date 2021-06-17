@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Core.Helpers;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,6 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
+using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
@@ -17,6 +20,8 @@ namespace Messenger.Core.Services
         private const string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
 
         private HubConnection _connection;
+
+        public Serilog.ILogger logger = GlobalLogger.Instance;
 
         #endregion
 
@@ -35,6 +40,10 @@ namespace Messenger.Core.Services
 
         public event EventHandler<uint> InviteReceived;
 
+
+        public event EventHandler<Team> TeamUpdated;
+        public event EventHandler<Message> MessageUpdated;
+        public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
 
         public SignalRService()
@@ -49,6 +58,9 @@ namespace Messenger.Core.Services
 
             _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
             _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
+            _connection.On<Team>("TeamUpdated", (team) => TeamUpdated?.Invoke(this, team));
+            _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(this, message));
+            _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
             _connection.On<User>("UserUpdated", (user) => UserUpdated?.Invoke(this, user));
         }
 
@@ -59,17 +71,25 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task Open(string userId)
         {
+
+            LogContext.PushProperty("Method","Open");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}");
+
             try
             {
                 if (_connection.State == HubConnectionState.Disconnected)
                 {
                     await _connection.StartAsync();
                     await _connection.SendAsync("Register", userId);
+
+                    logger.Information($"Connecting the user identity by userId={userId} to the hub");
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.Open)} : {e.Message}");
+                logger.Information(e, "Returning");
             }
         }
 
@@ -79,13 +99,20 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task Close()
         {
+            LogContext.PushProperty("Method","Close");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
             try
             {
                 await _connection.StopAsync();
+
+                logger.Information($"Disconnecting the current user from the hub");
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.Close)} : {e.Message}");
+                logger.Information(e,"Returning");
             }
         }
 
@@ -96,13 +123,20 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task JoinTeam(string teamId)
         {
+            LogContext.PushProperty("Method","JoinTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter teamId: {teamId}");
+
             try
             {
                 await _connection.SendAsync("JoinTeam", teamId);
+
+                logger.Information($"Adding the current user to the hub group with the name {teamId}");
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"{nameof(SignalRService)}.{nameof(this.JoinTeam)} : {e.Message}");
+                logger.Information(e, "Returning");
             }
         }
 
@@ -113,7 +147,14 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task SendMessage(Message message)
         {
+            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter message={message}");
+
             await _connection.SendAsync("SendMessage", message);
+
+            logger.Information($"Sending the message to the hub");
         }
 
         /// <summary>
@@ -124,7 +165,40 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task AddToTeam(string userId, string teamId)
         {
+            LogContext.PushProperty("Method","AddToTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter userId={userId}, teamId={teamId}");
+
             await _connection.SendAsync("AddToTeam", userId, teamId);
+
+            logger.Information($"Adding the user identified by userId={userId} to the hub group identified by {teamId}");
+        }
+        /// <summary>
+        /// Update a message's data and notify other clients
+        /// </summary>
+        /// <param name="message">The updated message object</param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task UpdateMessage(Message message)
+        {
+            await _connection.SendAsync("UpdateMessage", message);
+        }
+
+        /// <summary>
+        /// Update a teams data and notify other clients
+        /// </summary>
+        /// <param name="team">The updated team object</param>
+        /// <returns>Asynchronous task to be awaited</returns>
+
+        public async Task UpdateTeam(Team team)
+        {
+            await _connection.SendAsync("UpdateTeam", team);
+        }
+
+        public async Task UpdateChannel(Channel channel)
+        {
+            await _connection.SendAsync("UpdateChannel", channel);
+
         }
 
         public async Task UpdateUser(User user)
@@ -136,13 +210,25 @@ namespace Messenger.Core.Services
 
         private async Task Reconnect(Exception e)
         {
+            LogContext.PushProperty("Method","Reconnect");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
             await Task.Delay(500);
             _connection = await CreateHubConnection();
             await _connection.StartAsync();
+
+            logger.Information($"Building a new connection to the hub");
         }
 
         private async Task<HubConnection> CreateHubConnection()
         {
+            LogContext.PushProperty("Method","CreateHubConnection");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called");
+
             HubConnection hubConnection = new HubConnectionBuilder()
                 .WithUrl(HUB_URL)
                 .Build();
@@ -150,6 +236,9 @@ namespace Messenger.Core.Services
             hubConnection.Closed += Reconnect;
 
             await hubConnection.StartAsync();
+
+            logger.Information($"Building a new connection to the hub");
+
             return hubConnection;
         }
 

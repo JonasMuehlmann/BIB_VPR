@@ -52,7 +52,7 @@ namespace Messenger
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.ChatNavPage), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Views.TeamNavPage), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()

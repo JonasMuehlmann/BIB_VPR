@@ -5,12 +5,17 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
+using Serilog.Context;
 
 
 namespace Messenger.Core.Helpers
 {
     public class SqlHelpers
     {
+        public static ILogger logger => GlobalLogger.Instance;
+
+
         /// <summary>
         /// Run the specified query on the specified connection.
         /// </summary>
@@ -19,6 +24,10 @@ namespace Messenger.Core.Helpers
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public static async Task<bool> NonQueryAsync(string query, SqlConnection connection)
         {
+            LogContext.PushProperty("Method","NonQueryAsync");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters query={query}");
+
             try
             {
                 if (connection.State != ConnectionState.Open)
@@ -27,13 +36,16 @@ namespace Messenger.Core.Helpers
                 }
                 SqlCommand command = new SqlCommand(query, connection);
 
+                var result = Convert.ToBoolean(await command.ExecuteNonQueryAsync());
 
-                return Convert.ToBoolean(await command.ExecuteNonQueryAsync());
+                logger.Information($"Return value: {result}");
+
+                return result;
 
             }
             catch (SqlException e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}");
+                logger.Information(e,"Return value: false");
 
                 return false;
             }
@@ -52,6 +64,10 @@ namespace Messenger.Core.Helpers
         /// <returns>Null if the specifid column does not exist in the table, it's type name otherwise</returns>
         public static string GetColumnType(string tableName, string columnName, SqlConnection connection)
         {
+            LogContext.PushProperty("Method","GetColumnType");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters tableName={tableName}, columnName={columnName}");
+
             SqlCommand query = new SqlCommand(
                     $"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';"
                     ,connection
@@ -59,13 +75,19 @@ namespace Messenger.Core.Helpers
 
             try
             {
+                logger.Information($"Running the following query: {query}");
+
                 var result = query.ExecuteScalar();
 
-                return  TryConvertDbValue(result, Convert.ToString);
+                result = TryConvertDbValue(result, Convert.ToString);
+
+                logger.Information($"Return value: {result}");
+
+                return (string)result;
             }
             catch (SqlException e)
             {
-                Debug.WriteLine($"Database Exception: {e.Message}");
+                logger.Information(e,"Return value: null");
 
                 return null;
             }
@@ -79,59 +101,51 @@ namespace Messenger.Core.Helpers
         /// <returns>An enumerable of data rows</returns>
         public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
         {
+            LogContext.PushProperty("Method","GetRows");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters tableName={tableName}");
+
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
 
-            return dataSet.Tables[tableName].Rows.Cast<DataRow>();
+            var result = dataSet.Tables[tableName].Rows.Cast<DataRow>();
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
 
         /// <summary>
         /// Maps to a list of target type instances
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to map to</typeparam>
         /// <param name="mapper">Mapper function for the target type</param>
         /// <param name="adapter">Instance of adapter with an opened connection</param>
         /// <returns></returns>
         public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
         {
-            string tableName = nameof(T) + 's';
+            LogContext.PushProperty("Method","MapToList");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
+
+            string tableName = typeof(T).Name + 's';
+
+            logger.Information($"tableName has been determined as {tableName}");
 
             var dataSet = new DataSet();
             adapter.Fill(dataSet, tableName);
 
-            return dataSet.Tables[tableName].Rows
-                .Cast<DataRow>()
-                .Select(mapper)
-                .ToList();
+            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
+
+            var result = dataSet.Tables[tableName].Rows
+                         .Cast<DataRow>()
+                         .Select(mapper)
+                         .ToList();
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
-
-        /// <summary>
-        /// In a private chat, retrieve the conversation partner's user id
-        /// </summary>
-        /// <param name="teamId">the id of the team belonging to the private chat</param>
-        /// <param name="connection">A connection to the used sql database</param>
-        /// <returns>The user id of the conversation partner</returns>
-        public static string GetPartner(string teamId, SqlConnection connection)
-        {
-            // NOTE: Private Chats currently only support 1 Members
-            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId"
-                         + $"WHERE t.TeamId != '{teamId}'";
-
-            SqlCommand scalarQuery = new SqlCommand(query, connection);
-            try
-            {
-                var        otherUser   = scalarQuery.ExecuteScalar();
-
-                return TryConvertDbValue(otherUser, Convert.ToString);
-            }
-            catch (SqlException e)
-            {
-                Debug.WriteLine($"Database Exception: {e.Message}");
-
-                return null;
-            }
-        }
-
 
         /// <summary>
         /// Convert a value that can be DBNull using a specified converter
@@ -147,7 +161,11 @@ namespace Messenger.Core.Helpers
                 return null;
             }
 
-            return converter(value);
+            var converted = converter(value);
+
+            logger.Information($"Converted value from {value} to {converted}");
+
+            return converted;
         }
     }
 }

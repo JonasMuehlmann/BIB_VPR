@@ -6,6 +6,8 @@ using Messenger.Core.Models;
 using Messenger.Core.Helpers;
 using System.Data;
 using System.Linq;
+using Serilog.Context;
+using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
@@ -22,8 +24,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
-            Serilog.Context.LogContext.PushProperty("Method","Update");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","Update");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, columnToChange={columnToChange}, newVal={newVal}");
 
@@ -63,8 +65,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> UpdateUsername(string userId, string newUsername)
         {
-            Serilog.Context.LogContext.PushProperty("Method","UpdateUsername");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","UpdateUsername");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, newUsername={newUsername}");
 
@@ -195,8 +197,8 @@ namespace Messenger.Core.Services
         public async Task<User> GetOrCreateApplicationUser(User userdata)
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","GetOrCreateApplicationUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameter userdata={userdata}");
 
@@ -282,8 +284,8 @@ namespace Messenger.Core.Services
         public async Task<bool> DeleteUser(string userId)
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","DeleteUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","DeleteUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -304,11 +306,11 @@ namespace Messenger.Core.Services
         /// Construct a User object from data that belongs to the user identified by userId.
         /// </summary>
         /// <param name="userid">The id of the user to retrieve</param>
-        /// <returns></returns>
+        /// <returns>A full User object</returns>
         public async Task<User> GetUser(string userId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetUser");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -349,6 +351,93 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Construct a User object from a given UserName and NameId
+        /// </summary>
+        /// <param name="userName">The Name of the user to retrieve</param>
+        /// <param name="nameId">The NameId of the user to retrieve</param>
+        /// <returns>A full User object</returns>
+        public async Task<IList<User>> GetUser(string userName, uint nameId)
+        {
+            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, adapter);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve the UserNames and NameIds of the top 10 matches for the given
+        /// userName
+        /// </summary>
+        /// <param name="userName">User name to retrieve matches for</param>
+        /// <returns>List of top 10 matched User names</returns>
+        public async Task<IList<string>> SearchUser(string userName)
+        {
+            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
+
+                    logger.Information($"Running the following query: {selectQuery}");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+
+                    var rows = SqlHelpers.GetRows("Users", adapter);
+
+                    LogContext.PushProperty("Method","SearchUser");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+                    logger.Information($"Retrieved {rows.Count()} rows");
+
+                    var result = rows.Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+
+        /// <summary>
         /// Determine a usernames new NameId.
         /// </summary>
         /// <param name="username">A username whose nameid is the be determined</param>
@@ -356,8 +445,8 @@ namespace Messenger.Core.Services
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
         private uint? DetermineNewNameId(string username, SqlConnection connection)
         {
-            Serilog.Context.LogContext.PushProperty("Method","DetermineNewNameId");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","DetermineNewNameId");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters username={username},connection={connection}");
 

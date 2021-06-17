@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Messenger.Core.Models"
+    xmlns:controls="using:Messenger.Controls.ChatControls"
+    xmlns:storage="using:Windows.Storage"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
@@ -12,131 +13,18 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-            <!-- content goes here -->
-
-            <!-- ** TEST UI FOR SIGNALR ** (will be removed) -->
-            <!-- TODO: What to do with this?
-            <StackPanel>
-                <ListView ItemsSource="{x:Bind ViewModel.Hub.Messages}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock Text="{Binding Content}"
-                                           Foreground="Red"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBox Name="tbxMessage"/>
-                <Button Content="Absenden"
-                        Command="{x:Bind ViewModel.Hub.SendMessageCommand}"
-                        CommandParameter="{Binding ElementName=tbxMessage, Path=Text}"
-                        />
-                <Button Content="Team 1"
-                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
-                        CommandParameter="1"
-                        />
-                <Button Content="Team 2"
-                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
-                        CommandParameter="2"
-                        />
-                <Button Content="Team 3"
-                        Command="{x:Bind ViewModel.Hub.SwitchTeamCommand}"
-                        CommandParameter="3"
-                        />
-            </StackPanel>
-            -->
-            <ScrollViewer Grid.Row="0">
-                <ListView ItemsSource="{x:Bind ViewModel.Messages}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="{StaticResource MediumTopMargin}">
-                                <Border
-                                    Padding="5" 
-                                    VerticalAlignment="Top"
-                                    Width="450"
-                                    CornerRadius="10"
-                                    Background="{ThemeResource SystemAccentColorDark3}"
-                                    Margin="{StaticResource MediumLeftMargin}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="10"/>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="10"/>
-                                            <RowDefinition Height="30"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid Grid.Row="0">
-                                            <TextBlock
-                                                Text="{Binding Sender.DisplayName}"
-                                                FontSize="20"
-                                                VerticalAlignment="Center"
-                                                Margin="{StaticResource MediumLeftMargin}"
-                                                />
-                                            <TextBlock HorizontalAlignment="Right" FontSize="12" VerticalAlignment="Center"                 Text="{Binding CreationTime}" Margin="{StaticResource MediumRightMargin}"/>
-                                        </Grid>
-                                        <TextBlock
-                                            Grid.Row="2"
-                                            Margin="{StaticResource MediumLeftRightMargin}"
-                                            TextWrapping="WrapWholeWords"
-                                            Text="{Binding Content}" />
-                                        <StackPanel Grid.Row="4" Orientation="Horizontal">
-                                            <TextBlock
-                                                x:Uid="Chat_Reply"
-                                                VerticalAlignment="Center"
-                                                TextAlignment="Center"
-                                                Margin="{StaticResource MediumLeftMargin}"/>
-                                            <Button x:Name="Reply" Click="Reply_Click" Background="Transparent">
-                                                <SymbolIcon Symbol="Redo" Foreground="{ThemeResource SystemBaseHighColor}"/>
-                                            </Button>
-                                            <TextBlock
-                                                x:Uid="Chat_React"
-                                                VerticalAlignment="Center"
-                                                TextAlignment="Center"
-                                                TextWrapping="Wrap"
-                                                Margin="{StaticResource MediumLeftMargin}"/>
-                                            <Button x:Name="React" Click="React_Click" Background="Transparent">
-                                                <SymbolIcon
-                                                    Symbol="Globe"
-                                                    Foreground="{ThemeResource SystemBaseHighColor}" />
-                                            </Button>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
-            
-            <StackPanel Grid.Row="1" Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                <TextBox
-                    x:Uid="Chat_MessageSend"
-                    Name="tbxContent"
-                    Width="300"
-                    Padding="0,0,30,0"
-                    Height="40"
-                    FontSize="20"/>
-
-                <Button
-                    Background="Transparent"
-                    BorderBrush="Gray"
-                    Command="{x:Bind ViewModel.SendMessageCommand}"
-                    CommandParameter="{Binding ElementName=tbxContent, Path=Text}"
-                    Height="40" Width="60">
-                    <SymbolIcon Symbol="Accept" />
-                </Button>
-            </StackPanel>
-
-
+            <controls:MessagesListControl
+                Grid.Row="0"
+                Messages="{x:Bind ViewModel.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                />
+            <controls:SendMessageControl
+                Grid.Row="1"
+                Attachments="{x:Bind ViewModel.SelectedFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SendMessageCommand="{x:Bind ViewModel.SendMessageCommand}"
+                OpenFilesCommand="{x:Bind ViewModel.OpenFilesCommand}"
+                />
         </Grid>
     </Grid>
 </Page>
