@@ -6,27 +6,81 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <!--#region STYLES -->
+        <Style x:Key="OuterGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="125" />
+        </Style>
+        <Style x:Key="TitleStyle" TargetType="TextBlock" BasedOn="{StaticResource HeaderTextBlockStyle}">
+            <Setter Property="FontSize" Value="125" />
+            <Setter Property="FontFamily" Value="Century Gothic" />
+            <Setter Property="CharacterSpacing" Value="-50" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0 40 0 0" />
+        </Style>
+        <Style x:Key="SubtitleStyle" TargetType="TextBlock" BasedOn="{StaticResource
+ListSubTitleStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Opacity" Value=".45" />
+        </Style>
+        <Style x:Key="LoginButtonStyle" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="MinWidth" Value="180" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+        <Style x:Key="FooterTextStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <!--#endregion-->
+    </Page.Resources>
     <Grid
-        x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
+        Style="{StaticResource OuterGrid}"
+        x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock
-            x:Uid="LogInPageTitle"
-            Grid.Row="0"
-            Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+
+        <!-- APP HEADER -->
+        <StackPanel>
+            <TextBlock
+                Style="{StaticResource TitleStyle}"
+                Grid.Row="0"
+                Text="Messenger"
+                />
+            <TextBlock
+                Style="{StaticResource SubtitleStyle}"
+                Text="bib Internation College"
+                />
+        </StackPanel>
+        
+        <!-- LOGIN BUTTON -->
         <Button
             Grid.Row="1"
             x:Uid="LogInButton"
             Command="{x:Bind ViewModel.LoginCommand}"
-            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            Style="{StaticResource LoginButtonStyle}"
+            />
+
+        <!-- LOGIN STATUS MESSAGE -->
         <TextBlock
             Grid.Row="2"
             Margin="{StaticResource MediumTopMargin}"
             Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
             Style="{StaticResource BodyTextBlockStyle}" />
+
+        <!-- FOOTER TEXT -->
+        <TextBlock
+            Grid.Row="3"
+            Style="{StaticResource FooterTextStyle}"
+            Text="PBT3H19A @ 2021"
+            />
     </Grid>
 </Page>
