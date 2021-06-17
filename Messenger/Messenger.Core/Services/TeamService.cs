@@ -459,6 +459,31 @@ namespace Messenger.Core.Services
 
             return result;
         }
+
+        /// <summary>
+        ///	Retrieve a team's users that have a specified role
+        /// </summary>
+        /// <param name="teamId">The id of the team to retrieve users from</param>
+        /// <param name="role">The role of users to retrieve from the team</param>
+        /// <returns></returns>
+        IList<User> GetUsersWithRole(uint teamId, string role)
+        {
+
+            LogContext.PushProperty("Method","GetUsersWithRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}");
+
+            string query = $"SELECT * FROM Users s WHERE (s.UserId IN SELECT m.UserId FROM Memberships m WHERE m.teamId={teamId});";
+
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, GetConnection()));
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
         #endregion
     }
 }
