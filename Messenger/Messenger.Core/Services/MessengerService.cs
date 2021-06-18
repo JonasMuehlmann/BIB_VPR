@@ -659,7 +659,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Remove a role from a team's available roles and notify other clients
+        /// Remove a role from a team's available roles and all members roles and notify other clients
         /// </summary>
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
@@ -671,6 +671,11 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
             var result = await TeamService.RemoveRole(role, teamId);
+
+            foreach (var user in TeamService.GetUsersWithRole(teamId, role))
+            {
+               result &= await TeamService.UnAssignRole(role, user.Id, teamId) ;
+            }
 
             await SignalRService.UpdateTeamRole(teamId);
 
