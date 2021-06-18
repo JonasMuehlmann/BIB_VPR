@@ -193,16 +193,22 @@ namespace Messenger.Core.Helpers
         /// <returns>null or the wanted type T</returns>
         public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
         {
+            LogContext.PushProperty("Method","TryConvertDbValue");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters value={(value is DBNull ? "DBNull" : value)}, converter={converter.Method.Name}");
+
             if (value is DBNull)
             {
+                logger.Information("Return value: null");
+
                 return null;
             }
 
-            var converted = converter(value);
+            var result = converter(value);
 
-            logger.Information($"Converted value from {value} to {converted}");
+            logger.Information($"Return value: {(result.GetType() == null ? "null" : Convert.ToString(result))}");
 
-            return converted;
+            return result;
         }
     }
 }
