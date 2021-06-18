@@ -41,8 +41,8 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate) VALUES "
-                                 + $"('{teamName}', '{teamDescription}', GETDATE()); SELECT SCOPE_IDENTITY();";
+                    string query = $"INSERT INTO Teams (TeamName, TeamDescription, CreationDate, Roles) VALUES "
+                                 + $"('{teamName}', '{teamDescription}', GETDATE(), ''); SELECT SCOPE_IDENTITY();";
 
                     SqlCommand scalarQuery = new SqlCommand(query, connection);
 

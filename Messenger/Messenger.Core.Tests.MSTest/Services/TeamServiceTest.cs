@@ -76,7 +76,7 @@ namespace Messenger.Tests.MSTest
             {
                 using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
                 {
-                    string query = "SET IDENTITY_INSERT Teams ON;INSERT INTO Teams(TeamId, TeamName, TeamDescription, CreationDate) Values(9999999, 'foo', 'desc', GETDATE());";
+                    string query = "SET IDENTITY_INSERT Teams ON;INSERT INTO Teams(TeamId, TeamName, TeamDescription, CreationDate, Roles) Values(9999999, 'foo', 'desc', GETDATE(), '');";
 
                     connection.Open();
                     SqlCommand cmd = new SqlCommand(query, connection);

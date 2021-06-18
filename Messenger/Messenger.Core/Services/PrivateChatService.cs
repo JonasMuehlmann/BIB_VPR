@@ -32,8 +32,8 @@ namespace Messenger.Core.Services
             // Add myself and other user as members
            try
            {
-               string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
-                              $"('', GETDATE());"
+               string query = $"INSERT INTO Teams (TeamName, CreationDate, ROles) VALUES " +
+                              $"('', GETDATE(), '');"
                               + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
 
