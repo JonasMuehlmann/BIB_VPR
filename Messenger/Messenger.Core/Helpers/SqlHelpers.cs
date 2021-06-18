@@ -161,7 +161,11 @@ namespace Messenger.Core.Helpers
                 return null;
             }
 
-            return converter(value);
+            var converted = converter(value);
+
+            logger.Information($"Converted value from {value} to {converted}");
+
+            return converted;
         }
     }
 }
