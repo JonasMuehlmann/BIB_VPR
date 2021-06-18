@@ -18,10 +18,12 @@
             <controls:MessagesListControl
                 Grid.Row="0"
                 Messages="{x:Bind ViewModel.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ReplyCommand="{x:Bind ViewModel.ReplyToCommand}"
                 />
             <controls:SendMessageControl
                 Grid.Row="1"
                 Attachments="{x:Bind ViewModel.SelectedFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ReplyMessage="{x:Bind ViewModel.ReplyMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SendMessageCommand="{x:Bind ViewModel.SendMessageCommand}"
                 OpenFilesCommand="{x:Bind ViewModel.OpenFilesCommand}"
                 />
