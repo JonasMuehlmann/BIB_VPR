@@ -631,11 +631,102 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateUser(user);
 
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Add a role to a team with the specified teamId and notify other clients
+        /// </summary>
+        /// <param name="role">The name of the role to add</param>
+        /// <param name="teamId">The id of the team to add the role to</param>
+        /// <returns>True if successful, false otherwise</returns>
+        public async Task<bool> AddRoleToTeam(string role, uint teamId)
+        {
+            LogContext.PushProperty("Method", "AddRoleToTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}");
+
+            var result = await TeamService.AddRole(role, teamId);
+
+            await SignalRService.UpdateTeamRole(teamId);
+
 
             logger.Information($"Return value: {result}");
 
             return result;
         }
+
+        /// <summary>
+        /// Remove a role from a team's available roles and notify other clients
+        /// </summary>
+        /// <param name="role">The name of the role to remove</param>
+        /// <param name="teamId">The id of the team to remove the role from</param>
+        /// <returns>True if successful, false otherwise</returns>
+        public async Task<bool> RemoveTeamRole(string role, uint teamId)
+        {
+            LogContext.PushProperty("Method", "RemoveRoleToTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}");
+
+            var result = await TeamService.RemoveRole(role, teamId);
+
+            await SignalRService.UpdateTeamRole(teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Assign a role to a team's member and notify other clients
+        /// </summary>
+        /// <param name="role">The name of the role to assign to the user</param>
+        /// <param name="userId">The id of the user to assign the role to</param>
+        /// <param name="teamId">The team to assign a role to a member in</param>
+        /// <returns>True if successful, false otherwise</returns>
+        public async Task<bool> AssignUserRole(string role, string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method", "AssignUserRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
+
+            var result = await TeamService.AssignRole(role, userId, teamId);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Unassign a role from a team's member and notify other clients
+        /// </summary>
+        /// <param name="role">The name of the role to unassign from the user</param>
+        /// <param name="userId">The id of the user to unassign the role from</param>
+        /// <param name="teamId">The team to unassign a role from a member in</param>
+        /// <returns>True if successful, false otherwise</returns>
+        public async Task<bool> UnAssignUserRloe(string role, string userId, uint teamId)
+        {
+            LogContext.PushProperty("Method", "UnAssignUserRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
+
+            var result = await TeamService.UnAssignRole(role, userId, teamId);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         #endregion
     }
 }
