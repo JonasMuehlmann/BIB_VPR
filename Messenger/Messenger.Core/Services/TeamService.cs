@@ -308,7 +308,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
-            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, 'placeholder');";
+            string query = $"INSERT INTO Memberships(UserId, TeamId, UserRole) VALUES('{userId}', {teamId}, '');";
 
 
             logger.Information($"Running the following query: {query}");
@@ -543,12 +543,15 @@ namespace Messenger.Core.Services
         /// <returns>True if successful, false otherwise</returns>
         public async Task<bool> UnAssignRole(string role, string userId, uint teamId)
         {
-            LogContext.PushProperty("Method","AssignRole");
+            LogContext.PushProperty("Method","UnassignRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
-            string query = $"UPDATE Memberships Set Role ='' WHERE teamId={teamId} AND userId='{userId}';";
-
+            string query = $"UPDATE Memberships SET UserRole = IIF(LEN(UserRole) = 1,"
+                                                             + $"REPLACE(UserRole, '{role}' ,''),"
+                                                             + $"REPLACE(UserRole, ',{role}' ,'')"
+                                                             + ") "
+                                                             + $"WHERE teamId={teamId} AND userId='{userId}';";
 
             logger.Information($"Running the following query: {query}");
 
@@ -596,7 +599,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}, role={role}");
 
-            string query = $"SELECT * FROM Users s WHERE s.UserId IN (SELECT m.UserId FROM Memberships m WHERE m.teamId={teamId});";
+            string query = $"SELECT * FROM Users s WHERE s.UserId IN (SELECT m.UserId FROM Memberships m WHERE m.teamId={teamId} AND CHARINDEX('{role}', m.UserRole) > 0);";
 
 
             logger.Information($"Running the following query: {query}");
