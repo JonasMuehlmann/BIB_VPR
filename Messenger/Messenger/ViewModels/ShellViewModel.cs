@@ -10,6 +10,7 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.Views;
+using Messenger.Views.DialogBoxes;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -32,11 +33,15 @@ namespace Messenger.ViewModels
 
         private ICommand _teamManagerCommand;
 
+        private ICommand _refactorTeamCommand;
+
         private string _currentTeamName;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
+
+        public UserViewModel CurrentUser => ChatHubService.CurrentUser;
 
         private Frame MainFrame { get; set; }
 
@@ -82,6 +87,8 @@ namespace Messenger.ViewModels
 
         public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
 
+        public ICommand RefactorTeamCommand => _refactorTeamCommand ?? (_refactorTeamCommand = new RelayCommand(RefactorTeamDetails));
+
         #endregion
 
         public ShellViewModel()
@@ -111,6 +118,24 @@ namespace Messenger.ViewModels
         {
             IdentityService.LoggedOut -= OnLoggedOut;
         }
+
+        private async void RefactorTeamDetails() {
+            if (CurrentUser == null)
+            {
+                return;
+            }
+
+            // Opens the dialog box for the input
+            var dialog = new ChangeTeamDialog();
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            // Create team on confirm
+            if (result == ContentDialogResult.Primary)
+            {
+                await ChatHubService.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
+            }
+        }
+
 
         #region Main Page Navigation
 

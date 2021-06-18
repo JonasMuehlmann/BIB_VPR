@@ -43,7 +43,7 @@ namespace Messenger.Core.Services
                 TeamService.SetTestMode(connectionString);
             }
 
-            LogContext.PushProperty("Method","Initialize");
+            LogContext.PushProperty("Method", "Initialize");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -104,7 +104,7 @@ namespace Messenger.Core.Services
         {
             SignalRService.MessageUpdated += onMessageUpdated;
         }
-      
+
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
@@ -127,7 +127,7 @@ namespace Messenger.Core.Services
                 attachmentFilePaths = Enumerable.Empty<string>();
             }
 
-            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("Method", "SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
@@ -177,7 +177,7 @@ namespace Messenger.Core.Services
         /// <returns>Id of the newly created team on success, null on fail (error will be handled in each service)</returns>
         public async Task<uint?> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
-            LogContext.PushProperty("Method","CreateTeam");
+            LogContext.PushProperty("Method", "CreateTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters creatorId={creatorId}, teamName={teamName}, teamDescription={teamDescription}");
 
@@ -237,13 +237,35 @@ namespace Messenger.Core.Services
             return result;
         }
 
+
+        /// <summary>
+        /// Delete a team alongside it's channels and memberships
+        /// </summary>
+        /// <param name="description">The new team description</param>
+        /// <param name="description">The new team description</param>
+        /// <param name="teamId">The id of the team to delete</param>
+        /// <returns>True if the team was successfully updated, false otherwise</returns>
+        public async Task<bool> UpdateTeam(string teamName, string teamDescription, uint teamId)
+        {
+            LogContext.PushProperty("Method", "UpdateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}, teamId={teamId}");
+
+            var isUpdated = await TeamService.UpdateTeam(teamName, teamDescription, teamId);
+
+            logger.Information($"Return value: {isUpdated}");
+
+            return isUpdated;
+        }
+
         /// <summary>
         /// Add a channel to a spiecified team
         /// </summary>
         /// <param name="teamId">Id of the team to add the channel to</param>
         /// <param name="channelName">Name of the newly created channel</param>
         /// <returns>True if the channel was successfully created, false otherwise</returns>
-        public async Task<bool>CreateChannel(string channelName, uint teamId)
+        public async Task<bool> CreateChannel(string channelName, uint teamId)
         {
             LogContext.PushProperty("Method", "RenameChaannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -273,7 +295,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">Id of the channel to delete</param>
         /// <returns>An awaitable task</returns>
-        public async Task<bool>RemoveChannel(uint channelId)
+        public async Task<bool> RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method", "RemoveChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -296,7 +318,7 @@ namespace Messenger.Core.Services
         /// <param name="channelId">Id of the channel to rename</param>
         /// <param name="channelName">The new name of the channel</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool>RenameChannel(string channelName, uint channelId)
+        public async Task<bool> RenameChannel(string channelName, uint channelId)
         {
             LogContext.PushProperty("Method", "RenameChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -321,7 +343,7 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public async Task<bool> InviteUser(string userId, uint teamId)
         {
-            LogContext.PushProperty("Method","InviteUser");
+            LogContext.PushProperty("Method", "InviteUser");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
@@ -426,7 +448,7 @@ namespace Messenger.Core.Services
         /// <returns>true on valid, false on invalid</returns>
         private bool ValidateMessage(Message message)
         {
-            LogContext.PushProperty("Method","ValidateMessage");
+            LogContext.PushProperty("Method", "ValidateMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters message={message}");
 
@@ -489,7 +511,7 @@ namespace Messenger.Core.Services
         /// <param name="messageId">Id of the message to edit</param>
         /// <param name="newContent">New content of the message</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool>EditMessage(uint messageId,string newContent)
+        public async Task<bool> EditMessage(uint messageId, string newContent)
         {
             LogContext.PushProperty("Method", "EditMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);

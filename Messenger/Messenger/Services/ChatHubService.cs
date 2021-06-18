@@ -227,6 +227,24 @@ namespace Messenger.Services
         }
 
         /// <summary>
+        /// Updates the teamName and teamDescription of the current tem
+        /// </summary>
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task UpdateTeam(string teamName, string teamDescription)
+        {
+            LogContext.PushProperty("Method", "UpdateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
+
+            await MessengerService.UpdateTeam(teamName, teamDescription, (uint)CurrentTeamId);
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
+        }
+
+        /// <summary>
         /// Updates current team id and invokes registered events(TeamSwitched)
         /// </summary>
         /// <param name="teamId">Id of the team to switch to</param>
@@ -276,16 +294,15 @@ namespace Messenger.Services
         /// Removes a user from a specific Team
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="teamId"></param>
         /// <returns>Task to be awaited</returns>
-        public async Task RemoveUser(string userId, uint teamId)
+        public async Task RemoveUser(string userId)
         {
             LogContext.PushProperty("Method", "RemoveUser");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+            logger.Information($"Function called with parameters userId={userId}");
 
-            await MessengerService.RemoveUser(userId, teamId);
+            await MessengerService.RemoveUser(userId, (uint)CurrentTeamId);
         }
 
         /// <summary>

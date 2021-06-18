@@ -113,7 +113,7 @@ namespace Messenger.ViewModels
         {
             if (ChatHubService.CurrentTeamId != null)
             {
-                await ChatHubService.RemoveUser(userId, (uint)ChatHubService.CurrentTeamId);
+                await ChatHubService.RemoveUser(userId);
                 LoadTeamMembersAsync();
             }
         }
