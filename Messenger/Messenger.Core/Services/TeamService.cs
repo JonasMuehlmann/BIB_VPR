@@ -365,7 +365,7 @@ namespace Messenger.Core.Services
                     logger.Information($"Running the following query: {query}");
 
                     var result = SqlHelpers.MapToList(Mapper.MembershipFromDataRow,
-                                                new SqlDataAdapter(query, connection));
+                                                      new SqlDataAdapter(query, connection));
 
                     logger.Information($"Return value: {result}");
 
@@ -464,11 +464,12 @@ namespace Messenger.Core.Services
         public async Task<bool> AddRole(string role, uint teamId)
         {
 
+            // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","AddRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            string query = $"UPDATE Teams SET Roles= Roles + IIF(LEN(Roles) = 0, ',{role}', '{role}');";
+            string query = $"UPDATE Teams SET Roles= Roles + IIF(LEN(Roles) = 0, '{role}', ',{role}');";
 
 
             logger.Information($"Running the following query: {query}");
@@ -488,14 +489,14 @@ namespace Messenger.Core.Services
         /// <returns>True if successful, false otherwise</returns>
         public async Task<bool> RemoveRole(string role, uint teamId)
         {
-
+            // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","RemoveRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
             string query = $"UPDATE Teams SET Roles= Roles + IIF(LEN(Roles) = 1,"
-                                                             + $"'REPLACE(Roles, ',{role}' ,'')',"
-                                                             + $"'REPLACE(Roles, '{role}' ,'')'"
+                                                             + $"'REPLACE(Roles, '{role}' ,'')',"
+                                                             + $"'REPLACE(Roles, ',{role}' ,'')'"
                                                              + ");";
 
 
@@ -563,19 +564,19 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve roles from</param>
         /// <returns>A list of available role names</returns>
-        IList<string> ListRoles(uint teamId)
+        public IList<string> ListRoles(uint teamId)
         {
 
             LogContext.PushProperty("Method","AssignRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameter teamId={teamId}");
 
-            string query = $"SELECT Role FROM Memberships WHERE teamId={teamId};";
+            string query = $"SELECT Roles FROM Teams WHERE teamId={teamId};";
 
 
             logger.Information($"Running the following query: {query}");
 
-            var result = SqlHelpers.MapToList(Convert.ToString, new SqlDataAdapter(query, GetConnection()));
+            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Teams", "Roles");
 
             logger.Information($"Return value: {result}");
 
@@ -588,7 +589,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="role">The role of users to retrieve from the team</param>
         /// <returns></returns>
-        IList<User> GetUsersWithRole(uint teamId, string role)
+        public IList<User> GetUsersWithRole(uint teamId, string role)
         {
 
             LogContext.PushProperty("Method","GetUsersWithRole");
