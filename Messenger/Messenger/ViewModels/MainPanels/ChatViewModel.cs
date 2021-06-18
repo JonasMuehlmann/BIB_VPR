@@ -56,8 +56,23 @@ namespace Messenger.ViewModels
             }
         }
 
+        private Message _replyMessage;
+
+        public Message ReplyMessage
+        {
+            get
+            {
+                return _replyMessage;
+            }
+            set
+            {
+                Set(ref _replyMessage, value);
+            }
+        }
+
         public ICommand SendMessageCommand => new RelayCommand<string>(SendMessage);
         public ICommand OpenFilesCommand => new RelayCommand(SelectFiles);
+        public ICommand ReplyToCommand => new RelayCommand<Message>(ReplyTo);
 
         public ChatViewModel()
         {
@@ -84,7 +99,28 @@ namespace Messenger.ViewModels
 
         private async void SendMessage(string content)
         {
-            await Hub.SendMessage(content, SelectedFiles);
+            uint? parentMessageId = null;
+
+            if (ReplyMessage != null)
+            {
+                parentMessageId = ReplyMessage.Id;
+            }
+
+            // Records input, created timestamp and parent message id
+            var message = new Message()
+            {
+                Content = content,
+                CreationTime = DateTime.Now,
+                ParentMessageId = parentMessageId
+            };
+
+            // User/Team data will be handled in ChatHubService
+            await Hub.SendMessage(message, SelectedFiles);
+        }
+
+        private void ReplyTo(Message message)
+        {
+            ReplyMessage = message;
         }
 
         private void OnMessageReceived(object sender, Message message)
