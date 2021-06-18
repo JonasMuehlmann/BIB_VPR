@@ -309,10 +309,36 @@ namespace Messenger.Tests.MSTest
 
                 var roles = teamService.ListRoles(teamId.Value);
 
-                teamService.logger.Information($"{roles[0]}");
                 Assert.IsTrue(roles.Contains(testName + "Role"));
 
             }).GetAwaiter().GetResult();
         }
+
+    [TestMethod]
+        public void RemoveRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didRemoveRole = await teamService.RemoveRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didRemoveRole);
+
+                var roles = teamService.ListRoles(teamId.Value);
+
+                Assert.IsFalse(roles.Contains(testName + "Role"));
+
+            }).GetAwaiter().GetResult();
+        }
+
     }
 }
