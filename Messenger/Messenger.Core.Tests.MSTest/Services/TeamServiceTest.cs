@@ -376,6 +376,44 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+// TODO: Test unassigning non existent role
+        [TestMethod]
+        public void UnassignRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+
+                Assert.IsNotNull(userId);
+
+                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+
+                Assert.IsTrue(didAddUserToTeam);
+
+                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didAssignRole = await teamService.AssignRole(testName + "Role", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                var didUnassignRole = await teamService.UnAssignRole(testName + "Role", userId, teamId.Value);
+
+                Assert.IsTrue(didUnassignRole);
+
+                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+
+                Assert.AreEqual(roles.Count, 0);
+
+            }).GetAwaiter().GetResult();
+        }
 
     }
 }
