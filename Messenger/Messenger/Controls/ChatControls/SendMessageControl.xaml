@@ -59,6 +59,11 @@
     </UserControl.Resources>
 
     <StackPanel Style="{StaticResource OuterPanel}">
+        <!-- REPLY MESSAGE -->
+        <StackPanel>
+            <TextBlock Text="{x:Bind ReplyMessage.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="{x:Bind ReplyMessage.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
         <!-- ATTACHMENTS -->
         <ListView
             x:Name="AttachmentListView"
