@@ -89,6 +89,9 @@ namespace Messenger.Services
                 CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
             }
 
+            // Broadcast Teams
+            TeamsUpdated?.Invoke(this, CurrentUser.Teams);
+
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
         }
@@ -190,8 +193,17 @@ namespace Messenger.Services
 
                 return null;
             }
-          
-            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+
+            IEnumerable<Team> teams;
+
+            if (CurrentUser.Teams?.Count > 0)
+            {
+                teams = CurrentUser.Teams;
+            }
+            else
+            {
+                teams = await MessengerService.LoadTeams(CurrentUser.Id);
+            }
 
             // Updates the teams list under the current user
             CurrentUser.Teams.Clear();
