@@ -118,17 +118,18 @@ namespace Messenger.Core.Helpers
         /// <summary>
         /// Maps to a list of target type instances
         /// </summary>
+        /// Infers the table name from the mapping type if tableName is not specified
         /// <typeparam name="T">The type to map to</typeparam>
         /// <param name="mapper">Mapper function for the target type</param>
         /// <param name="adapter">Instance of adapter with an opened connection</param>
-        /// <returns></returns>
+        /// <returns>A list of converted table values</returns>
         public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
         {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
-            string tableName = typeof(T).Name + 's';
+            var tableName = typeof(T).Name + 's';
 
             logger.Information($"tableName has been determined as {tableName}");
 
@@ -140,6 +141,42 @@ namespace Messenger.Core.Helpers
             var result = dataSet.Tables[tableName].Rows
                          .Cast<DataRow>()
                          .Select(mapper)
+                         .ToList();
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Maps to a list of target type instances
+        /// </summary>
+        /// Infers the table name from the mapping type if tableName is not specified
+        /// <typeparam name="T">The type to map to</typeparam>
+        /// <param name="mapper">Mapper function for the target type</param>
+        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="tableName">The name of the table to retrieve data from, defaults to null</param>
+        /// <param name="columnName">The name of the column to retrieve data from, defaults to null</param>
+        /// <returns>A list of converted table values</returns>
+        public static IList<T> MapToList<T> (Func<DataRow, string, T> mapper, SqlDataAdapter adapter, string tableName, string columnName)
+        {
+            LogContext.PushProperty("Method","MapToList");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters mapper={mapper.Method.Name}, tableName={tableName}, columnName={columnName}");
+
+             logger.Information($"tableName has been determined as {tableName}");
+
+            var dataSet = new DataSet();
+            adapter.Fill(dataSet, tableName);
+
+            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
+
+
+            Func<DataRow, T> _mapper = (row) => mapper(row, columnName);
+
+            var result = dataSet.Tables[tableName].Rows
+                         .Cast<DataRow>()
+                         .Select(_mapper)
                          .ToList();
 
             logger.Information($"Return value: {result}");
