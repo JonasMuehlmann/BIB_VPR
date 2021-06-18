@@ -376,7 +376,7 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
-// TODO: Test unassigning non existent role
+        // TODO: Test unassigning non existent role
         [TestMethod]
         public void UnassignRole_Test()
         {
@@ -410,7 +410,7 @@ namespace Messenger.Tests.MSTest
 
                 var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
-                Assert.AreEqual(roles.Count, 0);
+                Assert.AreEqual(0, roles.Count);
 
             }).GetAwaiter().GetResult();
         }
