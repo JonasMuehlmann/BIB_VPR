@@ -15,20 +15,37 @@
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="1*" MaxWidth="100"/>
             <ColumnDefinition Width="1*" MaxWidth="100"/>
+            
         </Grid.ColumnDefinitions>
         <SymbolIcon
             Symbol="People"
             />
-        <StackPanel Orientation="Horizontal">
-        <TextBlock
+        <StackPanel Orientation="Horizontal"
+            Grid.Column="1">
+            <TextBlock
             Style="{ThemeResource VCenteredText}"
             FontWeight="Bold"
             Text="{x:Bind CurrentTeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             VerticalAlignment="Center"
-            Grid.Column="1"
             />
 
             <!--Ryan Button with Pen symbol-->
+            <Button Background="Transparent"
+                   VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Margin="10">
+                <SymbolIcon Symbol="Edit"/>
+            </Button>
+
+            <TextBlock
+                Style="{ThemeResource VCenteredText}"
+                VerticalAlignment="Center"
+                Width="120"
+                Height="20"
+                Margin="20"
+                Text="Team Discription"
+                FontSize="14"/>
+            
         </StackPanel>
         <Button
             Padding="0" Margin="0"
