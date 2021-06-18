@@ -83,7 +83,6 @@ namespace Messenger.Core.Services
                 var accounts = await _client.GetAccountsAsync();
                 _authenticationResult = await _client.AcquireTokenInteractive(_graphScopes)
                                                      .WithAccount(accounts.FirstOrDefault())
-                                                     .WithSystemWebViewOptions(new SystemWebViewOptions())
                                                      .ExecuteAsync();
                 if (!IsAuthorized())
                 {

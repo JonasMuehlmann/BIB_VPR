@@ -159,6 +159,18 @@
     <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Navigation\NavigationHeader.xaml.cs">
+      <DependentUpon>NavigationHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Navigation\SideNavigation.xaml.cs">
+      <DependentUpon>SideNavigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NotificationControls\ActionControl.xaml.cs">
+      <DependentUpon>ActionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NotificationControls\InboxControl.xaml.cs">
+      <DependentUpon>InboxControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -170,6 +182,7 @@
     <Compile Include="Models\DragDropStartingData.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\ChatHubService.cs" />
@@ -244,6 +257,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Navigation\NavigationHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Navigation\SideNavigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NotificationControls\ActionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NotificationControls\InboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -88,11 +88,12 @@
     
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer>
+        <ScrollViewer
+            Grid.Row="0">
             <StackPanel
                 Margin="0 0 0 20">
                 <my:TreeView
@@ -110,7 +111,8 @@
         <Button
             x:Name="newChat"
             Style="{StaticResource NewTeamButtonStyle}"
-            Command="{x:Bind ViewModel.CreateTeamCommand}">
+            Command="{x:Bind ViewModel.CreateTeamCommand}"
+            Grid.Row="1">
             <SymbolIcon
                 Symbol="Add"
                 Opacity="0.9"

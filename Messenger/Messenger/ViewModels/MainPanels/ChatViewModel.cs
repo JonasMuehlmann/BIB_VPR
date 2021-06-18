@@ -29,7 +29,6 @@ namespace Messenger.ViewModels
             set
             {
                 _shellViewModel = value;
-                _shellViewModel.ChatName = "ChatName";
             }
         }
 
