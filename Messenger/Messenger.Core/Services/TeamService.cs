@@ -456,14 +456,13 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Add a role to a team with the specified teamId
+        /// Add a role to a team with the specified teamId
         /// </summary>
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <returns>True if successful, false otherwise</returns>
         public async Task<bool> AddRole(string role, uint teamId)
         {
-
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","AddRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -482,7 +481,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Remove a role from a team's available roles
+        /// Remove a role from a team's available roles
         /// </summary>
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
@@ -494,11 +493,15 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            string query = $"UPDATE Teams SET Roles = Roles + IIF(LEN(Roles) = 1,"
-                                                             + $"REPLACE(Roles, '{role}' ,''),"
-                                                             + $"REPLACE(Roles, ',{role}' ,'')"
-                                                             + ");";
-
+            string query = "UPDATE Teams "
+                         +    "SET Roles = IIF(LEN(Roles) = 0, "
+                         +                      "'', "
+                         +                      "IIF(CHARINDEX(',', Roles) = 0, "
+                         +                         $"REPLACE(Roles, '{role}' ,''), "
+                         +                         $"REPLACE(Roles, ',{role}' ,'') "
+                         +                      ") "
+                         +                  ") "
+                         + $"WHERE teamId={teamId};";
 
             logger.Information($"Running the following query: {query}");
 
@@ -510,7 +513,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Assign a team's member a role
+        /// Assign a team's member a role
         /// </summary>
         /// <param name="role">The name of the role to assign to the user</param>
         /// <param name="userId">The id of the user to assign the role to</param>
@@ -535,7 +538,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Unassign a team's member a role
+        /// Unassign a team's member a role
         /// </summary>
         /// <param name="role">The name of the role to unassign from the user</param>
         /// <param name="userId">The id of the user to unassign the role from</param>
@@ -547,11 +550,16 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
-            string query = $"UPDATE Memberships SET UserRole = IIF(LEN(UserRole) = 1,"
-                                                             + $"REPLACE(UserRole, '{role}' ,''),"
-                                                             + $"REPLACE(UserRole, ',{role}' ,'')"
-                                                             + ") "
-                                                             + $"WHERE teamId={teamId} AND userId='{userId}';";
+            string query = "UPDATE Memberships "
+                         +    "SET UserRole = IIF(LEN(UserRole) = 0, "
+                         +                      "'', "
+                         +                      "IIF(CHARINDEX(',', UserRole) = 0, "
+                         +                         $"REPLACE(UserRole, '{role}' ,''), "
+                         +                         $"REPLACE(UserRole, ',{role}' ,'') "
+                         +                      ") "
+                         +                  ") "
+                         + $"WHERE teamId={teamId} "
+                         +     $"AND userId='{userId}';";
 
             logger.Information($"Running the following query: {query}");
 
@@ -563,7 +571,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	List all roles available in a specified team
+        /// List all roles available in a specified team
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve roles from</param>
         /// <returns>A list of available role names</returns>
@@ -587,7 +595,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Retrieve a team's users that have a specified role
+        /// Retrieve a team's users that have a specified role
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="role">The role of users to retrieve from the team</param>
