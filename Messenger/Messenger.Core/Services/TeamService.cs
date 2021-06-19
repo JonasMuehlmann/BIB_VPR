@@ -468,7 +468,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            string query = $"UPDATE Teams SET Roles=Roles + IIF(LEN(Roles) = 0, '{role}', ',{role}');";
+            string query = $"UPDATE Teams SET Roles=Roles + IIF(LEN(Roles) = 0, '{role}', ',{role}') WHERE teamId={teamId};";
 
 
             logger.Information($"Running the following query: {query}");
