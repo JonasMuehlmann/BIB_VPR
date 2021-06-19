@@ -22,23 +22,35 @@ namespace Messenger.Commands.Messenger
             _viewModel = viewModel;
         }
 
+        /// <summary>
+        /// Prevents illegal access outside of the view model
+        /// </summary>
         public bool CanExecute(object parameter)
         {
-            return true;
+            bool canExecute = _viewModel != null
+                && _viewModel.MessageToSend != null;
+
+            return canExecute;
         }
 
+        /// <summary>
+        /// Opens the file open picker and sets the model for AttachmentsBlobName, if any selected
+        /// </summary>
         public async void Execute(object parameter)
         {
             try
             {
                 FileOpenPicker openPicker = new FileOpenPicker();
                 openPicker.FileTypeFilter.Add("*");
+
+                // Opens the file picker
                 IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
 
                 if (files.Count > 0)
                 {
                     var attachmentPaths = files.Select(f => f.Path).ToList();
 
+                    // Sets the models in the view model
                     _viewModel.SelectedFiles = files;
                     _viewModel.MessageToSend.AttachmentsBlobName = attachmentPaths;
                 }
