@@ -15,12 +15,12 @@
     <Page.Resources>
         <DataTemplate x:Key="ChatTemplate" x:DataType="model:Team">
             <my:TreeViewItem
-                AutomationProperties.Name="{Binding Members}"
                 IsExpanded="False">
                 <StackPanel
                     VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
                     Orientation="Horizontal">
-                    <TextBlock Text="{Binding Id}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock Text="{Binding Members[0].DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="DodgerBlue"
