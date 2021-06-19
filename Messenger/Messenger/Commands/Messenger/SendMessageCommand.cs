@@ -56,7 +56,9 @@ namespace Messenger.Commands.Messenger
                 await _hub.SendMessage(message);
 
                 // Reset the view model for MessageToSend
-                _viewModel.MessageToSend = null;
+                _viewModel.ReplyMessage = null;
+                _viewModel.SelectedFiles = null;
+                _viewModel.MessageToSend = new Message();
             }
             catch (Exception e)
             {
