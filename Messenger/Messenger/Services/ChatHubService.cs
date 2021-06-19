@@ -67,12 +67,11 @@ namespace Messenger.Services
         public ChatHubService()
         {
             MessagesByConnectedTeam = new ConcurrentDictionary<uint, List<Message>>();
-            UserDataService.UserDataUpdated += OnLoggedIn;
 
-            Initialize();
+            InitializeAsync();
         }
 
-        private async void Initialize()
+        private async void InitializeAsync()
         {
             CurrentUser = await UserDataService.GetUserAsync();
 
@@ -94,11 +93,6 @@ namespace Messenger.Services
 
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
-        }
-
-        private void OnLoggedIn(object sender, UserViewModel user)
-        {
-            CurrentUser = user;
         }
 
         #region Message
@@ -339,7 +333,11 @@ namespace Messenger.Services
             return await MessengerService.LoadTeamMembers(teamId);
         }
 
-
+        /// <summary>
+        /// Search for users matching the given user name
+        /// </summary>
+        /// <param name="username">User name to search for</param>
+        /// <returns>String of user name with name id</returns>
         public async Task<IList<string>> SearchUser(string username)
         {
             LogContext.PushProperty("Method", "SearchUser");
@@ -355,6 +353,42 @@ namespace Messenger.Services
             }
 
             return await UserService.SearchUser(username);
+        }
+
+        public async Task<User> GetUserWithNameId(string username, uint nameId)
+        {
+            var user = await MessengerService.GetUserWithNameId(username, nameId);
+
+            return user;
+        }
+
+        #endregion
+
+        #region Chat
+
+        /// <summary>
+        /// Creates a new chat and invokes registered events(TeamsUpdated)
+        /// </summary>
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <returns></returns>
+        public async Task StartChat(string userName, uint nameId)
+        {
+            LogContext.PushProperty("Method", "StartChat");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
+
+            uint? chatId = await MessengerService.StartChat(CurrentUser.Id, userName, nameId);
+
+            if (chatId != null)
+            {
+                await SwitchTeam((uint)chatId);
+            }
+
+            var newTeamsList = await GetTeamsList();
+
+            TeamsUpdated?.Invoke(this, newTeamsList);
         }
 
         #endregion
