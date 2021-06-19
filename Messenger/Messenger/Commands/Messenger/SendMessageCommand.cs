@@ -22,38 +22,29 @@ namespace Messenger.Commands.Messenger
 
         public event EventHandler CanExecuteChanged;
 
+        /// <summary>
+        /// Chekcs if the message is valid to be forwarded to the hub
+        /// </summary>
         public bool CanExecute(object parameter)
         {
-            return true;
+            bool canExecute = _viewModel.MessageToSend != null
+                && !string.IsNullOrEmpty(_viewModel.MessageToSend.Content);
+
+            return canExecute;
         }
 
         /// <summary>
         /// Sends a new message to the hub and saves it to database
         /// </summary>
-        /// <param name="parameter">Content of a message</param>
         public async void Execute(object parameter)
         {
             try
             {
-                uint? parentMessageId = null;
-                string content = parameter.ToString();
-
-                // Is message a reply to an another message
-                if (_viewModel.ReplyMessage != null)
-                {
-                    parentMessageId = _viewModel.ReplyMessage.Id;
-                }
-
-                // Records input, created timestamp and parent message id
-                var message = new Message()
-                {
-                    Content = content,
-                    CreationTime = DateTime.Now,
-                    ParentMessageId = parentMessageId
-                };
+                // Records created timestamp
+                _viewModel.MessageToSend.CreationTime = DateTime.Now;
 
                 // User/Team data will be handled in ChatHubService
-                await _hub.SendMessage(message);
+                await _hub.SendMessage(_viewModel.MessageToSend);
 
                 // Reset the view model for MessageToSend
                 _viewModel.ReplyMessage = null;
