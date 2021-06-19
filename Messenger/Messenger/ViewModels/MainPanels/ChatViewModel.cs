@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
@@ -9,18 +7,22 @@ using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Services;
 using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.Xaml.Navigation;
 
 namespace Messenger.ViewModels
 {
     public class ChatViewModel : Observable
     {
+        #region Private
+
         private ObservableCollection<Message> _messages;
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
         private Message _replyMessage;
         private Message _messageToSend;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Loaded messages of the current team/chat
@@ -82,6 +84,10 @@ namespace Messenger.ViewModels
             }
         }
 
+        #endregion
+
+        #region Commands
+
         /// <summary>
         /// Sends the current MessageToSend model
         /// </summary>
@@ -96,6 +102,8 @@ namespace Messenger.ViewModels
         /// Marks the current MessageToSend model as a reply
         /// </summary>
         public ICommand ReplyToCommand => new ReplyToCommand(this);
+
+        #endregion
 
         public ChatViewModel()
         {
