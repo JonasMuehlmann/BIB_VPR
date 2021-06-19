@@ -1,20 +1,23 @@
 ﻿using Messenger.ViewModels;
 using System;
-using Messenger.Core.Services;
 using Messenger.Core.Models;
 using System.Windows.Input;
+using Messenger.Services;
+using Serilog;
+using Messenger.Core.Helpers;
 
 namespace Messenger.Commands.Messenger
 {
     public class SendMessageCommand : ICommand
     {
-        private readonly ChatHubViewModel _viewModel;
-        private readonly MessengerService _messengerService;
+        private readonly ChatViewModel _viewModel;
+        private readonly ChatHubService _hub;
+        private ILogger _logger => GlobalLogger.Instance;
 
-        public SendMessageCommand(ChatHubViewModel viewModel, MessengerService messengerService)
+        public SendMessageCommand(ChatViewModel viewModel, ChatHubService hub)
         {
             _viewModel = viewModel;
-            _messengerService = messengerService;
+            _hub = hub;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -32,22 +35,29 @@ namespace Messenger.Commands.Messenger
         {
             try
             {
-                // creates new message based on the current view model
-                Message message = new Message()
+                uint? parentMessageId = null;
+                string content = parameter.ToString();
+
+                // Is message a reply to an another message
+                if (_viewModel.ReplyMessage != null)
                 {
-                    Content = parameter.ToString(),
+                    parentMessageId = _viewModel.ReplyMessage.Id;
+                }
+
+                // Records input, created timestamp and parent message id
+                var message = new Message()
+                {
+                    Content = content,
                     CreationTime = DateTime.Now,
-                    SenderId = _viewModel.User.Id,
-                    RecipientId = _viewModel.CurrentTeamId
+                    ParentMessageId = parentMessageId
                 };
 
-                await _messengerService.SendMessage(message);
-
-                _viewModel.ErrorMessage = string.Empty;
+                // User/Team data will be handled in ChatHubService
+                await _hub.SendMessage(message);
             }
             catch (Exception e)
             {
-                _viewModel.ErrorMessage = $"Unable to send message. {e.Message}";
+                _logger.Information($"Error while sending message: {e.Message}");
             }
         }
     }
