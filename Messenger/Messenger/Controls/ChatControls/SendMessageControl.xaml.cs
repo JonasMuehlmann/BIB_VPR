@@ -1,4 +1,5 @@
 ﻿using Messenger.Commands.Messenger;
+using Messenger.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,6 +56,15 @@ namespace Messenger.Controls.ChatControls
 
         public static readonly DependencyProperty OpenFilesCommandProperty =
             DependencyProperty.Register("OpenFilesCommand", typeof(ICommand), typeof(SendMessageControl), new PropertyMetadata(null));
+
+        public Message ReplyMessage
+        {
+            get { return (Message)GetValue(ReplyMessageProperty); }
+            set { SetValue(ReplyMessageProperty, value); }
+        }
+
+        public static readonly DependencyProperty ReplyMessageProperty =
+            DependencyProperty.Register("ReplyMessage", typeof(Message), typeof(SendMessageControl), new PropertyMetadata(null));
 
         public SendMessageControl()
         {

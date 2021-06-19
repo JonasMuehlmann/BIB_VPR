@@ -89,6 +89,9 @@ namespace Messenger.Services
                 CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
             }
 
+            // Broadcast Teams
+            TeamsUpdated?.Invoke(this, CurrentUser.Teams);
+
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
         }
@@ -145,26 +148,20 @@ namespace Messenger.Services
         /// Sends a message to the current team
         /// </summary>
         /// <param name="content">Content to be written in the message</param>
-        /// <param name="files">Attachment files to upload</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task SendMessage(string content, IEnumerable<StorageFile> files = null)
+        public async Task SendMessage(Message message)
         {
             if (CurrentUser == null)
             {
+                logger.Information($"Error while fetching user data");
                 return;
             }
 
-            var message = new Message()
-            {
-                Content = content,
-                CreationTime = DateTime.Now,
-                SenderId = CurrentUser.Id,
-                RecipientId = (uint)CurrentTeamId
-            };
+            // Set sender and recipient ids
+            message.SenderId = CurrentUser.Id;
+            message.RecipientId = (uint)CurrentTeamId;
 
-            var attachments = (files != null) ? files.Select(f => f.Path) : null;
-
-            await MessengerService.SendMessage(message, attachments);
+            await MessengerService.SendMessage(message);
         }
 
         #endregion
@@ -190,8 +187,17 @@ namespace Messenger.Services
 
                 return null;
             }
-          
-            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+
+            IEnumerable<Team> teams;
+
+            if (CurrentUser.Teams?.Count > 0)
+            {
+                teams = CurrentUser.Teams;
+            }
+            else
+            {
+                teams = await MessengerService.LoadTeams(CurrentUser.Id);
+            }
 
             // Updates the teams list under the current user
             CurrentUser.Teams.Clear();

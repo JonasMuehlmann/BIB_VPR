@@ -152,6 +152,8 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
+    <Compile Include="Commands\Messenger\OpenFilesCommand.cs" />
+    <Compile Include="Commands\Messenger\ReplyToCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Controls\ChatControls\MessagesListControl.xaml.cs">
       <DependentUpon>MessagesListControl.xaml</DependentUpon>
@@ -170,6 +172,9 @@
     </Compile>
     <Compile Include="Controls\NotificationControls\InboxControl.xaml.cs">
       <DependentUpon>InboxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shared\OnLoading.xaml.cs">
+      <DependentUpon>OnLoading.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
@@ -200,7 +205,6 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
-    <Compile Include="ViewModels\ChatHubViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
@@ -273,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NotificationControls\InboxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shared\OnLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

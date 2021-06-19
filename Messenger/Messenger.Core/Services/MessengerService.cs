@@ -15,8 +15,9 @@ namespace Messenger.Core.Services
     /// </summary>
     public class MessengerService
     {
-        private MessageService MessageService => Singleton<MessageService>.Instance;
+        #region Private
 
+        private MessageService MessageService => Singleton<MessageService>.Instance;
 
         private ChannelService ChannelService => Singleton<ChannelService>.Instance;
 
@@ -28,7 +29,10 @@ namespace Messenger.Core.Services
 
         private FileSharingService FileSharingService => Singleton<FileSharingService>.Instance;
 
+        #endregion
+
         public ILogger logger => GlobalLogger.Instance;
+
         #region Initializers
 
         /// <summary>
@@ -132,19 +136,13 @@ namespace Messenger.Core.Services
         /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
         /// <param name="message">A complete message object to send</param>
-        /// <param name="attachmentFilePaths">An Enumerable of paths of files to attach to the message</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> SendMessage(Message message, IEnumerable<string> attachmentFilePaths = null)
+        public async Task<bool> SendMessage(Message message)
         {
-            if (attachmentFilePaths == null)
-            {
-                attachmentFilePaths = Enumerable.Empty<string>();
-            }
-
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-            logger.Information($"Function called with parameters attachmentFilePaths={string.Join(", ", attachmentFilePaths)} , message={message}");
+            logger.Information($"Function called with parameter message={message}");
 
             // Check the validity of the message
             if (!ValidateMessage(message))
@@ -155,11 +153,12 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            if (attachmentFilePaths != null)
+            // Upload attachments
+            if (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count > 0)
             {
-                foreach (var attachmentFilePath in attachmentFilePaths)
+                foreach (var attachment in message.AttachmentsBlobName)
                 {
-                    message.AttachmentsBlobName.Add(await FileSharingService.Upload(attachmentFilePath));
+                    await FileSharingService.Upload(attachment);
                 }
             }
 
