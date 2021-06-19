@@ -171,6 +171,9 @@
     <Compile Include="Controls\NotificationControls\InboxControl.xaml.cs">
       <DependentUpon>InboxControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shared\OnLoading.xaml.cs">
+      <DependentUpon>OnLoading.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -273,6 +276,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NotificationControls\InboxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shared\OnLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,6 +29,7 @@ namespace Messenger.ViewModels
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
+        private bool _isBusy;
 
         public ShellViewModel ShellViewModel
         {
@@ -66,6 +67,18 @@ namespace Messenger.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                Set(ref _isBusy, value);
+            }
+        }
+
         public UserViewModel CurrentUser => ChatHubService.CurrentUser;
 
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
@@ -74,10 +87,10 @@ namespace Messenger.ViewModels
 
         public TeamNavViewModel()
         {
-            Teams = new ObservableCollection<Team>();
-            UserDataService.UserDataUpdated += OnUserDataUpdated;
-            ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            IsBusy = true;
 
+            Teams = new ObservableCollection<Team>();
+            ChatHubService.TeamsUpdated += OnTeamsUpdated;
             LoadTeamsAsync();
         }
 
@@ -86,23 +99,14 @@ namespace Messenger.ViewModels
         /// </summary>
         private async void LoadTeamsAsync()
         {
-            if (CurrentUser != null)
-            {
-                var user = await UserDataService.GetUserAsync();
+            var user = await UserDataService.GetUserAsync();
 
+            if (user.Teams != null)
+            {
                 ClearAndAddTeamsList(user.Teams);
             }
-        }
 
-        /// <summary>
-        /// Fires on UserDataUpdated(mostly once on log-in) and refreshes the view
-        /// This prevents the view model to read from default user, which is not wanted here
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="user">UserViewModel of the current user</param>
-        private void OnUserDataUpdated(object sender, UserViewModel user)
-        {
-            ClearAndAddTeamsList(user.Teams);
+            IsBusy = false;
         }
 
         /// <summary>
@@ -113,6 +117,8 @@ namespace Messenger.ViewModels
         private void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
         {
             ClearAndAddTeamsList(teams);
+
+            IsBusy = false;
         }
 
         /// <summary>
