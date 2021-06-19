@@ -29,6 +29,8 @@ namespace Messenger.Core.Services
 
         private FileSharingService FileSharingService => Singleton<FileSharingService>.Instance;
 
+        private PrivateChatService PrivateChatService => Singleton<PrivateChatService>.Instance;
+
         #endregion
 
         public ILogger logger => GlobalLogger.Instance;
@@ -235,7 +237,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team to rename</param>
         /// <param name="teamName">The new team name</param>
         /// <returns>True if the team was successfully renamed, false otherwise</returns>
-        public async Task<bool>ChangeTeamName(string teamName, uint teamId)
+        public async Task<bool> ChangeTeamName(string teamName, uint teamId)
         {
             LogContext.PushProperty("Method", "RenameTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -278,7 +280,7 @@ namespace Messenger.Core.Services
         /// <param name="teamDescription">New description of the team</param>
         /// <param name="teamId">Id of the team to rename</param>
         /// <returns>True if the team's description was successfully changed, false otherwise</returns>
-        public async Task<bool>ChangeTeamDescription(string teamDescription, uint teamId)
+        public async Task<bool> ChangeTeamDescription(string teamDescription, uint teamId)
         {
             LogContext.PushProperty("Method", "RenameTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -300,7 +302,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team to add the channel to</param>
         /// <param name="channelName">Name of the newly created channel</param>
         /// <returns>True if the channel was successfully created, false otherwise</returns>
-        public async Task<bool>CreateChannel(string channelName, uint teamId)
+        public async Task<bool> CreateChannel(string channelName, uint teamId)
         {
             LogContext.PushProperty("Method", "RenameChaannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -330,7 +332,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">Id of the channel to delete</param>
         /// <returns>An awaitable task</returns>
-        public async Task<bool>RemoveChannel(uint channelId)
+        public async Task<bool> RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method", "RemoveChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -353,7 +355,7 @@ namespace Messenger.Core.Services
         /// <param name="channelId">Id of the channel to rename</param>
         /// <param name="channelName">The new name of the channel</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool>RenameChannel(string channelName, uint channelId)
+        public async Task<bool> RenameChannel(string channelName, uint channelId)
         {
             LogContext.PushProperty("Method", "RenameChannel");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -368,6 +370,13 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
+        }
+
+        public async Task<User> GetUserWithNameId(string username, uint nameId)
+        {
+            var user = await UserService.GetUser(username, nameId);
+
+            return user.Count > 0 ? user.FirstOrDefault() : null;
         }
 
         /// <summary>
@@ -545,7 +554,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user whos email should be updated</param>
         /// <param name="newEmail">The new email of the user</param>
         /// <returns>True if the email was successfully updated, false otherwise</returns>
-        public async Task<bool>UpdateUserEmail(string userId, string newEmail)
+        public async Task<bool> UpdateUserEmail(string userId, string newEmail)
         {
             LogContext.PushProperty("Method", "UpdateUserEmail");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -568,7 +577,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user whos Bio should be updated</param>
         /// <param name="newBio">The new bio of the user</param>
         /// <returns>True if the bio was successfully updated, false otherwise</returns>
-        public async Task<bool>UpdateUserBio(string userId, string newBio)
+        public async Task<bool> UpdateUserBio(string userId, string newBio)
         {
             LogContext.PushProperty("Method", "UpdateUserBio");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -592,7 +601,7 @@ namespace Messenger.Core.Services
         /// <param name="messageId">Id of the message to edit</param>
         /// <param name="newContent">New content of the message</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool>EditMessage(uint messageId,string newContent)
+        public async Task<bool> EditMessage(uint messageId,string newContent)
         {
             LogContext.PushProperty("Method", "EditMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -614,7 +623,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user whos photo should be updated</param>
         /// <param name="newPhotoURL">The new photo of the user</param>
         /// <returns>True if the photo was successfully updated, false otherwise</returns>
-        public async Task<bool>UpdateUserPhoto(string userId, string newPhotoURL)
+        public async Task<bool> UpdateUserPhoto(string userId, string newPhotoURL)
         {
             LogContext.PushProperty("Method", "UpdateUserPhoto");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -631,6 +640,34 @@ namespace Messenger.Core.Services
 
             return result;
         }
+
+        #endregion
+
+        #region Chat
+
+        public async Task<uint?> StartChat(string userId, string targetUserName, uint targetUserNameId)
+        {
+            var targetUser = await UserService.GetUser(targetUserName, targetUserNameId);
+
+            if (targetUser == null)
+            {
+                return null;
+            }
+
+            var targetUserId = targetUser.FirstOrDefault().Id;
+
+            var chatId = await PrivateChatService.CreatePrivateChat(userId, targetUserId);
+
+            if (chatId == null)
+            {
+                return null;
+            }
+
+            await SignalRService.JoinTeam(chatId.ToString());
+
+            return chatId;
+        }
+
         #endregion
     }
 }
