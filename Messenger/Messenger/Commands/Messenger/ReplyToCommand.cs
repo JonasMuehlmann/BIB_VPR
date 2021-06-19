@@ -25,7 +25,7 @@ namespace Messenger.Commands.Messenger
 
             bool canExecute = message != null
                 && message.Sender != null
-                && message.SenderId != null;
+                && string.IsNullOrEmpty(message.SenderId);
 
             return canExecute;
         }
