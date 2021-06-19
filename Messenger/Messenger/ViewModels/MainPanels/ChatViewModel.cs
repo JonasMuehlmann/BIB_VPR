@@ -16,24 +16,11 @@ namespace Messenger.ViewModels
 {
     public class ChatViewModel : Observable
     {
-        private ShellViewModel _shellViewModel;
         private ObservableCollection<Message> _messages;
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
         private Message _replyMessage;
         private Message _messageToSend;
-
-        public ShellViewModel ShellViewModel
-        {
-            get
-            {
-                return _shellViewModel;
-            }
-            set
-            {
-                _shellViewModel = value;
-            }
-        }
 
         /// <summary>
         /// Loaded messages of the current team/chat
@@ -95,9 +82,20 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Sends the current MessageToSend model
+        /// </summary>
         public ICommand SendMessageCommand => new SendMessageCommand(this, Hub);
+
+        /// <summary>
+        /// Open file open picker for attachments on the message
+        /// </summary>
         public ICommand OpenFilesCommand => new OpenFilesCommand(this);
-        public ICommand ReplyToCommand => new RelayCommand<Message>(ReplyTo);
+
+        /// <summary>
+        /// Marks the current MessageToSend model as a reply
+        /// </summary>
+        public ICommand ReplyToCommand => new ReplyToCommand(this);
 
         public ChatViewModel()
         {
@@ -110,18 +108,32 @@ namespace Messenger.ViewModels
             Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
 
-            // Load teams
             LoadAsync();
         }
 
+        /// <summary>
+        /// Loads messages from the hub
+        /// </summary>
         private async void LoadAsync()
         {
-            if (Hub.CurrentTeamId == null) Hub.CurrentTeamId = 1;
-            UpdateView(await Hub.GetMessages());
+            var messages = await Hub.GetMessages();
+
+            UpdateView(messages);
         }
 
+        #region Helper
+
+        /// <summary>
+        /// Updates the view with the given messages
+        /// </summary>
+        /// <param name="messages">Messages from the hub</param>
         private void UpdateView(IEnumerable<Message> messages)
         {
+            if (messages == null)
+            {
+                return;
+            }
+
             Messages.Clear();
             foreach (var message in messages)
             {
@@ -129,11 +141,15 @@ namespace Messenger.ViewModels
             }
         }
 
-        private void ReplyTo(Message message)
-        {
-            ReplyMessage = message;
-        }
+        #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Fires on MessageReceived of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">Received Message object</param>
         private void OnMessageReceived(object sender, Message message)
         {
             if (message.RecipientId == Hub.CurrentTeamId)
@@ -141,10 +157,17 @@ namespace Messenger.ViewModels
                 Messages.Add(message);
             }
         }
-        
+
+        /// <summary>
+        /// Fires on TeamSwitched of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
         {
             UpdateView(messages);
         }
+
+        #endregion
     }
 }
