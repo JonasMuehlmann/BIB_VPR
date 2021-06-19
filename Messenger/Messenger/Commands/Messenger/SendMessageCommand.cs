@@ -54,6 +54,9 @@ namespace Messenger.Commands.Messenger
 
                 // User/Team data will be handled in ChatHubService
                 await _hub.SendMessage(message);
+
+                // Reset the view model for MessageToSend
+                _viewModel.MessageToSend = null;
             }
             catch (Exception e)
             {
