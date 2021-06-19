@@ -447,7 +447,24 @@ namespace Messenger.Core.Services
         /// <returns>List of teams</returns>
         public async Task<IEnumerable<Team>> LoadTeams(string userId)
         {
-            return await TeamService.GetAllTeamsByUserId(userId);
+            var teams = await TeamService.GetAllTeamsByUserId(userId);
+
+            foreach (var team in teams)
+            {
+                var members = await TeamService.GetAllMembers(team.Id);
+
+                // If it is a private chat, exclude the current user from the members list
+                if (string.IsNullOrEmpty(team.Name))
+                {
+                    team.Members = members.Where(m => m.Id != userId).ToList();
+                }
+                else
+                {
+                    team.Members = members.ToList();
+                }
+            }
+
+            return teams;
         }
 
         /// <summary>
