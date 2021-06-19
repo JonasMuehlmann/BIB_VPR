@@ -25,15 +25,18 @@
                 TextChanged="TextBox_TextChanged"
                 Header="Search user"
                 />
-            <ScrollViewer>
+            <ScrollViewer
+                MaxHeight="250">
                 <ListView
                     ItemsSource="{x:Bind SearchResults, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
-                    SelectedItem="{x:Bind SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    SelectedItem="{x:Bind SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalContentAlignment="Stretch"
+                    HorizontalAlignment="Stretch">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid
-                                MaximumRowsOrColumns="10"
+                            <ItemsStackPanel
+                                HorizontalAlignment="Stretch"
                                 />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
