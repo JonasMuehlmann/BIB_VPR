@@ -16,20 +16,29 @@ namespace Messenger.Commands.Messenger
             _viewModel = viewModel;
         }
 
+        /// <summary>
+        /// Checks the validity of the message the user is replying to
+        /// </summary>
         public bool CanExecute(object parameter)
         {
-            return true;
+            Message message = parameter as Message;
+
+            bool canExecute = message != null
+                && message.Sender != null
+                && message.SenderId != null;
+
+            return canExecute;
         }
 
+        /// <summary>
+        /// Sets the model for ReplyMessage with the given message object
+        /// </summary>
         public void Execute(object parameter)
         {
             Message message = parameter as Message;
 
-            if (message != null)
-            {
-                _viewModel.ReplyMessage = message;
-                _viewModel.MessageToSend.ParentMessageId = message.Id;
-            }
+            _viewModel.ReplyMessage = message;
+            _viewModel.MessageToSend.ParentMessageId = message.Id;
         }
     }
 }
