@@ -75,18 +75,18 @@ namespace Messenger.Services
         {
             CurrentUser = await UserDataService.GetUserAsync();
 
-            // Loads messages for teams the current user has joined
-            if (CurrentUser.Teams.Count > 0)
-            {
-                foreach (Team team in CurrentUser.Teams)
-                {
-                    var messages = await MessengerService.LoadMessages(team.Id);
-                    CreateEntryForCurrentTeam(team.Id, messages);
-                }
+            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
 
-                // Sets the first team as the selected team
-                CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
+            CurrentUser.Teams = teams.ToList();
+
+            foreach (Team team in teams)
+            {
+                var messages = await MessengerService.LoadMessages(team.Id);
+                CreateEntryForCurrentTeam(team.Id, messages);
             }
+
+            // Sets the first team as the selected team
+            CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
 
             // Broadcast Teams
             TeamsUpdated?.Invoke(this, CurrentUser.Teams);
