@@ -145,9 +145,8 @@ namespace Messenger.Services
         /// Sends a message to the current team
         /// </summary>
         /// <param name="content">Content to be written in the message</param>
-        /// <param name="files">Attachment files to upload</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task SendMessage(Message message, IEnumerable<StorageFile> files)
+        public async Task SendMessage(Message message)
         {
             if (CurrentUser == null)
             {
@@ -159,9 +158,7 @@ namespace Messenger.Services
             message.SenderId = CurrentUser.Id;
             message.RecipientId = (uint)CurrentTeamId;
 
-            var attachmentPaths = (files != null) ? files.Select(f => f.Path) : null;
-
-            await MessengerService.SendMessage(message, attachmentPaths);
+            await MessengerService.SendMessage(message);
         }
 
         #endregion
