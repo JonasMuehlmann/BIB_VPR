@@ -101,9 +101,16 @@ namespace Messenger.ViewModels
 
         public ChatViewModel()
         {
+            // Initialize models
             Messages = new ObservableCollection<Message>();
+            ReplyMessage = new Message();
+            MessageToSend = new Message();
+
+            // Register events
             Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
+
+            // Load teams
             LoadAsync();
         }
 
