@@ -5,57 +5,111 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:model="using:Messenger.Core.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:my="using:Microsoft.UI.Xaml.Controls"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Messenger.Behaviors"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:shared="using:Messenger.Controls.Shared"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea"  Margin="{StaticResource MediumLeftMargin}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <ListView x:Name="itemListView"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top"
-                  Height="auto"
-                  Width="auto"
-                  ItemsSource="{x:Bind ViewModel.User.Userlist}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" >
-                            <SymbolIcon Symbol="Comment"/>
-                            <TextBlock  Text="{Binding}" Padding="10"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            </StackPanel>
-            <StackPanel Grid.Row="1"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Bottom">
-                
-            <TextBox x:Uid="Chat_NewChat"
-                     x:Name="SearchField"
-                   Height="30"
-                   HorizontalAlignment="Stretch"
-                   Margin="5"
-                   Foreground="{ThemeResource SystemBaseHighColor}"
-                   Background="{ThemeResource SystemAltLowColor}"
-                   BorderBrush="{ThemeResource SystemAccentColor}"
-                   Visibility="Collapsed" />
-                
-                <Button x:Name="newChat"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Right"
-                   CornerRadius="17"
-                   BorderThickness="0.8"
-                   Background="Transparent"
-                   BorderBrush="Black"
-                   Click="NewChat_Click"
-                   Margin="20 10 10 10">
+    <Page.Resources>
+        <DataTemplate x:Key="ChatTemplate" x:DataType="model:Team">
+            <my:TreeViewItem
+                AutomationProperties.Name="{Binding Members}"
+                IsExpanded="False">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock Text="{Binding Id}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="DodgerBlue"
+                        Opacity=".5">
+                        <Run Text="#" />
+                        <Run Text="{Binding Id}" />
+                    </TextBlock>
+                </StackPanel>
+            </my:TreeViewItem>
+        </DataTemplate>
+        <!--#region STYLES -->
 
-                <SymbolIcon Symbol="Add"
-                        Opacity="0.9"/>
-            </Button>
-        </StackPanel>
+        <Style x:Key="TeamTreeViewStyle" TargetType="my:TreeView">
+            <Setter Property="AllowDrop" Value="False" />
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="CanReorderItems" Value="False" />
+            <Setter Property="CanDragItems" Value="False" />
+            <Setter Property="i:Interaction.Behaviors">
+                <Setter.Value>
+                    <i:BehaviorCollection>
+                        <behaviors:TreeViewCollapseBehavior
+                            x:Name="collapseBehavior" />
+                        <ic:EventTriggerBehavior
+                            EventName="ItemInvoked">
+                            <ic:InvokeCommandAction
+                                Command="{x:Bind ViewModel.SwitchChatCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:BehaviorCollection>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NewChatButtonStyle" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="CornerRadius" Value="17" />
+            <Setter Property="BorderThickness" Value=".8" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Margin" Value="20 10 10 10" />
+        </Style>
+
+        <!--#endregion-->
+    </Page.Resources>
+
+    <!--#region CONTENT-->
+
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- LOADING CONTROL -->
+        <shared:OnLoading
+            Grid.Row="0"
+            LoadingText="Loading Chats.."
+            IsBusy="{x:Bind ViewModel.IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        <!-- CHATS LIST -->
+        <ScrollViewer
+            Grid.Row="0">
+            <StackPanel
+                Margin="0 0 0 20">
+                <my:TreeView
+                    x:Name="treeView"
+                    Style="{StaticResource TeamTreeViewStyle}"
+                    Grid.Row="1"
+                    ItemsSource="{x:Bind
+                        ViewModel.Chats,
+                        UpdateSourceTrigger=PropertyChanged,
+                        Mode=TwoWay}"
+                    ItemTemplate="{StaticResource ChatTemplate}"
+                    />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- CREATE NEW TEAM -->
+        <Button
+            x:Name="newChat"
+            Style="{StaticResource NewChatButtonStyle}"
+            Command="{x:Bind ViewModel.StartChatCommand}"
+            Grid.Row="1">
+            <SymbolIcon
+                Symbol="Add"
+                Opacity="0.9"
+                />
+        </Button>
     </Grid>
+
+    <!--#endregion-->
 </Page>
