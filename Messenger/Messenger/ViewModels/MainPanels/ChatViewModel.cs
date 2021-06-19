@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
@@ -19,6 +20,8 @@ namespace Messenger.ViewModels
         private ObservableCollection<Message> _messages;
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
+        private Message _replyMessage;
+        private Message _messageToSend;
 
         public ShellViewModel ShellViewModel
         {
@@ -32,6 +35,9 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Loaded messages of the current team/chat
+        /// </summary>
         public ObservableCollection<Message> Messages
         {
             get
@@ -45,6 +51,9 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Attachments list to upload with the message
+        /// </summary>
         public IReadOnlyList<StorageFile> SelectedFiles {
             get
             {
@@ -56,8 +65,9 @@ namespace Messenger.ViewModels
             }
         }
 
-        private Message _replyMessage;
-
+        /// <summary>
+        /// Message that the user is replying to
+        /// </summary>
         public Message ReplyMessage
         {
             get
@@ -70,8 +80,23 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ICommand SendMessageCommand => new RelayCommand<string>(SendMessage);
-        public ICommand OpenFilesCommand => new RelayCommand(SelectFiles);
+        /// <summary>
+        /// Message object to be sent
+        /// </summary>
+        public Message MessageToSend
+        {
+            get
+            {
+                return _messageToSend;
+            }
+            set
+            {
+                Set(ref _messageToSend, value);
+            }
+        }
+
+        public ICommand SendMessageCommand => new SendMessageCommand(this, Hub);
+        public ICommand OpenFilesCommand => new OpenFilesCommand(this);
         public ICommand ReplyToCommand => new RelayCommand<Message>(ReplyTo);
 
         public ChatViewModel()
@@ -97,27 +122,6 @@ namespace Messenger.ViewModels
             }
         }
 
-        private async void SendMessage(string content)
-        {
-            uint? parentMessageId = null;
-
-            if (ReplyMessage != null)
-            {
-                parentMessageId = ReplyMessage.Id;
-            }
-
-            // Records input, created timestamp and parent message id
-            var message = new Message()
-            {
-                Content = content,
-                CreationTime = DateTime.Now,
-                ParentMessageId = parentMessageId
-            };
-
-            // User/Team data will be handled in ChatHubService
-            await Hub.SendMessage(message, SelectedFiles);
-        }
-
         private void ReplyTo(Message message)
         {
             ReplyMessage = message;
@@ -128,18 +132,6 @@ namespace Messenger.ViewModels
             if (message.RecipientId == Hub.CurrentTeamId)
             {
                 Messages.Add(message);
-            }
-        }
-
-        private async void SelectFiles() 
-        {
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.FileTypeFilter.Add("*");
-            IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
-
-            if (files.Count > 0)
-            {
-                SelectedFiles = files;
             }
         }
         
