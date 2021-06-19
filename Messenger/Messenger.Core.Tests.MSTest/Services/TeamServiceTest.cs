@@ -415,5 +415,46 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void GetUsersRoles_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+
+                Assert.IsNotNull(userId);
+
+                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+
+                Assert.IsTrue(didAddUserToTeam);
+
+                var didAddRole = await teamService.AddRole(testName + "Role1", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                didAddRole = await teamService.AddRole(testName + "Role2", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didAssignRole = await teamService.AssignRole(testName + "Role1", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                didAssignRole = await teamService.AssignRole(testName + "Role2", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                var roles = teamService. GetUsersRoles(teamId.Value, userId);
+
+                Assert.AreEqual(string.Join(",", roles),$"{testName}Role1,{testName}Role2");
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }
