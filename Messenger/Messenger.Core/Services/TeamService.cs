@@ -599,7 +599,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="role">The role of users to retrieve from the team</param>
-        /// <returns></returns>
+        /// <returns>A list of user objects belonging to users with the specified role</returns>
         public IList<User> GetUsersWithRole(uint teamId, string role)
         {
 
@@ -618,6 +618,32 @@ namespace Messenger.Core.Services
 
             return result;
         }
+
+        /// <summary>
+        /// Retrieve a users roles in a specified team
+        /// </summary>
+        /// <param name="teamId">The id of the team to retrieve users from</param>
+        /// <param name="userId">The id of the user to retrieve roles from</param>
+        /// <returns>The list of role names of the user in the specified team</returns>
+        public IList<string> GetUsersRoles(uint teamId, string userId)
+        {
+
+            LogContext.PushProperty("Method","GetUsersRoles");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}, userId={userId}");
+
+            string query = $"SELECT UserRole FROM Memberships WHERE teamId={teamId} AND userId='{userId}';";
+
+
+            logger.Information($"Running the following query: {query}");
+
+            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Memberships", "UserRole");
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         #endregion
     }
 }
