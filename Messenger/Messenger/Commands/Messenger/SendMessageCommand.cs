@@ -43,10 +43,10 @@ namespace Messenger.Commands.Messenger
                 // Records created timestamp
                 _viewModel.MessageToSend.CreationTime = DateTime.Now;
 
-                // User/Team data will be handled in ChatHubService
+                // Sender/Recipient data will be handled in ChatHubService
                 await _hub.SendMessage(_viewModel.MessageToSend);
 
-                // Reset the view model for MessageToSend
+                // Resets the models in the view model
                 _viewModel.ReplyMessage = null;
                 _viewModel.SelectedFiles = null;
                 _viewModel.MessageToSend = new Message();
