@@ -76,7 +76,7 @@ namespace Messenger.Tests.MSTest
             {
                 using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
                 {
-                    string query = "SET IDENTITY_INSERT Teams ON;INSERT INTO Teams(TeamId, TeamName, TeamDescription, CreationDate, Roles) Values(9999999, 'foo', 'desc', GETDATE(), '');";
+                    string query = "SET IDENTITY_INSERT Teams ON;INSERT INTO Teams(TeamId, TeamName, TeamDescription, CreationDate) Values(9999999, 'foo', 'desc', GETDATE());";
 
                     connection.Open();
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -116,7 +116,15 @@ namespace Messenger.Tests.MSTest
                 {
                     await connection.OpenAsync();
 
-                    string query = "DELETE FROM messages; DELETE FROM memberships;DELETE FROM channels; DELETE FROM teams;";
+                    string query = "DELETE FROM Messages;"
+                                 + "DELETE FROM Memberships;"
+                                 + "DELETE FROM Channels;"
+                                 + "DELETE FROM Role_permissions;"
+                                 + "DELETE FROM User_roles;"
+                                 + "DELETE FROM Team_roles;"
+                                 + "DELETE FROM Teams;"
+                                 + "DELETE FROM Users;";
+
 
                     await SqlHelpers.NonQueryAsync(query, connection);
                 }
@@ -370,8 +378,8 @@ namespace Messenger.Tests.MSTest
 
                 var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
-                Assert.AreEqual(roles.Count, 1);
-                Assert.AreEqual(roles[0].Id, userId);
+                Assert.AreEqual(1, roles.Count);
+                Assert.AreEqual(userId, roles[0].Id);
 
             }).GetAwaiter().GetResult();
         }
@@ -452,7 +460,7 @@ namespace Messenger.Tests.MSTest
 
                 var roles = teamService. GetUsersRoles(teamId.Value, userId);
 
-                Assert.AreEqual(string.Join(",", roles),$"{testName}Role1,{testName}Role2");
+                Assert.AreEqual($"{testName}Role1,{testName}Role2", string.Join(",", roles));
 
             }).GetAwaiter().GetResult();
         }
