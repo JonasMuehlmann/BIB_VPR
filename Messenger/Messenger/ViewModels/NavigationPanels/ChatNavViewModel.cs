@@ -108,7 +108,7 @@ namespace Messenger.ViewModels
         {
             if (teams != null)
             {
-                var chatsList = teams
+                IEnumerable<PrivateChat> chatsList = teams
                     .Where(team => string.IsNullOrEmpty(team.Name))
                     .Select(data => PrivateChat.CreatePrivateChatFromTeamData(data));
 
