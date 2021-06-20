@@ -17,11 +17,16 @@ namespace Messenger.ViewModels
 {
     public class ChatNavViewModel : Observable
     {
+        #region Private
+
         private ObservableCollection<PrivateChat> _chats;
         private bool _isBusy;
-
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+
+        #endregion
+
+        #region Properties
 
         public ObservableCollection<PrivateChat> Chats
         {
@@ -51,6 +56,8 @@ namespace Messenger.ViewModels
 
         public ICommand StartChatCommand => new RelayCommand(StartChatAsync);
 
+        #endregion
+
         public ChatNavViewModel()
         {
             IsBusy = true;
@@ -72,6 +79,11 @@ namespace Messenger.ViewModels
             IsBusy = false;
         }
 
+        #region Commands
+
+        /// <summary>
+        /// Opens the dialog to start a new private chat
+        /// </summary>
         public async void StartChatAsync()
         {
             var dialog = new CreateChatDialog();
@@ -86,12 +98,31 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Returns the search result from the database, invoked in CreateChatDialog
+        /// </summary>
+        /// <param name="username">DisplayName of the user to search for</param>
+        /// <returns>List of search result strings</returns>
         private async Task<IList<string>> SearchUsers(string username)
         {
             var userStrings = await ChatHubService.SearchUser(username);
 
             return userStrings;
         }
+
+        /// <summary>
+        /// Command on chat item click and invokes ChatHubService to load messages of the selected chat
+        /// </summary>
+        /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
+        private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
+        {
+            uint teamId = (args.InvokedItem as Team).Id;
+
+            // Invokes TeamSwitched event
+            await ChatHubService.SwitchTeam(teamId);
+        }
+
+        #endregion
 
         /// <summary>
         /// Fires on TeamsUpdated in ChatHubService and refreshes the view
@@ -109,17 +140,9 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
-        /// Fires on click and invokes ChatHubService to load messages of the selected team
+        /// Filters out private chats from the given teams list and updates the view
         /// </summary>
-        /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
-        private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
-        {
-            uint teamId = (args.InvokedItem as Team).Id;
-
-            // Invokes TeamSwitched event
-            await ChatHubService.SwitchTeam(teamId);
-        }
-
+        /// <param name="teams">List of teams from the ChatHubService</param>
         private void FilterAndUpdateChats(IEnumerable<Team> teams)
         {
             if (teams != null)
