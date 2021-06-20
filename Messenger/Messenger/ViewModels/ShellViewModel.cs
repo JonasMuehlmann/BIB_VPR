@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 using Messenger.Core.Helpers;
@@ -99,9 +100,21 @@ namespace Messenger.ViewModels
         {
             var team = ChatHubService.GetCurrentTeam();
 
-            if (team != null)
+            if (team == null)
             {
-                CurrentTeamName = team.Name != string.Empty ? team.Name : team.Members[0].DisplayName;
+                return;
+            }
+
+            bool isPrivateChat = team.Name == string.Empty;
+
+            if (isPrivateChat)
+            {
+                var partnerName = team.Members.FirstOrDefault().DisplayName;
+                CurrentTeamName = partnerName;
+            }
+            else
+            {
+                CurrentTeamName = team.Name;
             }
         }
 
