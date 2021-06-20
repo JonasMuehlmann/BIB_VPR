@@ -54,6 +54,10 @@ namespace Messenger.Core.Services
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
                                                               Convert.ToUInt32);
 
+                    var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {result});";
+                    logger.Information($"Running the following query: {createEmptyRoleQuery}");
+                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery, connection)}");
+
                     logger.Information($"Return value: {result}");
 
                     return result;
@@ -324,19 +328,24 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
+
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
-                var Team_rolesId = Convert.ToUInt32(Team_rolesIdCmd.ExecuteScalar());
+
+                logger.Information($"Running the following query: {Team_rolesIdQuery}");
+                var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
                 var User_rolesIdQuery = $@"
                                             INSERT INTO User_roles(UserId, Team_rolesId, teamId)
-                                                VALUES({userId}, {Team_rolesId}, {teamId});";
+                                                VALUES('{userId}', {Team_rolesId}, {teamId});";
 
                 var User_rolesIdCmd = new SqlCommand(User_rolesIdQuery, connection);
-                var User_rolesId = Convert.ToUInt32(User_rolesIdCmd.ExecuteScalar());
+                logger.Information($"Running the following query: {User_rolesIdQuery}");
+                var User_rolesId = SqlHelpers.TryConvertDbValue(User_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
-                string query = $@"  INSERT INTO Memberships(UserId, TeamId, UserRole)
-                                        VALUES('{userId}', {teamId}, {User_rolesId});";
+                string query = $@"  INSERT INTO Memberships(UserId, TeamId)
+                                        VALUES('{userId}', {teamId});";
 
 
                 logger.Information($"Running the following query: {query}");
@@ -569,10 +578,12 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
+
                 // TODO: Write function to retrieve id of role in team
-                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
-                var Team_rolesId = Convert.ToUInt32(Team_rolesIdCmd.ExecuteScalar());
+                var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
                 string query = $@"
                                     INSERT INTO User_roles
@@ -603,13 +614,19 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
-                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+                await connection.OpenAsync();
+
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
-                var Team_rolesId = Convert.ToUInt32(Team_rolesIdCmd.ExecuteScalar());
+                var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
                 string query = $@"
-                                    DELTE FROM User_roles
-                                    WHERE Team_rolesId = {Team_rolesId} AND TeamId = {teamId});";
+                                    DELETE FROM
+                                        User_roles
+                                    WHERE
+                                        Team_rolesId = {Team_rolesId}
+                                        AND
+                                        TeamId = {teamId};";
 
                 logger.Information($"Running the following query: {query}");
 
@@ -633,12 +650,12 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameter teamId={teamId}");
 
-            string query = $"SELECT Role FROM Team_roles WHERE teamId={teamId};";
+            string query = $"SELECT Role FROM Team_roles WHERE teamId={teamId} AND Role != '';";
 
 
             logger.Information($"Running the following query: {query}");
 
-            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Teams", "Roles");
+            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Team_roles", "Role");
 
             logger.Information($"Return value: {result}");
 
@@ -658,8 +675,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}, role={role}");
 
-            string query = $@"  SELECT *
-                                    FROM Users s
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Users s
                                 INNER JOIN User_roles ur
                                     ON ur.UserId = s.UserId
                                 INNER JOIN Team_roles tr
@@ -703,12 +723,13 @@ namespace Messenger.Core.Services
                                 WHERE
                                     ur.UserId = '{userId}'
                                     AND
-                                    ur.Team_rolesId = {teamId};";
+                                    ur.TeamId = {teamId}
+                                    AND tr.Role != '';";
 
 
             logger.Information($"Running the following query: {query}");
 
-            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Memberships", "UserRole");
+            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Team_Roles", "Role");
 
             logger.Information($"Return value: {result}");
 

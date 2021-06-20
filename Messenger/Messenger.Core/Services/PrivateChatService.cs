@@ -32,8 +32,8 @@ namespace Messenger.Core.Services
             // Add myself and other user as members
            try
            {
-               string query = $"INSERT INTO Teams (TeamName, CreationDate, ROles) VALUES " +
-                              $"('', GETDATE(), '');"
+               string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
+                              $"('', GETDATE());"
                               + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
 
@@ -51,22 +51,30 @@ namespace Messenger.Core.Services
                     teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
 
                     logger.Information($"teamID has been determined as {teamID}");
+
+                    var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {teamID});";
+                    // FIX: If AddMember() fails, we just created a dangling Team_Roles
+                    // entry
+                    logger.Information($"Running the following query: {createEmptyRoleQuery}");
+
+                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery, connection)}");
+
+                    var success1 = await AddMember(myUserId, teamID.Value);
+                    var success2 = await AddMember(otherUserId, teamID.Value);
+
+                    if (!(success1 && success2))
+                    {
+                        logger.Information("Could not add one or both users(s) to the team");
+                        logger.Information($"Return value: null");
+
+                        return null;
+                    }
+
+
+                    logger.Information($"Return value: {teamID}");
+
+                    return teamID;
                 }
-
-                var success1 = await AddMember(myUserId, teamID.Value);
-                var success2 = await AddMember(otherUserId, teamID.Value);
-
-                if (!(success1 && success2))
-                {
-                    logger.Information("Could not add one or both users(s) to the team");
-                    logger.Information($"Return value: null");
-
-                    return null;
-                }
-
-                logger.Information($"Return value: {teamID}");
-
-                return teamID;
            }
            catch (SqlException e)
            {
