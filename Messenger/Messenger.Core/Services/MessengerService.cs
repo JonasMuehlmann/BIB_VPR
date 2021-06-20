@@ -259,18 +259,26 @@ namespace Messenger.Core.Services
         {
             var teams = await TeamService.GetAllTeamsByUserId(userId);
 
+            // Loads the members list or the private chat partner
+            List<Team> result = new List<Team>();
             foreach (var team in teams)
             {
                 var members = await TeamService.GetAllMembers(team.Id);
 
-                // If it is a private chat, exclude the current user from the members list
+                // If it is a private chat, exclude current user id
                 if (string.IsNullOrEmpty(team.Name))
                 {
-                    team.Members = members.Where(m => m.Id != userId).ToList();
+                    team.Members = members
+                        .Where(m => m.Id != userId)
+                        .ToList();
+
+                    result.Add(team);
                 }
                 else
                 {
                     team.Members = members.ToList();
+
+                    result.Add(team);
                 }
             }
 
