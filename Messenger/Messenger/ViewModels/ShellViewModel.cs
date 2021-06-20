@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Messenger.Core.Helpers;
@@ -10,11 +8,7 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.Views;
-using Windows.UI;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Messenger.ViewModels
 {
