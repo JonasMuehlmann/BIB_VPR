@@ -155,6 +155,7 @@
     <Compile Include="Commands\Messenger\OpenFilesCommand.cs" />
     <Compile Include="Commands\Messenger\ReplyToCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
+    <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Controls\ChatControls\MessagesListControl.xaml.cs">
       <DependentUpon>MessagesListControl.xaml</DependentUpon>
     </Compile>
