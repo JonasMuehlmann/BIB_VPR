@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
 using Messenger.Views.DialogBoxes;
 using Windows.UI.Xaml.Controls;
@@ -16,13 +17,13 @@ namespace Messenger.ViewModels
 {
     public class ChatNavViewModel : Observable
     {
-        private ObservableCollection<Team> _chats;
+        private ObservableCollection<PrivateChat> _chats;
         private bool _isBusy;
 
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
 
-        public ObservableCollection<Team> Chats
+        public ObservableCollection<PrivateChat> Chats
         {
             get
             {
@@ -54,7 +55,7 @@ namespace Messenger.ViewModels
         {
             IsBusy = true;
 
-            Chats = new ObservableCollection<Team>();
+            Chats = new ObservableCollection<PrivateChat>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             LoadAsync();
         }
@@ -123,7 +124,9 @@ namespace Messenger.ViewModels
         {
             if (teams != null)
             {
-                IEnumerable<Team> chatsList = teams.Where(team => string.IsNullOrEmpty(team.Name));
+                var chatsList = teams
+                    .Where(team => string.IsNullOrEmpty(team.Name))
+                    .Select(data => PrivateChat.CreatePrivateChatFromTeamData(data));
 
                 Chats.Clear();
                 foreach (var chat in chatsList)
