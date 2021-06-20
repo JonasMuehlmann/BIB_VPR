@@ -38,6 +38,7 @@ namespace Messenger.Services
         public UserViewModel CurrentUser { get; private set; }
 
         public ILogger logger = GlobalLogger.Instance;
+
         #endregion
 
         #region Event Handlers
@@ -76,6 +77,17 @@ namespace Messenger.Services
             CurrentUser = await UserDataService.GetUserAsync();
 
             var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+
+            teams = teams.Select((team) =>
+            {
+                Task.Run(async () =>
+                {
+                    var members = await MessengerService.LoadTeamMembers(team.Id);
+                    SetMembers(ref team, members);
+                }).GetAwaiter().GetResult();
+
+                return team;
+            });
 
             CurrentUser.Teams = teams.ToList();
 
@@ -174,7 +186,6 @@ namespace Messenger.Services
 
             logger.Information($"Function called");
 
-
             if (CurrentUser == null)
             {
                 logger.Information("Return value: null");
@@ -182,16 +193,18 @@ namespace Messenger.Services
                 return null;
             }
 
-            IEnumerable<Team> teams;
+            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
 
-            if (CurrentUser.Teams?.Count > 0)
+            teams = teams.Select((team) =>
             {
-                teams = CurrentUser.Teams;
-            }
-            else
-            {
-                teams = await MessengerService.LoadTeams(CurrentUser.Id);
-            }
+                Task.Run(async () =>
+                {
+                    var members = await MessengerService.LoadTeamMembers(team.Id);
+                    SetMembers(ref team, members);
+                }).GetAwaiter().GetResult();
+
+                return team;
+            });
 
             // Updates the teams list under the current user
             CurrentUser.Teams.Clear();
@@ -222,6 +235,7 @@ namespace Messenger.Services
             {
                 await SwitchTeam((uint)teamId);
             }
+
             TeamsUpdated?.Invoke(this, await GetTeamsList());
         }
 
@@ -282,8 +296,8 @@ namespace Messenger.Services
         /// <summary>
         /// Removes a user from a specific Team
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="teamId"></param>
+        /// <param name="userId">Id of the user to be removed</param>
+        /// <param name="teamId">Id of the team</param>
         /// <returns>Task to be awaited</returns>
         public async Task RemoveUser(string userId, uint teamId)
         {
@@ -298,9 +312,9 @@ namespace Messenger.Services
         /// <summary>
         /// Returns a user by username and nameId
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="nameId"></param>
-        /// <returns></returns>
+        /// <param name="username">DisplayName of the user</param>
+        /// <param name="nameId">NameId of the user</param>
+        /// <returns>List of User objects</returns>
         public async Task<IList<User>> GetUser(string username, uint nameId)
         {
             LogContext.PushProperty("Method", "RemoveUser");
@@ -321,8 +335,8 @@ namespace Messenger.Services
         /// <summary>
         /// Get all team Members of a team
         /// </summary>
-        /// <param name="teamId"></param>
-        /// <returns></returns>
+        /// <param name="teamId">Id of the team</param>
+        /// <returns>List of User objects</returns>
         public async Task<IEnumerable<User>> GetTeamMembers(uint teamId)
         {
             LogContext.PushProperty("Method", "GetTeamMembers");
@@ -399,9 +413,14 @@ namespace Messenger.Services
                 await SwitchTeam((uint)chatId);
             }
 
-            var newTeamsList = await GetTeamsList();
+            var chat = await MessengerService.GetTeam((uint)chatId);
+            var members = await MessengerService.LoadTeamMembers(chat.Id);
 
-            TeamsUpdated?.Invoke(this, newTeamsList);
+            SetMembers(ref chat, members);
+
+            CurrentUser.Teams.Add(chat);
+
+            TeamsUpdated?.Invoke(this, CurrentUser.Teams);
         }
 
         #endregion
@@ -502,6 +521,26 @@ namespace Messenger.Services
 
                     return list;
                 });
+        }
+
+        /// <summary>
+        /// Determines the type of team and sets the corresponding member models
+        /// </summary>
+        /// <param name="team">Team object to reference to</param>
+        /// <param name="members">List of members to set</param>
+        private void SetMembers(ref Team team, IEnumerable<User> members)
+        {
+            // If it is a private chat, exclude current user id
+            if (string.IsNullOrEmpty(team.Name))
+            {
+                team.Members = members
+                    .Where(m => m.Id != CurrentUser.Id)
+                    .ToList();
+            }
+            else
+            {
+                team.Members = members.ToList();
+            }
         }
 
         #endregion
