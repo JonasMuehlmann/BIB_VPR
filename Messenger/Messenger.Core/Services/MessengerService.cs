@@ -2,7 +2,6 @@
 using Messenger.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
@@ -134,6 +133,18 @@ namespace Messenger.Core.Services
 
         #region Commands
 
+        #region Message
+
+        /// <summary>
+        /// Load all messages of the team
+        /// </summary>
+        /// <param name="teamId">Id of the team to load messsages from</param>
+        /// <returns>List of messages</returns>
+        public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
+        {
+            return await MessageService.RetrieveMessages(teamId);
+        }
+
         /// <summary>
         /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
@@ -181,6 +192,99 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: true");
 
             return true;
+        }
+
+        /// <summary>
+        /// Delete a Message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to delete</param>
+        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        public async Task<bool> DeleteMessage(uint messageId)
+        {
+            LogContext.PushProperty("Method", "DeleteMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            var result = await MessageService.DeleteMessage(messageId);
+
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message);
+
+            var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
+
+            foreach (var blobFileName in blobFileNames)
+            {
+                result &= await FileSharingService.Delete(blobFileName);
+            }
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+        
+        /// <summary>
+        /// Change a messages content and notify other clients
+        /// </summary>
+        /// <param name="messageId">Id of the message to edit</param>
+        /// <param name="newContent">New content of the message</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public async Task<bool> EditMessage(uint messageId, string newContent)
+        {
+            LogContext.PushProperty("Method", "EditMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
+
+            var result = await MessageService.EditMessage(messageId, newContent);
+
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        #endregion
+
+        #region Team
+
+        /// <summary>
+        /// Load all teams the current user has membership of
+        /// </summary>
+        /// <param name="userId">Current user id</param>
+        /// <returns>List of teams</returns>
+        public async Task<IEnumerable<Team>> LoadTeams(string userId)
+        {
+            var teams = await TeamService.GetAllTeamsByUserId(userId);
+
+            foreach (var team in teams)
+            {
+                var members = await TeamService.GetAllMembers(team.Id);
+
+                // If it is a private chat, exclude the current user from the members list
+                if (string.IsNullOrEmpty(team.Name))
+                {
+                    team.Members = members.Where(m => m.Id != userId).ToList();
+                }
+                else
+                {
+                    team.Members = members.ToList();
+                }
+            }
+
+            return teams;
+        }
+
+        /// <summary>
+        /// Gets the team with the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team to retrieve</param>
+        /// <returns>A complete Team object</returns>
+        public async Task<Team> GetTeam(uint teamId)
+        {
+            return await TeamService.GetTeam(teamId);
         }
 
         /// <summary>
@@ -372,6 +476,26 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        #endregion
+
+        #region Member
+
+        /// <summary>
+        /// Load all users in current Team
+        /// </summary>
+        /// <param name="userId">Current user id</param>
+        /// <returns>List of teams</returns>
+        public async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
+        {
+            return await TeamService.GetAllMembers(teamId);
+        }
+
+        /// <summary>
+        /// Returns a user by username and nameId
+        /// </summary>
+        /// <param name="username">DisplayName of the user</param>
+        /// <param name="nameId">NameId of the user</param>
+        /// <returns>A complete User object on success, null if the user was not found</returns>
         public async Task<User> GetUserWithNameId(string username, uint nameId)
         {
             var user = await UserService.GetUser(username, nameId);
@@ -411,7 +535,6 @@ namespace Messenger.Core.Services
             return true;
         }
 
-
         /// <summary>
         /// Removes a user from a specific team
         /// </summary>
@@ -438,132 +561,6 @@ namespace Messenger.Core.Services
 
             logger.Information($"Return value: true");
             return true;
-        }
-
-        /// <summary>
-        /// Load all teams the current user has membership of
-        /// </summary>
-        /// <param name="userId">Current user id</param>
-        /// <returns>List of teams</returns>
-        public async Task<IEnumerable<Team>> LoadTeams(string userId)
-        {
-            var teams = await TeamService.GetAllTeamsByUserId(userId);
-
-            foreach (var team in teams)
-            {
-                var members = await TeamService.GetAllMembers(team.Id);
-
-                // If it is a private chat, exclude the current user from the members list
-                if (string.IsNullOrEmpty(team.Name))
-                {
-                    team.Members = members.Where(m => m.Id != userId).ToList();
-                }
-                else
-                {
-                    team.Members = members.ToList();
-                }
-            }
-
-            return teams;
-        }
-
-        /// <summary>
-        /// Gets the team with the given team id
-        /// </summary>
-        /// <param name="teamId">Id of the team to retrieve</param>
-        /// <returns>A complete Team object</returns>
-        public async Task<Team> GetTeam(uint teamId)
-        {
-            return await TeamService.GetTeam(teamId);
-        }
-
-        /// <summary>
-        /// Load all messages of the team
-        /// </summary>
-        /// <param name="teamId">Id of the team to load messsages from</param>
-        /// <returns>List of messages</returns>
-        public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
-        {
-            return await MessageService.RetrieveMessages(teamId);
-        }
-
-
-        /// <summary>
-        /// Load all users in current Team
-        /// </summary>
-        /// <param name="userId">Current user id</param>
-        /// <returns>List of teams</returns>
-        public async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
-        {
-            return await TeamService.GetAllMembers(teamId);
-        }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Checks the validity of the message to be sent
-        /// </summary>
-        /// <param name="message">A complete message object to be sent</param>
-        /// <returns>true on valid, false on invalid</returns>
-        private bool ValidateMessage(Message message)
-        {
-            LogContext.PushProperty("Method","ValidateMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters message={message}");
-
-            // Sender / Recipient Id
-            if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
-            {
-                logger.Information($"message has been determined invalid");
-                logger.Information($"Return value: false");
-
-                return false;
-            }
-
-            // Content
-            if (string.IsNullOrWhiteSpace(message.Content))
-            {
-                logger.Information($"message has been determined invalid");
-                logger.Information($"Return value: false");
-
-                return false;
-            }
-
-            // Valid
-            logger.Information($"Return value: true");
-
-            return true;
-        }
-
-        /// <summary>
-        /// Delete a Message and notify other clients
-        /// </summary>
-        /// <param name="messageId">The id of the message to delete</param>
-        /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public async Task<bool> DeleteMessage(uint messageId)
-        {
-            LogContext.PushProperty("Method", "DeleteMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}");
-
-            var result = await MessageService.DeleteMessage(messageId);
-
-            var message = await MessageService.GetMessage(messageId);
-
-            await SignalRService.UpdateMessage(message);
-
-            var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
-
-            foreach (var blobFileName in blobFileNames)
-            {
-                result &= await FileSharingService.Delete(blobFileName);
-            }
-
-            logger.Information($"Return value: {result}");
-
-            return result;
         }
 
         /// Update A user's email
@@ -606,29 +603,6 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateUser(user);
 
-
-            logger.Information($"Return value: {result}");
-
-            return result;
-        }
-
-        /// <summary>
-        /// Change a messages content and notify other clients
-        /// </summary>
-        /// <param name="messageId">Id of the message to edit</param>
-        /// <param name="newContent">New content of the message</param>
-        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool> EditMessage(uint messageId,string newContent)
-        {
-            LogContext.PushProperty("Method", "EditMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
-
-            var result = await MessageService.EditMessage(messageId, newContent);
-
-            var message = await MessageService.GetMessage(messageId);
-
-            await SignalRService.UpdateMessage(message);
 
             logger.Information($"Return value: {result}");
 
@@ -683,6 +657,47 @@ namespace Messenger.Core.Services
             await SignalRService.JoinTeam(chatId.ToString());
 
             return chatId;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Checks the validity of the message to be sent
+        /// </summary>
+        /// <param name="message">A complete message object to be sent</param>
+        /// <returns>true on valid, false on invalid</returns>
+        private bool ValidateMessage(Message message)
+        {
+            LogContext.PushProperty("Method","ValidateMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters message={message}");
+
+            // Sender / Recipient Id
+            if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
+            {
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Content
+            if (string.IsNullOrWhiteSpace(message.Content))
+            {
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Valid
+            logger.Information($"Return value: true");
+
+            return true;
         }
 
         #endregion

@@ -203,7 +203,6 @@ namespace Messenger.Services
             return teams;
         }
 
-
         /// <summary>
         /// Creates a new team and invokes registered events(TeamsUpdated)
         /// </summary>
@@ -243,6 +242,10 @@ namespace Messenger.Services
             TeamSwitched?.Invoke(this, await GetMessages());
         }
 
+        /// <summary>
+        /// Returns the current team model from the loaded list
+        /// </summary>
+        /// <returns>A complete team object</returns>
         public Team GetCurrentTeam()
         {
             if (CurrentTeamId == null)
@@ -359,6 +362,12 @@ namespace Messenger.Services
             return await UserService.SearchUser(username);
         }
 
+        /// <summary>
+        /// Get user with a valid user name and name id;
+        /// </summary>
+        /// <param name="username">DisplayName of the user</param>
+        /// <param name="nameId">NameId of the user</param>
+        /// <returns>A complete user object</returns>
         public async Task<User> GetUserWithNameId(string username, uint nameId)
         {
             var user = await MessengerService.GetUserWithNameId(username, nameId);
@@ -368,10 +377,10 @@ namespace Messenger.Services
 
         #endregion
 
-        #region Chat
+        #region PrivateChat
 
         /// <summary>
-        /// Creates a new chat and invokes registered events(TeamsUpdated)
+        /// Start a new chat and invokes registered events(TeamsUpdated)
         /// </summary>
         /// <param name="teamName"></param>
         /// <param name="teamDescription"></param>
