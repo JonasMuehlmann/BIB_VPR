@@ -75,6 +75,9 @@ namespace Messenger.Views.DialogBoxes
                 args.Cancel = true;
                 errorTextBlock.Text = "Please choose the user from the search result.";
             }
+
+            UserName = string.Empty;
+            SearchResults = new ObservableCollection<User>();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
