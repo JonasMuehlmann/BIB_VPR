@@ -240,12 +240,18 @@ namespace Messenger.Tests.MSTest
             string query = "DELETE FROM Messages;"
                          + "DELETE FROM Memberships;"
                          + "DELETE FROM Channels;"
+                         + "DELETE FROM Role_permissions;"
+                         + "DELETE FROM Team_roles;"
+                         + "DELETE FROM User_roles;"
                          + "DELETE FROM Teams;"
                          + "DELETE FROM Users;"
-                         + "DBCC CHECKIDENT (Memberships, RESEED, 0);"
-                         + "DBCC CHECKIDENT (Messages, RESEED, 0);"
-                         + "DBCC CHECKIDENT (Channels, RESEED, 0);"
-                         + "DBCC CHECKIDENT (Teams, RESEED, 0);";
+                         + "DBCC CHECKIDENT (Memberships,      RESEED, 0);"
+                         + "DBCC CHECKIDENT (Messages,         RESEED, 0);"
+                         + "DBCC CHECKIDENT (Channels,         RESEED, 0);"
+                         + "DBCC CHECKIDENT (Team_roles,       RESEED, 0);"
+                         + "DBCC CHECKIDENT (User_roles,       RESEED, 0);"
+                         + "DBCC CHECKIDENT (Role_permissions, RESEED, 0);"
+                         + "DBCC CHECKIDENT (Teams,            RESEED, 0);";
 
             using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
             {
