@@ -101,10 +101,14 @@ namespace Messenger.ViewModels
             OpenTeamsSidePanel();
         }
 
-        private async void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
         {
-            var team = await ChatHubService.GetCurrentTeam();
-            CurrentTeamName = team.Name;
+            var team = ChatHubService.GetCurrentTeam();
+
+            if (team != null)
+            {
+                CurrentTeamName = team.Name != string.Empty ? team.Name : team.Members[0].DisplayName;
+            }
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
@@ -148,17 +152,20 @@ namespace Messenger.ViewModels
         private void SideNavigation(Type page)
         {
             SideFrame.Navigate(page, this);
-            OpenChatMainPage();
             CurrentPageName = page.Name;
-        }
-        private void OpenTeamsSidePanel()
-        {
-            SideNavigation(typeof(TeamNavPage));
+            OpenChatMainPage();
         }
 
-        private void OpenChatSidePanel()
+        private async void OpenTeamsSidePanel()
+        {
+            SideNavigation(typeof(TeamNavPage));
+            await ChatHubService.SwitchTeam(null);
+        }
+
+        private async void OpenChatSidePanel()
         {
             SideNavigation(typeof(ChatNavPage));
+            await ChatHubService.SwitchTeam(null);
         }
 
         private void OpenNotificationSidePanel()
