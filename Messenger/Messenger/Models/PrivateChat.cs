@@ -20,7 +20,12 @@ namespace Messenger.Models
             bool isMemberDataValid = teamData.Members != null
                 && teamData.Members.Count > 0;
 
-            User partner = isMemberDataValid ? teamData.Members.FirstOrDefault() : null;
+            if (!isMemberDataValid)
+            {
+                return null;
+            }
+
+            User partner = teamData.Members.FirstOrDefault();
 
             return new PrivateChat()
             {
