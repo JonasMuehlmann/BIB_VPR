@@ -231,7 +231,7 @@ namespace Messenger.Services
         /// </summary>
         /// <param name="teamId">Id of the team to switch to</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public async Task SwitchTeam(uint teamId)
+        public async Task SwitchTeam(uint? teamId)
         {
             LogContext.PushProperty("Method","SwitchTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -243,14 +243,18 @@ namespace Messenger.Services
             TeamSwitched?.Invoke(this, await GetMessages());
         }
 
-        public async Task<Team> GetCurrentTeam()
+        public Team GetCurrentTeam()
         {
             if (CurrentTeamId == null)
             {
                 return null;
             }
 
-            return await MessengerService.GetTeam((uint)CurrentTeamId);
+            var currentTeam = CurrentUser.Teams
+                .Where(t => t.Id == CurrentTeamId)
+                .FirstOrDefault();
+
+            return currentTeam;
         }
 
         #endregion
