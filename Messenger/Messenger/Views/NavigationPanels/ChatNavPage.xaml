@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:model="using:Messenger.Core.Models"
+    xmlns:model="using:Messenger.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:my="using:Microsoft.UI.Xaml.Controls"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -13,14 +13,22 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="ChatTemplate" x:DataType="model:Team">
+        <DataTemplate x:Key="ChatTemplate" x:DataType="model:PrivateChat">
             <my:TreeViewItem
                 IsExpanded="False">
                 <StackPanel
                     VerticalAlignment="Center"
                     HorizontalAlignment="Stretch"
                     Orientation="Horizontal">
-                    <TextBlock Text="{Binding Members[0].DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock
+                        Text="{Binding
+                            Partner.DisplayName,
+                            Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged,
+                            FallbackValue='',
+                            TargetNullValue=''}"
+                        Margin="{StaticResource XXSmallTopRightBottomMargin}"
+                        />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="DodgerBlue"
