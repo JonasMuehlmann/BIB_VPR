@@ -11,7 +11,6 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
 using Messenger.ViewModels;
-using Windows.Storage;
 
 namespace Messenger.Services
 {

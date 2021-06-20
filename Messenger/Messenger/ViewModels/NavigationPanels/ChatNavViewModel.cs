@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Commands.PrivateChat;
 using Messenger.Core.Helpers;
@@ -10,8 +8,6 @@ using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
-using Messenger.Views.DialogBoxes;
-using Windows.UI.Xaml.Controls;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
