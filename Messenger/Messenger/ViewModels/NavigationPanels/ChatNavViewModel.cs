@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Messenger.Commands.PrivateChat;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
@@ -22,7 +23,6 @@ namespace Messenger.ViewModels
         private ObservableCollection<PrivateChat> _chats;
         private bool _isBusy;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace Messenger.ViewModels
 
         public ICommand SwitchChatCommand => new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(SwitchChat);
 
-        public ICommand StartChatCommand => new RelayCommand(StartChatAsync);
+        public ICommand StartChatCommand => new StartChatCommand(this, ChatHubService);
 
         #endregion
 
@@ -67,47 +67,14 @@ namespace Messenger.ViewModels
             LoadAsync();
         }
 
-        private async void LoadAsync()
+        private void LoadAsync()
         {
-            var user = await UserDataService.GetUserAsync();
-
-            if (user.Teams != null && user.Teams.Count > 0)
+            if (ChatHubService.CurrentUser?.Teams != null
+                && ChatHubService.CurrentUser?.Teams.Count > 0)
             {
-                FilterAndUpdateChats(user.Teams);
+                FilterAndUpdateChats(ChatHubService.CurrentUser.Teams);
+                IsBusy = false;
             }
-
-            IsBusy = false;
-        }
-
-        #region Commands
-
-        /// <summary>
-        /// Opens the dialog to start a new private chat
-        /// </summary>
-        public async void StartChatAsync()
-        {
-            var dialog = new CreateChatDialog();
-            dialog.OnSearch = SearchUsers;
-            ContentDialogResult result = await dialog.ShowAsync();
-
-            if (result == ContentDialogResult.Primary)
-            {
-                var selectedUser = dialog.SelectedUser;
-
-                await ChatHubService.StartChat(selectedUser.DisplayName, selectedUser.NameId);
-            }
-        }
-
-        /// <summary>
-        /// Returns the search result from the database, invoked in CreateChatDialog
-        /// </summary>
-        /// <param name="username">DisplayName of the user to search for</param>
-        /// <returns>List of search result strings</returns>
-        private async Task<IList<string>> SearchUsers(string username)
-        {
-            var userStrings = await ChatHubService.SearchUser(username);
-
-            return userStrings;
         }
 
         /// <summary>
@@ -121,8 +88,6 @@ namespace Messenger.ViewModels
             // Invokes TeamSwitched event
             await ChatHubService.SwitchTeam(teamId);
         }
-
-        #endregion
 
         /// <summary>
         /// Fires on TeamsUpdated in ChatHubService and refreshes the view
