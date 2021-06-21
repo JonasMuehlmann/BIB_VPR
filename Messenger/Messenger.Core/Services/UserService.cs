@@ -369,7 +369,7 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
+                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio, PhotoURL FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
 
                     logger.Information($"Running the following query: {selectQuery}");
 
