@@ -782,6 +782,58 @@ namespace Messenger.Core.Services
             }
         }
 
-                #endregion
+        /// <summary>
+        /// Revoke a permission from a specified team's role
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to revoke a permission from</param>
+        /// <param name="permissions">The permission to revoke from a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method","RevokePermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
+
+
+            using (SqlConnection connection = GetConnection())
+            {
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+                var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
+
+                logger.Information($"Running the following query: {Team_rolesIdQuery}");
+                var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                var PermissionsIdQuery= $@"
+                                            SELECT
+                                                Id
+                                            FROM
+                                                Permissions
+                                            WHERE
+                                                Permissions = '{permission}'";
+
+                var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
+
+                logger.Information($"Running the following query: {PermissionsIdCmd}");
+                var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                string query = $@"
+                                    Delete FROM
+                                        Role_permissions
+                                    WHERE
+                                        PermissionsId = {PermissionsId}
+                                        AND
+                                        Team_rolesId = {Team_rolesId};";
+
+                logger.Information($"Running the following query: {query}");
+                var result = SqlHelpers.NonQueryAsync(query, connection);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+        }
+
+        #endregion
     }
 }
