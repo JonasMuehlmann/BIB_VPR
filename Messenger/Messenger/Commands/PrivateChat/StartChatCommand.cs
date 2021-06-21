@@ -45,7 +45,7 @@ namespace Messenger.Commands.PrivateChat
 
         public bool CanExecute(object parameter)
         {
-            bool canExecute = !_viewModel.IsBusy;
+            bool canExecute = _viewModel != null;
 
             return canExecute;
         }
@@ -74,10 +74,19 @@ namespace Messenger.Commands.PrivateChat
                         .Count() > 0)
                     {
                         _logger.Information($"Cannot start a second private chat with the same user.");
+
+                        await ResultConfirmationDialog
+                            .Set(false, $"You have already started a chat with {selectedUser.DisplayName}.")
+                            .ShowAsync();
+
                         return;
                     }
 
                     await _hub.StartChat(selectedUser.DisplayName, selectedUser.NameId);
+
+                    await ResultConfirmationDialog
+                            .Set(true, $"You have started a new chat with {selectedUser.DisplayName}.")
+                            .ShowAsync();
                 }
             }
             catch (Exception e)
