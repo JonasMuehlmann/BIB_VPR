@@ -761,7 +761,7 @@ namespace Messenger.Core.Services
                                             FROM
                                                 Permissions
                                             WHERE
-                                                Permissions = '{permission}'";
+                                                Permissions = '{Enum.GetName(typeof(Permissions),permission);}'";
 
                 var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
 
@@ -810,7 +810,7 @@ namespace Messenger.Core.Services
                                             FROM
                                                 Permissions
                                             WHERE
-                                                Permissions = '{permission}'";
+                                                Permissions = '{Enum.GetName(typeof(Permissions), permission);}'";
 
                 var PermissionsIdCmd = new SqlCommand(PermissionsIdQuery, connection);
 
@@ -862,7 +862,7 @@ namespace Messenger.Core.Services
                                             FROM
                                                 Permissions
                                             WHERE
-                                                Permissions = '{permission}'";
+                                                Permissions = '{Enum.GetName(typeof(Permissions),permission);}'";
 
                 var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
 
