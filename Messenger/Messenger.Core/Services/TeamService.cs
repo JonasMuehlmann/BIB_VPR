@@ -829,7 +829,7 @@ namespace Messenger.Core.Services
                 var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
-                var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                var PermissionsId = SqlHelpers.TryConvertDbValue(PermissionsIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","GrantPermissions");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -879,7 +879,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
@@ -907,7 +907,7 @@ namespace Messenger.Core.Services
                 var PermissionsIdCmd = new SqlCommand(PermissionsIdQuery, connection);
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
-                var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                var PermissionsId = SqlHelpers.TryConvertDbValue(PermissionsIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","RevokePermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -959,7 +959,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
@@ -988,7 +988,7 @@ namespace Messenger.Core.Services
                 var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
-                var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                var PermissionsId = SqlHelpers.TryConvertDbValue(PermissionsIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","HasPermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
