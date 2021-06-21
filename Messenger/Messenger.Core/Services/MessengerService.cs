@@ -730,6 +730,49 @@ namespace Messenger.Core.Services
 
             return result;
         }
+        /// <summary>
+        /// Grant a team's role a specified permissions and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to grant a permission</param>
+        /// <param name="permissions">The permission to grant a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method", "GrantPermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+
+            var result = await TeamService.GrantPermission(teamId, role, permission);
+
+            await SignalRService.UpdateRolePermission(teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// Revoke a permission from a specified team's role and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to revoke a permission from</param>
+        /// <param name="permissions">The permission to revoke from a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method", "RevokePermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+
+            var result = await TeamService.RevokePermission(teamId, role, permission);
+
+            await SignalRService.UpdateRolePermission(teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
 
         #endregion
     }

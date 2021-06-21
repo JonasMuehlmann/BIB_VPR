@@ -789,7 +789,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to revoke a permission from</param>
         /// <param name="permissions">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method","RevokePermission");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -812,7 +812,7 @@ namespace Messenger.Core.Services
                                             WHERE
                                                 Permissions = '{permission}'";
 
-                var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
+                var PermissionsIdCmd = new SqlCommand(PermissionsIdQuery, connection);
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
@@ -826,7 +826,7 @@ namespace Messenger.Core.Services
                                         Team_rolesId = {Team_rolesId};";
 
                 logger.Information($"Running the following query: {query}");
-                var result = SqlHelpers.NonQueryAsync(query, connection);
+                var result = await SqlHelpers.NonQueryAsync(query, connection);
 
                 logger.Information($"Return value: {result}");
 
@@ -841,7 +841,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to check permission</param>
         /// <param name="permissions">The permission to check for a team's role</param>
         /// <returns>True if the role has the permission, false otherwise</returns>
-        public Task<bool> HasPermission(uint teamId, string role, Permissions permission)
+        public async Task<bool> HasPermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method","HasPermission");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -882,7 +882,7 @@ namespace Messenger.Core.Services
                 var cmd = new SqlCommand(query, connection);
 
                 logger.Information($"Running the following query: {query}");
-                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToBoolean);
+                var result = await SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToBoolean);
 
                 logger.Information($"Return value: {result}");
 

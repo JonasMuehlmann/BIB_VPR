@@ -43,6 +43,7 @@ namespace Messenger.Core.Services
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
         public event EventHandler<uint> TeamRoleUpdated;
+        public event EventHandler<uint> RolePermissionsUpdated;
 
         public SignalRService()
         {
@@ -208,6 +209,11 @@ namespace Messenger.Core.Services
         public async Task UpdateTeamRole(uint teamId)
         {
             await _connection.SendAsync("UpdateTeamRole", teamId);
+        }
+
+        public async Task UpdateRolePermission(uint teamId)
+        {
+            await _connection.SendAsync("UpdateRolePermission", teamId);
         }
 
         #region Helpers
