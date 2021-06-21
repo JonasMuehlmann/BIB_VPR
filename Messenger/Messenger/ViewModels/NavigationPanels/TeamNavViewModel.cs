@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
@@ -91,19 +92,19 @@ namespace Messenger.ViewModels
 
             Teams = new ObservableCollection<Team>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
-            LoadTeamsAsync();
+            LoadAsync();
         }
 
         /// <summary>
         //  Loads the teams list if the user data has already been loaded
         /// </summary>
-        private async void LoadTeamsAsync()
+        private async void LoadAsync()
         {
             var user = await UserDataService.GetUserAsync();
 
             if (user.Teams != null)
             {
-                ClearAndAddTeamsList(user.Teams);
+                FilterAndUpdateTeams(user.Teams);
             }
 
             IsBusy = false;
@@ -116,7 +117,10 @@ namespace Messenger.ViewModels
         /// <param name="teams">Enumerable of teams</param>
         private void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
         {
-            ClearAndAddTeamsList(teams);
+            if (teams != null)
+            {
+                FilterAndUpdateTeams(teams);
+            }
 
             IsBusy = false;
         }
@@ -158,13 +162,18 @@ namespace Messenger.ViewModels
 
         #region Helpers
 
-        private void ClearAndAddTeamsList(IEnumerable<Team> teams)
+        private void FilterAndUpdateTeams(IEnumerable<Team> teams)
         {
-            Teams.Clear();
-
-            foreach (var team in teams)
+            if (teams != null)
             {
-                Teams.Add(team);
+                IEnumerable<Team> teamsList = teams.Where(t => !string.IsNullOrEmpty(t.Name));
+
+                Teams.Clear();
+                
+                foreach (var team in teamsList)
+                {
+                    Teams.Add(team);
+                }
             }
         }
 
