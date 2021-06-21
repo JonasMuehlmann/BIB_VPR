@@ -38,6 +38,25 @@ namespace Messenger.Services
 
         public ILogger logger = GlobalLogger.Instance;
 
+        public ChatHubConnectionState ConnectionState
+        {
+            get
+            {
+                if (CurrentUser == null || CurrentUser?.Teams == null)
+                {
+                    return ChatHubConnectionState.Loading;
+                }
+                else if (CurrentUser.Teams.Count == 0)
+                {
+                    return ChatHubConnectionState.NoDataFound;
+                }
+                else
+                {
+                    return ChatHubConnectionState.LoadedWithData;
+                }
+            }
+        }
+
         #endregion
 
         #region Event Handlers
