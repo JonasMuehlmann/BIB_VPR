@@ -211,6 +211,15 @@ namespace Messenger.Core.Services
             await TeamService.AddRole("admin", teamId.Value);
             await TeamService.AssignRole("admin", creatorId, teamId.Value);
 
+            // Grant admin all permissions
+            bool grantedAllPermissions = true;
+
+            foreach (var permission in Enum.GetValues(typeof(Permissions)).Cast<Permissions>())
+            {
+                grantedAllPermissions &= await TeamService.GrantPermission(teamId.Value, "admin", permission);
+            }
+
+            // Create main channel
             logger.Information($"Added the user identified by {creatorId} to the team identified by {(uint)teamId}");
 
             uint? channelId = await ChannelService.CreateChannel("main", teamId.Value);
