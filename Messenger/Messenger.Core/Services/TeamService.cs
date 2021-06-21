@@ -834,6 +834,62 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Check if a role has a permission in a team
+        /// </summary>
+        /// <param name="teamId">The id of the team check permissions in</param>
+        /// <param name="role">The role of the team to check permission</param>
+        /// <param name="permissions">The permission to check for a team's role</param>
+        /// <returns>True if the role has the permission, false otherwise</returns>
+        public Task<bool> HasPermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method","HasPermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
+
+
+            using (SqlConnection connection = GetConnection())
+            {
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+                var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
+
+                logger.Information($"Running the following query: {Team_rolesIdQuery}");
+                var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                var PermissionsIdQuery= $@"
+                                            SELECT
+                                                Id
+                                            FROM
+                                                Permissions
+                                            WHERE
+                                                Permissions = '{permission}'";
+
+                var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
+
+                logger.Information($"Running the following query: {PermissionsIdCmd}");
+                var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                string query = $@"
+                                    SELECT
+                                        COUNT(*)
+                                    FROM
+                                        Role_permissions
+                                    WHERE
+                                        PermissionsId = {PermissionsId}
+                                        AND
+                                        Team_rolesId = {Team_rolesId};";
+
+                var cmd = new SqlCommand(query, connection);
+
+                logger.Information($"Running the following query: {query}");
+                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToBoolean);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+        }
+
         #endregion
     }
 }
