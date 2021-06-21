@@ -94,8 +94,6 @@ namespace Messenger.ViewModels
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             LoadAsync();
             ChatHubService.TeamUpdated += OnTeamUpdated;
-            //Loads the teams list when the user ist available
-            ChatHubService.UserAvailable += OnUserDataUpdated;
         }
 
         /// <summary>

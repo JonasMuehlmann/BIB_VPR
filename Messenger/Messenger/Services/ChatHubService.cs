@@ -67,11 +67,6 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<Team> TeamUpdated;
 
-        /// <summary>
-        /// Event handler for the user triggered when available
-        /// </summary>
-        public event EventHandler<UserViewModel> UserAvailable;
-
         #endregion
 
         public ChatHubService()
@@ -284,9 +279,18 @@ namespace Messenger.Services
 
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
 
-            await MessengerService.UpdateTeam(teamName, teamDescription, (uint)CurrentTeamId);
+            await MessengerService.ChangeTeamName(teamName, (uint)CurrentTeamId);
+            await MessengerService.ChangeTeamDescription(teamDescription, (uint)CurrentTeamId);
 
-            TeamUpdated?.Invoke(this, await GetCurrentTeam());
+            for (int i = 0; i < CurrentUser.Teams.Count; i++)
+            {
+                if (CurrentUser.Teams[i].Id == (uint)CurrentTeamId) {
+                    CurrentUser.Teams[i].Name = teamName;
+                    CurrentUser.Teams[i].Description = teamDescription;
+                }
+            }
+
+            TeamUpdated?.Invoke(this, GetCurrentTeam());
         }
 
         /// <summary>

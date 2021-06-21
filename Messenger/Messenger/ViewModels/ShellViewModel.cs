@@ -118,12 +118,18 @@ namespace Messenger.ViewModels
             if (isPrivateChat)
             {
                 var partnerName = team.Members.FirstOrDefault().DisplayName;
-                CurrentTeamName = partnerName;
+                CurrentTeam =  new Team() { Name = partnerName , Description = team.Description};
             }
             else
             {
-                CurrentTeamName = team.Name;
+                CurrentTeam = team;
             }
+        }
+
+        private void OnTeamChanged(object sender, Team team)
+        {
+            CurrentTeam = null;
+            CurrentTeam = team;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
@@ -132,7 +138,7 @@ namespace Messenger.ViewModels
         }
 
         private async void RefactorTeamDetails() {
-            if (CurrentUser == null)
+            if (ChatHubService.CurrentUser == null)
             {
                 return;
             }
@@ -141,7 +147,7 @@ namespace Messenger.ViewModels
             var dialog = new ChangeTeamDialog();
 
             //Get the current Team
-            var team = await ChatHubService.GetCurrentTeam();
+            var team = ChatHubService.GetCurrentTeam();
             dialog.TeamName = team.Name;
             dialog.TeamDescription = team.Description;
 
