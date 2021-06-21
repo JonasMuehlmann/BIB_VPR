@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
@@ -30,6 +30,7 @@ namespace Messenger.ViewModels
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
+        private bool _isBusy;
 
         public ShellViewModel ShellViewModel
         {
@@ -67,29 +68,49 @@ namespace Messenger.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                Set(ref _isBusy, value);
+            }
+        }
+
+        public UserViewModel CurrentUser => ChatHubService.CurrentUser;
+
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
 
         public ICommand CreateTeamCommand => _createTeamCommand ?? (_createTeamCommand = new RelayCommand(CreateTeamAsync));
 
         public TeamNavViewModel()
         {
+            IsBusy = true;
+
             Teams = new ObservableCollection<Team>();
-            UserDataService.UserDataUpdated += OnUserDataUpdated;
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            LoadAsync();
             ChatHubService.TeamUpdated += OnTeamUpdated;
             //Loads the teams list when the user ist available
             ChatHubService.UserAvailable += OnUserDataUpdated;
         }
 
         /// <summary>
-        /// Fires on UserDataUpdated(mostly once on log-in) and refreshes the view
-        /// This prevents the view model to read from default user, which is not wanted here
+        //  Loads the teams list if the user data has already been loaded
         /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="user">UserViewModel of the current user</param>
-        private void OnUserDataUpdated(object sender, UserViewModel user)
+        private async void LoadAsync()
         {
-            ClearAndAddTeamsList(user.Teams);
+            var user = await UserDataService.GetUserAsync();
+
+            if (user.Teams != null)
+            {
+                FilterAndUpdateTeams(user.Teams);
+            }
+
+            IsBusy = false;
         }
 
         /// <summary>
@@ -99,7 +120,12 @@ namespace Messenger.ViewModels
         /// <param name="teams">Enumerable of teams</param>
         private void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
         {
-            ClearAndAddTeamsList(teams);
+            if (teams != null)
+            {
+                FilterAndUpdateTeams(teams);
+            }
+
+            IsBusy = false;
         }
 
         /// <summary>
@@ -122,7 +148,7 @@ namespace Messenger.ViewModels
         /// <param name="team">New team to be created with the name and description</param>
         public async void CreateTeamAsync()
         {
-            if (ChatHubService.CurrentUser == null)
+            if (CurrentUser == null)
             {
                 return;
             }
@@ -153,13 +179,18 @@ namespace Messenger.ViewModels
 
         #region Helpers
 
-        private void ClearAndAddTeamsList(IEnumerable<Team> teams)
+        private void FilterAndUpdateTeams(IEnumerable<Team> teams)
         {
-            Teams.Clear();
-
-            foreach (var team in teams)
+            if (teams != null)
             {
-                Teams.Add(team);
+                IEnumerable<Team> teamsList = teams.Where(t => !string.IsNullOrEmpty(t.Name));
+
+                Teams.Clear();
+                
+                foreach (var team in teamsList)
+                {
+                    Teams.Add(team);
+                }
             }
         }
 

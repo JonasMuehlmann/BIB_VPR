@@ -10,6 +10,7 @@
     xmlns:behaviors="using:Messenger.Behaviors"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:model="using:Messenger.Core.Models"
+    xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:templateSelectors="using:Messenger.TemplateSelectors"
     mc:Ignorable="d">
     <Page.Resources>
@@ -41,7 +42,7 @@
             x:Key="TreeViewTemplateSelector"
             TeamTemplate="{StaticResource TeamTemplate}"
             TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
-        <!--#region Styles -->
+        <!--#region STYLES -->
 
         <Style x:Key="TeamTreeViewStyle" TargetType="my:TreeView">
             <Setter Property="AllowDrop" Value="False" />
@@ -84,7 +85,7 @@
         <!--#endregion-->
     </Page.Resources>
 
-    <!--#region Content-->
+    <!--#region CONTENT-->
     
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
         <Grid.RowDefinitions>
@@ -92,6 +93,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- LOADING CONTROL -->
+        <shared:OnLoading
+            Grid.Row="0"
+            LoadingText="Loading Teams.."
+            IsBusy="{x:Bind ViewModel.IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        <!-- TEAMS LIST -->
         <ScrollViewer
             Grid.Row="0">
             <StackPanel
@@ -108,6 +117,8 @@
                     />
             </StackPanel>
         </ScrollViewer>
+
+        <!-- CREATE NEW TEAM -->
         <Button
             x:Name="newChat"
             Style="{StaticResource NewTeamButtonStyle}"

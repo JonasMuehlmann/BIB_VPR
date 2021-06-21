@@ -152,7 +152,10 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
+    <Compile Include="Commands\Messenger\OpenFilesCommand.cs" />
+    <Compile Include="Commands\Messenger\ReplyToCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
+    <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Controls\ChatControls\MessagesListControl.xaml.cs">
       <DependentUpon>MessagesListControl.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,15 @@
     <Compile Include="Controls\Navigation\SideNavigation.xaml.cs">
       <DependentUpon>SideNavigation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NotificationControls\ActionControl.xaml.cs">
+      <DependentUpon>ActionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NotificationControls\InboxControl.xaml.cs">
+      <DependentUpon>InboxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shared\OnLoading.xaml.cs">
+      <DependentUpon>OnLoading.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -176,6 +188,8 @@
     <Compile Include="Models\DragDropStartingData.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\PrivateChat.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\ChatHubService.cs" />
@@ -193,7 +207,6 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
-    <Compile Include="ViewModels\ChatHubViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
@@ -206,6 +219,9 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\DialogBoxes\ChangeTeamDialog.xaml.cs">
       <DependentUpon>ChangeTeamDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\CreateChatDialog.xaml.cs">
+      <DependentUpon>CreateChatDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogBoxes\CreateTeamDialog.xaml.cs">
       <DependentUpon>CreateTeamDialog.xaml</DependentUpon>
@@ -264,6 +280,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NotificationControls\ActionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NotificationControls\InboxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shared\OnLoading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -287,6 +315,10 @@
     <Page Include="Views\DialogBoxes\ChangeTeamDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DialogBoxes\CreateChatDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogBoxes\CreateTeamDialog.xaml">
       <SubType>Designer</SubType>

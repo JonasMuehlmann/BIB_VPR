@@ -99,6 +99,100 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
+
+        /// <summary>
+        /// Change the specified teams name
+        /// </summary>
+        /// <param name="teamId">Id of the team which's should be changed</param>
+        /// <param name="teamName">New name of the team</param>
+        /// <returns>True, if the teams name was changed, false otherwise</returns>
+        public async Task<bool> ChangeTeamName(uint teamId, string teamName)
+        {
+
+            Serilog.Context.LogContext.PushProperty("Method","ChangeTeamName");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamId={teamId}, teamName={teamName}");
+
+            if (teamName == string.Empty)
+            {
+                logger.Information("Return value: false");
+
+                return false;
+            }
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $"UPDATE Teams SET TeamName='{teamName}' WHERE TeamId={teamId};";
+
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+
+
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(),
+                                                          Convert.ToBoolean);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, "Return value: false");
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Change the specified teams description
+        /// </summary>
+        /// <param name="teamId">Id of the team which's should be changed</param>
+        /// <param name="description">New description of the team</param>
+        /// <returns>True, if the teams name was changed, false otherwise</returns>
+        public async Task<bool> ChangeTeamDescription(uint teamId, string description)
+        {
+
+            Serilog.Context.LogContext.PushProperty("Method","ChangeTeamDescription");
+            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamId={teamId}, description={description}");
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $"UPDATE Teams SET TeamDescription='{description}' WHERE TeamId={teamId};";
+
+                    SqlCommand scalarQuery = new SqlCommand(query, connection);
+
+
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(),
+                                                              Convert.ToBoolean);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, "Return value: false");
+
+                return false;
+            }
+        }
+
         /// <summary>
         /// Gets the list of all existing teams.
         /// </summary>

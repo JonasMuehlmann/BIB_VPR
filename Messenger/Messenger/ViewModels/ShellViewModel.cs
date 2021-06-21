@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Messenger.Core.Helpers;
@@ -14,8 +13,6 @@ using Messenger.Views.DialogBoxes;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Messenger.ViewModels
 {
@@ -40,8 +37,6 @@ namespace Messenger.ViewModels
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
-
-        public UserViewModel CurrentUser => ChatHubService.CurrentUser;
 
         private Frame MainFrame { get; set; }
 
@@ -93,7 +88,6 @@ namespace Messenger.ViewModels
 
         public ShellViewModel()
         {
-            //ChatHubService = new ChatHubService();
         }
 
         public void Initialize(Frame frame, Frame sideFrame)
@@ -110,20 +104,26 @@ namespace Messenger.ViewModels
             OpenTeamsSidePanel();
         }
 
-        private async void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
         {
-            var team = await ChatHubService.GetCurrentTeam();
-            CurrentTeam = team;
-        }
+            var team = ChatHubService.GetCurrentTeam();
 
-        /// <summary>
-        /// when somebody changed the team name or the team description
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="team"></param>
-        private void OnTeamChanged(object sender, Team team)
-        {
-            CurrentTeam = team;
+            if (team == null)
+            {
+                return;
+            }
+
+            bool isPrivateChat = team.Name == string.Empty;
+
+            if (isPrivateChat)
+            {
+                var partnerName = team.Members.FirstOrDefault().DisplayName;
+                CurrentTeamName = partnerName;
+            }
+            else
+            {
+                CurrentTeamName = team.Name;
+            }
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
@@ -190,17 +190,20 @@ namespace Messenger.ViewModels
         private void SideNavigation(Type page)
         {
             SideFrame.Navigate(page, this);
-            OpenChatMainPage();
             CurrentPageName = page.Name;
-        }
-        private void OpenTeamsSidePanel()
-        {
-            SideNavigation(typeof(TeamNavPage));
+            OpenChatMainPage();
         }
 
-        private void OpenChatSidePanel()
+        private async void OpenTeamsSidePanel()
+        {
+            SideNavigation(typeof(TeamNavPage));
+            await ChatHubService.SwitchTeam(null);
+        }
+
+        private async void OpenChatSidePanel()
         {
             SideNavigation(typeof(ChatNavPage));
+            await ChatHubService.SwitchTeam(null);
         }
 
         private void OpenNotificationSidePanel()
