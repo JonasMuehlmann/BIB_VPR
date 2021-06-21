@@ -740,7 +740,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to grant a permission</param>
         /// <param name="permissions">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method","GrantPermissions");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -749,7 +749,9 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
-                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role={role} AND TeamId={teamId}";
+                await connection.OpenAsync();
+
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
@@ -761,7 +763,7 @@ namespace Messenger.Core.Services
                                             FROM
                                                 Permissions
                                             WHERE
-                                                Permissions = '{Enum.GetName(typeof(Permissions),permission);}'";
+                                                Permissions = '{Enum.GetName(typeof(Permissions),permission)}'";
 
                 var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
 
@@ -774,7 +776,7 @@ namespace Messenger.Core.Services
                                     VALUES({PermissionsId}, {Team_rolesId});";
 
                 logger.Information($"Running the following query: {query}");
-                var result = SqlHelpers.NonQueryAsync(query, connection);
+                var result = await SqlHelpers.NonQueryAsync(query, connection);
 
                 logger.Information($"Return value: {result}");
 
@@ -798,6 +800,8 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
+
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
 
@@ -810,7 +814,7 @@ namespace Messenger.Core.Services
                                             FROM
                                                 Permissions
                                             WHERE
-                                                Permissions = '{Enum.GetName(typeof(Permissions), permission);}'";
+                                                Permissions = '{Enum.GetName(typeof(Permissions), permission)}'";
 
                 var PermissionsIdCmd = new SqlCommand(PermissionsIdQuery, connection);
 
@@ -850,6 +854,8 @@ namespace Messenger.Core.Services
 
             using (SqlConnection connection = GetConnection())
             {
+                await connection.OpenAsync();
+
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
 
@@ -862,7 +868,7 @@ namespace Messenger.Core.Services
                                             FROM
                                                 Permissions
                                             WHERE
-                                                Permissions = '{Enum.GetName(typeof(Permissions),permission);}'";
+                                                Permissions = '{Enum.GetName(typeof(Permissions),permission)}'";
 
                 var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
 
@@ -882,7 +888,7 @@ namespace Messenger.Core.Services
                 var cmd = new SqlCommand(query, connection);
 
                 logger.Information($"Running the following query: {query}");
-                var result = await SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToBoolean);
+                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToBoolean);
 
                 logger.Information($"Return value: {result}");
 
