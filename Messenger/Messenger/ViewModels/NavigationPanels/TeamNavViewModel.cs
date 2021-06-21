@@ -153,6 +153,10 @@ namespace Messenger.ViewModels
             {
                 await ChatHubService.CreateTeam(dialog.TeamName, dialog.TeamDescription);
             }
+
+            await ResultConfirmationDialog
+                .Set(true, $"You created a new team {dialog.TeamName}")
+                .ShowAsync();
         }
 
         /// <summary>
