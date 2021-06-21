@@ -528,6 +528,8 @@ namespace Messenger.Core.Services
             logger.Information($"Running the following query: {query}");
 
             var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            LogContext.PushProperty("Method","AddRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Return value: {result}");
 
@@ -557,6 +559,8 @@ namespace Messenger.Core.Services
             logger.Information($"Running the following query: {query}");
 
             var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            LogContext.PushProperty("Method","RemoveRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Return value: {result}");
 
@@ -584,6 +588,10 @@ namespace Messenger.Core.Services
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","AssignRole");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (Team_rolesId == null)
                 {
                     logger.Information($"could not retrieve the Team_rolesId");
@@ -599,6 +607,9 @@ namespace Messenger.Core.Services
                 logger.Information($"Running the following query: {query}");
 
                 var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
+                LogContext.PushProperty("Method","AssignRole");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                 logger.Information($"Return value: {result}");
 
@@ -626,6 +637,10 @@ namespace Messenger.Core.Services
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","UnassignRole");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (Team_rolesId == null)
                 {
                     logger.Information($"could not retrieve the Team_rolesId");
@@ -645,6 +660,10 @@ namespace Messenger.Core.Services
                 logger.Information($"Running the following query: {query}");
 
                 var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+
+                LogContext.PushProperty("Method","UnassignRole");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
 
                 logger.Information($"Return value: {result}");
 
@@ -669,6 +688,9 @@ namespace Messenger.Core.Services
             logger.Information($"Running the following query: {query}");
 
             var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Team_roles", "Role");
+
+            LogContext.PushProperty("Method","AssignRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Return value: {result}");
 
@@ -706,6 +728,9 @@ namespace Messenger.Core.Services
 
             var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, GetConnection()));
 
+            LogContext.PushProperty("Method","GetUsersWithRole");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
             logger.Information($"Return value: {result}");
 
             return result;
@@ -742,6 +767,9 @@ namespace Messenger.Core.Services
 
             var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Team_Roles", "Role");
 
+            LogContext.PushProperty("Method","GetUsersRoles");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
             logger.Information($"Return value: {result}");
 
             return result;
@@ -770,6 +798,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","GrantPermissions");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (Team_rolesId == null)
                 {
                     logger.Information($"could not retrieve the Team_rolesId");
@@ -791,6 +823,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","GrantPermissions");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (PermissionsId== null)
                 {
                     logger.Information($"could not retrieve the PermissionsId");
@@ -807,6 +843,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
                 var result = await SqlHelpers.NonQueryAsync(query, connection);
+
+                LogContext.PushProperty("Method","GrantPermissions");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
 
                 logger.Information($"Return value: {result}");
 
@@ -837,6 +877,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","RevokePermission");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (Team_rolesId == null)
                 {
                     logger.Information($"could not retrieve the Team_rolesId");
@@ -857,6 +901,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","RevokePermission");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (PermissionsId == null)
                 {
                     logger.Information($"could not retrieve the PermissionsId");
@@ -875,6 +923,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
                 var result = await SqlHelpers.NonQueryAsync(query, connection);
+
+                LogContext.PushProperty("Method","RevokePermission");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
 
                 logger.Information($"Return value: {result}");
 
@@ -906,6 +958,9 @@ namespace Messenger.Core.Services
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
+                LogContext.PushProperty("Method","HasPermission");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 if (Team_rolesId == null)
                 {
                     logger.Information($"could not retrieve the Team_rolesId");
@@ -927,6 +982,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                LogContext.PushProperty("Method","HasPermission");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
 
                 if (PermissionsId == null)
                 {
@@ -951,6 +1010,10 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
                 var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToBoolean);
+
+                LogContext.PushProperty("Method","HasPermission");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
 
                 logger.Information($"Return value: {result}");
 
