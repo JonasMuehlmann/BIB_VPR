@@ -584,7 +584,14 @@ namespace Messenger.Core.Services
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                if (Team_rolesId == null)
+                {
+                    logger.Information($"could not retrieve the Team_rolesId");
 
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
                 string query = $@"
                                     INSERT INTO User_roles
                                     VALUES('{userId}', {Team_rolesId}, {teamId});";
@@ -619,7 +626,14 @@ namespace Messenger.Core.Services
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
                 var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                if (Team_rolesId == null)
+                {
+                    logger.Information($"could not retrieve the Team_rolesId");
 
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
                 string query = $@"
                                     DELETE FROM
                                         User_roles
@@ -756,6 +770,14 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                if (Team_rolesId == null)
+                {
+                    logger.Information($"could not retrieve the Team_rolesId");
+
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
 
                 var PermissionsIdQuery= $@"
                                             SELECT
@@ -769,6 +791,14 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                if (PermissionsId== null)
+                {
+                    logger.Information($"could not retrieve the PermissionsId");
+
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
 
                 string query = $@"
                                     INSERT INTO
@@ -807,7 +837,14 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                if (Team_rolesId == null)
+                {
+                    logger.Information($"could not retrieve the Team_rolesId");
 
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
                 var PermissionsIdQuery= $@"
                                             SELECT
                                                 Id
@@ -820,7 +857,14 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+                if (PermissionsId == null)
+                {
+                    logger.Information($"could not retrieve the PermissionsId");
 
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
                 string query = $@"
                                     Delete FROM
                                         Role_permissions
@@ -862,6 +906,15 @@ namespace Messenger.Core.Services
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
                 var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
 
+                if (Team_rolesId == null)
+                {
+                    logger.Information($"could not retrieve the Team_rolesId");
+
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
+
                 var PermissionsIdQuery= $@"
                                             SELECT
                                                 Id
@@ -874,6 +927,15 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {PermissionsIdCmd}");
                 var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                if (PermissionsId == null)
+                {
+                    logger.Information($"could not retrieve the PermissionsId");
+
+                    logger.Information("Return value: false");
+
+                    return false;
+                }
 
                 string query = $@"
                                     SELECT
