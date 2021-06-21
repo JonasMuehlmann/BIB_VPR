@@ -733,15 +733,9 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"message has been determined invalid");
                 logger.Information($"Return value: false");
-<<<<<<< HEAD
-            }
-          
-            logger.Information($"Return value: {result}");
-=======
 
                 return false;
             }
->>>>>>> roles
 
             // Valid
             logger.Information($"Return value: true");
@@ -839,14 +833,10 @@ namespace Messenger.Core.Services
             var user = await UserService.GetUser(userId);
 
             await SignalRService.UpdateUser(user);
-          
-            return false;
-            }
 
-            // Valid
-            logger.Information($"Return value: true");
+            logger.Information($"Return value: {result}");
 
-            return true;
+            return result;
         }
         /// <summary>
         /// Grant a team's role a specified permissions and notify other clients
@@ -869,8 +859,7 @@ namespace Messenger.Core.Services
 
             return result;
         }
-<<<<<<< HEAD
-
+        ///
         /// Revoke a permission from a specified team's role and notify other clients
         /// </summary>
         /// <param name="teamId">The id of the team to change permissions in</param>
@@ -891,8 +880,6 @@ namespace Messenger.Core.Services
 
             return result;
         }
-=======
->>>>>>> roles
         #endregion
     }
 }
