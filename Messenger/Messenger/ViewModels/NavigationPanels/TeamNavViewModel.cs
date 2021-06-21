@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
@@ -66,8 +67,6 @@ namespace Messenger.ViewModels
             }
         }
 
-        public UserViewModel CurrentUser => ChatHubService.CurrentUser;
-
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
 
         public ICommand CreateTeamCommand => _createTeamCommand ?? (_createTeamCommand = new RelayCommand(CreateTeamAsync));
@@ -77,21 +76,9 @@ namespace Messenger.ViewModels
             Teams = new ObservableCollection<Team>();
             UserDataService.UserDataUpdated += OnUserDataUpdated;
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
-
-            LoadTeamsAsync();
-        }
-
-        /// <summary>
-        //  Loads the teams list if the user data has already been loaded
-        /// </summary>
-        private async void LoadTeamsAsync()
-        {
-            if (CurrentUser != null)
-            {
-                var user = await UserDataService.GetUserAsync();
-
-                ClearAndAddTeamsList(user.Teams);
-            }
+            ChatHubService.TeamUpdated += OnTeamUpdated;
+            //Loads the teams list when the user ist available
+            ChatHubService.UserAvailable += OnUserDataUpdated;
         }
 
         /// <summary>
@@ -116,12 +103,26 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// Updates the refactored team in the list
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="team">The updated team</param>
+        private void OnTeamUpdated(object sender, Team team)
+        {
+            for (int i = 0; i < Teams.Count; i++) {
+                if (Teams[i].Id == team.Id) {
+                    Teams[i] = team;
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates the team with the given name and description
         /// </summary>
         /// <param name="team">New team to be created with the name and description</param>
         public async void CreateTeamAsync()
         {
-            if (CurrentUser == null)
+            if (ChatHubService.CurrentUser == null)
             {
                 return;
             }

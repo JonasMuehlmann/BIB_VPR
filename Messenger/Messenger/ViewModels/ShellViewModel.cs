@@ -33,9 +33,9 @@ namespace Messenger.ViewModels
 
         private ICommand _teamManagerCommand;
 
-        private ICommand _refactorTeamCommand;
+        private ICommand _changeTeamDetailsCommand;
 
-        private string _currentTeamName;
+        private Team _currentTeam;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
@@ -49,15 +49,15 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        public string CurrentTeamName
+        public Team CurrentTeam
         {
             get
             {
-                return _currentTeamName;
+                return _currentTeam;
             }
             set
             {
-                Set(ref _currentTeamName, value);
+                Set(ref _currentTeam, value);
             }
         }
 
@@ -87,12 +87,13 @@ namespace Messenger.ViewModels
 
         public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
 
-        public ICommand RefactorTeamCommand => _refactorTeamCommand ?? (_refactorTeamCommand = new RelayCommand(RefactorTeamDetails));
+        public ICommand ChangeTeamDetailsCommand => _changeTeamDetailsCommand ?? (_changeTeamDetailsCommand = new RelayCommand(RefactorTeamDetails));
 
         #endregion
 
         public ShellViewModel()
         {
+            //ChatHubService = new ChatHubService();
         }
 
         public void Initialize(Frame frame, Frame sideFrame)
@@ -103,6 +104,7 @@ namespace Messenger.ViewModels
             NavigationService.Frame = frame;
             IdentityService.LoggedOut += OnLoggedOut;
             ChatHubService.TeamSwitched += OnTeamSwitched;
+            ChatHubService.TeamUpdated += OnTeamChanged;
 
             // Sets the default side panel to TeamNavView
             OpenTeamsSidePanel();
@@ -111,7 +113,17 @@ namespace Messenger.ViewModels
         private async void OnTeamSwitched(object sender, IEnumerable<Message> messages)
         {
             var team = await ChatHubService.GetCurrentTeam();
-            CurrentTeamName = team.Name;
+            CurrentTeam = team;
+        }
+
+        /// <summary>
+        /// when somebody changed the team name or the team description
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="team"></param>
+        private void OnTeamChanged(object sender, Team team)
+        {
+            CurrentTeam = team;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
@@ -127,7 +139,14 @@ namespace Messenger.ViewModels
 
             // Opens the dialog box for the input
             var dialog = new ChangeTeamDialog();
+
+            //Get the current Team
+            var team = await ChatHubService.GetCurrentTeam();
+            dialog.TeamName = team.Name;
+            dialog.TeamDescription = team.Description;
+
             ContentDialogResult result = await dialog.ShowAsync();
+
 
             // Create team on confirm
             if (result == ContentDialogResult.Primary)
@@ -147,13 +166,11 @@ namespace Messenger.ViewModels
         private void OpenSetttingsMainPanel()
         {
             MainNavigation(typeof(SettingsPage));
-            CurrentTeamName = string.Empty;
         }
 
         private void OpenChatMainPage()
         {
             MainNavigation(typeof(ChatPage));
-            CurrentTeamName = string.Empty;
         }
 
         private void OpenTeamManagePage()

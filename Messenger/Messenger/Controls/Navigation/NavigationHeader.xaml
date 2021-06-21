@@ -33,17 +33,18 @@
             <Button Background="Transparent"
                    VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
-                    Margin="10">
+                    Margin="10"
+                    Command="{x:Bind ChangeTeamDetailsCommand}">
                 <SymbolIcon Symbol="Edit"/>
             </Button>
 
             <TextBlock
                 Style="{ThemeResource VCenteredText}"
+                Text="{x:Bind CurrentTeamDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Center"
                 Width="120"
                 Height="20"
                 Margin="20"
-                Text="Team Discription"
                 FontSize="14"/>
             
         </StackPanel>

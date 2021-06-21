@@ -79,10 +79,12 @@ namespace Messenger.Core.Services
         }        
         
         /// <summary>
-        /// Deletes a team with a given team id.
+        /// 
         /// </summary>
-        /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <param name="teamId"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateTeam(string teamName, string teamDescription, uint teamId)
         {
 
@@ -92,7 +94,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}, teamId={teamId}");
 
 
-            string query = $"UPDATE Teams SET TeamName={teamName}, TeamDescription={teamDescription};";
+            string query = $"UPDATE Teams SET TeamName='{teamName}', TeamDescription='{teamDescription}' WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }

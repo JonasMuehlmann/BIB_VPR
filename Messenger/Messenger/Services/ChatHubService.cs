@@ -62,6 +62,16 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<IEnumerable<Team>> TeamsUpdated;
 
+        /// <summary>
+        /// Event handler for update at TeamDescription and TeamName
+        /// </summary>
+        public event EventHandler<Team> TeamUpdated;
+
+        /// <summary>
+        /// Event handler for the user triggered when available
+        /// </summary>
+        public event EventHandler<UserViewModel> UserAvailable;
+
         #endregion
 
         public ChatHubService()
@@ -91,6 +101,7 @@ namespace Messenger.Services
 
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
+            UserAvailable?.Invoke(this, CurrentUser);
         }
 
         private void OnLoggedIn(object sender, UserViewModel user)
@@ -241,7 +252,7 @@ namespace Messenger.Services
 
             await MessengerService.UpdateTeam(teamName, teamDescription, (uint)CurrentTeamId);
 
-            TeamsUpdated?.Invoke(this, await GetTeamsList());
+            TeamUpdated?.Invoke(this, await GetCurrentTeam());
         }
 
         /// <summary>
