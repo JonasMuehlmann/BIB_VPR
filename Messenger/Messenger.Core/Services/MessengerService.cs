@@ -231,7 +231,7 @@ namespace Messenger.Core.Services
 
             return result;
         }
-        
+
         /// <summary>
         /// Change a messages content and notify other clients
         /// </summary>
@@ -724,11 +724,14 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"message has been determined invalid");
                 logger.Information($"Return value: false");
-            }
-          
-            logger.Information($"Return value: {result}");
 
-            return result;
+                return false;
+            }
+
+            // Valid
+            logger.Information($"Return value: true");
+
+            return true;
         }
 
         /// <summary>
