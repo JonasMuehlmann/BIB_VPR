@@ -28,30 +28,30 @@ namespace Messenger.Views.DialogBoxes
         public static readonly DependencyProperty ContentTextProperty =
             DependencyProperty.Register("ContentText", typeof(string), typeof(ResultConfirmationDialog), new PropertyMetadata(string.Empty));
 
-        public ResultConfirmationDialog(bool isSuccess, string contentText)
+        private ResultConfirmationDialog()
         {
             InitializeComponent();
+        }
 
-            IsSuccess = isSuccess;
-            ContentText = contentText;
+        public static ResultConfirmationDialog Set(bool isSuccess, string message)
+        {
+            var dialog = new ResultConfirmationDialog();
+
+            dialog.IsSuccess = isSuccess;
+            dialog.ContentText = message;
 
             if (isSuccess)
             {
-                HeaderText.Text = "Success!";
-                HeaderSymbol.Symbol = Symbol.Accept;
-                HeaderSymbol.Foreground = new SolidColorBrush(Colors.MediumSeaGreen);
+                dialog.HeaderText.Text = "Success!";
+                dialog.HeaderSymbol.Symbol = Symbol.Accept;
+                dialog.HeaderSymbol.Foreground = new SolidColorBrush(Colors.MediumSeaGreen);
             }
             else
             {
-                HeaderText.Text = "Something went wrong...";
-                HeaderSymbol.Symbol = Symbol.DisableUpdates;
-                HeaderSymbol.Foreground = new SolidColorBrush(Colors.IndianRed);
+                dialog.HeaderText.Text = "Something went wrong...";
+                dialog.HeaderSymbol.Symbol = Symbol.DisableUpdates;
+                dialog.HeaderSymbol.Foreground = new SolidColorBrush(Colors.IndianRed);
             }
-        }
-
-        public static ResultConfirmationDialog Set(bool isSuccess, string contentText)
-        {
-            var dialog = new ResultConfirmationDialog(isSuccess, contentText);
 
             return dialog;
         }
