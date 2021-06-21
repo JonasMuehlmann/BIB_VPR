@@ -78,9 +78,22 @@ namespace Messenger.Services
 
             logger.Information($"Initializing ChatHubService");
 
+            MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            MessengerService.RegisterListenerForInvites(OnInvitationReceived);
+
             CurrentUser = await UserDataService.GetUserAsync();
 
             var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+
+            if (teams == null || teams.Count() <= 0)
+            {
+                logger.Information($"Event {nameof(TeamsUpdated)} invoked with no team");
+
+                CurrentUser.Teams = new List<Team>();
+                TeamsUpdated?.Invoke(this, null);
+
+                return;
+            }
 
             teams = teams.Select((team) =>
             {
@@ -108,9 +121,6 @@ namespace Messenger.Services
 
             // Broadcast Teams
             TeamsUpdated?.Invoke(this, CurrentUser.Teams);
-
-            MessengerService.RegisterListenerForMessages(OnMessageReceived);
-            MessengerService.RegisterListenerForInvites(OnInvitationReceived);
         }
 
         #region Message
