@@ -1,7 +1,3 @@
-
-using System.Collections.Generic;
-
-
 namespace Messenger.Core.Models
 {
     public enum Permissions

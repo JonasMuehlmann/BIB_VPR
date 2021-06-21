@@ -645,7 +645,6 @@ namespace Messenger.Core.Services
         /// <returns>A list of available role names</returns>
         public IList<string> ListRoles(uint teamId)
         {
-
             LogContext.PushProperty("Method","AssignRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameter teamId={teamId}");
@@ -670,7 +669,6 @@ namespace Messenger.Core.Services
         /// <returns>A list of user objects belonging to users with the specified role</returns>
         public IList<User> GetUsersWithRole(uint teamId, string role)
         {
-
             LogContext.PushProperty("Method","GetUsersWithRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}, role={role}");
@@ -707,7 +705,6 @@ namespace Messenger.Core.Services
         /// <returns>The list of role names of the user in the specified team</returns>
         public IList<string> GetUsersRoles(uint teamId, string userId)
         {
-
             LogContext.PushProperty("Method","GetUsersRoles");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}, userId={userId}");
@@ -736,6 +733,55 @@ namespace Messenger.Core.Services
             return result;
         }
 
-        #endregion
+        /// <summary>
+        /// Grant a team's role a specified permissions
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to grant a permission</param>
+        /// <param name="permissions">The permission to grant a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method","GrantPermissions");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
+
+
+            using (SqlConnection connection = GetConnection())
+            {
+                var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role={role} AND TeamId={teamId}";
+                var Team_rolesIdCmd = new SqlCommand(Team_rolesIdQuery, connection);
+
+                logger.Information($"Running the following query: {Team_rolesIdQuery}");
+                var Team_rolesId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                var PermissionsIdQuery= $@"
+                                            SELECT
+                                                Id
+                                            FROM
+                                                Permissions
+                                            WHERE
+                                                Permissions = '{permission}'";
+
+                var PermissionsIdCmd= new SqlCommand(PermissionsIdQuery, connection);
+
+                logger.Information($"Running the following query: {PermissionsIdCmd}");
+                var PermissionsId = SqlHelpers.TryConvertDbValue(Team_rolesIdCmd.ExecuteScalar(), Convert.ToUInt32);
+
+                string query = $@"
+                                    INSERT INTO
+                                        Role_permissions
+                                    VALUES({PermissionsId}, {Team_rolesId});";
+
+                logger.Information($"Running the following query: {query}");
+                var result = SqlHelpers.NonQueryAsync(query, connection);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+        }
+
+                #endregion
     }
 }
