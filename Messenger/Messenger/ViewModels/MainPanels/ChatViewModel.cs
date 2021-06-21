@@ -137,12 +137,13 @@ namespace Messenger.ViewModels
         /// <param name="messages">Messages from the hub</param>
         private void UpdateView(IEnumerable<Message> messages)
         {
+            Messages.Clear();
+
             if (messages == null)
             {
                 return;
             }
 
-            Messages.Clear();
             foreach (var message in messages)
             {
                 Messages.Add(message);
