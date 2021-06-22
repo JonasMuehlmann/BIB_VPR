@@ -205,7 +205,7 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("UpdateUser",user);
         }
 
-        public async Task UpdateTeamRolse(uint teamId)
+        public async Task UpdateTeamRoles(uint teamId)
         {
             await _connection.SendAsync("UpdateTeamRoles", teamId);
         }
