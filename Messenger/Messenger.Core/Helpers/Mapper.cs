@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Messenger.Core.Services;
 using Messenger.Core.Helpers;
+using System.Linq;
 
 namespace Messenger.Core.Helpers
 {
@@ -104,12 +105,12 @@ namespace Messenger.Core.Helpers
                 TeamId       = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
+
         /// <summary>
         /// Maps to a full Channel model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully-mapped Channel object</returns>
-
         public static Channel ChannelFromDataRow(DataRow row)
         {
             return new Channel()
@@ -118,6 +119,31 @@ namespace Messenger.Core.Helpers
                 ChannelName = SqlHelpers.TryConvertDbValue(row["ChannelName"], Convert.ToString),
                 TeamId      = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
+        }
+        /// <summary>
+        /// Maps to a Dictionary of reactions to their occurrences from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A dictionary mapping reactions to their occurrences</returns>
+        public static Dictionary<string, int> ReactionMappingFromDataRow(SqlDataAdapter adapter)
+        {
+
+            var dataSet = new DataSet();
+            adapter.Fill(dataSet, "Reactions");
+
+            var rows = dataSet.Tables["Reactions"].Rows.Cast<DataRow>().ToList();
+
+            var result = new Dictionary<string, int>();
+
+            foreach (var row in rows)
+            {
+                result.Add(
+                    SqlHelpers.TryConvertDbValue(row["Reaction"], Convert.ToString),
+                    SqlHelpers.TryConvertDbValue(row["Count"], Convert.ToInt32)
+                );
+            }
+
+            return result;
         }
     }
 }
