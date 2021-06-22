@@ -116,7 +116,15 @@ namespace Messenger.Tests.MSTest
                 {
                     await connection.OpenAsync();
 
-                    string query = "DELETE FROM messages; DELETE FROM memberships;DELETE FROM channels; DELETE FROM teams;";
+                    string query = "DELETE FROM Messages;"
+                                 + "DELETE FROM Memberships;"
+                                 + "DELETE FROM Channels;"
+                                 + "DELETE FROM Role_permissions;"
+                                 + "DELETE FROM User_roles;"
+                                 + "DELETE FROM Team_roles;"
+                                 + "DELETE FROM Teams;"
+                                 + "DELETE FROM Users;";
+
 
                     await SqlHelpers.NonQueryAsync(query, connection);
                 }
@@ -288,6 +296,171 @@ namespace Messenger.Tests.MSTest
                 var newDescription = (await teamService.GetTeam(teamId.Value)).Description;
 
                 Assert.AreEqual(newDescription, testName + newSuffix);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void AddRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var roles = teamService.ListRoles(teamId.Value);
+
+                Assert.IsTrue(roles.Contains(testName + "Role"));
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void RemoveRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didRemoveRole = await teamService.RemoveRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didRemoveRole);
+
+                var roles = teamService.ListRoles(teamId.Value);
+
+                Assert.IsFalse(roles.Contains(testName + "Role"));
+
+            }).GetAwaiter().GetResult();
+        }
+
+        // TODO: Test assigning non existent role
+        [TestMethod]
+        public void AssignRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+
+                Assert.IsNotNull(userId);
+
+                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+
+                Assert.IsTrue(didAddUserToTeam);
+
+                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didAssignRole = await teamService.AssignRole(testName + "Role", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+
+                Assert.AreEqual(1, roles.Count);
+                Assert.AreEqual(userId, roles[0].Id);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        // TODO: Test unassigning non existent role
+        [TestMethod]
+        public void UnassignRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+
+                Assert.IsNotNull(userId);
+
+                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+
+                Assert.IsTrue(didAddUserToTeam);
+
+                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didAssignRole = await teamService.AssignRole(testName + "Role", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                var didUnassignRole = await teamService.UnAssignRole(testName + "Role", userId, teamId.Value);
+
+                Assert.IsTrue(didUnassignRole);
+
+                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+
+                Assert.AreEqual(0, roles.Count);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void GetUsersRoles_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+
+                Assert.IsNotNull(teamId);
+
+                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+
+                Assert.IsNotNull(userId);
+
+                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+
+                Assert.IsTrue(didAddUserToTeam);
+
+                var didAddRole = await teamService.AddRole(testName + "Role1", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                didAddRole = await teamService.AddRole(testName + "Role2", teamId.Value);
+
+                Assert.IsTrue(didAddRole);
+
+                var didAssignRole = await teamService.AssignRole(testName + "Role1", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                didAssignRole = await teamService.AssignRole(testName + "Role2", userId, teamId.Value);
+
+                Assert.IsTrue(didAssignRole);
+
+                var roles = teamService. GetUsersRoles(teamId.Value, userId);
+
+                Assert.AreEqual($"{testName}Role1,{testName}Role2", string.Join(",", roles));
 
             }).GetAwaiter().GetResult();
         }

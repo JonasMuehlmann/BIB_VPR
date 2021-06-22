@@ -37,14 +37,12 @@ namespace Messenger.Core.Services
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>
         public event EventHandler<Message> MessageReceived;
-
         public event EventHandler<uint> InviteReceived;
-
-
         public event EventHandler<Team> TeamUpdated;
         public event EventHandler<Message> MessageUpdated;
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
+        public event EventHandler<uint> TeamRolesUpdated;
 
         public SignalRService()
         {
@@ -62,6 +60,7 @@ namespace Messenger.Core.Services
             _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(this, message));
             _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
             _connection.On<User>("UserUpdated", (user) => UserUpdated?.Invoke(this, user));
+            _connection.On<uint>("TeamRolesUpdated", (teamId) => TeamRolesUpdated?.Invoke(this, teamId));
         }
 
         /// <summary>
@@ -204,6 +203,11 @@ namespace Messenger.Core.Services
         public async Task UpdateUser(User user)
         {
             await _connection.SendAsync("UpdateUser",user);
+        }
+
+        public async Task UpdateTeamRoles(uint teamId)
+        {
+            await _connection.SendAsync("UpdateTeamRoles", teamId);
         }
 
         #region Helpers

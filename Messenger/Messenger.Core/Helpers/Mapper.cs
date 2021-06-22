@@ -155,5 +155,10 @@ namespace Messenger.Core.Helpers
 
             return result;
         }
+
+        public static string StringFromDataRow(DataRow row, string columnName)
+        {
+            return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
+        }
     }
 }
