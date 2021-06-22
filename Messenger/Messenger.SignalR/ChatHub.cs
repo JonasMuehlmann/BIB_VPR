@@ -116,7 +116,7 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task UpdateTeamRoles(uint teamId)
         {
-            await Clients.Group(teamId.ToString()).SendAsync("RolesUpdated", teamId);
+            await Clients.Group(teamId.ToString()).SendAsync("TeamRolesUpdated", teamId);
         }
     }
 }

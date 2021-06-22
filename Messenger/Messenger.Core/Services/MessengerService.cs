@@ -748,7 +748,7 @@ namespace Messenger.Core.Services
 
             var result = await TeamService.AddRole(role, teamId);
 
-            await SignalRService.UpdateTeamRole(teamId);
+            await SignalRService.UpdateTeamRoles(teamId);
 
 
             logger.Information($"Return value: {result}");
@@ -775,7 +775,7 @@ namespace Messenger.Core.Services
                result &= await TeamService.UnAssignRole(role, user.Id, teamId) ;
             }
 
-            await SignalRService.UpdateTeamRole(teamId);
+            await SignalRService.UpdateTeamRoles(teamId);
 
             // Valid
             logger.Information($"Return value: true");
