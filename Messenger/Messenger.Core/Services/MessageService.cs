@@ -320,7 +320,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            string query = $@"";
+            string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
             using (SqlConnection connection = GetConnection())
             {
                 await connection.OpenAsync();
