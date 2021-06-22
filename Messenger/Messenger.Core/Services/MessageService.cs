@@ -316,25 +316,25 @@ namespace Messenger.Core.Services
         /// <returns>The reactions mapped to their number of occurrences</returns>
         public async Task<Dictionary<string, int>> RetrieveReactions(uint messageId)
         {
+            LogContext.PushProperty("Method","Retrieve reactions");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $@"";
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                var result = Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
+
                 LogContext.PushProperty("Method","Retrieve reactions");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}");
 
-                string query = $@"";
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
+                logger.Information($"Return value: {result}");
 
-                    var result = Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
-
-                    LogContext.PushProperty("Method","Retrieve reactions");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-                    logger.Information($"Function called with parameters messageId={messageId}");
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
+                return result;
+            }
         }
     }
 }
