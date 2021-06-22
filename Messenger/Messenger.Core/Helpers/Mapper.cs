@@ -151,6 +151,9 @@ namespace Messenger.Core.Helpers
                 );
             }
 
+            LogContext.PushProperty("Method","ReactionMappingFromAdapter");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+
             logger.Information($"Return value: {result}");
 
             return result;
