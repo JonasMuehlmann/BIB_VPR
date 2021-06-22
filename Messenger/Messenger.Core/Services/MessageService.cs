@@ -279,7 +279,35 @@ namespace Messenger.Core.Services
                 }
         }
 
+        /// <summary>
+        ///	Remove a reaction from a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="reaction">The reaction to remove from the message</param>
+        /// <returns></returns>
+        public async Task<uint> RemoveReaction(uint messageId, string reaction)
+        {
+                LogContext.PushProperty("Method","RemoveReaction");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
 
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $@"EXEC RemoveOrUpdateReaction({messageId}, '{reaction}'";
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                logger.Information($"Running the following query: {query}");
+
+                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+                }
+        }
 
     }
 }
