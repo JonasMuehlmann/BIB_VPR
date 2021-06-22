@@ -248,5 +248,38 @@ namespace Messenger.Core.Services
                 return result;
             }
         }
+
+        /// <summary>
+        ///	Add a reaction to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="reaction">The reaction to add to the message</param>
+        /// <returns></returns>
+        public async Task<uint> AddReaction(uint messageId, string reaction)
+        {
+                LogContext.PushProperty("Method","AddReaction");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $@"EXEC AddOrUpdateReaction({messageId}, '{reaction}'";
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                logger.Information($"Running the following query: {query}");
+
+                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+                }
+        }
+
+
+
     }
 }
