@@ -284,8 +284,8 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
         /// <param name="reaction">The reaction to remove from the message</param>
-        /// <returns></returns>
-        public async Task<uint> RemoveReaction(uint messageId, string reaction)
+        /// <returns>Whetever or not to the reaction was successfully removed</returns>
+        public async Task<bool> RemoveReaction(uint messageId, string reaction)
         {
                 LogContext.PushProperty("Method","RemoveReaction");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -301,7 +301,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
 
-                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
+                var result = await SqlHelpers.NonQueryAsync(query, connection);
 
                 logger.Information($"Return value: {result}");
 
