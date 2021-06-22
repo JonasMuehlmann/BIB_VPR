@@ -155,5 +155,33 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void AddReaction_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
+                uint? reactionId = await messageService.AddReaction(messageId.Value, "🈚");
+                Assert.IsNotNull(reactionId);
+
+                var reactions = await messageService.RetrieveReactions(messageId.Value);
+
+                Assert.AreEqual(reactions.Count(), 1);
+                Assert.AreEqual(reactions["🈚"], 1);
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }
