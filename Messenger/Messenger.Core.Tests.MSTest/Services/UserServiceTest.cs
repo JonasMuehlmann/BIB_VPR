@@ -245,12 +245,14 @@ namespace Messenger.Tests.MSTest
                          + "DELETE FROM Team_roles;"
                          + "DELETE FROM Teams;"
                          + "DELETE FROM Users;"
+                         + "DELETE FROM Reactions;"
                          + "DBCC CHECKIDENT (Memberships,      RESEED, 0);"
                          + "DBCC CHECKIDENT (Messages,         RESEED, 0);"
                          + "DBCC CHECKIDENT (Channels,         RESEED, 0);"
                          + "DBCC CHECKIDENT (Team_roles,       RESEED, 0);"
                          + "DBCC CHECKIDENT (User_roles,       RESEED, 0);"
                          + "DBCC CHECKIDENT (Role_permissions, RESEED, 0);"
+                         + "DBCC CHECKIDENT (Reactions, RESEED, 0);"
                          + "DBCC CHECKIDENT (Teams,            RESEED, 0);";
 
             using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
