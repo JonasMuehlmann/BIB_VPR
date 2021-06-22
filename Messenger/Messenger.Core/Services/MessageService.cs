@@ -265,7 +265,7 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $@"EXEC AddOrUpdateReaction({messageId}, '{reaction}')";
+                    string query = $@"EXEC AddOrUpdateReaction @messageId={messageId}, @reaction='{reaction}'";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
 
@@ -295,7 +295,7 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $@"EXEC RemoveOrUpdateReaction({messageId}, '{reaction}')";
+                    string query = $@"EXEC RemoveOrUpdateReaction @messageId={messageId}, @reaction='{reaction}'";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
 
