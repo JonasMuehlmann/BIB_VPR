@@ -178,8 +178,36 @@ namespace Messenger.Tests.MSTest
 
                 var reactions = await messageService.RetrieveReactions(messageId.Value);
 
-                Assert.AreEqual(reactions.Count(), 1);
-                Assert.AreEqual(reactions["🈚"], 1);
+                Assert.AreEqual(1, reactions.Count());
+                Assert.AreEqual(1, reactions["🈚"]);
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void AddReactionSecond_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
+                uint? reactionId = await messageService.AddReaction(messageId.Value, "🈚");
+                Assert.IsNotNull(reactionId);
+
+                var reactions = await messageService.RetrieveReactions(messageId.Value);
+
+                Assert.AreEqual(1, reactions.Count());
+                Assert.AreEqual(2, reactions["🈚"]);
 
             }).GetAwaiter().GetResult();
         }
@@ -209,9 +237,40 @@ namespace Messenger.Tests.MSTest
 
                 var reactions = await messageService.RetrieveReactions(messageId.Value);
 
-                Assert.AreEqual(reactions.Count(), 0);
+                Assert.AreEqual(0, reactions.Count());
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void RemoveReactionOneLeft_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
+                uint? reactionId = await messageService.AddReaction(messageId.Value, "🈚");
+                Assert.IsNotNull(reactionId);
+
+                var didRemoveReaction = await messageService.RemoveReaction(messageId.Value, "🈚");
+                Assert.IsTrue(didRemoveReaction);
+
+                var reactions = await messageService.RetrieveReactions(messageId.Value);
+
+                Assert.AreEqual(1, reactions.Count());
+
+            }).GetAwaiter().GetResult();
+        }
+
     }
 }
