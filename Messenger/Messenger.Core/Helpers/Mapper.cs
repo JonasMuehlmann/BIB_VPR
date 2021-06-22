@@ -14,6 +14,7 @@ namespace Messenger.Core.Helpers
 {
     public class Mapper
     {
+        public static ILogger logger => GlobalLogger.Instance;
         /// <summary>
         /// Maps to a full user model from the data rows
         /// </summary>
