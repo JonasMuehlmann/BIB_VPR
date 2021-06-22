@@ -7,6 +7,8 @@ using System.Text;
 using Messenger.Core.Services;
 using Messenger.Core.Helpers;
 using System.Linq;
+using Serilog;
+using Serilog.Context;
 
 namespace Messenger.Core.Helpers
 {
@@ -125,8 +127,11 @@ namespace Messenger.Core.Helpers
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A dictionary mapping reactions to their occurrences</returns>
-        public static Dictionary<string, int> ReactionMappingFromDataRow(SqlDataAdapter adapter)
+        public static Dictionary<string, int> ReactionMappingFromAdapter(SqlDataAdapter adapter)
         {
+            LogContext.PushProperty("Method","ReactionMappingFromAdapter");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called");
 
             var dataSet = new DataSet();
             adapter.Fill(dataSet, "Reactions");
@@ -135,6 +140,8 @@ namespace Messenger.Core.Helpers
 
             var result = new Dictionary<string, int>();
 
+            logger.Information($"query created {rows.Count()} rows");
+
             foreach (var row in rows)
             {
                 result.Add(
@@ -142,6 +149,8 @@ namespace Messenger.Core.Helpers
                     SqlHelpers.TryConvertDbValue(row["Count"], Convert.ToInt32)
                 );
             }
+
+            logger.Information($"Return value: {result}");
 
             return result;
         }
