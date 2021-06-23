@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,9 +39,20 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty ReplyCommandProperty =
             DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
+        public ChatViewModel ViewModel { get; set; }
+
         public MessagesListControl()
         {
             InitializeComponent();
+
+            ViewModel = new ChatViewModel();
+
+            this.DataContext = ViewModel;
         }
+        private void ReplyVisButton_Click(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as ChatViewModel).ReplyVisible = true;
+        }
+
     }
 }

@@ -61,19 +61,34 @@
     <StackPanel Style="{StaticResource OuterPanel}">
         <!-- REPLY MESSAGE -->
         <StackPanel
-            DataContext="{x:Bind
+            Orientation="Horizontal"
+            BorderThickness="2"
+            BorderBrush="Gray"
+            CornerRadius="10"
+            Visibility="{Binding Path=ReplyVisible}"
+            DataContext="">
+            <StackPanel
+                Width="360"
+                DataContext="{x:Bind
                 ReplyMessage,
                 Mode=TwoWay,
                 UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock
-                x:Name="SMDP"
-                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Sender.DisplayName, FallbackValue='', TargetNullValue=''}"
-                />
-            <TextBlock
-                x:Name="SMCT"
-                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content, FallbackValue='', TargetNullValue=''}"
-                />
+                <TextBlock
+                    x:Name="SMDP"
+                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Sender.DisplayName, FallbackValue='', TargetNullValue=''}"
+                    />
+                <TextBlock
+                    x:Name="SMCT"
+                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content, FallbackValue='', TargetNullValue=''}"
+                    />
+            </StackPanel>
+            <Button x:Name="ReplyBoxButton"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE711;"
+                Background="Transparent"
+                Click="ReplyVisButton_Click"/>
         </StackPanel>
+        <TextBlock x:Name="testReplytextblock" Text="{Binding Path=ReplyVisible}"/> <!--löschen wenn funktioniert-->
         <!-- ATTACHMENTS -->
         <ListView
             x:Name="AttachmentListView"

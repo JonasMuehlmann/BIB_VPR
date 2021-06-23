@@ -18,6 +18,7 @@ namespace Messenger.ViewModels
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
         private Message _replyMessage;
+        private bool _replyVisible = true;
         private Message _messageToSend;
 
         #endregion
@@ -70,6 +71,22 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// Reply Box in SendMessageControl is visible or not
+        /// </summary>
+        public bool ReplyVisible
+        {
+            get
+            {
+                return _replyVisible;
+            }
+            set
+            {
+                _replyVisible = value;
+            }
+        }
+
+
+        /// <summary>
         /// Message object to be sent
         /// </summary>
         public Message MessageToSend
@@ -83,7 +100,6 @@ namespace Messenger.ViewModels
                 Set(ref _messageToSend, value);
             }
         }
-
         #endregion
 
         #region Commands

@@ -117,6 +117,7 @@
                                         Template="{StaticResource ReplyButton}"
                                         Command="{Binding ElementName=messageListControl, Path=ReplyCommand}"
                                         CommandParameter="{Binding}"
+                                        Click="ReplyVisButton_Click"
                                         />
                                     <TextBlock
                                         x:Uid="Chat_React"
