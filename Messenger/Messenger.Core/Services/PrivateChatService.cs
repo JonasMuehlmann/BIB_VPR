@@ -42,11 +42,9 @@ namespace Messenger.Core.Services
 
                     await connection.OpenAsync();
 
-                    SqlCommand command = new SqlCommand(query, connection);
-
                     logger.Information($"Running the following query: {query}");
 
-                    var team = command.ExecuteScalar();
+                    var team = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
 
                     teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
 
@@ -105,7 +103,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">the id of the team belonging to the private chat</param>
         /// <param name="connection">A connection to the used sql database</param>
         /// <returns>The user id of the conversation partner</returns>
-        public string GetPartner(uint teamId)
+        public async Task<string> GetPartner(uint teamId)
         {
             LogContext.PushProperty("Method","GetPartner");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
@@ -120,8 +118,7 @@ namespace Messenger.Core.Services
 
                 using(SqlConnection connection = GetConnection())
                 {
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-                    var        otherUser   = scalarQuery.ExecuteScalar();
+                    var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
 
                     logger.Information($"Running the following query: {query}");
 

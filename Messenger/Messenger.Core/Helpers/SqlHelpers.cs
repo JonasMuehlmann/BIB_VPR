@@ -34,6 +34,7 @@ namespace Messenger.Core.Helpers
                 {
                     await connection.OpenAsync();
                 }
+
                 SqlCommand command = new SqlCommand(query, connection);
 
                 var result = Convert.ToBoolean(await command.ExecuteNonQueryAsync());
@@ -41,7 +42,6 @@ namespace Messenger.Core.Helpers
                 logger.Information($"Return value: {result}");
 
                 return result;
-
             }
             catch (SqlException e)
             {
@@ -51,7 +51,54 @@ namespace Messenger.Core.Helpers
             }
             finally
             {
-                connection.Dispose();
+                connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Run the specified query on the specified connection and retrieve a
+        /// converterd scalar value.
+        /// </summary>
+        /// <typeparam name="T">The type to map to</typeparam>
+        /// <param name="query">A query to run</param>
+        /// <param name="connection">An sql connection to run the query on</param>
+        /// <returns>
+        /// The converted scalar result on success, The default value of T on Failure
+        /// </returns>
+        public static async Task<T> ExecuteScalarAsync<T>(string query,
+                                                        SqlConnection connection,
+                                                        Func<object, T> converter) where T: IConvertible
+        {
+            LogContext.PushProperty("Method","ExecuteScalarAsync");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters query={query}");
+
+            try
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    await connection.OpenAsync();
+                }
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                var result = TryConvertDbValue(await command.ExecuteScalarAsync(), converter)?? default(T);
+
+                LogContext.PushProperty("Method","ExecuteScalarAsync");
+                LogContext.PushProperty("SourceContext", "SqlHelpers");
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
+            catch (SqlException e)
+            {
+                logger.Information(e, $"Return value: {default(T)}");
+
+                return default(T);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -62,24 +109,19 @@ namespace Messenger.Core.Helpers
         /// <param name="columnName">A column to check the type of</param>
         /// <param name="connection">An sql connection to run the query on</param>
         /// <returns>Null if the specifid column does not exist in the table, it's type name otherwise</returns>
-        public static string GetColumnType(string tableName, string columnName, SqlConnection connection)
+        public static async Task<string> GetColumnType(string tableName, string columnName, SqlConnection connection)
         {
             LogContext.PushProperty("Method","GetColumnType");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters tableName={tableName}, columnName={columnName}");
 
-            SqlCommand query = new SqlCommand(
-                    $"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';"
-                    ,connection
-            );
+            string query = $"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';";
 
             try
             {
                 logger.Information($"Running the following query: {query}");
 
-                var result = query.ExecuteScalar();
-
-                result = TryConvertDbValue(result, Convert.ToString);
+                var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToString);
 
                 logger.Information($"Return value: {result}");
 

@@ -49,14 +49,11 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {query}");
 
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-                    var        result      = scalarQuery.ExecuteScalar();
-
-                    result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
+                    var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 
-                    return (uint?)result;
+                    return result;
                 }
             }
             catch (SqlException e)
@@ -237,11 +234,9 @@ namespace Messenger.Core.Services
                              + $"FROM Messages"
                              + $"WHERE MessageId={messageId};";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
-
                 logger.Information($"Running the following query: {query}");
 
-                var blobFileString = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToString);
+                var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToString);
 
                 var result = blobFileString.Split(',');
 

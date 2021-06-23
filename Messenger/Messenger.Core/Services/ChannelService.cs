@@ -37,13 +37,9 @@ namespace Messenger.Core.Services
                     string query = $"INSERT INTO Channels (ChannelName, TeamId) VALUES "
                                  + $"('{channelName}', {teamId}); SELECT SCOPE_IDENTITY();";
 
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-
                     logger.Information($"Running the following query: {query}");
 
-                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
-                                                              Convert.ToUInt32);
+                    var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 

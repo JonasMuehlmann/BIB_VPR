@@ -39,7 +39,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
+                if (await SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
                 {
                     logger.Information($"columnToChange is of type nvarchar, now newVal={newVal}");
                     newVal = "'" + newVal + "'";
@@ -74,7 +74,7 @@ namespace Messenger.Core.Services
             {
                 await connection.OpenAsync();
 
-                uint? newNameId = DetermineNewNameId(newUsername, connection);
+                uint? newNameId = await DetermineNewNameId(newUsername, connection);
 
                 logger.Information($"newNameId has been determined as {newNameId}");
 
@@ -232,7 +232,7 @@ namespace Messenger.Core.Services
 
                     logger.Information($"displayName has been determined as {displayName}");
 
-                    uint? newNameId = DetermineNewNameId(displayName, connection);
+                    uint? newNameId = await DetermineNewNameId(displayName, connection);
 
                     Serilog.Context.LogContext.PushProperty("Method","GetOrCreateApplicationUser");
                     Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -446,7 +446,7 @@ namespace Messenger.Core.Services
         /// <param name="username">A username whose nameid is the be determined</param>
         /// <param name="connection">A connection to the sql database</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
-        private uint? DetermineNewNameId(string username, SqlConnection connection)
+        private async Task<uint?> DetermineNewNameId(string username, SqlConnection connection)
         {
             LogContext.PushProperty("Method","DetermineNewNameId");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -459,15 +459,11 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"Running the following query: {query}");
 
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-                // Will be System.DBNull if there is no other user with the same name
-                var result = scalarQuery.ExecuteScalar();
-                result = result is DBNull ? 0 : Convert.ToUInt32(result) + 1;
+                var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32) + 1;
 
                 logger.Information($"Return value: {result}");
 
-                return (uint)result;
+                return result;
             }
             catch (SqlException e)
             {
