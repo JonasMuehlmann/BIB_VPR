@@ -62,36 +62,53 @@ namespace Messenger.Commands.PrivateChat
             {
                 if (await _dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    var selectedUser = _dialog.SelectedUser;
+                    var userdata = _dialog.SelectedUser;
 
-                    if (selectedUser == null)
+                    if (userdata == null)
                     {
                         return;
                     }
 
+                    var selectedUserModel = await _hub.GetUserWithNameId(userdata.DisplayName, userdata.NameId);
+
                     if (_viewModel.Chats
-                        .Where(chat => chat.Partner.Id == selectedUser.Id)
+                        .Where(chat => chat.Partner.Id == selectedUserModel.Id)
                         .Count() > 0)
                     {
                         _logger.Information($"Cannot start a second private chat with the same user.");
 
                         await ResultConfirmationDialog
-                            .Set(false, $"You have already started a chat with {selectedUser.DisplayName}.")
+                            .Set(false, $"You have already started a chat with {selectedUserModel.DisplayName}.")
                             .ShowAsync();
 
                         return;
                     }
 
-                    await _hub.StartChat(selectedUser.DisplayName, selectedUser.NameId);
+                    _logger.Information($"Requesting to start a new private chat with {selectedUserModel.DisplayName}");
 
-                    await ResultConfirmationDialog
-                            .Set(true, $"You have started a new chat with {selectedUser.DisplayName}.")
-                            .ShowAsync();
+                    bool isSuccess = await _hub.StartChat(selectedUserModel.Id);
+
+                    if (isSuccess)
+                    {
+                        await ResultConfirmationDialog
+                                .Set(true, $"You have started a new chat with {selectedUserModel.DisplayName}.")
+                                .ShowAsync();
+                    }
+                    else
+                    {
+                        await ResultConfirmationDialog
+                                .Set(false, $"We could not create a new chat with {selectedUserModel.DisplayName}.")
+                                .ShowAsync();
+                    }
                 }
             }
             catch (Exception e)
             {
                 _logger.Information($"Error while starting a new private chat: {e.Message}");
+
+                await ResultConfirmationDialog
+                            .Set(false, $"We could not start a new private chat.")
+                            .ShowAsync();
             }
         }
     }

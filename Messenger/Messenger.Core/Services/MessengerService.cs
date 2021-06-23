@@ -536,9 +536,9 @@ namespace Messenger.Core.Services
 
             var user = await UserService.GetUser(username, nameId);
 
-            logger.Information($"Return value: {user.FirstOrDefault()}");
+            logger.Information($"Return value: {user}");
 
-            return user.Count > 0 ? user.FirstOrDefault() : null;
+            return user;
         }
 
         /// <summary>
@@ -673,25 +673,23 @@ namespace Messenger.Core.Services
 
         #region Chat
 
-        public async Task<uint?> StartChat(string userId, string targetUserName, uint targetUserNameId)
+        public async Task<uint?> StartChat(string userId, string targetUserId)
         {
             LogContext.PushProperty("Method", "StartChat");
             LogContext.PushProperty("SourceContext", GetType().Name);
-            logger.Information($"Function called with parameters userId={userId}, targetUserName={targetUserName}, targetUserNameId={targetUserNameId}");
+            logger.Information($"Function called with parameters userId={userId}, targetUserNameId={targetUserId}");
 
-            var targetUser = await UserService.GetUser(targetUserName, targetUserNameId);
-
-            if (targetUser == null)
+            if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(targetUserId))
             {
+                logger.Information($"Invalid 'UserId's");
                 return null;
             }
-
-            var targetUserId = targetUser.FirstOrDefault().Id;
 
             var chatId = await PrivateChatService.CreatePrivateChat(userId, targetUserId);
 
             if (chatId == null)
             {
+                logger.Information($"Error while starting a new private chat");
                 return null;
             }
 
