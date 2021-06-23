@@ -464,5 +464,61 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void GrantPermission_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                var didAddRole = await teamService.AddRole("admin", teamId.Value);
+                Assert.IsTrue(didAddRole);
+
+                var canAddRole = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsFalse(canAddRole);
+
+                var didGrantPermission = await teamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsTrue(didGrantPermission);
+
+                var hasPermission = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsTrue(hasPermission );
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void RevokePermission_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                var didAddRole = await teamService.AddRole("admin", teamId.Value);
+                Assert.IsTrue(didAddRole);
+
+                var didGrantPermission = await teamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsTrue(didGrantPermission);
+
+                var hasPermission = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsTrue(hasPermission);
+
+                var didRevokePermission = await teamService.RevokePermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsTrue(didRevokePermission);
+
+                hasPermission = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsFalse(hasPermission);
+
+            }).GetAwaiter().GetResult();
+        }
+
     }
 }
