@@ -326,6 +326,15 @@ namespace Messenger.Core.Services
             await TeamService.AddRole("admin", teamId.Value);
             await TeamService.AssignRole("admin", creatorId, teamId.Value);
 
+            // Grant admin all permissions
+            bool grantedAllPermissions = true;
+
+            foreach (var permission in Enum.GetValues(typeof(Permissions)).Cast<Permissions>())
+            {
+                grantedAllPermissions &= await TeamService.GrantPermission(teamId.Value, "admin", permission);
+            }
+
+            // Create main channel
             logger.Information($"Added the user identified by {creatorId} to the team identified by {(uint)teamId}");
 
             uint? channelId = await ChannelService.CreateChannel("main", teamId.Value);
@@ -527,9 +536,9 @@ namespace Messenger.Core.Services
 
             var user = await UserService.GetUser(username, nameId);
 
-            logger.Information($"Return value: {user.FirstOrDefault()}");
+            logger.Information($"Return value: {user}");
 
-            return user.Count > 0 ? user.FirstOrDefault() : null;
+            return user;
         }
 
         /// <summary>
@@ -664,25 +673,23 @@ namespace Messenger.Core.Services
 
         #region Chat
 
-        public async Task<uint?> StartChat(string userId, string targetUserName, uint targetUserNameId)
+        public async Task<uint?> StartChat(string userId, string targetUserId)
         {
             LogContext.PushProperty("Method", "StartChat");
             LogContext.PushProperty("SourceContext", GetType().Name);
-            logger.Information($"Function called with parameters userId={userId}, targetUserName={targetUserName}, targetUserNameId={targetUserNameId}");
+            logger.Information($"Function called with parameters userId={userId}, targetUserNameId={targetUserId}");
 
-            var targetUser = await UserService.GetUser(targetUserName, targetUserNameId);
-
-            if (targetUser == null)
+            if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(targetUserId))
             {
+                logger.Information($"Invalid 'UserId's");
                 return null;
             }
-
-            var targetUserId = targetUser.FirstOrDefault().Id;
 
             var chatId = await PrivateChatService.CreatePrivateChat(userId, targetUserId);
 
             if (chatId == null)
             {
+                logger.Information($"Error while starting a new private chat");
                 return null;
             }
 
@@ -777,10 +784,9 @@ namespace Messenger.Core.Services
 
             await SignalRService.UpdateTeamRoles(teamId);
 
-            // Valid
-            logger.Information($"Return value: true");
+            logger.Information($"Return value: {result}");
 
-            return true;
+            return result;
         }
 
         /// <summary>
@@ -825,6 +831,48 @@ namespace Messenger.Core.Services
             var user = await UserService.GetUser(userId);
 
             await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+        /// <summary>
+        /// Grant a team's role a specified permissions and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to grant a permission</param>
+        /// <param name="permissions">The permission to grant a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method", "GrantPermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+
+            var result = await TeamService.GrantPermission(teamId, role, permission);
+
+            await SignalRService.UpdateRolePermission(teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+        ///
+        /// Revoke a permission from a specified team's role and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to revoke a permission from</param>
+        /// <param name="permissions">The permission to revoke from a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method", "RevokePermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+
+            var result = await TeamService.RevokePermission(teamId, role, permission);
+
+            await SignalRService.UpdateRolePermission(teamId);
 
             logger.Information($"Return value: {result}");
 
