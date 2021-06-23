@@ -43,6 +43,7 @@ namespace Messenger.Core.Services
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
         public event EventHandler<uint> TeamRolesUpdated;
+        public event EventHandler<uint> MessageReactionsUpdated;
 
         public SignalRService()
         {
@@ -61,6 +62,7 @@ namespace Messenger.Core.Services
             _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
             _connection.On<User>("UserUpdated", (user) => UserUpdated?.Invoke(this, user));
             _connection.On<uint>("TeamRolesUpdated", (teamId) => TeamRolesUpdated?.Invoke(this, teamId));
+            _connection.On<uint>("MessageReactionsUpdated", (teamId) => MessageReactionsUpdated?.Invoke(this, teamId));
         }
 
         /// <summary>
@@ -208,6 +210,11 @@ namespace Messenger.Core.Services
         public async Task UpdateTeamRoles(uint teamId)
         {
             await _connection.SendAsync("UpdateTeamRoles", teamId);
+        }
+
+        public async Task UpdateMessageReactions(uint teamId)
+        {
+            await _connection.SendAsync("MessageReactionsUpdated", teamId);
         }
 
         #region Helpers

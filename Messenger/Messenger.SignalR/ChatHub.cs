@@ -118,5 +118,15 @@ namespace Messenger.SignalR
         {
             await Clients.Group(teamId.ToString()).SendAsync("TeamRolesUpdated", teamId);
         }
+
+        /// <summary>
+        /// Update a message's reactions and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team whose message reactions got updated</param>
+        /// <returns>Task to be awaited</returns>
+        public async Task UpdateMessageReactions(uint teamId)
+        {
+            await Clients.Group(teamId.ToString()).SendAsync("MessageReactionsUpdated", teamId);
+        }
     }
 }
