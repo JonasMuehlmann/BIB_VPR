@@ -284,7 +284,8 @@ namespace Messenger.Services
 
             for (int i = 0; i < CurrentUser.Teams.Count; i++)
             {
-                if (CurrentUser.Teams[i].Id == (uint)CurrentTeamId) {
+                if (CurrentUser.Teams[i].Id == (uint)CurrentTeamId)
+                {
                     CurrentUser.Teams[i].Name = teamName;
                     CurrentUser.Teams[i].Description = teamDescription;
                 }

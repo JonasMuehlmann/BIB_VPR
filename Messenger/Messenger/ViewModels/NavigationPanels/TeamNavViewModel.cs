@@ -130,14 +130,10 @@ namespace Messenger.ViewModels
         /// Updates the refactored team in the list
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
-        /// <param name="team">The updated team</param>
-        private void OnTeamUpdated(object sender, Team team)
+        /// <param name="team">The updated teams</param>
+        private void OnTeamUpdated(object sender,Team team)
         {
-            for (int i = 0; i < Teams.Count; i++) {
-                if (Teams[i].Id == team.Id) {
-                    Teams[i] = team;
-                }
-            }
+           FilterAndUpdateTeams(ChatHubService.CurrentUser.Teams);
         }
 
         /// <summary>
@@ -168,10 +164,15 @@ namespace Messenger.ViewModels
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
         private async void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
         {
-            uint teamId = (args.InvokedItem as Team).Id;
+            try
+            {
+                uint teamId = (args.InvokedItem as Team).Id;
 
-            // Invokes TeamSwitched event
-            await ChatHubService.SwitchTeam(teamId);
+                // Invokes TeamSwitched event
+                await ChatHubService.SwitchTeam(teamId);
+            } catch (ArgumentException a) {
+                Console.WriteLine(a);
+            }
         }
 
 
