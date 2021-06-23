@@ -195,9 +195,9 @@ namespace Messenger.Core.Helpers
         {
             LogContext.PushProperty("Method","TryConvertDbValue");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called with parameters value={(value is DBNull ? "DBNull" : value)}, converter={converter.Method.Name}");
+            logger.Information($"Function called with parameters value={(value is DBNull ? "DBNull" : value is null ? "null" : value)}, converter={converter.Method.Name}");
 
-            if (value is DBNull)
+            if (value is DBNull || value is null)
             {
                 logger.Information("Return value: null");
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
@@ -128,10 +129,10 @@ namespace Messenger.ViewModels
             var usernameSp = username.Split("#");
             if (ChatHubService.CurrentTeamId != null)
             {
-                IList<User> user = await ChatHubService.GetUser(usernameSp[0], Convert.ToUInt32(usernameSp[1]));
-                if (user != null && user.Count == 1)
+                User user = await ChatHubService.GetUser(usernameSp[0], Convert.ToUInt32(usernameSp[1]));
+                if (user != null)
                 {
-                    await ChatHubService.InviteUser(new Models.Invitation(user[0].Id, (uint)ChatHubService.CurrentTeamId));
+                    await ChatHubService.InviteUser(new Models.Invitation(user.Id, (uint)ChatHubService.CurrentTeamId));
                     InitAddTeamMembers();
                 }
             }

@@ -386,7 +386,7 @@ namespace Messenger.Services
         /// <param name="username">DisplayName of the user</param>
         /// <param name="nameId">NameId of the user</param>
         /// <returns>List of User objects</returns>
-        public async Task<IList<User>> GetUser(string username, uint nameId)
+        public async Task<User> GetUser(string username, uint nameId)
         {
             LogContext.PushProperty("Method", $"{nameof(GetUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -400,7 +400,7 @@ namespace Messenger.Services
                 return null;
             }
 
-            var user = await UserService.GetUser(username, nameId);
+            var user = await MessengerService.GetUserWithNameId(username, nameId);
 
             logger.Information($"Return value: {user}");
 
@@ -483,18 +483,18 @@ namespace Messenger.Services
         /// <param name="teamName"></param>
         /// <param name="teamDescription"></param>
         /// <returns></returns>
-        public async Task StartChat(string userName, uint nameId)
+        public async Task<bool> StartChat(string targetUserId)
         {
             LogContext.PushProperty("Method", $"{nameof(SearchUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
-            logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
+            logger.Information($"Function called with parameters targetUserId={targetUserId}");
 
-            uint? chatId = await MessengerService.StartChat(CurrentUser.Id, userName, nameId);
+            uint? chatId = await MessengerService.StartChat(CurrentUser.Id, targetUserId);
 
-            if (chatId != null)
+            if (chatId == null)
             {
-                await SwitchTeam((uint)chatId);
+                return false;
             }
 
             var chat = await MessengerService.GetTeam((uint)chatId);
@@ -504,9 +504,13 @@ namespace Messenger.Services
 
             CurrentUser.Teams.Add(chat);
 
+            await SwitchTeam((uint)chatId);
+
             logger.Information($"Event {nameof(TeamsUpdated)} invoked with {CurrentUser.Teams.Count()} messages");
 
             TeamsUpdated?.Invoke(this, CurrentUser.Teams);
+
+            return true;
         }
 
         #endregion
