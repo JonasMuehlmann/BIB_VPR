@@ -54,6 +54,9 @@ namespace Messenger.Core.Services
 
                     result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
 
+                    LogContext.PushProperty("Method","CreateMessage");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                     logger.Information($"Return value: {result}");
 
                     return (uint?)result;
@@ -61,6 +64,9 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
+                LogContext.PushProperty("Method","CreateMessage");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 logger.Information(e, $"Return value: null");
 
                 return null;
@@ -273,6 +279,9 @@ namespace Messenger.Core.Services
 
                     var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
 
+                    LogContext.PushProperty("Method","AddReaction");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                     logger.Information($"Return value: {result}");
 
                     return result;
@@ -302,6 +311,9 @@ namespace Messenger.Core.Services
                     logger.Information($"Running the following query: {query}");
 
                     var result = await SqlHelpers.NonQueryAsync(query, connection);
+
+                    LogContext.PushProperty("Method","RemoveReaction");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                     logger.Information($"Return value: {result}");
 
