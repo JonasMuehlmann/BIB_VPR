@@ -75,8 +75,6 @@ namespace Messenger.ViewModels
         {
             Members = new ObservableCollection<User>();
             _membersStore = new List<User>();
-
-            var tmep = Path.GetTempPath();
         }
 
         /// <summary>
