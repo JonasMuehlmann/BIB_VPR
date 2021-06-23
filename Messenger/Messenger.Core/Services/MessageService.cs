@@ -265,17 +265,17 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $@"EXEC AddOrUpdateReaction @messageId={messageId}, @reaction='{reaction}'";
+                    string query = $@"EXEC AddOrUpdateReaction {messageId}, '{reaction}'";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, connection);
 
-                logger.Information($"Running the following query: {query}");
+                    logger.Information($"Running the following query: {query}");
 
-                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
+                    var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
 
-                logger.Information($"Return value: {result}");
+                    logger.Information($"Return value: {result}");
 
-                return result;
+                    return result;
                 }
         }
 
@@ -295,17 +295,17 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $@"EXEC RemoveOrUpdateReaction @messageId={messageId}, @reaction='{reaction}'";
+                    string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, connection);
 
-                logger.Information($"Running the following query: {query}");
+                    logger.Information($"Running the following query: {query}");
 
-                var result = await SqlHelpers.NonQueryAsync(query, connection);
+                    var result = await SqlHelpers.NonQueryAsync(query, connection);
 
-                logger.Information($"Return value: {result}");
+                    logger.Information($"Return value: {result}");
 
-                return result;
+                    return result;
                 }
         }
 
