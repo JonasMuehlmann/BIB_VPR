@@ -3,10 +3,8 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using Serilog.Context;
 
 namespace Messenger.Core.Services
@@ -110,8 +108,8 @@ namespace Messenger.Core.Services
         public async Task<bool> ChangeTeamName(uint teamId, string teamName)
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","ChangeTeamName");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","ChangeTeamName");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters teamId={teamId}, teamName={teamName}");
 
@@ -160,8 +158,8 @@ namespace Messenger.Core.Services
         public async Task<bool> ChangeTeamDescription(uint teamId, string description)
         {
 
-            Serilog.Context.LogContext.PushProperty("Method","ChangeTeamDescription");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","ChangeTeamDescription");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters teamId={teamId}, description={description}");
 
@@ -482,8 +480,8 @@ namespace Messenger.Core.Services
         /// <returns>A list of channel objects</returns>
         public async Task<IList<Channel>> GetAllChannelsByTeamId(uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
             string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
 
@@ -497,8 +495,8 @@ namespace Messenger.Core.Services
                     var result = SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, connection));
 
                     // NOTE: This is needed for the below log line to have the correct properties
-                    Serilog.Context.LogContext.PushProperty("Method","GetAllChannelsByTeamId");
-                    Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+                    LogContext.PushProperty("Method","GetAllChannelsByTeamId");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                     logger.Information($"Return value: {result}");
 
@@ -787,7 +785,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to change permissions in</param>
         /// <param name="role">The role of the team to grant a permission</param>
-        /// <param name="permissions">The permission to grant a team's role</param>
+        /// <param name="permission">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
         public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
         {
@@ -866,7 +864,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to change permissions in</param>
         /// <param name="role">The role of the team to revoke a permission from</param>
-        /// <param name="permissions">The permission to revoke from a team's role</param>
+        /// <param name="permission">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
         public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
         {
@@ -946,7 +944,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team check permissions in</param>
         /// <param name="role">The role of the team to check permission</param>
-        /// <param name="permissions">The permission to check for a team's role</param>
+        /// <param name="permission">The permission to check for a team's role</param>
         /// <returns>True if the role has the permission, false otherwise</returns>
         public async Task<bool> HasPermission(uint teamId, string role, Permissions permission)
         {

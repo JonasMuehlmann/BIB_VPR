@@ -1,6 +1,5 @@
 using System;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Messenger.Core.Models;
 using Messenger.Core.Helpers;
@@ -106,8 +105,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> UpdateUserMail(string userId, string newMail)
         {
-            Serilog.Context.LogContext.PushProperty("Method","UpdateUserMail");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","UpdateUserMail");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
 
@@ -136,8 +135,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> UpdateUserPhoto(string userId, string newPhoto)
         {
-            Serilog.Context.LogContext.PushProperty("Method","UpdateUserMail");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","UpdateUserMail");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
 
@@ -162,13 +161,13 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Update a specified users bio
         ///</summary>
-        /// <param name="userId">The id of the user, whose  biowill be updated</param>
-        /// <param name="newBio">The new  bioto set</param>
+        /// <param name="userId">The id of the user, whose  bio will be updated</param>
+        /// <param name="newBio">The new  bio to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> UpdateUserBio(string userId, string newBio)
         {
-            Serilog.Context.LogContext.PushProperty("Method","UpdateUserMail");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","UpdateUserMail");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
@@ -234,8 +233,8 @@ namespace Messenger.Core.Services
 
                     uint? newNameId = DetermineNewNameId(displayName, connection);
 
-                    Serilog.Context.LogContext.PushProperty("Method","GetOrCreateApplicationUser");
-                    Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+                    LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                     logger.Information($"newNameId has been determined as {newNameId}");
 
@@ -305,7 +304,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Construct a User object from data that belongs to the user identified by userId.
         /// </summary>
-        /// <param name="userid">The id of the user to retrieve</param>
+        /// <param name="userId">The id of the user to retrieve</param>
         /// <returns>A full User object</returns>
         public async Task<User> GetUser(string userId)
         {

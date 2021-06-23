@@ -3,12 +3,7 @@ using Messenger.Core.Helpers;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Serilog;
 using Serilog.Context;
 
 namespace Messenger.Core.Services
