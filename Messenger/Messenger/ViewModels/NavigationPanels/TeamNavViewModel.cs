@@ -139,9 +139,14 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="team">The updated teams</param>
-        private void OnTeamUpdated(object sender,Team team)
+        private async void OnTeamUpdated(object sender,Team team)
         {
-           FilterAndUpdateTeams(ChatHubService.CurrentUser.Teams);
+            if (ChatHubService.CurrentUser.Teams != null)
+            {
+                FilterAndUpdateTeams(await ChatHubService.GetTeamsList());
+            }
+
+            IsBusy = false;
         }
 
         /// <summary>
