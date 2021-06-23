@@ -43,6 +43,7 @@ namespace Messenger.Core.Services
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
         public event EventHandler<uint> TeamRolesUpdated;
+        public event EventHandler<uint> RolePermissionsUpdated;
 
         public SignalRService()
         {
@@ -54,13 +55,14 @@ namespace Messenger.Core.Services
                 })
                 .Build();
 
-            _connection.On<Message>("ReceiveMessage", (message) => MessageReceived?.Invoke(this, message));
-            _connection.On<uint>("ReceiveInvitation", (teamId) => InviteReceived?.Invoke(this, teamId));
-            _connection.On<Team>("TeamUpdated", (team) => TeamUpdated?.Invoke(this, team));
-            _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(this, message));
-            _connection.On<Channel>("ChannelUpdated", (channel) => ChannelUpdated?.Invoke(this, channel));
-            _connection.On<User>("UserUpdated", (user) => UserUpdated?.Invoke(this, user));
+            _connection.On<Message>("ReceiveMessage", (message)     => MessageReceived?.Invoke(this, message));
+            _connection.On<uint>("ReceiveInvitation", (teamId)      => InviteReceived?.Invoke(this, teamId));
+            _connection.On<Team>("TeamUpdated", (team)              => TeamUpdated?.Invoke(this, team));
+            _connection.On<Message>("MessageUpdated", (message)     => MessageUpdated?.Invoke(this, message));
+            _connection.On<Channel>("ChannelUpdated", (channel)     => ChannelUpdated?.Invoke(this, channel));
+            _connection.On<User>("UserUpdated", (user)              => UserUpdated?.Invoke(this, user));
             _connection.On<uint>("TeamRolesUpdated", (teamId) => TeamRolesUpdated?.Invoke(this, teamId));
+            _connection.On<uint>("RolePermissionsUpdated", (teamId) => RolePermissionsUpdated?.Invoke(this, teamId));
         }
 
         /// <summary>
@@ -208,6 +210,11 @@ namespace Messenger.Core.Services
         public async Task UpdateTeamRoles(uint teamId)
         {
             await _connection.SendAsync("UpdateTeamRoles", teamId);
+        }
+
+        public async Task UpdateRolePermission(uint teamId)
+        {
+            await _connection.SendAsync("UpdateRolePermission", teamId);
         }
 
         #region Helpers
