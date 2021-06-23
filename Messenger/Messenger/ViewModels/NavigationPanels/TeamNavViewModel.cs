@@ -8,6 +8,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
 using Messenger.Views.DialogBoxes;
 using Microsoft.UI.Xaml.Controls;
@@ -92,6 +93,7 @@ namespace Messenger.ViewModels
 
             Teams = new ObservableCollection<Team>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            Initialize();
             LoadAsync();
             ChatHubService.TeamUpdated += OnTeamUpdated;
         }
@@ -99,16 +101,23 @@ namespace Messenger.ViewModels
         /// <summary>
         //  Loads the teams list if the user data has already been loaded
         /// </summary>
-        private async void LoadAsync()
+        private void Initialize()
         {
-            var user = await UserDataService.GetUserAsync();
-
-            if (user.Teams != null)
+            switch (ChatHubService.ConnectionState)
             {
-                FilterAndUpdateTeams(user.Teams);
+                case ChatHubConnectionState.Loading:
+                    IsBusy = true;
+                    break;
+                case ChatHubConnectionState.NoDataFound:
+                    IsBusy = false;
+                    break;
+                case ChatHubConnectionState.LoadedWithData:
+                    FilterAndUpdateTeams(ChatHubService.CurrentUser.Teams);
+                    IsBusy = false;
+                    break;
+                default:
+                    break;
             }
-
-            IsBusy = false;
         }
 
         /// <summary>
@@ -155,6 +164,10 @@ namespace Messenger.ViewModels
             if (result == ContentDialogResult.Primary)
             {
                 await ChatHubService.CreateTeam(dialog.TeamName, dialog.TeamDescription);
+
+                await ResultConfirmationDialog
+                    .Set(true, $"You created a new team {dialog.TeamName}")
+                    .ShowAsync();
             }
         }
 

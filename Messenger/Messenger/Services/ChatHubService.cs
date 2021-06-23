@@ -38,6 +38,25 @@ namespace Messenger.Services
 
         public ILogger logger = GlobalLogger.Instance;
 
+        public ChatHubConnectionState ConnectionState
+        {
+            get
+            {
+                if (CurrentUser == null || CurrentUser?.Teams == null)
+                {
+                    return ChatHubConnectionState.Loading;
+                }
+                else if (CurrentUser.Teams.Count == 0)
+                {
+                    return ChatHubConnectionState.NoDataFound;
+                }
+                else
+                {
+                    return ChatHubConnectionState.LoadedWithData;
+                }
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -83,9 +102,22 @@ namespace Messenger.Services
 
             logger.Information($"Initializing ChatHubService");
 
+            MessengerService.RegisterListenerForMessages(OnMessageReceived);
+            MessengerService.RegisterListenerForInvites(OnInvitationReceived);
+
             CurrentUser = await UserDataService.GetUserAsync();
 
             var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+
+            if (teams == null || teams.Count() <= 0)
+            {
+                logger.Information($"Event {nameof(TeamsUpdated)} invoked with no team");
+
+                CurrentUser.Teams = new List<Team>();
+                TeamsUpdated?.Invoke(this, null);
+
+                return;
+            }
 
             teams = teams.Select((team) =>
             {
@@ -113,9 +145,6 @@ namespace Messenger.Services
 
             // Broadcast Teams
             TeamsUpdated?.Invoke(this, CurrentUser.Teams);
-
-            MessengerService.RegisterListenerForMessages(OnMessageReceived);
-            MessengerService.RegisterListenerForInvites(OnInvitationReceived);
         }
 
         #region Message
@@ -390,7 +419,7 @@ namespace Messenger.Services
         /// <param name="username">DisplayName of the user</param>
         /// <param name="nameId">NameId of the user</param>
         /// <returns>List of User objects</returns>
-        public async Task<IList<User>> GetUser(string username, uint nameId)
+        public async Task<User> GetUser(string username, uint nameId)
         {
             LogContext.PushProperty("Method", $"{nameof(GetUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -404,7 +433,7 @@ namespace Messenger.Services
                 return null;
             }
 
-            var user = await UserService.GetUser(username, nameId);
+            var user = await MessengerService.GetUserWithNameId(username, nameId);
 
             logger.Information($"Return value: {user}");
 
@@ -487,18 +516,18 @@ namespace Messenger.Services
         /// <param name="teamName"></param>
         /// <param name="teamDescription"></param>
         /// <returns></returns>
-        public async Task StartChat(string userName, uint nameId)
+        public async Task<bool> StartChat(string targetUserId)
         {
             LogContext.PushProperty("Method", $"{nameof(SearchUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
-            logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
+            logger.Information($"Function called with parameters targetUserId={targetUserId}");
 
-            uint? chatId = await MessengerService.StartChat(CurrentUser.Id, userName, nameId);
+            uint? chatId = await MessengerService.StartChat(CurrentUser.Id, targetUserId);
 
-            if (chatId != null)
+            if (chatId == null)
             {
-                await SwitchTeam((uint)chatId);
+                return false;
             }
 
             var chat = await MessengerService.GetTeam((uint)chatId);
@@ -508,9 +537,13 @@ namespace Messenger.Services
 
             CurrentUser.Teams.Add(chat);
 
+            await SwitchTeam((uint)chatId);
+
             logger.Information($"Event {nameof(TeamsUpdated)} invoked with {CurrentUser.Teams.Count()} messages");
 
             TeamsUpdated?.Invoke(this, CurrentUser.Teams);
+
+            return true;
         }
 
         #endregion

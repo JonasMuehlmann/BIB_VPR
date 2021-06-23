@@ -119,5 +119,10 @@ namespace Messenger.Core.Helpers
                 TeamId      = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
+
+        public static string StringFromDataRow(DataRow row, string columnName)
+        {
+            return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
+        }
     }
 }

@@ -356,7 +356,7 @@ namespace Messenger.Core.Services
         /// <param name="userName">The Name of the user to retrieve</param>
         /// <param name="nameId">The NameId of the user to retrieve</param>
         /// <returns>A full User object</returns>
-        public async Task<IList<User>> GetUser(string userName, uint nameId)
+        public async Task<User> GetUser(string userName, uint nameId)
         {
             LogContext.PushProperty("Method","GetUser");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -375,7 +375,10 @@ namespace Messenger.Core.Services
 
                     SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
 
-                    var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, adapter);
+                    var result = SqlHelpers
+                        .GetRows("Users", adapter)
+                        .Select(Mapper.UserFromDataRow)
+                        .FirstOrDefault();
 
                     logger.Information($"Return value: {result}");
 

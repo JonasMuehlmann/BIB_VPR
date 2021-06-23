@@ -60,16 +60,25 @@ namespace Messenger.ViewModels
 
             Chats = new ObservableCollection<PrivateChat>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
-            LoadAsync();
+            Initialize();
         }
 
-        private void LoadAsync()
+        private void Initialize()
         {
-            if (ChatHubService.CurrentUser?.Teams != null
-                && ChatHubService.CurrentUser?.Teams.Count > 0)
+            switch (ChatHubService.ConnectionState)
             {
-                FilterAndUpdateChats(ChatHubService.CurrentUser.Teams);
-                IsBusy = false;
+                case ChatHubConnectionState.Loading:
+                    IsBusy = true;
+                    break;
+                case ChatHubConnectionState.NoDataFound:
+                    IsBusy = false;
+                    break;
+                case ChatHubConnectionState.LoadedWithData:
+                    FilterAndUpdateChats(ChatHubService.CurrentUser.Teams);
+                    IsBusy = false;
+                    break;
+                default:
+                    break;
             }
         }
 
