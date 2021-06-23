@@ -94,7 +94,6 @@ namespace Messenger.ViewModels
             Teams = new ObservableCollection<Team>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             Initialize();
-            LoadAsync();
             ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
