@@ -178,8 +178,8 @@ namespace Messenger.Tests.MSTest
 
                 var reactions = await messageService.RetrieveReactions(messageId.Value);
 
-                Assert.AreEqual(1, reactions.Count());
-                Assert.AreEqual(1, reactions["🈚"]);
+                Assert.AreEqual(reactions.Count(),1 );
+                Assert.AreEqual(reactions["🈚"], 1);
 
             }).GetAwaiter().GetResult();
         }
@@ -204,10 +204,13 @@ namespace Messenger.Tests.MSTest
                 uint? reactionId = await messageService.AddReaction(messageId.Value, "🈚");
                 Assert.IsNotNull(reactionId);
 
+                reactionId = await messageService.AddReaction(messageId.Value, "🈚");
+                Assert.IsNotNull(reactionId);
+
                 var reactions = await messageService.RetrieveReactions(messageId.Value);
 
-                Assert.AreEqual(1, reactions.Count());
-                Assert.AreEqual(2, reactions["🈚"]);
+                Assert.AreEqual(reactions.Count(), 1);
+                Assert.AreEqual(reactions["🈚"], 2);
 
             }).GetAwaiter().GetResult();
         }
@@ -262,15 +265,17 @@ namespace Messenger.Tests.MSTest
                 uint? reactionId = await messageService.AddReaction(messageId.Value, "🈚");
                 Assert.IsNotNull(reactionId);
 
+                reactionId = await messageService.AddReaction(messageId.Value, "🈚");
+                Assert.IsNotNull(reactionId);
+
                 var didRemoveReaction = await messageService.RemoveReaction(messageId.Value, "🈚");
                 Assert.IsTrue(didRemoveReaction);
 
                 var reactions = await messageService.RetrieveReactions(messageId.Value);
 
-                Assert.AreEqual(1, reactions.Count());
+                Assert.AreEqual(reactions.Count(), 1);
 
             }).GetAwaiter().GetResult();
         }
-
     }
 }
