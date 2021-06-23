@@ -54,9 +54,15 @@ namespace Messenger.Core.Services
                     var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
                                                               Convert.ToUInt32);
 
+                    LogContext.PushProperty("Method","CreateTeam");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                     var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {result});";
                     logger.Information($"Running the following query: {createEmptyRoleQuery}");
                     logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery, connection)}");
+
+                    LogContext.PushProperty("Method","CreateTeam");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
 
                     logger.Information($"Return value: {result}");
 
@@ -65,6 +71,9 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
+                LogContext.PushProperty("Method","CreateTeam");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 logger.Information(e, "Return value: null");
 
                 return null;
