@@ -1,9 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using Serilog;
-using Serilog.Context;
 using Messenger.Core.Helpers;
 
 namespace Messenger.Core.Services

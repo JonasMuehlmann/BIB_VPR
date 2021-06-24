@@ -1,14 +1,10 @@
 using System;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using Serilog.Context;
-using Serilog;
 
 
 namespace Messenger.Core.Services
@@ -23,8 +19,8 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created channel if it was created successfully, null otherwise</returns>
         public async Task<uint?> CreateChannel(string channelName, uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","CreateChannel");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreateChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
@@ -61,8 +57,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> RemoveChannel(uint channelId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","RemoveChannel");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
@@ -83,8 +79,8 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> RemoveAllChannels(uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","RemoveAllChannels");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","RemoveAllChannels");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters teamId={teamId}");
 

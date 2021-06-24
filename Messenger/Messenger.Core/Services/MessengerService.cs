@@ -373,6 +373,7 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        /// <summary>
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
@@ -416,7 +417,8 @@ namespace Messenger.Core.Services
             return result;
         }
 
-        /// Add a channel to a spiecified team
+        /// <summary>
+        /// Add a channel to a specified team
         /// </summary>
         /// <param name="teamId">Id of the team to add the channel to</param>
         /// <param name="channelName">Name of the newly created channel</param>
@@ -498,7 +500,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Load all users in current Team
         /// </summary>
-        /// <param name="userId">Current user id</param>
+        /// <param name="teamId">Id of the team to load members from</param>
         /// <returns>List of teams</returns>
         public async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
         {
@@ -834,7 +836,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to change permissions in</param>
         /// <param name="role">The role of the team to grant a permission</param>
-        /// <param name="permissions">The permission to grant a team's role</param>
+        /// <param name="permission">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
         public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
         {
@@ -850,12 +852,12 @@ namespace Messenger.Core.Services
 
             return result;
         }
-        ///
+        /// <summary>
         /// Revoke a permission from a specified team's role and notify other clients
         /// </summary>
         /// <param name="teamId">The id of the team to change permissions in</param>
         /// <param name="role">The role of the team to revoke a permission from</param>
-        /// <param name="permissions">The permission to revoke from a team's role</param>
+        /// <param name="permission">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
         public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
         {
