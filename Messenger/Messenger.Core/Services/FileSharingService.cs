@@ -30,11 +30,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called");
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobServiceConnectionString);
-            var result = blobServiceClient.GetBlobContainerClient(containerName);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return blobServiceClient.GetBlobContainerClient(containerName);
         }
 
         /// <summary>
@@ -113,10 +109,7 @@ namespace Messenger.Core.Services
                 // Read and upload file
                 using (FileStream uploadFileStream = File.OpenRead(Path.GetFullPath(filePath)))
                 {
-                    var result = await blobClient.UploadAsync(uploadFileStream, true);
-
-                    logger.Information($"result={result}");
-                    logger.Information($"Return value: {blobFileName}");
+                    await blobClient.UploadAsync(uploadFileStream, true);
 
                     return blobFileName;
                 }
@@ -149,11 +142,7 @@ namespace Messenger.Core.Services
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
                     // Read and upload file
-                    var result = await blobClient.DeleteIfExistsAsync();
-
-                    logger.Information($"result: {result}");
-
-                    return result;
+                    return await blobClient.DeleteIfExistsAsync();
             }
             // TODO:Find better exception(s) to catch
             catch(Exception e)
