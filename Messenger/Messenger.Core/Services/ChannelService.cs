@@ -24,30 +24,10 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
-            try
-            {
-                using (SqlConnection connection = GetDefaultConnection())
-                {
-                    await connection.OpenAsync();
+            string query = $"INSERT INTO Channels (ChannelName, TeamId) VALUES "
+                            + $"('{channelName}', {teamId}); SELECT SCOPE_IDENTITY();";
 
-                    string query = $"INSERT INTO Channels (ChannelName, TeamId) VALUES "
-                                 + $"('{channelName}', {teamId}); SELECT SCOPE_IDENTITY();";
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, "Return value: null");
-
-                return null;
-            }
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
         /// <summary>
@@ -64,13 +44,7 @@ namespace Messenger.Core.Services
 
             string query = $"DELETE FROM Channels WHERE ChannelId={channelId};";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
         /// <summary>
         /// Deletes all channel from a specified team
@@ -86,13 +60,7 @@ namespace Messenger.Core.Services
 
             string query = $"DELETE FROM Channels WHERE TeamId={teamId};";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
         /// <summary>
@@ -105,13 +73,7 @@ namespace Messenger.Core.Services
         {
             string query = $"UPDATE Channels SET ChannelName='{channelName}' WHERE ChannelId={channelId};";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
         /// <summary>
         /// Construct a Channel object from data that belongs to the channel identified by channelId.
@@ -125,40 +87,20 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            try
+            string selectQuery = $"SELECT ChannelId, NameId, ChannelName, TeamId FROM Channels WHERE ChannelId={channelId}";
+
+            SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
+
+            var rows = SqlHelpers.GetRows("Channel", adapter);
+
+            if (rows.Count() == 0)
             {
-                using (SqlConnection connection = GetDefaultConnection())
-                {
-                    await connection.OpenAsync();
-
-                    string selectQuery = $"SELECT ChannelId, NameId, ChannelName, TeamId FROM Channels WHERE ChannelId={channelId}";
-
-                    logger.Information($"Running the following query: {selectQuery}");
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-
-                    var rows = SqlHelpers.GetRows("Channel", adapter);
-
-                    if (rows.Count() == 0)
-                    {
-                        logger.Information($"Return value: null");
-
-                        return null;
-                    }
-
-                    var result = rows.Select(Mapper.ChannelFromDataRow).First();
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
+                logger.Information($"Return value: null");
 
                 return null;
             }
+
+            return rows.Select(Mapper.ChannelFromDataRow).First();
         }
     }
 }
