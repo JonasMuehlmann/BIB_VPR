@@ -855,7 +855,7 @@ namespace Messenger.Core.Services
 
             var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
 
-            await SignalRService.UpdateMessageReactions(teamId);
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
 
             logger.Information($"Return value: {result}");
 
@@ -897,7 +897,7 @@ namespace Messenger.Core.Services
 
             var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
 
-            await SignalRService.UpdateMessageReactions(teamId);
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
 
             logger.Information($"Return value: {result}");
 
