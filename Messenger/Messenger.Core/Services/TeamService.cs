@@ -95,10 +95,10 @@ namespace Messenger.Core.Services
                                 DELETE FROM Teams            WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query);
-        }        
-        
+        }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="teamName"></param>
         /// <param name="teamDescription"></param>
@@ -115,7 +115,7 @@ namespace Messenger.Core.Services
 
             string query = $"UPDATE Teams SET TeamName='{teamName}', TeamDescription='{teamDescription}' WHERE TeamId={teamId};";
 
-            return await SqlHelpers.NonQueryAsync(query, GetConnection());
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
 
