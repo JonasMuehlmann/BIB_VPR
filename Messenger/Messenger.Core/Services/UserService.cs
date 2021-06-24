@@ -148,9 +148,8 @@ namespace Messenger.Core.Services
 
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userdata.Id}'";
 
-                     // Get application user from database
-            SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
-            DataRow[] rows = SqlHelpers.GetRows("Users", adapter).ToArray();
+            // Get application user from database
+            DataRow[] rows = SqlHelpers.GetRows("Users", selectQuery).ToArray();
 
             // Check if application user is already in database
             if (rows.Length > 0)
@@ -232,9 +231,7 @@ namespace Messenger.Core.Services
 
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userId}'";
 
-            SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
-
-            var rows = SqlHelpers.GetRows("User", adapter);
+            var rows = SqlHelpers.GetRows("User", selectQuery);
 
             if (rows.Count() == 0)
             {
@@ -261,10 +258,8 @@ namespace Messenger.Core.Services
 
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio, PhotoURL FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
 
-            SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
-
             return SqlHelpers
-                .GetRows("Users", adapter)
+                .GetRows("Users", selectQuery)
                 .Select(Mapper.UserFromDataRow)
                 .FirstOrDefault();
         }
@@ -284,10 +279,7 @@ namespace Messenger.Core.Services
 
             string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
 
-
-            SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
-
-            var rows = SqlHelpers.GetRows("Users", adapter);
+            var rows = SqlHelpers.GetRows("Users", selectQuery);
 
             LogContext.PushProperty("Method","SearchUser");
             LogContext.PushProperty("SourceContext", this.GetType().Name);

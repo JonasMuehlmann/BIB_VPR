@@ -91,7 +91,7 @@ namespace Messenger.Core.Services
 
             SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
 
-            var rows = SqlHelpers.GetRows("Channel", adapter);
+            var rows = SqlHelpers.GetRows("Channel", selectQuery);
 
             if (rows.Count() == 0)
             {

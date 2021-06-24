@@ -190,7 +190,7 @@ namespace Messenger.Core.Services
             SqlDataAdapter adapter = new SqlDataAdapter(query, GetDefaultConnection());
 
             return SqlHelpers
-                    .GetRows("Teams", adapter)
+                    .GetRows("Teams", query)
                     .Select(Mapper.TeamFromDataRow)
                     .FirstOrDefault();
         }

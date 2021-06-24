@@ -82,9 +82,7 @@ namespace Messenger.Core.Services
                             + $"FROM Messages"
                             + $"WHERE MessageId={messageId};";
 
-            SqlDataAdapter adapter = new SqlDataAdapter(query, GetDefaultConnection());
-
-            var rows = SqlHelpers.GetRows("Message", adapter);
+            var rows = SqlHelpers.GetRows("Message", query);
 
             if (rows.Count() == 0)
             {
