@@ -116,7 +116,8 @@ namespace Messenger.Tests.MSTest
                 {
                     await connection.OpenAsync();
 
-                    string query = "DELETE FROM Messages;"
+                    string query = "DELETE FROM Reactions;"
+                                 + "DELETE FROM Messages;"
                                  + "DELETE FROM Memberships;"
                                  + "DELETE FROM Channels;"
                                  + "DELETE FROM Role_permissions;"

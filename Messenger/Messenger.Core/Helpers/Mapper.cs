@@ -1,11 +1,17 @@
 ﻿using Messenger.Core.Models;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using Serilog;
+using Serilog.Context;
 
 namespace Messenger.Core.Helpers
 {
     public class Mapper
     {
+        public static ILogger logger => GlobalLogger.Instance;
         /// <summary>
         /// Maps to a full user model from the data rows
         /// </summary>
@@ -99,12 +105,12 @@ namespace Messenger.Core.Helpers
                 TeamId       = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
+
         /// <summary>
         /// Maps to a full Channel model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully-mapped Channel object</returns>
-
         public static Channel ChannelFromDataRow(DataRow row)
         {
             return new Channel()
@@ -113,6 +119,41 @@ namespace Messenger.Core.Helpers
                 ChannelName = SqlHelpers.TryConvertDbValue(row["ChannelName"], Convert.ToString),
                 TeamId      = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
+        }
+        /// <summary>
+        /// Maps to a Dictionary of reactions to their occurrences from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A dictionary mapping reactions to their occurrences</returns>
+        public static Dictionary<string, int> ReactionMappingFromAdapter(SqlDataAdapter adapter)
+        {
+            LogContext.PushProperty("Method","ReactionMappingFromAdapter");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called");
+
+            var dataSet = new DataSet();
+            adapter.Fill(dataSet, "Reactions");
+
+            var rows = dataSet.Tables["Reactions"].Rows.Cast<DataRow>().ToList();
+
+            var result = new Dictionary<string, int>();
+
+            logger.Information($"query created {rows.Count()} rows");
+
+            foreach (var row in rows)
+            {
+                result.Add(
+                    SqlHelpers.TryConvertDbValue(row["Reaction"], Convert.ToString),
+                    SqlHelpers.TryConvertDbValue(row["Count"], Convert.ToInt32)
+                );
+            }
+
+            LogContext.PushProperty("Method","ReactionMappingFromAdapter");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+
+            logger.Information($"Return value: {result}");
+
+            return result;
         }
 
         public static string StringFromDataRow(DataRow row, string columnName)

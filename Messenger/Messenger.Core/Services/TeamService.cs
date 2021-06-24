@@ -70,6 +70,9 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
+                LogContext.PushProperty("Method","CreateTeam");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 logger.Information(e, "Return value: null");
 
                 return null;
