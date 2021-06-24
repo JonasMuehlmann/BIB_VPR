@@ -98,6 +98,27 @@ namespace Messenger.Core.Services
                                 DELETE FROM Teams            WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query, GetConnection());
+        }        
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <param name="teamId"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateTeam(string teamName, string teamDescription, uint teamId)
+        {
+
+            LogContext.PushProperty("Method", "UpdateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}, teamId={teamId}");
+
+
+            string query = $"UPDATE Teams SET TeamName='{teamName}', TeamDescription='{teamDescription}' WHERE TeamId={teamId};";
+
+            return await SqlHelpers.NonQueryAsync(query, GetConnection());
         }
 
 
