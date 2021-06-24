@@ -196,11 +196,7 @@ namespace Messenger.Core.Services
 
                 try
                 {
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-
-                    var        numAffectedRows = scalarQuery.ExecuteNonQuery();
-                    var result = SqlHelpers.TryConvertDbValue(numAffectedRows, Convert.ToBoolean);
+                    var result = await SqlHelpers.NonQueryAsync(query, connection);
 
                     logger.Information($"Return value: {result}");
 
