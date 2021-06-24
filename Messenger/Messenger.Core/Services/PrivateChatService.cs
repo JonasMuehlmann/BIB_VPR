@@ -2,10 +2,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog.Context;
@@ -103,7 +100,6 @@ namespace Messenger.Core.Services
         /// In a private chat, retrieve the conversation partner's user id
         /// </summary>
         /// <param name="teamId">the id of the team belonging to the private chat</param>
-        /// <param name="connection">A connection to the used sql database</param>
         /// <returns>The user id of the conversation partner</returns>
         public string GetPartner(uint teamId)
         {

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Messenger.Core.Helpers;
-
 
 namespace Messenger.Core.Models
 {

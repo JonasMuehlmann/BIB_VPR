@@ -1,13 +1,6 @@
-using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs;
 using Messenger.Core.Helpers;
-using Messenger.Core.Models;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Serilog;
@@ -96,7 +89,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Upload a file to the blob storage
         /// </summary>
-        /// <param name="blobFilePath">A path to a file to upload</param>
+        /// <param name="filePath">A path to a file to upload</param>
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public async Task<string> Upload(string filePath)
         {

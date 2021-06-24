@@ -1,11 +1,7 @@
 ﻿using Messenger.Core.Models;
 using Messenger.SignalR.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Messenger.SignalR

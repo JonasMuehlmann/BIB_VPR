@@ -1,14 +1,6 @@
 ﻿using Messenger.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using Messenger.Core.Services;
-using Messenger.Core.Helpers;
-using System.Linq;
-using Serilog;
-using Serilog.Context;
 
 namespace Messenger.Core.Helpers
 {
