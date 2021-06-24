@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.ComponentModel;
 using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Services;
 using Windows.Storage;
+using Windows.UI.Xaml;
+using Prism.Commands;
 
 namespace Messenger.ViewModels
 {
@@ -18,7 +21,7 @@ namespace Messenger.ViewModels
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
         private Message _replyMessage;
-        private bool _replyVisible = true;
+        private Visibility _replyVisible;
         private Message _messageToSend;
 
         #endregion
@@ -73,17 +76,18 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Reply Box in SendMessageControl is visible or not
         /// </summary>
-        public bool ReplyVisible
+        public Visibility ReplyVisible
         {
-            get
-            {
-                return _replyVisible;
-            }
+            get =>  _replyVisible;
             set
             {
+                OnPropertyChanged(nameof(ReplyVisible));
                 _replyVisible = value;
             }
         }
+
+        public DelegateCommand BtnToggleReplyVisibility { get; set; }
+
 
 
         /// <summary>
@@ -127,6 +131,8 @@ namespace Messenger.ViewModels
             Messages = new ObservableCollection<Message>();
             ReplyMessage = new Message();
             MessageToSend = new Message();
+            ReplyVisible = Visibility.Collapsed;
+            BtnToggleReplyVisibility = new DelegateCommand(ToggleVisibility);
 
             // Register events
             Hub.MessageReceived += OnMessageReceived;
@@ -134,7 +140,7 @@ namespace Messenger.ViewModels
 
             LoadAsync();
         }
-
+         
         /// <summary>
         /// Loads messages from the hub
         /// </summary>
@@ -163,6 +169,18 @@ namespace Messenger.ViewModels
             foreach (var message in messages)
             {
                 Messages.Add(message);
+            }
+        }
+
+        private void ToggleVisibility()
+        {
+            if (ReplyVisible == Visibility.Visible)
+            {
+                ReplyVisible = Visibility.Collapsed;
+            }
+            else
+            {
+                ReplyVisible = Visibility.Visible;
             }
         }
 

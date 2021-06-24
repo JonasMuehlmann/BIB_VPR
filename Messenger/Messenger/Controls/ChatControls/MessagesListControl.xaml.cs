@@ -44,15 +44,6 @@ namespace Messenger.Controls.ChatControls
         public MessagesListControl()
         {
             InitializeComponent();
-
-            ViewModel = new ChatViewModel();
-
-            this.DataContext = ViewModel;
         }
-        private void ReplyVisButton_Click(object sender, RoutedEventArgs e)
-        {
-            (this.DataContext as ChatViewModel).ReplyVisible = true;
-        }
-
     }
 }

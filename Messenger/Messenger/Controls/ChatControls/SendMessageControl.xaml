@@ -4,9 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Messenger.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.DataContext>
+        <local:ChatViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style x:Key="OuterPanel" TargetType="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -65,8 +69,7 @@
             BorderThickness="2"
             BorderBrush="Gray"
             CornerRadius="10"
-            Visibility="{Binding Path=ReplyVisible}"
-            DataContext="">
+            Visibility="{Binding ReplyVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel
                 Width="360"
                 DataContext="{x:Bind
@@ -85,10 +88,9 @@
             <Button x:Name="ReplyBoxButton"
                 FontFamily="Segoe MDL2 Assets"
                 Content="&#xE711;"
-                Background="Transparent"
-                Click="ReplyVisButton_Click"/>
+                Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <TextBlock x:Name="testReplytextblock" Text="{Binding Path=ReplyVisible}"/> <!--löschen wenn funktioniert-->
+        <TextBlock x:Name="testReplytextblock" Text="{Binding ReplyVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/> <!--löschen wenn funktioniert-->
         <!-- ATTACHMENTS -->
         <ListView
             x:Name="AttachmentListView"

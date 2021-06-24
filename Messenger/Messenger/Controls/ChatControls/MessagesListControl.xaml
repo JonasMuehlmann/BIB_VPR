@@ -117,8 +117,9 @@
                                         Template="{StaticResource ReplyButton}"
                                         Command="{Binding ElementName=messageListControl, Path=ReplyCommand}"
                                         CommandParameter="{Binding}"
-                                        Click="ReplyVisButton_Click"
                                         />
+                                    <!--Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+
                                     <TextBlock
                                         x:Uid="Chat_React"
                                         Style="{StaticResource ReactsStyle}"
