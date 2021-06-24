@@ -71,6 +71,13 @@ namespace Messenger.Commands.PrivateChat
 
             try
             {
+                if (_hub.CurrentUser == null)
+                {
+                    return;
+                }
+
+                _dialog.CurrentUser = _hub.CurrentUser;
+
                 if (await _dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var userdata = _dialog.SelectedUser;
@@ -80,35 +87,33 @@ namespace Messenger.Commands.PrivateChat
                         return;
                     }
 
-                    var selectedUserModel = await _hub.GetUserWithNameId(userdata.DisplayName, userdata.NameId);
-
                     if (_viewModel.Chats
-                        .Where(chat => chat.Partner.Id == selectedUserModel.Id)
+                        .Where(chat => chat.Partner.Id == userdata.Id)
                         .Count() > 0)
                     {
                         _logger.Information($"Cannot start a second private chat with the same user.");
 
                         await ResultConfirmationDialog
-                            .Set(false, $"You have already started a chat with {selectedUserModel.DisplayName}.")
+                            .Set(false, $"You have already started a chat with {userdata.DisplayName}.")
                             .ShowAsync();
 
                         return;
                     }
 
-                    _logger.Information($"Requesting to start a new private chat with {selectedUserModel.DisplayName}");
+                    _logger.Information($"Requesting to start a new private chat with {userdata.DisplayName}");
 
-                    bool isSuccess = await _hub.StartChat(selectedUserModel.Id);
+                    bool isSuccess = await _hub.StartChat(userdata.Id);
 
                     if (isSuccess)
                     {
                         await ResultConfirmationDialog
-                                .Set(true, $"You have started a new chat with {selectedUserModel.DisplayName}.")
+                                .Set(true, $"You have started a new chat with {userdata.DisplayName}.")
                                 .ShowAsync();
                     }
                     else
                     {
                         await ResultConfirmationDialog
-                                .Set(false, $"We could not create a new chat with {selectedUserModel.DisplayName}.")
+                                .Set(false, $"We could not create a new chat with {userdata.DisplayName}.")
                                 .ShowAsync();
                     }
                 }
