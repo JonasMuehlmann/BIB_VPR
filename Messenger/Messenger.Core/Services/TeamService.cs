@@ -37,7 +37,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -51,7 +51,6 @@ namespace Messenger.Core.Services
                     logger.Information($"Running the following query: {createTeamQuery}");
 
                     var result = await SqlHelpers.ExecuteScalarAsync(createTeamQuery,
-                                                                     connection,
                                                                      Convert.ToUInt32);
 
                     LogContext.PushProperty("Method","CreateTeam");
@@ -60,7 +59,7 @@ namespace Messenger.Core.Services
                     var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {result});";
 
                     logger.Information($"Running the following query: {createEmptyRoleQuery}");
-                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery, connection)}");
+                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
                     LogContext.PushProperty("Method","CreateTeam");
                     LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -97,7 +96,7 @@ namespace Messenger.Core.Services
                                 DELETE FROM Memberships      WHERE TeamId={teamId};
                                 DELETE FROM Teams            WHERE TeamId={teamId};";
 
-            return await SqlHelpers.NonQueryAsync(query, GetConnection());
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
 
@@ -124,7 +123,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -167,7 +166,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -210,7 +209,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -252,7 +251,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -296,7 +295,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -333,14 +332,14 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
-                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, connection, Convert.ToUInt32);
+                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
 
                 var User_rolesIdQuery = $@"
@@ -348,13 +347,13 @@ namespace Messenger.Core.Services
                                                 VALUES('{userId}', {Team_rolesId}, {teamId});";
 
                 logger.Information($"Running the following query: {User_rolesIdQuery}");
-                var User_rolesId = await SqlHelpers.ExecuteScalarAsync(User_rolesIdQuery, connection, Convert.ToUInt32);
+                var User_rolesId = await SqlHelpers.ExecuteScalarAsync(User_rolesIdQuery, Convert.ToUInt32);
 
 
                 string query = $@"INSERT INTO Memberships(UserId, TeamId) VALUES('{userId}', {teamId});";
 
                 logger.Information($"Running the following query: {query}");
-                var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+                var result = await SqlHelpers.NonQueryAsync(query);
 
 
                 logger.Information($"Return value: {result}");
@@ -392,7 +391,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
 
             logger.Information($"Return value: {result}");
 
@@ -414,7 +413,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -452,7 +451,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -487,7 +486,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -532,7 +531,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
             LogContext.PushProperty("Method","AddRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
@@ -563,7 +562,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
             LogContext.PushProperty("Method","RemoveRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
@@ -585,13 +584,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
                 // TODO: Write function to retrieve id of role in team
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
-                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, connection, Convert.ToUInt32);
+                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","AssignRole");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -610,7 +609,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
 
-                var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+                var result = await SqlHelpers.NonQueryAsync(query);
 
                 LogContext.PushProperty("Method","AssignRole");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -634,12 +633,12 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
-                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, connection, Convert.ToUInt32);
+                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","UnassignRole");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -662,7 +661,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
 
-                var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+                var result = await SqlHelpers.NonQueryAsync(query);
 
                 LogContext.PushProperty("Method","UnassignRole");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -690,7 +689,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Team_roles", "Role");
+            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()), "Team_roles", "Role");
 
             LogContext.PushProperty("Method","AssignRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -729,7 +728,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, GetConnection()));
+            var result = SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()));
 
             LogContext.PushProperty("Method","GetUsersWithRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -768,7 +767,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetConnection()), "Team_Roles", "Role");
+            var result = SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()), "Team_Roles", "Role");
 
             LogContext.PushProperty("Method","GetUsersRoles");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -792,14 +791,14 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
 
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
-                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, connection, Convert.ToUInt32);
+                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","GrantPermissions");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -822,7 +821,7 @@ namespace Messenger.Core.Services
                                                 Permissions = '{Enum.GetName(typeof(Permissions),permission)}'";
 
                 logger.Information($"Running the following query: {PermissionsIdQuery}");
-                var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, connection, Convert.ToUInt32);
+                var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","GrantPermissions");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -842,7 +841,7 @@ namespace Messenger.Core.Services
                                     VALUES({PermissionsId}, {Team_rolesId});";
 
                 logger.Information($"Running the following query: {query}");
-                var result = await SqlHelpers.NonQueryAsync(query, connection);
+                var result = await SqlHelpers.NonQueryAsync(query);
 
                 LogContext.PushProperty("Method","GrantPermissions");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -868,14 +867,14 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
 
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
-                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, connection, Convert.ToUInt32);
+                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","RevokePermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -897,7 +896,7 @@ namespace Messenger.Core.Services
                                                 Permissions = '{Enum.GetName(typeof(Permissions), permission)}'";
 
                 logger.Information($"Running the following query: {PermissionsIdQuery}");
-                var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, connection, Convert.ToUInt32);
+                var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","RevokePermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -919,7 +918,7 @@ namespace Messenger.Core.Services
                                         Team_rolesId = {Team_rolesId};";
 
                 logger.Information($"Running the following query: {query}");
-                var result = await SqlHelpers.NonQueryAsync(query, connection);
+                var result = await SqlHelpers.NonQueryAsync(query);
 
                 LogContext.PushProperty("Method","RevokePermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -945,14 +944,14 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
 
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
                 var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
 
                 logger.Information($"Running the following query: {Team_rolesIdQuery}");
-                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, connection, Convert.ToUInt32);
+                var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","HasPermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -975,7 +974,7 @@ namespace Messenger.Core.Services
                                                 Permissions = '{Enum.GetName(typeof(Permissions),permission)}'";
 
                 logger.Information($"Running the following query: {PermissionsIdQuery}");
-                var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, connection, Convert.ToUInt32);
+                var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, Convert.ToUInt32);
 
                 LogContext.PushProperty("Method","HasPermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -1001,7 +1000,7 @@ namespace Messenger.Core.Services
                                         Team_rolesId = {Team_rolesId};";
 
                 logger.Information($"Running the following query: {query}");
-                var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToBoolean);
+                var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean);
 
                 LogContext.PushProperty("Method","HasPermission");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);

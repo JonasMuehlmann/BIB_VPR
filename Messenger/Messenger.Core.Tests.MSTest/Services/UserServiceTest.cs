@@ -15,7 +15,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.UserService
     /// </summary>
     [TestClass]
-    public class UserServiceTest : SqlServiceTestBase
+    public class UserServiceTest
     {
         #region Private
 
@@ -34,9 +34,9 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            userService = InitializeTestMode<UserService>();
+            userService = new UserService();
 
-            userService.logger.Information("Creating example user!");
+            UserService.logger.Information("Creating example user!");
 
             // setting up example data for delete operation
             Task.Run(async () =>
@@ -44,7 +44,7 @@ namespace Messenger.Tests.MSTest
                 await userService.GetOrCreateApplicationUser(sampleUser);
             }).GetAwaiter().GetResult();
 
-            userService.logger.Information("Finished creating example user!");
+            UserService.logger.Information("Finished creating example user!");
         }
 
 
@@ -253,7 +253,7 @@ namespace Messenger.Tests.MSTest
                          + "DBCC CHECKIDENT (Role_permissions, RESEED, 0);"
                          + "DBCC CHECKIDENT (Teams,            RESEED, 0);";
 
-            using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
+            using (SqlConnection connection = AzureServiceBase.GetDefaultConnection())
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);

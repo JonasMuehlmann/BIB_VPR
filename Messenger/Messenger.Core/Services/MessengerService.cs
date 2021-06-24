@@ -44,13 +44,6 @@ namespace Messenger.Core.Services
         /// <returns>List of teams the user has membership of, null if none exists</returns>
         public async Task<IList<Team>> Initialize(string userId, string connectionString = null)
         {
-            // Initialize with given connection string
-            if (connectionString != null)
-            {
-                MessageService.SetTestMode(connectionString);
-                TeamService.SetTestMode(connectionString);
-            }
-
             LogContext.PushProperty("Method","Initialize");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");

@@ -30,7 +30,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -39,7 +39,7 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {query}");
 
-                    var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
+                    var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 
@@ -70,7 +70,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
 
             logger.Information($"Return value: {result}");
 
@@ -92,7 +92,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
 
             logger.Information($"Return value: {result}");
 
@@ -111,7 +111,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
 
             logger.Information($"Return value: {result}");
 
@@ -131,7 +131,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 

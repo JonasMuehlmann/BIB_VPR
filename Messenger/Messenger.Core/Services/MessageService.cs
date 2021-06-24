@@ -33,7 +33,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -49,7 +49,7 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {query}");
 
-                    var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
+                    var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
                     logger.Information($"Return value: {result}");
 
@@ -71,7 +71,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of data rows containing the message data</returns>
         public async Task<IList<Message>> RetrieveMessages(uint teamId)
         {
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 LogContext.PushProperty("Method","RetrieveMessages");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -102,7 +102,7 @@ namespace Messenger.Core.Services
         /// <returns>A complete message object</returns>
         public async Task<Message> GetMessage(uint messageId)
         {
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 LogContext.PushProperty("Method","RetrieveMessage");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -146,7 +146,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
@@ -186,7 +186,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters messageId={messageId}");
 
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
@@ -196,7 +196,7 @@ namespace Messenger.Core.Services
 
                 try
                 {
-                    var result = await SqlHelpers.NonQueryAsync(query, connection);
+                    var result = await SqlHelpers.NonQueryAsync(query);
 
                     logger.Information($"Return value: {result}");
 
@@ -218,7 +218,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Blob File Names</returns>
         public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -232,7 +232,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {query}");
 
-                var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToString);
+                var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
                 var result = blobFileString.Split(',');
 

@@ -16,7 +16,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class PrivateChatServiceTest: SqlServiceTestBase
+    public class PrivateChatServiceTest
     {
         PrivateChatService privateChatService;
         UserService userService;
@@ -27,8 +27,8 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-             privateChatService = InitializeTestMode<PrivateChatService>();
-             userService = InitializeTestMode<UserService>();
+             privateChatService = new PrivateChatService();
+             userService = new UserService();
         }
 
 

@@ -15,7 +15,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class ChannelTest : SqlServiceTestBase
+    public class ChannelTest
     {
         TeamService teamService;
         ChannelService channelService;
@@ -23,8 +23,8 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            teamService = InitializeTestMode<TeamService>();
-            channelService = InitializeTestMode<ChannelService>();
+            teamService = new TeamService();
+            channelService = new ChannelService();
         }
 
         [TestMethod]

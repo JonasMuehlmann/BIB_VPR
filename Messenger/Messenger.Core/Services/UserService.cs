@@ -35,11 +35,11 @@ namespace Messenger.Core.Services
                 return await UpdateUsername(userId, newVal);
             }
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
-                if (await SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
+                if (await SqlHelpers.GetColumnType("Users", columnToChange) == "nvarchar")
                 {
                     logger.Information($"columnToChange is of type nvarchar, now newVal={newVal}");
                     newVal = "'" + newVal + "'";
@@ -49,7 +49,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {queryUpdateOther}");
 
-                var result = await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
+                var result = await SqlHelpers.NonQueryAsync(queryUpdateOther);
 
                 logger.Information($"Return value: {result}");
 
@@ -70,7 +70,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userId={userId}, newUsername={newUsername}");
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
@@ -89,7 +89,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate);
 
                 logger.Information($"Return value: {result}");
 
@@ -112,7 +112,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
 
             // TODO: Validate email
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
@@ -120,7 +120,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate);
 
                 logger.Information($"Return value: {result}");
 
@@ -142,7 +142,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
 
             //TODO: Check for valid photo
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
@@ -150,7 +150,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate);
 
                 logger.Information($"Return value: {result}");
 
@@ -173,7 +173,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
             //TODO: Check for valid photo
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
@@ -181,7 +181,7 @@ namespace Messenger.Core.Services
 
                 logger.Information($"Running the following query: {queryUpdate}");
 
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
+                var result = await SqlHelpers.NonQueryAsync(queryUpdate);
 
                 logger.Information($"Return value: {result}");
 
@@ -208,7 +208,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -253,7 +253,7 @@ namespace Messenger.Core.Services
 
                     logger.Information($"Running the following query: {insertQuery}");
 
-                    await SqlHelpers.NonQueryAsync(insertQuery, connection);
+                    await SqlHelpers.NonQueryAsync(insertQuery);
 
                     // Return the new application user, mapped directly from MSGraph
 
@@ -293,7 +293,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Running the following query: {query}");
 
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
+            var result = await SqlHelpers.NonQueryAsync(query);
 
             logger.Information($"Return value: {result}");
 
@@ -316,7 +316,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -365,7 +365,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -408,7 +408,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -459,7 +459,7 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"Running the following query: {query}");
 
-                var result = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32) + 1;
+                var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32) + 1;
 
                 logger.Information($"Return value: {result}");
 

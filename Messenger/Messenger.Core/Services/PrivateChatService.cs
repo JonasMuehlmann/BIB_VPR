@@ -37,14 +37,14 @@ namespace Messenger.Core.Services
                               + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
 
-                using(SqlConnection connection = GetConnection())
+                using(SqlConnection connection = GetDefaultConnection())
                 {
 
                     await connection.OpenAsync();
 
                     logger.Information($"Running the following query: {query}");
 
-                    var team = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
+                    var team = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
                     teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
 
@@ -55,7 +55,7 @@ namespace Messenger.Core.Services
                     // entry
                     logger.Information($"Running the following query: {createEmptyRoleQuery}");
 
-                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery, connection)}");
+                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
                     var success1 = await AddMember(myUserId, teamID.Value);
                     var success2 = await AddMember(otherUserId, teamID.Value);
@@ -116,9 +116,9 @@ namespace Messenger.Core.Services
             try
             {
 
-                using(SqlConnection connection = GetConnection())
+                using(SqlConnection connection = GetDefaultConnection())
                 {
-                    var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, connection, Convert.ToUInt32);
+                    var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
                     logger.Information($"Running the following query: {query}");
 

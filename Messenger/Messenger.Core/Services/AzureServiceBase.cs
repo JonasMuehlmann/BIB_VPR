@@ -12,23 +12,16 @@ namespace Messenger.Core.Services
     {
         #region Private
 
-        private string connectionString => ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        #if BIB_VPR_DEBUG
+        private static string connectionString = "Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        #else
+        // Testing connection string
+        private static string connectionString = @"Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database_test;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        #endif
 
-        private bool testMode = false;
-
-        private string testConnectionString;
-
-        public ILogger logger => GlobalLogger.Instance;
+        public static ILogger logger => GlobalLogger.Instance;
         #endregion
 
-        public SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
-
-        public static SqlConnection GetConnection(string connectionString) => new SqlConnection(connectionString);
-
-        public void SetTestMode(string connectionString)
-        {
-            testConnectionString = connectionString;
-            testMode = true;
-        }
+        public static SqlConnection GetDefaultConnection() => new SqlConnection(connectionString);
     }
 }
