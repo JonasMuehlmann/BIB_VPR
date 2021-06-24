@@ -9,6 +9,9 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.Views;
+using Messenger.Views.DialogBoxes;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
@@ -27,7 +30,9 @@ namespace Messenger.ViewModels
 
         private ICommand _teamManagerCommand;
 
-        private string _currentTeamName;
+        private ICommand _changeTeamDetailsCommand;
+
+        private Team _currentTeam;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
@@ -39,15 +44,15 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        public string CurrentTeamName
+        public Team CurrentTeam
         {
             get
             {
-                return _currentTeamName;
+                return _currentTeam;
             }
             set
             {
-                Set(ref _currentTeamName, value);
+                Set(ref _currentTeam, value);
             }
         }
 
@@ -77,6 +82,8 @@ namespace Messenger.ViewModels
 
         public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
 
+        public ICommand ChangeTeamDetailsCommand => _changeTeamDetailsCommand ?? (_changeTeamDetailsCommand = new RelayCommand(RefactorTeamDetails));
+
         #endregion
 
         public ShellViewModel()
@@ -91,6 +98,7 @@ namespace Messenger.ViewModels
             NavigationService.Frame = frame;
             IdentityService.LoggedOut += OnLoggedOut;
             ChatHubService.TeamSwitched += OnTeamSwitched;
+            ChatHubService.TeamUpdated += OnTeamChanged;
 
             // Sets the default side panel to TeamNavView
             OpenTeamsSidePanel();
@@ -110,18 +118,49 @@ namespace Messenger.ViewModels
             if (isPrivateChat)
             {
                 var partnerName = team.Members.FirstOrDefault().DisplayName;
-                CurrentTeamName = partnerName;
+                CurrentTeam =  new Team() { Name = partnerName , Description = team.Description};
             }
             else
             {
-                CurrentTeamName = team.Name;
+                CurrentTeam = team;
             }
+        }
+
+        private void OnTeamChanged(object sender, Team team)
+        {
+            CurrentTeam = null;
+            CurrentTeam = team;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
         {
             IdentityService.LoggedOut -= OnLoggedOut;
         }
+
+        private async void RefactorTeamDetails() {
+            if (ChatHubService.CurrentUser == null)
+            {
+                return;
+            }
+
+            // Opens the dialog box for the input
+            var dialog = new ChangeTeamDialog();
+
+            //Get the current Team
+            var team = ChatHubService.GetCurrentTeam();
+            dialog.TeamName = team.Name;
+            dialog.TeamDescription = team.Description;
+
+            ContentDialogResult result = await dialog.ShowAsync();
+
+
+            // Create team on confirm
+            if (result == ContentDialogResult.Primary)
+            {
+                await ChatHubService.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
+            }
+        }
+
 
         #region Main Page Navigation
 
@@ -133,13 +172,11 @@ namespace Messenger.ViewModels
         private void OpenSetttingsMainPanel()
         {
             MainNavigation(typeof(SettingsPage));
-            CurrentTeamName = string.Empty;
         }
 
         private void OpenChatMainPage()
         {
             MainNavigation(typeof(ChatPage));
-            CurrentTeamName = string.Empty;
         }
 
         private void OpenTeamManagePage()

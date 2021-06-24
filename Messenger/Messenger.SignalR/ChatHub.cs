@@ -1,11 +1,7 @@
 ﻿using Messenger.Core.Models;
 using Messenger.SignalR.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Messenger.SignalR
@@ -117,6 +113,26 @@ namespace Messenger.SignalR
         public async Task UpdateTeamRoles(uint teamId)
         {
             await Clients.Group(teamId.ToString()).SendAsync("TeamRolesUpdated", teamId);
+        }
+
+        /// <summary>
+        /// Update a message's reactions and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team whose message reactions got updated</param>
+        /// <returns>Task to be awaited</returns>
+        public async Task UpdateMessageReactions(uint teamId)
+        {
+            await Clients.Group(teamId.ToString()).SendAsync("MessageReactionsUpdated", teamId);
+        }
+
+        /// <summary>
+        /// Update a team's role permissions and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team whose roles got updated</param>
+        /// <returns>Task to be awaited</returns>
+        public async Task UpdateRolePermission(uint teamId)
+        {
+            await Clients.Group(teamId.ToString()).SendAsync("RolePermissionsUpdated", teamId);
         }
     }
 }

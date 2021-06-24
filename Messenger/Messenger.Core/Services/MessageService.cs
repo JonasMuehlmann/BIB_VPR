@@ -1,11 +1,9 @@
 using System;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Messenger.Core.Models;
 using Messenger.Core.Helpers;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Serilog.Context;
 
@@ -16,7 +14,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Send a message to a specified recipient and retrieve the sent messages id.
         ///</summary>
-        ///<param name="recipientId">The id of the recipient of this message</param>
+        ///<param name="recipientsId">The id of the recipient of this message</param>
         ///<param name="senderId">The id of the message's sender</param>
         ///<param name="message">The content of the message</param>
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
@@ -54,6 +52,9 @@ namespace Messenger.Core.Services
 
                     result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
 
+                    LogContext.PushProperty("Method","CreateMessage");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                     logger.Information($"Return value: {result}");
 
                     return (uint?)result;
@@ -61,6 +62,9 @@ namespace Messenger.Core.Services
             }
             catch (SqlException e)
             {
+                LogContext.PushProperty("Method","CreateMessage");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
                 logger.Information(e, $"Return value: null");
 
                 return null;
@@ -138,14 +142,14 @@ namespace Messenger.Core.Services
 
         /// <summary>
         /// Set the content of a specified message to a specified text
-        /// <summary>
+        /// </summary>
         /// <param name="messageId">The id of the message to edit</param>
         /// <param name="newContent">The new content of the message</param>
         /// <returns>True if the message got edited successfully, false otherwise</returns>
         public async Task<bool> EditMessage(uint messageId, string newContent)
         {
-            Serilog.Context.LogContext.PushProperty("Method","EditMessage");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","EditMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
 
@@ -179,13 +183,13 @@ namespace Messenger.Core.Services
 
         /// <summary>
         /// Delete a message
-        /// <summary>
+        /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
         public async Task<bool> DeleteMessage(uint messageId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","DeleteMessage");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","DeleteMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
 
@@ -221,7 +225,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Retrieve the Blob File Names of files attached to a specified message
         /// </summary>
-        /// <param name="teamId">The message to retrieve Blob File Names from</param>
+        /// <param name="messageId">The message to retrieve Blob File Names from</param>
         /// <returns>An enumerable of Blob File Names</returns>
         public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
@@ -265,17 +269,20 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $@"EXEC AddOrUpdateReaction @messageId={messageId}, @reaction='{reaction}'";
+                    string query = $@"EXEC AddOrUpdateReaction {messageId}, '{reaction}'";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, connection);
 
-                logger.Information($"Running the following query: {query}");
+                    logger.Information($"Running the following query: {query}");
 
-                var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
+                    var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
 
-                logger.Information($"Return value: {result}");
+                    LogContext.PushProperty("Method","AddReaction");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-                return result;
+                    logger.Information($"Return value: {result}");
+
+                    return result;
                 }
         }
 
@@ -295,17 +302,20 @@ namespace Messenger.Core.Services
                 {
                     await connection.OpenAsync();
 
-                    string query = $@"EXEC RemoveOrUpdateReaction @messageId={messageId}, @reaction='{reaction}'";
+                    string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, connection);
 
-                logger.Information($"Running the following query: {query}");
+                    logger.Information($"Running the following query: {query}");
 
-                var result = await SqlHelpers.NonQueryAsync(query, connection);
+                    var result = await SqlHelpers.NonQueryAsync(query, connection);
 
-                logger.Information($"Return value: {result}");
+                    LogContext.PushProperty("Method","RemoveReaction");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-                return result;
+                    logger.Information($"Return value: {result}");
+
+                    return result;
                 }
         }
 

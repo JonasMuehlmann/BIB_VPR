@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
@@ -188,16 +187,16 @@ namespace Messenger.Core.Helpers
         /// Convert a value that can be DBNull using a specified converter
         /// </summary>
         /// <typeparam name="T">A type to convert value to</typeparam>
-        /// <param name="value">A value to convert to T>
-        /// <param name="converter">A converter function to use for converting value>
+        /// <param name="value">A value to convert to T</param>
+        /// <param name="converter">A converter function to use for converting value</param>
         /// <returns>null or the wanted type T</returns>
         public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
         {
             LogContext.PushProperty("Method","TryConvertDbValue");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called with parameters value={(value is DBNull ? "DBNull" : value)}, converter={converter.Method.Name}");
+            logger.Information($"Function called with parameters value={(value is DBNull ? "DBNull" : value is null ? "null" : value)}, converter={converter.Method.Name}");
 
-            if (value is DBNull)
+            if (value is DBNull || value is null)
             {
                 logger.Information("Return value: null");
 
