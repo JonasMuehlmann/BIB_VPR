@@ -15,6 +15,7 @@ namespace Messenger.ViewModels
         private string _mail;
         private BitmapImage _photo;
         private string _id;
+        private uint _nameId;
         private List<Team> _teams = new List<Team>();
 
         public string Id
@@ -27,6 +28,12 @@ namespace Messenger.ViewModels
         {
             get => _name;
             set => Set(ref _name, value);
+        }
+
+        public uint NameId
+        {
+            get => _nameId;
+            set => Set(ref _nameId, value);
         }
 
         public string UserPrincipalName
