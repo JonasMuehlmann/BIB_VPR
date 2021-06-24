@@ -81,6 +81,11 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<IEnumerable<Team>> TeamsUpdated;
 
+        /// <summary>
+        /// Event handler for update at TeamDescription and TeamName
+        /// </summary>
+        public event EventHandler<Team> TeamUpdated;
+
         #endregion
 
         public ChatHubService()
@@ -291,6 +296,34 @@ namespace Messenger.Services
         }
 
         /// <summary>
+        /// Updates the teamName and teamDescription of the current tem
+        /// </summary>
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task UpdateTeam(string teamName, string teamDescription)
+        {
+            LogContext.PushProperty("Method", "UpdateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
+
+            await MessengerService.ChangeTeamName(teamName, (uint)CurrentTeamId);
+            await MessengerService.ChangeTeamDescription(teamDescription, (uint)CurrentTeamId);
+
+            for (int i = 0; i < CurrentUser.Teams.Count; i++)
+            {
+                if (CurrentUser.Teams[i].Id == (uint)CurrentTeamId)
+                {
+                    CurrentUser.Teams[i].Name = teamName;
+                    CurrentUser.Teams[i].Description = teamDescription;
+                }
+            }
+
+            TeamUpdated?.Invoke(this, GetCurrentTeam());
+        }
+
+        /// <summary>
         /// Updates current team id and invokes registered events(TeamSwitched)
         /// </summary>
         /// <param name="teamId">Id of the team to switch to</param>
@@ -371,7 +404,7 @@ namespace Messenger.Services
             LogContext.PushProperty("Method", $"{nameof(RemoveUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
-            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+            logger.Information($"Function called with parameters userId={userId}");
 
             var isSuccess = await MessengerService.RemoveUser(userId, teamId);
 

@@ -51,7 +51,7 @@ namespace Messenger.Core.Services
                 TeamService.SetTestMode(connectionString);
             }
 
-            LogContext.PushProperty("Method","Initialize");
+            LogContext.PushProperty("Method", "Initialize");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
