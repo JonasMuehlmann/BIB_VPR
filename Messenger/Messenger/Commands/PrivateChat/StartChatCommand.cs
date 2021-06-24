@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Services;
 using Messenger.ViewModels;
 using Messenger.Views.DialogBoxes;
@@ -27,8 +28,11 @@ namespace Messenger.Commands.PrivateChat
         {
             _viewModel = viewModel;
             _hub = hub;
-            _dialog = new CreateChatDialog();
-            _dialog.OnSearch = SearchUsers;
+            _dialog = new CreateChatDialog()
+            {
+                OnSearch = SearchUsers,
+                GetSelectedUser = GetUserWithName
+            };
         }
 
         /// <summary>
@@ -41,6 +45,13 @@ namespace Messenger.Commands.PrivateChat
             var userStrings = await _hub.SearchUser(username);
 
             return userStrings;
+        }
+
+        private async Task<User> GetUserWithName(string username, uint nameId)
+        {
+            var user = await _hub.GetUserWithNameId(username, nameId);
+
+            return user;
         }
 
         public bool CanExecute(object parameter)
