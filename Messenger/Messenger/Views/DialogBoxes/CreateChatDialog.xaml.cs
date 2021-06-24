@@ -1,8 +1,10 @@
 ﻿using Messenger.Core.Models;
+using Messenger.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -57,6 +59,15 @@ namespace Messenger.Views.DialogBoxes
         public static readonly DependencyProperty GetSelectedUserProperty =
             DependencyProperty.Register("GetSelectedUser", typeof(Func<string, uint, Task<User>>), typeof(CreateChatDialog), new PropertyMetadata(null));
 
+        public UserViewModel CurrentUser
+        {
+            get { return (UserViewModel)GetValue(CurrentUserProperty); }
+            set { SetValue(CurrentUserProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentUserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(UserViewModel), typeof(CreateChatDialog), new PropertyMetadata(null));
+
         public CreateChatDialog()
         {
             InitializeComponent();
@@ -64,11 +75,7 @@ namespace Messenger.Views.DialogBoxes
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (string.IsNullOrEmpty(UserName))
-            {
-                args.Cancel = true;
-            }
-            else if (SelectedUser == null)
+            if (SelectedUser == null)
             {
                 args.Cancel = true;
             }
@@ -80,9 +87,24 @@ namespace Messenger.Views.DialogBoxes
 
         private async void SearchUserBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput
+                && sender.Text.Length > 2)
             {
                 var searchUsers = await OnSearch?.Invoke(sender.Text);
+
+                if (searchUsers == null)
+                {
+                    return;
+                }
+
+                searchUsers = searchUsers
+                    .TakeWhile((user) =>
+                    {
+                        var data = user.Split('#');
+                        return !(CurrentUser.Name == data[0]
+                            && CurrentUser.NameId.ToString() == data[1]);
+                    })
+                    .ToList();
 
                 sender.ItemsSource = searchUsers;
             }

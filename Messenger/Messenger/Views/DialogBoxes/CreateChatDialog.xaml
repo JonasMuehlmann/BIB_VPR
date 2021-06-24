@@ -5,16 +5,12 @@
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
     Title="Start a new chat"
     PrimaryButtonText="Start"
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
-    <ContentDialog.Resources>
-        <converters:NullToVisibilityConverter x:Key="NullToVisibility" />
-    </ContentDialog.Resources>
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#0275d8" />
@@ -57,9 +53,19 @@
                     Grid.Column="1"
                     VerticalAlignment="Center">
                     <TextBlock
-                        Text="{Binding DisplayName}"
-                        Style="{StaticResource FlyoutPickerTitleTextBlockStyle}"
-                        />
+                        Style="{StaticResource FlyoutPickerTitleTextBlockStyle}">
+                        <Run
+                            Text="{Binding DisplayName}"
+                            />
+                        <Run
+                            Text="#"
+                            Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
+                            />
+                        <Run
+                            Text="{Binding NameId}"
+                            Foreground="{StaticResource SystemAccentColor}"
+                            />
+                    </TextBlock>
                     <TextBlock
                         Text="{Binding Mail}"
                         Style="{StaticResource CaptionTextBlockStyle}"
@@ -76,10 +82,15 @@
                         Style="{StaticResource DetailBodyBaseMediumStyle}"
                         />
                     <TextBlock
-                        Text="Hi. This an example bio because nobody writes bio"
                         TextWrapping="WrapWholeWords"
-                        MaxWidth="225"
-                        />
+                        MaxWidth="225">
+                        <Run
+                            Text="Hello! My name is"
+                            />
+                        <Run
+                            Text="{Binding DisplayName}"
+                            />
+                    </TextBlock>
                 </StackPanel>
             </Grid>
         </StackPanel>
