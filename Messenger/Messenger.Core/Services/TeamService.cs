@@ -165,8 +165,7 @@ namespace Messenger.Core.Services
 
             string query = @"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams;";
 
-            return SqlHelpers.MapToList(Mapper.TeamFromDataRow,
-                                                new SqlDataAdapter(query, GetDefaultConnection()));
+            return SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
         }
 
         /// <summary>
@@ -211,7 +210,7 @@ namespace Messenger.Core.Services
                 $"LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
                 $"WHERE m.UserId = '{userId}';";
 
-            return SqlHelpers.MapToList(Mapper.TeamFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()));
+            return SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
 
         }
 
@@ -296,8 +295,7 @@ namespace Messenger.Core.Services
 
             string query = $"SELECT * FROM Memberships WHERE UserId='{userId}'";
 
-            return SqlHelpers.MapToList(Mapper.MembershipFromDataRow,
-                                        new SqlDataAdapter(query, GetDefaultConnection()));
+            return SqlHelpers.MapToList(Mapper.MembershipFromDataRow, query);
 
         }
 
@@ -315,7 +313,7 @@ namespace Messenger.Core.Services
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
             string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
 
-            return SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()));
+            return SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
         }
 
         /// <summary>
@@ -330,7 +328,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}");
             string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
 
-            return SqlHelpers.MapToList(Mapper.ChannelFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()));
+            return SqlHelpers.MapToList(Mapper.ChannelFromDataRow, query);
         }
 
         /// <summary>
@@ -463,7 +461,7 @@ namespace Messenger.Core.Services
 
             string query = $"SELECT Role FROM Team_roles WHERE teamId={teamId} AND Role != '';";
 
-            return SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()), "Team_roles", "Role");
+            return SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_roles", "Role");
         }
 
         /// <summary>
@@ -492,7 +490,7 @@ namespace Messenger.Core.Services
                                     AND
                                     tr.Role = '{role}';";
 
-            return SqlHelpers.MapToList(Mapper.UserFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()));
+            return SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
         }
 
         /// <summary>
@@ -522,7 +520,7 @@ namespace Messenger.Core.Services
                                     AND tr.Role != '';";
 
 
-            return SqlHelpers.MapToList(Mapper.StringFromDataRow, new SqlDataAdapter(query, GetDefaultConnection()), "Team_Roles", "Role");
+            return SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_Roles", "Role");
         }
 
         /// <summary>

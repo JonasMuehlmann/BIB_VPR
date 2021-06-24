@@ -144,22 +144,30 @@ namespace Messenger.Core.Helpers
         /// Return an enumerable of data rows
         /// </summary>
         /// <param name="tableName">Name of the table to read from</param>
-        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="query">The query that returns the data rows</param>
         /// <returns>An enumerable of data rows</returns>
-        public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
+        public static IEnumerable<DataRow> GetRows(string tableName, string query)
         {
             LogContext.PushProperty("Method","GetRows");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters tableName={tableName}");
 
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, tableName);
+            using (SqlConnection connection = GetDefaultConnection())
+            {
+                try
+                {
+                    var adapter = new SqlDataAdapter(query, GetDefaultConnection());
+                    var dataSet = new DataSet();
+                    adapter.Fill(dataSet, tableName);
 
-            var result = dataSet.Tables[tableName].Rows.Cast<DataRow>();
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+                    return dataSet.Tables[tableName].Rows.Cast<DataRow>();
+                }
+                catch (SqlException e)
+                {
+                    logger.Information($"{e}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -168,31 +176,39 @@ namespace Messenger.Core.Helpers
         /// Infers the table name from the mapping type if tableName is not specified
         /// <typeparam name="T">The type to map to</typeparam>
         /// <param name="mapper">Mapper function for the target type</param>
-        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="query">The query that returns the list</param>
         /// <returns>A list of converted table values</returns>
-        public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
+        public static IList<T> MapToList<T> (Func<DataRow, T> mapper, string query)
         {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
-            var tableName = typeof(T).Name + 's';
+            using (SqlConnection connection = GetDefaultConnection())
+            {
+                try
+                {
+                    var tableName = typeof(T).Name + 's';
 
-            logger.Information($"tableName has been determined as {tableName}");
+                    logger.Information($"tableName has been determined as {tableName}");
 
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, tableName);
+                    var adapter = new SqlDataAdapter(query, GetDefaultConnection());
+                    var dataSet = new DataSet();
+                    adapter.Fill(dataSet, tableName);
 
-            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
+                    logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
-            var result = dataSet.Tables[tableName].Rows
-                         .Cast<DataRow>()
-                         .Select(mapper)
-                         .ToList();
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+                    return dataSet.Tables[tableName].Rows
+                                .Cast<DataRow>()
+                                .Select(mapper)
+                                .ToList();
+                }
+                catch (SqlException e)
+                {
+                    logger.Information($"{e}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -201,34 +217,43 @@ namespace Messenger.Core.Helpers
         /// Infers the table name from the mapping type if tableName is not specified
         /// <typeparam name="T">The type to map to</typeparam>
         /// <param name="mapper">Mapper function for the target type</param>
-        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="query">The query that returns the list</param>
         /// <param name="tableName">The name of the table to retrieve data from, defaults to null</param>
         /// <param name="columnName">The name of the column to retrieve data from, defaults to null</param>
         /// <returns>A list of converted table values</returns>
-        public static IList<T> MapToList<T> (Func<DataRow, string, T> mapper, SqlDataAdapter adapter, string tableName, string columnName)
+        public static IList<T> MapToList<T> (Func<DataRow, string, T> mapper, string query, string tableName, string columnName)
         {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}, tableName={tableName}, columnName={columnName}");
 
-             logger.Information($"tableName has been determined as {tableName}");
+            using (SqlConnection connection = GetDefaultConnection())
+            {
+                try
+                {
+                    logger.Information($"tableName has been determined as {tableName}");
 
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, tableName);
+                    var adapter = new SqlDataAdapter(query, GetDefaultConnection());
+                    var dataSet = new DataSet();
+                    adapter.Fill(dataSet, tableName);
 
-            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
+                    logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
 
-            Func<DataRow, T> _mapper = (row) => mapper(row, columnName);
+                    Func<DataRow, T> _mapper = (row) => mapper(row, columnName);
 
-            var result = dataSet.Tables[tableName].Rows
-                         .Cast<DataRow>()
-                         .Select(_mapper)
-                         .ToList();
+                    return dataSet.Tables[tableName].Rows
+                                .Cast<DataRow>()
+                                .Select(_mapper)
+                                .ToList();
 
-            logger.Information($"Return value: {result}");
-
-            return result;
+                }
+                catch (SqlException e)
+                {
+                    logger.Information($"{e}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>

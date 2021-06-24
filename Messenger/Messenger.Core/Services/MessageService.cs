@@ -61,10 +61,8 @@ namespace Messenger.Core.Services
                             + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
                             + $"WHERE RecipientId = {teamId};";
 
-            SqlDataAdapter adapter = new SqlDataAdapter(query, GetDefaultConnection());
 
-
-            return SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
+            return SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
 
         /// <summary>
