@@ -316,7 +316,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didAddRole);
 
-                var roles = teamService.ListRoles(teamId.Value);
+                var roles = await teamService.ListRoles(teamId.Value);
 
                 Assert.IsTrue(roles.Contains(testName + "Role"));
 
@@ -342,7 +342,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didRemoveRole);
 
-                var roles = teamService.ListRoles(teamId.Value);
+                var roles = await teamService.ListRoles(teamId.Value);
 
                 Assert.IsFalse(roles.Contains(testName + "Role"));
 
@@ -377,7 +377,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didAssignRole);
 
-                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+                var roles = await teamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
                 Assert.AreEqual(1, roles.Count);
                 Assert.AreEqual(userId, roles[0].Id);
@@ -417,7 +417,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didUnassignRole);
 
-                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+                var roles = await teamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
                 Assert.AreEqual(0, roles.Count);
 
@@ -459,7 +459,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didAssignRole);
 
-                var roles = teamService. GetUsersRoles(teamId.Value, userId);
+                var roles = await teamService.GetUsersRoles(teamId.Value, userId);
 
                 Assert.AreEqual($"{testName}Role1,{testName}Role2", string.Join(",", roles));
 

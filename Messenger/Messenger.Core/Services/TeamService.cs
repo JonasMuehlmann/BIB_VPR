@@ -164,7 +164,7 @@ namespace Messenger.Core.Services
 
             string query = @"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams;";
 
-            return SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
         }
 
         /// <summary>
@@ -187,8 +187,8 @@ namespace Messenger.Core.Services
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, GetDefaultConnection());
 
-            return SqlHelpers
-                    .GetRows("Teams", query)
+            return (await SqlHelpers
+                    .GetRows("Teams", query))
                     .Select(Mapper.TeamFromDataRow)
                     .FirstOrDefault();
         }
@@ -209,7 +209,7 @@ namespace Messenger.Core.Services
                 $"LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
                 $"WHERE m.UserId = '{userId}';";
 
-            return SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
 
         }
 
@@ -294,7 +294,7 @@ namespace Messenger.Core.Services
 
             string query = $"SELECT * FROM Memberships WHERE UserId='{userId}'";
 
-            return SqlHelpers.MapToList(Mapper.MembershipFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.MembershipFromDataRow, query);
 
         }
 
@@ -312,7 +312,7 @@ namespace Messenger.Core.Services
             string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
             string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
 
-            return SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
         }
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}");
             string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
 
-            return SqlHelpers.MapToList(Mapper.ChannelFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.ChannelFromDataRow, query);
         }
 
         /// <summary>
@@ -452,7 +452,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve roles from</param>
         /// <returns>A list of available role names</returns>
-        public IList<string> ListRoles(uint teamId)
+        public async Task<IList<string>> ListRoles(uint teamId)
         {
             LogContext.PushProperty("Method","AssignRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -460,7 +460,7 @@ namespace Messenger.Core.Services
 
             string query = $"SELECT Role FROM Team_roles WHERE teamId={teamId} AND Role != '';";
 
-            return SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_roles", "Role");
+            return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_roles", "Role");
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="role">The role of users to retrieve from the team</param>
         /// <returns>A list of user objects belonging to users with the specified role</returns>
-        public IList<User> GetUsersWithRole(uint teamId, string role)
+        public async Task<IList<User>> GetUsersWithRole(uint teamId, string role)
         {
             LogContext.PushProperty("Method","GetUsersWithRole");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -489,7 +489,7 @@ namespace Messenger.Core.Services
                                     AND
                                     tr.Role = '{role}';";
 
-            return SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
         }
 
         /// <summary>
@@ -498,7 +498,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="userId">The id of the user to retrieve roles from</param>
         /// <returns>The list of role names of the user in the specified team</returns>
-        public IList<string> GetUsersRoles(uint teamId, string userId)
+        public async Task<IList<string>> GetUsersRoles(uint teamId, string userId)
         {
             LogContext.PushProperty("Method","GetUsersRoles");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -519,7 +519,7 @@ namespace Messenger.Core.Services
                                     AND tr.Role != '';";
 
 
-            return SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_Roles", "Role");
+            return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_Roles", "Role");
         }
 
         /// <summary>

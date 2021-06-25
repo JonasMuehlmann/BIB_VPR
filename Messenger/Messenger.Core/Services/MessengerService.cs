@@ -772,7 +772,7 @@ namespace Messenger.Core.Services
 
             var result = await TeamService.RemoveRole(role, teamId);
 
-            foreach (var user in TeamService.GetUsersWithRole(teamId, role))
+            foreach (var user in await TeamService.GetUsersWithRole(teamId, role))
             {
                result &= await TeamService.UnAssignRole(role, user.Id, teamId) ;
             }

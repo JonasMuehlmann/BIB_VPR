@@ -61,7 +61,7 @@ namespace Messenger.Core.Services
                             + $"WHERE RecipientId = {teamId};";
 
 
-            return SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Messenger.Core.Services
                             + $"FROM Messages"
                             + $"WHERE MessageId={messageId};";
 
-            var rows = SqlHelpers.GetRows("Message", query);
+            var rows = await SqlHelpers.GetRows("Message", query);
 
             if (rows.Count() == 0)
             {
