@@ -587,19 +587,41 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel viewModel = (message.ParentMessageId != null) ?
-                MessageViewModel.FromDbModel(message) :
-                MessageViewModel.FromDbModel(message, true);
+            var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
 
-            // Adds to message dictionary
-            MessagesByConnectedTeam.AddOrUpdate(
-                message.RecipientId,
-                new ObservableCollection<MessageViewModel>() { viewModel },
-                (key, list) =>
-                {
-                    list.Add(viewModel);
-                    return list;
-                });
+            switch (type)
+            {
+                case MessageType.Parent:
+                    // Adds to message dictionary
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        message.RecipientId,
+                        new ObservableCollection<MessageViewModel>() { viewModel },
+                        (key, list) =>
+                        {
+                            list.Add(viewModel);
+                            return list;
+                        });
+                    break;
+                case MessageType.Reply:
+                    // Adds to the list of replies of the message
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)viewModel.TeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(vm =>
+                        {
+                            if (vm.Id == viewModel.TeamId)
+                            {
+                                vm.Replies.Add(viewModel);
+                            }
+
+                            return vm;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
