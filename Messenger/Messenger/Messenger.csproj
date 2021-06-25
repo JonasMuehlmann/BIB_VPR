@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Helpers\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\DateToStringConverter.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
