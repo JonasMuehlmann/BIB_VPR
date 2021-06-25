@@ -123,7 +123,7 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task UpdateMessageReactions(uint teamId, uint messageId)
         {
-            await Clients.Group(teamId).SendAsync("MessageReactionsUpdated", messageId);
+            await Clients.Group(teamId.ToString()).SendAsync("MessageReactionsUpdated", messageId);
         }
 
         /// <summary>
