@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,14 +21,14 @@ namespace Messenger.Controls.ChatControls
 {
     public sealed partial class MessagesListControl : UserControl
     {
-        public ObservableCollection<Message> Messages
+        public ObservableCollection<MessageViewModel> Messages
         {
-            get { return (ObservableCollection<Message>)GetValue(MessagesProperty); }
+            get { return (ObservableCollection<MessageViewModel>)GetValue(MessagesProperty); }
             set { SetValue(MessagesProperty, value); }
         }
 
         public static readonly DependencyProperty MessagesProperty =
-            DependencyProperty.Register("Messages", typeof(ObservableCollection<Message>), typeof(MessagesListControl), new PropertyMetadata(new ObservableCollection<Message>()));
+            DependencyProperty.Register("Messages", typeof(ObservableCollection<MessageViewModel>), typeof(MessagesListControl), new PropertyMetadata(new ObservableCollection<MessageViewModel>()));
 
         public ICommand ReplyCommand
         {

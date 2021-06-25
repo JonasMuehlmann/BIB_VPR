@@ -8,6 +8,7 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
 using Messenger.Views.DialogBoxes;
 using Windows.UI;
@@ -104,7 +105,7 @@ namespace Messenger.ViewModels
             OpenTeamsSidePanel();
         }
 
-        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
             var team = ChatHubService.GetCurrentTeam();
 
