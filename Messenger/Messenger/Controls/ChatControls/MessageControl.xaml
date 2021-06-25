@@ -5,6 +5,7 @@
     xmlns:local="using:Messenger.Controls.ChatControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -15,7 +16,7 @@
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <!--#region CONTAINER STYLE -->
         <Style x:Key="OuterGrid" TargetType="Grid">
-            <Setter Property="Margin" Value="10 0" />
+            <Setter Property="Margin" Value="10" />
         </Style>
         <Style x:Key="OuterBorder" TargetType="Border">
             <Setter Property="Padding" Value="20 20 15 15" />
@@ -223,7 +224,37 @@
                             Style="{StaticResource ActionButtonStyle}"
                             Icon="Like"
                             Label="React"
-                            />
+                            Tapped="AppBarButton_Tapped">
+                            <FlyoutBase.AttachedFlyout>
+                                <CommandBarFlyout
+                                    Placement="TopEdgeAlignedLeft">
+                                    <AppBarToggleButton
+                                        Content="Like"
+                                        Icon="Like"
+                                        />
+                                    <AppBarButton
+                                        Content="Dislike"
+                                        Icon="Dislike"
+                                        />
+                                    <AppBarButton
+                                        Content="Surprised">
+                                        <AppBarButton.Icon>
+                                            <icons:PathIconFontAwesome
+                                                Kind="SurpriseRegular"
+                                                />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
+                                    <AppBarButton
+                                        Content="Angry">
+                                        <AppBarButton.Icon>
+                                            <icons:PathIconFontAwesome
+                                                Kind="AngryRegular"
+                                                />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
+                                </CommandBarFlyout>
+                            </FlyoutBase.AttachedFlyout>
+                        </AppBarButton>
                         <CommandBar.SecondaryCommands>
                             <AppBarButton
                                 Icon="Edit"

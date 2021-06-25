@@ -33,5 +33,10 @@ namespace Messenger.Controls.ChatControls
         {
             InitializeComponent();
         }
+
+        private void AppBarButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
     }
 }
