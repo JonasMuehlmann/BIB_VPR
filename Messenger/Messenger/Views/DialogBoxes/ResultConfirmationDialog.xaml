@@ -7,7 +7,7 @@
     xmlns:converters="using:Messenger.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    CornerRadius="7"
+    CornerRadius="4"
     BorderBrush="Transparent">
     <ContentDialog.Resources>
         <Style x:Key="ConfirmButton" TargetType="Button">
@@ -16,7 +16,7 @@
             <Setter Property="Content" Value="Okay" />
             <Setter Property="CornerRadius" Value="3" />
             <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Padding" Value="0 7" />
             <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
         </Style>
@@ -55,8 +55,8 @@
                 <TextBlock
                     Text="{x:Bind ContentText}"
                     TextAlignment="Center"
-                    Margin="0 15 0 0"
-                    FontSize="12"
+                    Margin="0 20 0 10"
+                    FontSize="14"
                     />
             </StackPanel>
         </Grid>
