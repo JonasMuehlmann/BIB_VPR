@@ -102,13 +102,18 @@ namespace Messenger.ViewModels.DataViewModels
             // Sorts out replies from the list
             foreach (Message message in messages)
             {
-                if (message.ParentMessageId == null)
+                var type = ConvertAndGetType(message, out MessageViewModel viewModel);
+
+                switch (type)
                 {
-                    parents.Add(FromDbModel(message));
-                }
-                else
-                {
-                    replies.Add(FromDbModel(message, true));
+                    case MessageType.Parent:
+                        parents.Add(viewModel);
+                        break;
+                    case MessageType.Reply:
+                        replies.Add(viewModel);
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -125,9 +130,10 @@ namespace Messenger.ViewModels.DataViewModels
             return parents;
         }
 
-        public static MessageViewModel FromDbModel(Message message, bool isReply = false)
+        public static MessageType ConvertAndGetType(Message message, out MessageViewModel viewModel)
         {
             var attachmentsList = new List<Attachment>();
+            bool isReply = (message.ParentMessageId != null) ? true : false;
 
             if (message.AttachmentsBlobName.Count > 0)
             {
@@ -150,7 +156,7 @@ namespace Messenger.ViewModels.DataViewModels
                 }
             }
 
-            return new MessageViewModel()
+            viewModel = new MessageViewModel()
             {
                 Id = message.Id,
                 SenderId = message.SenderId,
@@ -162,6 +168,14 @@ namespace Messenger.ViewModels.DataViewModels
                 Attachments = attachmentsList,
                 IsReply = isReply
             };
+
+            return isReply ? MessageType.Reply : MessageType.Parent;
         }
+    }
+
+    public enum MessageType
+    {
+        Parent,
+        Reply
     }
 }
