@@ -29,10 +29,7 @@ namespace Messenger.Core.Helpers
             {
                 try
                 {
-                    if (connection.State != ConnectionState.Open)
-                    {
-                        await connection.OpenAsync();
-                    }
+                    await connection.OpenAsync();
 
                     SqlCommand command = new SqlCommand(query, connection);
 
@@ -76,10 +73,7 @@ namespace Messenger.Core.Helpers
             {
                 try
                 {
-                    if (connection.State != ConnectionState.Open)
-                    {
-                        await connection.OpenAsync();
-                    }
+                    await connection.OpenAsync();
 
                     SqlCommand command = new SqlCommand(query, connection);
 
@@ -123,6 +117,8 @@ namespace Messenger.Core.Helpers
             {
                 try
                 {
+                    await connection.OpenAsync();
+
                     logger.Information($"Running the following query: {query}");
 
                     var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
@@ -156,7 +152,9 @@ namespace Messenger.Core.Helpers
             {
                 try
                 {
-                    var adapter = new SqlDataAdapter(query, GetDefaultConnection());
+                    connection.Open();
+
+                    var adapter = new SqlDataAdapter(query, connection);
                     var dataSet = new DataSet();
                     adapter.Fill(dataSet, tableName);
 
@@ -188,11 +186,13 @@ namespace Messenger.Core.Helpers
             {
                 try
                 {
+                    connection.Open();
+
                     var tableName = typeof(T).Name + 's';
 
                     logger.Information($"tableName has been determined as {tableName}");
 
-                    var adapter = new SqlDataAdapter(query, GetDefaultConnection());
+                    var adapter = new SqlDataAdapter(query, connection);
                     var dataSet = new DataSet();
                     adapter.Fill(dataSet, tableName);
 
@@ -231,9 +231,11 @@ namespace Messenger.Core.Helpers
             {
                 try
                 {
+                    connection.Open();
+
                     logger.Information($"tableName has been determined as {tableName}");
 
-                    var adapter = new SqlDataAdapter(query, GetDefaultConnection());
+                    var adapter = new SqlDataAdapter(query, connection);
                     var dataSet = new DataSet();
                     adapter.Fill(dataSet, tableName);
 
