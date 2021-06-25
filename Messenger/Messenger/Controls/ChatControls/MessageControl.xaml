@@ -130,7 +130,7 @@
                     <RowDefinition Height="Auto" MaxHeight="200"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <!-- HEADER -->
+                <!-- MESSAGE HEADER -->
                 <StackPanel
                     Grid.Row="0"
                     Style="{StaticResource HeaderPanelStyle}">
@@ -153,13 +153,13 @@
                             />
                     </StackPanel>
                 </StackPanel>
-                <!-- CONTENT -->
+                <!-- MESSAGE CONTENT -->
                 <TextBlock
                     Grid.Row="1"
                     Style="{StaticResource ContentStyle}"
                     Text="{x:Bind Message.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     />
-                <!-- ATTACHMENTS -->
+                <!-- ATTACHMENTS PANEL (TOGGLE) -->
                 <StackPanel
                     Grid.Row="3">
                     <ToggleButton
@@ -196,6 +196,7 @@
                                 />
                         </Grid>
                     </ToggleButton>
+                    <!-- ATTACHMENTS DETAILS -->
                     <StackPanel
                         Visibility="{Binding ElementName=AttachmentsExpandButton, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
                         <Button
@@ -215,11 +216,13 @@
                     <CommandBar
                         Style="{StaticResource ActionBarStyle}"
                         CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
+                        <!-- REPLY TO COMMAND -->
                         <AppBarButton
                             Style="{StaticResource ActionButtonStyle}"
                             Icon="MailReply"
                             Label="Reply"
                             />
+                        <!-- ADD OR UPDATE REACTION -->
                         <AppBarButton
                             Style="{StaticResource ActionButtonStyle}"
                             Icon="Like"
@@ -255,6 +258,7 @@
                                 </CommandBarFlyout>
                             </FlyoutBase.AttachedFlyout>
                         </AppBarButton>
+                        <!-- EXTRA ACTIONS (EDIT / DELETE) -->
                         <CommandBar.SecondaryCommands>
                             <AppBarButton
                                 Icon="Edit"
