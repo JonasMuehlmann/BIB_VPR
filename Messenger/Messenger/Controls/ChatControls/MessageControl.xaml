@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
         <converters:BooleanToGlyphConverter x:Key="BoolToGlyphConverter" />
+        <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <!--#region CONTAINER STYLE -->
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="0 10" />
@@ -78,7 +79,7 @@
         <!--#endregion-->
         <!--#region ACTION BAR STYLE -->
         <Style x:Key="ActionViewboxStyle" TargetType="Viewbox">
-            <Setter Property="MaxHeight" Value="45" />
+            <Setter Property="MaxHeight" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
         <Style x:Key="ActionBarStyle" TargetType="CommandBar">
@@ -142,11 +143,11 @@
                         Spacing="-3">
                         <TextBlock
                             Style="{StaticResource HeaderStyle}"
-                            Text="Jawoon Kim"
+                            Text="{x:Bind Message.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             />
                         <TextBlock
                             Style="{StaticResource SubHeaderStyle}"
-                            Text="Heute, 08:18"
+                            Text="{x:Bind Message.CreationTime, Converter={StaticResource DateToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             />
                     </StackPanel>
                 </StackPanel>
@@ -154,7 +155,7 @@
                 <TextBlock
                     Grid.Row="1"
                     Style="{StaticResource ContentStyle}"
-                    Text="Flyouts are attached to specific controls. You can use the Placement property to specify where a flyout appears: Top, Left, Bottom, Right, or Full. If you select the Full placement mode, the app stretches the flyout and centers it inside the app window."
+                    Text="{x:Bind Message.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     />
                 <!-- ATTACHMENTS -->
                 <StackPanel
