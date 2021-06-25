@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Windows.Input;
 
@@ -21,13 +22,7 @@ namespace Messenger.Commands.Messenger
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            Message message = parameter as Message;
-
-            bool canExecute = message != null
-                && message.Sender != null
-                && string.IsNullOrEmpty(message.SenderId);
-
-            return canExecute;
+            return true;
         }
 
         /// <summary>
@@ -35,7 +30,15 @@ namespace Messenger.Commands.Messenger
         /// </summary>
         public void Execute(object parameter)
         {
-            Message message = parameter as Message;
+            bool executable = parameter != null
+                && parameter is MessageViewModel;
+
+            if (!executable)
+            {
+                return;
+            }
+
+            MessageViewModel message = parameter as MessageViewModel;
 
             _viewModel.ReplyMessage = message;
             _viewModel.MessageToSend.ParentMessageId = message.Id;
