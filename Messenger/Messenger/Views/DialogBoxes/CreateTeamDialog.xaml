@@ -11,6 +11,17 @@
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <Grid
+                HorizontalAlignment="Stretch">
+                <TextBlock
+                    Style="{ThemeResource PageTitleStyle}"
+                    Text="{Binding}"
+                    />
+            </Grid>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
             <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
