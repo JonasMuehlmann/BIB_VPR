@@ -225,7 +225,7 @@
     <Compile Include="ViewModels\SchemeActivationSampleViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\UserViewModel.cs" />
     <Compile Include="Views\DialogBoxes\ChangeTeamDialog.xaml.cs">
       <DependentUpon>ChangeTeamDialog.xaml</DependentUpon>
     </Compile>
