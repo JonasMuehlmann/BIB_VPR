@@ -86,7 +86,7 @@ namespace Messenger.Core.Services
 
                 await connection.OpenAsync();
 
-                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, m.attachmentsBlobNames, "
                              + $"u.UserId, u.NameId, u.UserName "
                              + $"FROM Messages m "
                              + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
@@ -117,7 +117,7 @@ namespace Messenger.Core.Services
 
                 await connection.OpenAsync();
 
-                string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate "
+                string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate, attachmentsBlobNames "
                              + $"FROM Messages"
                              + $"WHERE MessageId={messageId};";
 
@@ -238,7 +238,7 @@ namespace Messenger.Core.Services
                 await connection.OpenAsync();
 
                 string query = $"SELECT attachmentsBlobNames "
-                             + $"FROM Messages"
+                             + $"FROM Messages "
                              + $"WHERE MessageId={messageId};";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
