@@ -5,16 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Messenger.Controls.Navigation"
-    mc:Ignorable="d">
-    <Grid
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+    mc:Ignorable="d"
+    Style="{StaticResource PageStyle}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- SIDE NAVIGATION -->
         <controls:SideNavigation

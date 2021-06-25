@@ -14,7 +14,7 @@
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#0275d8" />
+            <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
             <Setter Property="Foreground" Value="WhiteSmoke" />
         </Style>
     </ContentDialog.PrimaryButtonStyle>

@@ -87,7 +87,8 @@
 
     <!--#region CONTENT-->
     
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+    <Grid
+        x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
