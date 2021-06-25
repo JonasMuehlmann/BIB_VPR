@@ -112,6 +112,7 @@ namespace Messenger.Services
             {
                 Id = userData.Id,
                 Name = userFromDatabase.DisplayName,
+                NameId = userFromDatabase.NameId,
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
                 Photo = userPhoto,
