@@ -17,16 +17,27 @@
             <Setter Property="Foreground" Value="WhiteSmoke" />
         </Style>
     </ContentDialog.PrimaryButtonStyle>
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <Grid
+                HorizontalAlignment="Stretch">
+                <TextBlock
+                    Style="{ThemeResource PageTitleStyle}"
+                    Text="{Binding}"
+                    />
+            </Grid>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
     <Grid>
         <StackPanel>
             <AutoSuggestBox
                 Name="SearchUserBox"
-                PlaceholderText="Search user"
+                PlaceholderText="Search user..."
+                QueryIcon="Find"
                 TextChanged="SearchUserBox_TextChanged"
                 SuggestionChosen="SearchUserBox_SuggestionChosen"
                 />
             <!-- USER INFO -->
-
             <Grid
                 x:Name="UserInfoPanel"
                 Padding="15 25 15 0"
