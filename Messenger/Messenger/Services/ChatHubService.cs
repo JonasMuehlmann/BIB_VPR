@@ -188,13 +188,13 @@ namespace Messenger.Services
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
 
-                ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
+                ObservableCollection<MessageViewModel> messages = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
 
-                CreateEntryForCurrentTeam((uint)CurrentTeamId, parents);
+                CreateEntryForCurrentTeam((uint)CurrentTeamId, messages);
 
-                logger.Information($"Return value: {fromDb}");
+                logger.Information($"Return value: {messages}");
 
-                return parents;
+                return messages;
             }
         }
 
