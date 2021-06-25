@@ -11,6 +11,8 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
 using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
+using System.Collections.ObjectModel;
 
 namespace Messenger.Services
 {
@@ -30,7 +32,7 @@ namespace Messenger.Services
 
         #region Properties
 
-        public ConcurrentDictionary<uint, List<Message>> MessagesByConnectedTeam { get; }
+        public ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> MessagesByConnectedTeam { get; }
 
         public uint? CurrentTeamId { get; set; }
 
@@ -64,7 +66,7 @@ namespace Messenger.Services
         /// <summary>
         /// Event handler for "ReceiveMessage"(SignalR)
         /// </summary>
-        public event EventHandler<Message> MessageReceived;
+        public event EventHandler<MessageViewModel> MessageReceived;
 
         /// <summary>
         /// Event handler for "ReceiveInvitation"(SignalR)
@@ -74,7 +76,7 @@ namespace Messenger.Services
         /// <summary>
         /// Event handler for switching teams
         /// </summary>
-        public event EventHandler<IEnumerable<Message>> TeamSwitched;
+        public event EventHandler<IEnumerable<MessageViewModel>> TeamSwitched;
 
         /// <summary>
         /// Event handler for updates in teams list
@@ -90,7 +92,7 @@ namespace Messenger.Services
 
         public ChatHubService()
         {
-            MessagesByConnectedTeam = new ConcurrentDictionary<uint, List<Message>>();
+            MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
 
             InitializeAsync();
         }
@@ -136,7 +138,7 @@ namespace Messenger.Services
             {
                 var messages = await MessengerService.LoadMessages(team.Id);
 
-                var parents = CreateParentMessageGroup(messages);
+                ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(messages));
 
                 CreateEntryForCurrentTeam(team.Id, parents);
             }
@@ -156,7 +158,7 @@ namespace Messenger.Services
         /// Gets all messages of the current team
         /// </summary>
         /// <returns>List of messages</returns>
-        public async Task<IEnumerable<Message>> GetMessages()
+        public async Task<ObservableCollection<MessageViewModel>> GetMessages()
         {
             LogContext.PushProperty("Method",$"{nameof(GetMessages)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -174,7 +176,7 @@ namespace Messenger.Services
             uint teamId = (uint)CurrentTeamId;
 
             // Checks the cache if the messages has been loaded for the team
-            if (MessagesByConnectedTeam.TryGetValue(teamId, out List<Message> fromCache))
+            if (MessagesByConnectedTeam.TryGetValue(teamId, out ObservableCollection<MessageViewModel> fromCache))
             {
                 // Loads from cache
                 logger.Information($"Return value: {fromCache}");
@@ -186,13 +188,13 @@ namespace Messenger.Services
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
 
-                var parents = CreateParentMessageGroup(fromDb);
+                ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
 
                 CreateEntryForCurrentTeam((uint)CurrentTeamId, parents);
 
                 logger.Information($"Return value: {fromDb}");
 
-                return fromDb;
+                return parents;
             }
         }
 
@@ -580,20 +582,29 @@ namespace Messenger.Services
             // Loads user data of the sender
             message.Sender = await UserService.GetUser(message.SenderId);
 
+            if (message.Sender == null)
+            {
+                return;
+            }
+
+            MessageViewModel viewModel = (message.ParentMessageId != null) ?
+                MessageViewModel.FromDbModel(message) :
+                MessageViewModel.FromDbModel(message, true);
+
             // Adds to message dictionary
             MessagesByConnectedTeam.AddOrUpdate(
                 message.RecipientId,
-                new List<Message>() { message },
+                new ObservableCollection<MessageViewModel>() { viewModel },
                 (key, list) =>
                 {
-                    list.Add(message);
+                    list.Add(viewModel);
                     return list;
                 });
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
             // Invoke registered events
-            MessageReceived?.Invoke(this, message);
+            MessageReceived?.Invoke(this, viewModel);
         }
 
         /// <summary>
@@ -635,7 +646,7 @@ namespace Messenger.Services
         /// </summary>
         /// <param name="teamId">Id of the team for the entry</param>
         /// <param name="messages">List of messages to initialize with</param>
-        private void CreateEntryForCurrentTeam(uint teamId, IEnumerable<Message> messages)
+        private void CreateEntryForCurrentTeam(uint teamId, IEnumerable<MessageViewModel> messages)
         {
             LogContext.PushProperty("Method", $"{nameof(CreateEntryForCurrentTeam)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -645,15 +656,7 @@ namespace Messenger.Services
             MessagesByConnectedTeam.AddOrUpdate(
                 teamId,
                 (key) =>
-                {
-                    List<Message> list = new List<Message>();
-                    foreach (var message in messages)
-                    {
-                        list.Add(message);
-                    }
-
-                    return list;
-                },
+                new ObservableCollection<MessageViewModel>(messages),
                 (key, list) =>
                 {
                     list.Clear();
@@ -689,43 +692,6 @@ namespace Messenger.Services
             {
                 team.Members = members.ToList();
             }
-        }
-
-        /// <summary>
-        /// Sorts out replies from the list and assigns them to corresponding parent messages
-        /// </summary>
-        /// <param name="messages">List of messages loaded from the database</param>
-        /// <returns>List of parent messages</returns>
-        private IList<Message> CreateParentMessageGroup(IEnumerable<Message> messages)
-        {
-            var parents = new List<Message>();
-            var replies = new List<Message>();
-
-            // Sorts out replies from the list
-            foreach (Message message in messages)
-            {
-                if (message.ParentMessageId == null)
-                {
-                    parents.Add(message);
-                }
-                else
-                {
-                    replies.Add(message);
-                }
-            }
-
-            // Assign replies to parent messages
-            foreach (Message parent in parents)
-            {
-                if (replies.Any(r => r.ParentMessageId == parent.Id))
-                {
-                    parent.Replies = replies
-                        .Where(r => r.ParentMessageId == parent.Id)
-                        .ToList();
-                }
-            }
-
-            return parents;
         }
 
         #endregion
