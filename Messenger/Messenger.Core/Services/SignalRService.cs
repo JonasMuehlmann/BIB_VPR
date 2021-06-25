@@ -38,6 +38,7 @@ namespace Messenger.Core.Services
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
         public event EventHandler<uint> TeamRolesUpdated;
+        public event EventHandler<uint> MessageReactionsUpdated;
         public event EventHandler<uint> RolePermissionsUpdated;
 
         public SignalRService()
@@ -57,6 +58,7 @@ namespace Messenger.Core.Services
             _connection.On<Channel>("ChannelUpdated", (channel)     => ChannelUpdated?.Invoke(this, channel));
             _connection.On<User>("UserUpdated", (user)              => UserUpdated?.Invoke(this, user));
             _connection.On<uint>("TeamRolesUpdated", (teamId) => TeamRolesUpdated?.Invoke(this, teamId));
+            _connection.On<uint>("MessageReactionsUpdated", (messageId) => MessageReactionsUpdated?.Invoke(this, messageId));
             _connection.On<uint>("RolePermissionsUpdated", (teamId) => RolePermissionsUpdated?.Invoke(this, teamId));
         }
 
@@ -205,6 +207,11 @@ namespace Messenger.Core.Services
         public async Task UpdateTeamRoles(uint teamId)
         {
             await _connection.SendAsync("UpdateTeamRoles", teamId);
+        }
+
+        public async Task UpdateMessageReactions(uint teamId, uint messageId)
+        {
+            await _connection.SendAsync("UpdateMessageReactions", teamId, messageId);
         }
 
         public async Task UpdateRolePermission(uint teamId)

@@ -832,6 +832,28 @@ namespace Messenger.Core.Services
             return result;
         }
         /// <summary>
+        ///	Add a reaction to a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="reaction">The reaction to add to the message</param>
+        /// <returns></returns>
+        public async Task<uint> AddReaction(uint messageId, string reaction)
+
+        {
+            LogContext.PushProperty("Method","AddReaction");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+            var result = await MessageService.AddReaction(messageId, reaction);
+
+            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
         /// Grant a team's role a specified permissions and notify other clients
         /// </summary>
         /// <param name="teamId">The id of the team to change permissions in</param>
@@ -852,6 +874,29 @@ namespace Messenger.Core.Services
 
             return result;
         }
+        /// <summary>
+        ///	Remove a reaction from a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="reaction">The reaction to remove from the message</param>
+        /// <returns>Whetever or not to the reaction was successfully removed</returns>
+        public async Task<bool> RemoveReaction(uint messageId, string reaction)
+        {
+            LogContext.PushProperty("Method","RemoveReaction");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+            var result = await MessageService.RemoveReaction(messageId, reaction);
+
+            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// <summary>
         /// Revoke a permission from a specified team's role and notify other clients
         /// </summary>

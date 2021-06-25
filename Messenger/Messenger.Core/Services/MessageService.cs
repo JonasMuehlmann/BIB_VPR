@@ -40,7 +40,6 @@ namespace Messenger.Core.Services
                             $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
                             $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
 
-
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
@@ -145,6 +144,99 @@ namespace Messenger.Core.Services
                 var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
                 return blobFileString.Split(',');
+        }
+
+        /// <summary>
+        ///	Add a reaction to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="reaction">The reaction to add to the message</param>
+        /// <returns></returns>
+        public async Task<uint> AddReaction(uint messageId, string reaction)
+        {
+                LogContext.PushProperty("Method","AddReaction");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $@"EXEC AddOrUpdateReaction {messageId}, '{reaction}'";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
+
+                    LogContext.PushProperty("Method","AddReaction");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+        }
+
+        /// <summary>
+        ///	Remove a reaction from a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="reaction">The reaction to remove from the message</param>
+        /// <returns>Whetever or not to the reaction was successfully removed</returns>
+        public async Task<bool> RemoveReaction(uint messageId, string reaction)
+        {
+                LogContext.PushProperty("Method","RemoveReaction");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+                using (SqlConnection connection = GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+
+                    logger.Information($"Running the following query: {query}");
+
+                    var result = await SqlHelpers.NonQueryAsync(query, connection);
+
+                    LogContext.PushProperty("Method","RemoveReaction");
+                    LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+        }
+
+        /// <summary>
+        ///	Retrieve The reactions of a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to retrieve reactions from</param>
+        /// <returns>The reactions mapped to their number of occurrences</returns>
+        public async Task<Dictionary<string, int>> RetrieveReactions(uint messageId)
+        {
+            LogContext.PushProperty("Method","RetrieveReactions");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
+            using (SqlConnection connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                var result = Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
+
+                LogContext.PushProperty("Method","RetrieveReactions");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+                logger.Information($"Return value: {result}");
+
+                return result;
+            }
         }
     }
 }

@@ -54,7 +54,6 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             return result;
-
         }
 
         /// <summary>
