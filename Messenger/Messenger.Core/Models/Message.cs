@@ -30,15 +30,13 @@ namespace Messenger.Core.Models
 
         public List<string> AttachmentsBlobName { get; set; }
 
-        public List<Message> Replies { get; set; }
-
         public Message()
         {
             SenderId = "";
             Content = "";
             AttachmentsBlobName = new List<string>();
-            Replies = new List<Message>();
         }
+
         public override string ToString()
         {
             return $"Message: Id={Id}, SenderId={SenderId}, Content={Content}, CreationTime={CreationTime.ToString()}, RecipientId={RecipientId}, ParentMessageId={ParentMessageId}, AttachmentBlobNames=[{string.Join(", ", AttachmentsBlobName)}]";
