@@ -158,7 +158,7 @@ namespace Messenger.Core.Services
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
 
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -191,25 +191,9 @@ namespace Messenger.Core.Services
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
 
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
+                string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
 
-                    string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
-
-                    SqlCommand cmd = new SqlCommand(query, connection);
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = await SqlHelpers.NonQueryAsync(query, connection);
-
-                    LogContext.PushProperty("Method","RemoveReaction");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
+                return await SqlHelpers.NonQueryAsync(query);
         }
 
         /// <summary>
@@ -224,18 +208,12 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters messageId={messageId}");
 
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
-            using (SqlConnection connection = GetConnection())
+
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
-                var result = Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
-
-                LogContext.PushProperty("Method","RetrieveReactions");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
+                return Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
             }
         }
     }
