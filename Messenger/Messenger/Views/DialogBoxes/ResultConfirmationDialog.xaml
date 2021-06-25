@@ -15,7 +15,8 @@
             <Setter Property="Grid.Row" Value="1" />
             <Setter Property="Content" Value="Okay" />
             <Setter Property="CornerRadius" Value="3" />
-            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Padding" Value="0 7" />
             <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
         </Style>
@@ -32,16 +33,21 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid
-            Grid.Row="0">
+            Grid.Row="0"
+            Margin="10">
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
-                <SymbolIcon
-                    x:Name="HeaderSymbol"
-                    Margin="0 0 0 10"
-                    />
+                <Viewbox
+                    Height="50">
+                    <SymbolIcon
+                        x:Name="HeaderSymbol"
+                        Margin="0 0 0 10"
+                        />
+                </Viewbox>
                 <TextBlock
                     x:Name="HeaderText"
+                    Style="{ThemeResource ListTitleStyle}"
                     TextAlignment="Center"
                     Text="Success/Failure"
                     FontSize="18"
