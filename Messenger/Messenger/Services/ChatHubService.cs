@@ -135,7 +135,10 @@ namespace Messenger.Services
             foreach (Team team in teams)
             {
                 var messages = await MessengerService.LoadMessages(team.Id);
-                CreateEntryForCurrentTeam(team.Id, messages);
+
+                var parents = CreateParentMessageGroup(messages);
+
+                CreateEntryForCurrentTeam(team.Id, parents);
             }
 
             // Sets the first team as the selected team
@@ -182,7 +185,10 @@ namespace Messenger.Services
             {
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
-                CreateEntryForCurrentTeam((uint)CurrentTeamId, fromDb);
+
+                var parents = CreateParentMessageGroup(fromDb);
+
+                CreateEntryForCurrentTeam((uint)CurrentTeamId, parents);
 
                 logger.Information($"Return value: {fromDb}");
 
@@ -683,6 +689,43 @@ namespace Messenger.Services
             {
                 team.Members = members.ToList();
             }
+        }
+
+        /// <summary>
+        /// Sorts out replies from the list and assigns them to corresponding parent messages
+        /// </summary>
+        /// <param name="messages">List of messages loaded from the database</param>
+        /// <returns>List of parent messages</returns>
+        private IList<Message> CreateParentMessageGroup(IEnumerable<Message> messages)
+        {
+            var parents = new List<Message>();
+            var replies = new List<Message>();
+
+            // Sorts out replies from the list
+            foreach (Message message in messages)
+            {
+                if (message.ParentMessageId == null)
+                {
+                    parents.Add(message);
+                }
+                else
+                {
+                    replies.Add(message);
+                }
+            }
+
+            // Assign replies to parent messages
+            foreach (Message parent in parents)
+            {
+                if (replies.Any(r => r.ParentMessageId == parent.Id))
+                {
+                    parent.Replies = replies
+                        .Where(r => r.ParentMessageId == parent.Id)
+                        .ToList();
+                }
+            }
+
+            return parents;
         }
 
         #endregion
