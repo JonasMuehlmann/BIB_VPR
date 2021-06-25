@@ -15,14 +15,15 @@
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <!--#region CONTAINER STYLE -->
         <Style x:Key="OuterGrid" TargetType="Grid">
-            <Setter Property="Margin" Value="0 10" />
+            <Setter Property="Margin" Value="10 0" />
         </Style>
         <Style x:Key="OuterBorder" TargetType="Border">
             <Setter Property="Padding" Value="20 20 15 15" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Width" Value="500" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="MaxWidth" Value="450" />
             <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
         </Style>
         <!--#endregion-->
         <!--#region HEADER STYLE -->
