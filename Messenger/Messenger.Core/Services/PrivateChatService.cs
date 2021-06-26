@@ -27,57 +27,36 @@ namespace Messenger.Core.Services
             uint? teamID;
 
             // Add myself and other user as members
-           try
-           {
-               string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
-                              $"('', GETDATE());"
-                              + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
+            string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
+                            $"('', GETDATE());"
+                            + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
+            var team = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
-                using(SqlConnection connection = GetConnection())
-                {
+            teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
 
-                    await connection.OpenAsync();
+            logger.Information($"teamID has been determined as {teamID}");
 
-                    SqlCommand command = new SqlCommand(query, connection);
+            var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {teamID});";
+            // FIX: If AddMember() fails, we just created a dangling Team_Roles
+            // entry
 
-                    logger.Information($"Running the following query: {query}");
+            logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
-                    var team = command.ExecuteScalar();
+            var success1 = await AddMember(myUserId, teamID.Value);
+            var success2 = await AddMember(otherUserId, teamID.Value);
 
-                    teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
+            if (!(success1 && success2))
+            {
+                logger.Information("Could not add one or both users(s) to the team");
+                logger.Information($"Return value: null");
 
-                    logger.Information($"teamID has been determined as {teamID}");
-
-                    var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {teamID});";
-                    // FIX: If AddMember() fails, we just created a dangling Team_Roles
-                    // entry
-                    logger.Information($"Running the following query: {createEmptyRoleQuery}");
-
-                    logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery, connection)}");
-
-                    var success1 = await AddMember(myUserId, teamID.Value);
-                    var success2 = await AddMember(otherUserId, teamID.Value);
-
-                    if (!(success1 && success2))
-                    {
-                        logger.Information("Could not add one or both users(s) to the team");
-                        logger.Information($"Return value: null");
-
-                        return null;
-                    }
-
-
-                    logger.Information($"Return value: {teamID}");
-
-                    return teamID;
-                }
-           }
-           catch (SqlException e)
-           {
-                logger.Information(e, $"Return value: null");
                 return null;
-           }
+            }
+
+            logger.Information($"Return value: {teamID}");
+
+            return teamID;
         }
 
 
@@ -101,7 +80,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">the id of the team belonging to the private chat</param>
         /// <returns>The user id of the conversation partner</returns>
-        public string GetPartner(uint teamId)
+        public async Task<string> GetPartner(uint teamId)
         {
             LogContext.PushProperty("Method","GetPartner");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
@@ -111,29 +90,9 @@ namespace Messenger.Core.Services
             string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId "
                          + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
 
-            try
-            {
+            var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
-                using(SqlConnection connection = GetConnection())
-                {
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-                    var        otherUser   = scalarQuery.ExecuteScalar();
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e,"Return value: null");
-
-                return null;
-            }
+            return SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
         }
     }
 }
