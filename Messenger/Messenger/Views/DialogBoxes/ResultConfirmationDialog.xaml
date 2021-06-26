@@ -7,7 +7,7 @@
     xmlns:converters="using:Messenger.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    CornerRadius="7"
+    CornerRadius="4"
     BorderBrush="Transparent">
     <ContentDialog.Resources>
         <Style x:Key="ConfirmButton" TargetType="Button">
@@ -15,9 +15,10 @@
             <Setter Property="Grid.Row" Value="1" />
             <Setter Property="Content" Value="Okay" />
             <Setter Property="CornerRadius" Value="3" />
-            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Padding" Value="0 7" />
-            <Setter Property="Opacity" Value=".5" />
+            <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
         </Style>
         <Style x:Key="ExitButton" TargetType="Button">
             <Setter Property="Padding" Value="0" />
@@ -32,16 +33,21 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid
-            Grid.Row="0">
+            Grid.Row="0"
+            Margin="10">
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
-                <SymbolIcon
-                    x:Name="HeaderSymbol"
-                    Margin="0 0 0 10"
-                    />
+                <Viewbox
+                    Height="50">
+                    <SymbolIcon
+                        x:Name="HeaderSymbol"
+                        Margin="0 0 0 10"
+                        />
+                </Viewbox>
                 <TextBlock
                     x:Name="HeaderText"
+                    Style="{ThemeResource ListTitleStyle}"
                     TextAlignment="Center"
                     Text="Success/Failure"
                     FontSize="18"
@@ -49,8 +55,8 @@
                 <TextBlock
                     Text="{x:Bind ContentText}"
                     TextAlignment="Center"
-                    Margin="0 15 0 0"
-                    FontSize="12"
+                    Margin="0 20 0 10"
+                    FontSize="14"
                     />
             </StackPanel>
         </Grid>
