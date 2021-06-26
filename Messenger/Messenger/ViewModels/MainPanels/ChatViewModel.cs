@@ -6,6 +6,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
 
 namespace Messenger.ViewModels
@@ -14,10 +15,10 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ObservableCollection<Message> _messages;
+        private ObservableCollection<MessageViewModel> _messages;
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
-        private Message _replyMessage;
+        private MessageViewModel _replyMessage;
         private Message _messageToSend;
 
         #endregion
@@ -27,7 +28,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Loaded messages of the current team/chat
         /// </summary>
-        public ObservableCollection<Message> Messages
+        public ObservableCollection<MessageViewModel> Messages
         {
             get
             {
@@ -57,7 +58,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Message that the user is replying to
         /// </summary>
-        public Message ReplyMessage
+        public MessageViewModel ReplyMessage
         {
             get
             {
@@ -108,8 +109,8 @@ namespace Messenger.ViewModels
         public ChatViewModel()
         {
             // Initialize models
-            Messages = new ObservableCollection<Message>();
-            ReplyMessage = new Message();
+            Messages = new ObservableCollection<MessageViewModel>();
+            ReplyMessage = new MessageViewModel();
             MessageToSend = new Message();
 
             // Register events
@@ -135,7 +136,7 @@ namespace Messenger.ViewModels
         /// Updates the view with the given messages
         /// </summary>
         /// <param name="messages">Messages from the hub</param>
-        private void UpdateView(IEnumerable<Message> messages)
+        private void UpdateView(IEnumerable<MessageViewModel> messages)
         {
             Messages.Clear();
 
@@ -159,9 +160,9 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>
-        private void OnMessageReceived(object sender, Message message)
+        private void OnMessageReceived(object sender, MessageViewModel message)
         {
-            if (message.RecipientId == Hub.CurrentTeamId)
+            if (message.TeamId == Hub.CurrentTeamId)
             {
                 Messages.Add(message);
             }
@@ -172,7 +173,7 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="messages">List of message of the current team</param>
-        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
             UpdateView(messages);
         }

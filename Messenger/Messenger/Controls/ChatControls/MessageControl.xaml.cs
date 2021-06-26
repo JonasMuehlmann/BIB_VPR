@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,14 +21,14 @@ namespace Messenger.Controls.ChatControls
 {
     public sealed partial class MessageControl : UserControl
     {
-        public Message Message
+        public MessageViewModel Message
         {
-            get { return (Message)GetValue(MessageProperty); }
+            get { return (MessageViewModel)GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
         }
 
         public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register("Message", typeof(Message), typeof(MessageControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Message", typeof(MessageViewModel), typeof(MessageControl), new PropertyMetadata(null));
 
         public MessageControl()
         {

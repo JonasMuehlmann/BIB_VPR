@@ -137,7 +137,7 @@ namespace Messenger.Core.Services
                 logger.Information($"Function called with parameters messageId={messageId}");
 
                 string query = $"SELECT attachmentsBlobNames "
-                             + $"FROM Messages"
+                             + $"FROM Messages "
                              + $"WHERE MessageId={messageId};";
 
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -192,6 +192,7 @@
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />
     <Compile Include="Models\DragDropData.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
@@ -226,7 +228,7 @@
     <Compile Include="ViewModels\SchemeActivationSampleViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\UserViewModel.cs" />
     <Compile Include="Views\DialogBoxes\ChangeTeamDialog.xaml.cs">
       <DependentUpon>ChangeTeamDialog.xaml</DependentUpon>
     </Compile>
