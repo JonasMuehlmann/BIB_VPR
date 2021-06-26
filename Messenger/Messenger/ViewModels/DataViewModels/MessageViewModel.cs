@@ -160,6 +160,7 @@ namespace Messenger.ViewModels.DataViewModels
             {
                 Id = message.Id,
                 SenderId = message.SenderId,
+                ParentMessageId = message.ParentMessageId,
                 Sender = message.Sender,
                 Content = message.Content,
                 CreationTime = message.CreationTime,
