@@ -293,6 +293,19 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        public async Task<bool> DownloadAttachment(string blobName, string path = "")
+        {
+            LogContext.PushProperty("Method", "DownloadAttachment");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+            logger.Information($"Function called with parameters blobName={blobName}, path={path}");
+
+            bool result = await FileSharingService.Download(blobName, path);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         #endregion
 
         #region Team
