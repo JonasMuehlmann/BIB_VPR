@@ -6,13 +6,14 @@ namespace Messenger.Core.Models
 
         public string Symbol { get; set; }
 
-        public uint UserId{ get; set; }
+        public string UserId{ get; set; }
 
         public uint MessageId { get; set; }
 
         public Reaction()
         {
             Symbol = "";
+            UserId = "";
         }
 
         public override string ToString()
