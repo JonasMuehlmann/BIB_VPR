@@ -130,8 +130,8 @@ namespace Messenger.Core.Helpers
             return new Reaction()
             {
                 Id        = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
-                UserId    = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
-                MessageId = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                MessageId = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
+                UserId    = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
                 Symbol    = SqlHelpers.TryConvertDbValue(row["Reaction"], Convert.ToString)
             };
         }

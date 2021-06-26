@@ -835,16 +835,17 @@ namespace Messenger.Core.Services
         ///	Add a reaction to a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns></returns>
-        public async Task<uint> AddReaction(uint messageId, string reaction)
+        public async Task<uint> AddReaction(uint messageId, string userId, string reaction)
 
         {
             LogContext.PushProperty("Method","AddReaction");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-            var result = await MessageService.AddReaction(messageId, reaction);
+            var result = await MessageService.AddReaction(messageId, userId, reaction);
 
             var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
 
@@ -878,15 +879,16 @@ namespace Messenger.Core.Services
         ///	Remove a reaction from a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public async Task<bool> RemoveReaction(uint messageId, string reaction)
+        public async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
         {
             LogContext.PushProperty("Method","RemoveReaction");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-            var result = await MessageService.RemoveReaction(messageId, reaction);
+            var result = await MessageService.RemoveReaction(messageId, userId, reaction);
 
             var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
 

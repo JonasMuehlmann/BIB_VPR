@@ -171,7 +171,6 @@ namespace Messenger.Core.Services
                                     SELECT SCOPE_IDENTITY();";
 
                 return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
-                }
         }
 
         /// <summary>
