@@ -150,32 +150,27 @@ namespace Messenger.Core.Services
         ///	Add a reaction to a message
         /// </summary>
         /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
-        /// <returns></returns>
-        public async Task<uint> AddReaction(uint messageId, string reaction)
+        /// <returns>The id of the created reaction</returns>
+        public async Task<uint> AddReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","AddReaction");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-                using (SqlConnection connection = GetDefaultConnection())
-                {
-                    await connection.OpenAsync();
+                string query = $@"
+                                    INSERT INTO
+                                        Reactions
+                                    VALUES(
+                                        {messageId},
+                                        '{reaction}',
+                                        '{userId}'
+                                    );
 
-                    string query = $@"EXEC AddOrUpdateReaction {messageId}, '{reaction}'";
+                                    SELECT SCOPE_IDENTITY();";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
-
-                    LogContext.PushProperty("Method","AddReaction");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
+                return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
                 }
         }
 
