@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Messenger.Services;
 using Serilog;
 using Messenger.Core.Helpers;
+using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.Messenger
 {
@@ -40,16 +41,27 @@ namespace Messenger.Commands.Messenger
         {
             try
             {
+                Message message = _viewModel.MessageToSend;
+
                 // Records created timestamp
-                _viewModel.MessageToSend.CreationTime = DateTime.Now;
+                message.CreationTime = DateTime.UtcNow;
 
                 // Sender/Recipient data will be handled in ChatHubService
-                await _hub.SendMessage(_viewModel.MessageToSend);
+                bool success = await _hub.SendMessage(_viewModel.MessageToSend);
 
-                // Resets the models in the view model
-                _viewModel.ReplyMessage = null;
-                _viewModel.SelectedFiles = null;
-                _viewModel.MessageToSend = new Message();
+                if (success)
+                {
+                    // Resets the models in the view model
+                    _viewModel.ReplyMessage = null;
+                    _viewModel.SelectedFiles = null;
+                    _viewModel.MessageToSend = new Message();
+                }
+                else
+                {
+                    await ResultConfirmationDialog
+                        .Set(false, $"{message}")
+                        .ShowAsync();
+                }
             }
             catch (Exception e)
             {
