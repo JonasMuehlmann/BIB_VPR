@@ -121,39 +121,19 @@ namespace Messenger.Core.Helpers
             };
         }
         /// <summary>
-        /// Maps to a Dictionary of reactions to their occurrences from the data rows
+        /// Maps to a full Reaction model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
-        /// <returns>A dictionary mapping reactions to their occurrences</returns>
-        public static Dictionary<string, int> ReactionMappingFromAdapter(SqlDataAdapter adapter)
+        /// <returns>A fully mapped Reaction object</returns>
+        public static Reaction ReactionFromDataRow(DataRow row)
         {
-            LogContext.PushProperty("Method","ReactionMappingFromAdapter");
-            LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called");
-
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, "Reactions");
-
-            var rows = dataSet.Tables["Reactions"].Rows.Cast<DataRow>().ToList();
-
-            var result = new Dictionary<string, int>();
-
-            logger.Information($"query created {rows.Count()} rows");
-
-            foreach (var row in rows)
+            return new Reaction()
             {
-                result.Add(
-                    SqlHelpers.TryConvertDbValue(row["Reaction"], Convert.ToString),
-                    SqlHelpers.TryConvertDbValue(row["Count"], Convert.ToInt32)
-                );
-            }
-
-            LogContext.PushProperty("Method","ReactionMappingFromAdapter");
-            LogContext.PushProperty("SourceContext", "SqlHelpers");
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+                Id        = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                MessageId = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
+                UserId    = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                Symbol    = SqlHelpers.TryConvertDbValue(row["Reaction"], Convert.ToString)
+            };
         }
 
         public static string StringFromDataRow(DataRow row, string columnName)
