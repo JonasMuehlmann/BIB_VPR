@@ -234,6 +234,28 @@ namespace Messenger.Services
             return isSuccess;
         }
 
+        public async Task<bool> DownloadAttachment(Attachment attachment, string downloadPath)
+        {
+            LogContext.PushProperty("Method", $"{nameof(DownloadAttachment)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (attachment == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            string blobName = attachment.ToBlobName();
+
+            logger.Information($"Requesting download {blobName}...");
+
+            bool isSuccess = await MessengerService.DownloadAttachment(blobName, downloadPath);
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
         #endregion
 
         #region Team
