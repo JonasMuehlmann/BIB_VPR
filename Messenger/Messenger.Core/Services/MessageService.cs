@@ -199,6 +199,38 @@ namespace Messenger.Core.Services
 
                 return await SqlHelpers.NonQueryAsync(query);
         }
+        /// <summary>
+        /// Check if a user made a speific reaction to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to check reactions for</param>
+        /// <param name="userId">The id of the user to check reactions for</param>
+        /// <param name="reaction">The reaction to check for</param>
+        /// <returns>
+        /// True if the user did not yet make the reaction to to the message,
+        /// false otherwise
+        /// </returns>
+        public async Task<bool> CanMakeReaction(uint messageId, string userId, string reaction)
+        {
+                LogContext.PushProperty("Method","CanMakeReaction");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+
+                string query = $@"
+                                    SELECT
+                                        COUNT(*)
+                                    FROM
+                                        Reactions
+                                    WHERE
+                                        MessageId = {messageId}
+                                        AND
+                                        userId = '{userId}'
+                                        AND
+                                        Reaction = '{reaction}';";
+
+                // NOTE: Inverting because Errors in the SqlHelpers return default
+                // values for the type to be converted to(false in this case)
+                return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
+        }
 
         /// <summary>
         ///	Retrieve The reactions of a message
