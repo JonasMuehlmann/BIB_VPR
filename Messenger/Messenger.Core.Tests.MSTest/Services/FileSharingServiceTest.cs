@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Messenger.Tests.MSTest
 {
     [TestClass]
-    public class FileSharingServiceTest : SqlServiceTestBase
+    public class FileSharingServiceTest
     {
         FileSharingService fileSharingService;
 
