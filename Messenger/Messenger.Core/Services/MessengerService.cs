@@ -124,8 +124,6 @@ namespace Messenger.Core.Services
 
         #endregion
 
-        #region Commands
-
         #region Message
 
         /// <summary>
@@ -242,6 +240,53 @@ namespace Messenger.Core.Services
             var message = await MessageService.GetMessage(messageId);
 
             await SignalRService.UpdateMessage(message);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        ///	Add a reaction to a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="reaction">The reaction to add to the message</param>
+        /// <returns></returns>
+        public async Task<uint> AddReaction(uint messageId, string reaction)
+
+        {
+            LogContext.PushProperty("Method", "AddReaction");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+            var result = await MessageService.AddReaction(messageId, reaction);
+
+            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        ///	Remove a reaction from a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="reaction">The reaction to remove from the message</param>
+        /// <returns>Whetever or not to the reaction was successfully removed</returns>
+        public async Task<bool> RemoveReaction(uint messageId, string reaction)
+        {
+            LogContext.PushProperty("Method", "RemoveReaction");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+
+            var result = await MessageService.RemoveReaction(messageId, reaction);
+
+            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
 
             logger.Information($"Return value: {result}");
 
@@ -664,78 +709,6 @@ namespace Messenger.Core.Services
             return result;
         }
 
-        #endregion
-
-        #region Chat
-
-        public async Task<uint?> StartChat(string userId, string targetUserId)
-        {
-            LogContext.PushProperty("Method", "StartChat");
-            LogContext.PushProperty("SourceContext", GetType().Name);
-            logger.Information($"Function called with parameters userId={userId}, targetUserNameId={targetUserId}");
-
-            if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(targetUserId))
-            {
-                logger.Information($"Invalid 'UserId's");
-                return null;
-            }
-
-            var chatId = await PrivateChatService.CreatePrivateChat(userId, targetUserId);
-
-            if (chatId == null)
-            {
-                logger.Information($"Error while starting a new private chat");
-                return null;
-            }
-
-            await SignalRService.JoinTeam(chatId.ToString());
-
-            logger.Information($"Return value: {chatId}");
-
-            return chatId;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Checks the validity of the message to be sent
-        /// </summary>
-        /// <param name="message">A complete message object to be sent</param>
-        /// <returns>true on valid, false on invalid</returns>
-        private bool ValidateMessage(Message message)
-        {
-            LogContext.PushProperty("Method","ValidateMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters message={message}");
-
-            // Sender / Recipient Id
-            if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
-            {
-                logger.Information($"message has been determined invalid");
-                logger.Information($"Return value: false");
-
-                return false;
-            }
-
-            // Content
-            if (string.IsNullOrWhiteSpace(message.Content))
-            {
-                logger.Information($"message has been determined invalid");
-                logger.Information($"Return value: false");
-
-                return false;
-            }
-
-            // Valid
-            logger.Information($"Return value: true");
-
-            return true;
-        }
-
         /// <summary>
         /// Add a role to a team with the specified teamId and notify other clients
         /// </summary>
@@ -774,7 +747,7 @@ namespace Messenger.Core.Services
 
             foreach (var user in await TeamService.GetUsersWithRole(teamId, role))
             {
-               result &= await TeamService.UnAssignRole(role, user.Id, teamId) ;
+                result &= await TeamService.UnAssignRole(role, user.Id, teamId);
             }
 
             await SignalRService.UpdateTeamRoles(teamId);
@@ -831,71 +804,6 @@ namespace Messenger.Core.Services
 
             return result;
         }
-        /// <summary>
-        ///	Add a reaction to a message and notify other clients
-        /// </summary>
-        /// <param name="messageId">The id of the message to add a reaction to</param>
-        /// <param name="reaction">The reaction to add to the message</param>
-        /// <returns></returns>
-        public async Task<uint> AddReaction(uint messageId, string reaction)
-
-        {
-            LogContext.PushProperty("Method","AddReaction");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
-
-            var result = await MessageService.AddReaction(messageId, reaction);
-
-            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
-
-            await SignalRService.UpdateMessageReactions(teamId, messageId);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
-        }
-        /// Grant a team's role a specified permissions and notify other clients
-        /// </summary>
-        /// <param name="teamId">The id of the team to change permissions in</param>
-        /// <param name="role">The role of the team to grant a permission</param>
-        /// <param name="permission">The permission to grant a team's role</param>
-        /// <returns>True on success, false otherwise</returns>
-        public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
-        {
-            LogContext.PushProperty("Method", "GrantPermission");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
-
-            var result = await TeamService.GrantPermission(teamId, role, permission);
-
-            await SignalRService.UpdateRolePermission(teamId);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
-        }
-        /// <summary>
-        ///	Remove a reaction from a message and notify other clients
-        /// </summary>
-        /// <param name="messageId">The id of the message to remove a reaction from</param>
-        /// <param name="reaction">The reaction to remove from the message</param>
-        /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public async Task<bool> RemoveReaction(uint messageId, string reaction)
-        {
-            LogContext.PushProperty("Method","RemoveReaction");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
-
-            var result = await MessageService.RemoveReaction(messageId, reaction);
-
-            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
-
-            await SignalRService.UpdateMessageReactions(teamId, messageId);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
-        }
 
         /// <summary>
         /// Revoke a permission from a specified team's role and notify other clients
@@ -918,6 +826,98 @@ namespace Messenger.Core.Services
 
             return result;
         }
+
+        /// Grant a team's role a specified permissions and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to grant a permission</param>
+        /// <param name="permission">The permission to grant a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method", "GrantPermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+
+            var result = await TeamService.GrantPermission(teamId, role, permission);
+
+            await SignalRService.UpdateRolePermission(teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        #endregion
+
+        #region Chat
+
+        public async Task<uint?> StartChat(string userId, string targetUserId)
+        {
+            LogContext.PushProperty("Method", "StartChat");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+            logger.Information($"Function called with parameters userId={userId}, targetUserNameId={targetUserId}");
+
+            if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(targetUserId))
+            {
+                logger.Information($"Invalid 'UserId's");
+                return null;
+            }
+
+            var chatId = await PrivateChatService.CreatePrivateChat(userId, targetUserId);
+
+            if (chatId == null)
+            {
+                logger.Information($"Error while starting a new private chat");
+                return null;
+            }
+
+            await SignalRService.JoinTeam(chatId.ToString());
+
+            logger.Information($"Return value: {chatId}");
+
+            return chatId;
+        }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Checks the validity of the message to be sent
+        /// </summary>
+        /// <param name="message">A complete message object to be sent</param>
+        /// <returns>true on valid, false on invalid</returns>
+        private bool ValidateMessage(Message message)
+        {
+            LogContext.PushProperty("Method","ValidateMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters message={message}");
+
+            // Sender / Recipient Id
+            if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
+            {
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Content
+            if (string.IsNullOrWhiteSpace(message.Content))
+            {
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Valid
+            logger.Information($"Return value: true");
+
+            return true;
+        }
+
         #endregion
     }
 }
