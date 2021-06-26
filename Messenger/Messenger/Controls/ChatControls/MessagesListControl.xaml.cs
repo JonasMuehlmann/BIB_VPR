@@ -30,14 +30,14 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty MessagesProperty =
             DependencyProperty.Register("Messages", typeof(ObservableCollection<MessageViewModel>), typeof(MessagesListControl), new PropertyMetadata(new ObservableCollection<MessageViewModel>()));
 
-        public ICommand ReplyCommand
+        public ICommand ReplyToCommand
         {
-            get { return (ICommand)GetValue(ReplyCommandProperty); }
-            set { SetValue(ReplyCommandProperty, value); }
+            get { return (ICommand)GetValue(ReplyToCommandProperty); }
+            set { SetValue(ReplyToCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty ReplyCommandProperty =
-            DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ReplyToCommandProperty =
+            DependencyProperty.Register("ReplyToCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
         public MessagesListControl()
         {

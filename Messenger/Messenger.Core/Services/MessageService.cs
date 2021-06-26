@@ -31,7 +31,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
 
             string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
-            string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
+            string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"{parentMessageId}";
 
             logger.Information($"attachmentBlobNames has been corrected to {correctedAttachmentBlobNames}");
             logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");

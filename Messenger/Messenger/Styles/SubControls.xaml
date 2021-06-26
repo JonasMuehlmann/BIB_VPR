@@ -58,4 +58,34 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="ActionBarStyle" TargetType="CommandBar">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="DefaultLabelPosition" Value="Right" />
+        <Setter Property="ClosedDisplayMode" Value="Compact" />
+    </Style>
+    <Style x:Key="OverflowStyle" TargetType="CommandBarOverflowPresenter">
+        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"/>
+        <Setter Property="MaxWidth" Value="{ThemeResource CommandBarOverflowMaxWidth}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CommandBarOverflowPresenter">
+                    <Grid Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ScrollViewer AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                            <ItemsPresenter x:Name="ItemsPresenter" Margin="0"/>
+                        </ScrollViewer>
+                        <Rectangle Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="5"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ActionButtonStyle" TargetType="AppBarButton">
+        <Setter Property="MaxWidth" Value="45" />
+        <Setter Property="LabelPosition" Value="Collapsed" />
+    </Style>
 </ResourceDictionary>

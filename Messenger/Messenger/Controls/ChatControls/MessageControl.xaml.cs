@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -29,6 +30,15 @@ namespace Messenger.Controls.ChatControls
 
         public static readonly DependencyProperty MessageProperty =
             DependencyProperty.Register("Message", typeof(MessageViewModel), typeof(MessageControl), new PropertyMetadata(null));
+
+        public ICommand ReplyToCommand
+        {
+            get { return (ICommand)GetValue(ReplyToCommandProperty); }
+            set { SetValue(ReplyToCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ReplyToCommandProperty =
+            DependencyProperty.Register("ReplyToCommand", typeof(ICommand), typeof(MessageControl), new PropertyMetadata(null));
 
         public MessageControl()
         {

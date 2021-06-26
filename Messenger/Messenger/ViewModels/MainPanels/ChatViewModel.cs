@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
@@ -164,7 +165,24 @@ namespace Messenger.ViewModels
         {
             if (message.TeamId == Hub.CurrentTeamId)
             {
-                Messages.Add(message);
+                if (message.IsReply)
+                {
+                    var updated = Messages.Select(m =>
+                    {
+                        if (m.Id == message.ParentMessageId)
+                        {
+                            m.Replies.Add(message);
+                        }
+
+                        return m;
+                    });
+
+                    Messages = new ObservableCollection<MessageViewModel>(updated);
+                }
+                else
+                {
+                    Messages.Add(message);
+                }
             }
         }
 
