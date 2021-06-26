@@ -22,6 +22,7 @@
                     <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#121212" />
                     <SolidColorBrush x:Key="AppBarItemBackgroundThemeBrush" Color="#212121" />
                     <SolidColorBrush x:Key="HyperlinkButtonBackgroundThemeBrush" Color="#303F9F" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#00897B" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
