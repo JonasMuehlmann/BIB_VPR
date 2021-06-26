@@ -34,26 +34,15 @@ namespace Messenger.Core.Services
                 return await UpdateUsername(userId, newVal);
             }
 
-            using (SqlConnection connection = GetConnection())
+            if (await SqlHelpers.GetColumnType("Users", columnToChange) == "nvarchar")
             {
-                await connection.OpenAsync();
-
-                if (SqlHelpers.GetColumnType("Users", columnToChange, connection) == "nvarchar")
-                {
-                    logger.Information($"columnToChange is of type nvarchar, now newVal={newVal}");
-                    newVal = "'" + newVal + "'";
-                }
-
-                string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
-
-                logger.Information($"Running the following query: {queryUpdateOther}");
-
-                var result = await SqlHelpers.NonQueryAsync(queryUpdateOther, connection);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
+                logger.Information($"columnToChange is of type nvarchar, now newVal={newVal}");
+                newVal = "'" + newVal + "'";
             }
+
+            string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+
+            return await SqlHelpers.NonQueryAsync(queryUpdateOther);
         }
 
         /// <summary>
@@ -69,31 +58,20 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userId={userId}, newUsername={newUsername}");
 
-            using (SqlConnection connection = GetConnection())
+            uint? newNameId = await DetermineNewNameId(newUsername, GetDefaultConnection());
+
+            logger.Information($"newNameId has been determined as {newNameId}");
+
+            if (newNameId == null)
             {
-                await connection.OpenAsync();
-
-                uint? newNameId = DetermineNewNameId(newUsername, connection);
-
-                logger.Information($"newNameId has been determined as {newNameId}");
-
-                if (newNameId == null)
-                {
-                    logger.Information($"Return value: false");
-                    return false;
-                }
-
-                string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
-                                   + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
-
-                logger.Information($"Running the following query: {queryUpdate}");
-
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
+                logger.Information($"Return value: false");
+                return false;
             }
+
+            string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
+                                + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
+
+            return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
 
 
@@ -111,20 +89,9 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
 
             // TODO: Validate email
-            using (SqlConnection connection = GetConnection())
-            {
-                await connection.OpenAsync();
+            string queryUpdate = $"UPDATE Users SET Email='{newMail}' WHERE UserId='{userId}';";
 
-                string queryUpdate = $"UPDATE Users SET Email='{newMail}' WHERE UserId='{userId}';";
-
-                logger.Information($"Running the following query: {queryUpdate}");
-
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
-            }
+            return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
 
         /// <summary>
@@ -141,20 +108,9 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
 
             //TODO: Check for valid photo
-            using (SqlConnection connection = GetConnection())
-            {
-                await connection.OpenAsync();
+            string queryUpdate = $"UPDATE Users SET PhotoURL='{newPhoto}' WHERE UserId='{userId}';";
 
-                string queryUpdate = $"UPDATE Users SET PhotoURL='{newPhoto}' WHERE UserId='{userId}';";
-
-                logger.Information($"Running the following query: {queryUpdate}");
-
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
-            }
+            return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
 
 
@@ -172,20 +128,9 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
             //TODO: Check for valid photo
-            using (SqlConnection connection = GetConnection())
-            {
-                await connection.OpenAsync();
+            string queryUpdate = $"UPDATE Users SET Bio='{newBio}' WHERE UserId='{userId}';";
 
-                string queryUpdate = $"UPDATE Users SET Bio='{newBio}' WHERE UserId='{userId}';";
-
-                logger.Information($"Running the following query: {queryUpdate}");
-
-                var result = await SqlHelpers.NonQueryAsync(queryUpdate, connection);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
-            }
+            return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
 
         /// <summary>
@@ -203,75 +148,53 @@ namespace Messenger.Core.Services
 
             string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userdata.Id}'";
 
-            logger.Information($"Running the following query: {selectQuery}");
+            // Get application user from database
+            DataRow[] rows = (await SqlHelpers.GetRows("Users", selectQuery)).ToArray();
 
-            try
+            // Check if application user is already in database
+            if (rows.Length > 0)
             {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
-
-                    // Get application user from database
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-                    DataRow[] rows = SqlHelpers.GetRows("Users", adapter).ToArray();
-
-                    // Check if application user is already in database
-                    if (rows.Length > 0)
-                    {
-                        logger.Information("Returning existing user");
-                        // Exists: return existing application user object from database
-                        return rows
-                              .Select(Mapper.UserFromDataRow)
-                              .FirstOrDefault();
-                    }
-
-                    // Not exists: create Application user based on MicrosoftGraphService user
-                    // Get a new id for the display name
-                    string displayName = userdata.DisplayName.Split('/')[0].Trim();
-
-                    logger.Information($"displayName has been determined as {displayName}");
-
-                    uint? newNameId = DetermineNewNameId(displayName, connection);
-
-                    LogContext.PushProperty("Method","GetOrCreateApplicationUser");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"newNameId has been determined as {newNameId}");
-
-                    // Exit if name id is null
-                    if (newNameId == null)
-                    {
-                        logger.Information("newNameId has value null, returning null");
-
-                        return null;
-                    }
-
-                    // Create and execute query
-                    string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email, PhotoURL, Bio) "
-                                        + $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}', '{userdata.Photo}', '{userdata.Bio}')";
-
-                    logger.Information($"Running the following query: {insertQuery}");
-
-                    await SqlHelpers.NonQueryAsync(insertQuery, connection);
-
-                    // Return the new application user, mapped directly from MSGraph
-
-                    userdata.NameId = Convert.ToUInt32(newNameId);
-
-                    var result = Mapper.UserFromMSGraph(userdata);
-
-                    logger.Information("Returning new user");
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
+                logger.Information("Returning existing user");
+                // Exists: return existing application user object from database
+                return rows
+                        .Select(Mapper.UserFromDataRow)
+                        .FirstOrDefault();
             }
-            catch (SqlException e)
+
+            // Not exists: create Application user based on MicrosoftGraphService user
+            // Get a new id for the display name
+            string displayName = userdata.DisplayName.Split('/')[0].Trim();
+
+            logger.Information($"displayName has been determined as {displayName}");
+
+            uint? newNameId = await DetermineNewNameId(displayName, GetDefaultConnection());
+
+            LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"newNameId has been determined as {newNameId}");
+
+            // Exit if name id is null
+            if (newNameId == null)
             {
-                logger.Information(e, $"Return value: null");
+                logger.Information("newNameId has value null, returning null");
 
                 return null;
             }
+
+            // Create and execute query
+            string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email, PhotoURL, Bio) "
+                                + $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}', '{userdata.Photo}', '{userdata.Bio}')";
+
+
+            await SqlHelpers.NonQueryAsync(insertQuery);
+
+            // Return the new application user, mapped directly from MSGraph
+
+            userdata.NameId = Convert.ToUInt32(newNameId);
+
+            logger.Information("Returning new user");
+            return Mapper.UserFromMSGraph(userdata);
         }
 
 
@@ -282,7 +205,6 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public async Task<bool> DeleteUser(string userId)
         {
-
             LogContext.PushProperty("Method","DeleteUser");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
@@ -290,13 +212,7 @@ namespace Messenger.Core.Services
 
             string query = $"DELETE FROM Users WHERE UserId='{userId}';";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
         #region Helpers
@@ -313,40 +229,18 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userId={userId}");
 
-            try
+            string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userId}'";
+
+            var rows = await SqlHelpers.GetRows("User", selectQuery);
+
+            if (rows.Count() == 0)
             {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
-
-                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userId}'";
-
-                    logger.Information($"Running the following query: {selectQuery}");
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-
-                    var rows = SqlHelpers.GetRows("User", adapter);
-
-                    if (rows.Count() == 0)
-                    {
-                        logger.Information($"Return value: null");
-
-                        return null;
-                    }
-
-                    var result = rows.Select(Mapper.UserFromDataRow).First();
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
+                logger.Information($"Return value: null");
 
                 return null;
             }
+
+            return rows.Select(Mapper.UserFromDataRow).First();
         }
 
         /// <summary>
@@ -362,34 +256,12 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
 
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
+            string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio, PhotoURL FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
 
-                    string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio, PhotoURL FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
-
-                    logger.Information($"Running the following query: {selectQuery}");
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-
-                    var result = SqlHelpers
-                        .GetRows("Users", adapter)
-                        .Select(Mapper.UserFromDataRow)
-                        .FirstOrDefault();
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
-
-                return null;
-            }
+            return (await SqlHelpers
+                .GetRows("Users", selectQuery))
+                .Select(Mapper.UserFromDataRow)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -405,37 +277,16 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userName={userName}");
 
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
+            string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
 
-                    string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
+            var rows = await SqlHelpers.GetRows("Users", selectQuery);
 
-                    logger.Information($"Running the following query: {selectQuery}");
+            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+            logger.Information($"Retrieved {rows.Count()} rows");
 
-                    var rows = SqlHelpers.GetRows("Users", adapter);
-
-                    LogContext.PushProperty("Method","SearchUser");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"Retrieved {rows.Count()} rows");
-
-                    var result = rows.Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
-
-                return null;
-            }
+            return rows.Select(row => Convert.ToString(row["UserNameWithNameId"])).ToList();
         }
 
 
@@ -445,35 +296,16 @@ namespace Messenger.Core.Services
         /// <param name="username">A username whose nameid is the be determined</param>
         /// <param name="connection">A connection to the sql database</param>
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
-        private uint? DetermineNewNameId(string username, SqlConnection connection)
+        private async Task<uint?> DetermineNewNameId(string username, SqlConnection connection)
         {
             LogContext.PushProperty("Method","DetermineNewNameId");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters username={username},connection={connection}");
 
-
             string query = $"SELECT MAX(NameId) FROM USERS WHERE UserName='{username}'";
-            try
-            {
-                logger.Information($"Running the following query: {query}");
 
-                SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-                // Will be System.DBNull if there is no other user with the same name
-                var result = scalarQuery.ExecuteScalar();
-                result = result is DBNull ? 0 : Convert.ToUInt32(result) + 1;
-
-                logger.Information($"Return value: {result}");
-
-                return (uint)result;
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
-
-                return null;
-            }
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32) + 1;
         }
 
         #endregion

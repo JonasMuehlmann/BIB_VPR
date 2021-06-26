@@ -44,14 +44,7 @@ namespace Messenger.Core.Services
         /// <returns>List of teams the user has membership of, null if none exists</returns>
         public async Task<IList<Team>> Initialize(string userId, string connectionString = null)
         {
-            // Initialize with given connection string
-            if (connectionString != null)
-            {
-                MessageService.SetTestMode(connectionString);
-                TeamService.SetTestMode(connectionString);
-            }
-
-            LogContext.PushProperty("Method", "Initialize");
+            LogContext.PushProperty("Method","Initialize");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -779,7 +772,7 @@ namespace Messenger.Core.Services
 
             var result = await TeamService.RemoveRole(role, teamId);
 
-            foreach (var user in TeamService.GetUsersWithRole(teamId, role))
+            foreach (var user in await TeamService.GetUsersWithRole(teamId, role))
             {
                result &= await TeamService.UnAssignRole(role, user.Id, teamId) ;
             }

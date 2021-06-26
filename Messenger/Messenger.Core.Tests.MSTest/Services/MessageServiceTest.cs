@@ -12,7 +12,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class MessageServiceTest: SqlServiceTestBase
+    public class MessageServiceTest
     {
         MessageService messageService;
         UserService userService;
@@ -24,9 +24,9 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            messageService = InitializeTestMode<MessageService>();
-            userService = InitializeTestMode<UserService>();
-            teamService = InitializeTestMode<TeamService>();
+            messageService = new MessageService();
+            userService =    new UserService();
+            teamService =    new TeamService();
         }
 
 

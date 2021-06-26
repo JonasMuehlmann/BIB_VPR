@@ -29,46 +29,18 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("Method","CreateMessage");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
 
-                    string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
-                    string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
+            string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
+            string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"'{parentMessageId}'";
 
-                    logger.Information($"attachmentBlobNames has been corrected to {correctedAttachmentBlobNames}");
-                    logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");
+            logger.Information($"attachmentBlobNames has been corrected to {correctedAttachmentBlobNames}");
+            logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");
 
-                    string query = $"INSERT INTO Messages " +
-                                   $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
-                                   $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
+            string query = $"INSERT INTO Messages " +
+                            $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
+                            $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
 
-                    logger.Information($"Running the following query: {query}");
-
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-                    var        result      = scalarQuery.ExecuteScalar();
-
-                    result = SqlHelpers.TryConvertDbValue(result, Convert.ToUInt32);
-
-                    LogContext.PushProperty("Method","CreateMessage");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"Return value: {result}");
-
-                    return (uint?)result;
-                }
-            }
-            catch (SqlException e)
-            {
-                LogContext.PushProperty("Method","CreateMessage");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                logger.Information(e, $"Return value: null");
-
-                return null;
-            }
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
         /// <summary>
@@ -78,28 +50,18 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of data rows containing the message data</returns>
         public async Task<IList<Message>> RetrieveMessages(uint teamId)
         {
-            using (SqlConnection connection = GetConnection())
-            {
-                LogContext.PushProperty("Method","RetrieveMessages");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters teamId={teamId}");
+            LogContext.PushProperty("Method","RetrieveMessages");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters teamId={teamId}");
 
-                await connection.OpenAsync();
+            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+                            + $"u.UserId, u.NameId, u.UserName "
+                            + $"FROM Messages m "
+                            + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
+                            + $"WHERE RecipientId = {teamId};";
 
-                string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
-                             + $"u.UserId, u.NameId, u.UserName "
-                             + $"FROM Messages m "
-                             + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
-                             + $"WHERE RecipientId = {teamId};";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-
-                logger.Information($"Running the following query: {query}");
-
-                var result = SqlHelpers.MapToList(Mapper.MessageFromDataRow, adapter);
-
-                return result;
-            }
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
 
         /// <summary>
@@ -109,35 +71,24 @@ namespace Messenger.Core.Services
         /// <returns>A complete message object</returns>
         public async Task<Message> GetMessage(uint messageId)
         {
-            using (SqlConnection connection = GetConnection())
+            LogContext.PushProperty("Method","RetrieveMessage");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate "
+                            + $"FROM Messages"
+                            + $"WHERE MessageId={messageId};";
+
+            var rows = await SqlHelpers.GetRows("Message", query);
+
+            if (rows.Count() == 0)
             {
-                LogContext.PushProperty("Method","RetrieveMessage");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}");
+                logger.Information($"Return value: null");
 
-                await connection.OpenAsync();
-
-                string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate "
-                             + $"FROM Messages"
-                             + $"WHERE MessageId={messageId};";
-
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-
-                var rows = SqlHelpers.GetRows("Message", adapter);
-
-                if (rows.Count() == 0)
-                {
-                    logger.Information($"Return value: null");
-
-                    return null;
-                }
-
-                var result = rows.Select(Mapper.MessageFromDataRow).First();
-
-                logger.Information($"Return value: {result}");
-
-                return result;
+                return null;
             }
+
+            return rows.Select(Mapper.MessageFromDataRow).First();
         }
 
         /// <summary>
@@ -152,33 +103,10 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
+            string query = $"UPDATE Messages SET Message='{newContent}' WHERE MessageId={messageId};";
 
-            using (SqlConnection connection = GetConnection())
-            {
-                await connection.OpenAsync();
+            return await SqlHelpers.NonQueryAsync(query);
 
-                string query = $"UPDATE Messages SET Message='{newContent}' WHERE MessageId={messageId};";
-
-
-                logger.Information($"Running the following query: {query}");
-
-                try
-                {
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteNonQuery(), Convert.ToBoolean);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-                catch (SqlException e)
-                {
-                    logger.Information(e, $"Return value: false");
-
-                    return false;
-                }
-            }
         }
 
         /// <summary>
@@ -192,34 +120,9 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
+            string query = $"DELETE FROM Messages WHERE MessageId={messageId};";
 
-            using (SqlConnection connection = GetConnection())
-            {
-                await connection.OpenAsync();
-
-                string query = $"DELETE FROM Messages WHERE MessageId={messageId};";
-
-                logger.Information($"Running the following query: {query}");
-
-                try
-                {
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-
-                    var        numAffectedRows = scalarQuery.ExecuteNonQuery();
-                    var result = SqlHelpers.TryConvertDbValue(numAffectedRows, Convert.ToBoolean);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-                catch (SqlException e)
-                {
-                    logger.Information(e, $"Return value: false");
-
-                    return false;
-                }
-            }
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
         /// <summary>
@@ -229,28 +132,18 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Blob File Names</returns>
         public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
-            using (SqlConnection connection = GetConnection())
-            {
                 LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}");
-
-                await connection.OpenAsync();
 
                 string query = $"SELECT attachmentsBlobNames "
                              + $"FROM Messages"
                              + $"WHERE MessageId={messageId};";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
 
-                logger.Information($"Running the following query: {query}");
+                var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
-                var blobFileString = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToString);
-
-                var result = blobFileString.Split(',');
-
-                return result;
-            }
+                return blobFileString.Split(',');
         }
 
         /// <summary>
@@ -265,7 +158,7 @@ namespace Messenger.Core.Services
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
 
-                using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
@@ -298,25 +191,9 @@ namespace Messenger.Core.Services
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
 
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
+                string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
 
-                    string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
-
-                    SqlCommand cmd = new SqlCommand(query, connection);
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = await SqlHelpers.NonQueryAsync(query, connection);
-
-                    LogContext.PushProperty("Method","RemoveReaction");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
+                return await SqlHelpers.NonQueryAsync(query);
         }
 
         /// <summary>
@@ -331,18 +208,12 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters messageId={messageId}");
 
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
-            using (SqlConnection connection = GetConnection())
+
+            using (SqlConnection connection = GetDefaultConnection())
             {
                 await connection.OpenAsync();
 
-                var result = Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
-
-                LogContext.PushProperty("Method","RetrieveReactions");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                logger.Information($"Return value: {result}");
-
-                return result;
+                return Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
             }
         }
     }
