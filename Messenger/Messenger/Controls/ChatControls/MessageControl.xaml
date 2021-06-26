@@ -1,11 +1,13 @@
 ﻿<UserControl
     x:Class="Messenger.Controls.ChatControls.MessageControl"
+    x:Name="messageControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Messenger.Controls.ChatControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -84,36 +86,6 @@
             <Setter Property="MaxHeight" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
-        <Style x:Key="ActionBarStyle" TargetType="CommandBar">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="DefaultLabelPosition" Value="Right" />
-            <Setter Property="ClosedDisplayMode" Value="Compact" />
-        </Style>
-        <Style x:Key="OverflowStyle" TargetType="CommandBarOverflowPresenter">
-            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"/>
-            <Setter Property="MaxWidth" Value="{ThemeResource CommandBarOverflowMaxWidth}"/>
-            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="CommandBarOverflowPresenter">
-                        <Grid Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                            <ScrollViewer AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                                <ItemsPresenter x:Name="ItemsPresenter" Margin="0"/>
-                            </ScrollViewer>
-                            <Rectangle Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="5"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ActionButtonStyle" TargetType="AppBarButton">
-            <Setter Property="MaxWidth" Value="45" />
-            <Setter Property="LabelPosition" Value="Collapsed" />
-        </Style>
         <!--#endregion-->
     </UserControl.Resources>
 
@@ -128,6 +100,7 @@
                     <RowDefinition Height="Auto" MaxHeight="500" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" MaxHeight="200"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!-- MESSAGE HEADER -->
@@ -221,6 +194,8 @@
                             Style="{StaticResource ActionButtonStyle}"
                             Icon="MailReply"
                             Label="Reply"
+                            Command="{x:Bind ReplyToCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            CommandParameter="{Binding ElementName=messageControl, Path=Message}"
                             />
                         <!-- ADD OR UPDATE REACTION -->
                         <AppBarButton
@@ -271,6 +246,30 @@
                         </CommandBar.SecondaryCommands>
                     </CommandBar>
                 </Viewbox>
+
+                <!-- REPLIES -->
+                <ListView
+                    Grid.Row="5"
+                    ItemsSource="{x:Bind Message.Replies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="vm:MessageViewModel">
+                            <local:ReplyControl
+                                Reply="{Binding}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Border>
     </Grid>

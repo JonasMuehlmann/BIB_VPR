@@ -138,9 +138,12 @@ namespace Messenger.Services
             {
                 var messages = await MessengerService.LoadMessages(team.Id);
 
-                ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(messages));
+                if (messages != null)
+                {
+                    ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(messages));
 
-                CreateEntryForCurrentTeam(team.Id, parents);
+                    CreateEntryForCurrentTeam(team.Id, parents);
+                }
             }
 
             // Sets the first team as the selected team
@@ -188,9 +191,14 @@ namespace Messenger.Services
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
 
+                if (fromDb == null)
+                {
+                    return null;
+                }
+
                 ObservableCollection<MessageViewModel> messages = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
 
-                CreateEntryForCurrentTeam((uint)CurrentTeamId, messages);
+                CreateEntryForCurrentTeam(teamId, messages);
 
                 logger.Information($"Return value: {messages}");
 
