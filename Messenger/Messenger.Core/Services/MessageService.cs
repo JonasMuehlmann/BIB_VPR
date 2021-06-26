@@ -178,15 +178,24 @@ namespace Messenger.Core.Services
         ///	Remove a reaction from a message
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public async Task<bool> RemoveReaction(uint messageId, string reaction)
+        public async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","RemoveReaction");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-                string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
+                string query = $@"
+                                    DELETE FROM
+                                        Reactions
+                                    WHERE
+                                        messageId = {messageId}
+                                        AND
+                                        userId = '{userId}'
+                                        AND
+                                        reaction = '{reaction}';";
 
                 return await SqlHelpers.NonQueryAsync(query);
         }
