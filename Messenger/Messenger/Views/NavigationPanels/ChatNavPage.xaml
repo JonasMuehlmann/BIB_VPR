@@ -63,11 +63,9 @@
         <Style x:Key="NewChatButtonStyle" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="CornerRadius" Value="17" />
-            <Setter Property="BorderThickness" Value=".8" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="Margin" Value="20 10 10 10" />
+            <Setter Property="Margin" Value="30 0 0 30" />
+            <Setter Property="CornerRadius" Value="1" />
         </Style>
 
         <!--#endregion-->
@@ -75,7 +73,7 @@
 
     <!--#region CONTENT-->
 
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+    <Grid x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -112,10 +110,23 @@
             Style="{StaticResource NewChatButtonStyle}"
             Command="{x:Bind ViewModel.StartChatCommand}"
             Grid.Row="1">
-            <SymbolIcon
-                Symbol="Add"
-                Opacity="0.9"
-                />
+            <Viewbox
+                Height="18">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Text="Start Chat"
+                        Foreground="{ThemeResource SystemAccentColor}"
+                        Margin="0 0 5 0"
+                        FontWeight="SemiBold"
+                        />
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        Glyph="&#xE90A;"
+                        Foreground="{ThemeResource SystemAccentColor}"
+                        />
+                </StackPanel>
+            </Viewbox>
         </Button>
     </Grid>
 
