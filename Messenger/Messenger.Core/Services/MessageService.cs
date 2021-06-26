@@ -200,8 +200,8 @@ namespace Messenger.Core.Services
         ///	Retrieve The reactions of a message
         /// </summary>
         /// <param name="messageId">The id of the message to retrieve reactions from</param>
-        /// <returns>The reactions mapped to their number of occurrences</returns>
-        public async Task<Dictionary<string, int>> RetrieveReactions(uint messageId)
+        /// <returns>A list of reaction objects</returns>
+        public async Task<IEnumerable<Reaction>> RetrieveReactions(uint messageId)
         {
             LogContext.PushProperty("Method","RetrieveReactions");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -209,12 +209,7 @@ namespace Messenger.Core.Services
 
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
 
-            using (SqlConnection connection = GetDefaultConnection())
-            {
-                await connection.OpenAsync();
-
-                return Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
-            }
+            return await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query);
         }
     }
 }
