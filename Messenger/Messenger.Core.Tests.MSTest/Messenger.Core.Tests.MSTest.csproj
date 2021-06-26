@@ -16,5 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Messenger.Core\Messenger.Core.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);BIB_VPR_DEBUG</DefineConstants>
+  </PropertyGroup>
 </Project>
