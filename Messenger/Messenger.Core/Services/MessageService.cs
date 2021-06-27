@@ -75,11 +75,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate "
-                            + $"FROM Messages"
+            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+                            + $"u.UserId, u.NameId, u.UserName "
+                            + $"FROM Messages m "
+                            + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
                             + $"WHERE MessageId={messageId};";
 
-            var rows = await SqlHelpers.GetRows("Message", query);
+            var rows = await SqlHelpers.GetRows("Messages", query);
 
             if (rows.Count() == 0)
             {
