@@ -82,6 +82,7 @@
                     <local:MessageControl
                         Message="{Binding}"
                         ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
+                        EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
                         />
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -39,6 +39,15 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty ReplyToCommandProperty =
             DependencyProperty.Register("ReplyToCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
+        public ICommand EditMessageCommand
+        {
+            get { return (ICommand)GetValue(EditMessageCommandProperty); }
+            set { SetValue(EditMessageCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty EditMessageCommandProperty =
+            DependencyProperty.Register("EditMessageCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+
         public MessagesListControl()
         {
             InitializeComponent();
