@@ -64,11 +64,13 @@ namespace Messenger.Services
         #region Event Handlers
 
         /// <summary>
-        /// Event handler for "ReceiveMessage"(SignalR)
+        /// Event handler for messages
         /// </summary>
         public event EventHandler<MessageViewModel> MessageReceived;
 
         public event EventHandler<MessageViewModel> MessageUpdated;
+
+        public event EventHandler MessageDeleted;
 
         /// <summary>
         /// Event handler for "ReceiveInvitation"(SignalR)
@@ -109,6 +111,7 @@ namespace Messenger.Services
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
             MessengerService.RegisterListenerForMessageUpdate(OnMessageUpdated);
+            MessengerService.RegisterListenerForMessageDelete(OnMessageDeleted);
 
             CurrentUser = await UserDataService.GetUserAsync();
 
@@ -244,12 +247,31 @@ namespace Messenger.Services
 
             if (CurrentUser == null)
             {
-                logger.Information($"No message to edit");
                 logger.Information($"Return value: false");
                 return false;
             }
 
             bool isSuccess = await MessengerService.EditMessage(messageId, newContent);
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
+        public async Task<bool> DeleteMessage(uint messageId, MessageType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(SendMessage)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.DeleteMessage(messageId);
+
+            FindAndRemoveMessage(messageId, type);
 
             logger.Information($"Return value: {isSuccess}");
 
@@ -617,7 +639,7 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel viewModel = SortAndUpdateMessage(message);
+            MessageViewModel viewModel = SortAndAddMessage(message);
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
@@ -657,22 +679,28 @@ namespace Messenger.Services
 
         private void OnMessageUpdated(object sender, Message message)
         {
-            bool isValid = message != null
-                    && !string.IsNullOrEmpty(message.SenderId);
+            bool isValid = message != null;
 
             if (!isValid)
             {
                 return;
             }
 
-            if (message.Sender == null)
+            MessageViewModel vm = SortAndUpdateMessage(message);
+
+            MessageUpdated?.Invoke(this, vm);
+        }
+
+        private void OnMessageDeleted(object sender, Message message)
+        {
+            bool isValid = message != null;
+
+            if (!isValid)
             {
                 return;
             }
 
-            MessageViewModel viewModel = SortAndUpdateMessage(message);
-
-            MessageUpdated?.Invoke(this, viewModel);
+            MessageDeleted?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -732,7 +760,7 @@ namespace Messenger.Services
             }
         }
 
-        private MessageViewModel SortAndUpdateMessage(Message message)
+        private MessageViewModel SortAndAddMessage(Message message)
         {
             var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
 
@@ -741,7 +769,7 @@ namespace Messenger.Services
                 case MessageType.Parent:
                     // Adds to message dictionary
                     MessagesByConnectedTeam.AddOrUpdate(
-                        message.RecipientId,
+                        (uint)viewModel.TeamId,
                         new ObservableCollection<MessageViewModel>() { viewModel },
                         (key, list) =>
                         {
@@ -771,6 +799,107 @@ namespace Messenger.Services
             }
 
             return viewModel;
+        }
+
+        private MessageViewModel SortAndUpdateMessage(Message message)
+        {
+            var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
+
+            switch (type)
+            {
+                case MessageType.Parent:
+                    // Adds to message dictionary
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        (uint)viewModel.TeamId,
+                        new ObservableCollection<MessageViewModel>() { viewModel },
+                        (key, list) =>
+                        {
+                            list.Select(m =>
+                            {
+                                if (m.Id == viewModel.Id)
+                                {
+                                    m = viewModel;
+                                }
+
+                                return m;
+                            });
+
+                            return list;
+                        });
+                    break;
+                case MessageType.Reply:
+                    // Adds to the list of replies of the message
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)viewModel.TeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(vm =>
+                        {
+                            if (vm.Id == viewModel.TeamId)
+                            {
+                                vm.Replies.Select(r =>
+                                {
+                                    if (r.Id == viewModel.Id)
+                                    {
+                                        r = viewModel;
+                                    }
+
+                                    return r;
+                                });
+                            }
+
+                            return vm;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return viewModel;
+        }
+
+        private void FindAndRemoveMessage(uint id, MessageType type)
+        {
+            switch (type)
+            {
+                case MessageType.Parent:
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        (uint)CurrentTeamId,
+                        new ObservableCollection<MessageViewModel>(),
+                        (key, list) =>
+                        {
+                            var updated = list
+                                .Where(m => m.Id != id);
+
+                            return new ObservableCollection<MessageViewModel>(updated);
+                        });
+                    break;
+                case MessageType.Reply:
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)CurrentTeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(m =>
+                        {
+                            bool found = m.Replies.Any(r => r.Id == id);
+
+                            if (found)
+                            {
+                                var updated = m.Replies.Where(r => r.Id != id);
+
+                                m.Replies = new ObservableCollection<MessageViewModel>(updated);
+                            }
+
+                            return m;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            MessageDeleted?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
