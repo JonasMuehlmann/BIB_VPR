@@ -81,7 +81,12 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public async Task UpdateMessage(Message message)
         {
-            await Clients.Group(message.Id.ToString()).SendAsync("MessageUpdated", message);
+            await Clients.Group(message.RecipientId.ToString()).SendAsync("MessageUpdated", message);
+        }
+
+        public async Task DeleteMessage(Message message)
+        {
+            await Clients.Group(message.RecipientId.ToString()).SendAsync("MessageDeleted", message);
         }
 
         /// <summary>
