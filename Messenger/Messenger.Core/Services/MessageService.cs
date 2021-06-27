@@ -145,8 +145,7 @@ namespace Messenger.Core.Services
 
             var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
-            if (blobFileString == null 
-                || string.IsNullOrEmpty(blobFileString))
+            if (string.IsNullOrEmpty(blobFileString))
             {
                 return null;
             }

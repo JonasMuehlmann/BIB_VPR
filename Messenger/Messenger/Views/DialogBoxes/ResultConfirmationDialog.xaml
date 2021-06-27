@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     CornerRadius="4"
+    Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
     BorderBrush="Transparent">
     <ContentDialog.Resources>
         <Style x:Key="ConfirmButton" TargetType="Button">

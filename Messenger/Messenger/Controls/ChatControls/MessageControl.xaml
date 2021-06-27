@@ -118,7 +118,7 @@
                     <Ellipse
                         Width="35"
                         Height="35"
-                        Fill="{StaticResource SystemColorBackgroundBrush}"
+                        Fill="{StaticResource SystemAccentColorDark1}"
                         />
                     <StackPanel
                         VerticalAlignment="Center"
@@ -217,13 +217,10 @@
                     <!-- ATTACHMENTS DETAILS -->
                     <StackPanel
                         Visibility="{Binding ElementName=AttachmentsExpandButton, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
+                        <!-- PLACEHOLDER -->
                         <Button
                             Style="{StaticResource AttachmentHypertext}"
-                            Content="example_data_02941.png (15.22 MB)"
-                            />
-                        <Button
-                            Style="{StaticResource AttachmentHypertext}"
-                            Content="example_data_02941.png (15.22 MB)"
+                            Content="example_data_02941.png (114.22 KB)"
                             />
                     </StackPanel>
                 </StackPanel>
