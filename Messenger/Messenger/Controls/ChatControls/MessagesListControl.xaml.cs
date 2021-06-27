@@ -39,6 +39,15 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty ReplyToCommandProperty =
             DependencyProperty.Register("ReplyToCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
+        public ICommand DownloadAttachmentCommand
+        {
+            get { return (ICommand)GetValue(DownloadAttachmentCommandProperty); }
+            set { SetValue(DownloadAttachmentCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty DownloadAttachmentCommandProperty =
+            DependencyProperty.Register("DownloadAttachmentCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+
         public MessagesListControl()
         {
             InitializeComponent();

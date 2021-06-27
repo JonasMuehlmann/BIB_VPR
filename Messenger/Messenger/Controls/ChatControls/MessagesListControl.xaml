@@ -81,6 +81,7 @@
                     x:DataType="vm:MessageViewModel">
                     <local:MessageControl
                         Message="{Binding}"
+                        DownloadAttachmentCommand="{Binding ElementName=messagesListControl, Path=DownloadAttachmentCommand}"
                         ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
                         />
                 </DataTemplate>
