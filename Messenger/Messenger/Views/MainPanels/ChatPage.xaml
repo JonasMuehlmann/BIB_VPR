@@ -19,6 +19,7 @@
                 Grid.Row="0"
                 Messages="{x:Bind ViewModel.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 ReplyToCommand="{x:Bind ViewModel.ReplyToCommand}"
+                DownloadAttachmentCommand="{x:Bind ViewModel.DownloadAttachmentCommand}"
                 />
             <controls:SendMessageControl
                 Grid.Row="1"
