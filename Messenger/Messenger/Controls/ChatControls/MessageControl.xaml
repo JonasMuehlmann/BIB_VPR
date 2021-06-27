@@ -239,7 +239,7 @@
                             Style="{StaticResource ActionButtonStyle}"
                             Icon="MailReply"
                             Label="Reply"
-                            Command="{x:Bind ReplyToCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Command="{x:Bind ReplyToCommand}"
                             CommandParameter="{Binding ElementName=messageControl, Path=Message}"
                             />
                         <!-- ADD OR UPDATE REACTION -->
@@ -290,6 +290,7 @@
                                 x:Name="DeleteButton"
                                 Icon="Delete"
                                 Label="Delete"
+                                Tapped="DeleteButton_Tapped"
                                 />
                         </CommandBar.SecondaryCommands>
                     </CommandBar>

@@ -77,6 +77,15 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty EditMessageCommandProperty =
             DependencyProperty.Register("EditMessageCommand", typeof(ICommand), typeof(MessageControl), new PropertyMetadata(null));
 
+        public ICommand DeleteMessageCommand
+        {
+            get { return (ICommand)GetValue(DeleteMessageCommandProperty); }
+            set { SetValue(DeleteMessageCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty DeleteMessageCommandProperty =
+            DependencyProperty.Register("DeleteMessageCommand", typeof(ICommand), typeof(MessageControl), new PropertyMetadata(null));
+
         public MessageControl()
         {
             EnterEditModeCommand = new RelayCommand(EnterEditMode);
@@ -120,6 +129,23 @@ namespace Messenger.Controls.ChatControls
             EditMessageCommand?.Execute(vm);
 
             ExitEditMode();
+        }
+
+        private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (Message == null
+                || Message.Sender == null)
+            {
+                return;
+            }
+
+            var vm = new MessageViewModel()
+            {
+                Id = Message.Id,
+                Sender = Message.Sender
+            };
+
+            DeleteMessageCommand?.Execute(vm);
         }
     }
 }
