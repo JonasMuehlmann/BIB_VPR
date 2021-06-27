@@ -819,21 +819,47 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Revoke a permission from a specified team's role and notify other clients
+        ///	Add a reaction to a message and notify other clients
         /// </summary>
-        /// <param name="teamId">The id of the team to change permissions in</param>
-        /// <param name="role">The role of the team to revoke a permission from</param>
-        /// <param name="permission">The permission to revoke from a team's role</param>
-        /// <returns>True on success, false otherwise</returns>
-        public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="userId">The id of the user making the reaction</param>
+        /// <param name="reaction">The reaction to add to the message</param>
+        /// <returns></returns>
+        public async Task<uint> AddReaction(uint messageId, string userId, string reaction)
         {
-            LogContext.PushProperty("Method", "RevokePermission");
+            LogContext.PushProperty("Method", "AddReaction");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-            var result = await TeamService.RevokePermission(teamId, role, permission);
+            var result = await MessageService.AddReaction(messageId, userId, reaction);
 
-            await SignalRService.UpdateRolePermission(teamId);
+            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        ///	Remove a reaction from a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="userId">The id of the user whose reaction to remove</param>
+        /// <param name="reaction">The reaction to remove from the message</param>
+        /// <returns>Whetever or not to the reaction was successfully removed</returns>
+        public async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
+        {
+            LogContext.PushProperty("Method","RemoveReaction");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+
+            var result = await MessageService.RemoveReaction(messageId, userId, reaction);
+
+            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+
+            await SignalRService.UpdateMessageReactions(teamId, messageId);
 
             logger.Information($"Return value: {result}");
 
@@ -853,6 +879,28 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
 
             var result = await TeamService.GrantPermission(teamId, role, permission);
+
+            await SignalRService.UpdateRolePermission(teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Revoke a permission from a specified team's role and notify other clients
+        /// </summary>
+        /// <param name="teamId">The id of the team to change permissions in</param>
+        /// <param name="role">The role of the team to revoke a permission from</param>
+        /// <param name="permission">The permission to revoke from a team's role</param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        {
+            LogContext.PushProperty("Method", "RevokePermission");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
+
+            var result = await TeamService.RevokePermission(teamId, role, permission);
 
             await SignalRService.UpdateRolePermission(teamId);
 
