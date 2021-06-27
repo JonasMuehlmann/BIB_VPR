@@ -68,6 +68,8 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<MessageViewModel> MessageReceived;
 
+        public event EventHandler<MessageViewModel> MessageUpdated;
+
         /// <summary>
         /// Event handler for "ReceiveInvitation"(SignalR)
         /// </summary>
@@ -106,6 +108,7 @@ namespace Messenger.Services
 
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
+            MessengerService.RegisterListenerForMessageUpdate(OnMessageUpdated);
 
             CurrentUser = await UserDataService.GetUserAsync();
 
@@ -228,6 +231,25 @@ namespace Messenger.Services
             message.RecipientId = (uint)CurrentTeamId;
 
             bool isSuccess = await MessengerService.SendMessage(message);
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
+        public async Task<bool> EditMessage(uint messageId, string newContent)
+        {
+            LogContext.PushProperty("Method", $"{nameof(SendMessage)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"No message to edit");
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.EditMessage(messageId, newContent);
 
             logger.Information($"Return value: {isSuccess}");
 
@@ -595,41 +617,7 @@ namespace Messenger.Services
                 return;
             }
 
-            var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
-
-            switch (type)
-            {
-                case MessageType.Parent:
-                    // Adds to message dictionary
-                    MessagesByConnectedTeam.AddOrUpdate(
-                        message.RecipientId,
-                        new ObservableCollection<MessageViewModel>() { viewModel },
-                        (key, list) =>
-                        {
-                            list.Add(viewModel);
-                            return list;
-                        });
-                    break;
-                case MessageType.Reply:
-                    // Adds to the list of replies of the message
-                    if (MessagesByConnectedTeam.TryGetValue(
-                        (uint)viewModel.TeamId,
-                        out ObservableCollection<MessageViewModel> messages))
-                    {
-                        messages.Select(vm =>
-                        {
-                            if (vm.Id == viewModel.TeamId)
-                            {
-                                vm.Replies.Add(viewModel);
-                            }
-
-                            return vm;
-                        });
-                    }
-                    break;
-                default:
-                    break;
-            }
+            MessageViewModel viewModel = SortAndUpdateMessage(message);
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
@@ -665,6 +653,26 @@ namespace Messenger.Services
 
             // Invoke registered events
             InvitationReceived?.Invoke(this, teamId);
+        }
+
+        private void OnMessageUpdated(object sender, Message message)
+        {
+            bool isValid = message != null
+                    && !string.IsNullOrEmpty(message.SenderId);
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            if (message.Sender == null)
+            {
+                return;
+            }
+
+            MessageViewModel viewModel = SortAndUpdateMessage(message);
+
+            MessageUpdated?.Invoke(this, viewModel);
         }
 
         #endregion
@@ -722,6 +730,47 @@ namespace Messenger.Services
             {
                 team.Members = members.ToList();
             }
+        }
+
+        private MessageViewModel SortAndUpdateMessage(Message message)
+        {
+            var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
+
+            switch (type)
+            {
+                case MessageType.Parent:
+                    // Adds to message dictionary
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        message.RecipientId,
+                        new ObservableCollection<MessageViewModel>() { viewModel },
+                        (key, list) =>
+                        {
+                            list.Add(viewModel);
+                            return list;
+                        });
+                    break;
+                case MessageType.Reply:
+                    // Adds to the list of replies of the message
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)viewModel.TeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(vm =>
+                        {
+                            if (vm.Id == viewModel.TeamId)
+                            {
+                                vm.Replies.Add(viewModel);
+                            }
+
+                            return vm;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return viewModel;
         }
 
         #endregion
