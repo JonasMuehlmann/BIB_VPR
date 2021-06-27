@@ -1,5 +1,7 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
+using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -27,9 +29,33 @@ namespace Messenger.Commands.Messenger
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            bool executable = parameter != null
+                && parameter is MessageViewModel;
+
+            if (!executable)
+            {
+                return;
+            }
+
+            try
+            {
+                MessageViewModel vm = (MessageViewModel)parameter;
+
+                bool isSuccess = await _hub.EditMessage((uint)vm.Id, vm.Content);
+
+                if (!isSuccess)
+                {
+                    await ResultConfirmationDialog
+                        .Set(false, "We could not edit the message.")
+                        .ShowAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Information($"Error while editing the message: {e.Message}");
+            }
         }
     }
 }
