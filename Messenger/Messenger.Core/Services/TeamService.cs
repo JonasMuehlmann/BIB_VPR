@@ -35,8 +35,12 @@ namespace Messenger.Core.Services
 
             string  createTeamQuery = $@"
                                             INSERT INTO
-                                                Teams (TeamName, TeamDescription, CreationDate)
-                                            VALUES('{teamName}', '{teamDescription}', GETDATE());
+                                                Teams
+                                            VALUES(
+                                                    '{teamName}',
+                                                    '{teamDescription}',
+                                                    GETDATE()
+                                            );
 
                                             SELECT SCOPE_IDENTITY();";
 
@@ -46,7 +50,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("Method","CreateTeam");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
-            var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {result});";
+            var createEmptyRoleQuery = $@"
+                                            INSERT INTO
+                                                Team_roles
+                                            VALUES(
+                                                '',
+                                                {result}
+                                            );";
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
@@ -69,16 +79,19 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}");
 
             string query = $@"
-                                DELETE Role_permissions
-                                    FROM Role_permissions rp
+                                DELETE
+                                    Role_permissions
+                                FROM
+                                    Role_permissions rp
                                 INNER JOIN Team_roles tr
                                     ON tr.Id = rp.Team_rolesId
-                                WHERE tr.TeamId={teamId};
+                                WHERE
+                                    tr.TeamId={teamId};
 
-                                DELETE FROM User_roles       WHERE TeamId={teamId};
-                                DELETE FROM Team_roles       WHERE TeamId={teamId};
-                                DELETE FROM Memberships      WHERE TeamId={teamId};
-                                DELETE FROM Teams            WHERE TeamId={teamId};";
+                                DELETE FROM User_roles  WHERE TeamId={teamId};
+                                DELETE FROM Team_roles  WHERE TeamId={teamId};
+                                DELETE FROM Memberships WHERE TeamId={teamId};
+                                DELETE FROM Teams       WHERE TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -99,7 +112,14 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}, teamId={teamId}");
 
 
-            string query = $"UPDATE Teams SET TeamName='{teamName}', TeamDescription='{teamDescription}' WHERE TeamId={teamId};";
+            string query = $@"
+                                UPDATE
+                                    Teams
+                                SET
+                                    TeamName='{teamName}',
+                                    TeamDescription='{teamDescription}'
+                                WHERE
+                                    TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -126,7 +146,13 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            string query = $"UPDATE Teams SET TeamName='{teamName}' WHERE TeamId={teamId};";
+            string query = $@"
+                                UPDATE
+                                    Teams
+                                SET
+                                    TeamName='{teamName}'
+                                WHERE
+                                    TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -145,7 +171,13 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters teamId={teamId}, description={description}");
 
-            string query = $"UPDATE Teams SET TeamDescription='{description}' WHERE TeamId={teamId};";
+            string query = $@"
+                                UPDATE
+                                    Teams
+                                SET
+                                    TeamDescription='{description}'
+                                WHERE
+                                    TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -162,7 +194,11 @@ namespace Messenger.Core.Services
             logger.Information($"Function called");
 
 
-            string query = @"SELECT TeamId, TeamName, TeamDescription, CreationDate FROM Teams;";
+            string query = @"
+                            SELECT
+                                *
+                            FROM
+                                Teams;";
 
             return await SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
         }
@@ -180,8 +216,9 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                 SELECT
-                                    TeamId, TeamName, TeamDescription, CreationDate
-                                FROM Teams
+                                    *
+                                FROM
+                                    Teams
                                 WHERE
                                     TeamId = {teamId};";
 
@@ -204,10 +241,15 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
-            string query = $"SELECT t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate " +
-                $"FROM Teams t " +
-                $"LEFT JOIN Memberships m ON (t.TeamId = m.TeamId) " +
-                $"WHERE m.UserId = '{userId}';";
+            string query = $@"
+                                SELECT
+                                    t.TeamId, t.TeamName, t.TeamDescription, t.CreationDate
+                            FROM
+                                Teams t
+                            LEFT JOIN Memberships m
+                                ON t.TeamId = m.TeamId
+                            WHERE
+                                m.UserId = '{userId}';";
 
             return await SqlHelpers.MapToList(Mapper.TeamFromDataRow, query);
 
@@ -229,19 +271,38 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
-            var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='' AND TeamId={teamId}";
+            var Team_rolesIdQuery = $@"
+                                        SELECT
+                                            Id
+                                        FROM
+                                            Team_roles
+                                        WHERE
+                                            Role = ''
+                                            AND
+                                            TeamId = {teamId}";
 
             var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
 
             var User_rolesIdQuery = $@"
-                                        INSERT INTO User_roles(UserId, Team_rolesId, teamId)
-                                            VALUES('{userId}', {Team_rolesId}, {teamId});";
+                                        INSERT INTO
+                                            User_roles
+                                        VALUES(
+                                            '{userId}',
+                                             {Team_rolesId},
+                                             {teamId}
+                                        );";
 
             var User_rolesId = await SqlHelpers.ExecuteScalarAsync(User_rolesIdQuery, Convert.ToUInt32);
 
 
-            string query = $@"INSERT INTO Memberships(UserId, TeamId) VALUES('{userId}', {teamId});";
+            string query = $@"
+                                INSERT INTO
+                                    Memberships
+                                VALUES(
+                                    '{userId}',
+                                     {teamId}
+                                );";
 
             var result = await SqlHelpers.NonQueryAsync(query);
 
@@ -292,7 +353,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters userId={userId}");
 
-            string query = $"SELECT * FROM Memberships WHERE UserId='{userId}'";
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Memberships
+                                WHERE
+                                    UserId='{userId}'";
 
             return await SqlHelpers.MapToList(Mapper.MembershipFromDataRow, query);
 
@@ -309,8 +376,21 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            string subquery = $"SELECT UserId FROM Memberships WHERE TeamId={teamId}";
-            string query = $"SELECT * FROM Users WHERE UserId IN ({subquery})";
+            string query = $@"
+                            SELECT
+                                *
+                            FROM
+                                Users
+                            WHERE
+                            UserId
+                                IN (
+                                    SELECT
+                                        UserId
+                                    FROM
+                                        Memberships
+                                    WHERE
+                                        TeamId={teamId}
+                                )";
 
             return await SqlHelpers.MapToList(Mapper.UserFromDataRow, query);
         }
@@ -325,7 +405,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("Method","GetAllChannelsByTeamId");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
-            string query = $"SELECT ChannelId, ChannelName, TeamId FROM Channels WHERE TeamId={teamId};";
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Channels
+                                WHERE
+                                    TeamId={teamId};";
 
             return await SqlHelpers.MapToList(Mapper.ChannelFromDataRow, query);
         }
@@ -344,9 +430,12 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
             string query = $@"
-                                INSERT INTO Team_Roles
-                                    VALUES('{role}', {teamId});
-                                ";
+                                INSERT INTO
+                                    Team_Roles
+                                VALUES(
+                                    '{role}',
+                                     {teamId}
+                                );";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -365,7 +454,8 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
             string query = $@"
-                                DELETE FROM Team_roles
+                                DELETE FROM
+                                    Team_roles
                                 WHERE
                                     TeamId={teamId}
                                     AND
@@ -403,8 +493,13 @@ namespace Messenger.Core.Services
                 return false;
             }
             string query = $@"
-                                INSERT INTO User_roles
-                                VALUES('{userId}', {Team_rolesId}, {teamId});";
+                                INSERT INTO
+                                    User_roles
+                                VALUES(
+                                    '{userId}',
+                                     {Team_rolesId},
+                                     {teamId}
+                                );";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -458,7 +553,15 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameter teamId={teamId}");
 
-            string query = $"SELECT Role FROM Team_roles WHERE teamId={teamId} AND Role != '';";
+            string query = $@"
+                                SELECT
+                                    Role
+                                FROM
+                                    Team_roles
+                                WHERE
+                                    teamId={teamId}
+                                    AND
+                                    Role != '';";
 
             return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_roles", "Role");
         }
