@@ -80,8 +80,10 @@
                 <DataTemplate
                     x:DataType="vm:MessageViewModel">
                     <local:MessageControl
-                        Message="{Binding}"
+                        Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
+                        DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
+                        EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
                         />
                 </DataTemplate>
             </ListView.ItemTemplate>

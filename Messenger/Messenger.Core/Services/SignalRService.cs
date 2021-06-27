@@ -35,6 +35,7 @@ namespace Messenger.Core.Services
         public event EventHandler<uint> InviteReceived;
         public event EventHandler<Team> TeamUpdated;
         public event EventHandler<Message> MessageUpdated;
+        public event EventHandler<Message> MessageDeleted;
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
         public event EventHandler<uint> TeamRolesUpdated;
@@ -51,15 +52,17 @@ namespace Messenger.Core.Services
                 })
                 .Build();
 
-            _connection.On<Message>("ReceiveMessage", (message)     => MessageReceived?.Invoke(this, message));
-            _connection.On<uint>("ReceiveInvitation", (teamId)      => InviteReceived?.Invoke(this, teamId));
-            _connection.On<Team>("TeamUpdated", (team)              => TeamUpdated?.Invoke(this, team));
-            _connection.On<Message>("MessageUpdated", (message)     => MessageUpdated?.Invoke(this, message));
-            _connection.On<Channel>("ChannelUpdated", (channel)     => ChannelUpdated?.Invoke(this, channel));
-            _connection.On<User>("UserUpdated", (user)              => UserUpdated?.Invoke(this, user));
-            _connection.On<uint>("TeamRolesUpdated", (teamId) => TeamRolesUpdated?.Invoke(this, teamId));
+            // Listeners
+            _connection.On<Message>("ReceiveMessage",       (message)   => MessageReceived?.Invoke(this, message));
+            _connection.On<uint>("ReceiveInvitation",       (teamId)    => InviteReceived?.Invoke(this, teamId));
+            _connection.On<Team>("TeamUpdated",             (team)      => TeamUpdated?.Invoke(this, team));
+            _connection.On<Message>("MessageUpdated",       (message)   => MessageUpdated?.Invoke(this, message));
+            _connection.On<Message>("MessageDeleted",       (message)   => MessageDeleted?.Invoke(this, message));
+            _connection.On<Channel>("ChannelUpdated",       (channel)   => ChannelUpdated?.Invoke(this, channel));
+            _connection.On<User>("UserUpdated",             (user)      => UserUpdated?.Invoke(this, user));
+            _connection.On<uint>("TeamRolesUpdated",        (teamId)    => TeamRolesUpdated?.Invoke(this, teamId));
             _connection.On<uint>("MessageReactionsUpdated", (messageId) => MessageReactionsUpdated?.Invoke(this, messageId));
-            _connection.On<uint>("RolePermissionsUpdated", (teamId) => RolePermissionsUpdated?.Invoke(this, teamId));
+            _connection.On<uint>("RolePermissionsUpdated",  (teamId)    => RolePermissionsUpdated?.Invoke(this, teamId));
         }
 
         /// <summary>
@@ -180,6 +183,11 @@ namespace Messenger.Core.Services
         public async Task UpdateMessage(Message message)
         {
             await _connection.SendAsync("UpdateMessage", message);
+        }
+
+        public async Task DeleteMessage(Message message)
+        {
+            await _connection.SendAsync("DeleteMessage", message);
         }
 
         /// <summary>
