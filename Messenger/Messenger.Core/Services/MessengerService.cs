@@ -167,15 +167,17 @@ namespace Messenger.Core.Services
             }
 
             // Upload attachments
-            if (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count > 0)
+            var blobNames = new List<string>();
+            if (message.UploadFilePaths != null && message.UploadFilePaths.Count > 0)
             {
-                foreach (var attachment in message.AttachmentsBlobName)
+                foreach (var path in message.UploadFilePaths)
                 {
-                    await FileSharingService.Upload(attachment);
+                    string blob = await FileSharingService.Upload(path);
+                    blobNames.Add(blob);
                 }
             }
 
-            logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}");
+            logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFilePaths)}");
 
             // Save to database
             await MessageService.CreateMessage(
@@ -183,7 +185,7 @@ namespace Messenger.Core.Services
                 message.SenderId,
                 message.Content,
                 message.ParentMessageId,
-                message.AttachmentsBlobName);
+                blobNames);
 
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
