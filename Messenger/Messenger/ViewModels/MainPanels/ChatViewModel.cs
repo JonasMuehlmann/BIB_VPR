@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -107,6 +108,8 @@ namespace Messenger.ViewModels
 
         public ICommand EditMessageCommand => new EditMessageCommand(Hub);
 
+        public ICommand DeleteMessageCommand => new DeleteMessageCommand(Hub);
+
         #endregion
 
         public ChatViewModel()
@@ -120,6 +123,7 @@ namespace Messenger.ViewModels
             Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
             Hub.MessageUpdated += OnMessageUpdated;
+            Hub.MessageDeleted += OnMessageDeleted;
 
             LoadAsync();
         }
@@ -170,7 +174,7 @@ namespace Messenger.ViewModels
             {
                 if (message.IsReply)
                 {
-                    var updated = Messages.Select(m =>
+                    Messages.Select(m =>
                     {
                         if (m.Id == message.ParentMessageId)
                         {
@@ -179,8 +183,6 @@ namespace Messenger.ViewModels
 
                         return m;
                     });
-
-                    Messages = new ObservableCollection<MessageViewModel>(updated);
                 }
                 else
                 {
@@ -199,17 +201,16 @@ namespace Messenger.ViewModels
             UpdateView(messages);
         }
 
-        private void OnMessageUpdated(object sender, MessageViewModel message)
+        private async void OnMessageUpdated(object sender, MessageViewModel message)
         {
-            var messages = Messages.Select(m =>
-            {
-                if (m.Id == message.Id)
-                {
-                    m = message;
-                }
+            var messages = await Hub.GetMessages();
 
-                return m;
-            });
+            UpdateView(messages);
+        }
+
+        private async void OnMessageDeleted(object sender, EventArgs e)
+        {
+            var messages = await Hub.GetMessages();
 
             UpdateView(messages);
         }
