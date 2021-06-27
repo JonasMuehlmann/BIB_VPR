@@ -30,11 +30,14 @@ namespace Messenger.Core.Models
 
         public List<string> AttachmentsBlobName { get; set; }
 
+        public List<string> UploadFilePaths { get; set; }
+
         public Message()
         {
             SenderId = "";
             Content = "";
             AttachmentsBlobName = new List<string>();
+            UploadFilePaths = new List<string>();
         }
 
         public override string ToString()
