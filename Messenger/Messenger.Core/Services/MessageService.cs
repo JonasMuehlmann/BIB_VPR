@@ -150,58 +150,93 @@ namespace Messenger.Core.Services
         ///	Add a reaction to a message
         /// </summary>
         /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
-        /// <returns></returns>
-        public async Task<uint> AddReaction(uint messageId, string reaction)
+        /// <returns>The id of the created reaction</returns>
+        public async Task<uint> AddReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","AddReaction");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-                using (SqlConnection connection = GetDefaultConnection())
-                {
-                    await connection.OpenAsync();
+                string query = $@"
+                                    INSERT INTO
+                                        Reactions
+                                    VALUES(
+                                        {messageId},
+                                        '{reaction}',
+                                        '{userId}'
+                                    );
 
-                    string query = $@"EXEC AddOrUpdateReaction {messageId}, '{reaction}'";
+                                    SELECT SCOPE_IDENTITY();";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.TryConvertDbValue(cmd.ExecuteScalar(), Convert.ToUInt32);
-
-                    LogContext.PushProperty("Method","AddReaction");
-                    LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
+                return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
         /// <summary>
         ///	Remove a reaction from a message
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public async Task<bool> RemoveReaction(uint messageId, string reaction)
+        public async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","RemoveReaction");
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}, reaction={reaction}");
+                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-                string query = $@"EXEC RemoveOrUpdateReaction {messageId}, '{reaction}'";
+                string query = $@"
+                                    DELETE FROM
+                                        Reactions
+                                    WHERE
+                                        messageId = {messageId}
+                                        AND
+                                        userId = '{userId}'
+                                        AND
+                                        reaction = '{reaction}';";
 
                 return await SqlHelpers.NonQueryAsync(query);
+        }
+        /// <summary>
+        /// Check if a user made a speific reaction to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to check reactions for</param>
+        /// <param name="userId">The id of the user to check reactions for</param>
+        /// <param name="reaction">The reaction to check for</param>
+        /// <returns>
+        /// True if the user did not yet make the reaction to to the message,
+        /// false otherwise
+        /// </returns>
+        public async Task<bool> CanMakeReaction(uint messageId, string userId, string reaction)
+        {
+                LogContext.PushProperty("Method","CanMakeReaction");
+                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+
+                string query = $@"
+                                    SELECT
+                                        COUNT(*)
+                                    FROM
+                                        Reactions
+                                    WHERE
+                                        MessageId = {messageId}
+                                        AND
+                                        userId = '{userId}'
+                                        AND
+                                        Reaction = '{reaction}';";
+
+                // NOTE: Inverting because Errors in the SqlHelpers return default
+                // values for the type to be converted to(false in this case)
+                return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
         }
 
         /// <summary>
         ///	Retrieve The reactions of a message
         /// </summary>
         /// <param name="messageId">The id of the message to retrieve reactions from</param>
-        /// <returns>The reactions mapped to their number of occurrences</returns>
-        public async Task<Dictionary<string, int>> RetrieveReactions(uint messageId)
+        /// <returns>A list of reaction objects</returns>
+        public async Task<IEnumerable<Reaction>> RetrieveReactions(uint messageId)
         {
             LogContext.PushProperty("Method","RetrieveReactions");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -209,12 +244,7 @@ namespace Messenger.Core.Services
 
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
 
-            using (SqlConnection connection = GetDefaultConnection())
-            {
-                await connection.OpenAsync();
-
-                return Mapper.ReactionMappingFromAdapter(new SqlDataAdapter(query, connection));
-            }
+            return await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query);
         }
     }
 }
