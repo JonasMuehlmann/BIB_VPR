@@ -30,15 +30,25 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
 
-            string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"'{string.Join(",",attachmentBlobNames)}'";
+            string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"{string.Join(",",attachmentBlobNames)}";
             string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"{parentMessageId}";
 
             logger.Information($"attachmentBlobNames has been corrected to {correctedAttachmentBlobNames}");
             logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");
 
-            string query = $"INSERT INTO Messages " +
-                            $"(RecipientId, SenderId, Message, CreationDate, ParentMessageId, AttachmentsBlobNames) " +
-                            $"VALUES ({recipientsId}, '{senderId}', '{message}', GETDATE(), {correctedParentMessageId}, {correctedAttachmentBlobNames}); SELECT SCOPE_IDENTITY();";
+            string query = $@"
+                                INSERT INTO
+                                    Messages
+                                VALUES (
+                                         {recipientsId},
+                                        '{senderId}',
+                                         {correctedParentMessageId},
+                                        '{message}',
+                                         GETDATE(),
+                                        '{correctedAttachmentBlobNames}'
+                                );
+
+                                SELECT SCOPE_IDENTITY();";
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
@@ -54,11 +64,23 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
-                            + $"u.UserId, u.NameId, u.UserName "
-                            + $"FROM Messages m "
-                            + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
-                            + $"WHERE RecipientId = {teamId};";
+            string query = $@"
+                                SELECT
+                                    m.MessageId,
+                                    m.RecipientId,
+                                    m.SenderId,
+                                    m.ParentMessageId,
+                                    m.Message,
+                                    m.CreationDate,
+                                    u.UserId,
+                                    u.NameId,
+                                    u.UserName
+                                FROM
+                                    Messages m
+                                LEFT JOIN Users u
+                                    ON m.SenderId = u.UserId
+                                WHERE
+                                    RecipientId = {teamId};";
 
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
@@ -75,9 +97,12 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            string query = $"SELECT MessageId, RecipientId, SenderId, ParentMessageId, Message, CreationDate "
-                            + $"FROM Messages"
-                            + $"WHERE MessageId={messageId};";
+            string query = $@"
+                                SELECT *
+                                FROM
+                                    Messages
+                                WHERE
+                                    MessageId={messageId};";
 
             var rows = await SqlHelpers.GetRows("Message", query);
 
@@ -103,7 +128,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
-            string query = $"UPDATE Messages SET Message='{newContent}' WHERE MessageId={messageId};";
+            string query = $@"
+                                UPDATE
+                                    Messages
+                                SET
+                                    Message='{newContent}'
+                                WHERE
+                                    MessageId={messageId};";
 
             return await SqlHelpers.NonQueryAsync(query);
 
@@ -120,7 +151,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            string query = $"DELETE FROM Messages WHERE MessageId={messageId};";
+            string query = $@"
+                                DELETE FROM
+                                    Messages
+                                WHERE
+                                    MessageId={messageId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -136,9 +171,13 @@ namespace Messenger.Core.Services
                 LogContext.PushProperty("SourceContext", this.GetType().Name);
                 logger.Information($"Function called with parameters messageId={messageId}");
 
-                string query = $"SELECT attachmentsBlobNames "
-                             + $"FROM Messages "
-                             + $"WHERE MessageId={messageId};";
+                string query = $@"
+                                    SELECT
+                                        attachmentsBlobNames
+                                    FROM
+                                        Messages
+                                    WHERE
+                                        MessageId={messageId};";
 
 
                 var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
