@@ -2,12 +2,12 @@
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.Views.DialogBoxes;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Serilog;
 using System;
 using System.IO;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace Messenger.Commands.Messenger
 {
@@ -37,20 +37,17 @@ namespace Messenger.Commands.Messenger
             try
             {
                 Attachment attachment = (Attachment)parameter;
-                var dialog = new CommonOpenFileDialog();
+                var dialog = new FolderPicker();
                 // ..\Downloads
-                dialog.EnsureValidNames = false;
-                dialog.EnsureFileExists = false;
-                dialog.EnsurePathExists = true;
-                dialog.InitialDirectory = ApplicationData.Current.LocalFolder.Path;
-                dialog.IsFolderPicker = true;
 
-                if (dialog.ShowDialog() != CommonFileDialogResult.Ok)
+                var folder = await dialog.PickSingleFolderAsync();
+
+                if (folder == null)
                 {
                     return;
                 }
 
-                string path = Path.GetDirectoryName(dialog.FileName);
+                string path = Path.GetDirectoryName(folder.Path);
 
                 bool isSuccess = await Hub.DownloadAttachment(attachment, path);
 
