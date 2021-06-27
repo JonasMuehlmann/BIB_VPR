@@ -105,6 +105,8 @@ namespace Messenger.ViewModels
         /// </summary>
         public ICommand ReplyToCommand => new ReplyToCommand(this);
 
+        public ICommand EditMessageCommand => new EditMessageCommand(Hub);
+
         #endregion
 
         public ChatViewModel()
@@ -117,6 +119,7 @@ namespace Messenger.ViewModels
             // Register events
             Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
+            Hub.MessageUpdated += OnMessageUpdated;
 
             LoadAsync();
         }
@@ -193,6 +196,21 @@ namespace Messenger.ViewModels
         /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
+            UpdateView(messages);
+        }
+
+        private void OnMessageUpdated(object sender, MessageViewModel message)
+        {
+            var messages = Messages.Select(m =>
+            {
+                if (m.Id == message.Id)
+                {
+                    m = message;
+                }
+
+                return m;
+            });
+
             UpdateView(messages);
         }
 
