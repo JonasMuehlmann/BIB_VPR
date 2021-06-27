@@ -20,6 +20,7 @@
                 Messages="{x:Bind ViewModel.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 ReplyToCommand="{x:Bind ViewModel.ReplyToCommand}"
                 EditMessageCommand="{x:Bind ViewModel.EditMessageCommand}"
+                DeleteMessageCommand="{x:Bind ViewModel.DeleteMessageCommand}"
                 />
             <controls:SendMessageControl
                 Grid.Row="1"
