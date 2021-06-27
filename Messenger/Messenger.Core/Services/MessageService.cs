@@ -71,8 +71,8 @@ namespace Messenger.Core.Services
         /// <returns>A complete message object</returns>
         public async Task<Message> GetMessage(uint messageId)
         {
-            LogContext.PushProperty("Method","RetrieveMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method", "GetMessage");
+            LogContext.PushProperty("SourceContext", GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
             string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
@@ -134,18 +134,24 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Blob File Names</returns>
         public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
-                LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}");
+            LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
 
-                string query = $"SELECT attachmentsBlobNames "
-                             + $"FROM Messages "
-                             + $"WHERE MessageId={messageId};";
+            string query = $"SELECT attachmentsBlobNames "
+                            + $"FROM Messages "
+                            + $"WHERE MessageId={messageId};";
 
 
-                var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
+            var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
-                return blobFileString.Split(',');
+            if (blobFileString == null 
+                || string.IsNullOrEmpty(blobFileString))
+            {
+                return null;
+            }
+
+            return blobFileString.Split(',');
         }
 
         /// <summary>
