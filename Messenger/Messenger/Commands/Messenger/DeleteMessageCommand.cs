@@ -1,5 +1,7 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
+using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,11 @@ namespace Messenger.Commands.Messenger
         private readonly ChatHubService _hub;
         private ILogger _logger => GlobalLogger.Instance;
 
+        public DeleteMessageCommand(ChatHubService hub)
+        {
+            _hub = hub;
+        }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -22,9 +29,10 @@ namespace Messenger.Commands.Messenger
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            bool executable = parameter is uint;
+            bool executable = parameter != null
+               && parameter is MessageViewModel;
 
             if (!executable)
             {
@@ -33,6 +41,22 @@ namespace Messenger.Commands.Messenger
 
             try
             {
+                MessageViewModel vm = (MessageViewModel)parameter;
+
+                bool isSuccess = await _hub.DeleteMessage((uint)vm.Id, vm.IsReply ? MessageType.Reply : MessageType.Parent);
+
+                if (!isSuccess)
+                {
+                    await ResultConfirmationDialog
+                        .Set(false, $"We could not delete the message. (ID: {(uint)vm.Id})")
+                        .ShowAsync();
+                }
+                else
+                {
+                    await ResultConfirmationDialog
+                        .Set(true, $"The message was deleted. (ID: {(uint)vm.Id})")
+                        .ShowAsync();
+                }
             }
             catch (Exception e)
             {
