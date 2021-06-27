@@ -52,7 +52,7 @@ namespace Messenger.Commands.Messenger
 
                     // Sets the models in the view model
                     _viewModel.SelectedFiles = files;
-                    _viewModel.MessageToSend.AttachmentsBlobName = attachmentPaths;
+                    _viewModel.MessageToSend.UploadFilePaths = attachmentPaths;
                 }
             }
             catch (Exception e)
