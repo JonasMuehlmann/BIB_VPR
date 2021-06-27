@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
+    xmlns:models="using:Messenger.Models"
     xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -157,7 +158,7 @@
                             <TextBlock
                                 Grid.Column="1"
                                 Style="{StaticResource AttachmentsHeaderStyle}"
-                                Text="Attachments (2 items)"
+                                Text="Attachments"
                                 />
                             <FontIcon
                                 Grid.Column="2"
@@ -172,14 +173,31 @@
                     <!-- ATTACHMENTS DETAILS -->
                     <StackPanel
                         Visibility="{Binding ElementName=AttachmentsExpandButton, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
-                        <Button
-                            Style="{StaticResource AttachmentHypertext}"
-                            Content="example_data_02941.png (15.22 MB)"
-                            />
-                        <Button
-                            Style="{StaticResource AttachmentHypertext}"
-                            Content="example_data_02941.png (15.22 MB)"
-                            />
+                        <ListView
+                            SelectionMode="None"
+                            ItemsSource="{x:Bind Message.Attachments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate
+                                    x:DataType="models:Attachment">
+                                    <Button
+                                        Command="{Binding ElementName=messageControl, Path=DownloadAttachmentCommand}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource AttachmentHypertext}">
+                                        <TextBlock>
+                                            <Run
+                                                Text="{Binding FileName}"
+                                                />
+                                            <Run
+                                                Text="."
+                                                />
+                                            <Run
+                                                Text="{Binding FileType}"
+                                                />
+                                        </TextBlock>
+                                    </Button>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackPanel>
                 </StackPanel>
                 <!-- ACTIONS -->
