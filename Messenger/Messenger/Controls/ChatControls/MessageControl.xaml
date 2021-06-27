@@ -54,7 +54,15 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="15 20 15 10" />
         </Style>
-        <Style x:Key="AttachmentsHeaderStyle" TargetType="TextBlock" BasedOn="{StaticResource DetailSubTitleStyle}">
+        <Style x:Key="EditboxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Margin" Value="5 15 5 5" />
+            <Setter Property="Padding" Value="10 5" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style x:Key="AttachmentsHeaderStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Opacity" Value=".75" />
             <Setter Property="Margin" Value="5 0 0 0" />
@@ -127,11 +135,48 @@
                     </StackPanel>
                 </StackPanel>
                 <!-- MESSAGE CONTENT -->
+                <!-- MESSAGE CONTENT: SHOW MODE -->
                 <TextBlock
+                    x:Name="ShowContent"
                     Grid.Row="1"
                     Style="{StaticResource ContentStyle}"
                     Text="{x:Bind Message.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     />
+                <!-- MESSAGE CONTENT: EDIT MODE -->
+                <StackPanel
+                    Grid.Row="1"
+                    Visibility="Collapsed"
+                    x:Name="EditContent">
+                    <TextBox
+                        x:Name="NewContentTextBox"
+                        Style="{StaticResource EditboxStyle}"
+                        Text="{x:Bind Message.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                    <Viewbox
+                        Style="{StaticResource ActionViewboxStyle}"
+                        MaxHeight="35">
+                        <CommandBar
+                        Style="{StaticResource ActionBarStyle}"
+                        CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
+                            <!-- REPLY TO COMMAND -->
+                            <AppBarButton
+                                Name="EditAcceptButton"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Icon="Accept"
+                                Label="Accept"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                Tapped="EditAcceptButton_Tapped"
+                                />
+                            <AppBarButton
+                                Style="{StaticResource ActionButtonStyle}"
+                                Icon="Cancel"
+                                Label="Cancel"
+                                Foreground="{ThemeResource SystemAccentColorDark1}"
+                                Command="{x:Bind ExitEditModeCommand}"
+                                />
+                        </CommandBar>
+                    </Viewbox>
+                </StackPanel>
                 <!-- ATTACHMENTS PANEL (TOGGLE) -->
                 <StackPanel
                     Grid.Row="3">
@@ -157,7 +202,7 @@
                             <TextBlock
                                 Grid.Column="1"
                                 Style="{StaticResource AttachmentsHeaderStyle}"
-                                Text="Attachments (2 items)"
+                                Text="Attachments"
                                 />
                             <FontIcon
                                 Grid.Column="2"
@@ -236,10 +281,13 @@
                         <!-- EXTRA ACTIONS (EDIT / DELETE) -->
                         <CommandBar.SecondaryCommands>
                             <AppBarButton
+                                x:Name="EditButton"
                                 Icon="Edit"
                                 Label="Edit"
+                                Command="{x:Bind EnterEditModeCommand}"
                                 />
                             <AppBarButton
+                                x:Name="DeleteButton"
                                 Icon="Delete"
                                 Label="Delete"
                                 />
