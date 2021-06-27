@@ -105,6 +105,8 @@ namespace Messenger.ViewModels
         /// </summary>
         public ICommand ReplyToCommand => new ReplyToCommand(this);
 
+        public ICommand DownloadAttachmentCommand => new DownloadAttachmentCommand();
+
         #endregion
 
         public ChatViewModel()
