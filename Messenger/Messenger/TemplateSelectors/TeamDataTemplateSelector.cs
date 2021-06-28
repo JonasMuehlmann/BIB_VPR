@@ -27,7 +27,7 @@ namespace Messenger.TemplateSelectors
             {
                 case Team team:
                     return TeamTemplate;
-                case TeamChannel teamChannel:
+                case Channel teamChannel:
                     return TeamChannelTemplate;
             }
 

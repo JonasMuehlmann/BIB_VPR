@@ -51,6 +51,13 @@
             <Setter Property="Padding" Value="10 0 10 0" />
             <Setter Property="Margin" Value="8" />
         </Style>
+        <Style x:Key="NewChannelButtonStyle" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="0 0 0 30" />
+            <Setter Property="CornerRadius" Value="1" />
+        </Style>
     </Page.Resources>
 
     <Grid
@@ -76,6 +83,13 @@
                         Style="{StaticResource ActionButtonStyle}"
                         Content="Remove"
                         Click="RemoveMember_Click"
+                        />
+                    <Button
+                        x:Name="ChannelMangament"
+                        Command="{x:Bind ViewModel.ChannelManagement}"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Content="Channels"
+                        Click="ChannelMangament_Click"
                         />
                 </StackPanel>
 
@@ -155,6 +169,56 @@
                                         <Grid VerticalAlignment="Center">
                                             <TextBlock Text="{Binding DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                             <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25" Command="{Binding ViewModel.RemoveTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding Id}">
+                                                <Grid>
+                                                    <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
+                                                  StrokeThickness="1.5"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"></Line>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+
+                <Border
+                    x:Name="channelsBorder"
+                    Style="{StaticResource AddUserBorderStyle}"
+                    Visibility="Collapsed">
+                    <StackPanel>
+                        <Button
+                            x:Name="newChannel"
+                            Style="{StaticResource NewChannelButtonStyle}"
+                            Command="{x:Bind ViewModel.CreateChannelCommand}"
+                            Grid.Row="1">
+                            <Viewbox
+                                Height="18">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Text="Create Channel"
+                                        Foreground="{ThemeResource SystemAccentColor}"
+                                        Margin="0 0 5 0"
+                                        FontWeight="SemiBold"
+                                        />
+                                    <SymbolIcon
+                                        Symbol="AddFriend"
+                                        Foreground="{ThemeResource SystemAccentColor}"
+                                        />      
+                                </StackPanel>
+                            </Viewbox>
+                        </Button>
+                        <ListView ItemContainerStyle="{StaticResource MembersViewItemContainerStyle}"
+                                  ItemsSource="{x:Bind ViewModel.Channels, UpdateSourceTrigger=PropertyChanged,
+                                  Mode=TwoWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource ItemContainerBorderStyle}">
+                                        <Grid VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding ChannelName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25" Command="{Binding ViewModel.RemoveTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding ChannelId}">
                                                 <Grid>
                                                     <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
                                                   StrokeThickness="1.5"

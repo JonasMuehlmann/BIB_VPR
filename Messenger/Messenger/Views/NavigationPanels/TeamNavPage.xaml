@@ -33,7 +33,7 @@
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
-        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:TeamChannel">
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:Channel">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind ChannelName}">
                 <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />

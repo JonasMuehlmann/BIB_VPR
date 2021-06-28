@@ -20,15 +20,17 @@ namespace Messenger.ViewModels
         #region Privates
         private ShellViewModel _shellViewModel;
         private ObservableCollection<User> _membersView;
+        private ObservableCollection<Channel> _channelsView;
         private List<User> _membersStore;
         private ICommand _removeTeamMembers;
         private ICommand _addTeamMembers;
+        private ICommand _channelManagement;
+        private ICommand _createChannel;
         private ICommand _removeTeamMemberClick;
         private ICommand _addTeamMemberClick; 
         private KeyEventHandler _removeSearchBoxInput;
         private KeyEventHandler _addSearchBoxInput;
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
         #endregion
 
@@ -62,8 +64,27 @@ namespace Messenger.ViewModels
             }
         }
 
+        public ObservableCollection<Channel> Channels
+        {
+            get
+            {
+                return _channelsView;
+            }
+            set
+            {
+                //TODO add UserNull handling
+                if (value.Count == 0 || value == null)
+                {
+                    value.Add(new Channel() { ChannelName = "Keine Channels gefunden" });
+                }
+                Set(ref _channelsView, value);
+            }
+        }
+
         public ICommand RemoveTeamMembers => _removeTeamMembers ?? (_removeTeamMembers = new RelayCommand(LoadTeamMembersAsync));
         public ICommand AddTeamMembers => _addTeamMembers ?? (_addTeamMembers = new RelayCommand(InitAddTeamMembers));
+        public ICommand ChannelManagement => _channelManagement ?? (_channelManagement = new RelayCommand(InitChannels));
+        public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(InitChannels));
         public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
         public ICommand AddTeamMemberClick => _addTeamMemberClick ?? (_addTeamMemberClick = new RelayCommand<string>(AddUserAsync));
         public KeyEventHandler RemoveSearchInput => _removeSearchBoxInput ?? (_removeSearchBoxInput = new KeyEventHandler(RemoveSearchTextBoxKeyUp));
@@ -107,6 +128,17 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        private void InitChannels()
+        {
+            if (ChatHubService.CurrentTeamId != null)
+            {
+                _membersStore.Clear();
+            }
+        }
+
+        /// <summary>
         /// Removes some user from Team
         /// </summary>
         /// <param name="userId"></param>
@@ -118,7 +150,6 @@ namespace Messenger.ViewModels
                 LoadTeamMembersAsync();
             }
         }
-
 
         /// <summary>
         /// Invited an selected User to the Team
@@ -171,6 +202,11 @@ namespace Messenger.ViewModels
             {
                 Members.Add(new User() {DisplayName = username});
             }
+        }
+
+
+        private async void CreateChannel() {
+
         }
 
         #region Helpers
