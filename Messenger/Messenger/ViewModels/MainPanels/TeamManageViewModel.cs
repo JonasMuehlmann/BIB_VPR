@@ -8,6 +8,7 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using Messenger.Views.DialogBoxes;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -84,7 +85,7 @@ namespace Messenger.ViewModels
         public ICommand RemoveTeamMembers => _removeTeamMembers ?? (_removeTeamMembers = new RelayCommand(LoadTeamMembersAsync));
         public ICommand AddTeamMembers => _addTeamMembers ?? (_addTeamMembers = new RelayCommand(InitAddTeamMembers));
         public ICommand ChannelManagement => _channelManagement ?? (_channelManagement = new RelayCommand(InitChannels));
-        public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(InitChannels));
+        public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(CreateChannel));
         public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
         public ICommand AddTeamMemberClick => _addTeamMemberClick ?? (_addTeamMemberClick = new RelayCommand<string>(AddUserAsync));
         public KeyEventHandler RemoveSearchInput => _removeSearchBoxInput ?? (_removeSearchBoxInput = new KeyEventHandler(RemoveSearchTextBoxKeyUp));
@@ -206,7 +207,24 @@ namespace Messenger.ViewModels
 
 
         private async void CreateChannel() {
+            if (CurrentUser == null)
+            {
+                return;
+            }
 
+            // Opens the dialog box for the input
+            var dialog = new CreateChannelDialog();
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            // Create team on confirm
+            if (result == ContentDialogResult.Primary)
+            {
+               // await ChatHubService.Cre(dialog.ChannelName, dialog.TeamDescription);
+
+                await ResultConfirmationDialog
+                    .Set(true, $"You created a new channel {dialog.ChannelName}")
+                    .ShowAsync();
+            }
         }
 
         #region Helpers

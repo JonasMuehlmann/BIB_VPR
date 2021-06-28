@@ -240,6 +240,9 @@
     <Compile Include="Views\DialogBoxes\CreateChatDialog.xaml.cs">
       <DependentUpon>CreateChatDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DialogBoxes\CreateChannelDialog.xaml.cs">
+      <DependentUpon>CreateChannelDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DialogBoxes\CreateTeamDialog.xaml.cs">
       <DependentUpon>CreateTeamDialog.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
     <Page Include="Views\DialogBoxes\CreateChatDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\CreateChannelDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DialogBoxes\CreateTeamDialog.xaml">
       <SubType>Designer</SubType>

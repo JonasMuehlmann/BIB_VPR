@@ -5,8 +5,6 @@ namespace Messenger.Core.Models
 {
     public class Team
     {
-        public List<Channel> Channels { get; set; }
-
         public uint Id { get; set; }
 
         public string Name { get; set; }
