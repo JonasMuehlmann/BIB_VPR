@@ -92,6 +92,11 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<Team> TeamUpdated;
 
+        /// <summary>
+        /// Event handler for updates in the Channels
+        /// </summary>
+        public event EventHandler<IEnumerable<Channel>> ChannelsUpdated;
+
         #endregion
 
         public ChatHubService()
@@ -430,6 +435,37 @@ namespace Messenger.Services
             return currentTeam;
         }
 
+
+        /// <summary>
+        /// creates a new channel with name
+        /// </summary>
+        /// <param name="channelName"></param>
+        /// <returns>Task to await</returns>
+        public async Task CreateChannel(string channelName)
+        {
+            LogContext.PushProperty("Method", "CreateChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter channelName={channelName}");
+
+            await MessengerService.CreateChannel(channelName, (uint)CurrentTeamId);
+
+            ChannelsUpdated?.Invoke(this, await GetChannelsList());
+        }
+
+        /// <summary>
+        /// get Channels by Team
+        /// </summary>
+        /// <param name="channelName"></param>
+        /// <returns>Task to await</returns>
+        public async Task<IEnumerable<Channel>> GetChannelsList()
+        {
+            LogContext.PushProperty("Method", "GetChannelsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+
+            return await MessengerService.GetChannelsForTeam((uint)CurrentTeamId);
+        }
         #endregion
 
         #region Member

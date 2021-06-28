@@ -97,6 +97,8 @@ namespace Messenger.ViewModels
         {
             Members = new ObservableCollection<User>();
             _membersStore = new List<User>();
+            Channels = new ObservableCollection<Channel>();
+            ChatHubService.ChannelsUpdated += OnChannelsUpdated;
         }
 
         /// <summary>
@@ -129,13 +131,14 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// inits the channels view
         /// </summary>
-        private void InitChannels()
+        private async void InitChannels()
         {
             if (ChatHubService.CurrentTeamId != null)
             {
                 _membersStore.Clear();
+                FilterAndUpdateChannels(await ChatHubService.GetChannelsList());
             }
         }
 
@@ -219,11 +222,24 @@ namespace Messenger.ViewModels
             // Create team on confirm
             if (result == ContentDialogResult.Primary)
             {
-               // await ChatHubService.Cre(dialog.ChannelName, dialog.TeamDescription);
+               await ChatHubService.CreateChannel(dialog.ChannelName);
 
                 await ResultConfirmationDialog
                     .Set(true, $"You created a new channel {dialog.ChannelName}")
                     .ShowAsync();
+            }
+        }
+
+        /// <summary>
+        /// refactors the channel list when channels are updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="channels"></param>
+        private void OnChannelsUpdated(object sender, IEnumerable<Channel> channels)
+        {
+            if (ChatHubService.CurrentUser.Teams != null)
+            {
+                FilterAndUpdateChannels(channels);
             }
         }
 
@@ -242,6 +258,20 @@ namespace Messenger.ViewModels
             }
             return memb;
         }
+
+        private void FilterAndUpdateChannels(IEnumerable<Channel> channels)
+        {
+            if (channels != null)
+            {
+                Channels.Clear();
+
+                foreach (var channel in channels)
+                {
+                    Channels.Add(channel);
+                }
+            }
+        }
+
         #endregion
     }
 }
