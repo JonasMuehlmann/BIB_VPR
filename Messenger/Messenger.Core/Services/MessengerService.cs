@@ -101,7 +101,6 @@ namespace Messenger.Core.Services
             SignalRService.InviteReceived += onInviteReceived;
         }
 
-
         public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
         {
             SignalRService.TeamUpdated += onTeamUpdated;
@@ -110,6 +109,11 @@ namespace Messenger.Core.Services
         public void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
         {
             SignalRService.MessageUpdated += onMessageUpdated;
+        }
+
+        public void RegisterListenerForMessageDelete(EventHandler<Message> onMessageDeleted)
+        {
+            SignalRService.MessageDeleted += onMessageDeleted;
         }
 
         public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
@@ -178,12 +182,19 @@ namespace Messenger.Core.Services
             logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}");
 
             // Save to database
-            await MessageService.CreateMessage(
+            uint? id = await MessageService.CreateMessage(
                 message.RecipientId,
                 message.SenderId,
                 message.Content,
                 message.ParentMessageId,
                 message.AttachmentsBlobName);
+
+            if (id == null)
+            {
+                return false;
+            }
+
+            message.Id = (uint)id;
 
             // Broadcasts the message to the hub
             await SignalRService.SendMessage(message);
@@ -209,13 +220,17 @@ namespace Messenger.Core.Services
 
             var message = await MessageService.GetMessage(messageId);
 
-            await SignalRService.UpdateMessage(message);
+            await SignalRService.DeleteMessage(message);
 
             var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
 
-            foreach (var blobFileName in blobFileNames)
+            if (blobFileNames != null
+                    && blobFileNames?.Count() > 0)
             {
-                result &= await FileSharingService.Delete(blobFileName);
+                foreach (var blobFileName in blobFileNames)
+                {
+                    result &= await FileSharingService.Delete(blobFileName);
+                }
             }
 
             logger.Information($"Return value: {result}");

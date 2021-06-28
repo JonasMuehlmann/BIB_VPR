@@ -93,18 +93,19 @@ namespace Messenger.Core.Services
         /// <returns>A complete message object</returns>
         public async Task<Message> GetMessage(uint messageId)
         {
-            LogContext.PushProperty("Method","RetrieveMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method", "GetMessage");
+            LogContext.PushProperty("SourceContext", GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            string query = $@"
-                                SELECT *
-                                FROM
-                                    Messages
-                                WHERE
-                                    MessageId={messageId};";
 
-            var rows = await SqlHelpers.GetRows("Message", query);
+            // TODO: Cleanup
+            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+                            + $"u.UserId, u.NameId, u.UserName "
+                            + $"FROM Messages m "
+                            + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
+                            + $"WHERE MessageId={messageId};";
+
+            var rows = await SqlHelpers.GetRows("Messages", query);
 
             if (rows.Count() == 0)
             {
@@ -167,22 +168,26 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Blob File Names</returns>
         public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
-                LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
-                logger.Information($"Function called with parameters messageId={messageId}");
+            LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters messageId={messageId}");
 
-                string query = $@"
-                                    SELECT
-                                        attachmentsBlobNames
-                                    FROM
-                                        Messages
-                                    WHERE
-                                        MessageId={messageId};";
+            string query = $@"
+                                SELECT
+                                    attachmentsBlobNames
+                                FROM
+                                    Messages
+                                WHERE
+                                    MessageId={messageId};";
 
+            var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
-                var blobFileString = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
+            if (string.IsNullOrEmpty(blobFileString))
+            {
+                return null;
+            }
 
-                return blobFileString.Split(',');
+            return blobFileString.Split(',');
         }
 
         /// <summary>

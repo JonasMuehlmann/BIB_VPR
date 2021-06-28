@@ -45,10 +45,6 @@ namespace Messenger.Core.Helpers
 
                     return false;
                 }
-                finally
-                {
-                    connection.Close();
-                }
             }
         }
 
@@ -90,10 +86,6 @@ namespace Messenger.Core.Helpers
                     logger.Information(e, $"Return value: {default(T)}");
 
                     return default(T);
-                }
-                finally
-                {
-                    connection.Close();
                 }
             }
         }
