@@ -84,6 +84,7 @@
                         ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
                         DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
                         EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
+                        ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
                         />
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -86,10 +87,50 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty DeleteMessageCommandProperty =
             DependencyProperty.Register("DeleteMessageCommand", typeof(ICommand), typeof(MessageControl), new PropertyMetadata(null));
 
+        public ICommand ToggleReactionCommand
+        {
+            get { return (ICommand)GetValue(ToggleReactionCommandProperty); }
+            set { SetValue(ToggleReactionCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ToggleReactionCommandProperty =
+            DependencyProperty.Register("ToggleReactionCommand", typeof(ICommand), typeof(MessageControl), new PropertyMetadata(null));
+
+        public ReactionType MyReaction
+        {
+            get { return (ReactionType)GetValue(MyReactionProperty); }
+            set { SetValue(MyReactionProperty, value); }
+        }
+
+        public static readonly DependencyProperty MyReactionProperty =
+            DependencyProperty.Register("MyReaction", typeof(ReactionType), typeof(MessageControl), new PropertyMetadata(ReactionType.None));
+
         public MessageControl()
         {
             EnterEditModeCommand = new RelayCommand(EnterEditMode);
             ExitEditModeCommand = new RelayCommand(ExitEditMode);
+
+            if (Message != null
+                    && Message.HasReacted)
+            {
+                switch (Message.MyReaction)
+                {
+                    case ReactionType.Like:
+                        LikeButton.IsChecked = true;
+                        break;
+                    case ReactionType.Dislike:
+                        DislikeButton.IsChecked = true;
+                        break;
+                    case ReactionType.Surprised:
+                        SurprisedButton.IsChecked = true;
+                        break;
+                    case ReactionType.Angry:
+                        AngryButton.IsChecked = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             InitializeComponent();
         }
@@ -146,6 +187,42 @@ namespace Messenger.Controls.ChatControls
             };
 
             DeleteMessageCommand?.Execute(vm);
+        }
+
+        private void LikeButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Like,
+                Message = Message
+            });
+        }
+
+        private void DislikeButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Dislike,
+                Message = Message
+            });
+        }
+
+        private void SurprisedButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Surprised,
+                Message = Message
+            });
+        }
+
+        private void AngryButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Angry,
+                Message = Message
+            });
         }
     }
 }
