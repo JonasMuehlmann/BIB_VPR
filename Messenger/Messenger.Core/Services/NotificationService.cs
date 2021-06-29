@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Serilog.Context;
 using Messenger.Core.Models;
@@ -38,26 +39,49 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
+
         /// <summary>
         /// Remove a notification from the db
         /// </summary>
         /// <param name="notificationId">The id of the notification to remove</param>
         /// <returns>True on success, false on failure</returns>
-        public async Task<uint?> RemoveNotification(uint notificationId)
+        public async Task<bool> RemoveNotification(uint notificationId)
         {
             LogContext.PushProperty("Method","RemoveNotification");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters notificationId={notificationId}");
 
-            // TODO: Create json encoded message from method parameters
             string query = $@"
                                 DELETE FROM
                                     Notifications
                                 WHERE
                                     notificationId={notificationId};";
 
-            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+            return await SqlHelpers.NonQueryAsync(query);
+        }
+
+        /// <summary>
+        /// Retrieve all notifications a user currently has
+        /// </summary>
+        /// <param name="userId">The id of the user to retrieve notifications from</param>
+        /// <returns>An enumerable of notification objects</returns>
+        public async Task<IEnumerable<Notification>> RetrieveNotifications(string userId)
+        {
+            LogContext.PushProperty("Method","RetrieveNotifications");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters userId={userId}");
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Notifications
+                                WHERE
+                                    userId='{userId}'";
+
+            return await SqlHelpers.MapToList(query, Mapper.NotificationFromDataRow);
         }
     }
 }
