@@ -218,7 +218,7 @@
                                     <Border Style="{StaticResource ItemContainerBorderStyle}">
                                         <Grid VerticalAlignment="Center">
                                             <TextBlock Text="{Binding ChannelName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25" Command="{Binding ViewModel.RemoveTeamMemberClick, ElementName=bindHelp}" CommandParameter="{Binding ChannelId}">
+                                            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Height="25" Command="{Binding ViewModel.RemoveChannelClick, ElementName=bindHelp}" CommandParameter="{Binding ChannelId}">
                                                 <Grid>
                                                     <Line Stroke="{ThemeResource SystemAccentColor}" X1="0" X2="15" Y1="1" Y2="1"
                                                   StrokeThickness="1.5"

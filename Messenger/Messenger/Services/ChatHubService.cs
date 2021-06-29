@@ -428,7 +428,14 @@ namespace Messenger.Services
                 .Where(t => t.Id == CurrentTeamId)
                 .FirstOrDefault();
 
-            currentTeam.FilterAndUpdateChannels(await GetChannelsList());
+            if (currentTeam != null)
+            {
+                var channels = await GetChannelsList(currentTeam.Id);
+                if (channels != null)
+                {
+                    currentTeam.FilterAndUpdateChannels(channels);
+                }
+            }
 
             logger.Information($"Return value: {currentTeam}");
 
@@ -454,16 +461,36 @@ namespace Messenger.Services
         }
 
         /// <summary>
-        /// get Channels by Team
+        /// deletes a new Channel by its channelId
         /// </summary>
-        /// <returns>Channels</returns>
-        public async Task<IEnumerable<Channel>> GetChannelsList()
+        /// <param name="channelId"></param>
+        /// <returns>Task to await</returns>
+        public async Task RemoveChannel(uint channelId)
+        {
+            LogContext.PushProperty("Method", "RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter channelId={channelId}");
+
+            await MessengerService.RemoveChannel(channelId);
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
+        }
+
+        /// <summary>
+        /// get channels for a team
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns>the channels</returns>
+        public async Task<IEnumerable<Channel>> GetChannelsList(uint teamId)
         {
             LogContext.PushProperty("Method", "GetChannelsList");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
 
 
-            return await MessengerService.GetChannelsForTeam((uint)CurrentTeamId);
+            logger.Information($"Function called with parameter teamId={teamId}");
+
+            return await MessengerService.GetChannelsForTeam(teamId);
         }
 
         private async Task<IEnumerable<Team>> GetChannelsForAllTeams(IEnumerable<Team> teams)

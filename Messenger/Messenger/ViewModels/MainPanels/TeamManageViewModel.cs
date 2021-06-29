@@ -28,6 +28,7 @@ namespace Messenger.ViewModels
         private ICommand _channelManagement;
         private ICommand _createChannel;
         private ICommand _removeTeamMemberClick;
+        private ICommand _removeChannelClick;
         private ICommand _addTeamMemberClick; 
         private KeyEventHandler _removeSearchBoxInput;
         private KeyEventHandler _addSearchBoxInput;
@@ -82,6 +83,7 @@ namespace Messenger.ViewModels
         public ICommand ChannelManagement => _channelManagement ?? (_channelManagement = new RelayCommand(InitChannels));
         public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(CreateChannel));
         public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
+        public ICommand RemoveChannelClick => _removeChannelClick ?? (_removeChannelClick = new RelayCommand<uint>(RemoveChannelAsync));
         public ICommand AddTeamMemberClick => _addTeamMemberClick ?? (_addTeamMemberClick = new RelayCommand<string>(AddUserAsync));
         public KeyEventHandler RemoveSearchInput => _removeSearchBoxInput ?? (_removeSearchBoxInput = new KeyEventHandler(RemoveSearchTextBoxKeyUp));
         public KeyEventHandler AddSearchInput => _addSearchBoxInput ?? (_addSearchBoxInput = new KeyEventHandler(AddSearchTextBoxKeyUp));
@@ -146,6 +148,19 @@ namespace Messenger.ViewModels
             {
                 await ChatHubService.RemoveUser(userId, (uint)ChatHubService.CurrentTeamId);
                 LoadTeamMembersAsync();
+            }
+        }
+
+
+        /// <summary>
+        /// Removes channels
+        /// </summary>
+        /// <param name="channelId"></param>
+        private async void RemoveChannelAsync(uint channelId)
+        {
+            if (ChatHubService.CurrentTeamId != null)
+            {
+                await ChatHubService.RemoveChannel(channelId);
             }
         }
 
