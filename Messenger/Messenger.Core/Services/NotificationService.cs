@@ -81,7 +81,7 @@ namespace Messenger.Core.Services
                                 WHERE
                                     userId='{userId}'";
 
-            return await SqlHelpers.MapToList(query, Mapper.NotificationFromDataRow);
+            return await SqlHelpers.MapToList(Mapper.NotificationFromDataRow, query);
         }
     }
 }
