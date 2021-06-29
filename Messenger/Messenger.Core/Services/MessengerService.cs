@@ -300,17 +300,23 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns></returns>
-        public async Task<uint> AddReaction(uint messageId, string userId, string reaction)
+        public async Task<uint?> AddReaction(uint messageId, string userId, string reaction)
         {
             LogContext.PushProperty("Method", "AddReaction");
             LogContext.PushProperty("SourceContext", GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+            
+            var message = await MessageService.GetMessage(messageId);
+
+            if (message == null)
+            {
+                logger.Information($"Could not retrieve the message from the database");
+                return null;
+            }
 
             var result = await MessageService.AddReaction(messageId, userId, reaction);
 
-            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
-
-            await SignalRService.UpdateMessageReactions(teamId, messageId);
+            await SignalRService.UpdateMessageReactions(message);
 
             logger.Information($"Return value: {result}");
 
@@ -330,11 +336,17 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", this.GetType().Name);
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
-            var result = await MessageService.RemoveReaction(messageId, userId, reaction);
+            var message = await MessageService.GetMessage(messageId);
 
-            var teamId = (await MessageService.GetMessage(messageId)).RecipientId;
+            if (message == null)
+            {
+                logger.Information($"Could not retrieve the message from the database");
+                return false;
+            }
 
-            await SignalRService.UpdateMessageReactions(teamId, messageId);
+            var result = await MessageService.RemoveReaction(message.Id, userId, reaction);
+
+            await SignalRService.UpdateMessageReactions(message);
 
             logger.Information($"Return value: {result}");
 
