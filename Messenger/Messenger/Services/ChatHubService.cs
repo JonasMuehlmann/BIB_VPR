@@ -92,11 +92,6 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<Team> TeamUpdated;
 
-        /// <summary>
-        /// Event handler for updates in the Channels
-        /// </summary>
-        public event EventHandler<IEnumerable<Channel>> ChannelsUpdated;
-
         #endregion
 
         public ChatHubService()
@@ -321,6 +316,9 @@ namespace Messenger.Services
                 return team;
             });
 
+            //get all channels
+            teams = await GetChannelsForAllTeams(teams);
+
             // Updates the teams list under the current user
             CurrentUser.Teams.Clear();
             foreach (var team in teams)
@@ -385,7 +383,7 @@ namespace Messenger.Services
                 }
             }
 
-            TeamUpdated?.Invoke(this, GetCurrentTeam());
+            TeamUpdated?.Invoke(this, await GetCurrentTeam());
         }
 
         /// <summary>
@@ -414,7 +412,7 @@ namespace Messenger.Services
         /// Returns the current team model from the loaded list
         /// </summary>
         /// <returns>A complete team object</returns>
-        public Team GetCurrentTeam()
+        public async Task<Team> GetCurrentTeam()
         {
             LogContext.PushProperty("Method", $"{nameof(GetCurrentTeam)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -429,6 +427,8 @@ namespace Messenger.Services
             var currentTeam = CurrentUser.Teams
                 .Where(t => t.Id == CurrentTeamId)
                 .FirstOrDefault();
+
+            currentTeam.FilterAndUpdateChannels(await GetChannelsList());
 
             logger.Information($"Return value: {currentTeam}");
 
@@ -450,14 +450,13 @@ namespace Messenger.Services
 
             await MessengerService.CreateChannel(channelName, (uint)CurrentTeamId);
 
-            ChannelsUpdated?.Invoke(this, await GetChannelsList());
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
         }
 
         /// <summary>
         /// get Channels by Team
         /// </summary>
-        /// <param name="channelName"></param>
-        /// <returns>Task to await</returns>
+        /// <returns>Channels</returns>
         public async Task<IEnumerable<Channel>> GetChannelsList()
         {
             LogContext.PushProperty("Method", "GetChannelsList");
@@ -465,6 +464,22 @@ namespace Messenger.Services
 
 
             return await MessengerService.GetChannelsForTeam((uint)CurrentTeamId);
+        }
+
+        private async Task<IEnumerable<Team>> GetChannelsForAllTeams(IEnumerable<Team> teams)
+        {
+            LogContext.PushProperty("Method", "GetChannelsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+
+            logger.Information($"Function called with parameter teams={string.Join(",", teams)}");
+
+
+            foreach (Team t in teams) {
+                t.FilterAndUpdateChannels(await MessengerService.GetChannelsForTeam(t.Id));
+            }
+
+            return teams;
         }
         #endregion
 

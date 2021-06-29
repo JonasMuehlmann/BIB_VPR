@@ -21,7 +21,7 @@ namespace Messenger.ViewModels
         #region Privates
         private ShellViewModel _shellViewModel;
         private ObservableCollection<User> _membersView;
-        private ObservableCollection<Channel> _channelsView;
+        private Team _teamView;
         private List<User> _membersStore;
         private ICommand _removeTeamMembers;
         private ICommand _addTeamMembers;
@@ -65,20 +65,15 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ObservableCollection<Channel> Channels
+        public Team CurrentTeam
         {
             get
             {
-                return _channelsView;
+                return _teamView;
             }
             set
             {
-                //TODO add UserNull handling
-                if (value.Count == 0 || value == null)
-                {
-                    value.Add(new Channel() { ChannelName = "Keine Channels gefunden" });
-                }
-                Set(ref _channelsView, value);
+                Set(ref _teamView, value);
             }
         }
 
@@ -97,8 +92,7 @@ namespace Messenger.ViewModels
         {
             Members = new ObservableCollection<User>();
             _membersStore = new List<User>();
-            Channels = new ObservableCollection<Channel>();
-            ChatHubService.ChannelsUpdated += OnChannelsUpdated;
+            ChatHubService.TeamsUpdated += OnTeamsUpdated;
         }
 
         /// <summary>
@@ -138,7 +132,7 @@ namespace Messenger.ViewModels
             if (ChatHubService.CurrentTeamId != null)
             {
                 _membersStore.Clear();
-                FilterAndUpdateChannels(await ChatHubService.GetChannelsList());
+                CurrentTeam = await ChatHubService.GetCurrentTeam();
             }
         }
 
@@ -235,11 +229,11 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="channels"></param>
-        private void OnChannelsUpdated(object sender, IEnumerable<Channel> channels)
+        private async void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
         {
-            if (ChatHubService.CurrentUser.Teams != null)
+            if (teams != null)
             {
-                FilterAndUpdateChannels(channels);
+                CurrentTeam = await ChatHubService.GetCurrentTeam();
             }
         }
 
@@ -258,20 +252,6 @@ namespace Messenger.ViewModels
             }
             return memb;
         }
-
-        private void FilterAndUpdateChannels(IEnumerable<Channel> channels)
-        {
-            if (channels != null)
-            {
-                Channels.Clear();
-
-                foreach (var channel in channels)
-                {
-                    Channels.Add(channel);
-                }
-            }
-        }
-
         #endregion
     }
 }

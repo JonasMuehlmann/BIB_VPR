@@ -105,9 +105,9 @@ namespace Messenger.ViewModels
             OpenTeamsSidePanel();
         }
 
-        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
+        private async void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            var team = ChatHubService.GetCurrentTeam();
+            var team = await ChatHubService.GetCurrentTeam();
 
             if (team == null)
             {
@@ -148,7 +148,7 @@ namespace Messenger.ViewModels
             var dialog = new ChangeTeamDialog();
 
             //Get the current Team
-            var team = ChatHubService.GetCurrentTeam();
+            var team = await ChatHubService.GetCurrentTeam();
             dialog.TeamName = team.Name;
             dialog.TeamDescription = team.Description;
 
