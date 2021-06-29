@@ -148,6 +148,25 @@ namespace Messenger.Services
                 {
                     ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(messages));
 
+                    // Loads reactions into view models
+                    foreach (var message in parents)
+                    {
+                        var reactions = await MessengerService.GetReactions((uint)message.Id);
+
+                        if (reactions != null && reactions.Count() > 0)
+                        {
+                            var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                            if (myReaction.Count() > 0)
+                            {
+                                message.HasReacted = true;
+                                message.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                            }
+
+                            message.Reactions = new ObservableCollection<Reaction>(reactions);
+                        }
+                    }
+
                     CreateEntryForCurrentTeam(team.Id, parents);
                 }
             }
@@ -202,7 +221,27 @@ namespace Messenger.Services
                     return null;
                 }
 
+                // Creates view models for each message
                 ObservableCollection<MessageViewModel> messages = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
+
+                // Loads reactions into view models
+                foreach (var message in messages)
+                {
+                    var reactions = await MessengerService.GetReactions((uint)message.Id);
+
+                    if (reactions != null && reactions.Count() > 0)
+                    {
+                        var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                        if (myReaction.Count() > 0)
+                        {
+                            message.HasReacted = true;
+                            message.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                        }
+
+                        message.Reactions = new ObservableCollection<Reaction>(reactions);
+                    }
+                }
 
                 CreateEntryForCurrentTeam(teamId, messages);
 
@@ -260,7 +299,7 @@ namespace Messenger.Services
 
         public async Task<bool> DeleteMessage(uint messageId, MessageType type)
         {
-            LogContext.PushProperty("Method", $"{nameof(SendMessage)}");
+            LogContext.PushProperty("Method", $"{nameof(DeleteMessage)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
             if (CurrentUser == null)
@@ -277,6 +316,43 @@ namespace Messenger.Services
 
             return isSuccess;
         }
+
+        public async Task<bool> MakeReaction(uint messageId, ReactionType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            uint? isSuccess = await MessengerService.AddReaction(messageId, CurrentUser.Id, type.ToString());
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess != null ? true : false;
+        }
+
+        public async Task<bool> RemoveReaction(uint messageId, ReactionType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.RemoveReaction(messageId, CurrentUser.Id, type.ToString());
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
 
         #endregion
 
@@ -677,7 +753,7 @@ namespace Messenger.Services
             InvitationReceived?.Invoke(this, teamId);
         }
 
-        private void OnMessageUpdated(object sender, Message message)
+        private async void OnMessageUpdated(object sender, Message message)
         {
             bool isValid = message != null;
 
@@ -687,6 +763,24 @@ namespace Messenger.Services
             }
 
             MessageViewModel vm = SortAndUpdateMessage(message);
+
+            var reactions = await MessengerService.GetReactions((uint)vm.Id);
+
+            if (reactions != null && reactions.Count() > 0)
+            {
+                var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                if (myReaction.Count() > 0)
+                {
+                    vm.HasReacted = true;
+                    vm.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                    vm.Reactions.Clear();
+                    foreach (var item in reactions)
+                    {
+                        vm.Reactions.Add(item);
+                    }
+                }
+            }
 
             MessageUpdated?.Invoke(this, vm);
         }
@@ -801,7 +895,7 @@ namespace Messenger.Services
             return viewModel;
         }
 
-        private MessageViewModel SortAndUpdateMessage(Message message)
+        private MessageViewModel SortAndUpdateMessage(Message message, IEnumerable<Reaction> reactions = null)
         {
             var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
 
@@ -818,6 +912,7 @@ namespace Messenger.Services
                             {
                                 if (m.Id == viewModel.Id)
                                 {
+                                    m = null;
                                     m = viewModel;
                                 }
 
