@@ -136,6 +136,22 @@ namespace Messenger.Core.Helpers
             };
         }
 
+        /// <summary>
+        /// Maps to a full Notification model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Notification object</returns>
+        public static Notification NotificationFromDataRow(DataRow row)
+        {
+            return new Notification()
+            {
+                Id           = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                RecipientId  = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToString),
+                CreationTime = SqlHelpers.TryConvertDbValue(row["CreationTime"], Convert.ToDateTime),
+                Message      = SqlHelpers.TryConvertDbValue(row["Message"], Convert.ToString)
+            };
+        }
+
         public static string StringFromDataRow(DataRow row, string columnName)
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
