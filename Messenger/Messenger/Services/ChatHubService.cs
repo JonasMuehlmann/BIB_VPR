@@ -762,25 +762,7 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel vm = SortAndUpdateMessage(message);
-
-            var reactions = await MessengerService.GetReactions((uint)vm.Id);
-
-            if (reactions != null && reactions.Count() > 0)
-            {
-                var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
-
-                if (myReaction.Count() > 0)
-                {
-                    vm.HasReacted = true;
-                    vm.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
-                    vm.Reactions.Clear();
-                    foreach (var item in reactions)
-                    {
-                        vm.Reactions.Add(item);
-                    }
-                }
-            }
+            MessageViewModel vm = await SortAndUpdateMessage(message);
 
             MessageUpdated?.Invoke(this, vm);
         }
@@ -895,9 +877,27 @@ namespace Messenger.Services
             return viewModel;
         }
 
-        private MessageViewModel SortAndUpdateMessage(Message message, IEnumerable<Reaction> reactions = null)
+        private async Task<MessageViewModel> SortAndUpdateMessage(Message message)
         {
             var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
+
+            var reactions = await MessengerService.GetReactions((uint)viewModel.Id);
+
+            if (reactions != null && reactions.Count() > 0)
+            {
+                var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                if (myReaction.Count() > 0)
+                {
+                    viewModel.HasReacted = true;
+                    viewModel.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                    viewModel.Reactions.Clear();
+                    foreach (var item in reactions)
+                    {
+                        viewModel.Reactions.Add(item);
+                    }
+                }
+            }
 
             switch (type)
             {
@@ -908,18 +908,12 @@ namespace Messenger.Services
                         new ObservableCollection<MessageViewModel>() { viewModel },
                         (key, list) =>
                         {
-                            list.Select(m =>
-                            {
-                                if (m.Id == viewModel.Id)
-                                {
-                                    m = null;
-                                    m = viewModel;
-                                }
+                            var updated = list.Where(m => m.Id != viewModel.Id);
 
-                                return m;
-                            });
+                            var updatedList = new ObservableCollection<MessageViewModel>(updated);
+                            updatedList.Add(viewModel);
 
-                            return list;
+                            return updatedList;
                         });
                     break;
                 case MessageType.Reply:
