@@ -38,5 +38,26 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
-            }
+        /// <summary>
+        /// Remove a notification from the db
+        /// </summary>
+        /// <param name="notificationId">The id of the notification to remove</param>
+        /// <returns>True on success, false on failure</returns>
+        public async Task<uint?> RemoveNotification(uint notificationId)
+        {
+            LogContext.PushProperty("Method","RemoveNotification");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters notificationId={notificationId}");
+
+            // TODO: Create json encoded message from method parameters
+            string query = $@"
+                                DELETE FROM
+                                    Notifications
+                                WHERE
+                                    notificationId={notificationId};";
+
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+        }
+    }
 }
