@@ -23,8 +23,6 @@ namespace Messenger.Core.Models
             Description = "";
             Members = new List<User>();
             Channels = new ObservableCollection<Channel>();
-            Channels.Add(new Channel() { ChannelName = "test" });
-            Channels.Add(new Channel() { ChannelName = "test" });
         }
 
         public override string ToString()

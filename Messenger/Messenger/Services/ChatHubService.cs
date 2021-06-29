@@ -115,7 +115,7 @@ namespace Messenger.Services
 
             CurrentUser = await UserDataService.GetUserAsync();
 
-            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+            var teams = await GetTeamsList();
 
             if (teams == null || teams.Count() <= 0)
             {

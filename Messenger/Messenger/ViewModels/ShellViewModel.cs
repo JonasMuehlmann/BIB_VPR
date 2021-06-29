@@ -119,7 +119,7 @@ namespace Messenger.ViewModels
             if (isPrivateChat)
             {
                 var partnerName = team.Members.FirstOrDefault().DisplayName;
-                CurrentTeam =  new Team() { Name = partnerName , Description = team.Description};
+                CurrentTeam = new Team() { Name = partnerName, Description = team.Description };
             }
             else
             {
@@ -138,7 +138,8 @@ namespace Messenger.ViewModels
             IdentityService.LoggedOut -= OnLoggedOut;
         }
 
-        private async void RefactorTeamDetails() {
+        private async void RefactorTeamDetails()
+        {
             if (ChatHubService.CurrentUser == null)
             {
                 return;
@@ -172,7 +173,14 @@ namespace Messenger.ViewModels
 
         private void OpenSetttingsMainPanel()
         {
-            MainNavigation(typeof(SettingsPage));
+            if (MainFrame.SourcePageType == typeof(SettingsPage))
+            {
+                MainNavigation(typeof(ChatPage));
+            }
+            else
+            {
+                MainNavigation(typeof(SettingsPage));
+            }
         }
 
         private void OpenChatMainPage()
@@ -182,7 +190,14 @@ namespace Messenger.ViewModels
 
         private void OpenTeamManagePage()
         {
-            MainNavigation(typeof(TeamManagePage));
+            if (MainFrame.SourcePageType == typeof(TeamManagePage))
+            {
+                MainNavigation(typeof(ChatPage));
+            }
+            else
+            {
+                MainNavigation(typeof(TeamManagePage));
+            }
         }
 
         #endregion

@@ -24,7 +24,6 @@ namespace Messenger.ViewModels
         private ShellViewModel _shellViewModel;
         private ICommand _itemInvokedCommand;
         private ICommand _createTeamCommand;
-        private Team _selectedTeam;
         private ObservableCollection<Team> _teams;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
@@ -78,6 +77,7 @@ namespace Messenger.ViewModels
             IsBusy = true;
 
             Teams = new ObservableCollection<Team>();
+
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             Initialize();
             ChatHubService.TeamUpdated += OnTeamUpdated;
