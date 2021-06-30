@@ -7,6 +7,7 @@ using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
@@ -110,6 +111,8 @@ namespace Messenger.ViewModels
 
         public ICommand DeleteMessageCommand => new DeleteMessageCommand(Hub);
 
+        public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
+
         #endregion
 
         public ChatViewModel()
@@ -155,8 +158,32 @@ namespace Messenger.ViewModels
 
             foreach (var message in messages)
             {
+                var myReaction = GetMyReaction(message);
+
+                if (myReaction != ReactionType.None)
+                {
+                    message.HasReacted = true;
+                    message.MyReaction = myReaction;
+                }
+
                 Messages.Add(message);
             }
+        }
+
+        private ReactionType GetMyReaction(MessageViewModel message)
+        {
+            if (message.Reactions.Any(r => r.UserId == Hub.CurrentUser.Id))
+            {
+                var reaction = (ReactionType)message
+                    .Reactions
+                    .Where(r => r.UserId == Hub.CurrentUser.Id)
+                    .Select(r => Enum.Parse(typeof(ReactionType), r.Symbol))
+                    .FirstOrDefault();
+
+                return reaction;
+            }
+
+            return ReactionType.None;
         }
 
         #endregion

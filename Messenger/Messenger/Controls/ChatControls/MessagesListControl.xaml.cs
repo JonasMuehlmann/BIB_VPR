@@ -48,8 +48,6 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty EditMessageCommandProperty =
             DependencyProperty.Register("EditMessageCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
-
-
         public ICommand DeleteMessageCommand
         {
             get { return (ICommand)GetValue(DeleteMessageCommandProperty); }
@@ -59,7 +57,14 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty DeleteMessageCommandProperty =
             DependencyProperty.Register("DeleteMessageCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
+        public ICommand ToggleReactionCommand
+        {
+            get { return (ICommand)GetValue(ToggleReactionCommandProperty); }
+            set { SetValue(ToggleReactionCommandProperty, value); }
+        }
 
+        public static readonly DependencyProperty ToggleReactionCommandProperty =
+            DependencyProperty.Register("ToggleReactionCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
         public MessagesListControl()
         {

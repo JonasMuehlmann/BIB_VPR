@@ -148,6 +148,25 @@ namespace Messenger.Services
                 {
                     ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(messages));
 
+                    // Loads reactions into view models
+                    foreach (var message in parents)
+                    {
+                        var reactions = await MessengerService.GetReactions((uint)message.Id);
+
+                        if (reactions != null && reactions.Count() > 0)
+                        {
+                            var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                            if (myReaction.Count() > 0)
+                            {
+                                message.HasReacted = true;
+                                message.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                            }
+
+                            message.Reactions = new ObservableCollection<Reaction>(reactions);
+                        }
+                    }
+
                     CreateEntryForCurrentTeam(team.Id, parents);
                 }
             }
@@ -202,7 +221,27 @@ namespace Messenger.Services
                     return null;
                 }
 
+                // Creates view models for each message
                 ObservableCollection<MessageViewModel> messages = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
+
+                // Loads reactions into view models
+                foreach (var message in messages)
+                {
+                    var reactions = await MessengerService.GetReactions((uint)message.Id);
+
+                    if (reactions != null && reactions.Count() > 0)
+                    {
+                        var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                        if (myReaction.Count() > 0)
+                        {
+                            message.HasReacted = true;
+                            message.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                        }
+
+                        message.Reactions = new ObservableCollection<Reaction>(reactions);
+                    }
+                }
 
                 CreateEntryForCurrentTeam(teamId, messages);
 
@@ -260,7 +299,7 @@ namespace Messenger.Services
 
         public async Task<bool> DeleteMessage(uint messageId, MessageType type)
         {
-            LogContext.PushProperty("Method", $"{nameof(SendMessage)}");
+            LogContext.PushProperty("Method", $"{nameof(DeleteMessage)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
             if (CurrentUser == null)
@@ -277,6 +316,43 @@ namespace Messenger.Services
 
             return isSuccess;
         }
+
+        public async Task<bool> MakeReaction(uint messageId, ReactionType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            uint? isSuccess = await MessengerService.AddReaction(messageId, CurrentUser.Id, type.ToString());
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess != null ? true : false;
+        }
+
+        public async Task<bool> RemoveReaction(uint messageId, ReactionType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.RemoveReaction(messageId, CurrentUser.Id, type.ToString());
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
 
         #endregion
 
@@ -677,7 +753,7 @@ namespace Messenger.Services
             InvitationReceived?.Invoke(this, teamId);
         }
 
-        private void OnMessageUpdated(object sender, Message message)
+        private async void OnMessageUpdated(object sender, Message message)
         {
             bool isValid = message != null;
 
@@ -686,7 +762,7 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel vm = SortAndUpdateMessage(message);
+            MessageViewModel vm = await SortAndUpdateMessage(message);
 
             MessageUpdated?.Invoke(this, vm);
         }
@@ -801,9 +877,28 @@ namespace Messenger.Services
             return viewModel;
         }
 
-        private MessageViewModel SortAndUpdateMessage(Message message)
+        private async Task<MessageViewModel> SortAndUpdateMessage(Message message)
         {
             var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
+
+            var reactions = await MessengerService.GetReactions((uint)viewModel.Id);
+
+            if (reactions != null && reactions.Count() > 0)
+            {
+                var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                if (myReaction.Count() > 0)
+                {
+                    viewModel.HasReacted = true;
+                    viewModel.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                }
+
+                viewModel.Reactions.Clear();
+                foreach (var item in reactions)
+                {
+                    viewModel.Reactions.Add(item);
+                }
+            }
 
             switch (type)
             {
@@ -814,17 +909,12 @@ namespace Messenger.Services
                         new ObservableCollection<MessageViewModel>() { viewModel },
                         (key, list) =>
                         {
-                            list.Select(m =>
-                            {
-                                if (m.Id == viewModel.Id)
-                                {
-                                    m = viewModel;
-                                }
+                            var updated = list.Where(m => m.Id != viewModel.Id);
 
-                                return m;
-                            });
+                            var updatedList = new ObservableCollection<MessageViewModel>(updated);
+                            updatedList.Add(viewModel);
 
-                            return list;
+                            return updatedList;
                         });
                     break;
                 case MessageType.Reply:

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -28,6 +29,15 @@ namespace Messenger.Controls.ChatControls
 
         public static readonly DependencyProperty ReplyProperty =
             DependencyProperty.Register("Reply", typeof(MessageViewModel), typeof(ReplyControl), new PropertyMetadata(new MessageViewModel()));
+
+        public ICommand ToggleReactionCommand
+        {
+            get { return (ICommand)GetValue(ToggleReactionCommandProperty); }
+            set { SetValue(ToggleReactionCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ToggleReactionCommandProperty =
+            DependencyProperty.Register("ToggleReactionCommand", typeof(ICommand), typeof(ReplyControl), new PropertyMetadata(null));
 
         public ReplyControl()
         {
