@@ -24,10 +24,7 @@ namespace Messenger.ViewModels
         private ShellViewModel _shellViewModel;
         private ICommand _itemInvokedCommand;
         private ICommand _createTeamCommand;
-        private Team _selectedTeam;
         private ObservableCollection<Team> _teams;
-
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
@@ -42,18 +39,6 @@ namespace Messenger.ViewModels
             set
             {
                 Set(ref _shellViewModel, value);
-            }
-        }
-
-        public Team SelectedTeam
-        {
-            get
-            {
-                return _selectedTeam;
-            }
-            set
-            {
-                Set(ref _selectedTeam, value);
             }
         }
 
@@ -92,6 +77,7 @@ namespace Messenger.ViewModels
             IsBusy = true;
 
             Teams = new ObservableCollection<Team>();
+
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             Initialize();
             ChatHubService.TeamUpdated += OnTeamUpdated;
@@ -149,6 +135,8 @@ namespace Messenger.ViewModels
             IsBusy = false;
         }
 
+
+
         /// <summary>
         /// Creates the team with the given name and description
         /// </summary>
@@ -187,7 +175,9 @@ namespace Messenger.ViewModels
 
                 // Invokes TeamSwitched event
                 await ChatHubService.SwitchTeam(teamId);
-            } catch (ArgumentException a) {
+            }
+            catch (ArgumentException a)
+            {
                 Console.WriteLine(a);
             }
         }

@@ -476,7 +476,7 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
-        }
+        }        
 
         /// <summary>
         /// Delete a team alongside it's channels and memberships
@@ -596,6 +596,24 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
+        }
+
+
+        /// <summary>
+        /// returns all channels from a team
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns>Returns a list with all channels</returns>
+        public async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId) {           
+                LogContext.PushProperty("Method", "GetChannelsForTeam");
+                LogContext.PushProperty("SourceContext", GetType().Name);
+                logger.Information($"Function called with parameters teamId={teamId}");
+
+                var channels = await TeamService.GetAllChannelsByTeamId(teamId);
+
+                logger.Information($"Return value: {string.Join(", ", channels)}");
+
+                return channels != null ? channels : Enumerable.Empty<Channel>();
         }
 
         #endregion

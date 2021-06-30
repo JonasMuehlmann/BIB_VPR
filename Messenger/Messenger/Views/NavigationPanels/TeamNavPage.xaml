@@ -17,7 +17,8 @@
         <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind Name}"
-                IsExpanded="False">
+                IsExpanded="False"
+                ItemsSource="{x:Bind Channels}">
                 <StackPanel
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
@@ -33,7 +34,7 @@
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
-        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:TeamChannel">
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:Channel">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind ChannelName}">
                 <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />

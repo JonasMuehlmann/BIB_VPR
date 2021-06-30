@@ -115,7 +115,7 @@ namespace Messenger.Services
 
             CurrentUser = await UserDataService.GetUserAsync();
 
-            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+            var teams = await GetTeamsList();
 
             if (teams == null || teams.Count() <= 0)
             {
@@ -392,6 +392,9 @@ namespace Messenger.Services
                 return team;
             });
 
+            //get all channels
+            teams = await GetChannelsForAllTeams(teams);
+
             // Updates the teams list under the current user
             CurrentUser.Teams.Clear();
             foreach (var team in teams)
@@ -456,7 +459,7 @@ namespace Messenger.Services
                 }
             }
 
-            TeamUpdated?.Invoke(this, GetCurrentTeam());
+            TeamUpdated?.Invoke(this, await GetCurrentTeam());
         }
 
         /// <summary>
@@ -485,7 +488,7 @@ namespace Messenger.Services
         /// Returns the current team model from the loaded list
         /// </summary>
         /// <returns>A complete team object</returns>
-        public Team GetCurrentTeam()
+        public async Task<Team> GetCurrentTeam()
         {
             LogContext.PushProperty("Method", $"{nameof(GetCurrentTeam)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -501,11 +504,86 @@ namespace Messenger.Services
                 .Where(t => t.Id == CurrentTeamId)
                 .FirstOrDefault();
 
+            if (currentTeam != null)
+            {
+                var channels = await GetChannelsList(currentTeam.Id);
+                if (channels != null)
+                {
+                    currentTeam.FilterAndUpdateChannels(channels);
+                }
+            }
+
             logger.Information($"Return value: {currentTeam}");
 
             return currentTeam;
         }
 
+
+        /// <summary>
+        /// creates a new channel with name
+        /// </summary>
+        /// <param name="channelName"></param>
+        /// <returns>Task to await</returns>
+        public async Task CreateChannel(string channelName)
+        {
+            LogContext.PushProperty("Method", "CreateChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter channelName={channelName}");
+
+            await MessengerService.CreateChannel(channelName, (uint)CurrentTeamId);
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
+        }
+
+        /// <summary>
+        /// deletes a new Channel by its channelId
+        /// </summary>
+        /// <param name="channelId"></param>
+        /// <returns>Task to await</returns>
+        public async Task RemoveChannel(uint channelId)
+        {
+            LogContext.PushProperty("Method", "RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter channelId={channelId}");
+
+            await MessengerService.RemoveChannel(channelId);
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
+        }
+
+        /// <summary>
+        /// get channels for a team
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns>the channels</returns>
+        public async Task<IEnumerable<Channel>> GetChannelsList(uint teamId)
+        {
+            LogContext.PushProperty("Method", "GetChannelsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+
+            logger.Information($"Function called with parameter teamId={teamId}");
+
+            return await MessengerService.GetChannelsForTeam(teamId);
+        }
+
+        private async Task<IEnumerable<Team>> GetChannelsForAllTeams(IEnumerable<Team> teams)
+        {
+            LogContext.PushProperty("Method", "GetChannelsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+
+            logger.Information($"Function called with parameter teams={string.Join(",", teams)}");
+
+
+            foreach (Team t in teams) {
+                t.FilterAndUpdateChannels(await MessengerService.GetChannelsForTeam(t.Id));
+            }
+
+            return teams;
+        }
         #endregion
 
         #region Member
