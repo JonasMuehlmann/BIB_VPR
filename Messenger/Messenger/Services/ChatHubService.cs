@@ -891,11 +891,12 @@ namespace Messenger.Services
                 {
                     viewModel.HasReacted = true;
                     viewModel.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
-                    viewModel.Reactions.Clear();
-                    foreach (var item in reactions)
-                    {
-                        viewModel.Reactions.Add(item);
-                    }
+                }
+
+                viewModel.Reactions.Clear();
+                foreach (var item in reactions)
+                {
+                    viewModel.Reactions.Add(item);
                 }
             }
 

@@ -42,7 +42,7 @@ namespace Messenger.Commands.Messenger
 
             try
             {
-                var arg = (ToggleReactionArg)parameter;
+                var arg = parameter as ToggleReactionArg;
                 MessageViewModel message = arg.Message;
                 ReactionType type = arg.Type;
 
