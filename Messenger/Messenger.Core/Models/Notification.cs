@@ -8,12 +8,11 @@ namespace Messenger.Core.Models
         public int Id { get; set; }
         public string RecipientId { get; set; }
         public DateTime CreationTime { get; set; }
-        public string Message { get; set; }
+        public NotificationMessageBase Message { get; set; }
 
         public Notification()
         {
             RecipientId = "";
-            Message = "";
         }
 
         public override string ToString()
