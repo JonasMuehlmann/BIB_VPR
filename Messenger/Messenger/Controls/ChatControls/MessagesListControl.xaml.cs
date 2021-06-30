@@ -39,8 +39,6 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty ReplyCommandProperty =
             DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
-        public ChatViewModel ViewModel { get; set; }
-
         public MessagesListControl()
         {
             InitializeComponent();

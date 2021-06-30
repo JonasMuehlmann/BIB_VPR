@@ -72,5 +72,6 @@ namespace Messenger.Controls.ChatControls
             InitializeComponent();
 
         }
+
     }
 }

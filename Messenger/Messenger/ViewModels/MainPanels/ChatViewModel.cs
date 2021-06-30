@@ -89,7 +89,6 @@ namespace Messenger.ViewModels
         public DelegateCommand BtnToggleReplyVisibility { get; set; }
 
 
-
         /// <summary>
         /// Message object to be sent
         /// </summary>
@@ -131,7 +130,7 @@ namespace Messenger.ViewModels
             Messages = new ObservableCollection<Message>();
             ReplyMessage = new Message();
             MessageToSend = new Message();
-            ReplyVisible = Visibility.Collapsed;
+            ReplyVisible = Visibility.Visible;
             BtnToggleReplyVisibility = new DelegateCommand(ToggleVisibility);
 
             // Register events
@@ -172,7 +171,7 @@ namespace Messenger.ViewModels
             }
         }
 
-        private void ToggleVisibility()
+        public void ToggleVisibility()
         {
             if (ReplyVisible == Visibility.Visible)
             {

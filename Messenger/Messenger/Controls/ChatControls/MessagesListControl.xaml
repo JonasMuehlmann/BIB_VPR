@@ -6,9 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Messenger.Core.Models"
+    xmlns:local="using:Messenger.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.DataContext>
+        <local:ChatViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="0 10" />
@@ -118,8 +122,6 @@
                                         Command="{Binding ElementName=messageListControl, Path=ReplyCommand}"
                                         CommandParameter="{Binding}"
                                         />
-                                    <!--Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
-
                                     <TextBlock
                                         x:Uid="Chat_React"
                                         Style="{StaticResource ReactsStyle}"

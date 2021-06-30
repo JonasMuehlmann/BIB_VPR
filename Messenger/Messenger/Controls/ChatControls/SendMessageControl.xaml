@@ -67,28 +67,29 @@
         <StackPanel
             Orientation="Horizontal"
             BorderThickness="2"
-            BorderBrush="Gray"
-            CornerRadius="10"
             Visibility="{Binding ReplyVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel
-                Width="360"
+                Width="345"
                 DataContext="{x:Bind
                 ReplyMessage,
                 Mode=TwoWay,
-                UpdateSourceTrigger=PropertyChanged}">
+                UpdateSourceTrigger=PropertyChanged}"
+                Margin="5">
                 <TextBlock
                     x:Name="SMDP"
-                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Sender.DisplayName, FallbackValue='', TargetNullValue=''}"
+                    Text="Binding UserName"
+                    FontWeight="Bold"
                     />
                 <TextBlock
                     x:Name="SMCT"
-                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content, FallbackValue='', TargetNullValue=''}"
+                    Text="Bindung MessageConten"
                     />
             </StackPanel>
             <Button x:Name="ReplyBoxButton"
                 FontFamily="Segoe MDL2 Assets"
                 Content="&#xE711;"
-                Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                />
         </StackPanel>
         <!-- ATTACHMENTS -->
         <ListView
