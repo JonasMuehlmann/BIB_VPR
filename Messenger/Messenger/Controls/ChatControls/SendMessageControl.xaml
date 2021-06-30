@@ -90,7 +90,6 @@
                 Content="&#xE711;"
                 Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <TextBlock x:Name="testReplytextblock" Text="{Binding ReplyVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/> <!--löschen wenn funktioniert-->
         <!-- ATTACHMENTS -->
         <ListView
             x:Name="AttachmentListView"
