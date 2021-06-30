@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:models="using:Messenger.Models"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
@@ -16,7 +17,8 @@
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
         <converters:BooleanToGlyphConverter x:Key="BoolToGlyphConverter" />
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
-        <!--#region CONTAINER STYLE -->
+        <converters:ReactionTypeToBooleanConverter x:Key="ReactionToBooleanConverter" />
+            <!--#region CONTAINER STYLE -->
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="10" />
         </Style>
@@ -30,9 +32,9 @@
         </Style>
         <!--#endregion-->
         <!--#region HEADER STYLE -->
-        <Style x:Key="HeaderPanelStyle" TargetType="StackPanel">
+        <Style x:Key="HeaderPanelStyle" TargetType="Grid">
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style>
         <Style x:Key="HeaderStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
@@ -94,6 +96,9 @@
             <Setter Property="MaxHeight" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
+        <Style x:Key="ReactionButtonStyle" TargetType="AppBarToggleButton" BasedOn="{StaticResource ReactionButtonStyle}">
+            
+        </Style>
         <!--#endregion-->
     </UserControl.Resources>
 
@@ -112,28 +117,59 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!-- MESSAGE HEADER -->
-                <StackPanel
+                <Grid
                     Grid.Row="0"
                     Style="{StaticResource HeaderPanelStyle}">
-                    <Ellipse
-                        Width="35"
-                        Height="35"
-                        Fill="{StaticResource SystemAccentColorDark1}"
-                        />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
                     <StackPanel
+                        Grid.Column="0"
+                        Orientation="Horizontal"
                         VerticalAlignment="Center"
-                        Margin="10 0 0 0"
-                        Spacing="-3">
-                        <TextBlock
-                            Style="{StaticResource HeaderStyle}"
-                            Text="{x:Bind Message.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Stretch">
+                        <Ellipse
+                            Width="35"
+                            Height="35"
+                            Fill="{StaticResource SystemAccentColorDark1}"
                             />
-                        <TextBlock
-                            Style="{StaticResource SubHeaderStyle}"
-                            Text="{x:Bind Message.CreationTime, Converter={StaticResource DateToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            />
+                        <StackPanel
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0"
+                            Spacing="-3">
+                            <TextBlock
+                                Style="{StaticResource HeaderStyle}"
+                                Text="{x:Bind Message.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                            <TextBlock
+                                Style="{StaticResource SubHeaderStyle}"
+                                Text="{x:Bind Message.CreationTime, Converter={StaticResource DateToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                    <StackPanel
+                        Grid.Column="2"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Margin="5 0">
+                            <Run
+                                FontSize="12"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                Text="{Binding ElementName=messageControl, Path=Message.Reactions.Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </TextBlock>
+                        <Viewbox
+                            Height="15">
+                            <SymbolIcon
+                                Symbol="Like"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                />
+                        </Viewbox>
+                    </StackPanel>
+                </Grid>
                 <!-- MESSAGE CONTENT -->
                 <!-- MESSAGE CONTENT: SHOW MODE -->
                 <TextBlock
@@ -237,7 +273,7 @@
                             Icon="MailReply"
                             Label="Reply"
                             Command="{x:Bind ReplyToCommand}"
-                            CommandParameter="{Binding ElementName=messageControl, Path=Message}"
+                            CommandParameter="{Binding ElementName=messageControl, Path=Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             />
                         <!-- ADD OR UPDATE REACTION -->
                         <AppBarButton
@@ -249,29 +285,57 @@
                                 <CommandBarFlyout
                                     Placement="TopEdgeAlignedLeft">
                                     <AppBarToggleButton
+                                        x:Name="LikeButton"
+                                        Style="{StaticResource ReactionButtonStyle}"
                                         Content="Like"
                                         Icon="Like"
+                                        Tapped="LikeButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Like'}"
                                         />
-                                    <AppBarButton
+                                    <AppBarToggleButton
+                                        x:Name="DislikeButton"
+                                        Style="{StaticResource ReactionButtonStyle}"
                                         Content="Dislike"
                                         Icon="Dislike"
+                                        Tapped="DislikeButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Dislike'}"
                                         />
-                                    <AppBarButton
-                                        Content="Surprised">
-                                        <AppBarButton.Icon>
+                                    <AppBarToggleButton
+                                        x:Name="SurprisedButton"
+                                        Style="{StaticResource ReactionButtonStyle}"
+                                        Content="Surprised"
+                                        Tapped="SurprisedButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Surprised'}">
+                                        <AppBarToggleButton.Icon>
                                             <icons:PathIconFontAwesome
                                                 Kind="SurpriseRegular"
                                                 />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                    <AppBarButton
-                                        Content="Angry">
-                                        <AppBarButton.Icon>
+                                        </AppBarToggleButton.Icon>
+                                    </AppBarToggleButton>
+                                    <AppBarToggleButton
+                                        x:Name="AngryButton"
+                                        Style="{StaticResource ReactionButtonStyle}"
+                                        Content="Angry"
+                                        Tapped="AngryButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Angry'}">
+                                        <AppBarToggleButton.Icon>
                                             <icons:PathIconFontAwesome
                                                 Kind="AngryRegular"
                                                 />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
+                                        </AppBarToggleButton.Icon>
+                                    </AppBarToggleButton>
                                 </CommandBarFlyout>
                             </FlyoutBase.AttachedFlyout>
                         </AppBarButton>

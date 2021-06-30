@@ -19,8 +19,11 @@ namespace Messenger.ViewModels.DataViewModels
         private uint? _teamId;
         private uint? _parentMessageId;
         private bool _isReply;
+        private bool _hasReacted;
+        private ReactionType _myReaction;
         private User _sender;
         private ObservableCollection<MessageViewModel> _replies;
+        private ObservableCollection<Reaction> _reactions;
         private List<Attachment> _attachments;
 
         #endregion
@@ -73,6 +76,12 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _replies, value); }
         }
 
+        public ObservableCollection<Reaction> Reactions
+        {
+            get { return _reactions; }
+            set { Set(ref _reactions, value); }
+        }
+
         public List<Attachment> Attachments
         {
             get { return _attachments; }
@@ -83,6 +92,31 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _isReply; }
             set { Set(ref _isReply, value); }
+        }
+
+        public bool HasReacted
+        {
+            get { return _hasReacted; }
+            set { Set(ref _hasReacted, value); }
+        }
+
+        public ReactionType MyReaction
+        {
+            get
+            {
+                if (!HasReacted)
+                {
+                    return ReactionType.None;
+                }
+                else
+                {
+                    return _myReaction;
+                }
+            }
+            set
+            {
+                Set(ref _myReaction, value);
+            }
         }
 
         public MessageViewModel()
@@ -133,6 +167,7 @@ namespace Messenger.ViewModels.DataViewModels
         public static MessageType ConvertAndGetType(Message message, out MessageViewModel viewModel)
         {
             var attachmentsList = new List<Attachment>();
+            var reactionsList = new ObservableCollection<Reaction>();
             bool isReply = (message.ParentMessageId != null) ? true : false;
 
             if (message.AttachmentsBlobName.Count > 0)
@@ -166,8 +201,10 @@ namespace Messenger.ViewModels.DataViewModels
                 CreationTime = message.CreationTime,
                 TeamId = message.RecipientId,
                 Replies = new ObservableCollection<MessageViewModel>(),
+                Reactions = reactionsList,
                 Attachments = attachmentsList,
-                IsReply = isReply
+                IsReply = isReply,
+                HasReacted = false
             };
 
             return isReply ? MessageType.Reply : MessageType.Parent;

@@ -21,6 +21,7 @@
                 ReplyToCommand="{x:Bind ViewModel.ReplyToCommand}"
                 EditMessageCommand="{x:Bind ViewModel.EditMessageCommand}"
                 DeleteMessageCommand="{x:Bind ViewModel.DeleteMessageCommand}"
+                ToggleReactionCommand="{x:Bind ViewModel.ToggleReactionCommand}"
                 />
             <controls:SendMessageControl
                 Grid.Row="1"
