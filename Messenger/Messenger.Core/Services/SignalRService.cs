@@ -3,12 +3,7 @@ using Messenger.Core.Helpers;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Serilog;
 using Serilog.Context;
 
 namespace Messenger.Core.Services
@@ -40,9 +35,11 @@ namespace Messenger.Core.Services
         public event EventHandler<uint> InviteReceived;
         public event EventHandler<Team> TeamUpdated;
         public event EventHandler<Message> MessageUpdated;
+        public event EventHandler<Message> MessageDeleted;
         public event EventHandler<Channel> ChannelUpdated;
         public event EventHandler<User> UserUpdated;
         public event EventHandler<uint> TeamRolesUpdated;
+        public event EventHandler<uint> MessageReactionsUpdated;
         public event EventHandler<uint> RolePermissionsUpdated;
 
         public SignalRService()
@@ -55,14 +52,17 @@ namespace Messenger.Core.Services
                 })
                 .Build();
 
-            _connection.On<Message>("ReceiveMessage", (message)     => MessageReceived?.Invoke(this, message));
-            _connection.On<uint>("ReceiveInvitation", (teamId)      => InviteReceived?.Invoke(this, teamId));
-            _connection.On<Team>("TeamUpdated", (team)              => TeamUpdated?.Invoke(this, team));
-            _connection.On<Message>("MessageUpdated", (message)     => MessageUpdated?.Invoke(this, message));
-            _connection.On<Channel>("ChannelUpdated", (channel)     => ChannelUpdated?.Invoke(this, channel));
-            _connection.On<User>("UserUpdated", (user)              => UserUpdated?.Invoke(this, user));
-            _connection.On<uint>("TeamRolesUpdated", (teamId) => TeamRolesUpdated?.Invoke(this, teamId));
-            _connection.On<uint>("RolePermissionsUpdated", (teamId) => RolePermissionsUpdated?.Invoke(this, teamId));
+            // Listeners
+            _connection.On<Message>("ReceiveMessage",       (message)   => MessageReceived?.Invoke(this, message));
+            _connection.On<uint>("ReceiveInvitation",       (teamId)    => InviteReceived?.Invoke(this, teamId));
+            _connection.On<Team>("TeamUpdated",             (team)      => TeamUpdated?.Invoke(this, team));
+            _connection.On<Message>("MessageUpdated",       (message)   => MessageUpdated?.Invoke(this, message));
+            _connection.On<Message>("MessageDeleted",       (message)   => MessageDeleted?.Invoke(this, message));
+            _connection.On<Channel>("ChannelUpdated",       (channel)   => ChannelUpdated?.Invoke(this, channel));
+            _connection.On<User>("UserUpdated",             (user)      => UserUpdated?.Invoke(this, user));
+            _connection.On<uint>("TeamRolesUpdated",        (teamId)    => TeamRolesUpdated?.Invoke(this, teamId));
+            _connection.On<uint>("MessageReactionsUpdated", (messageId) => MessageReactionsUpdated?.Invoke(this, messageId));
+            _connection.On<uint>("RolePermissionsUpdated",  (teamId)    => RolePermissionsUpdated?.Invoke(this, teamId));
         }
 
         /// <summary>
@@ -185,6 +185,11 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("UpdateMessage", message);
         }
 
+        public async Task DeleteMessage(Message message)
+        {
+            await _connection.SendAsync("DeleteMessage", message);
+        }
+
         /// <summary>
         /// Update a teams data and notify other clients
         /// </summary>
@@ -210,6 +215,11 @@ namespace Messenger.Core.Services
         public async Task UpdateTeamRoles(uint teamId)
         {
             await _connection.SendAsync("UpdateTeamRoles", teamId);
+        }
+
+        public async Task UpdateMessageReactions(Message message)
+        {
+            await _connection.SendAsync("UpdateMessage", message);
         }
 
         public async Task UpdateRolePermission(uint teamId)

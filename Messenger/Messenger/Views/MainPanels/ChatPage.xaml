@@ -8,9 +8,9 @@
     xmlns:storage="using:Windows.Storage"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    <Grid
+        x:Name="ContentArea">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="200"/>
@@ -18,7 +18,10 @@
             <controls:MessagesListControl
                 Grid.Row="0"
                 Messages="{x:Bind ViewModel.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                ReplyCommand="{x:Bind ViewModel.ReplyToCommand}"
+                ReplyToCommand="{x:Bind ViewModel.ReplyToCommand}"
+                EditMessageCommand="{x:Bind ViewModel.EditMessageCommand}"
+                DeleteMessageCommand="{x:Bind ViewModel.DeleteMessageCommand}"
+                ToggleReactionCommand="{x:Bind ViewModel.ToggleReactionCommand}"
                 />
             <controls:SendMessageControl
                 Grid.Row="1"

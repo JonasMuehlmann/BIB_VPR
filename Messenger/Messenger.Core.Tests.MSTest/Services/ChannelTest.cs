@@ -1,10 +1,6 @@
 using System.Threading.Tasks;
 using System.Linq;
-using System;
-using System.Data.SqlClient;
-using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Core.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,7 +11,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class ChannelTest : SqlServiceTestBase
+    public class ChannelTest
     {
         TeamService teamService;
         ChannelService channelService;
@@ -23,8 +19,8 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            teamService = InitializeTestMode<TeamService>();
-            channelService = InitializeTestMode<ChannelService>();
+            teamService = new TeamService();
+            channelService = new ChannelService();
         }
 
         [TestMethod]

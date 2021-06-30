@@ -1,14 +1,10 @@
 using System;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using Serilog.Context;
-using Serilog;
 
 
 namespace Messenger.Core.Services
@@ -23,39 +19,22 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created channel if it was created successfully, null otherwise</returns>
         public async Task<uint?> CreateChannel(string channelName, uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","CreateChannel");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","CreateChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
-            try
-            {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
+            string query = $@"
+                                INSERT INTO
+                                    Channels
+                                VALUES(
+                                    '{channelName}',
+                                    {teamId}
+                                );
 
-                    string query = $"INSERT INTO Channels (ChannelName, TeamId) VALUES "
-                                 + $"('{channelName}', {teamId}); SELECT SCOPE_IDENTITY();";
+                            SELECT SCOPE_IDENTITY();";
 
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.TryConvertDbValue(scalarQuery.ExecuteScalar(),
-                                                              Convert.ToUInt32);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, "Return value: null");
-
-                return null;
-            }
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
         /// <summary>
@@ -65,20 +44,18 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> RemoveChannel(uint channelId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","RemoveChannel");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            string query = $"DELETE FROM Channels WHERE ChannelId={channelId};";
+            string query = $@"
+                                DELETE FROM
+                                    Channels
+                                WHERE
+                                    ChannelId={channelId};";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
         /// <summary>
         /// Deletes all channel from a specified team
@@ -87,20 +64,18 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
         public async Task<bool> RemoveAllChannels(uint teamId)
         {
-            Serilog.Context.LogContext.PushProperty("Method","RemoveAllChannels");
-            Serilog.Context.LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("Method","RemoveAllChannels");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
 
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            string query = $"DELETE FROM Channels WHERE TeamId={teamId};";
+            string query = $@"
+                                DELETE FROM
+                                    Channels
+                                WHERE
+                                    TeamId={teamId};";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
         /// <summary>
@@ -111,15 +86,15 @@ namespace Messenger.Core.Services
         /// <returns>True, if the channel got renamed successfully, false otherwise</returns>
         public async Task<bool> RenameChannel(string channelName, uint channelId)
         {
-            string query = $"UPDATE Channels SET ChannelName='{channelName}' WHERE ChannelId={channelId};";
+            string query = $@"
+                                UPDATE
+                                    Channels
+                                SET
+                                    ChannelName='{channelName}'
+                                WHERE
+                                    ChannelId={channelId};";
 
-            logger.Information($"Running the following query: {query}");
-
-            var result = await SqlHelpers.NonQueryAsync(query, GetConnection());
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return await SqlHelpers.NonQueryAsync(query);
         }
         /// <summary>
         /// Construct a Channel object from data that belongs to the channel identified by channelId.
@@ -133,40 +108,26 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            try
+            string selectQuery = $@"
+                                    SELECT
+                                        *
+                                    FROM
+                                        Channels
+                                    WHERE
+                                        ChannelId={channelId}";
+
+            SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
+
+            var rows = await SqlHelpers.GetRows("Channel", selectQuery);
+
+            if (rows.Count() == 0)
             {
-                using (SqlConnection connection = GetConnection())
-                {
-                    await connection.OpenAsync();
-
-                    string selectQuery = $"SELECT ChannelId, NameId, ChannelName, TeamId FROM Channels WHERE ChannelId={channelId}";
-
-                    logger.Information($"Running the following query: {selectQuery}");
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-
-                    var rows = SqlHelpers.GetRows("Channel", adapter);
-
-                    if (rows.Count() == 0)
-                    {
-                        logger.Information($"Return value: null");
-
-                        return null;
-                    }
-
-                    var result = rows.Select(Mapper.ChannelFromDataRow).First();
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e, $"Return value: null");
+                logger.Information($"Return value: null");
 
                 return null;
             }
+
+            return rows.Select(Mapper.ChannelFromDataRow).First();
         }
     }
 }

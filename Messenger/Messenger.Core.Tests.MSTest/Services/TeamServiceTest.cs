@@ -15,7 +15,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class TeamServiceTest : SqlServiceTestBase
+    public class TeamServiceTest
     {
         TeamService teamService;
         UserService userService;
@@ -26,8 +26,8 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            teamService = InitializeTestMode<TeamService>();
-            userService = InitializeTestMode<UserService>();
+            teamService = new TeamService();
+            userService = new UserService();
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
+                using (SqlConnection connection = AzureServiceBase.GetDefaultConnection())
                 {
                     string query = "SET IDENTITY_INSERT Teams ON;INSERT INTO Teams(TeamId, TeamName, TeamDescription, CreationDate) Values(9999999, 'foo', 'desc', GETDATE());";
 
@@ -112,11 +112,12 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
 
-                using (SqlConnection connection = teamService.GetConnection())
+                using (SqlConnection connection = TeamService.GetDefaultConnection())
                 {
                     await connection.OpenAsync();
 
-                    string query = "DELETE FROM Messages;"
+                    string query = "DELETE FROM Reactions;"
+                                 + "DELETE FROM Messages;"
                                  + "DELETE FROM Memberships;"
                                  + "DELETE FROM Channels;"
                                  + "DELETE FROM Role_permissions;"
@@ -126,7 +127,7 @@ namespace Messenger.Tests.MSTest
                                  + "DELETE FROM Users;";
 
 
-                    await SqlHelpers.NonQueryAsync(query, connection);
+                    await SqlHelpers.NonQueryAsync(query);
                 }
 
                 var teams = await teamService.GetAllTeams();
@@ -169,7 +170,7 @@ namespace Messenger.Tests.MSTest
             {
                 uint? teamId;
 
-                using (SqlConnection connection = teamService.GetConnection())
+                using (SqlConnection connection = TeamService.GetDefaultConnection())
                 {
                     connection.Open();
 
@@ -202,7 +203,7 @@ namespace Messenger.Tests.MSTest
             {
                 uint? teamId;
 
-                using (SqlConnection connection = teamService.GetConnection())
+                using (SqlConnection connection = TeamService.GetDefaultConnection())
                 {
                     connection.Open();
 
@@ -231,7 +232,7 @@ namespace Messenger.Tests.MSTest
             {
                 uint? teamId;
 
-                using (SqlConnection connection = teamService.GetConnection())
+                using (SqlConnection connection = TeamService.GetDefaultConnection())
                 {
                     connection.Open();
 
@@ -315,7 +316,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didAddRole);
 
-                var roles = teamService.ListRoles(teamId.Value);
+                var roles = await teamService.ListRoles(teamId.Value);
 
                 Assert.IsTrue(roles.Contains(testName + "Role"));
 
@@ -341,7 +342,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didRemoveRole);
 
-                var roles = teamService.ListRoles(teamId.Value);
+                var roles = await teamService.ListRoles(teamId.Value);
 
                 Assert.IsFalse(roles.Contains(testName + "Role"));
 
@@ -376,7 +377,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didAssignRole);
 
-                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+                var roles = await teamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
                 Assert.AreEqual(1, roles.Count);
                 Assert.AreEqual(userId, roles[0].Id);
@@ -416,7 +417,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didUnassignRole);
 
-                var roles = teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+                var roles = await teamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
                 Assert.AreEqual(0, roles.Count);
 
@@ -458,7 +459,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(didAssignRole);
 
-                var roles = teamService. GetUsersRoles(teamId.Value, userId);
+                var roles = await teamService.GetUsersRoles(teamId.Value, userId);
 
                 Assert.AreEqual($"{testName}Role1,{testName}Role2", string.Join(",", roles));
 

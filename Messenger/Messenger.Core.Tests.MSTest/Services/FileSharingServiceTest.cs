@@ -1,11 +1,6 @@
 using System.Threading.Tasks;
-using System.Linq;
-using System;
 using System.IO;
-using System.Data.SqlClient;
-using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Core.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Messenger.Tests.MSTest
 {
     [TestClass]
-    public class FileSharingServiceTest : SqlServiceTestBase
+    public class FileSharingServiceTest
     {
         FileSharingService fileSharingService;
 

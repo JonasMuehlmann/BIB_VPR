@@ -19,10 +19,6 @@ namespace Messenger.Core.Services
         private const string _apiServiceMe = "me/";
         private const string _apiServiceMePhoto = "me/photo/$value";
 
-        public MicrosoftGraphService()
-        {
-        }
-
         public async Task<User> GetUserInfoAsync(string accessToken)
         {
             User user = null;

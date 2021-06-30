@@ -5,16 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Messenger.Controls.Navigation"
-    mc:Ignorable="d">
-    <Grid
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+    mc:Ignorable="d"
+    Style="{StaticResource PageStyle}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- SIDE NAVIGATION -->
         <controls:SideNavigation
@@ -24,6 +24,7 @@
             NavigateToChats="{x:Bind ViewModel.NavigateToChatsCommand}"
             NavigateToNotifications="{x:Bind ViewModel.NavigateToNotificationsCommand}"
             CurrentPageName="{x:Bind ViewModel.CurrentPageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
             />
         <!-- NAVIGATION HEADER -->
         <controls:NavigationHeader
@@ -31,7 +32,9 @@
             Grid.Column="1"
             OpenProfileCommand="{x:Bind ViewModel.OpenUserProfileCommand}"
             OpenTeamManagerCommand="{x:Bind ViewModel.OpenTeamManagerCommand}"
-            CurrentTeamName="{x:Bind ViewModel.CurrentTeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            CurrentTeamName="{x:Bind ViewModel.CurrentTeam.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            CurrentTeamDescription="{x:Bind ViewModel.CurrentTeam.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            ChangeTeamDetailsCommand="{x:Bind ViewModel.ChangeTeamDetailsCommand}"
             />
         <Grid Grid.Row="1" Grid.Column="0">
             <Frame x:Name="sideFrame" />

@@ -47,6 +47,18 @@ namespace Messenger.Controls.Navigation
 
 
 
+        public ICommand ChangeTeamDetailsCommand
+        {
+            get { return (ICommand)GetValue(ChangeTeamDetailsCommandProperty); }
+            set { SetValue(ChangeTeamDetailsCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OpenProfileCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChangeTeamDetailsCommandProperty =
+            DependencyProperty.Register("ChangeTeamDetailsCommand", typeof(ICommand), typeof(NavigationHeader), new PropertyMetadata(null));
+
+
+
 
         public string CurrentTeamName
         {
@@ -57,6 +69,16 @@ namespace Messenger.Controls.Navigation
         // Using a DependencyProperty as the backing store for CurrentTeamName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentTeamNameProperty =
             DependencyProperty.Register("CurrentTeamName", typeof(string), typeof(NavigationHeader), new PropertyMetadata(string.Empty));
+
+        public string CurrentTeamDescription
+        {
+            get { return (string)GetValue(CurrentTeamDescriptionProperty); }
+            set { SetValue(CurrentTeamDescriptionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentTeamName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentTeamDescriptionProperty =
+            DependencyProperty.Register("CurrentTeamDescription", typeof(string), typeof(NavigationHeader), new PropertyMetadata(string.Empty));
 
 
 

@@ -1,8 +1,10 @@
 ﻿using Messenger.Core.Models;
+using Messenger.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -48,6 +50,24 @@ namespace Messenger.Views.DialogBoxes
         public static readonly DependencyProperty OnSearchProperty =
             DependencyProperty.Register("OnSearch", typeof(Func<string, Task<IList<string>>>), typeof(CreateChatDialog), new PropertyMetadata(null));
 
+        public Func<string, uint, Task<User>> GetSelectedUser
+        {
+            get { return (Func<string, uint, Task<User>>)GetValue(GetSelectedUserProperty); }
+            set { SetValue(GetSelectedUserProperty, value); }
+        }
+
+        public static readonly DependencyProperty GetSelectedUserProperty =
+            DependencyProperty.Register("GetSelectedUser", typeof(Func<string, uint, Task<User>>), typeof(CreateChatDialog), new PropertyMetadata(null));
+
+        public UserViewModel CurrentUser
+        {
+            get { return (UserViewModel)GetValue(CurrentUserProperty); }
+            set { SetValue(CurrentUserProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentUserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(UserViewModel), typeof(CreateChatDialog), new PropertyMetadata(null));
+
         public CreateChatDialog()
         {
             InitializeComponent();
@@ -55,15 +75,9 @@ namespace Messenger.Views.DialogBoxes
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (string.IsNullOrEmpty(UserName))
+            if (SelectedUser == null)
             {
                 args.Cancel = true;
-                errorTextBlock.Text = "No user was selected.";
-            }
-            else if (SelectedUser == null)
-            {
-                args.Cancel = true;
-                errorTextBlock.Text = "Please choose the user from the search result.";
             }
         }
 
@@ -71,27 +85,48 @@ namespace Messenger.Views.DialogBoxes
         {
         }
 
-        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchUserBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (UserName.Length < 3)
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput
+                && sender.Text.Length > 2)
             {
-                return;
-            }
+                var searchUsers = await OnSearch?.Invoke(sender.Text);
 
-            var result = await OnSearch?.Invoke(UserName);
-
-            if (result != null && result.Count > 0)
-            {
-                SearchResults.Clear();
-
-                foreach (var userString in result)
+                if (searchUsers == null)
                 {
-                    var userdata = userString.Split('#');
-                    var displayName = userdata[0];
-                    var nameId = Convert.ToUInt32(userdata[1]);
-
-                    SearchResults.Add(new User() { DisplayName = displayName, NameId = nameId });
+                    return;
                 }
+
+                searchUsers = searchUsers
+                    .TakeWhile((user) =>
+                    {
+                        var data = user.Split('#');
+                        return !(CurrentUser.Name == data[0]
+                            && CurrentUser.NameId.ToString() == data[1]);
+                    })
+                    .ToList();
+
+                sender.ItemsSource = searchUsers;
+            }
+        }
+
+        private async void SearchUserBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            string searchString = args.SelectedItem.ToString();
+            string[] userdata = searchString.Split('#');
+            string displayName = userdata[0];
+            uint nameId = Convert.ToUInt32(userdata[1]);
+
+            sender.Text = searchString;
+
+            User selected = await GetSelectedUser?.Invoke(displayName, nameId);
+
+            UserInfoPanel.DataContext = selected;
+            SelectedUser = selected;
+
+            if (UserInfoPanel.Visibility != Visibility.Visible)
+            {
+                UserInfoPanel.Visibility = Visibility.Visible;
             }
         }
     }

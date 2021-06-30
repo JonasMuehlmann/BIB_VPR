@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Core.Helpers;
 using System.Data.SqlClient;
-using System;
 using System.Collections.Generic;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +13,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.UserService
     /// </summary>
     [TestClass]
-    public class UserServiceTest : SqlServiceTestBase
+    public class UserServiceTest
     {
         #region Private
 
@@ -34,9 +32,9 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-            userService = InitializeTestMode<UserService>();
+            userService = new UserService();
 
-            userService.logger.Information("Creating example user!");
+            UserService.logger.Information("Creating example user!");
 
             // setting up example data for delete operation
             Task.Run(async () =>
@@ -44,7 +42,7 @@ namespace Messenger.Tests.MSTest
                 await userService.GetOrCreateApplicationUser(sampleUser);
             }).GetAwaiter().GetResult();
 
-            userService.logger.Information("Finished creating example user!");
+            UserService.logger.Information("Finished creating example user!");
         }
 
 
@@ -79,7 +77,7 @@ namespace Messenger.Tests.MSTest
 
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-                Assert.AreEqual(0u, retrievedUser.NameId);
+                Assert.AreEqual(1u, retrievedUser.NameId);
 
             }).GetAwaiter().GetResult();
         }
@@ -96,7 +94,7 @@ namespace Messenger.Tests.MSTest
                 var data = new User() { Id = "1234", DisplayName = "foobar" };
                 User retrievedUser = await userService.GetOrCreateApplicationUser(data);
 
-                Assert.AreEqual(1u, retrievedUser.NameId);
+                Assert.AreEqual(2u, retrievedUser.NameId);
 
             }).GetAwaiter().GetResult();
         }
@@ -201,24 +199,24 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 List<User> users = new List<User>{
-                                       new User(){Id="Id1",  NameId=0, DisplayName=$"{testName}1"}
-                                     , new User(){Id="Id2",  NameId=1, DisplayName=$"{testName}1"}
-                                     , new User(){Id="Id3",  NameId=0, DisplayName=$"The{testName}2"}
-                                     , new User(){Id="Id4",  NameId=0, DisplayName=$"Another{testName}"}
-                                     , new User(){Id="Id5",  NameId=0, DisplayName=$"YetAnother{testName}"}
-                                     , new User(){Id="Id6",  NameId=0, DisplayName=$"ThisIsA{testName}"}
-                                     , new User(){Id="Id7",  NameId=0, DisplayName=$"A{testName}ThisBe"}
-                                     , new User(){Id="Id8",  NameId=0, DisplayName=$"SomeText"}
-                                     , new User(){Id="Id9",  NameId=0, DisplayName=$"Yeet"}
-                                     , new User(){Id="Id10", NameId=0, DisplayName=$"Oi mate"}
-                                     , new User(){Id="Id11", NameId=0, DisplayName=$"Deez Nuts {testName}"}
-                                     , new User(){Id="Id12", NameId=0, DisplayName=$"  "}
-                                     , new User(){Id="Id13", NameId=0, DisplayName=$"jdhsjdhjdhj{testName}dksdskdjkdjsk"}
-                                     , new User(){Id="Id14", NameId=0, DisplayName=$"ksjdksjdahdj"}
-                                     , new User(){Id="Id15", NameId=0, DisplayName=$"jdhsjdhjdhj {testName} dksdskdjkdjsk"}
+                                       new User(){Id="Id1",  NameId=1, DisplayName=$"{testName}1"}
+                                     , new User(){Id="Id2",  NameId=2, DisplayName=$"{testName}1"}
+                                     , new User(){Id="Id3",  NameId=1, DisplayName=$"The{testName}2"}
+                                     , new User(){Id="Id4",  NameId=1, DisplayName=$"Another{testName}"}
+                                     , new User(){Id="Id5",  NameId=1, DisplayName=$"YetAnother{testName}"}
+                                     , new User(){Id="Id6",  NameId=1, DisplayName=$"ThisIsA{testName}"}
+                                     , new User(){Id="Id7",  NameId=1, DisplayName=$"A{testName}ThisBe"}
+                                     , new User(){Id="Id8",  NameId=1, DisplayName=$"SomeText"}
+                                     , new User(){Id="Id9",  NameId=1, DisplayName=$"Yeet"}
+                                     , new User(){Id="Id10", NameId=1, DisplayName=$"Oi mate"}
+                                     , new User(){Id="Id11", NameId=1, DisplayName=$"Deez Nuts {testName}"}
+                                     , new User(){Id="Id12", NameId=1, DisplayName=$"  "}
+                                     , new User(){Id="Id13", NameId=1, DisplayName=$"jdhsjdhjdhj{testName}dksdskdjkdjsk"}
+                                     , new User(){Id="Id14", NameId=1, DisplayName=$"ksjdksjdahdj"}
+                                     , new User(){Id="Id15", NameId=1, DisplayName=$"jdhsjdhjdhj {testName} dksdskdjkdjsk"}
                                  };
 
-                var userMatchString = $"{testName}1#000000,{testName}1#000001,The{testName}2#000000,Another{testName}#000000,ThisIsA{testName}#000000,A{testName}ThisBe#000000,YetAnother{testName}#000000,Deez Nuts {testName}#000000,jdhsjdhjdhj{testName}dksdskdjkdjsk#000000,jdhsjdhjdhj {testName} dksdskdjkdjsk#000000";
+                var userMatchString = $"{testName}1#000001,{testName}1#000002,The{testName}2#000001,Another{testName}#000001,ThisIsA{testName}#000001,A{testName}ThisBe#000001,YetAnother{testName}#000001,Deez Nuts {testName}#000001,jdhsjdhjdhj{testName}dksdskdjkdjsk#000001,jdhsjdhjdhj {testName} dksdskdjkdjsk#000001";
 
                 foreach (var user in users)
                 {
@@ -237,23 +235,25 @@ namespace Messenger.Tests.MSTest
         public static void Cleanup()
         {
             // Reset DB
-            string query = "DELETE FROM Messages;"
-                         + "DELETE FROM Memberships;"
-                         + "DELETE FROM Channels;"
-                         + "DELETE FROM Role_permissions;"
-                         + "DELETE FROM User_roles;"
-                         + "DELETE FROM Team_roles;"
-                         + "DELETE FROM Teams;"
-                         + "DELETE FROM Users;"
-                         + "DBCC CHECKIDENT (Memberships,      RESEED, 0);"
-                         + "DBCC CHECKIDENT (Messages,         RESEED, 0);"
-                         + "DBCC CHECKIDENT (Channels,         RESEED, 0);"
-                         + "DBCC CHECKIDENT (Team_roles,       RESEED, 0);"
-                         + "DBCC CHECKIDENT (User_roles,       RESEED, 0);"
-                         + "DBCC CHECKIDENT (Role_permissions, RESEED, 0);"
-                         + "DBCC CHECKIDENT (Teams,            RESEED, 0);";
+            string query = @"DELETE FROM Reactions;
+                             DELETE FROM Messages;
+                             DELETE FROM Memberships;
+                             DELETE FROM Channels;
+                             DELETE FROM Role_permissions;
+                             DELETE FROM User_roles;
+                             DELETE FROM Team_roles;
+                             DELETE FROM Teams;
+                             DELETE FROM Users;
+                             DBCC CHECKIDENT (Memberships,      RESEED, 0);
+                             DBCC CHECKIDENT (Messages,         RESEED, 0);
+                             DBCC CHECKIDENT (Channels,         RESEED, 0);
+                             DBCC CHECKIDENT (Team_roles,       RESEED, 0);
+                             DBCC CHECKIDENT (User_roles,       RESEED, 0);
+                             DBCC CHECKIDENT (Role_permissions, RESEED, 0);
+                             DBCC CHECKIDENT (Reactions, RESEED, 0);
+                             DBCC CHECKIDENT (Teams,            RESEED, 0);";
 
-            using (SqlConnection connection = AzureServiceBase.GetConnection(TEST_CONNECTION_STRING))
+            using (SqlConnection connection = AzureServiceBase.GetDefaultConnection())
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);

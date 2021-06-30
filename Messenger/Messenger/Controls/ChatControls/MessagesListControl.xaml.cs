@@ -1,5 +1,5 @@
 ﻿using Messenger.Core.Models;
-using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,23 +21,50 @@ namespace Messenger.Controls.ChatControls
 {
     public sealed partial class MessagesListControl : UserControl
     {
-        public ObservableCollection<Message> Messages
+        public ObservableCollection<MessageViewModel> Messages
         {
-            get { return (ObservableCollection<Message>)GetValue(MessagesProperty); }
+            get { return (ObservableCollection<MessageViewModel>)GetValue(MessagesProperty); }
             set { SetValue(MessagesProperty, value); }
         }
 
         public static readonly DependencyProperty MessagesProperty =
-            DependencyProperty.Register("Messages", typeof(ObservableCollection<Message>), typeof(MessagesListControl), new PropertyMetadata(new ObservableCollection<Message>()));
+            DependencyProperty.Register("Messages", typeof(ObservableCollection<MessageViewModel>), typeof(MessagesListControl), new PropertyMetadata(new ObservableCollection<MessageViewModel>()));
 
-        public ICommand ReplyCommand
+        public ICommand ReplyToCommand
         {
-            get { return (ICommand)GetValue(ReplyCommandProperty); }
-            set { SetValue(ReplyCommandProperty, value); }
+            get { return (ICommand)GetValue(ReplyToCommandProperty); }
+            set { SetValue(ReplyToCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty ReplyCommandProperty =
-            DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ReplyToCommandProperty =
+            DependencyProperty.Register("ReplyToCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+
+        public ICommand EditMessageCommand
+        {
+            get { return (ICommand)GetValue(EditMessageCommandProperty); }
+            set { SetValue(EditMessageCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty EditMessageCommandProperty =
+            DependencyProperty.Register("EditMessageCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+
+        public ICommand DeleteMessageCommand
+        {
+            get { return (ICommand)GetValue(DeleteMessageCommandProperty); }
+            set { SetValue(DeleteMessageCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty DeleteMessageCommandProperty =
+            DependencyProperty.Register("DeleteMessageCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
+
+        public ICommand ToggleReactionCommand
+        {
+            get { return (ICommand)GetValue(ToggleReactionCommandProperty); }
+            set { SetValue(ToggleReactionCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ToggleReactionCommandProperty =
+            DependencyProperty.Register("ToggleReactionCommand", typeof(ICommand), typeof(MessagesListControl), new PropertyMetadata(null));
 
         public MessagesListControl()
         {

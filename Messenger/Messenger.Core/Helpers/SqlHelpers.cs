@@ -2,56 +2,91 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
+using Messenger.Core.Services;
 
 
 namespace Messenger.Core.Helpers
 {
-    public class SqlHelpers
+    public class SqlHelpers : AzureServiceBase
     {
-        public static ILogger logger => GlobalLogger.Instance;
-
-
         /// <summary>
         /// Run the specified query on the specified connection.
         /// </summary>
         /// <param name="query">A query to run</param>
         /// <param name="connection">An sql connection to run the query on</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
-        public static async Task<bool> NonQueryAsync(string query, SqlConnection connection)
+        public static async Task<bool> NonQueryAsync(string query)
         {
             LogContext.PushProperty("Method","NonQueryAsync");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters query={query}");
 
-            try
+            using (SqlConnection connection = GetDefaultConnection())
             {
-                if (connection.State != ConnectionState.Open)
+                try
                 {
                     await connection.OpenAsync();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    var result = Convert.ToBoolean(await command.ExecuteNonQueryAsync());
+
+                    logger.Information($"Return value: {result}");
+
+                    return result;
                 }
-                SqlCommand command = new SqlCommand(query, connection);
+                catch (SqlException e)
+                {
+                    logger.Information(e,"Return value: false");
 
-                var result = Convert.ToBoolean(await command.ExecuteNonQueryAsync());
-
-                logger.Information($"Return value: {result}");
-
-                return result;
-
+                    return false;
+                }
             }
-            catch (SqlException e)
-            {
-                logger.Information(e,"Return value: false");
+        }
 
-                return false;
-            }
-            finally
+        /// <summary>
+        /// Run the specified query on the specified connection and retrieve a
+        /// converterd scalar value.
+        /// </summary>
+        /// <typeparam name="T">The type to map to</typeparam>
+        /// <param name="query">A query to run</param>
+        /// <param name="connection">An sql connection to run the query on</param>
+        /// <returns>
+        /// The converted scalar result on success, The default value of T on Failure
+        /// </returns>
+        public static async Task<T> ExecuteScalarAsync<T>(string query,
+                                                        Func<object, T> converter) where T: IConvertible
+        {
+            LogContext.PushProperty("Method","ExecuteScalarAsync");
+            LogContext.PushProperty("SourceContext", "SqlHelpers");
+            logger.Information($"Function called with parameters query={query}");
+
+            using (SqlConnection connection = GetDefaultConnection())
             {
-                connection.Dispose();
+                try
+                {
+                    await connection.OpenAsync();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    var result = TryConvertDbValue(await command.ExecuteScalarAsync(), converter)?? default(T);
+
+                    LogContext.PushProperty("Method","ExecuteScalarAsync");
+                    LogContext.PushProperty("SourceContext", "SqlHelpers");
+                    logger.Information($"Return value: {result}");
+
+                    return result;
+                }
+                catch (SqlException e)
+                {
+                    logger.Information(e, $"Return value: {default(T)}");
+
+                    return default(T);
+                }
             }
         }
 
@@ -62,34 +97,34 @@ namespace Messenger.Core.Helpers
         /// <param name="columnName">A column to check the type of</param>
         /// <param name="connection">An sql connection to run the query on</param>
         /// <returns>Null if the specifid column does not exist in the table, it's type name otherwise</returns>
-        public static string GetColumnType(string tableName, string columnName, SqlConnection connection)
+        public static async Task<string> GetColumnType(string tableName, string columnName)
         {
             LogContext.PushProperty("Method","GetColumnType");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters tableName={tableName}, columnName={columnName}");
 
-            SqlCommand query = new SqlCommand(
-                    $"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';"
-                    ,connection
-            );
+            string query = $"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}';";
 
-            try
+            using (SqlConnection connection = GetDefaultConnection())
             {
-                logger.Information($"Running the following query: {query}");
+                try
+                {
+                    await connection.OpenAsync();
 
-                var result = query.ExecuteScalar();
+                    logger.Information($"Running the following query: {query}");
 
-                result = TryConvertDbValue(result, Convert.ToString);
+                    var result = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToString);
 
-                logger.Information($"Return value: {result}");
+                    logger.Information($"Return value: {result}");
 
-                return (string)result;
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e,"Return value: null");
+                    return (string)result;
+                }
+                catch (SqlException e)
+                {
+                    logger.Information(e,"Return value: null");
 
-                return null;
+                    return null;
+                }
             }
         }
 
@@ -97,22 +132,32 @@ namespace Messenger.Core.Helpers
         /// Return an enumerable of data rows
         /// </summary>
         /// <param name="tableName">Name of the table to read from</param>
-        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="query">The query that returns the data rows</param>
         /// <returns>An enumerable of data rows</returns>
-        public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
+        public static async Task<IEnumerable<DataRow>> GetRows(string tableName, string query)
         {
             LogContext.PushProperty("Method","GetRows");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters tableName={tableName}");
 
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, tableName);
+            using (SqlConnection connection = GetDefaultConnection())
+            {
+                try
+                {
+                    await connection.OpenAsync();
 
-            var result = dataSet.Tables[tableName].Rows.Cast<DataRow>();
+                    var adapter = new SqlDataAdapter(query, connection);
+                    var dataSet = new DataSet();
+                    adapter.Fill(dataSet, tableName);
 
-            logger.Information($"Return value: {result}");
-
-            return result;
+                    return dataSet.Tables[tableName].Rows.Cast<DataRow>();
+                }
+                catch (SqlException e)
+                {
+                    logger.Information($"{e}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -121,31 +166,41 @@ namespace Messenger.Core.Helpers
         /// Infers the table name from the mapping type if tableName is not specified
         /// <typeparam name="T">The type to map to</typeparam>
         /// <param name="mapper">Mapper function for the target type</param>
-        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="query">The query that returns the list</param>
         /// <returns>A list of converted table values</returns>
-        public static IList<T> MapToList<T> (Func<DataRow, T> mapper, SqlDataAdapter adapter)
+        public static async Task<IList<T>> MapToList<T> (Func<DataRow, T> mapper, string query)
         {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
 
-            var tableName = typeof(T).Name + 's';
+            using (SqlConnection connection = GetDefaultConnection())
+            {
+                try
+                {
+                    await connection.OpenAsync();
 
-            logger.Information($"tableName has been determined as {tableName}");
+                    var tableName = typeof(T).Name + 's';
 
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, tableName);
+                    logger.Information($"tableName has been determined as {tableName}");
 
-            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
+                    var adapter = new SqlDataAdapter(query, connection);
+                    var dataSet = new DataSet();
+                    adapter.Fill(dataSet, tableName);
 
-            var result = dataSet.Tables[tableName].Rows
-                         .Cast<DataRow>()
-                         .Select(mapper)
-                         .ToList();
+                    logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
-            logger.Information($"Return value: {result}");
-
-            return result;
+                    return dataSet.Tables[tableName].Rows
+                                .Cast<DataRow>()
+                                .Select(mapper)
+                                .ToList();
+                }
+                catch (SqlException e)
+                {
+                    logger.Information($"{e}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -154,42 +209,53 @@ namespace Messenger.Core.Helpers
         /// Infers the table name from the mapping type if tableName is not specified
         /// <typeparam name="T">The type to map to</typeparam>
         /// <param name="mapper">Mapper function for the target type</param>
-        /// <param name="adapter">Instance of adapter with an opened connection</param>
+        /// <param name="query">The query that returns the list</param>
         /// <param name="tableName">The name of the table to retrieve data from, defaults to null</param>
         /// <param name="columnName">The name of the column to retrieve data from, defaults to null</param>
         /// <returns>A list of converted table values</returns>
-        public static IList<T> MapToList<T> (Func<DataRow, string, T> mapper, SqlDataAdapter adapter, string tableName, string columnName)
-        {
+        public static async Task<IList<T>> MapToList<T> (Func<DataRow, string, T> mapper, string query, string tableName, string columnName)
+       {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}, tableName={tableName}, columnName={columnName}");
 
-             logger.Information($"tableName has been determined as {tableName}");
+            using (SqlConnection connection = GetDefaultConnection())
+            {
+                try
+                {
+                    await connection.OpenAsync();
 
-            var dataSet = new DataSet();
-            adapter.Fill(dataSet, tableName);
+                    logger.Information($"tableName has been determined as {tableName}");
 
-            logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
+                    var adapter = new SqlDataAdapter(query, connection);
+                    var dataSet = new DataSet();
+                    adapter.Fill(dataSet, tableName);
+
+                    logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
 
-            Func<DataRow, T> _mapper = (row) => mapper(row, columnName);
+                    Func<DataRow, T> _mapper = (row) => mapper(row, columnName);
 
-            var result = dataSet.Tables[tableName].Rows
-                         .Cast<DataRow>()
-                         .Select(_mapper)
-                         .ToList();
+                    return dataSet.Tables[tableName].Rows
+                                .Cast<DataRow>()
+                                .Select(_mapper)
+                                .ToList();
 
-            logger.Information($"Return value: {result}");
-
-            return result;
+                }
+                catch (SqlException e)
+                {
+                    logger.Information($"{e}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>
         /// Convert a value that can be DBNull using a specified converter
         /// </summary>
         /// <typeparam name="T">A type to convert value to</typeparam>
-        /// <param name="value">A value to convert to T>
-        /// <param name="converter">A converter function to use for converting value>
+        /// <param name="value">A value to convert to T</param>
+        /// <param name="converter">A converter function to use for converting value</param>
         /// <returns>null or the wanted type T</returns>
         public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
         {

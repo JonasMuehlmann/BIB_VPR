@@ -1,16 +1,17 @@
 ﻿using Messenger.Core.Models;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
-using Messenger.Core.Services;
-using Messenger.Core.Helpers;
+using Serilog;
+using Serilog.Context;
 
 namespace Messenger.Core.Helpers
 {
     public class Mapper
     {
+        public static ILogger logger => GlobalLogger.Instance;
         /// <summary>
         /// Maps to a full user model from the data rows
         /// </summary>
@@ -104,12 +105,12 @@ namespace Messenger.Core.Helpers
                 TeamId       = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
             };
         }
+
         /// <summary>
         /// Maps to a full Channel model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully-mapped Channel object</returns>
-
         public static Channel ChannelFromDataRow(DataRow row)
         {
             return new Channel()
@@ -117,6 +118,21 @@ namespace Messenger.Core.Helpers
                 ChannelId   = SqlHelpers.TryConvertDbValue(row["ChannelId"], Convert.ToUInt32),
                 ChannelName = SqlHelpers.TryConvertDbValue(row["ChannelName"], Convert.ToString),
                 TeamId      = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
+            };
+        }
+        /// <summary>
+        /// Maps to a full Reaction model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Reaction object</returns>
+        public static Reaction ReactionFromDataRow(DataRow row)
+        {
+            return new Reaction()
+            {
+                Id        = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                MessageId = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
+                UserId    = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+                Symbol    = SqlHelpers.TryConvertDbValue(row["Reaction"], Convert.ToString)
             };
         }
 

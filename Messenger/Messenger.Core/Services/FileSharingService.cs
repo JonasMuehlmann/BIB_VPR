@@ -1,13 +1,6 @@
-using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs;
 using Messenger.Core.Helpers;
-using Messenger.Core.Models;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Serilog;
@@ -37,11 +30,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called");
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobServiceConnectionString);
-            var result = blobServiceClient.GetBlobContainerClient(containerName);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
+            return blobServiceClient.GetBlobContainerClient(containerName);
         }
 
         /// <summary>
@@ -96,7 +85,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Upload a file to the blob storage
         /// </summary>
-        /// <param name="blobFilePath">A path to a file to upload</param>
+        /// <param name="filePath">A path to a file to upload</param>
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public async Task<string> Upload(string filePath)
         {
@@ -120,10 +109,7 @@ namespace Messenger.Core.Services
                 // Read and upload file
                 using (FileStream uploadFileStream = File.OpenRead(Path.GetFullPath(filePath)))
                 {
-                    var result = await blobClient.UploadAsync(uploadFileStream, true);
-
-                    logger.Information($"result={result}");
-                    logger.Information($"Return value: {blobFileName}");
+                    await blobClient.UploadAsync(uploadFileStream, true);
 
                     return blobFileName;
                 }
@@ -156,11 +142,7 @@ namespace Messenger.Core.Services
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
                     // Read and upload file
-                    var result = await blobClient.DeleteIfExistsAsync();
-
-                    logger.Information($"result: {result}");
-
-                    return result;
+                    return await blobClient.DeleteIfExistsAsync();
             }
             // TODO:Find better exception(s) to catch
             catch(Exception e)

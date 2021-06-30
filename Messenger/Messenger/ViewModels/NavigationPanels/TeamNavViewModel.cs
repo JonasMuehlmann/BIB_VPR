@@ -24,10 +24,7 @@ namespace Messenger.ViewModels
         private ShellViewModel _shellViewModel;
         private ICommand _itemInvokedCommand;
         private ICommand _createTeamCommand;
-        private Team _selectedTeam;
         private ObservableCollection<Team> _teams;
-
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
@@ -42,18 +39,6 @@ namespace Messenger.ViewModels
             set
             {
                 Set(ref _shellViewModel, value);
-            }
-        }
-
-        public Team SelectedTeam
-        {
-            get
-            {
-                return _selectedTeam;
-            }
-            set
-            {
-                Set(ref _selectedTeam, value);
             }
         }
 
@@ -92,8 +77,10 @@ namespace Messenger.ViewModels
             IsBusy = true;
 
             Teams = new ObservableCollection<Team>();
+
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             Initialize();
+            ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
         /// <summary>
@@ -134,6 +121,23 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// Updates the refactored team in the list
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="team">The updated teams</param>
+        private async void OnTeamUpdated(object sender,Team team)
+        {
+            if (ChatHubService.CurrentUser.Teams != null)
+            {
+                FilterAndUpdateTeams(await ChatHubService.GetTeamsList());
+            }
+
+            IsBusy = false;
+        }
+
+
+
+        /// <summary>
         /// Creates the team with the given name and description
         /// </summary>
         /// <param name="team">New team to be created with the name and description</param>
@@ -165,10 +169,17 @@ namespace Messenger.ViewModels
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
         private async void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
         {
-            uint teamId = (args.InvokedItem as Team).Id;
+            try
+            {
+                uint teamId = (args.InvokedItem as Team).Id;
 
-            // Invokes TeamSwitched event
-            await ChatHubService.SwitchTeam(teamId);
+                // Invokes TeamSwitched event
+                await ChatHubService.SwitchTeam(teamId);
+            }
+            catch (ArgumentException a)
+            {
+                Console.WriteLine(a);
+            }
         }
 
 

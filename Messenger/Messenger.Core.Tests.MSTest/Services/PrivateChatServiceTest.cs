@@ -1,12 +1,8 @@
 
 using System.Threading.Tasks;
 using System.Linq;
-using System;
-using System.Data.SqlClient;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Core.Helpers;
-using System.Collections.Generic;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,7 +12,7 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class PrivateChatServiceTest: SqlServiceTestBase
+    public class PrivateChatServiceTest
     {
         PrivateChatService privateChatService;
         UserService userService;
@@ -27,8 +23,8 @@ namespace Messenger.Tests.MSTest
         [TestInitialize]
         public void Initialize()
         {
-             privateChatService = InitializeTestMode<PrivateChatService>();
-             userService = InitializeTestMode<UserService>();
+             privateChatService = new PrivateChatService();
+             userService = new UserService();
         }
 
 

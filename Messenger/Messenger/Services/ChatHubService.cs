@@ -11,6 +11,8 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
 using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
+using System.Collections.ObjectModel;
 
 namespace Messenger.Services
 {
@@ -30,7 +32,7 @@ namespace Messenger.Services
 
         #region Properties
 
-        public ConcurrentDictionary<uint, List<Message>> MessagesByConnectedTeam { get; }
+        public ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> MessagesByConnectedTeam { get; }
 
         public uint? CurrentTeamId { get; set; }
 
@@ -62,9 +64,13 @@ namespace Messenger.Services
         #region Event Handlers
 
         /// <summary>
-        /// Event handler for "ReceiveMessage"(SignalR)
+        /// Event handler for messages
         /// </summary>
-        public event EventHandler<Message> MessageReceived;
+        public event EventHandler<MessageViewModel> MessageReceived;
+
+        public event EventHandler<MessageViewModel> MessageUpdated;
+
+        public event EventHandler MessageDeleted;
 
         /// <summary>
         /// Event handler for "ReceiveInvitation"(SignalR)
@@ -74,18 +80,23 @@ namespace Messenger.Services
         /// <summary>
         /// Event handler for switching teams
         /// </summary>
-        public event EventHandler<IEnumerable<Message>> TeamSwitched;
+        public event EventHandler<IEnumerable<MessageViewModel>> TeamSwitched;
 
         /// <summary>
         /// Event handler for updates in teams list
         /// </summary>
         public event EventHandler<IEnumerable<Team>> TeamsUpdated;
 
+        /// <summary>
+        /// Event handler for update at TeamDescription and TeamName
+        /// </summary>
+        public event EventHandler<Team> TeamUpdated;
+
         #endregion
 
         public ChatHubService()
         {
-            MessagesByConnectedTeam = new ConcurrentDictionary<uint, List<Message>>();
+            MessagesByConnectedTeam = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
 
             InitializeAsync();
         }
@@ -99,10 +110,12 @@ namespace Messenger.Services
 
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
+            MessengerService.RegisterListenerForMessageUpdate(OnMessageUpdated);
+            MessengerService.RegisterListenerForMessageDelete(OnMessageDeleted);
 
             CurrentUser = await UserDataService.GetUserAsync();
 
-            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
+            var teams = await GetTeamsList();
 
             if (teams == null || teams.Count() <= 0)
             {
@@ -130,7 +143,32 @@ namespace Messenger.Services
             foreach (Team team in teams)
             {
                 var messages = await MessengerService.LoadMessages(team.Id);
-                CreateEntryForCurrentTeam(team.Id, messages);
+
+                if (messages != null)
+                {
+                    ObservableCollection<MessageViewModel> parents = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(messages));
+
+                    // Loads reactions into view models
+                    foreach (var message in parents)
+                    {
+                        var reactions = await MessengerService.GetReactions((uint)message.Id);
+
+                        if (reactions != null && reactions.Count() > 0)
+                        {
+                            var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                            if (myReaction.Count() > 0)
+                            {
+                                message.HasReacted = true;
+                                message.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                            }
+
+                            message.Reactions = new ObservableCollection<Reaction>(reactions);
+                        }
+                    }
+
+                    CreateEntryForCurrentTeam(team.Id, parents);
+                }
             }
 
             // Sets the first team as the selected team
@@ -148,7 +186,7 @@ namespace Messenger.Services
         /// Gets all messages of the current team
         /// </summary>
         /// <returns>List of messages</returns>
-        public async Task<IEnumerable<Message>> GetMessages()
+        public async Task<ObservableCollection<MessageViewModel>> GetMessages()
         {
             LogContext.PushProperty("Method",$"{nameof(GetMessages)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -166,7 +204,7 @@ namespace Messenger.Services
             uint teamId = (uint)CurrentTeamId;
 
             // Checks the cache if the messages has been loaded for the team
-            if (MessagesByConnectedTeam.TryGetValue(teamId, out List<Message> fromCache))
+            if (MessagesByConnectedTeam.TryGetValue(teamId, out ObservableCollection<MessageViewModel> fromCache))
             {
                 // Loads from cache
                 logger.Information($"Return value: {fromCache}");
@@ -177,11 +215,39 @@ namespace Messenger.Services
             {
                 // Loads from database
                 var fromDb = await MessengerService.LoadMessages(teamId);
-                CreateEntryForCurrentTeam((uint)CurrentTeamId, fromDb);
 
-                logger.Information($"Return value: {fromDb}");
+                if (fromDb == null)
+                {
+                    return null;
+                }
 
-                return fromDb;
+                // Creates view models for each message
+                ObservableCollection<MessageViewModel> messages = new ObservableCollection<MessageViewModel>(MessageViewModel.FromDbModel(fromDb));
+
+                // Loads reactions into view models
+                foreach (var message in messages)
+                {
+                    var reactions = await MessengerService.GetReactions((uint)message.Id);
+
+                    if (reactions != null && reactions.Count() > 0)
+                    {
+                        var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                        if (myReaction.Count() > 0)
+                        {
+                            message.HasReacted = true;
+                            message.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                        }
+
+                        message.Reactions = new ObservableCollection<Reaction>(reactions);
+                    }
+                }
+
+                CreateEntryForCurrentTeam(teamId, messages);
+
+                logger.Information($"Return value: {messages}");
+
+                return messages;
             }
         }
 
@@ -212,6 +278,81 @@ namespace Messenger.Services
 
             return isSuccess;
         }
+
+        public async Task<bool> EditMessage(uint messageId, string newContent)
+        {
+            LogContext.PushProperty("Method", $"{nameof(SendMessage)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.EditMessage(messageId, newContent);
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
+        public async Task<bool> DeleteMessage(uint messageId, MessageType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(DeleteMessage)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.DeleteMessage(messageId);
+
+            FindAndRemoveMessage(messageId, type);
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
+        public async Task<bool> MakeReaction(uint messageId, ReactionType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            uint? isSuccess = await MessengerService.AddReaction(messageId, CurrentUser.Id, type.ToString());
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess != null ? true : false;
+        }
+
+        public async Task<bool> RemoveReaction(uint messageId, ReactionType type)
+        {
+            LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
+            LogContext.PushProperty("SourceContext", GetType().Name);
+
+            if (CurrentUser == null)
+            {
+                logger.Information($"Return value: false");
+                return false;
+            }
+
+            bool isSuccess = await MessengerService.RemoveReaction(messageId, CurrentUser.Id, type.ToString());
+
+            logger.Information($"Return value: {isSuccess}");
+
+            return isSuccess;
+        }
+
 
         #endregion
 
@@ -250,6 +391,9 @@ namespace Messenger.Services
 
                 return team;
             });
+
+            //get all channels
+            teams = await GetChannelsForAllTeams(teams);
 
             // Updates the teams list under the current user
             CurrentUser.Teams.Clear();
@@ -291,6 +435,34 @@ namespace Messenger.Services
         }
 
         /// <summary>
+        /// Updates the teamName and teamDescription of the current tem
+        /// </summary>
+        /// <param name="teamName"></param>
+        /// <param name="teamDescription"></param>
+        /// <returns>Asynchronous task to be awaited</returns>
+        public async Task UpdateTeam(string teamName, string teamDescription)
+        {
+            LogContext.PushProperty("Method", "UpdateTeam");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
+
+            await MessengerService.ChangeTeamName(teamName, (uint)CurrentTeamId);
+            await MessengerService.ChangeTeamDescription(teamDescription, (uint)CurrentTeamId);
+
+            for (int i = 0; i < CurrentUser.Teams.Count; i++)
+            {
+                if (CurrentUser.Teams[i].Id == (uint)CurrentTeamId)
+                {
+                    CurrentUser.Teams[i].Name = teamName;
+                    CurrentUser.Teams[i].Description = teamDescription;
+                }
+            }
+
+            TeamUpdated?.Invoke(this, await GetCurrentTeam());
+        }
+
+        /// <summary>
         /// Updates current team id and invokes registered events(TeamSwitched)
         /// </summary>
         /// <param name="teamId">Id of the team to switch to</param>
@@ -316,7 +488,7 @@ namespace Messenger.Services
         /// Returns the current team model from the loaded list
         /// </summary>
         /// <returns>A complete team object</returns>
-        public Team GetCurrentTeam()
+        public async Task<Team> GetCurrentTeam()
         {
             LogContext.PushProperty("Method", $"{nameof(GetCurrentTeam)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -332,11 +504,86 @@ namespace Messenger.Services
                 .Where(t => t.Id == CurrentTeamId)
                 .FirstOrDefault();
 
+            if (currentTeam != null)
+            {
+                var channels = await GetChannelsList(currentTeam.Id);
+                if (channels != null)
+                {
+                    currentTeam.FilterAndUpdateChannels(channels);
+                }
+            }
+
             logger.Information($"Return value: {currentTeam}");
 
             return currentTeam;
         }
 
+
+        /// <summary>
+        /// creates a new channel with name
+        /// </summary>
+        /// <param name="channelName"></param>
+        /// <returns>Task to await</returns>
+        public async Task CreateChannel(string channelName)
+        {
+            LogContext.PushProperty("Method", "CreateChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter channelName={channelName}");
+
+            await MessengerService.CreateChannel(channelName, (uint)CurrentTeamId);
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
+        }
+
+        /// <summary>
+        /// deletes a new Channel by its channelId
+        /// </summary>
+        /// <param name="channelId"></param>
+        /// <returns>Task to await</returns>
+        public async Task RemoveChannel(uint channelId)
+        {
+            LogContext.PushProperty("Method", "RemoveChannel");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+            logger.Information($"Function called with parameter channelId={channelId}");
+
+            await MessengerService.RemoveChannel(channelId);
+
+            TeamsUpdated?.Invoke(this, await GetTeamsList());
+        }
+
+        /// <summary>
+        /// get channels for a team
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns>the channels</returns>
+        public async Task<IEnumerable<Channel>> GetChannelsList(uint teamId)
+        {
+            LogContext.PushProperty("Method", "GetChannelsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+
+            logger.Information($"Function called with parameter teamId={teamId}");
+
+            return await MessengerService.GetChannelsForTeam(teamId);
+        }
+
+        private async Task<IEnumerable<Team>> GetChannelsForAllTeams(IEnumerable<Team> teams)
+        {
+            LogContext.PushProperty("Method", "GetChannelsList");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+
+
+            logger.Information($"Function called with parameter teams={string.Join(",", teams)}");
+
+
+            foreach (Team t in teams) {
+                t.FilterAndUpdateChannels(await MessengerService.GetChannelsForTeam(t.Id));
+            }
+
+            return teams;
+        }
         #endregion
 
         #region Member
@@ -371,7 +618,7 @@ namespace Messenger.Services
             LogContext.PushProperty("Method", $"{nameof(RemoveUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
-            logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
+            logger.Information($"Function called with parameters userId={userId}");
 
             var isSuccess = await MessengerService.RemoveUser(userId, teamId);
 
@@ -541,20 +788,17 @@ namespace Messenger.Services
             // Loads user data of the sender
             message.Sender = await UserService.GetUser(message.SenderId);
 
-            // Adds to message dictionary
-            MessagesByConnectedTeam.AddOrUpdate(
-                message.RecipientId,
-                new List<Message>() { message },
-                (key, list) =>
-                {
-                    list.Add(message);
-                    return list;
-                });
+            if (message.Sender == null)
+            {
+                return;
+            }
+
+            MessageViewModel viewModel = SortAndAddMessage(message);
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
             // Invoke registered events
-            MessageReceived?.Invoke(this, message);
+            MessageReceived?.Invoke(this, viewModel);
         }
 
         /// <summary>
@@ -587,6 +831,32 @@ namespace Messenger.Services
             InvitationReceived?.Invoke(this, teamId);
         }
 
+        private async void OnMessageUpdated(object sender, Message message)
+        {
+            bool isValid = message != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            MessageViewModel vm = await SortAndUpdateMessage(message);
+
+            MessageUpdated?.Invoke(this, vm);
+        }
+
+        private void OnMessageDeleted(object sender, Message message)
+        {
+            bool isValid = message != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            MessageDeleted?.Invoke(this, EventArgs.Empty);
+        }
+
         #endregion
 
         #region Helpers
@@ -596,7 +866,7 @@ namespace Messenger.Services
         /// </summary>
         /// <param name="teamId">Id of the team for the entry</param>
         /// <param name="messages">List of messages to initialize with</param>
-        private void CreateEntryForCurrentTeam(uint teamId, IEnumerable<Message> messages)
+        private void CreateEntryForCurrentTeam(uint teamId, IEnumerable<MessageViewModel> messages)
         {
             LogContext.PushProperty("Method", $"{nameof(CreateEntryForCurrentTeam)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -606,15 +876,7 @@ namespace Messenger.Services
             MessagesByConnectedTeam.AddOrUpdate(
                 teamId,
                 (key) =>
-                {
-                    List<Message> list = new List<Message>();
-                    foreach (var message in messages)
-                    {
-                        list.Add(message);
-                    }
-
-                    return list;
-                },
+                new ObservableCollection<MessageViewModel>(messages),
                 (key, list) =>
                 {
                     list.Clear();
@@ -650,6 +912,162 @@ namespace Messenger.Services
             {
                 team.Members = members.ToList();
             }
+        }
+
+        private MessageViewModel SortAndAddMessage(Message message)
+        {
+            var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
+
+            switch (type)
+            {
+                case MessageType.Parent:
+                    // Adds to message dictionary
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        (uint)viewModel.TeamId,
+                        new ObservableCollection<MessageViewModel>() { viewModel },
+                        (key, list) =>
+                        {
+                            list.Add(viewModel);
+                            return list;
+                        });
+                    break;
+                case MessageType.Reply:
+                    // Adds to the list of replies of the message
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)viewModel.TeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(vm =>
+                        {
+                            if (vm.Id == viewModel.TeamId)
+                            {
+                                vm.Replies.Add(viewModel);
+                            }
+
+                            return vm;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return viewModel;
+        }
+
+        private async Task<MessageViewModel> SortAndUpdateMessage(Message message)
+        {
+            var type = MessageViewModel.ConvertAndGetType(message, out MessageViewModel viewModel);
+
+            var reactions = await MessengerService.GetReactions((uint)viewModel.Id);
+
+            if (reactions != null && reactions.Count() > 0)
+            {
+                var myReaction = reactions.Where(r => r.UserId == CurrentUser.Id);
+
+                if (myReaction.Count() > 0)
+                {
+                    viewModel.HasReacted = true;
+                    viewModel.MyReaction = (ReactionType)Enum.Parse(typeof(ReactionType), myReaction.FirstOrDefault().Symbol);
+                }
+
+                viewModel.Reactions.Clear();
+                foreach (var item in reactions)
+                {
+                    viewModel.Reactions.Add(item);
+                }
+            }
+
+            switch (type)
+            {
+                case MessageType.Parent:
+                    // Adds to message dictionary
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        (uint)viewModel.TeamId,
+                        new ObservableCollection<MessageViewModel>() { viewModel },
+                        (key, list) =>
+                        {
+                            var updated = list.Where(m => m.Id != viewModel.Id);
+
+                            var updatedList = new ObservableCollection<MessageViewModel>(updated);
+                            updatedList.Add(viewModel);
+
+                            return updatedList;
+                        });
+                    break;
+                case MessageType.Reply:
+                    // Adds to the list of replies of the message
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)viewModel.TeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(vm =>
+                        {
+                            if (vm.Id == viewModel.TeamId)
+                            {
+                                vm.Replies.Select(r =>
+                                {
+                                    if (r.Id == viewModel.Id)
+                                    {
+                                        r = viewModel;
+                                    }
+
+                                    return r;
+                                });
+                            }
+
+                            return vm;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return viewModel;
+        }
+
+        private void FindAndRemoveMessage(uint id, MessageType type)
+        {
+            switch (type)
+            {
+                case MessageType.Parent:
+                    MessagesByConnectedTeam.AddOrUpdate(
+                        (uint)CurrentTeamId,
+                        new ObservableCollection<MessageViewModel>(),
+                        (key, list) =>
+                        {
+                            var updated = list
+                                .Where(m => m.Id != id);
+
+                            return new ObservableCollection<MessageViewModel>(updated);
+                        });
+                    break;
+                case MessageType.Reply:
+                    if (MessagesByConnectedTeam.TryGetValue(
+                        (uint)CurrentTeamId,
+                        out ObservableCollection<MessageViewModel> messages))
+                    {
+                        messages.Select(m =>
+                        {
+                            bool found = m.Replies.Any(r => r.Id == id);
+
+                            if (found)
+                            {
+                                var updated = m.Replies.Where(r => r.Id != id);
+
+                                m.Replies = new ObservableCollection<MessageViewModel>(updated);
+                            }
+
+                            return m;
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            MessageDeleted?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

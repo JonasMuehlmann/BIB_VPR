@@ -5,7 +5,6 @@
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Messenger.Core.Models"
     mc:Ignorable="d"
     Title="Start a new chat"
     PrimaryButtonText="Start"
@@ -14,57 +13,97 @@
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#0275d8" />
+            <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
             <Setter Property="Foreground" Value="WhiteSmoke" />
         </Style>
     </ContentDialog.PrimaryButtonStyle>
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <Grid
+                HorizontalAlignment="Stretch">
+                <TextBlock
+                    Style="{ThemeResource PageTitleStyle}"
+                    Text="{Binding}"
+                    />
+            </Grid>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
     <Grid>
         <StackPanel>
-            <TextBox
-                Text="{x:Bind UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextChanged="TextBox_TextChanged"
-                Header="Search user"
+            <AutoSuggestBox
+                Name="SearchUserBox"
+                PlaceholderText="Search user..."
+                QueryIcon="Find"
+                TextChanged="SearchUserBox_TextChanged"
+                SuggestionChosen="SearchUserBox_SuggestionChosen"
                 />
-            <ScrollViewer
-                MaxHeight="250">
-                <ListView
-                    ItemsSource="{x:Bind SearchResults, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionMode="Single"
-                    SelectedItem="{x:Bind SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    HorizontalContentAlignment="Stretch"
-                    HorizontalAlignment="Stretch">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel
-                                HorizontalAlignment="Stretch"
-                                />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:User">
-                            <Grid>
-                                <TextBlock>
-                                    <Run
-                                        Text="{Binding DisplayName}"
-                                        />
-                                    <Run
-                                        Text="#"
-                                        />
-                                    <Run
-                                        Text="{Binding NameId}"
-                                        Foreground="Blue"
-                                        />
-                                </TextBlock>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
-            <TextBlock
-                x:Name="errorTextBlock"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Foreground="DarkRed"
-                />
+            <!-- USER INFO -->
+            <Grid
+                x:Name="UserInfoPanel"
+                Padding="15 25 15 0"
+                Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Ellipse
+                    Fill="LightGray"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Width="40"
+                    Height="40"
+                    Margin="0 0 20 0"
+                    />
+                <StackPanel
+                    x:Name="HeaderInfo"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Style="{StaticResource FlyoutPickerTitleTextBlockStyle}">
+                        <Run
+                            Text="{Binding DisplayName}"
+                            />
+                        <Run
+                            Text="#"
+                            Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
+                            />
+                        <Run
+                            Text="{Binding NameId}"
+                            Foreground="{StaticResource SystemAccentColor}"
+                            />
+                    </TextBlock>
+                    <TextBlock
+                        Text="{Binding Mail}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        />
+                </StackPanel>
+                <StackPanel
+                    x:Name="ExtraInfo"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Padding="15 20 15 15">
+                    <TextBlock
+                        Text="Bio"
+                        Style="{StaticResource DetailBodyBaseMediumStyle}"
+                        />
+                    <TextBlock
+                        TextWrapping="WrapWholeWords"
+                        MaxWidth="225">
+                        <Run
+                            Text="Hello! My name is"
+                            />
+                        <Run
+                            Text="{Binding DisplayName}"
+                            />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </ContentDialog>

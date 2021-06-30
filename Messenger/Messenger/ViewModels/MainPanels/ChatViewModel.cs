@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
-using System.ComponentModel;
 using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Prism.Commands;
@@ -17,11 +20,10 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ObservableCollection<Message> _messages;
+        private ObservableCollection<MessageViewModel> _messages;
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
-        private Message _replyMessage;
-        private Visibility _replyVisible;
+        private MessageViewModel _replyMessage;
         private Message _messageToSend;
 
         #endregion
@@ -31,7 +33,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Loaded messages of the current team/chat
         /// </summary>
-        public ObservableCollection<Message> Messages
+        public ObservableCollection<MessageViewModel> Messages
         {
             get
             {
@@ -61,7 +63,7 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Message that the user is replying to
         /// </summary>
-        public Message ReplyMessage
+        public MessageViewModel ReplyMessage
         {
             get
             {
@@ -122,20 +124,26 @@ namespace Messenger.ViewModels
         /// </summary>
         public ICommand ReplyToCommand => new ReplyToCommand(this);
 
+        public ICommand EditMessageCommand => new EditMessageCommand(Hub);
+
+        public ICommand DeleteMessageCommand => new DeleteMessageCommand(Hub);
+
+        public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
+
         #endregion
 
         public ChatViewModel()
         {
             // Initialize models
-            Messages = new ObservableCollection<Message>();
-            ReplyMessage = new Message();
+            Messages = new ObservableCollection<MessageViewModel>();
+            ReplyMessage = new MessageViewModel();
             MessageToSend = new Message();
-            ReplyVisible = Visibility.Visible;
-            BtnToggleReplyVisibility = new DelegateCommand(ToggleVisibility);
 
             // Register events
             Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
+            Hub.MessageUpdated += OnMessageUpdated;
+            Hub.MessageDeleted += OnMessageDeleted;
 
             LoadAsync();
         }
@@ -156,7 +164,7 @@ namespace Messenger.ViewModels
         /// Updates the view with the given messages
         /// </summary>
         /// <param name="messages">Messages from the hub</param>
-        private void UpdateView(IEnumerable<Message> messages)
+        private void UpdateView(IEnumerable<MessageViewModel> messages)
         {
             Messages.Clear();
 
@@ -167,6 +175,14 @@ namespace Messenger.ViewModels
 
             foreach (var message in messages)
             {
+                var myReaction = GetMyReaction(message);
+
+                if (myReaction != ReactionType.None)
+                {
+                    message.HasReacted = true;
+                    message.MyReaction = myReaction;
+                }
+
                 Messages.Add(message);
             }
         }
@@ -183,6 +199,22 @@ namespace Messenger.ViewModels
             }
         }
 
+        private ReactionType GetMyReaction(MessageViewModel message)
+        {
+            if (message.Reactions.Any(r => r.UserId == Hub.CurrentUser.Id))
+            {
+                var reaction = (ReactionType)message
+                    .Reactions
+                    .Where(r => r.UserId == Hub.CurrentUser.Id)
+                    .Select(r => Enum.Parse(typeof(ReactionType), r.Symbol))
+                    .FirstOrDefault();
+
+                return reaction;
+            }
+
+            return ReactionType.None;
+        }
+
         #endregion
 
         #region Events
@@ -192,11 +224,26 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>
-        private void OnMessageReceived(object sender, Message message)
+        private void OnMessageReceived(object sender, MessageViewModel message)
         {
-            if (message.RecipientId == Hub.CurrentTeamId)
+            if (message.TeamId == Hub.CurrentTeamId)
             {
-                Messages.Add(message);
+                if (message.IsReply)
+                {
+                    Messages.Select(m =>
+                    {
+                        if (m.Id == message.ParentMessageId)
+                        {
+                            m.Replies.Add(message);
+                        }
+
+                        return m;
+                    });
+                }
+                else
+                {
+                    Messages.Add(message);
+                }
             }
         }
 
@@ -205,8 +252,22 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="messages">List of message of the current team</param>
-        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
+            UpdateView(messages);
+        }
+
+        private async void OnMessageUpdated(object sender, MessageViewModel message)
+        {
+            var messages = await Hub.GetMessages();
+
+            UpdateView(messages);
+        }
+
+        private async void OnMessageDeleted(object sender, EventArgs e)
+        {
+            var messages = await Hub.GetMessages();
+
             UpdateView(messages);
         }
 
