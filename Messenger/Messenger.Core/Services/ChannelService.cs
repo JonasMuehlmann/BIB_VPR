@@ -24,8 +24,15 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
-            string query = $"INSERT INTO Channels (ChannelName, TeamId) VALUES "
-                            + $"('{channelName}', {teamId}); SELECT SCOPE_IDENTITY();";
+            string query = $@"
+                                INSERT INTO
+                                    Channels
+                                VALUES(
+                                    '{channelName}',
+                                    {teamId}
+                                );
+
+                            SELECT SCOPE_IDENTITY();";
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
@@ -42,7 +49,11 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            string query = $"DELETE FROM Channels WHERE ChannelId={channelId};";
+            string query = $@"
+                                DELETE FROM
+                                    Channels
+                                WHERE
+                                    ChannelId={channelId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -58,7 +69,11 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            string query = $"DELETE FROM Channels WHERE TeamId={teamId};";
+            string query = $@"
+                                DELETE FROM
+                                    Channels
+                                WHERE
+                                    TeamId={teamId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -71,7 +86,13 @@ namespace Messenger.Core.Services
         /// <returns>True, if the channel got renamed successfully, false otherwise</returns>
         public async Task<bool> RenameChannel(string channelName, uint channelId)
         {
-            string query = $"UPDATE Channels SET ChannelName='{channelName}' WHERE ChannelId={channelId};";
+            string query = $@"
+                                UPDATE
+                                    Channels
+                                SET
+                                    ChannelName='{channelName}'
+                                WHERE
+                                    ChannelId={channelId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -87,7 +108,13 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            string selectQuery = $"SELECT ChannelId, NameId, ChannelName, TeamId FROM Channels WHERE ChannelId={channelId}";
+            string selectQuery = $@"
+                                    SELECT
+                                        *
+                                    FROM
+                                        Channels
+                                    WHERE
+                                        ChannelId={channelId}";
 
             SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, GetDefaultConnection());
 

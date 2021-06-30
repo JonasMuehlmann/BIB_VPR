@@ -40,7 +40,13 @@ namespace Messenger.Core.Services
                 newVal = "'" + newVal + "'";
             }
 
-            string queryUpdateOther = $"UPDATE Users SET {columnToChange}={newVal} WHERE UserId='{userId}';";
+            string queryUpdateOther = $@"
+                                        UPDATE
+                                            Users
+                                        SET
+                                            {columnToChange}={newVal}
+                                        WHERE
+                                            UserId='{userId}';";
 
             return await SqlHelpers.NonQueryAsync(queryUpdateOther);
         }
@@ -68,8 +74,20 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            string queryUpdate = $"UPDATE Users SET NameId={newNameId} WHERE UserId='{userId}';"
-                                + $"UPDATE Users SET UserName='{newUsername}' WHERE UserId='{userId}';";
+            string queryUpdate = $@"
+                                    UPDATE
+                                        Users
+                                    SET
+                                        NameId={newNameId}
+                                    WHERE
+                                        UserId='{userId}';
+
+                                    UPDATE
+                                        Users
+                                    SET
+                                        UserName='{newUsername}'
+                                    WHERE
+                                        UserId='{userId}';";
 
             return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
@@ -89,7 +107,13 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
 
             // TODO: Validate email
-            string queryUpdate = $"UPDATE Users SET Email='{newMail}' WHERE UserId='{userId}';";
+            string queryUpdate = $@"
+                                    UPDATE
+                                        Users
+                                    SET
+                                        Email='{newMail}'
+                                    WHERE
+                                        UserId='{userId}';";
 
             return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
@@ -108,7 +132,13 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
 
             //TODO: Check for valid photo
-            string queryUpdate = $"UPDATE Users SET PhotoURL='{newPhoto}' WHERE UserId='{userId}';";
+            string queryUpdate = $@"
+                                    UPDATE
+                                        Users
+                                    SET
+                                        PhotoURL='{newPhoto}'
+                                    WHERE
+                                        UserId='{userId}';";
 
             return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
@@ -128,7 +158,13 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
             //TODO: Check for valid photo
-            string queryUpdate = $"UPDATE Users SET Bio='{newBio}' WHERE UserId='{userId}';";
+            string queryUpdate = $@"
+                                    UPDATE
+                                        Users
+                                    SET
+                                        Bio='{newBio}'
+                                    WHERE
+                                        UserId='{userId}';";
 
             return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
@@ -146,7 +182,13 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameter userdata={userdata}");
 
-            string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userdata.Id}'";
+            string selectQuery = $@"
+                                    SELECT
+                                        *
+                                    FROM
+                                        Users
+                                    WHERE
+                                        UserId='{userdata.Id}'";
 
             // Get application user from database
             DataRow[] rows = (await SqlHelpers.GetRows("Users", selectQuery)).ToArray();
@@ -183,8 +225,17 @@ namespace Messenger.Core.Services
             }
 
             // Create and execute query
-            string insertQuery = $"INSERT INTO Users (UserId, NameId, UserName, Email, PhotoURL, Bio) "
-                                + $"VALUES ('{userdata.Id}', {newNameId}, '{displayName}', '{userdata.Mail}', '{userdata.Photo}', '{userdata.Bio}')";
+            string insertQuery = $@"
+                                    INSERT INTO
+                                        Users
+                                    VALUES(
+                                        '{userdata.Id}',
+                                         {newNameId},
+                                        '{displayName}',
+                                        '{userdata.Mail}',
+                                        '{userdata.Photo}',
+                                        '{userdata.Bio}'
+                                        )";
 
 
             await SqlHelpers.NonQueryAsync(insertQuery);
@@ -210,7 +261,11 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userId={userId}");
 
-            string query = $"DELETE FROM Users WHERE UserId='{userId}';";
+            string query = $@"
+                                DELETE FROM
+                                    Users
+                                WHERE
+                                 UserId='{userId}';";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -229,7 +284,12 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userId={userId}");
 
-            string selectQuery = $"SELECT UserId, NameId, UserName, Email, PhotoURL, Bio FROM Users WHERE UserId='{userId}'";
+            string selectQuery = $@"
+                                    SELECT *
+                                        FROM
+                                    Users
+                                        WHERE
+                                    UserId='{userId}'";
 
             var rows = await SqlHelpers.GetRows("User", selectQuery);
 
@@ -256,7 +316,15 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
 
-            string selectQuery = $"SELECT UserId, NameId, UserName, Email, Bio, PhotoURL FROM Users WHERE UserName='{userName}' AND NameId={nameId}";
+            string selectQuery = $@"
+                                    SELECT
+                                        *
+                                    FROM
+                                        Users
+                                    WHERE
+                                        UserName='{userName}'
+                                    AND
+                                        NameId={nameId}";
 
             return (await SqlHelpers
                 .GetRows("Users", selectQuery))
@@ -277,7 +345,15 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters userName={userName}");
 
-            string selectQuery = $"SELECT CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId FROM Users WHERE LOWER(UserName) LIKE LOWER('%{userName}%') ORDER BY LEN(UserName);";
+            string selectQuery = $@"
+                                    SELECT
+                                        CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS UserNameWithNameId
+                                    FROM
+                                        Users
+                                    WHERE
+                                        LOWER(UserName) LIKE LOWER('%{userName}%')
+                                    ORDER BY
+                                        LEN(UserName);";
 
             var rows = await SqlHelpers.GetRows("Users", selectQuery);
 
@@ -303,7 +379,13 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters username={username},connection={connection}");
 
-            string query = $"SELECT MAX(NameId) FROM USERS WHERE UserName='{username}'";
+            string query = $@"
+                                SELECT
+                                    MAX(NameId)
+                                FROM
+                                    USERS
+                                WHERE
+                                    UserName='{username}'";
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32) + 1;
         }

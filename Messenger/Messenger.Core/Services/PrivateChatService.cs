@@ -27,9 +27,14 @@ namespace Messenger.Core.Services
             uint? teamID;
 
             // Add myself and other user as members
-            string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
-                            $"('', GETDATE());"
-                            + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
+            string query = $@"
+                                INSERT INTO
+                                    Teams
+                                VALUES(
+                                    '', NULL, GETDATE()
+                                );
+
+                            SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
             var team = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
@@ -87,8 +92,16 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters teamId={teamId}");
 
             // NOTE: Private Chats currently only support 1 Members
-            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId "
-                         + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
+            string query = @"
+                            SELECT
+                                UserId
+                            FROM
+                                Memberships m LEFT JOIN Teams t
+                                ON m.TeamId = t.TeamId
+                            WHERE
+                                t.TeamId != {teamId}
+                            AND
+                                t.TeamName='';";
 
             var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
