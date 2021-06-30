@@ -9,6 +9,5 @@ namespace Messenger.Core.Models
         InvitedToTeam,
         RemovedFromTeam,
         ReactionToMessage,
-        MessageDeleted
     }
 }
