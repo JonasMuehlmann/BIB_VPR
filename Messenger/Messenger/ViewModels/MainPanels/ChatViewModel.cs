@@ -11,6 +11,8 @@ using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
+using Windows.UI.Xaml;
+using Prism.Commands;
 
 namespace Messenger.ViewModels
 {
@@ -74,6 +76,22 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// Reply Box in SendMessageControl is visible or not
+        /// </summary>
+        public Visibility ReplyVisible
+        {
+            get =>  _replyVisible;
+            set
+            {
+                OnPropertyChanged(nameof(ReplyVisible));
+                _replyVisible = value;
+            }
+        }
+
+        public DelegateCommand BtnToggleReplyVisibility { get; set; }
+
+
+        /// <summary>
         /// Message object to be sent
         /// </summary>
         public Message MessageToSend
@@ -87,7 +105,6 @@ namespace Messenger.ViewModels
                 Set(ref _messageToSend, value);
             }
         }
-
         #endregion
 
         #region Commands
@@ -130,7 +147,7 @@ namespace Messenger.ViewModels
 
             LoadAsync();
         }
-
+         
         /// <summary>
         /// Loads messages from the hub
         /// </summary>
@@ -167,6 +184,18 @@ namespace Messenger.ViewModels
                 }
 
                 Messages.Add(message);
+            }
+        }
+
+        public void ToggleVisibility()
+        {
+            if (ReplyVisible == Visibility.Visible)
+            {
+                ReplyVisible = Visibility.Collapsed;
+            }
+            else
+            {
+                ReplyVisible = Visibility.Visible;
             }
         }
 

@@ -11,6 +11,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.DataContext>
+        <local:ChatViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="0 10" />
