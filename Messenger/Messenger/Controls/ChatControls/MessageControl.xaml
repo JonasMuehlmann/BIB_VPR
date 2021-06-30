@@ -32,10 +32,9 @@
         </Style>
         <!--#endregion-->
         <!--#region HEADER STYLE -->
-        <Style x:Key="HeaderPanelStyle" TargetType="StackPanel">
+        <Style x:Key="HeaderPanelStyle" TargetType="Grid">
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Orientation" Value="Horizontal" />
         </Style>
         <Style x:Key="HeaderStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
@@ -118,12 +117,19 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!-- MESSAGE HEADER -->
-                <StackPanel
+                <Grid
                     Grid.Row="0"
                     Style="{StaticResource HeaderPanelStyle}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
                     <StackPanel
+                        Grid.Column="0"
                         Orientation="Horizontal"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch">
                         <Ellipse
                             Width="35"
                             Height="35"
@@ -144,15 +150,15 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel
-                        Orientation="Horizontal"
-                        Margin="200 0 0 0">
+                        Grid.Column="2"
+                        Orientation="Horizontal">
                         <TextBlock
                             VerticalAlignment="Center"
                             Margin="5 0">
                             <Run
                                 FontSize="12"
                                 Foreground="{ThemeResource SystemAccentColor}"
-                                Text="{Binding ElementName=messageControl, Path=Message.Reactions.Count}"
+                                Text="{Binding ElementName=messageControl, Path=Message.Reactions.Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
                         </TextBlock>
                         <Viewbox
@@ -163,7 +169,7 @@
                                 />
                         </Viewbox>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
                 <!-- MESSAGE CONTENT -->
                 <!-- MESSAGE CONTENT: SHOW MODE -->
                 <TextBlock
@@ -267,7 +273,7 @@
                             Icon="MailReply"
                             Label="Reply"
                             Command="{x:Bind ReplyToCommand}"
-                            CommandParameter="{Binding ElementName=messageControl, Path=Message}"
+                            CommandParameter="{Binding ElementName=messageControl, Path=Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             />
                         <!-- ADD OR UPDATE REACTION -->
                         <AppBarButton
@@ -284,11 +290,8 @@
                                         Content="Like"
                                         Icon="Like"
                                         Tapped="LikeButton_Tapped"
-                                        IsChecked="{Binding
-                                            Path=MyReaction,
-                                            Mode=TwoWay,
-                                            UpdateSourceTrigger=PropertyChanged,
-                                            ElementName=messageControl,
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
                                             Converter={StaticResource ReactionToBooleanConverter},
                                             ConverterParameter='Like'}"
                                         />
@@ -298,12 +301,20 @@
                                         Content="Dislike"
                                         Icon="Dislike"
                                         Tapped="DislikeButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Dislike'}"
                                         />
                                     <AppBarToggleButton
                                         x:Name="SurprisedButton"
                                         Style="{StaticResource ReactionButtonStyle}"
                                         Content="Surprised"
-                                        Tapped="SurprisedButton_Tapped">
+                                        Tapped="SurprisedButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Surprised'}">
                                         <AppBarToggleButton.Icon>
                                             <icons:PathIconFontAwesome
                                                 Kind="SurpriseRegular"
@@ -314,7 +325,11 @@
                                         x:Name="AngryButton"
                                         Style="{StaticResource ReactionButtonStyle}"
                                         Content="Angry"
-                                        Tapped="AngryButton_Tapped">
+                                        Tapped="AngryButton_Tapped"
+                                        IsChecked="{x:Bind
+                                            Message.MyReaction,
+                                            Converter={StaticResource ReactionToBooleanConverter},
+                                            ConverterParameter='Angry'}">
                                         <AppBarToggleButton.Icon>
                                             <icons:PathIconFontAwesome
                                                 Kind="AngryRegular"

@@ -9,7 +9,7 @@ namespace Messenger.Helpers
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null
-                || !(value is string))
+                || !(value is ReactionType))
             {
                 return false;
             }
@@ -22,7 +22,7 @@ namespace Messenger.Helpers
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

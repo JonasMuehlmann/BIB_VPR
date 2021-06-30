@@ -110,28 +110,6 @@ namespace Messenger.Controls.ChatControls
             EnterEditModeCommand = new RelayCommand(EnterEditMode);
             ExitEditModeCommand = new RelayCommand(ExitEditMode);
 
-            if (Message != null
-                    && Message.HasReacted)
-            {
-                switch (Message.MyReaction)
-                {
-                    case ReactionType.Like:
-                        LikeButton.IsChecked = true;
-                        break;
-                    case ReactionType.Dislike:
-                        DislikeButton.IsChecked = true;
-                        break;
-                    case ReactionType.Surprised:
-                        SurprisedButton.IsChecked = true;
-                        break;
-                    case ReactionType.Angry:
-                        AngryButton.IsChecked = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
-
             InitializeComponent();
         }
 
@@ -191,7 +169,7 @@ namespace Messenger.Controls.ChatControls
 
         private void LikeButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
             {
                 Type = ReactionType.Like,
                 Message = Message
@@ -200,7 +178,7 @@ namespace Messenger.Controls.ChatControls
 
         private void DislikeButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
             {
                 Type = ReactionType.Dislike,
                 Message = Message
@@ -209,7 +187,7 @@ namespace Messenger.Controls.ChatControls
 
         private void SurprisedButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
             {
                 Type = ReactionType.Surprised,
                 Message = Message
@@ -218,7 +196,7 @@ namespace Messenger.Controls.ChatControls
 
         private void AngryButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ToggleReactionCommand?.Execute(new ToggleReactionArg()
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
             {
                 Type = ReactionType.Angry,
                 Message = Message
