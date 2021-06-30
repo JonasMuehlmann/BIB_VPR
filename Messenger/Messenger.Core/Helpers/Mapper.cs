@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Serilog;
 using Serilog.Context;
+using System.Text.Json;
 
 namespace Messenger.Core.Helpers
 {
@@ -148,13 +149,26 @@ namespace Messenger.Core.Helpers
                 Id           = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
                 RecipientId  = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToString),
                 CreationTime = SqlHelpers.TryConvertDbValue(row["CreationTime"], Convert.ToDateTime),
-                Message      = SqlHelpers.TryConvertDbValue(row["Message"], Convert.ToString)
+                Message      = SqlHelpers.TryConvertDbValue<NotificationMessageBase>(row["Message"], JsonToNotificationMessageBase)
             };
         }
 
         public static string StringFromDataRow(DataRow row, string columnName)
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
+        }
+
+        public static NotificationMessageBase JsonToNotificationMessageBase(object data)
+        {
+            try
+            {
+                return JsonSerializer.Deserialize<NotificationMessageBase>(data as string);
+            }
+            catch (JsonException e)
+            {
+                logger.Information(e, "Could not parse notification message");
+                return null;
+            }
         }
     }
 }
