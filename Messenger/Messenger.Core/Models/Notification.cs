@@ -5,7 +5,7 @@ namespace Messenger.Core.Models
 {
     public class Notification
     {
-        public int Id { get; set; }
+        public uint Id { get; set; }
         public string RecipientId { get; set; }
         public DateTime CreationTime { get; set; }
         public NotificationMessageBase Message { get; set; }
