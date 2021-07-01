@@ -79,7 +79,7 @@ namespace Messenger.Core.Services
                                 FROM
                                     Notifications
                                 WHERE
-                                    userId='{userId}'";
+                                    recipientId='{userId}'";
 
             return await SqlHelpers.MapToList(Mapper.NotificationFromDataRow, query);
         }
