@@ -31,8 +31,6 @@ namespace Messenger.Core.Services
             {
                 connectionString = connectionStringTest;
             }
-
-            logger.Information("Running on connection " + connectionString);
             return new SqlConnection(connectionString);
         }
 

@@ -4,8 +4,8 @@ namespace Messenger.Core.Models
 {
     public abstract class NotificationMessageBase : IConvertible
     {
-        NotificationSource NotificationSource { get; set; }
-        NotificationType NotificationType { get; set; }
+        public NotificationSource NotificationSource { get; set; }
+        public NotificationType NotificationType { get; set; }
 
         #region IConvertible Implementation
         static T ThrowNotSupported<T>()

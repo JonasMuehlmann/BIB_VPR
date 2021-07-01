@@ -235,7 +235,9 @@ namespace Messenger.Tests.MSTest
         public static void Cleanup()
         {
             // Reset DB
-            string query = @"DELETE FROM Reactions;
+            string query = @"
+                             DELETE FROM Notificationss;
+                             DELETE FROM Reactions;
                              DELETE FROM Messages;
                              DELETE FROM Memberships;
                              DELETE FROM Channels;
@@ -244,6 +246,7 @@ namespace Messenger.Tests.MSTest
                              DELETE FROM Team_roles;
                              DELETE FROM Teams;
                              DELETE FROM Users;
+                             DBCC CHECKIDENT (Notifications,    RESEED, 0);
                              DBCC CHECKIDENT (Memberships,      RESEED, 0);
                              DBCC CHECKIDENT (Messages,         RESEED, 0);
                              DBCC CHECKIDENT (Channels,         RESEED, 0);
