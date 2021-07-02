@@ -27,4 +27,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: export BIB_VPR_DEBUG=true && dotnet test --no-build --verbosity normal
+      run: SET BIB_VPR_DEBUG=true && dotnet test --no-build --verbosity normal
