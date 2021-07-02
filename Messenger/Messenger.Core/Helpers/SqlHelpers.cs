@@ -253,10 +253,9 @@ namespace Messenger.Core.Helpers
         /// <summary>
         /// Convert a value that can be DBNull using a specified converter
         /// </summary>
-        /// <typeparam name="T">A type to convert value to</typeparam>
         /// <param name="value">A value to convert to T</param>
         /// <param name="converter">A converter function to use for converting value</param>
-        /// <returns>null or the wanted type T</returns>
+        /// <returns>a value of dynamic type(T or null)</returns>
         public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter)
         {
             LogContext.PushProperty("Method","TryConvertDbValue");
