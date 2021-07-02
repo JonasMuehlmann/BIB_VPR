@@ -6,7 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using Serilog;
 using Serilog.Context;
-using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Helpers
 {
@@ -142,14 +143,14 @@ namespace Messenger.Core.Helpers
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully mapped Notification object</returns>
-        public static Notification<T> NotificationFromDataRow<T>(DataRow row) where T: NotificationMessageBase
+        public static Notification NotificationFromDataRow(DataRow row)
         {
-            return new Notification<T>()
+            return new Notification()
             {
                 Id           = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
                 RecipientId  = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToString),
                 CreationTime = SqlHelpers.TryConvertDbValue(row["CreationTime"], Convert.ToDateTime),
-                Message      = JsonToNotificationMessageBase<T>(row["message"])
+                Message      = SqlHelpers.TryConvertDbValue(row["Message"], strToJObject)
             };
         }
 
@@ -158,21 +159,9 @@ namespace Messenger.Core.Helpers
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
         }
 
-        public static T JsonToNotificationMessageBase<T>(dynamic data) where T: NotificationMessageBase
+        public static JObject strToJObject(object str)
         {
-            if (data is DBNull)
-            {
-                return null;
-            }
-            try
-            {
-                return JsonSerializer.Deserialize<T>(data as string);
-            }
-            catch (JsonException e)
-            {
-                logger.Information(e, "Could not parse notification message");
-                return null;
-            }
+            return JObject.Parse(str as string);
         }
     }
 }

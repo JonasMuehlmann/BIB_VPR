@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Serilog.Context;
 using Messenger.Core.Models;
 using Messenger.Core.Helpers;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Messenger.Core.Services
 {
@@ -30,7 +30,7 @@ namespace Messenger.Core.Services
                                     Notifications
                                 VALUES(
                                     '{recipientId}',
-                                    '{JsonSerializer.Serialize(message)}',
+                                    '{JsonConvert.SerializeObject(message)}',
                                     GETDATE()
                                 );
 
@@ -66,7 +66,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to retrieve notifications from</param>
         /// <returns>An enumerable of notification objects</returns>
-        public async Task<IEnumerable<Notification<T>>> RetrieveNotifications<T>(string userId) where T: NotificationMessageBase
+        public async Task<IEnumerable<Notification>> RetrieveNotifications(string userId)
         {
             LogContext.PushProperty("Method","RetrieveNotifications");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -81,7 +81,7 @@ namespace Messenger.Core.Services
                                 WHERE
                                     recipientId='{userId}'";
 
-            return await SqlHelpers.MapToList<Notification<T>>(Mapper.NotificationFromDataRow<T>, query);
+            return await SqlHelpers.MapToList(Mapper.NotificationFromDataRow, query);
         }
     }
 }

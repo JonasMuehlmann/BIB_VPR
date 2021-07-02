@@ -5,6 +5,7 @@ using Messenger.Core.Services;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 
 
 namespace Messenger.Tests.MSTest
@@ -51,8 +52,17 @@ namespace Messenger.Tests.MSTest
                 uint? notificationId = await notificationService.SendNotification(receiverId, notificationMessage);
                 Assert.IsNotNull(notificationId);
 
-                var notifications = await notificationService.RetrieveNotifications<NotificationMessageBase>(receiverId);
+                var notifications = await notificationService.RetrieveNotifications(receiverId);
                 Assert.AreEqual(1, Enumerable.Count(notifications));
+
+                var notification = notifications.First();
+                var message = notification.Message.ToObject<MessageInSubscribedChannelNotificationMessage>();
+
+                Assert.AreEqual(notificationMessage.NotificationType  , message.NotificationType);
+                Assert.AreEqual(notificationMessage.NotificationSource, message.NotificationSource);
+                Assert.AreEqual(notificationMessage.SenderId          , message.SenderId);
+                Assert.AreEqual(notificationMessage.TeamId            , message.TeamId);
+                Assert.AreEqual(notificationMessage.ChannelId         , message.ChannelId);
 
             }).GetAwaiter().GetResult();
         }

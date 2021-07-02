@@ -257,7 +257,7 @@ namespace Messenger.Core.Helpers
         /// <param name="value">A value to convert to T</param>
         /// <param name="converter">A converter function to use for converting value</param>
         /// <returns>null or the wanted type T</returns>
-        public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
+        public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter)
         {
             LogContext.PushProperty("Method","TryConvertDbValue");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
