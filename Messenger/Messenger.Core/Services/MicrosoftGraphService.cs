@@ -32,6 +32,9 @@ namespace Messenger.Core.Services
                 }
             }
 
+            // FIX: This is a workaround for 'Photo' containing the actual profile
+            // picture, whereas we would store the path to the photo in the blob storage
+            user.Photo = "";
             return user;
         }
 

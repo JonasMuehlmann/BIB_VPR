@@ -160,6 +160,7 @@
     <Compile Include="Commands\Messenger\OpenFilesCommand.cs" />
     <Compile Include="Commands\Messenger\ReplyToCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
+    <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Controls\ChatControls\MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
@@ -195,6 +196,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Observable.cs" />
+    <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Models\Attachment.cs" />
@@ -206,6 +208,8 @@
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\PrivateChat.cs" />
+    <Compile Include="Models\ReactionType.cs" />
+    <Compile Include="Models\ToggleReactionArg.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\ChatHubService.cs" />
@@ -239,6 +243,9 @@
     </Compile>
     <Compile Include="Views\DialogBoxes\CreateChatDialog.xaml.cs">
       <DependentUpon>CreateChatDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\CreateChannelDialog.xaml.cs">
+      <DependentUpon>CreateChannelDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogBoxes\CreateTeamDialog.xaml.cs">
       <DependentUpon>CreateTeamDialog.xaml</DependentUpon>
@@ -351,6 +358,10 @@
     <Page Include="Views\DialogBoxes\CreateChatDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\CreateChannelDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DialogBoxes\CreateTeamDialog.xaml">
       <SubType>Designer</SubType>

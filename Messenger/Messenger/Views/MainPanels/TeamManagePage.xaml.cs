@@ -32,17 +32,31 @@ namespace Messenger.Views
         private void AddMember_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             RemoveMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
+            ChannelMangament.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
             AddMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 3);
             removeUserBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             addUserBorder.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            channelsBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void RemoveMember_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             AddMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
+            ChannelMangament.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
             RemoveMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 3);
             removeUserBorder.Visibility = Windows.UI.Xaml.Visibility.Visible;
             addUserBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            channelsBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private void ChannelMangament_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            AddMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
+            RemoveMember.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
+            ChannelMangament.BorderThickness = new Windows.UI.Xaml.Thickness(0, 0, 0, 3);
+            removeUserBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            addUserBorder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            channelsBorder.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
     }
 }

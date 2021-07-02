@@ -7,9 +7,12 @@ using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
+using Windows.UI.Xaml;
+using Prism.Commands;
 
 namespace Messenger.ViewModels
 {
@@ -73,6 +76,22 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// Reply Box in SendMessageControl is visible or not
+        /// </summary>
+        public Visibility ReplyVisible
+        {
+            get =>  _replyVisible;
+            set
+            {
+                OnPropertyChanged(nameof(ReplyVisible));
+                _replyVisible = value;
+            }
+        }
+
+        public DelegateCommand BtnToggleReplyVisibility { get; set; }
+
+
+        /// <summary>
         /// Message object to be sent
         /// </summary>
         public Message MessageToSend
@@ -86,7 +105,6 @@ namespace Messenger.ViewModels
                 Set(ref _messageToSend, value);
             }
         }
-
         #endregion
 
         #region Commands
@@ -110,6 +128,8 @@ namespace Messenger.ViewModels
 
         public ICommand DeleteMessageCommand => new DeleteMessageCommand(Hub);
 
+        public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
+
         #endregion
 
         public ChatViewModel()
@@ -127,7 +147,7 @@ namespace Messenger.ViewModels
 
             LoadAsync();
         }
-
+         
         /// <summary>
         /// Loads messages from the hub
         /// </summary>
@@ -155,8 +175,44 @@ namespace Messenger.ViewModels
 
             foreach (var message in messages)
             {
+                var myReaction = GetMyReaction(message);
+
+                if (myReaction != ReactionType.None)
+                {
+                    message.HasReacted = true;
+                    message.MyReaction = myReaction;
+                }
+
                 Messages.Add(message);
             }
+        }
+
+        public void ToggleVisibility()
+        {
+            if (ReplyVisible == Visibility.Visible)
+            {
+                ReplyVisible = Visibility.Collapsed;
+            }
+            else
+            {
+                ReplyVisible = Visibility.Visible;
+            }
+        }
+
+        private ReactionType GetMyReaction(MessageViewModel message)
+        {
+            if (message.Reactions.Any(r => r.UserId == Hub.CurrentUser.Id))
+            {
+                var reaction = (ReactionType)message
+                    .Reactions
+                    .Where(r => r.UserId == Hub.CurrentUser.Id)
+                    .Select(r => Enum.Parse(typeof(ReactionType), r.Symbol))
+                    .FirstOrDefault();
+
+                return reaction;
+            }
+
+            return ReactionType.None;
         }
 
         #endregion
