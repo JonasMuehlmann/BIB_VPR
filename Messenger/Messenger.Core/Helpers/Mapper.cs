@@ -142,14 +142,14 @@ namespace Messenger.Core.Helpers
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully mapped Notification object</returns>
-        public static Notification NotificationFromDataRow(DataRow row)
+        public static Notification<T> NotificationFromDataRow<T>(DataRow row) where T: NotificationMessageBase
         {
-            return new Notification()
+            return new Notification<T>()
             {
                 Id           = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
                 RecipientId  = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToString),
                 CreationTime = SqlHelpers.TryConvertDbValue(row["CreationTime"], Convert.ToDateTime),
-                Message      = SqlHelpers.TryConvertDbValue<NotificationMessageBase>(row["Message"], JsonToNotificationMessageBase)
+                Message      = JsonToNotificationMessageBase<T>(row["message"])
             };
         }
 
@@ -158,11 +158,15 @@ namespace Messenger.Core.Helpers
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
         }
 
-        public static NotificationMessageBase JsonToNotificationMessageBase(object data)
+        public static T JsonToNotificationMessageBase<T>(dynamic data) where T: NotificationMessageBase
         {
+            if (data is DBNull)
+            {
+                return null;
+            }
             try
             {
-                return JsonSerializer.Deserialize<NotificationMessageBase>(data as string);
+                return JsonSerializer.Deserialize<T>(data as string);
             }
             catch (JsonException e)
             {

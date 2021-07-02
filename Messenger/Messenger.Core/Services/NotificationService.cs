@@ -18,7 +18,7 @@ namespace Messenger.Core.Services
         /// </param>
         /// <param name="message">The message the notification holds</param>
         /// <returns>The id of the notification on success, null otherwise</returns>
-        public async Task<uint?> SendNotification(string recipientId, NotificationMessageBase message)
+        public async Task<uint?> SendNotification<T>(string recipientId, T message) where T : NotificationMessageBase
         {
             LogContext.PushProperty("Method","SendNotification");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -66,7 +66,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to retrieve notifications from</param>
         /// <returns>An enumerable of notification objects</returns>
-        public async Task<IEnumerable<Notification>> RetrieveNotifications(string userId)
+        public async Task<IEnumerable<Notification<T>>> RetrieveNotifications<T>(string userId) where T: NotificationMessageBase
         {
             LogContext.PushProperty("Method","RetrieveNotifications");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -81,7 +81,7 @@ namespace Messenger.Core.Services
                                 WHERE
                                     recipientId='{userId}'";
 
-            return await SqlHelpers.MapToList(Mapper.NotificationFromDataRow, query);
+            return await SqlHelpers.MapToList<Notification<T>>(Mapper.NotificationFromDataRow<T>, query);
         }
     }
 }
