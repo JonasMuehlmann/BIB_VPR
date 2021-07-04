@@ -4,9 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Messenger.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.DataContext>
+        <local:ChatViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style x:Key="OuterPanel" TargetType="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -61,17 +65,30 @@
     <StackPanel Style="{StaticResource OuterPanel}">
         <!-- REPLY MESSAGE -->
         <StackPanel
-            DataContext="{x:Bind
+            Orientation="Horizontal"
+            BorderThickness="2"
+            Visibility="{Binding ReplyVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel
+                Width="345"
+                DataContext="{x:Bind
                 ReplyMessage,
                 Mode=TwoWay,
-                UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock
-                x:Name="SMDP"
-                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Sender.DisplayName, FallbackValue='', TargetNullValue=''}"
-                />
-            <TextBlock
-                x:Name="SMCT"
-                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content, FallbackValue='', TargetNullValue=''}"
+                UpdateSourceTrigger=PropertyChanged}"
+                Margin="5">
+                <TextBlock
+                    x:Name="SMDP"
+                    Text="Binding UserName"
+                    FontWeight="Bold"
+                    />
+                <TextBlock
+                    x:Name="SMCT"
+                    Text="Bindung MessageConten"
+                    />
+            </StackPanel>
+            <Button x:Name="ReplyBoxButton"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE711;"
+                Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 />
         </StackPanel>
         <!-- ATTACHMENTS -->

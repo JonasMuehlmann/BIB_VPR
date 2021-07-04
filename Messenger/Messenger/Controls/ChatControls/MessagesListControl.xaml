@@ -11,6 +11,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.DataContext>
+        <local:ChatViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="0 10" />
@@ -84,6 +87,7 @@
                         ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
                         DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
                         EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
+                        ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
                         />
                 </DataTemplate>
             </ListView.ItemTemplate>

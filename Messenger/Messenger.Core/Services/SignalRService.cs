@@ -217,9 +217,9 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("UpdateTeamRoles", teamId);
         }
 
-        public async Task UpdateMessageReactions(uint teamId, uint messageId)
+        public async Task UpdateMessageReactions(Message message)
         {
-            await _connection.SendAsync("UpdateMessageReactions", teamId, messageId);
+            await _connection.SendAsync("UpdateMessage", message);
         }
 
         public async Task UpdateRolePermission(uint teamId)

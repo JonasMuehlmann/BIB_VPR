@@ -70,6 +70,8 @@ namespace Messenger.Controls.ChatControls
         public SendMessageControl()
         {
             InitializeComponent();
+
         }
+
     }
 }
