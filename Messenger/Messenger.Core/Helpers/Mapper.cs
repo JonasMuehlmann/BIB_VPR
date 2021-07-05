@@ -154,11 +154,22 @@ namespace Messenger.Core.Helpers
             };
         }
 
+        /// <summary>
+        ///	Convert a DataRows column to a string
+        /// </summary>
+        /// <param name="row">the row to convert</param>
+        /// <param name="columnName">The column of the row to convert</param>
+        /// <returns>A string representation of the selected column</returns>
         public static string StringFromDataRow(DataRow row, string columnName)
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
         }
 
+        /// <summary>
+        /// Parse a json encoded string to a JObject
+        /// </summary>
+        /// <param name="str">The json encoded string to convert</param>
+        /// <returns>A JObject representing the input</returns>
         public static JObject strToJObject(object str)
         {
             return JObject.Parse(str as string);
