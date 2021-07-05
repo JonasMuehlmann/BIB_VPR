@@ -5,6 +5,7 @@ using Serilog.Context;
 using Messenger.Core.Models;
 using Messenger.Core.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Services
 {
@@ -18,7 +19,7 @@ namespace Messenger.Core.Services
         /// </param>
         /// <param name="message">The message the notification holds</param>
         /// <returns>The id of the notification on success, null otherwise</returns>
-        public async Task<uint?> SendNotification<T>(string recipientId, T message) where T : NotificationMessageBase
+        public async Task<uint?> SendNotification(string recipientId, JObject message)
         {
             LogContext.PushProperty("Method","SendNotification");
             LogContext.PushProperty("SourceContext", this.GetType().Name);

@@ -41,13 +41,13 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await channelService.CreateChannel(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var notificationMessage = new MessageInSubscribedChannelNotificationMessage()
+                var notificationMessage = new JObject
                 {
-                    NotificationType   = NotificationType.MessageInSubscribedChannel,
-                    NotificationSource = NotificationSource.Channel,
-                    SenderId           = senderId,
-                    TeamId             = teamId.Value,
-                    ChannelId          = channelId.Value
+                    {"NotificationType"   , NotificationType.MessageInSubscribedChannel.ToString()},
+                    {"NotificationSource" , NotificationSource.Channel.ToString()},
+                    {"SenderId"           , senderId},
+                    {"TeamId"             , teamId.Value},
+                    {"ChannelId"          , channelId.Value}
                 };
                 uint? notificationId = await notificationService.SendNotification(receiverId, notificationMessage);
                 Assert.IsNotNull(notificationId);
@@ -56,13 +56,9 @@ namespace Messenger.Tests.MSTest
                 Assert.AreEqual(1, Enumerable.Count(notifications));
 
                 var notification = notifications.First();
-                var message = notification.Message.ToObject<MessageInSubscribedChannelNotificationMessage>();
+                var message = notification.Message;
 
-                Assert.AreEqual(notificationMessage.NotificationType  , message.NotificationType);
-                Assert.AreEqual(notificationMessage.NotificationSource, message.NotificationSource);
-                Assert.AreEqual(notificationMessage.SenderId          , message.SenderId);
-                Assert.AreEqual(notificationMessage.TeamId            , message.TeamId);
-                Assert.AreEqual(notificationMessage.ChannelId         , message.ChannelId);
+                Assert.AreEqual(notificationMessage.ToString(), message.ToString());
 
             }).GetAwaiter().GetResult();
         }
