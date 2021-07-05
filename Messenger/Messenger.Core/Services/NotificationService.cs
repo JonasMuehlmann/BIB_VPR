@@ -57,7 +57,7 @@ namespace Messenger.Core.Services
                                 DELETE FROM
                                     Notifications
                                 WHERE
-                                    notificationId={notificationId};";
+                                    Id={notificationId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }

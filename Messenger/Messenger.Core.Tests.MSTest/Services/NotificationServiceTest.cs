@@ -62,5 +62,49 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void RemoveNotification_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string receiverId = (await userService.GetOrCreateApplicationUser(new User(){Id = testName + "UserReceiver"})).Id;
+                Assert.IsNotNull(receiverId);
+                Assert.AreNotEqual("",receiverId);
+
+                string senderId = (await userService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                Assert.IsNotNull(senderId);
+                Assert.AreNotEqual("",senderId);
+
+                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                uint? channelId = await channelService.CreateChannel(testName + "Chanel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var notificationMessage = new JObject
+                {
+                    {"NotificationType"   , NotificationType.MessageInSubscribedChannel.ToString()},
+                    {"NotificationSource" , NotificationSource.Channel.ToString()},
+                    {"SenderId"           , senderId},
+                    {"TeamId"             , teamId.Value},
+                    {"ChannelId"          , channelId.Value}
+                };
+                uint? notificationId = await notificationService.SendNotification(receiverId, notificationMessage);
+                Assert.IsNotNull(notificationId);
+
+                var didRemoveNotification = await notificationService.RemoveNotification(notificationId.Value);
+                Assert.IsTrue(didRemoveNotification);
+
+                var notifications = await notificationService.RetrieveNotifications(receiverId);
+
+                Assert.AreEqual(0, Enumerable.Count(notifications));
+
+            }).GetAwaiter().GetResult();
+        }
+
     }
 }
