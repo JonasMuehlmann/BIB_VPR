@@ -136,6 +136,21 @@ namespace Messenger.Core.Helpers
             };
         }
 
+        /// <summary>
+        /// Maps to a full Mention model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Mention object</returns>
+        public static Mention MentionFromDataRow(DataRow row)
+        {
+            return new Reaction()
+            {
+                Id         = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], Convert.ToString),
+                TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
+            };
+        }
+
         public static string StringFromDataRow(DataRow row, string columnName)
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
