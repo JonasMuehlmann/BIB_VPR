@@ -17,6 +17,7 @@ namespace Messenger.Tests.MSTest
         MessageService messageService;
         UserService userService;
         TeamService teamService;
+        ChannelService channelService;
 
         /// <summary>
         /// Initialize the service
@@ -27,6 +28,7 @@ namespace Messenger.Tests.MSTest
             messageService = new MessageService();
             userService =    new UserService();
             teamService =    new TeamService();
+            channelService = new ChannelService();
         }
 
 
@@ -37,11 +39,14 @@ namespace Messenger.Tests.MSTest
            Task.Run(async () =>
            {
                 var _ = await userService.GetOrCreateApplicationUser(new User(){Id="user1"});
-                var teamId = await teamService.CreateTeam("MyTestTeam");
 
+                var teamId = await teamService.CreateTeam("MyTestTeam");
                 Assert.IsNotNull(teamId);
 
-                var result = await messageService.CreateMessage(teamId.Value,"user1", "my message text");
+                var channelId = await channelService.CreateChannel("MyTestChannel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var result = await messageService.CreateMessage(channelId.Value,"user1", "my message text");
 
                 Assert.IsTrue(result.Value > 0);
 
@@ -55,10 +60,12 @@ namespace Messenger.Tests.MSTest
             {
             var _ = await userService.GetOrCreateApplicationUser(new User(){Id="user1"});
                 var teamId = await teamService.CreateTeam("MyTestTeam123");
-
                 Assert.IsNotNull(teamId);
 
-                var result = await messageService.CreateMessage(teamId.Value,"user1", "my message text");
+                var channelId = await channelService.CreateChannel("MyTestChannel123", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var result = await messageService.CreateMessage(channelId.Value,"user1", "my message text");
 
                 var messages = await messageService.RetrieveMessages(teamId.Value);
 
@@ -75,10 +82,12 @@ namespace Messenger.Tests.MSTest
             {
                 var _ = await userService.GetOrCreateApplicationUser(new User(){Id="user1"});
                 var teamId = await teamService.CreateTeam("MyTestTeamXYZ");
-
                 Assert.IsNotNull(teamId);
 
-                var messages = await messageService.RetrieveMessages(teamId.Value);
+                var channelId = await channelService.CreateChannel("MyTestChannelXYZ", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messages = await messageService.RetrieveMessages(channelId.Value);
 
                 Assert.IsTrue(messages.Count == 0);
 
@@ -95,13 +104,16 @@ namespace Messenger.Tests.MSTest
                 uint? teamId = await teamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
+                var channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
                 string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                uint? messageId = await messageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
-                var messages = (await messageService.RetrieveMessages(teamId.Value));
+                var messages = (await messageService.RetrieveMessages(channelId.Value));
 
                 Assert.AreEqual(messages.Count(), 1);
 
@@ -111,7 +123,7 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsTrue(success);
 
-                messages = (await messageService.RetrieveMessages(teamId.Value));
+                messages = (await messageService.RetrieveMessages(channelId.Value));
 
                 Assert.AreEqual(messages.Count(), 1);
 
@@ -133,19 +145,22 @@ namespace Messenger.Tests.MSTest
                 uint? teamId = await teamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
+                var channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
                 string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                uint? messageId = await messageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
 
-                var  numMessagesBefore = (await messageService.RetrieveMessages(teamId.Value)).Count();
+                var  numMessagesBefore = (await messageService.RetrieveMessages(channelId.Value)).Count();
 
                 var success = await messageService.DeleteMessage(messageId.Value);
                 Assert.IsTrue(success);
 
-                var numMessagesAfter = (await messageService.RetrieveMessages(teamId.Value)).Count();
+                var numMessagesAfter = (await messageService.RetrieveMessages(channelId.Value)).Count();
 
                 Assert.IsTrue(numMessagesAfter < numMessagesBefore);
 
@@ -163,10 +178,13 @@ namespace Messenger.Tests.MSTest
                 uint? teamId = await teamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
+                var channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
                 string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                uint? messageId = await messageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? reactionId = await messageService.AddReaction(messageId.Value, userId, "🈚");
@@ -191,10 +209,13 @@ namespace Messenger.Tests.MSTest
                 uint? teamId = await teamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
+                var channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
                 string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? messageId = await messageService.CreateMessage(teamId.Value, userId, testName + "Message");
+                uint? messageId = await messageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? reactionId = await messageService.AddReaction(messageId.Value, userId, "🈚");
