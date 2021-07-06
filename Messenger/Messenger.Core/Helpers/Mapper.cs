@@ -143,14 +143,18 @@ namespace Messenger.Core.Helpers
         /// <returns>A fully mapped Mention object</returns>
         public static Mention MentionFromDataRow(DataRow row)
         {
-            return new Reaction()
+            return new Mention()
             {
                 Id         = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
-                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], Convert.ToString),
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], StringToEnum<MentionTarget>),
                 TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
             };
         }
 
+        public static T StringToEnum<T>(object value)
+        {
+            return (T)Enum.Parse(typeof(T), value as string);
+        }
         public static string StringFromDataRow(DataRow row, string columnName)
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);

@@ -4,13 +4,12 @@ namespace Messenger.Core.Models
     {
         public uint Id { get; set; }
 
-        public string TargetType { get; set; }
+        public MentionTarget TargetType { get; set; }
 
         public string TargetId { get; set; }
 
         public Mention()
         {
-            TargetType = "";
             TargetId   = "";
         }
 
