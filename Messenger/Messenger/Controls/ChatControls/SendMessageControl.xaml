@@ -88,7 +88,6 @@
             <Button x:Name="ReplyBoxButton"
                 FontFamily="Segoe MDL2 Assets"
                 Content="&#xE711;"
-                Command="{Binding BtnToggleReplyVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 />
         </StackPanel>
         <!-- ATTACHMENTS -->

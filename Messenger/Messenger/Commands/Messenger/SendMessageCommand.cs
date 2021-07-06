@@ -44,7 +44,7 @@ namespace Messenger.Commands.Messenger
                 Message message = _viewModel.MessageToSend;
 
                 // Records created timestamp
-                message.CreationTime = DateTime.UtcNow;
+                message.CreationTime = DateTime.Now;
 
                 // Sender/Recipient data will be handled in ChatHubService
                 bool success = await _hub.SendMessage(_viewModel.MessageToSend);
