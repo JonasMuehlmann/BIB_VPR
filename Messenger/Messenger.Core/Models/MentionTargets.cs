@@ -7,7 +7,8 @@ namespace Messenger.Core.Models
     {
         User,
         Role,
-        Team,
         Channel,
+        Message,
+        All
     }
 }
