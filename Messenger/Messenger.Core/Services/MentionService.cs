@@ -30,7 +30,7 @@ namespace Messenger.Core.Services
                                     '{id}'
                                       );
 
-                                SELECT IDENTITY_INSERT();
+                                SELECT SCOPE_IDENTITY();
                     ";
 
                 return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
