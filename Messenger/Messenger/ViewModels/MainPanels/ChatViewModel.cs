@@ -122,10 +122,10 @@ namespace Messenger.ViewModels
             MessageToSend = new Message();
 
             // Register events
-            Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
-            Hub.MessageUpdated += OnMessageUpdated;
-            Hub.MessageDeleted += OnMessageDeleted;
+            Hub.MessageReceived += OnMessagesUpdated;
+            Hub.MessageUpdated += OnMessagesUpdated;
+            Hub.MessageDeleted += OnMessagesUpdated;
 
             LoadAsync();
         }
@@ -194,7 +194,7 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>
-        private async void OnMessageReceived(object sender, MessageViewModel message)
+        private async void OnMessagesUpdated(object sender, EventArgs e)
         {
             var messages = await Hub.GetMessages();
 
@@ -208,20 +208,6 @@ namespace Messenger.ViewModels
         /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            UpdateView(messages);
-        }
-
-        private async void OnMessageUpdated(object sender, MessageViewModel message)
-        {
-            var messages = await Hub.GetMessages();
-
-            UpdateView(messages);
-        }
-
-        private async void OnMessageDeleted(object sender, EventArgs e)
-        {
-            var messages = await Hub.GetMessages();
-
             UpdateView(messages);
         }
 
