@@ -41,5 +41,25 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Remove a mention entry with the specified id
+        /// </summary>
+        /// <param name="mentionId">The id of the mention entry to remove</param>
+        /// <returns>true on successfully, false otherwise</returns>
+        public async Task<bool> RemoveMention(uint mentionId)
+        {
+            LogContext.PushProperty("Method","RemoveMention");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters mentionId={mentionId}");
+
+            var query = $@"
+                            DELETE FROM
+                                Mentions
+                            WHERE
+                                Id = '{mentionId}';
+                ";
+
+            return await SqlHelpers.NonQueryAsync(query);
+        }
     }
 }
