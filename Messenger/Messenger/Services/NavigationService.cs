@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Messenger.Core.Helpers;
+using Messenger.Views;
+using Messenger.Views.MainPanels;
+using System;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +16,7 @@ namespace Messenger.Services
 
         public static event NavigationFailedEventHandler NavigationFailed;
 
+        private static Frame _contentFrame;
         private static Frame _frame;
         private static object _lastParamUsed;
 
@@ -35,6 +39,12 @@ namespace Messenger.Services
                 _frame = value;
                 RegisterFrameEvents();
             }
+        }
+
+        public static Frame ContentFrame
+        {
+            get { return _contentFrame; }
+            set { _contentFrame = value; }
         }
 
         public static bool CanGoBack => Frame.CanGoBack;
@@ -70,6 +80,11 @@ namespace Messenger.Services
                     _lastParamUsed = parameter;
                 }
 
+                if (pageType == typeof(TeamNavPage) || pageType == typeof(ChatNavPage))
+                {
+                    Open<LandingPage>();
+                }
+
                 return navigationResult;
             }
             else
@@ -81,6 +96,8 @@ namespace Messenger.Services
         public static bool Navigate<T>(object parameter = null, NavigationTransitionInfo infoOverride = null)
             where T : Page
             => Navigate(typeof(T), parameter, infoOverride);
+
+        public static bool Open<T>(object parameter = null) where T : Page => ContentFrame.Navigate(typeof(T), parameter);
 
         private static void RegisterFrameEvents()
         {
