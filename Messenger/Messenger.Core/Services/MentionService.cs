@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
@@ -61,5 +63,29 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.NonQueryAsync(query);
         }
+
+        /// <summary>
+        /// Retrieve a mention object
+        /// </summary>
+        /// <param name="mentionId">The id of the mention to retrieve</param>
+        /// <returns>The mention object</returns>
+        public async Task<Mention> RetrieveMention(uint mentionId)
+        {
+            LogContext.PushProperty("Method","RetrieveMention");
+            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            logger.Information($"Function called with parameters mentionId={mentionId}");
+
+            var query = $@"
+                            SELECT
+                                *
+                            FROM
+                                Mentions
+                            WHERE
+                                Id = '{mentionId}';
+                ";
+
+            return (await SqlHelpers.GetRows("Mentions", query)).Select(Mapper.MentionFromDataRow).FirstOrDefault();
+        }
+
     }
 }
