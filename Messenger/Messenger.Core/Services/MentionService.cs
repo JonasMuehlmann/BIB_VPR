@@ -87,5 +87,45 @@ namespace Messenger.Core.Services
             return (await SqlHelpers.GetRows("Mentions", query)).Select(Mapper.MentionFromDataRow).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Resolve message's a mentionId's referenced entity name
+        /// </summary>
+        /// <param name="message">The message containing the mentions to resolve</param>
+        /// <returns>The message with all mentions resolved</returns>
+        public async Task<string> ResolveMentions(string message)
+        {
+            // Regex example: blah blah @123456 blah blub
+            //                          \_____/
+            // Match ----------------------'
+            var splitMessage = Regex.Split(message, @"((?<= )@\d+(?= ))");
+            var resolvedMessage = "";
+
+            foreach (var substr in splitMessage)
+            {
+                if (substr.StartsWith("@"))
+                {
+                    var mention = await RetrieveMention(Convert.ToUInt32(substr.Substring(1)));
+
+                    switch (mention.TargetType)
+                    {
+                        case MentionTarget.User:
+                            break;
+                        case MentionTarget.Role:
+                            break;
+                        case MentionTarget.Channel:
+                            break;
+                        case MentionTarget.Message:
+                            break;
+                        case MentionTarget.All:
+                            break;
+                    }
+                }
+
+                resolvedMessage += substr;
+            }
+
+            return resolvedMessage;
+        }
+
     }
 }
