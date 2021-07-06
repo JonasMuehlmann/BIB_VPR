@@ -119,7 +119,6 @@ namespace Messenger.ViewModels
         {
             // Initialize models
             Messages = new ObservableCollection<MessageViewModel>();
-            ReplyMessage = new MessageViewModel();
             MessageToSend = new Message();
 
             // Register events
@@ -195,27 +194,11 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>
-        private void OnMessageReceived(object sender, MessageViewModel message)
+        private async void OnMessageReceived(object sender, MessageViewModel message)
         {
-            if (message.TeamId == Hub.CurrentTeamId)
-            {
-                if (message.IsReply)
-                {
-                    Messages.Select(m =>
-                    {
-                        if (m.Id == message.ParentMessageId)
-                        {
-                            m.Replies.Add(message);
-                        }
+            var messages = await Hub.GetMessages();
 
-                        return m;
-                    });
-                }
-                else
-                {
-                    Messages.Add(message);
-                }
-            }
+            UpdateView(messages);
         }
 
         /// <summary>
