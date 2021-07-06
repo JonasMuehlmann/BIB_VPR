@@ -43,7 +43,7 @@ namespace Messenger.Commands.Messenger
             {
                 MessageViewModel vm = (MessageViewModel)parameter;
 
-                bool isSuccess = await _hub.DeleteMessage((uint)vm.Id, vm.IsReply ? MessageType.Reply : MessageType.Parent);
+                bool isSuccess = await _hub.DeleteMessage((uint)vm.Id);
 
                 if (!isSuccess)
                 {
