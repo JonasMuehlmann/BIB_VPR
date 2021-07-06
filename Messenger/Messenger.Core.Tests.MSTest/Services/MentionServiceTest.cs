@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Messenger.Core.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,6 +19,7 @@ namespace Messenger.Tests.MSTest
         MessageService messageService;
         UserService userService;
         TeamService teamService;
+        MentionService mentionService;
         ChannelService channelService;
 
         /// <summary>
