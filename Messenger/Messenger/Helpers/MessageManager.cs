@@ -49,20 +49,21 @@ namespace Messenger.Helpers
             }
             else
             {
-                if (_messagesByTeamId.TryGetValue(
-                        (uint)message.TeamId,
-                        out ObservableCollection<MessageViewModel> messages))
-                {
-                    messages.Select(m =>
+                _messagesByTeamId.AddOrUpdate(
+                    (uint)message.TeamId,
+                    new ObservableCollection<MessageViewModel>() { message },
+                    (key, list) =>
                     {
-                        if (m.Id == message.ParentMessageId)
+                        foreach (MessageViewModel viewModel in list)
                         {
-                            m.Replies.Add(message);
+                            if (viewModel.Id == message.ParentMessageId)
+                            {
+                                viewModel.Replies.Add(message);
+                            }
                         }
 
-                        return m;
+                        return list;
                     });
-                }
             }
         }
 
@@ -141,19 +142,15 @@ namespace Messenger.Helpers
                     data.RecipientId,
                     out ObservableCollection<MessageViewModel> parents))
                 {
-                    parents.Select(m =>
+                    foreach (MessageViewModel viewModel in parents)
                     {
-                        bool found = m.Replies.Any(r => r.Id == data.Id);
-
-                        if (found)
+                        if (viewModel.Id == data.ParentMessageId)
                         {
-                            var updated = m.Replies.Where(r => r.Id != data.Id);
+                            var updated = viewModel.Replies.Where(r => r.Id != data.Id);
 
-                            m.Replies = new ObservableCollection<MessageViewModel>(updated);
+                            viewModel.Replies = new ObservableCollection<MessageViewModel>(updated);
                         }
-
-                        return m;
-                    });
+                    }
                 }
             }
         }
