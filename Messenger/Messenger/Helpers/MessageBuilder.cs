@@ -12,10 +12,18 @@ using System.Threading.Tasks;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Converts and completes MessageViewModels to be shown on UI
+    /// </summary>
     public class MessageBuilder
     {
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
 
+        /// <summary>
+        /// Converts the given Message data model to MessageViewModel
+        /// </summary>
+        /// <param name="message">Message data model to be converted</param>
+        /// <returns>A complete MessageViewModel object</returns>
         public async Task<MessageViewModel> Build(Message message)
         {
             MessageViewModel vm = Map(message);
@@ -25,6 +33,11 @@ namespace Messenger.Helpers
             return vm;
         }
 
+        /// <summary>
+        /// Converts the given Message data models to MessageViewModels
+        /// </summary>
+        /// <param name="messages">Message data models to be converted</param>
+        /// <returns>List of complete MessageViewModel objects</returns>
         public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages)
         {
             var result = new List<MessageViewModel>();
@@ -37,6 +50,11 @@ namespace Messenger.Helpers
             return result;
         }
 
+        /// <summary>
+        /// Loads reactions for the given view model
+        /// </summary>
+        /// <param name="viewModel">MessageViewModel to load reactions for</param>
+        /// <returns>MessageViewModel with the list of reactions</returns>
         public async Task<MessageViewModel> AssignReaction(MessageViewModel viewModel)
         {
             // Loads the latest reactions made on the message
@@ -53,6 +71,11 @@ namespace Messenger.Helpers
             return viewModel;
         }
 
+        /// <summary>
+        /// Sorts parent-messages/replies and assigns replies to matching parents
+        /// </summary>
+        /// <param name="viewModels">List of MessageViewModel to sort</param>
+        /// <returns>List of parent messages with assigned replies</returns>
         public IList<MessageViewModel> AssignReplies(IEnumerable<MessageViewModel> viewModels)
         {
             List<MessageViewModel> parents = new List<MessageViewModel>();
@@ -85,7 +108,11 @@ namespace Messenger.Helpers
             return parents;
         }
 
-
+        /// <summary>
+        /// Maps the properties from the data model
+        /// </summary>
+        /// <param name="message">Message data model to map from</param>
+        /// <returns>Mapped MessageViewModel object</returns>
         private MessageViewModel Map(Message message)
         {
             bool isReply = (message.ParentMessageId != null) ? true : false;
@@ -105,6 +132,11 @@ namespace Messenger.Helpers
             };
         }
 
+        /// <summary>
+        /// Parses the attachments blob name of a message and maps to Attachment models
+        /// </summary>
+        /// <param name="blobName">Blob name to parse</param>
+        /// <returns>List of Attachment objects</returns>
         private List<Attachment> ParseBlobName(IEnumerable<string> blobName)
         {
             var attachmentsList = new List<Attachment>();
