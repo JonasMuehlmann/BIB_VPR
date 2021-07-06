@@ -159,7 +159,9 @@ namespace Messenger.Services
 
                 MarkMyReactions(vms);
 
-                MessageManager.CreateEntry(team.Id, vms);
+                var parents = MessageBuilder.AssignReplies(vms);
+
+                MessageManager.CreateEntry(team.Id, parents);
             }
 
             // Sets the first team as the selected team
@@ -216,11 +218,13 @@ namespace Messenger.Services
 
                 MarkMyReactions(vms);
 
-                MessageManager.CreateEntry(teamId, vms);
+                var parents = MessageBuilder.AssignReplies(vms);
 
-                logger.Information($"Return value: {vms}");
+                MessageManager.CreateEntry(teamId, parents);
 
-                return new ObservableCollection<MessageViewModel>(vms);
+                logger.Information($"Return value: {parents}");
+
+                return new ObservableCollection<MessageViewModel>(parents);
             }
         }
 
