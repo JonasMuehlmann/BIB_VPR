@@ -7,10 +7,18 @@ using System.Linq;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Handles the dictionary for storing messages with the key of team ids.
+    /// </summary>
     public class MessageManager
     {
         private readonly ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> _messagesByTeamId = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
 
+        /// <summary>
+        /// Creates new entry in the dictionary
+        /// </summary>
+        /// <param name="teamId">Id of the team (Key)</param>
+        /// <param name="messages">List of loaded messages (Value)</param>
         public void CreateEntry(uint teamId, IEnumerable<MessageViewModel> messages)
         {
             _messagesByTeamId.AddOrUpdate(
@@ -29,11 +37,21 @@ namespace Messenger.Helpers
                 });
         }
 
+        /// <summary>
+        /// Gets the list of messages with the key of the given team id
+        /// </summary>
+        /// <param name="teamId">Id of the team (Key)</param>
+        /// <param name="messages">List of messages (Value)</param>
+        /// <returns>True if the team exists, else false</returns>
         public bool TryGetMessages(uint teamId, out ObservableCollection<MessageViewModel> messages)
         {
             return _messagesByTeamId.TryGetValue(teamId, out messages);
         }
 
+        /// <summary>
+        /// Adds the message to the dictionary
+        /// </summary>
+        /// <param name="message">MessageViewModel to add</param>
         public void Add(MessageViewModel message)
         {
             if (!message.IsReply)
@@ -49,23 +67,28 @@ namespace Messenger.Helpers
             }
             else
             {
-                if (_messagesByTeamId.TryGetValue(
-                        (uint)message.TeamId,
-                        out ObservableCollection<MessageViewModel> messages))
-                {
-                    messages.Select(m =>
+                _messagesByTeamId.AddOrUpdate(
+                    (uint)message.TeamId,
+                    new ObservableCollection<MessageViewModel>() { message },
+                    (key, list) =>
                     {
-                        if (m.Id == message.ParentMessageId)
+                        foreach (MessageViewModel viewModel in list)
                         {
-                            m.Replies.Add(message);
+                            if (viewModel.Id == message.ParentMessageId)
+                            {
+                                viewModel.Replies.Add(message);
+                            }
                         }
 
-                        return m;
+                        return list;
                     });
-                }
             }
         }
 
+        /// <summary>
+        /// Finds and updates the message in the dictionary
+        /// </summary>
+        /// <param name="message">MessageViewModel to update</param>
         public void Update(MessageViewModel message)
         {
             if (!message.IsReply)
@@ -120,6 +143,10 @@ namespace Messenger.Helpers
             }
         }
 
+        /// <summary>
+        /// Finds and removes the MessageViewModel with the given Message data model
+        /// </summary>
+        /// <param name="data">Message data model to be searched with</param>
         public void Remove(Message data)
         {
             if (data.ParentMessageId == null)
@@ -141,19 +168,15 @@ namespace Messenger.Helpers
                     data.RecipientId,
                     out ObservableCollection<MessageViewModel> parents))
                 {
-                    parents.Select(m =>
+                    foreach (MessageViewModel viewModel in parents)
                     {
-                        bool found = m.Replies.Any(r => r.Id == data.Id);
-
-                        if (found)
+                        if (viewModel.Id == data.ParentMessageId)
                         {
-                            var updated = m.Replies.Where(r => r.Id != data.Id);
+                            var updated = viewModel.Replies.Where(r => r.Id != data.Id);
 
-                            m.Replies = new ObservableCollection<MessageViewModel>(updated);
+                            viewModel.Replies = new ObservableCollection<MessageViewModel>(updated);
                         }
-
-                        return m;
-                    });
+                    }
                 }
             }
         }

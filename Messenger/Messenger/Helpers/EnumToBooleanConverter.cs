@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Returns true if the value matches with the parameter enum, else false
+    /// </summary>
     public class EnumToBooleanConverter : IValueConverter
     {
         public Type EnumType { get; set; }

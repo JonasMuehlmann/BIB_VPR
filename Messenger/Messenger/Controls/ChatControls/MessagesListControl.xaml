@@ -79,13 +79,17 @@
             <ListView.ItemTemplate>
                 <DataTemplate
                     x:DataType="vm:MessageViewModel">
-                    <local:MessageControl
-                        Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
-                        DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
-                        EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
-                        ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
-                        />
+                    <Grid
+                        HorizontalAlignment="Stretch">
+                        <local:MessageControl
+                            HorizontalContentAlignment="Stretch"
+                            Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
+                            DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
+                            EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
+                            ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
+                            />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
