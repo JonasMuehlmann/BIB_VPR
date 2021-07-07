@@ -2,6 +2,7 @@
 
 using Messenger.ViewModels;
 using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -21,6 +22,18 @@ namespace Messenger.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.InitializeAsync();
+
+            switch (ViewModel.ElementTheme)
+            {
+                case ElementTheme.Light:
+                    ThemeGridView.SelectedIndex = 0;
+                    break;
+                case ElementTheme.Dark:
+                    ThemeGridView.SelectedIndex = 1;
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -65,6 +78,14 @@ namespace Messenger.Views
                 UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 ViewModel.User.Name = UserNametbx.Text;
+            }
+        }
+
+        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Enum.TryParse(typeof(ElementTheme), ((sender as GridView).SelectedItem as GridViewItem).Tag.ToString(), out object result))
+            {
+                ViewModel.SwitchThemeCommand?.Execute(result);
             }
         }
     }
