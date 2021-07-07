@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System.Data.SqlClient;
@@ -178,6 +179,32 @@ namespace Messenger.Core.Services
                 ";
 
             return await SqlHelpers.NonQueryAsync(query);
+        }
+
+        /// <summary>
+        /// Retrieve the pinned messages of a channel
+        /// </summary>
+        /// <param name="channelId">The channel to retrieve pinned messages from</param>
+        /// <returns>An enumerable of message objects representing the pinned messages</returns>
+        public static async Task<IEnumerable<Message>> RetrievePinnedMessages(uint channelId)
+        {
+            LogContext.PushProperty("Method","RetrievePinnedMessages");
+            LogContext.PushProperty("SourceContext", "ChannelService");
+
+            logger.Information($"Function called with parameters channelId={channelId}");
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Messages
+                                LEFT JOIN Channels ON
+                                    PinnedMessageId = MessageId
+                                WHERE
+                                    ChannelId={channelId};
+                ";
+
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
     }
 }
