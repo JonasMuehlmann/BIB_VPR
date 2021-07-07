@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Messenger.Services;
 using Messenger.ViewModels;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -16,8 +16,9 @@ namespace Messenger.Views
         public ShellPage()
         {
             InitializeComponent();
+            NavigationService.Frame = sideFrame;
+            NavigationService.ContentFrame = shellFrame;
             DataContext = ViewModel;
-            ViewModel.Initialize(shellFrame, sideFrame);
         }
     }
 }

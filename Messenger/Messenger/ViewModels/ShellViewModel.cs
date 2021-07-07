@@ -21,27 +21,11 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ICommand _userProfileCommand;
-
-        private ICommand _navigateToTeamsCommmand;
-
-        private ICommand _navigateToChatsCommand;
-
-        private ICommand _navigateToNotificationsCommand;
-
-        private ICommand _teamManagerCommand;
-
-        private ICommand _changeTeamDetailsCommand;
-
         private Team _currentTeam;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
-
-        private Frame MainFrame { get; set; }
-
-        private Frame SideFrame { get; set; }
 
         #endregion
 
@@ -73,36 +57,30 @@ namespace Messenger.ViewModels
 
         #region Commands
 
-        public ICommand NavigateToTeamsCommmand => _navigateToTeamsCommmand ?? (_navigateToTeamsCommmand = new RelayCommand(OpenTeamsSidePanel));
+        public ICommand NavigateToTeamsCommmand => new RelayCommand(() => NavigationService.Navigate<TeamNavPage>());
 
-        public ICommand NavigateToChatsCommand => _navigateToChatsCommand ?? (_navigateToChatsCommand = new RelayCommand(OpenChatSidePanel));
+        public ICommand NavigateToChatsCommand => new RelayCommand(() => NavigationService.Navigate<ChatNavPage>());
 
-        public ICommand NavigateToNotificationsCommand => _navigateToNotificationsCommand ?? (_navigateToNotificationsCommand = new RelayCommand(OpenNotificationSidePanel));
+        public ICommand NavigateToNotificationsCommand => new RelayCommand(() => NavigationService.Navigate<NotificationNavPage>());
 
-        public ICommand OpenUserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
+        public ICommand OpenUserProfileCommand => new RelayCommand(() => NavigationService.Open<SettingsPage>());
 
-        public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
+        public ICommand OpenTeamManagerCommand => new RelayCommand(() => NavigationService.Open<TeamManagePage>());
 
-        public ICommand ChangeTeamDetailsCommand => _changeTeamDetailsCommand ?? (_changeTeamDetailsCommand = new RelayCommand(RefactorTeamDetails));
+        public ICommand ChangeTeamDetailsCommand => new RelayCommand(RefactorTeamDetails);
 
         #endregion
 
         public ShellViewModel()
         {
+            Initialize();
         }
 
-        public void Initialize(Frame frame, Frame sideFrame)
+        public void Initialize()
         {
-            MainFrame = frame;
-            SideFrame = sideFrame;
-
-            NavigationService.Frame = frame;
             IdentityService.LoggedOut += OnLoggedOut;
             ChatHubService.TeamSwitched += OnTeamSwitched;
-            ChatHubService.TeamUpdated += OnTeamChanged;
-
-            // Sets the default side panel to TeamNavView
-            OpenTeamsSidePanel();
+            ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
         private async void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
@@ -127,7 +105,7 @@ namespace Messenger.ViewModels
             }
         }
 
-        private void OnTeamChanged(object sender, Team team)
+        private void OnTeamUpdated(object sender, Team team)
         {
             CurrentTeam = null;
             CurrentTeam = team;
@@ -145,94 +123,21 @@ namespace Messenger.ViewModels
                 return;
             }
 
-            // Opens the dialog box for the input
-            var dialog = new ChangeTeamDialog();
-
             //Get the current Team
             var team = await ChatHubService.GetCurrentTeam();
-            dialog.TeamName = team.Name;
-            dialog.TeamDescription = team.Description;
 
-            ContentDialogResult result = await dialog.ShowAsync();
-
+            // Opens the dialog box for the input
+            var dialog = new ChangeTeamDialog()
+            {
+                TeamName = team.Name,
+                TeamDescription = team.Description
+            };
 
             // Create team on confirm
-            if (result == ContentDialogResult.Primary)
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
             {
                 await ChatHubService.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
             }
         }
-
-
-        #region Main Page Navigation
-
-        private void MainNavigation(Type page)
-        {
-            MainFrame.Navigate(page, this);
-        }
-
-        private void OpenSetttingsMainPanel()
-        {
-            if (MainFrame.SourcePageType == typeof(SettingsPage))
-            {
-                MainNavigation(typeof(ChatPage));
-            }
-            else
-            {
-                MainNavigation(typeof(SettingsPage));
-            }
-        }
-
-        private void OpenChatMainPage()
-        {
-            MainNavigation(typeof(ChatPage));
-        }
-
-        private void OpenTeamManagePage()
-        {
-            if (MainFrame.SourcePageType == typeof(TeamManagePage))
-            {
-                MainNavigation(typeof(ChatPage));
-            }
-            else
-            {
-                MainNavigation(typeof(TeamManagePage));
-            }
-        }
-
-        #endregion
-
-
-        #region Side Page Navigation
-
-        /// <summary>
-        /// Opens the side Navigationpanels and the MainChatPanel
-        /// </summary>
-        /// <param name="page"></param>
-        private void SideNavigation(Type page)
-        {
-            SideFrame.Navigate(page, this);
-            CurrentPageName = page.Name;
-            OpenChatMainPage();
-        }
-
-        private async void OpenTeamsSidePanel()
-        {
-            SideNavigation(typeof(TeamNavPage));
-            await ChatHubService.SwitchTeam(null);
-        }
-
-        private async void OpenChatSidePanel()
-        {
-            SideNavigation(typeof(ChatNavPage));
-            await ChatHubService.SwitchTeam(null);
-        }
-
-        private void OpenNotificationSidePanel()
-        {
-            SideNavigation(typeof(NotificationNavPage));
-        }
-
-        #endregion
     }
 }

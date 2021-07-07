@@ -12,7 +12,6 @@ using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
 using Windows.UI.Xaml;
-using Prism.Commands;
 
 namespace Messenger.ViewModels
 {
@@ -76,22 +75,6 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
-        /// Reply Box in SendMessageControl is visible or not
-        /// </summary>
-        public Visibility ReplyVisible
-        {
-            get =>  _replyVisible;
-            set
-            {
-                OnPropertyChanged(nameof(ReplyVisible));
-                _replyVisible = value;
-            }
-        }
-
-        public DelegateCommand BtnToggleReplyVisibility { get; set; }
-
-
-        /// <summary>
         /// Message object to be sent
         /// </summary>
         public Message MessageToSend
@@ -136,14 +119,13 @@ namespace Messenger.ViewModels
         {
             // Initialize models
             Messages = new ObservableCollection<MessageViewModel>();
-            ReplyMessage = new MessageViewModel();
             MessageToSend = new Message();
 
             // Register events
-            Hub.MessageReceived += OnMessageReceived;
             Hub.TeamSwitched += OnTeamSwitched;
-            Hub.MessageUpdated += OnMessageUpdated;
-            Hub.MessageDeleted += OnMessageDeleted;
+            Hub.MessageReceived += OnMessagesUpdated;
+            Hub.MessageUpdated += OnMessagesUpdated;
+            Hub.MessageDeleted += OnMessagesUpdated;
 
             LoadAsync();
         }
@@ -187,18 +169,6 @@ namespace Messenger.ViewModels
             }
         }
 
-        public void ToggleVisibility()
-        {
-            if (ReplyVisible == Visibility.Visible)
-            {
-                ReplyVisible = Visibility.Collapsed;
-            }
-            else
-            {
-                ReplyVisible = Visibility.Visible;
-            }
-        }
-
         private ReactionType GetMyReaction(MessageViewModel message)
         {
             if (message.Reactions.Any(r => r.UserId == Hub.CurrentUser.Id))
@@ -224,27 +194,11 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>
-        private void OnMessageReceived(object sender, MessageViewModel message)
+        private async void OnMessagesUpdated(object sender, EventArgs e)
         {
-            if (message.TeamId == Hub.CurrentTeamId)
-            {
-                if (message.IsReply)
-                {
-                    Messages.Select(m =>
-                    {
-                        if (m.Id == message.ParentMessageId)
-                        {
-                            m.Replies.Add(message);
-                        }
+            var messages = await Hub.GetMessages();
 
-                        return m;
-                    });
-                }
-                else
-                {
-                    Messages.Add(message);
-                }
-            }
+            UpdateView(messages);
         }
 
         /// <summary>
@@ -254,20 +208,6 @@ namespace Messenger.ViewModels
         /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            UpdateView(messages);
-        }
-
-        private async void OnMessageUpdated(object sender, MessageViewModel message)
-        {
-            var messages = await Hub.GetMessages();
-
-            UpdateView(messages);
-        }
-
-        private async void OnMessageDeleted(object sender, EventArgs e)
-        {
-            var messages = await Hub.GetMessages();
-
             UpdateView(messages);
         }
 
