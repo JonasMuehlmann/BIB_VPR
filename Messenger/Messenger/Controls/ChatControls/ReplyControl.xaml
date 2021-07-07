@@ -12,7 +12,7 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <Style x:Key="ReplyActionViewboxStyle" TargetType="Viewbox">
-            <Setter Property="MaxHeight" Value="40" />
+            <Setter Property="MaxHeight" Value="35" />
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
@@ -39,7 +39,7 @@
                     Grid.Column="0"
                     VerticalAlignment="Top">
                     <Ellipse
-                        Fill="LightGray"
+                        Fill="{ThemeResource SystemAccentColor}"
                         Width="30"
                         Height="30"
                         Margin="0 0 10 0"
@@ -125,12 +125,10 @@
                                 <AppBarButton
                                     Icon="Edit"
                                     Label="Edit"
-                                    FontSize="10"
                                     />
                                 <AppBarButton
                                     Icon="Delete"
                                     Label="Delete"
-                                    FontSize="10"
                                     />
                             </CommandBar.SecondaryCommands>
                         </CommandBar>
