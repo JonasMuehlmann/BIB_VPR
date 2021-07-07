@@ -3,6 +3,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Returns formatted string for the DateTime value
+    /// </summary>
     public class DateToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

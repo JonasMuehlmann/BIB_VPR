@@ -28,10 +28,7 @@ namespace Messenger.Commands.Messenger
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            bool canExecute = _viewModel.MessageToSend != null
-                && !string.IsNullOrEmpty(_viewModel.MessageToSend.Content);
-
-            return canExecute;
+            return true;
         }
 
         /// <summary>
@@ -39,12 +36,20 @@ namespace Messenger.Commands.Messenger
         /// </summary>
         public async void Execute(object parameter)
         {
+            bool executable = _viewModel.MessageToSend != null
+                && !string.IsNullOrEmpty(_viewModel.MessageToSend.Content);
+
+            if (!executable)
+            {
+                return;
+            }
+
             try
             {
                 Message message = _viewModel.MessageToSend;
 
                 // Records created timestamp
-                message.CreationTime = DateTime.UtcNow;
+                message.CreationTime = DateTime.Now;
 
                 // Sender/Recipient data will be handled in ChatHubService
                 bool success = await _hub.SendMessage(_viewModel.MessageToSend);

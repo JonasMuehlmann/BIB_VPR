@@ -10,6 +10,7 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
+using Messenger.Views;
 using Messenger.Views.DialogBoxes;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
@@ -169,17 +170,12 @@ namespace Messenger.ViewModels
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
         private async void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
         {
-            try
-            {
-                uint teamId = (args.InvokedItem as Team).Id;
+            uint teamId = (args.InvokedItem as Team).Id;
 
-                // Invokes TeamSwitched event
-                await ChatHubService.SwitchTeam(teamId);
-            }
-            catch (ArgumentException a)
-            {
-                Console.WriteLine(a);
-            }
+            // Invokes TeamSwitched event
+            await ChatHubService.SwitchTeam(teamId);
+
+            NavigationService.Open<ChatPage>();
         }
 
 

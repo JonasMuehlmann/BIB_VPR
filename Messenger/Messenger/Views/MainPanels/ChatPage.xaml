@@ -13,7 +13,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <controls:MessagesListControl
                 Grid.Row="0"
