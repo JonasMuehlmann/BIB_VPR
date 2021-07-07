@@ -127,7 +127,7 @@ namespace Messenger.Tests.MSTest
                 Assert.AreEqual(1, Enumerable.Count(pinnedMessages));
 
                 var pinnedMessageId = pinnedMessages.FirstOrDefault().Id;
-                Assert.IsTrue(messageId.Value, pinnedMessages.FirstOrDefault().Id)
+                Assert.IsTrue(messageId.Value, pinnedMessages.FirstOrDefault().Id);
 
            }).GetAwaiter().GetResult();
         }
