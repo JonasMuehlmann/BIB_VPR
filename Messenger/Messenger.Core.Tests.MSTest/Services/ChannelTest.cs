@@ -132,5 +132,32 @@ namespace Messenger.Tests.MSTest
            }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void UnPinMessage_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+           Task.Run(async () =>
+           {
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"});
+                var teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messageId = await MessageService.CreateMessage(teamId.Value,"user1", testName + "Text");
+                Assert.IsNotNull(messageId);
+
+                var pinnedMessages = await ChannelService.RetrievePinnedMessages(channelId.Value);
+                Assert.IsTrue(Enumerable.Count(pinnedMessages));
+                Assert.AreEqual(1, Enumerable.Count(pinnedMessages));
+
+                var didUnpin = ChannelService.UnPinMessage(messageId.Value, channelId.Value);
+                Assert.AreEqual(0, Enumerable.Count(pinnedMessages));
+
+           }).GetAwaiter().GetResult();
+        }
+
     }
 }
