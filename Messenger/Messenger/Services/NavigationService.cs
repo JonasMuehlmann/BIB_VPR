@@ -97,7 +97,29 @@ namespace Messenger.Services
             where T : Page
             => Navigate(typeof(T), parameter, infoOverride);
 
-        public static bool Open<T>(object parameter = null) where T : Page => ContentFrame.Navigate(typeof(T), parameter);
+        public static bool Open<T>(object parameter = null) where T : Page
+        {
+            Type pageType = typeof(T);
+
+            if (pageType == null || !pageType.IsSubclassOf(typeof(Page)))
+            {
+                return false;
+            }
+
+            Type currentPage = Frame.Content?.GetType();
+            if (currentPage == typeof(SettingsPage)
+                    && currentPage == pageType)
+            {
+                return ContentFrame.Navigate(typeof(ChatPage), parameter);
+            }
+            else if (currentPage == typeof(TeamManagePage)
+                    && currentPage == pageType)
+            {
+                return ContentFrame.Navigate(typeof(ChatPage), parameter);
+            }
+
+            return ContentFrame.Navigate(typeof(T), parameter);
+        }
 
         private static void RegisterFrameEvents()
         {

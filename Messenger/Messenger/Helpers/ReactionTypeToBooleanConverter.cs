@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Returns true if the reaction type matches my reaction, else false
+    /// </summary>
     public class ReactionTypeToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

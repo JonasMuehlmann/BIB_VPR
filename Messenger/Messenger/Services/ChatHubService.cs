@@ -68,9 +68,9 @@ namespace Messenger.Services
         /// <summary>
         /// Event handler for messages
         /// </summary>
-        public event EventHandler<MessageViewModel> MessageReceived;
+        public event EventHandler MessageReceived;
 
-        public event EventHandler<MessageViewModel> MessageUpdated;
+        public event EventHandler MessageUpdated;
 
         public event EventHandler MessageDeleted;
 
@@ -159,7 +159,9 @@ namespace Messenger.Services
 
                 MarkMyReactions(vms);
 
-                MessageManager.CreateEntry(team.Id, vms);
+                var parents = MessageBuilder.AssignReplies(vms);
+
+                MessageManager.CreateEntry(team.Id, parents);
             }
 
             // Sets the first team as the selected team
@@ -216,11 +218,13 @@ namespace Messenger.Services
 
                 MarkMyReactions(vms);
 
-                MessageManager.CreateEntry(teamId, vms);
+                var parents = MessageBuilder.AssignReplies(vms);
 
-                logger.Information($"Return value: {vms}");
+                MessageManager.CreateEntry(teamId, parents);
 
-                return new ObservableCollection<MessageViewModel>(vms);
+                logger.Information($"Return value: {parents}");
+
+                return new ObservableCollection<MessageViewModel>(parents);
             }
         }
 
@@ -761,8 +765,8 @@ namespace Messenger.Services
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
-            // Invoke registered events
-            MessageReceived?.Invoke(this, vm);
+            // Triggers view models to reload
+            MessageReceived?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -811,7 +815,8 @@ namespace Messenger.Services
 
             MessageManager.Update(vm);
 
-            MessageUpdated?.Invoke(this, vm);
+            // Triggers view models to reload
+            MessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -830,7 +835,7 @@ namespace Messenger.Services
 
             MessageManager.Remove(message);
 
-            // Triggers ViewModels to reload
+            // Triggers view models to reload
             MessageDeleted?.Invoke(this, EventArgs.Empty);
         }
 
