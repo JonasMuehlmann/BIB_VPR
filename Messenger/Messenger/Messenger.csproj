@@ -201,6 +201,7 @@
     <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\ThemeToFillBrushConverter.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />
