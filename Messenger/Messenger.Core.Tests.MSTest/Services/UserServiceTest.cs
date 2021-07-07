@@ -15,37 +15,6 @@ namespace Messenger.Tests.MSTest
     [TestClass]
     public class UserServiceTest
     {
-        #region Private
-
-        private UserService userService;
-        private User sampleUser = new User() {
-            Id = "123-456-abc-edf",
-            DisplayName = "Jay Kim / PBT3H19AKI",
-            Mail = "test.bib@edu.bib"
-            };
-
-        #endregion
-
-        /// <summary>
-        /// Initialize the service and the sample data
-        /// </summary>
-        [TestInitialize]
-        public void Initialize()
-        {
-            userService = new UserService();
-
-            UserService.logger.Information("Creating example user!");
-
-            // setting up example data for delete operation
-            Task.Run(async () =>
-            {
-                await userService.GetOrCreateApplicationUser(sampleUser);
-            }).GetAwaiter().GetResult();
-
-            UserService.logger.Information("Finished creating example user!");
-        }
-
-
         /// <summary>
         /// Should fetch the existing user from database
         /// </summary>
@@ -55,7 +24,7 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 var data = new User() { Id = "123-456-abc-edf", DisplayName="testUser"};
-                User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(data);
 
 
                 Assert.IsNotNull(retrievedUser);
@@ -75,7 +44,7 @@ namespace Messenger.Tests.MSTest
             {
                 var data = new User { Id = "xyz", DisplayName = "foobar" };
 
-                User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(data);
 
                 Assert.AreEqual(1u, retrievedUser.NameId);
 
@@ -92,7 +61,7 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 var data = new User() { Id = "1234", DisplayName = "foobar" };
-                User retrievedUser = await userService.GetOrCreateApplicationUser(data);
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(data);
 
                 Assert.AreEqual(2u, retrievedUser.NameId);
 
@@ -111,7 +80,7 @@ namespace Messenger.Tests.MSTest
              Task.Run(async () =>
              {
                  var data = new User() { Id =  id};
-                 User createdUser = await userService.GetOrCreateApplicationUser(data);
+                 User createdUser = await UserService.GetOrCreateApplicationUser(data);
 
                  Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
 
@@ -129,13 +98,13 @@ namespace Messenger.Tests.MSTest
             {
                 string id = "123-456-abc-edf";
 
-                User userBefore = await userService.GetUser(id);
+                User userBefore = await UserService.GetUser(id);
                 string newName = "JayKim94";
                 userBefore.DisplayName = newName;
 
-                bool success = await userService.UpdateUsername(id, newName);
+                bool success = await UserService.UpdateUsername(id, newName);
 
-                User userAfter = await userService.GetUser(id);
+                User userAfter = await UserService.GetUser(id);
 
                 Assert.IsTrue(success);
                 Assert.AreEqual(userBefore.ToString(), userAfter.ToString());
@@ -151,7 +120,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                bool success = await userService.Update("123-456-abc-edf", "Bio", "Updated bio");
+                bool success = await UserService.Update("123-456-abc-edf", "Bio", "Updated bio");
 
                 Assert.IsTrue(success);
             }).GetAwaiter().GetResult();
@@ -166,11 +135,11 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 string id = "123-456-abc-edf";
-                bool success = await userService.DeleteUser(id);
+                bool success = await UserService.DeleteUser(id);
 
 
                 Assert.IsTrue(success);
-                Assert.IsNull(await userService.GetUser(id));
+                Assert.IsNull(await UserService.GetUser(id));
 
             }).GetAwaiter().GetResult();
         }
@@ -184,7 +153,7 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 string id = "djdsdjksdjskdjskdjdksj";
-                bool success = await userService.DeleteUser(id);
+                bool success = await UserService.DeleteUser(id);
 
 
                 Assert.IsFalse(success);
@@ -220,10 +189,10 @@ namespace Messenger.Tests.MSTest
 
                 foreach (var user in users)
                 {
-                    Assert.IsNotNull(await userService.GetOrCreateApplicationUser(user));
+                    Assert.IsNotNull(await UserService.GetOrCreateApplicationUser(user));
                 }
 
-                var userMatches = await userService.SearchUser(testName);
+                var userMatches = await UserService.SearchUser(testName);
                 Assert.IsNotNull(userMatches);
 
                 Assert.AreEqual(userMatchString, string.Join(",", userMatches));
@@ -270,16 +239,16 @@ namespace Messenger.Tests.MSTest
             {
                 var userId = testName + "UserId";
 
-                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Bio=testName + "Bio"});
+                var user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Bio=testName + "Bio"});
                 Assert.IsNotNull(user);
 
                 string oldBio = user.Bio;
                 Assert.AreEqual(oldBio, testName + "Bio");
 
-                var success = await userService.UpdateUserBio(userId, oldBio + "New");
+                var success = await UserService.UpdateUserBio(userId, oldBio + "New");
                 Assert.IsTrue(success);
 
-                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});
                 Assert.IsNotNull(user);
 
                 string newBio = user.Bio;
@@ -298,16 +267,16 @@ namespace Messenger.Tests.MSTest
             {
                 var userId = testName + "UserId";
 
-                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Mail=testName + "Mail"});
+                var user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Mail=testName + "Mail"});
                 Assert.IsNotNull(user);
 
                 string oldEmail = user.Mail;
                 Assert.AreEqual(oldEmail, testName + "Mail");
 
-                var success = await userService.UpdateUserMail(userId, oldEmail + "New");
+                var success = await UserService.UpdateUserMail(userId, oldEmail + "New");
                 Assert.IsTrue(success);
 
-                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});
                 Assert.IsNotNull(user);
 
                 string newMail = user.Mail;
@@ -326,16 +295,16 @@ namespace Messenger.Tests.MSTest
             {
                 var userId = testName + "UserId";
 
-                var user = await userService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Photo=testName + "Photo"});
+                var user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId,DisplayName = testName + "UserName", Photo=testName + "Photo"});
                 Assert.IsNotNull(user);
 
                 string oldEmail = user.Photo;
                 Assert.AreEqual(oldEmail, testName + "Photo");
 
-                var success = await userService.UpdateUserPhoto(userId, oldEmail + "New");
+                var success = await UserService.UpdateUserPhoto(userId, oldEmail + "New");
                 Assert.IsTrue(success);
 
-                user = await userService.GetOrCreateApplicationUser(new User(){Id = userId});
+                user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});
                 Assert.IsNotNull(user);
 
                 string newPhoto = user.Photo;
