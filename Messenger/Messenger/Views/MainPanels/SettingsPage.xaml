@@ -12,16 +12,9 @@
     mc:Ignorable="d">
     <Page.Resources>
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
-        <helper:NullToVisibilityConverter x:Key="NullToVisConverter" />
         <helper:ThemeToFillBrushConverter x:Key="ThemeToFillBrushConverter" />
         <Style x:Key="LabelText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18" />
-        </Style>
-        <!--#region ACTION BAR STYLE -->
-        <Style x:Key="ActionViewboxStyle" TargetType="Viewbox">
-            <Setter Property="MaxHeight" Value="35" />
-            <Setter Property="Margin" Value="0 10 0 0" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
     </Page.Resources>
 
@@ -45,7 +38,7 @@
                 <Button
                     HorizontalAlignment="Right"
                     Content="Log out"
-                    Padding="25 7"
+                    Padding="20 0"
                     Command="{x:Bind ViewModel.LogoutCommand}"
                     Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
                     Foreground="IndianRed"
@@ -55,7 +48,7 @@
             <StackPanel
                 Orientation="Horizontal"
                 Padding="30 20"
-                Margin="0 10 0 10">
+                Margin="0 10 0 50">
                 <Ellipse Width="64" Height="64">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{x:Bind ViewModel.User.Photo, Mode=OneWay}" Stretch="UniformToFill"/>
@@ -105,6 +98,7 @@
                         />
                 </StackPanel>
             </StackPanel>
+            
             <Grid
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center">
@@ -112,11 +106,9 @@
                     Text="Biography"
                     Style="{ThemeResource SubtitleTextBlockStyle}" />
                 <Button
-                    Name="EditButton"
                     HorizontalAlignment="Right"
-                    Padding="25 7"
-                    CornerRadius="3"
-                    Tapped="EditButton_Tapped"
+                    Padding="20 0"
+                    Command="{x:Bind ViewModel.LogoutCommand}"
                     Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
                     Foreground="{ThemeResource SystemAccentColor}">
                     <StackPanel
@@ -137,60 +129,12 @@
                 </Button>
             </Grid>
 
-            <TextBlock
-                x:Name="UserBioTextBlock"
-                MinHeight="125"
-                Padding="20 15"
-                Visibility="{Binding ViewModel.User.Bio, Converter={StaticResource NullToVisConverter}, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Text="{x:Bind ViewModel.CurrentBio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                />
-            <StackPanel
-                x:Name="EditBioPanel"
-                Visibility="Collapsed"
-                Margin="25">
-                <TextBox
-                    Name="EditBioTextBox"
-                    TextWrapping="Wrap"
-                    MinHeight="125"
-                    BorderThickness="1"
-                    BorderBrush="DimGray"
-                    CornerRadius="3"
-                    Padding="20 15"
-                    Text="{x:Bind ViewModel.CurrentBio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    PlaceholderText="Write your bio..."
-                    />
-                <Viewbox
-                    Style="{StaticResource ActionViewboxStyle}"
-                    MaxHeight="35">
-                    <CommandBar
-                        Style="{StaticResource ActionBarStyle}"
-                        CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
-                        <!-- REPLY TO COMMAND -->
-                        <AppBarButton
-                            Name="EditAcceptButton"
-                            Style="{StaticResource ActionButtonStyle}"
-                            Icon="Accept"
-                            Label="Accept"
-                            Foreground="{ThemeResource SystemAccentColor}"
-                            Tapped="EditAcceptButton_Tapped"
-                            />
-                        <AppBarButton
-                            Style="{StaticResource ActionButtonStyle}"
-                            Name="EditCancelButton"
-                            Icon="Cancel"
-                            Label="Cancel"
-                            Foreground="{ThemeResource SystemAccentColorDark1}"
-                            Tapped="EditCancelButton_Tapped"
-                            />
-                    </CommandBar>
-                </Viewbox>
-            </StackPanel>
-
+            <!--<TextBlock
+                Text="This is my biography"
+                Padding="20"
+                />-->
             <Grid
-                x:Name="UserBioPlaceholder"
-                Visibility="{Binding ViewModel.User.Bio, Converter={StaticResource NullToVisConverter}, ConverterParameter='invert', ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="25"
-                MinHeight="100">
+                Margin="25">
                 <StackPanel
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -209,14 +153,12 @@
                         />
                     <Button
                         Background="{ThemeResource SystemAccentColor}"
-                        Foreground="{ThemeResource SystemChromeWhiteColor}"
-                        FontWeight="SemiBold"
                         HorizontalAlignment="Center"
                         Content="Start writing"
-                        Tapped="EditButton_Tapped"
                         />
                 </StackPanel>
             </Grid>
+            <MenuFlyoutSeparator Margin="0 20" Opacity=".25" />
 
             <TextBlock
                 Text="Themes"
@@ -226,16 +168,16 @@
                 Margin="{StaticResource SmallTopBottomMargin}">
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <SplitButton
-                        CornerRadius="3"
                         ToolTipService.ToolTip="Color themes"
-                        Padding="15 3">
+                        Padding="10 3"
+                        CornerRadius="3">
                         <StackPanel
                             Orientation="Horizontal"
                             VerticalAlignment="Center">
                             <Rectangle
                                 x:Name="SelectedColor"
-                                Width="25"
-                                Height="25"
+                                Width="30"
+                                Height="30"
                                 Margin="0 0 10 0"
                                 Fill="{Binding ViewModel.ElementTheme, Converter={StaticResource ThemeToFillBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=settingsPage}"
                                 />
@@ -255,12 +197,6 @@
                         <SplitButton.Flyout>
                             <Flyout
                                 x:Name="ThemeFlyout">
-                                <Flyout.FlyoutPresenterStyle>
-                                    <Style TargetType="FlyoutPresenter">
-                                        <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
-                                        <Setter Property="CornerRadius" Value="3" />
-                                    </Style>
-                                </Flyout.FlyoutPresenterStyle>
                                 <GridView
                                     x:Name="ThemeGridView"
                                     SelectionChanged="GridView_SelectionChanged"
