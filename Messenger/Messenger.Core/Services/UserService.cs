@@ -229,7 +229,7 @@ namespace Messenger.Core.Services
 
             if (userdata.Photo.Length > 100)
             {
-                var blobFileName = await FileSharingService.UploadFromBase64(userdata.Photo);
+                var blobFileName = await FileSharingService.UploadFromBase64(userdata.Photo, "profilePicture.png");
 
                 if (blobFileName == null)
                 {
