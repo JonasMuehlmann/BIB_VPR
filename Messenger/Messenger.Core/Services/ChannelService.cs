@@ -129,5 +129,30 @@ namespace Messenger.Core.Services
 
             return rows.Select(Mapper.ChannelFromDataRow).First();
         }
+
+        /// <summary>
+        /// Pin a specified message in the specified channel
+        /// </summary>
+        /// <param name="messageId">The id of the message to pin</param>
+        /// <param name="channelId">The id of the channel to pin the message in</param>
+        /// <returns></returns>
+        public static async Task<bool> PinMessage(uint messageId, uint channelId)
+        {
+            LogContext.PushProperty("Method","PinMessage");
+            LogContext.PushProperty("SourceContext", "ChannelService");
+
+            logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
+
+            string query = $@"
+                                UPDATE
+                                    Channels
+                                SET
+                                    PinnedMessageId = {messageId}
+                                WHERE
+                                    ChannelId={channelId};
+                ";
+
+            return await SqlHelpers.NonQueryAsync(query);
+        }
     }
 }
