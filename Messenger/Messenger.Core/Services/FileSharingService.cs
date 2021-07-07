@@ -129,7 +129,7 @@ namespace Messenger.Core.Services
         /// <param name="data">The base64 encoded data to upload</param>
         /// <param name="fileName">The name and extension to use for saving</param>
         /// <returns>The name of the blob file on success, null otherwise</returns>
-        public async Task<string> UploadFromBase64(string data, string fileName)
+        public static async Task<string> UploadFromBase64(string data, string fileName)
         {
             LogContext.PushProperty("Method","UploadFromBase64");
             LogContext.PushProperty("SourceContext", "FileSharingService");
