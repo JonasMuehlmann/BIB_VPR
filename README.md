@@ -73,7 +73,8 @@ team)
     - A message
 
 ## User profile management
-Edit User data like:
+- Edit User data like:
+
     - User name
     - Bio
     - Email address
