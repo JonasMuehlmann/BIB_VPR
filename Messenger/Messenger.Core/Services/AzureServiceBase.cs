@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using Serilog;
-using Serilog.Context;
 using Messenger.Core.Helpers;
 
 namespace Messenger.Core.Services
@@ -12,23 +10,30 @@ namespace Messenger.Core.Services
     {
         #region Private
 
-        private string connectionString => ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        private static string connectionStringTest = @"Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database_test;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private static string connectionStringProd = "Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        private bool testMode = false;
-
-        private string testConnectionString;
-
-        public ILogger logger => GlobalLogger.Instance;
+        public static ILogger logger => GlobalLogger.Instance;
         #endregion
 
-        public SqlConnection GetConnection() => testMode ? new SqlConnection(testConnectionString) : new SqlConnection(connectionString);
-
-        public static SqlConnection GetConnection(string connectionString) => new SqlConnection(connectionString);
-
-        public void SetTestMode(string connectionString)
+        // public static SqlConnection GetDefaultConnection() => new SqlConnection(connectionString);
+        public static SqlConnection GetDefaultConnection()
         {
-            testConnectionString = connectionString;
-            testMode = true;
+            string connectionString;
+
+            var envVar = Environment.GetEnvironmentVariable("BIB_VPR_DEBUG");
+
+            if (envVar is null || envVar == "false")
+            {
+                connectionString = connectionStringProd;
+            }
+            else
+            {
+                connectionString = connectionStringTest;
+            }
+
+            return new SqlConnection(connectionString);
         }
+
     }
 }

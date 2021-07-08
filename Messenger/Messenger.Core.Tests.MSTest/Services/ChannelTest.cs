@@ -1,10 +1,6 @@
 using System.Threading.Tasks;
 using System.Linq;
-using System;
-using System.Data.SqlClient;
-using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Core.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,29 +11,21 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class ChannelTest : SqlServiceTestBase
+    public class ChannelTest
     {
-        TeamService teamService;
-        ChannelService channelService;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            teamService = InitializeTestMode<TeamService>();
-            channelService = InitializeTestMode<ChannelService>();
-        }
 
         [TestMethod]
         public void CreateChannel_Test()
         {
             string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
 
                 Assert.IsNotNull(channelId);
 
@@ -51,19 +39,19 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
 
                 Assert.IsNotNull(channelId);
 
-                var numChannelsBefore = (await teamService.GetAllChannelsByTeamId(teamId.Value)).Count();
+                var numChannelsBefore = (await TeamService.GetAllChannelsByTeamId(teamId.Value)).Count();
 
-                bool success = await channelService.RemoveChannel(channelId.Value);
+                bool success = await ChannelService.RemoveChannel(channelId.Value);
 
-                var numChannelsAfter = (await teamService.GetAllChannelsByTeamId(teamId.Value)).Count();
+                var numChannelsAfter = (await TeamService.GetAllChannelsByTeamId(teamId.Value)).Count();
 
                 Assert.IsTrue(success);
                 Assert.IsTrue(numChannelsAfter < numChannelsBefore);
@@ -78,25 +66,25 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
 
                 Assert.IsNotNull(channelId);
 
-                var channels = (await teamService.GetAllChannelsByTeamId(teamId.Value));
+                var channels = (await TeamService.GetAllChannelsByTeamId(teamId.Value));
 
                 Assert.AreEqual(channels.Count(), 1);
 
                 var oldName = channels[0].ChannelName;
 
-                bool success = await channelService.RenameChannel(testName + "ChannelRename", channelId.Value);
+                bool success = await ChannelService.RenameChannel(testName + "ChannelRename", channelId.Value);
 
                 Assert.IsTrue(success);
 
-                channels = (await teamService.GetAllChannelsByTeamId(teamId.Value));
+                channels = (await TeamService.GetAllChannelsByTeamId(teamId.Value));
 
                 Assert.AreEqual(channels.Count(), 1);
 
@@ -106,6 +94,12 @@ namespace Messenger.Tests.MSTest
                 Assert.AreEqual(oldName + "Rename", newName);
 
             }).GetAwaiter().GetResult();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
         }
     }
 }

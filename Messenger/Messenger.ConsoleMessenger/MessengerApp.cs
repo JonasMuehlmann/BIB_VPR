@@ -13,8 +13,6 @@ namespace Messenger.ConsoleMessenger
     {
         #region Constants
 
-        private const string CONNECTION_STRING = @"Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
         private const string CLIENT_ID = @"ca176355-2137-4346-838b-53a79d8ed8b4";
 
         #endregion
@@ -22,15 +20,15 @@ namespace Messenger.ConsoleMessenger
         #region Private
 
         private MessengerService MessengerService => Singleton<MessengerService>.Instance;
-        
+
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
-        
+
         private MicrosoftGraphService MicrosoftGraphService => Singleton<MicrosoftGraphService>.Instance;
-        
+
         private UserService UserService => Singleton<UserService>.Instance;
 
         private readonly ILogger _log;
-        
+
         private User _user { get; set; }
 
         #endregion
@@ -38,10 +36,8 @@ namespace Messenger.ConsoleMessenger
         public MessengerApp()
         {
             IdentityService.InitializeConsoleForAadMultipleOrgs(CLIENT_ID);
-            
-            // Force to initialize with the given connection string
-            UserService.SetTestMode(CONNECTION_STRING);
 
+            // Force to initialize with the given connection string
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
 
             _log = GlobalLogger.Instance;
@@ -108,7 +104,7 @@ namespace Messenger.ConsoleMessenger
         {
             LogContext.PushProperty("Method", System.Reflection.MethodBase.GetCurrentMethod().Name);
             LogContext.PushProperty("SourceContext", this.GetType().Name);
-            
+
             _log.Fatal("Authentication success! Starting the process to get the current user data...");
             var user = GetUserFromGraphApiAsync().GetAwaiter().GetResult();
 
@@ -195,7 +191,7 @@ namespace Messenger.ConsoleMessenger
             // Connect to signal-r hub
             // Optional parameter for connection string was given to initialize with it
             _log.Fatal("Connecting to signal-r hub with the current user data...");
-            await MessengerService.Initialize(userData.Id, CONNECTION_STRING);
+            await MessengerService.Initialize(userData.Id);
 
             _log.Information($"Current user: {userData}");
             // Merged with user model from the application database

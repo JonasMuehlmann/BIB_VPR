@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Messenger.Core.Helpers;
@@ -9,12 +8,8 @@ using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Messenger.ViewModels
 {
@@ -22,37 +17,23 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ICommand _userProfileCommand;
-
-        private ICommand _navigateToTeamsCommmand;
-
-        private ICommand _navigateToChatsCommand;
-
-        private ICommand _navigateToNotificationsCommand;
-
-        private ICommand _teamManagerCommand;
-
-        private string _currentTeamName;
+        private Team _currentTeam;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
-        private Frame MainFrame { get; set; }
-
-        private Frame SideFrame { get; set; }
-
         #endregion
 
-        public string CurrentTeamName
+        public Team CurrentTeam
         {
             get
             {
-                return _currentTeamName;
+                return _currentTeam;
             }
             set
             {
-                Set(ref _currentTeamName, value);
+                Set(ref _currentTeam, value);
             }
         }
 
@@ -72,100 +53,57 @@ namespace Messenger.ViewModels
 
         #region Commands
 
-        public ICommand NavigateToTeamsCommmand => _navigateToTeamsCommmand ?? (_navigateToTeamsCommmand = new RelayCommand(OpenTeamsSidePanel));
+        public ICommand NavigateToTeamsCommmand => new RelayCommand(() => NavigationService.Navigate<TeamNavPage>());
 
-        public ICommand NavigateToChatsCommand => _navigateToChatsCommand ?? (_navigateToChatsCommand = new RelayCommand(OpenChatSidePanel));
+        public ICommand NavigateToChatsCommand => new RelayCommand(() => NavigationService.Navigate<ChatNavPage>());
 
-        public ICommand NavigateToNotificationsCommand => _navigateToNotificationsCommand ?? (_navigateToNotificationsCommand = new RelayCommand(OpenNotificationSidePanel));
-
-        public ICommand OpenUserProfileCommand => _userProfileCommand ?? (_userProfileCommand = new RelayCommand(OpenSetttingsMainPanel));
-
-        public ICommand OpenTeamManagerCommand => _teamManagerCommand ?? (_teamManagerCommand = new RelayCommand(OpenTeamManagePage));
+        public ICommand NavigateToNotificationsCommand => new RelayCommand(() => NavigationService.Navigate<NotificationNavPage>());
 
         #endregion
 
         public ShellViewModel()
         {
+            Initialize();
         }
 
-        public void Initialize(Frame frame, Frame sideFrame)
+        public void Initialize()
         {
-            MainFrame = frame;
-            SideFrame = sideFrame;
-
-            NavigationService.Frame = frame;
             IdentityService.LoggedOut += OnLoggedOut;
             ChatHubService.TeamSwitched += OnTeamSwitched;
-
-            // Sets the default side panel to TeamNavView
-            OpenTeamsSidePanel();
+            ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
-        private async void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+        private async void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
             var team = await ChatHubService.GetCurrentTeam();
-            CurrentTeamName = team.Name;
+
+            if (team == null)
+            {
+                return;
+            }
+
+            bool isPrivateChat = team.Name == string.Empty;
+
+            if (isPrivateChat)
+            {
+                var partnerName = team.Members.FirstOrDefault().DisplayName;
+                CurrentTeam = new Team() { Name = partnerName, Description = team.Description };
+            }
+            else
+            {
+                CurrentTeam = team;
+            }
+        }
+
+        private void OnTeamUpdated(object sender, Team team)
+        {
+            CurrentTeam = null;
+            CurrentTeam = team;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
         {
             IdentityService.LoggedOut -= OnLoggedOut;
         }
-
-        #region Main Page Navigation
-
-        private void MainNavigation(Type page)
-        {
-            MainFrame.Navigate(page, this);
-        }
-
-        private void OpenSetttingsMainPanel()
-        {
-            MainNavigation(typeof(SettingsPage));
-            CurrentTeamName = string.Empty;
-        }
-
-        private void OpenChatMainPage()
-        {
-            MainNavigation(typeof(ChatPage));
-            CurrentTeamName = string.Empty;
-        }
-
-        private void OpenTeamManagePage()
-        {
-            MainNavigation(typeof(TeamManagePage));
-        }
-
-        #endregion
-
-
-        #region Side Page Navigation
-
-        /// <summary>
-        /// Opens the side Navigationpanels and the MainChatPanel
-        /// </summary>
-        /// <param name="page"></param>
-        private void SideNavigation(Type page)
-        {
-            SideFrame.Navigate(page, this);
-            OpenChatMainPage();
-            CurrentPageName = page.Name;
-        }
-        private void OpenTeamsSidePanel()
-        {
-            SideNavigation(typeof(TeamNavPage));
-        }
-
-        private void OpenChatSidePanel()
-        {
-            SideNavigation(typeof(ChatNavPage));
-        }
-
-        private void OpenNotificationSidePanel()
-        {
-            SideNavigation(typeof(NotificationNavPage));
-        }
-
-        #endregion
     }
 }

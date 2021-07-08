@@ -10,14 +10,17 @@
     xmlns:behaviors="using:Messenger.Behaviors"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:model="using:Messenger.Core.Models"
+    xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:templateSelectors="using:Messenger.TemplateSelectors"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind Name}"
-                IsExpanded="False">
+                IsExpanded="False"
+                ItemsSource="{x:Bind Channels}">
                 <StackPanel
+                    HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
@@ -31,7 +34,7 @@
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
-        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:TeamChannel">
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:Channel">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind ChannelName}">
                 <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
@@ -41,7 +44,7 @@
             x:Key="TreeViewTemplateSelector"
             TeamTemplate="{StaticResource TeamTemplate}"
             TeamChannelTemplate="{StaticResource TeamChannelTemplate}"/>
-        <!--#region Styles -->
+        <!--#region STYLES -->
 
         <Style x:Key="TeamTreeViewStyle" TargetType="my:TreeView">
             <Setter Property="AllowDrop" Value="False" />
@@ -74,24 +77,31 @@
         <Style x:Key="NewTeamButtonStyle" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="CornerRadius" Value="17" />
-            <Setter Property="BorderThickness" Value=".8" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="Margin" Value="20 10 10 10" />
+            <Setter Property="Margin" Value="0 0 15 30" />
+            <Setter Property="CornerRadius" Value="1" />
         </Style>
 
         <!--#endregion-->
     </Page.Resources>
 
-    <!--#region Content-->
+    <!--#region CONTENT-->
     
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftMargin}">
+    <Grid
+        x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- LOADING CONTROL -->
+        <shared:OnLoading
+            Grid.Row="0"
+            LoadingText="Loading Teams.."
+            IsBusy="{x:Bind ViewModel.IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        <!-- TEAMS LIST -->
         <ScrollViewer
             Grid.Row="0">
             <StackPanel
@@ -108,15 +118,29 @@
                     />
             </StackPanel>
         </ScrollViewer>
+
+        <!-- CREATE NEW TEAM -->
         <Button
             x:Name="newChat"
             Style="{StaticResource NewTeamButtonStyle}"
             Command="{x:Bind ViewModel.CreateTeamCommand}"
             Grid.Row="1">
-            <SymbolIcon
-                Symbol="Add"
-                Opacity="0.9"
-                />
+            <Viewbox
+                Height="18">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Text="Create Team"
+                        Foreground="{ThemeResource SystemAccentColor}"
+                        Margin="0 0 5 0"
+                        FontWeight="SemiBold"
+                        />
+                    <SymbolIcon
+                        Symbol="AddFriend"
+                        Foreground="{ThemeResource SystemAccentColor}"
+                        />
+                </StackPanel>
+            </Viewbox>
         </Button>
     </Grid>
 

@@ -17,6 +17,8 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -56,7 +58,7 @@
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=TeamIcon}"
                         PropertyName="Foreground"
-                        Value="{StaticResource ActivatedButtonBrush}"
+                        Value="{ThemeResource SystemAccentColor}"
                         />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
@@ -65,7 +67,7 @@
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=TeamIcon}"
                         PropertyName="Foreground"
-                        Value="{ThemeResource SystemAccentColor}"
+                        Value="{ThemeResource SystemAccentColorDark1}"
                         />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -88,7 +90,7 @@
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=ChatIcon}"
                         PropertyName="Foreground"
-                        Value="{StaticResource ActivatedButtonBrush}"
+                        Value="{ThemeResource SystemAccentColor}"
                         />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
@@ -97,7 +99,7 @@
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=ChatIcon}"
                         PropertyName="Foreground"
-                        Value="{StaticResource SystemAccentColor}"
+                        Value="{ThemeResource SystemAccentColorDark1}"
                         />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -120,7 +122,7 @@
                     <ic:ChangePropertyAction
                             TargetObject="{Binding ElementName=NotificationIcon}"
                             PropertyName="Foreground"
-                            Value="{StaticResource ActivatedButtonBrush}"
+                            Value="{ThemeResource SystemAccentColor}"
                             />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
@@ -129,7 +131,7 @@
                     <ic:ChangePropertyAction
                             TargetObject="{Binding ElementName=NotificationIcon}"
                             PropertyName="Foreground"
-                            Value="{StaticResource SystemAccentColor}"
+                            Value="{ThemeResource SystemAccentColorDark1}"
                             />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>

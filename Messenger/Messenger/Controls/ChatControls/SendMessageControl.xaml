@@ -1,25 +1,27 @@
 ﻿<UserControl
     x:Class="Messenger.Controls.ChatControls.SendMessageControl"
+    x:Name="sendMessageControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:storage="using:Windows.Storage"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Messenger.ViewModels"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="400"
+    d:DesignWidth="800">
     <UserControl.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullConverter" />
         <Style x:Key="OuterPanel" TargetType="StackPanel">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Padding" Value="20 10" />
+            <Setter Property="Margin" Value="20 0 20 20" />
+            <Setter Property="MaxWidth" Value="850" />
         </Style>
         <Style x:Key="AttachmentsList" TargetType="ListView">
             <Setter Property="Height" Value="80" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="BorderBrush" Value="Gray" />
             <Setter Property="Visibility" Value="Visible" />
             <Setter Property="Background" Value="{StaticResource SystemChromeLowColor}" />
         </Style>
@@ -27,22 +29,23 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         </Style>
         <Style x:Key="MessageContent" TargetType="TextBox">
-            <Setter Property="Width" Value="300" />
-            <Setter Property="Padding" Value="0 0 30 0" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Padding" Value="20 10" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
-        <Style x:Key="SendButton" TargetType="Button">
+        <Style x:Key="IconButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Width" Value="60" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Width" Value="40" />
         </Style>
-        <Style x:Key="OpenFilesButton" TargetType="Button">
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Width" Value="60" />
+        <Style x:Key="SendButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
+        </Style>
+        <Style x:Key="OpenFilesButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
         </Style>
         <DataTemplate x:Key="Attachment">
             <Border
@@ -56,36 +59,93 @@
                     />
             </Border>
         </DataTemplate>
+        <Style x:Key="ReplyPanel" TargetType="Grid">
+            <Setter Property="Padding" Value="15 0" />
+            <Setter Property="Margin" Value="5 10" />
+            <Setter Property="BorderThickness" Value="5 0 0 0" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
     </UserControl.Resources>
 
     <StackPanel Style="{StaticResource OuterPanel}">
-        <!-- ATTACHMENTS -->
-        <ListView
-            x:Name="AttachmentListView"
-            Style="{StaticResource AttachmentsList}"
-            ItemsSource="{x:Bind Attachments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            ItemContainerStyle="{StaticResource AttachmentsListItem}"
-            ItemTemplate="{StaticResource Attachment}"
-            />
-        <!-- CONTENT -->
-        <StackPanel Orientation="Horizontal">
+        <MenuFlyoutSeparator Margin="0 20" Opacity=".25"/>
+        <Grid
+            Style="{StaticResource ReplyPanel}"
+            Visibility="{Binding ReplyMessage, ElementName=sendMessageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullConverter}}">
+            <StackPanel>
+                <TextBlock
+                    Text="{x:Bind ReplyMessage.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Opacity=".55"
+                    />
+                <TextBlock
+                    Text="{x:Bind ReplyMessage.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    />
+            </StackPanel>
+            <Button
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="Transparent">
+                <Viewbox
+                    Height="15"
+                    Opacity=".55">
+                    <icons:PathIconFontAwesome
+                        Kind="BackspaceSolid"
+                        Foreground="{ThemeResource SystemAccentColor}"
+                        />
+                </Viewbox>
+            </Button>
+        </Grid>
+        <!-- CONTENT BAR -->
+        <Grid
+            VerticalAlignment="Center">
             <TextBox
                 Name="tbxContent"
+                PlaceholderText="Write something..."
+                Background="{ThemeResource SystemAccentColorLight1}"
                 Text="{x:Bind MessageContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MessageContent}"
                 />
-            <!-- ACTIONS -->
+        </Grid>
+        <!-- ACTIONS -->
+        <Grid
+            Margin="0 5 0 0">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                <Button
+                    Style="{StaticResource OpenFilesButton}"
+                    Command="{x:Bind OpenFilesCommand}">
+                    <Viewbox
+                        Width="18">
+                        <icons:PackIconFontAwesome
+                            Kind="PlusCircleSolid"
+                            />
+                    </Viewbox>
+                </Button>
+                <Button
+                    Style="{StaticResource OpenFilesButton}">
+                    <Viewbox
+                        Width="18">
+                        <icons:PackIconFontAwesome
+                            Kind="SmileRegular"
+                            />
+                    </Viewbox>
+                </Button>
+            </StackPanel>
             <Button
+                HorizontalAlignment="right"
                 Style="{StaticResource SendButton}"
                 Command="{x:Bind SendMessageCommand}"
                 CommandParameter="{x:Bind MessageContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <SymbolIcon Symbol="Accept" />
+                <Viewbox
+                    Width="18">
+                    <icons:PackIconFontAwesome
+                        Kind="PaperPlaneSolid"
+                        />
+                </Viewbox>
             </Button>
-            <Button
-                Style="{StaticResource OpenFilesButton}"
-                Command="{x:Bind OpenFilesCommand}">
-                <SymbolIcon Symbol="NewWindow" />
-            </Button>
-        </StackPanel>
+        </Grid>
     </StackPanel>
 </UserControl>

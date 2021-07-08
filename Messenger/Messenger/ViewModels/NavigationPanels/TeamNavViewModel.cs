@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
+using Messenger.Views;
 using Messenger.Views.DialogBoxes;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
@@ -22,13 +25,11 @@ namespace Messenger.ViewModels
         private ShellViewModel _shellViewModel;
         private ICommand _itemInvokedCommand;
         private ICommand _createTeamCommand;
-        private Team _selectedTeam;
         private ObservableCollection<Team> _teams;
-
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
+        private bool _isBusy;
 
         public ShellViewModel ShellViewModel
         {
@@ -39,18 +40,6 @@ namespace Messenger.ViewModels
             set
             {
                 Set(ref _shellViewModel, value);
-            }
-        }
-
-        public Team SelectedTeam
-        {
-            get
-            {
-                return _selectedTeam;
-            }
-            set
-            {
-                Set(ref _selectedTeam, value);
             }
         }
 
@@ -66,6 +55,18 @@ namespace Messenger.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                Set(ref _isBusy, value);
+            }
+        }
+
         public UserViewModel CurrentUser => ChatHubService.CurrentUser;
 
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
@@ -74,35 +75,35 @@ namespace Messenger.ViewModels
 
         public TeamNavViewModel()
         {
-            Teams = new ObservableCollection<Team>();
-            UserDataService.UserDataUpdated += OnUserDataUpdated;
-            ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            IsBusy = true;
 
-            LoadTeamsAsync();
+            Teams = new ObservableCollection<Team>();
+
+            ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            Initialize();
+            ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
         /// <summary>
         //  Loads the teams list if the user data has already been loaded
         /// </summary>
-        private async void LoadTeamsAsync()
+        private void Initialize()
         {
-            if (CurrentUser != null)
+            switch (ChatHubService.ConnectionState)
             {
-                var user = await UserDataService.GetUserAsync();
-
-                ClearAndAddTeamsList(user.Teams);
+                case ChatHubConnectionState.Loading:
+                    IsBusy = true;
+                    break;
+                case ChatHubConnectionState.NoDataFound:
+                    IsBusy = false;
+                    break;
+                case ChatHubConnectionState.LoadedWithData:
+                    FilterAndUpdateTeams(ChatHubService.CurrentUser.Teams);
+                    IsBusy = false;
+                    break;
+                default:
+                    break;
             }
-        }
-
-        /// <summary>
-        /// Fires on UserDataUpdated(mostly once on log-in) and refreshes the view
-        /// This prevents the view model to read from default user, which is not wanted here
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="user">UserViewModel of the current user</param>
-        private void OnUserDataUpdated(object sender, UserViewModel user)
-        {
-            ClearAndAddTeamsList(user.Teams);
         }
 
         /// <summary>
@@ -112,8 +113,30 @@ namespace Messenger.ViewModels
         /// <param name="teams">Enumerable of teams</param>
         private void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
         {
-            ClearAndAddTeamsList(teams);
+            if (teams != null)
+            {
+                FilterAndUpdateTeams(teams);
+            }
+
+            IsBusy = false;
         }
+
+        /// <summary>
+        /// Updates the refactored team in the list
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="team">The updated teams</param>
+        private async void OnTeamUpdated(object sender,Team team)
+        {
+            if (ChatHubService.CurrentUser.Teams != null)
+            {
+                FilterAndUpdateTeams(await ChatHubService.GetTeamsList());
+            }
+
+            IsBusy = false;
+        }
+
+
 
         /// <summary>
         /// Creates the team with the given name and description
@@ -134,6 +157,10 @@ namespace Messenger.ViewModels
             if (result == ContentDialogResult.Primary)
             {
                 await ChatHubService.CreateTeam(dialog.TeamName, dialog.TeamDescription);
+
+                await ResultConfirmationDialog
+                    .Set(true, $"You created a new team {dialog.TeamName}")
+                    .ShowAsync();
             }
         }
 
@@ -147,18 +174,25 @@ namespace Messenger.ViewModels
 
             // Invokes TeamSwitched event
             await ChatHubService.SwitchTeam(teamId);
+
+            NavigationService.Open<ChatPage>();
         }
 
 
         #region Helpers
 
-        private void ClearAndAddTeamsList(IEnumerable<Team> teams)
+        private void FilterAndUpdateTeams(IEnumerable<Team> teams)
         {
-            Teams.Clear();
-
-            foreach (var team in teams)
+            if (teams != null)
             {
-                Teams.Add(team);
+                IEnumerable<Team> teamsList = teams.Where(t => !string.IsNullOrEmpty(t.Name));
+
+                Teams.Clear();
+                
+                foreach (var team in teamsList)
+                {
+                    Teams.Add(team);
+                }
             }
         }
 

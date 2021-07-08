@@ -9,6 +9,8 @@ using Messenger.Core.Services;
 using Messenger.Services;
 
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -34,6 +36,8 @@ namespace Messenger.Services
             _shell = shell;
             _defaultNavItem = defaultNavItem;
             IdentityService.LoggedIn += OnLoggedIn;
+            ApplicationView.PreferredLaunchViewSize = new Size(1280, 768);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         public async Task ActivateAsync(object activationArgs)
