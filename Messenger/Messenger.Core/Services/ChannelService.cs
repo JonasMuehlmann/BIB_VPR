@@ -145,12 +145,12 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
 
             string query = $@"
-                                UPDATE
-                                    Channels
-                                SET
-                                    PinnedMessageId = {messageId}
-                                WHERE
-                                    ChannelId={channelId};
+                                INSERT INTO
+                                    PinnedMessages
+                                VALUES(
+                                        {channelId},
+                                        {messageId}
+                                      );
                 ";
 
             return await SqlHelpers.NonQueryAsync(query);
@@ -170,12 +170,12 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
 
             string query = $@"
-                                UPDATE
-                                    Channels
-                                SET
-                                    PinnedMessageId = NULL
+                                DELETE FROM
+                                    PinnedMessages
                                 WHERE
-                                    ChannelId={channelId};
+                                    channelId = {channelId}
+                                    AND
+                                    messageId = {messageId};
                 ";
 
             return await SqlHelpers.NonQueryAsync(query);
@@ -197,11 +197,13 @@ namespace Messenger.Core.Services
                                 SELECT
                                     *
                                 FROM
-                                    Messages
-                                LEFT JOIN Channels ON
-                                    PinnedMessageId = MessageId
+                                    Messages m
+                                LEFT JOIN PinnedMessages p ON
+                                    p.MessageId = m.MessageId
+                                LEFT JOIN Users u ON
+                                    u.userId = m.senderId
                                 WHERE
-                                    ChannelId={channelId};
+                                    p.ChannelId = {channelId};
                 ";
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
