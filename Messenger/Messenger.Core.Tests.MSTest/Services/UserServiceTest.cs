@@ -205,6 +205,7 @@ namespace Messenger.Tests.MSTest
         {
             // Reset DB
             string query = @"DELETE FROM Reactions;
+                             DELETE FROM PinnedMessages;
                              DELETE FROM Messages;
                              DELETE FROM Memberships;
                              DELETE FROM Channels;
