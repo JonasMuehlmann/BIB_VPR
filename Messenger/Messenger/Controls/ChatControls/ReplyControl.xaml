@@ -37,32 +37,37 @@
                     Grid.Row="0"
                     Grid.RowSpan="4"
                     Grid.Column="0"
+                    Padding="0 0 10 0"
                     VerticalAlignment="Top">
-                    <Ellipse
-                        Fill="{ThemeResource SystemAccentColor}"
+                    <Viewbox
+                        VerticalAlignment="Top"
                         Width="30"
-                        Height="30"
-                        Margin="0 0 10 0"
-                        />
+                        Height="30">
+                        <icons:PackIconFontAwesome
+                             Kind="UserCircleSolid"
+                             />
+                    </Viewbox>
                 </Grid>
                 <!-- HEADER -->
                 <StackPanel
                     Grid.Row="0"
                     Grid.Column="1"
+                    Spacing="5"
                     Orientation="Horizontal">
                     <TextBlock
                         FontSize="12"
                         FontWeight="SemiBold"
+                        Opacity=".65"
                         Text="{x:Bind Reply.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         />
                     <TextBlock
                         Text=" • "
-                        Opacity=".5"
+                        Opacity=".35"
                         />
                     <TextBlock
                         FontSize="12"
                         FontWeight="Light"
-                        Opacity=".5"
+                        Opacity=".35"
                         Text="{x:Bind Reply.CreationTime, Converter={StaticResource DateToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         />
                 </StackPanel>
@@ -70,7 +75,7 @@
                     Grid.Row="1"
                     Grid.Column="1">
                     <TextBlock
-                        FontSize="12"
+                        FontSize="14"
                         Text="{x:Bind Reply.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="WrapWholeWords"
                         />
