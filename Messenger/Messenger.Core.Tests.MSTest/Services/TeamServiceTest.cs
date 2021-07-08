@@ -17,25 +17,12 @@ namespace Messenger.Tests.MSTest
     [TestClass]
     public class TeamServiceTest
     {
-        TeamService teamService;
-        UserService userService;
-
-        /// <summary>
-        /// Initialize the service
-        /// </summary>
-        [TestInitialize]
-        public void Initialize()
-        {
-            teamService = new TeamService();
-            userService = new UserService();
-        }
-
         [TestMethod]
         public void CreateTeam_Test()
         {
             Task.Run(async () =>
             {
-               uint? teamId = await teamService.CreateTeam("MyExampleTeam");
+               uint? teamId = await TeamService.CreateTeam("MyExampleTeam");
 
                Assert.IsNotNull(teamId);
 
@@ -50,7 +37,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-               uint? teamId = await teamService.CreateTeam("");
+               uint? teamId = await TeamService.CreateTeam("");
 
                Assert.IsNull(teamId);
 
@@ -62,7 +49,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var teams = await teamService.GetAllTeams();
+                var teams = await TeamService.GetAllTeams();
 
                 Assert.IsTrue(Enumerable.Count(teams) > 0);
 
@@ -84,7 +71,7 @@ namespace Messenger.Tests.MSTest
                 }
 
                 // FIX: Tests like this one depend on other tests having run before it
-                bool success = await teamService.DeleteTeam(9999999u);
+                bool success = await TeamService.DeleteTeam(9999999u);
 
 
                 Assert.IsTrue(success);
@@ -98,7 +85,7 @@ namespace Messenger.Tests.MSTest
             Task.Run(async () =>
             {
                 // FIX: Tests like this one depend on other tests having run before it
-                bool success = await teamService.DeleteTeam(9999999u);
+                bool success = await TeamService.DeleteTeam(9999999u);
 
                 Assert.IsFalse(success);
 
@@ -130,7 +117,7 @@ namespace Messenger.Tests.MSTest
                     await SqlHelpers.NonQueryAsync(query);
                 }
 
-                var teams = await teamService.GetAllTeams();
+                var teams = await TeamService.GetAllTeams();
 
                 Assert.AreEqual(Enumerable.Count(teams), 0);
 
@@ -142,19 +129,19 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam("abc");
+                uint? teamId = await TeamService.CreateTeam("abc");
                 Assert.IsNotNull(teamId);
 
-                string userId = (await userService.GetOrCreateApplicationUser(
+                string userId = (await UserService.GetOrCreateApplicationUser(
                             new User(){Id = "myTestUserId"}
                             )).Id;
 
-                int numMembersBefore = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersBefore = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
-                bool success = await teamService.AddMember(userId, teamId.Value);
+                bool success = await TeamService.AddMember(userId, teamId.Value);
                 Assert.IsTrue(success);
 
-                int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersAfter = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
                 Assert.IsTrue(numMembersBefore < numMembersAfter);
 
@@ -180,16 +167,16 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsNotNull(teamId);
 
-                string userId = (await userService.GetOrCreateApplicationUser(
+                string userId = (await UserService.GetOrCreateApplicationUser(
                             new User(){Id = "myTestUserId"}
                             )).Id;
 
-                int numMembersBefore = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersBefore = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
-                bool success = await teamService.AddMember(userId, teamId.Value);
+                bool success = await TeamService.AddMember(userId, teamId.Value);
                 Assert.IsTrue(success);
 
-                int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersAfter = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
                 Assert.AreEqual(numMembersBefore, numMembersAfter);
 
@@ -213,12 +200,12 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsNotNull(teamId);
 
-                int numMembersBefore = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersBefore = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
-                bool success = await teamService.RemoveMember("myTestUserId", teamId.Value);
+                bool success = await TeamService.RemoveMember("myTestUserId", teamId.Value);
                 Assert.IsTrue(success);
 
-                int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersAfter = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
                 Assert.AreEqual(numMembersAfter + 1, numMembersBefore);
 
@@ -242,12 +229,12 @@ namespace Messenger.Tests.MSTest
 
                 Assert.IsNotNull(teamId);
 
-                int numMembersBefore = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersBefore = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
-                bool success = await teamService.RemoveMember("myTestUserId", teamId.Value);
+                bool success = await TeamService.RemoveMember("myTestUserId", teamId.Value);
                 Assert.IsFalse(success);
 
-                int numMembersAfter = Enumerable.Count(await teamService.GetAllMembers(teamId.Value));
+                int numMembersAfter = Enumerable.Count(await TeamService.GetAllMembers(teamId.Value));
 
                 Assert.AreEqual(numMembersAfter, numMembersBefore);
 
@@ -263,15 +250,15 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Before");
+                uint? teamId = await TeamService.CreateTeam(testName + "Before");
 
                 Assert.IsNotNull(teamId);
 
-                var success = await teamService.ChangeTeamName(teamId.Value, testName + newSuffix);
+                var success = await TeamService.ChangeTeamName(teamId.Value, testName + newSuffix);
 
                 Assert.IsTrue(success);
 
-                var newName = (await teamService.GetTeam(teamId.Value)).Name;
+                var newName = (await TeamService.GetTeam(teamId.Value)).Name;
 
                 Assert.AreEqual(newName, testName + newSuffix);
 
@@ -286,15 +273,15 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Before");
+                uint? teamId = await TeamService.CreateTeam(testName + "Before");
 
                 Assert.IsNotNull(teamId);
 
-                var success = await teamService.ChangeTeamDescription(teamId.Value, testName + newSuffix);
+                var success = await TeamService.ChangeTeamDescription(teamId.Value, testName + newSuffix);
 
                 Assert.IsTrue(success);
 
-                var newDescription = (await teamService.GetTeam(teamId.Value)).Description;
+                var newDescription = (await TeamService.GetTeam(teamId.Value)).Description;
 
                 Assert.AreEqual(newDescription, testName + newSuffix);
 
@@ -308,15 +295,15 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+                var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
                 Assert.IsTrue(didAddRole);
 
-                var roles = await teamService.ListRoles(teamId.Value);
+                var roles = await TeamService.ListRoles(teamId.Value);
 
                 Assert.IsTrue(roles.Contains(testName + "Role"));
 
@@ -330,19 +317,19 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+                var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
                 Assert.IsTrue(didAddRole);
 
-                var didRemoveRole = await teamService.RemoveRole(testName + "Role", teamId.Value);
+                var didRemoveRole = await TeamService.RemoveRole(testName + "Role", teamId.Value);
 
                 Assert.IsTrue(didRemoveRole);
 
-                var roles = await teamService.ListRoles(teamId.Value);
+                var roles = await TeamService.ListRoles(teamId.Value);
 
                 Assert.IsFalse(roles.Contains(testName + "Role"));
 
@@ -357,27 +344,27 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+                var userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
 
                 Assert.IsNotNull(userId);
 
-                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+                var didAddUserToTeam = await TeamService.AddMember(userId, teamId.Value);
 
                 Assert.IsTrue(didAddUserToTeam);
 
-                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+                var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
                 Assert.IsTrue(didAddRole);
 
-                var didAssignRole = await teamService.AssignRole(testName + "Role", userId, teamId.Value);
+                var didAssignRole = await TeamService.AssignRole(testName + "Role", userId, teamId.Value);
 
                 Assert.IsTrue(didAssignRole);
 
-                var roles = await teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+                var roles = await TeamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
                 Assert.AreEqual(1, roles.Count);
                 Assert.AreEqual(userId, roles[0].Id);
@@ -393,31 +380,31 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+                var userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
 
                 Assert.IsNotNull(userId);
 
-                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+                var didAddUserToTeam = await TeamService.AddMember(userId, teamId.Value);
 
                 Assert.IsTrue(didAddUserToTeam);
 
-                var didAddRole = await teamService.AddRole(testName + "Role", teamId.Value);
+                var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
                 Assert.IsTrue(didAddRole);
 
-                var didAssignRole = await teamService.AssignRole(testName + "Role", userId, teamId.Value);
+                var didAssignRole = await TeamService.AssignRole(testName + "Role", userId, teamId.Value);
 
                 Assert.IsTrue(didAssignRole);
 
-                var didUnassignRole = await teamService.UnAssignRole(testName + "Role", userId, teamId.Value);
+                var didUnassignRole = await TeamService.UnAssignRole(testName + "Role", userId, teamId.Value);
 
                 Assert.IsTrue(didUnassignRole);
 
-                var roles = await teamService.GetUsersWithRole(teamId.Value, testName + "Role");
+                var roles = await TeamService.GetUsersWithRole(teamId.Value, testName + "Role");
 
                 Assert.AreEqual(0, roles.Count);
 
@@ -431,35 +418,35 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
-                var userId = (await userService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+                var userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
 
                 Assert.IsNotNull(userId);
 
-                var didAddUserToTeam = await teamService.AddMember(userId, teamId.Value);
+                var didAddUserToTeam = await TeamService.AddMember(userId, teamId.Value);
 
                 Assert.IsTrue(didAddUserToTeam);
 
-                var didAddRole = await teamService.AddRole(testName + "Role1", teamId.Value);
+                var didAddRole = await TeamService.AddRole(testName + "Role1", teamId.Value);
 
                 Assert.IsTrue(didAddRole);
 
-                didAddRole = await teamService.AddRole(testName + "Role2", teamId.Value);
+                didAddRole = await TeamService.AddRole(testName + "Role2", teamId.Value);
 
                 Assert.IsTrue(didAddRole);
 
-                var didAssignRole = await teamService.AssignRole(testName + "Role1", userId, teamId.Value);
+                var didAssignRole = await TeamService.AssignRole(testName + "Role1", userId, teamId.Value);
 
                 Assert.IsTrue(didAssignRole);
 
-                didAssignRole = await teamService.AssignRole(testName + "Role2", userId, teamId.Value);
+                didAssignRole = await TeamService.AssignRole(testName + "Role2", userId, teamId.Value);
 
                 Assert.IsTrue(didAssignRole);
 
-                var roles = await teamService.GetUsersRoles(teamId.Value, userId);
+                var roles = await TeamService.GetUsersRoles(teamId.Value, userId);
 
                 Assert.AreEqual($"{testName}Role1,{testName}Role2", string.Join(",", roles));
 
@@ -474,19 +461,19 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                var didAddRole = await teamService.AddRole("admin", teamId.Value);
+                var didAddRole = await TeamService.AddRole("admin", teamId.Value);
                 Assert.IsTrue(didAddRole);
 
-                var canAddRole = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                var canAddRole = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsFalse(canAddRole);
 
-                var didGrantPermission = await teamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                var didGrantPermission = await TeamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(didGrantPermission);
 
-                var hasPermission = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                var hasPermission = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(hasPermission );
 
             }).GetAwaiter().GetResult();
@@ -500,22 +487,22 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var teamId = await teamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                var didAddRole = await teamService.AddRole("admin", teamId.Value);
+                var didAddRole = await TeamService.AddRole("admin", teamId.Value);
                 Assert.IsTrue(didAddRole);
 
-                var didGrantPermission = await teamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                var didGrantPermission = await TeamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(didGrantPermission);
 
-                var hasPermission = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                var hasPermission = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(hasPermission);
 
-                var didRevokePermission = await teamService.RevokePermission(teamId.Value, "admin", Permissions.CanAddRole);
+                var didRevokePermission = await TeamService.RevokePermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(didRevokePermission);
 
-                hasPermission = await teamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                hasPermission = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsFalse(hasPermission);
 
             }).GetAwaiter().GetResult();

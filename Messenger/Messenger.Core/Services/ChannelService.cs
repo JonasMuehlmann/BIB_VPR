@@ -18,10 +18,10 @@ namespace Messenger.Core.Services
         /// <param name="channelName">Name of the channel</param>
         /// <param name="teamId">Id of the team to create the channel in</param>
         /// <returns>The id of the created channel if it was created successfully, null otherwise</returns>
-        public async Task<uint?> CreateChannel(string channelName, uint teamId)
+        public static async Task<uint?> CreateChannel(string channelName, uint teamId)
         {
             LogContext.PushProperty("Method","CreateChannel");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
@@ -43,10 +43,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of the channel to delete</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        public async Task<bool> RemoveChannel(uint channelId)
+        public static async Task<bool> RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method","RemoveChannel");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelId={channelId}");
 
@@ -63,10 +63,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to clear the channels from</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        public async Task<bool> RemoveAllChannels(uint teamId)
+        public static async Task<bool> RemoveAllChannels(uint teamId)
         {
             LogContext.PushProperty("Method","RemoveAllChannels");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters teamId={teamId}");
 
@@ -85,7 +85,7 @@ namespace Messenger.Core.Services
         /// <param name="channelName">the new name of the channel></param>
         /// <param name="channelId">the id of the channel to rename</param>
         /// <returns>True, if the channel got renamed successfully, false otherwise</returns>
-        public async Task<bool> RenameChannel(string channelName, uint channelId)
+        public static async Task<bool> RenameChannel(string channelName, uint channelId)
         {
             string query = $@"
                                 UPDATE
@@ -102,10 +102,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of the channel to retrieve</param>
         /// <returns></returns>
-        public async Task<Channel> GetChannel(uint channelId)
+        public static async Task<Channel> GetChannel(uint channelId)
         {
             LogContext.PushProperty("Method","GetChannel");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelId={channelId}");
 

@@ -25,10 +25,8 @@ namespace Messenger.Services
     {
         #region Private
 
-        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
-        private UserService UserService => Singleton<UserService>.Instance;
-        private MessageBuilder MessageBuilder => Singleton<MessageBuilder>.Instance;
+        private MessageBuilder MessageBuilder = new MessageBuilder();
 
         #endregion
 

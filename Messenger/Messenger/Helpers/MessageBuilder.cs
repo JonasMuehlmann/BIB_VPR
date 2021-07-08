@@ -1,13 +1,10 @@
-﻿using Messenger.Core.Helpers;
-using Messenger.Core.Models;
+﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Messenger.Helpers
@@ -17,8 +14,6 @@ namespace Messenger.Helpers
     /// </summary>
     public class MessageBuilder
     {
-        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
-
         /// <summary>
         /// Converts the given Message data model to MessageViewModel
         /// </summary>
