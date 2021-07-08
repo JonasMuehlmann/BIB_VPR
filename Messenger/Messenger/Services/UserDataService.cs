@@ -20,12 +20,6 @@ namespace Messenger.Services
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
-        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
-
-        private MicrosoftGraphService MicrosoftGraphService => Singleton<MicrosoftGraphService>.Instance;
-
-        private UserService UserService => Singleton<UserService>.Instance;
-
         public bool IsOnline => _user != null;
 
         public event EventHandler<UserViewModel> UserDataUpdated;
