@@ -83,3 +83,6 @@ Edit User data like:
 - Switch between light and dark theme
 
 # Screenshots
+![](docs/MicrosoftTeams-image.png)
+![](docs/MicrosoftTeams-image1.png)
+![](docs/MicrosoftTeams-image2.png)
