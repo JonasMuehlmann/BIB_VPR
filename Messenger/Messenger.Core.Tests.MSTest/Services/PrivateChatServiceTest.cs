@@ -14,13 +14,14 @@ namespace Messenger.Tests.MSTest
     [TestClass]
     public class PrivateChatServiceTest
     {
-
         [TestMethod]
         public void GetAllPrivateChatsNoneExist_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser("user1235");
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser(testName + "User");
 
                 Assert.IsTrue(Enumerable.Count(privateChats) == 0);
 
@@ -31,16 +32,17 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void CreatePrivateChat_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                string userId1 = "user123";
-                string userId2 = "user456";
+                string userId1 = testName + "User1";
+                string userId2 = testName + "User2";
 
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId1});
                 _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId2});
 
                 var privateChatId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
-
                 Assert.IsNotNull(privateChatId);
 
             }).GetAwaiter().GetResult();
@@ -50,14 +52,30 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void GetAllPrivateChats_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser("user456");
+                string userId1 = testName + "User1";
+                string userId2 = testName + "User2";
 
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId1});
+                _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId2});
+
+                var privateChatId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
+                Assert.IsNotNull(privateChatId);
+
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser(testName + "User1");
                 Assert.IsNotNull(privateChats);
-                Assert.IsTrue(Enumerable.Count(privateChats) > 0);
+                Assert.AreEqual(1, Enumerable.Count(privateChats));
 
             }).GetAwaiter().GetResult();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
         }
     }
 }
