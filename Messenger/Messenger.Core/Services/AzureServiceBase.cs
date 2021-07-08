@@ -31,6 +31,7 @@ namespace Messenger.Core.Services
             {
                 connectionString = connectionStringTest;
             }
+
             return new SqlConnection(connectionString);
         }
 

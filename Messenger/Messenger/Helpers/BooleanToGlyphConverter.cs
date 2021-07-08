@@ -1,9 +1,11 @@
 ﻿using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Returns caret symbol if the value is true, else down caret symbol
+    /// </summary>
     public class BooleanToGlyphConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
