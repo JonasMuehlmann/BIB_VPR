@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Messenger.Commands.UserData;
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.Helpers;
@@ -63,17 +63,32 @@ namespace Messenger.ViewModels
 
         public ICommand LogoutCommand => _logoutCommand ?? (_logoutCommand = new RelayCommand(OnLogout));
 
+        public ICommand EditBioCommand { get => new EditBioCommand(UserDataService); }
+
         public UserViewModel User
         {
             get { return _user; }
-            set { Set(ref _user, value); }
+            set
+            {
+                CurrentBio = value.Bio;
+                Set(ref _user, value);
+            }
+        }
+
+        private string _currentBio;
+
+        public string CurrentBio
+        {
+            get { return _currentBio; }
+            set { Set(ref _currentBio, value); }
         }
 
         public SettingsViewModel()
         {
+            InitializeAsync();
         }
 
-        public async Task InitializeAsync()
+        public async void InitializeAsync()
         {
             VersionDescription = GetVersionDescription();
             IdentityService.LoggedOut += OnLoggedOut;
