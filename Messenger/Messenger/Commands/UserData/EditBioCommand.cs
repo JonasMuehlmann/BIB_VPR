@@ -13,13 +13,13 @@ namespace Messenger.Commands.UserData
 {
     public class EditBioCommand : ICommand
     {
-        private readonly ChatHubService _hub;
+        private readonly UserDataService _service;
 
         private ILogger _logger => GlobalLogger.Instance;
 
-        public EditBioCommand(ChatHubService hub)
+        public EditBioCommand(UserDataService service)
         {
-            _hub = hub;
+            _service = service;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -42,7 +42,7 @@ namespace Messenger.Commands.UserData
 
             try
             {
-                bool isSuccess = await _hub.UpdateUserBio(parameter.ToString());
+                bool isSuccess = await _service.UpdateUserBio(parameter.ToString());
 
                 if (isSuccess)
                 {
