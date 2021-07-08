@@ -20,7 +20,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser("user125");
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser("user1235");
 
                 Assert.IsTrue(Enumerable.Count(privateChats) == 0);
 
