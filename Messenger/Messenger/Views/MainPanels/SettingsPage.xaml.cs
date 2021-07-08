@@ -21,8 +21,6 @@ namespace Messenger.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.InitializeAsync();
-
             switch (ViewModel.ElementTheme)
             {
                 case ElementTheme.Light:
@@ -42,13 +40,13 @@ namespace Messenger.Views
             ViewModel.UnregisterEvents();
         }
 
-        private void EditButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (editUserNameMode == false)
             {
-                UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                UserNametbx.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                UserNametbk.Visibility = Visibility.Collapsed;
+                UserNametbx.Visibility = Visibility.Visible;
+                UserNametbx.Focus(FocusState.Keyboard);
                 UserNametbx.Select(UserNametbx.Text.Length, 0);
                 editUserNameMode = true;
             }
@@ -56,12 +54,12 @@ namespace Messenger.Views
             {
                 if (UserNametbx.Text  == "")
                 {
-                    UserNametbx.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                    UserNametbx.Focus(FocusState.Keyboard);
                     UserNametbx.Select(UserNametbx.Text.Length, 0);
                     return;
                 }
-                UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                UserNametbx.Visibility = Visibility.Collapsed;
+                UserNametbk.Visibility = Visibility.Visible;
                 ViewModel.User.Name = UserNametbx.Text;
                 editUserNameMode = false;
             }
@@ -75,8 +73,8 @@ namespace Messenger.Views
                 {
                     return;
                 }
-                UserNametbx.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                UserNametbk.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                UserNametbx.Visibility = Visibility.Collapsed;
+                UserNametbk.Visibility = Visibility.Visible;
                 ViewModel.User.Name = UserNametbx.Text;
             }
         }
@@ -87,6 +85,36 @@ namespace Messenger.Views
             {
                 ViewModel.SwitchThemeCommand?.Execute(result);
             }
+        }
+
+        private void EditCancelButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ViewModel.CurrentBio))
+            {
+                UserBioPlaceholder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                UserBioTextBlock.Visibility = Visibility.Visible;
+            }
+
+            EditBioPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void EditAcceptButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.EditBioCommand?.Execute(ViewModel.CurrentBio);
+
+            EditBioPanel.Visibility = Visibility.Collapsed;
+            UserBioTextBlock.Visibility = Visibility.Visible;
+        }
+
+        private void EditButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            UserBioPlaceholder.Visibility = Visibility.Collapsed;
+            UserBioTextBlock.Visibility = Visibility.Collapsed;
+
+            EditBioPanel.Visibility = Visibility.Visible;
         }
     }
 }

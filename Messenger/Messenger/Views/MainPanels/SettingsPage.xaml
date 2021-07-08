@@ -1,222 +1,286 @@
-﻿<Page
-    x:Class="Messenger.Views.SettingsPage"
-    x:Name="settingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helper="using:Messenger.Helpers"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:icons="using:MahApps.Metro.IconPacks"
-    Style="{StaticResource PageStyle}"
-    xmlns:xaml="using:Windows.UI.Xaml"
+﻿<Page 
+    x:Class="Messenger.Views.SettingsPage" 
+    x:Name="settingsPage" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:helper="using:Messenger.Helpers" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:icons="using:MahApps.Metro.IconPacks" 
+    Style="{StaticResource PageStyle}" 
+    xmlns:xaml="using:Windows.UI.Xaml" 
     mc:Ignorable="d">
     <Page.Resources>
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
+        <helper:NullToVisibilityConverter x:Key="NullToVisConverter" />
         <helper:ThemeToFillBrushConverter x:Key="ThemeToFillBrushConverter" />
         <Style x:Key="LabelText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18" />
         </Style>
+        <!--#region ACTION BAR STYLE -->
+        <Style x:Key="ActionViewboxStyle" TargetType="Viewbox">
+            <Setter Property="MaxHeight" Value="35" />
+            <Setter Property="Margin" Value="0 10 0 0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
     </Page.Resources>
 
-    <Grid
-        Margin="{StaticResource MediumLeftRightMargin}"
+    <Grid 
+        Margin="{StaticResource MediumLeftRightMargin}" 
         Padding="10">
-        <StackPanel
+        <StackPanel 
             x:Name="ContentArea">
-            <TextBlock
-                Text="Settings"
-                FontSize="38"
-                FontWeight="Bold"
-                Margin="0 0 0 10"
+            <TextBlock 
+                Text="Settings" 
+                FontSize="38" 
+                FontWeight="Bold" 
+                Margin="0 0 0 10" 
                 />
-            <Grid
-                HorizontalAlignment="Stretch"
+            <Grid 
+                HorizontalAlignment="Stretch" 
                 VerticalAlignment="Center">
-                <TextBlock
-                    Text="Logged in as"
+                <TextBlock 
+                    Text="Logged in as" 
                     Style="{ThemeResource SubtitleTextBlockStyle}" />
-                <Button
-                    HorizontalAlignment="Right"
-                    Content="Log out"
-                    Padding="20 0"
-                    Command="{x:Bind ViewModel.LogoutCommand}"
-                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
-                    Foreground="IndianRed"
+                <Button 
+                    HorizontalAlignment="Right" 
+                    Content="Log out" 
+                    Padding="25 7" 
+                    Command="{x:Bind ViewModel.LogoutCommand}" 
+                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
+                    Foreground="IndianRed" 
                     />
             </Grid>
-            
-            <StackPanel
-                Orientation="Horizontal"
-                Padding="30 20"
-                Margin="0 10 0 50">
+
+            <StackPanel 
+                Orientation="Horizontal" 
+                Padding="30 20" 
+                Margin="0 10 0 10">
                 <Ellipse Width="64" Height="64">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{x:Bind ViewModel.User.Photo, Mode=OneWay}" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <StackPanel
-                    Margin="20 0 0 0"
+                <StackPanel 
+                    Margin="20 0 0 0" 
                     Orientation="Horizontal">
                     <StackPanel>
-                        <TextBlock
-                            x:Name="UserNametbk"
-                            FontSize="16"
-                            MinWidth="100">
-                            <Run
-                                Text="{Binding ViewModel.User.Name, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                />
-                            <Run
-                                Text="#"
-                                />
-                            <Run
-                                Text="{Binding ViewModel.User.NameId, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBlock 
+                            x:Name="UserNametbk" 
+                            FontSize="16" 
+                            MinWidth="100"> 
+                            <Run 
+                                Text="{Binding ViewModel.User.Name, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                /> 
+                            <Run 
+                                Text="#" 
+                                /> 
+                            <Run 
+                                Text="{Binding ViewModel.User.NameId, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 />
                         </TextBlock>
 
-                        <TextBlock
-                            Text="{Binding ViewModel.User.Mail, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            FontSize="14"
-                            MinWidth="100"
-                            Opacity=".75"
+                        <TextBlock 
+                            Text="{Binding ViewModel.User.Mail, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            FontSize="14" 
+                            MinWidth="100" 
+                            Opacity=".75" 
                             />
                     </StackPanel>
-                    <TextBox
-                        x:Name="UserNametbx"
-                        MinWidth="200"
-                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
-                        Visibility="Collapsed"
-                        KeyDown="UserNametbx_KeyDown"
+                    <TextBox 
+                        x:Name="UserNametbx" 
+                        MinWidth="200" 
+                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" 
+                        Visibility="Collapsed" 
+                        KeyDown="UserNametbx_KeyDown" 
                         />
-                    <Button
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="14"
-                        Content="&#xE70F;"
-                        Background="Transparent"
-                        VerticalAlignment="Top"
-                        BorderBrush="Transparent"
-                        Click="EditButton_Click"
+                    <Button 
+                        FontFamily="Segoe MDL2 Assets" 
+                        FontSize="14" 
+                        Content="&#xE70F;" 
+                        Background="Transparent" 
+                        VerticalAlignment="Top" 
+                        BorderBrush="Transparent" 
+                        Click="EditButton_Click" 
                         />
                 </StackPanel>
             </StackPanel>
-            
-            <Grid
-                HorizontalAlignment="Stretch"
+            <Grid 
+                HorizontalAlignment="Stretch" 
                 VerticalAlignment="Center">
-                <TextBlock
-                    Text="Biography"
+                <TextBlock 
+                    Text="Biography" 
                     Style="{ThemeResource SubtitleTextBlockStyle}" />
-                <Button
-                    HorizontalAlignment="Right"
-                    Padding="20 0"
-                    Command="{x:Bind ViewModel.LogoutCommand}"
-                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                <Button 
+                    Name="EditButton" 
+                    HorizontalAlignment="Right" 
+                    Padding="25 7" 
+                    CornerRadius="3" 
+                    Tapped="EditButton_Tapped"
+                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
                     Foreground="{ThemeResource SystemAccentColor}">
-                    <StackPanel
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center"
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
                         Spacing="5">
-                        <TextBlock
-                            Text="Edit"
+                        <TextBlock 
+                            Text="Edit" 
                             />
-                        <Viewbox
-                            Width="16"
+                        <Viewbox 
+                            Width="16" 
                             Height="16">
-                            <SymbolIcon
-                                Symbol="Edit"
+                            <SymbolIcon 
+                                Symbol="Edit" 
                                 />
                         </Viewbox>
                     </StackPanel>
                 </Button>
             </Grid>
 
-            <!--<TextBlock
-                Text="This is my biography"
-                Padding="20"
-                />-->
-            <Grid
+            <TextBlock 
+                x:Name="UserBioTextBlock" 
+                MinHeight="125" 
+                Padding="20 15" 
+                Visibility="{Binding ViewModel.User.Bio, Converter={StaticResource NullToVisConverter}, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Text="{x:Bind ViewModel.CurrentBio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                />
+            <StackPanel 
+                x:Name="EditBioPanel" 
+                Visibility="Collapsed" 
                 Margin="25">
-                <StackPanel
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                <TextBox 
+                    Name="EditBioTextBox" 
+                    TextWrapping="Wrap" 
+                    MinHeight="125" 
+                    BorderThickness="1" 
+                    BorderBrush="DimGray" 
+                    CornerRadius="3" 
+                    Padding="20 15" 
+                    Text="{x:Bind ViewModel.CurrentBio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    PlaceholderText="Write your bio..." 
+                    />
+                <Viewbox 
+                    Style="{StaticResource ActionViewboxStyle}" 
+                    MaxHeight="35">
+                    <CommandBar 
+                        Style="{StaticResource ActionBarStyle}" 
+                        CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
+                        <!-- REPLY TO COMMAND -->
+                        <AppBarButton 
+                            Name="EditAcceptButton" 
+                            Style="{StaticResource ActionButtonStyle}" 
+                            Icon="Accept" 
+                            Label="Accept" 
+                            Foreground="{ThemeResource SystemAccentColor}" 
+                            Tapped="EditAcceptButton_Tapped"
+                            />
+                        <AppBarButton 
+                            Style="{StaticResource ActionButtonStyle}" 
+                            Name="EditCancelButton" 
+                            Icon="Cancel" 
+                            Label="Cancel" 
+                            Foreground="{ThemeResource SystemAccentColorDark1}" 
+                            Tapped="EditCancelButton_Tapped" 
+                            />
+                    </CommandBar>
+                </Viewbox>
+            </StackPanel>
+
+            <Grid 
+                x:Name="UserBioPlaceholder" 
+                Visibility="{Binding ViewModel.User.Bio, Converter={StaticResource NullToVisConverter}, ConverterParameter='invert', ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Margin="25" 
+                MinHeight="100">
+                <StackPanel 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Top" 
                     Spacing="10">
-                    <Viewbox
-                        Width="32"
+                    <Viewbox 
+                        Width="32" 
                         Height="32">
-                        <icons:PackIconFontAwesome
-                            Kind="QuestionCircleRegular"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                        <icons:PackIconFontAwesome 
+                            Kind="QuestionCircleRegular" 
+                            Foreground="{ThemeResource SystemAccentColor}" 
                             />
                     </Viewbox>
-                    <TextBlock
-                        Text="Looks like you haven't wrote your biography yet."
-                        Opacity=".75"
+                    <TextBlock 
+                        Text="Looks like you haven't wrote your biography yet." 
+                        Opacity=".75" 
                         />
-                    <Button
-                        Background="{ThemeResource SystemAccentColor}"
-                        HorizontalAlignment="Center"
-                        Content="Start writing"
+                    <Button 
+                        Background="{ThemeResource SystemAccentColor}" 
+                        Foreground="{ThemeResource SystemChromeWhiteColor}" 
+                        FontWeight="SemiBold" 
+                        HorizontalAlignment="Center" 
+                        Content="Start writing" 
+                        Tapped="EditButton_Tapped" 
                         />
                 </StackPanel>
             </Grid>
-            <MenuFlyoutSeparator Margin="0 20" Opacity=".25" />
 
-            <TextBlock
-                Text="Themes"
-                FontWeight="SemiBold"
+            <TextBlock 
+                Text="Themes" 
+                FontWeight="SemiBold" 
                 Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel
+            <StackPanel 
                 Margin="{StaticResource SmallTopBottomMargin}">
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <SplitButton
-                        ToolTipService.ToolTip="Color themes"
-                        Padding="10 3"
-                        CornerRadius="3">
-                        <StackPanel
-                            Orientation="Horizontal"
+                    <SplitButton 
+                        CornerRadius="3" 
+                        ToolTipService.ToolTip="Color themes" 
+                        Padding="15 3">
+                        <StackPanel 
+                            Orientation="Horizontal" 
                             VerticalAlignment="Center">
-                            <Rectangle
-                                x:Name="SelectedColor"
-                                Width="30"
-                                Height="30"
-                                Margin="0 0 10 0"
-                                Fill="{Binding ViewModel.ElementTheme, Converter={StaticResource ThemeToFillBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=settingsPage}"
+                            <Rectangle 
+                                x:Name="SelectedColor" 
+                                Width="25" 
+                                Height="25" 
+                                Margin="0 0 10 0" 
+                                Fill="{Binding ViewModel.ElementTheme, Converter={StaticResource ThemeToFillBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=settingsPage}" 
                                 />
-                            <TextBlock
-                                x:Name="SelectedColorName"
-                                FontWeight="SemiBold"
-                                FontSize="12"
-                                VerticalAlignment="Center">
-                                <Run
-                                    Text="{Binding ViewModel.ElementTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=settingsPage}"
-                                    />
-                                <Run
-                                    Text="Mode"
+                            <TextBlock 
+                                x:Name="SelectedColorName" 
+                                FontWeight="SemiBold" 
+                                FontSize="12" 
+                                VerticalAlignment="Center"> 
+                                <Run 
+                                    Text="{Binding ViewModel.ElementTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=settingsPage}" 
+                                    /> 
+                                <Run 
+                                    Text="Mode" 
                                     />
                             </TextBlock>
                         </StackPanel>
                         <SplitButton.Flyout>
-                            <Flyout
+                            <Flyout 
                                 x:Name="ThemeFlyout">
-                                <GridView
-                                    x:Name="ThemeGridView"
-                                    SelectionChanged="GridView_SelectionChanged"
-                                    SingleSelectionFollowsFocus="False"
-                                    SelectionMode="Single"
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
+                                        <Setter Property="CornerRadius" Value="3" />
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <GridView 
+                                    x:Name="ThemeGridView" 
+                                    SelectionChanged="GridView_SelectionChanged" 
+                                    SingleSelectionFollowsFocus="False" 
+                                    SelectionMode="Single" 
                                     Padding="0">
-                                    <GridViewItem
+                                    <GridViewItem 
                                         Tag="Light">
-                                        <Rectangle
-                                            Fill="WhiteSmoke"
-                                            Width="30"
-                                            Height="30"
+                                        <Rectangle 
+                                            Fill="WhiteSmoke" 
+                                            Width="30" 
+                                            Height="30" 
                                             />
                                     </GridViewItem>
-                                    <GridViewItem
+                                    <GridViewItem 
                                         Tag="Dark">
-                                        <Rectangle
-                                            Fill="#303030"
-                                            Width="30"
-                                            Height="30"
+                                        <Rectangle 
+                                            Fill="#303030" 
+                                            Width="30" 
+                                            Height="30" 
                                             />
                                     </GridViewItem>
                                     <GridView.ItemContainerStyle>
@@ -233,5 +297,5 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-    </Grid>    
-</Page>
+    </Grid>
+</Page> 
