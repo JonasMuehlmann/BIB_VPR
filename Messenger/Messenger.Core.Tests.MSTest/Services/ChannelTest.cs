@@ -18,6 +18,7 @@ namespace Messenger.Tests.MSTest
         public void CreateChannel_Test()
         {
             string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
                 uint? teamId = await TeamService.CreateTeam(testName + "Team");
@@ -93,6 +94,12 @@ namespace Messenger.Tests.MSTest
                 Assert.AreEqual(oldName + "Rename", newName);
 
             }).GetAwaiter().GetResult();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
         }
     }
 }
