@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
+using Messenger.Views.DialogBoxes;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -19,15 +21,18 @@ namespace Messenger.ViewModels
         #region Privates
         private ShellViewModel _shellViewModel;
         private ObservableCollection<User> _membersView;
+        private Team _teamView;
         private List<User> _membersStore;
         private ICommand _removeTeamMembers;
         private ICommand _addTeamMembers;
+        private ICommand _channelManagement;
+        private ICommand _createChannel;
         private ICommand _removeTeamMemberClick;
+        private ICommand _removeChannelClick;
         private ICommand _addTeamMemberClick; 
         private KeyEventHandler _removeSearchBoxInput;
         private KeyEventHandler _addSearchBoxInput;
 
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
         #endregion
 
@@ -61,9 +66,24 @@ namespace Messenger.ViewModels
             }
         }
 
+        public Team CurrentTeam
+        {
+            get
+            {
+                return _teamView;
+            }
+            set
+            {
+                Set(ref _teamView, value);
+            }
+        }
+
         public ICommand RemoveTeamMembers => _removeTeamMembers ?? (_removeTeamMembers = new RelayCommand(LoadTeamMembersAsync));
         public ICommand AddTeamMembers => _addTeamMembers ?? (_addTeamMembers = new RelayCommand(InitAddTeamMembers));
+        public ICommand ChannelManagement => _channelManagement ?? (_channelManagement = new RelayCommand(InitChannels));
+        public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(CreateChannel));
         public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
+        public ICommand RemoveChannelClick => _removeChannelClick ?? (_removeChannelClick = new RelayCommand<uint>(RemoveChannelAsync));
         public ICommand AddTeamMemberClick => _addTeamMemberClick ?? (_addTeamMemberClick = new RelayCommand<string>(AddUserAsync));
         public KeyEventHandler RemoveSearchInput => _removeSearchBoxInput ?? (_removeSearchBoxInput = new KeyEventHandler(RemoveSearchTextBoxKeyUp));
         public KeyEventHandler AddSearchInput => _addSearchBoxInput ?? (_addSearchBoxInput = new KeyEventHandler(AddSearchTextBoxKeyUp));
@@ -74,6 +94,7 @@ namespace Messenger.ViewModels
         {
             Members = new ObservableCollection<User>();
             _membersStore = new List<User>();
+            ChatHubService.TeamsUpdated += OnTeamsUpdated;
         }
 
         /// <summary>
@@ -106,6 +127,18 @@ namespace Messenger.ViewModels
         }
 
         /// <summary>
+        /// inits the channels view
+        /// </summary>
+        private async void InitChannels()
+        {
+            if (ChatHubService.CurrentTeamId != null)
+            {
+                _membersStore.Clear();
+                CurrentTeam = await ChatHubService.GetCurrentTeam();
+            }
+        }
+
+        /// <summary>
         /// Removes some user from Team
         /// </summary>
         /// <param name="userId"></param>
@@ -120,6 +153,18 @@ namespace Messenger.ViewModels
 
 
         /// <summary>
+        /// Removes channels
+        /// </summary>
+        /// <param name="channelId"></param>
+        private async void RemoveChannelAsync(uint channelId)
+        {
+            if (ChatHubService.CurrentTeamId != null)
+            {
+                await ChatHubService.RemoveChannel(channelId);
+            }
+        }
+
+        /// <summary>
         /// Invited an selected User to the Team
         /// </summary>
         /// <param name="username"></param>
@@ -128,10 +173,10 @@ namespace Messenger.ViewModels
             var usernameSp = username.Split("#");
             if (ChatHubService.CurrentTeamId != null)
             {
-                IList<User> user = await ChatHubService.GetUser(usernameSp[0], Convert.ToUInt32(usernameSp[1]));
-                if (user != null && user.Count == 1)
+                User user = await ChatHubService.GetUser(usernameSp[0], Convert.ToUInt32(usernameSp[1]));
+                if (user != null)
                 {
-                    await ChatHubService.InviteUser(new Models.Invitation(user[0].Id, (uint)ChatHubService.CurrentTeamId));
+                    await ChatHubService.InviteUser(new Models.Invitation(user.Id, (uint)ChatHubService.CurrentTeamId));
                     InitAddTeamMembers();
                 }
             }
@@ -169,6 +214,41 @@ namespace Messenger.ViewModels
             foreach (var username in usernames)
             {
                 Members.Add(new User() {DisplayName = username});
+            }
+        }
+
+
+        private async void CreateChannel() {
+            if (CurrentUser == null)
+            {
+                return;
+            }
+
+            // Opens the dialog box for the input
+            var dialog = new CreateChannelDialog();
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            // Create team on confirm
+            if (result == ContentDialogResult.Primary)
+            {
+               await ChatHubService.CreateChannel(dialog.ChannelName);
+
+                await ResultConfirmationDialog
+                    .Set(true, $"You created a new channel {dialog.ChannelName}")
+                    .ShowAsync();
+            }
+        }
+
+        /// <summary>
+        /// refactors the channel list when channels are updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="channels"></param>
+        private async void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
+        {
+            if (teams != null)
+            {
+                CurrentTeam = await ChatHubService.GetCurrentTeam();
             }
         }
 

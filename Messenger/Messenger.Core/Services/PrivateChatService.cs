@@ -2,10 +2,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog.Context;
@@ -21,58 +18,50 @@ namespace Messenger.Core.Services
         /// <param name="myUserId">user-Id of the Creator</param>
         /// <param name="otherUserId">user-Id of the other Person</param>
         /// <returns>The teamId of the created Team</returns>
-        public async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
+        public static async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
             LogContext.PushProperty("Method","CreatePrivateChat");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "PrivateChatService");
             logger.Information($"Function called with parameters myUserId={myUserId}, otherUserId={otherUserId}");
 
             uint? teamID;
 
             // Add myself and other user as members
-           try
-           {
-               string query = $"INSERT INTO Teams (TeamName, CreationDate) VALUES " +
-                              $"('', GETDATE());"
-                              + "SELECT CAST(SCOPE_IDENTITY() AS INT)";
+            string query = $@"
+                                INSERT INTO
+                                    Teams
+                                VALUES(
+                                    '', NULL, GETDATE()
+                                );
 
+                            SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
-                using(SqlConnection connection = GetConnection())
-                {
+            var team = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
-                    await connection.OpenAsync();
+            teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
 
-                    SqlCommand command = new SqlCommand(query, connection);
+            logger.Information($"teamID has been determined as {teamID}");
 
-                    logger.Information($"Running the following query: {query}");
+            var createEmptyRoleQuery = $"INSERT INTO Team_roles VALUES('', {teamID});";
+            // FIX: If AddMember() fails, we just created a dangling Team_Roles
+            // entry
 
-                    var team = command.ExecuteScalar();
+            logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
-                    teamID = SqlHelpers.TryConvertDbValue(team, Convert.ToUInt32);
+            var success1 = await AddMember(myUserId, teamID.Value);
+            var success2 = await AddMember(otherUserId, teamID.Value);
 
-                    logger.Information($"teamID has been determined as {teamID}");
-                }
+            if (!(success1 && success2))
+            {
+                logger.Information("Could not add one or both users(s) to the team");
+                logger.Information($"Return value: null");
 
-                var success1 = await AddMember(myUserId, teamID.Value);
-                var success2 = await AddMember(otherUserId, teamID.Value);
-
-                if (!(success1 && success2))
-                {
-                    logger.Information("Could not add one or both users(s) to the team");
-                    logger.Information($"Return value: null");
-
-                    return null;
-                }
-
-                logger.Information($"Return value: {teamID}");
-
-                return teamID;
-           }
-           catch (SqlException e)
-           {
-                logger.Information(e, $"Return value: null");
                 return null;
-           }
+            }
+
+            logger.Information($"Return value: {teamID}");
+
+            return teamID;
         }
 
 
@@ -81,10 +70,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">the id of a user to retrieve private chats of</param>
         /// <returns>An enumerable of Team objects</returns>
-        public async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
+        public static async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
             LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "PrivateChatService");
             logger.Information($"Function called with parameters userId={userId}");
 
             return (await GetAllTeamsByUserId(userId)).Where(team => team.Name == "");
@@ -95,41 +84,28 @@ namespace Messenger.Core.Services
         /// In a private chat, retrieve the conversation partner's user id
         /// </summary>
         /// <param name="teamId">the id of the team belonging to the private chat</param>
-        /// <param name="connection">A connection to the used sql database</param>
         /// <returns>The user id of the conversation partner</returns>
-        public string GetPartner(uint teamId)
+        public static async Task<string> GetPartner(uint teamId)
         {
             LogContext.PushProperty("Method","GetPartner");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters teamId={teamId}");
 
             // NOTE: Private Chats currently only support 1 Members
-            string query = "SELECT UserId  FROM Memberships m LEFT JOIN Teams t ON m.TeamId = t.TeamId "
-                         + $"WHERE t.TeamId != {teamId} AND t.TeamName='';";
+            string query = @"
+                            SELECT
+                                UserId
+                            FROM
+                                Memberships m LEFT JOIN Teams t
+                                ON m.TeamId = t.TeamId
+                            WHERE
+                                t.TeamId != {teamId}
+                            AND
+                                t.TeamName='';";
 
-            try
-            {
+            var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
-                using(SqlConnection connection = GetConnection())
-                {
-                    SqlCommand scalarQuery = new SqlCommand(query, connection);
-                    var        otherUser   = scalarQuery.ExecuteScalar();
-
-                    logger.Information($"Running the following query: {query}");
-
-                    var result = SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
-
-                    logger.Information($"Return value: {result}");
-
-                    return result;
-                }
-            }
-            catch (SqlException e)
-            {
-                logger.Information(e,"Return value: null");
-
-                return null;
-            }
+            return SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
         }
     }
 }

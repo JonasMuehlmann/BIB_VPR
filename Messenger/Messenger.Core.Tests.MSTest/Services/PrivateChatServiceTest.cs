@@ -1,12 +1,8 @@
 
 using System.Threading.Tasks;
 using System.Linq;
-using System;
-using System.Data.SqlClient;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Core.Helpers;
-using System.Collections.Generic;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,28 +12,16 @@ namespace Messenger.Tests.MSTest
     /// MSTests for Messenger.Core.Services.TeamService
     /// </summary>
     [TestClass]
-    public class PrivateChatServiceTest: SqlServiceTestBase
+    public class PrivateChatServiceTest
     {
-        PrivateChatService privateChatService;
-        UserService userService;
-
-        /// <summary>
-        /// Initialize the service
-        /// </summary>
-        [TestInitialize]
-        public void Initialize()
-        {
-             privateChatService = InitializeTestMode<PrivateChatService>();
-             userService = InitializeTestMode<UserService>();
-        }
-
-
         [TestMethod]
         public void GetAllPrivateChatsNoneExist_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var privateChats = await privateChatService.GetAllPrivateChatsFromUser("user123");
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser(testName + "User");
 
                 Assert.IsTrue(Enumerable.Count(privateChats) == 0);
 
@@ -48,16 +32,17 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void CreatePrivateChat_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                string userId1 = "user123";
-                string userId2 = "user456";
+                string userId1 = testName + "User1";
+                string userId2 = testName + "User2";
 
-                var _ = await userService.GetOrCreateApplicationUser(new User(){Id=userId1});
-                _ = await userService.GetOrCreateApplicationUser(new User(){Id=userId2});
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId1});
+                _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId2});
 
-                var privateChatId = await privateChatService.CreatePrivateChat(userId1, userId2);
-
+                var privateChatId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
                 Assert.IsNotNull(privateChatId);
 
             }).GetAwaiter().GetResult();
@@ -67,14 +52,30 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void GetAllPrivateChats_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var privateChats = await privateChatService.GetAllPrivateChatsFromUser("user456");
+                string userId1 = testName + "User1";
+                string userId2 = testName + "User2";
 
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId1});
+                _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId2});
+
+                var privateChatId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
+                Assert.IsNotNull(privateChatId);
+
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser(testName + "User1");
                 Assert.IsNotNull(privateChats);
-                Assert.IsTrue(Enumerable.Count(privateChats) > 0);
+                Assert.AreEqual(1, Enumerable.Count(privateChats));
 
             }).GetAwaiter().GetResult();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
         }
     }
 }

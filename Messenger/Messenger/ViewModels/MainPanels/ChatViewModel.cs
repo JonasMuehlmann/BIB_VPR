@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
+using Messenger.Views;
+using Messenger.Views.DialogBoxes;
 using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
     public class ChatViewModel : Observable
     {
-        private ShellViewModel _shellViewModel;
-        private ObservableCollection<Message> _messages;
+        #region Private
+
+        private ObservableCollection<MessageViewModel> _messages;
         private IReadOnlyList<StorageFile> _selectedFiles;
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
+        private MessageViewModel _replyMessage;
+        private Message _messageToSend;
 
-        public ShellViewModel ShellViewModel
-        {
-            get
-            {
-                return _shellViewModel;
-            }
-            set
-            {
-                _shellViewModel = value;
-            }
-        }
+        #endregion
 
-        public ObservableCollection<Message> Messages
+        #region Properties
+
+        /// <summary>
+        /// Loaded messages of the current team/chat
+        /// </summary>
+        public ObservableCollection<MessageViewModel> Messages
         {
             get
             {
@@ -45,6 +48,9 @@ namespace Messenger.ViewModels
             }
         }
 
+        /// <summary>
+        /// Attachments list to upload with the message
+        /// </summary>
         public IReadOnlyList<StorageFile> SelectedFiles {
             get
             {
@@ -56,60 +62,204 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ICommand SendMessageCommand => new RelayCommand<string>(SendMessage);
-        public ICommand OpenFilesCommand => new RelayCommand(SelectFiles);
+        /// <summary>
+        /// Message that the user is replying to
+        /// </summary>
+        public MessageViewModel ReplyMessage
+        {
+            get
+            {
+                return _replyMessage;
+            }
+            set
+            {
+                Set(ref _replyMessage, value);
+            }
+        }
+
+        /// <summary>
+        /// Message object to be sent
+        /// </summary>
+        public Message MessageToSend
+        {
+            get
+            {
+                return _messageToSend;
+            }
+            set
+            {
+                Set(ref _messageToSend, value);
+            }
+        }
+
+        private Team _currentTeam;
+
+        public Team CurrentTeam
+        {
+            get
+            {
+                return _currentTeam;
+            }
+            set
+            {
+                Set(ref _currentTeam, value);
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Sends the current MessageToSend model
+        /// </summary>
+        public ICommand SendMessageCommand => new SendMessageCommand(this, Hub);
+
+        /// <summary>
+        /// Open file open picker for attachments on the message
+        /// </summary>
+        public ICommand OpenFilesCommand => new OpenFilesCommand(this);
+
+        /// <summary>
+        /// Marks the current MessageToSend model as a reply
+        /// </summary>
+        public ICommand ReplyToCommand => new ReplyToCommand(this);
+
+        public ICommand EditMessageCommand => new EditMessageCommand(Hub);
+
+        public ICommand DeleteMessageCommand => new DeleteMessageCommand(Hub);
+
+        public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
+
+        public ICommand OpenTeamManagerCommand => new RelayCommand(() => NavigationService.Open<TeamManagePage>());
+
+        public ICommand OpenSettingsCommand => new RelayCommand(() => NavigationService.Open<SettingsPage>());
+
+        public ICommand EditTeamDetailsCommand => new RelayCommand(EditTeamDetails);
+
+        #endregion
 
         public ChatViewModel()
         {
-            Messages = new ObservableCollection<Message>();
-            Hub.MessageReceived += OnMessageReceived;
+            // Initialize models
+            Messages = new ObservableCollection<MessageViewModel>();
+            MessageToSend = new Message();
+
+            // Register events
             Hub.TeamSwitched += OnTeamSwitched;
+            Hub.MessageReceived += OnMessagesUpdated;
+            Hub.MessageUpdated += OnMessagesUpdated;
+            Hub.MessageDeleted += OnMessagesUpdated;
+
             LoadAsync();
         }
-
+         
+        /// <summary>
+        /// Loads messages from the hub
+        /// </summary>
         private async void LoadAsync()
         {
-            if (Hub.CurrentTeamId == null) Hub.CurrentTeamId = 1;
-            UpdateView(await Hub.GetMessages());
+            var team = await Hub.GetCurrentTeam();
+            var messages = await Hub.GetMessages();
+
+            CurrentTeam = team;
+            UpdateView(messages);
         }
 
-        private void UpdateView(IEnumerable<Message> messages)
+        private async void EditTeamDetails()
+        {
+            if (Hub.CurrentUser == null)
+            {
+                return;
+            }
+
+            
+
+            // Opens the dialog box for the input
+            var dialog = new ChangeTeamDialog()
+            {
+                TeamName = CurrentTeam.Name,
+                TeamDescription = CurrentTeam.Description
+            };
+
+            // Create team on confirm
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                await Hub.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
+            }
+        }
+
+        #region Helper
+
+        /// <summary>
+        /// Updates the view with the given messages
+        /// </summary>
+        /// <param name="messages">Messages from the hub</param>
+        private void UpdateView(IEnumerable<MessageViewModel> messages)
         {
             Messages.Clear();
+
+            if (messages == null)
+            {
+                return;
+            }
+
             foreach (var message in messages)
             {
+                var myReaction = GetMyReaction(message);
+
+                if (myReaction != ReactionType.None)
+                {
+                    message.HasReacted = true;
+                    message.MyReaction = myReaction;
+                }
+
                 Messages.Add(message);
             }
         }
 
-        private async void SendMessage(string content)
+        private ReactionType GetMyReaction(MessageViewModel message)
         {
-            await Hub.SendMessage(content, SelectedFiles);
-        }
-
-        private void OnMessageReceived(object sender, Message message)
-        {
-            if (message.RecipientId == Hub.CurrentTeamId)
+            if (message.Reactions.Any(r => r.UserId == Hub.CurrentUser.Id))
             {
-                Messages.Add(message);
+                var reaction = (ReactionType)message
+                    .Reactions
+                    .Where(r => r.UserId == Hub.CurrentUser.Id)
+                    .Select(r => Enum.Parse(typeof(ReactionType), r.Symbol))
+                    .FirstOrDefault();
+
+                return reaction;
             }
+
+            return ReactionType.None;
         }
 
-        private async void SelectFiles() 
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Fires on MessageReceived of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">Received Message object</param>
+        private async void OnMessagesUpdated(object sender, EventArgs e)
         {
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.FileTypeFilter.Add("*");
-            IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
+            var messages = await Hub.GetMessages();
 
-            if (files.Count > 0)
-            {
-                SelectedFiles = files;
-            }
+            UpdateView(messages);
         }
-        
-        private void OnTeamSwitched(object sender, IEnumerable<Message> messages)
+
+        /// <summary>
+        /// Fires on TeamSwitched of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="messages">List of message of the current team</param>
+        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
             UpdateView(messages);
         }
+
+        #endregion
     }
 }

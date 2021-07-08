@@ -15,15 +15,11 @@ namespace Messenger.Core.Services
         //// You can test calls to the Microsoft Graph with the Microsoft Graph Explorer
         //// https://developer.microsoft.com/graph/graph-explorer
 
-        private const string _graphAPIEndpoint = "https://graph.microsoft.com/v1.0/";
-        private const string _apiServiceMe = "me/";
-        private const string _apiServiceMePhoto = "me/photo/$value";
+        private static string _graphAPIEndpoint = "https://graph.microsoft.com/v1.0/";
+        private static string _apiServiceMe = "me/";
+        private static string _apiServiceMePhoto = "me/photo/$value";
 
-        public MicrosoftGraphService()
-        {
-        }
-
-        public async Task<User> GetUserInfoAsync(string accessToken)
+        public static async Task<User> GetUserInfoAsync(string accessToken)
         {
             User user = null;
             var httpContent = await GetDataAsync($"{_graphAPIEndpoint}{_apiServiceMe}", accessToken);
@@ -39,7 +35,7 @@ namespace Messenger.Core.Services
             return user;
         }
 
-        public async Task<string> GetUserPhoto(string accessToken)
+        public static async Task<string> GetUserPhoto(string accessToken)
         {
             var httpContent = await GetDataAsync($"{_graphAPIEndpoint}{_apiServiceMePhoto}", accessToken);
 
@@ -52,7 +48,7 @@ namespace Messenger.Core.Services
             return stream.ToBase64String();
         }
 
-        private async Task<HttpContent> GetDataAsync(string url, string accessToken)
+        private static async Task<HttpContent> GetDataAsync(string url, string accessToken)
         {
             try
             {
