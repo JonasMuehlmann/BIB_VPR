@@ -16,23 +16,11 @@ namespace Messenger.Core.Services
     {
         #region Private
 
-        private MessageService MessageService => Singleton<MessageService>.Instance;
-
-        private ChannelService ChannelService => Singleton<ChannelService>.Instance;
-
-        private UserService UserService => Singleton<UserService>.Instance;
-
-        private TeamService TeamService => Singleton<TeamService>.Instance;
-
-        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
-
-        private FileSharingService FileSharingService => Singleton<FileSharingService>.Instance;
-
-        private PrivateChatService PrivateChatService => Singleton<PrivateChatService>.Instance;
+        private static SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
         #endregion
 
-        public ILogger logger => GlobalLogger.Instance;
+        public static ILogger logger => GlobalLogger.Instance;
 
         #region Initializers
 
@@ -42,10 +30,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The user to connect to his teams</param>
         /// <param name="connectionString">(optional)connection string to initialize with</param>
         /// <returns>List of teams the user has membership of, null if none exists</returns>
-        public async Task<IList<Team>> Initialize(string userId, string connectionString = null)
+        public static async Task<IList<Team>> Initialize(string userId, string connectionString = null)
         {
             LogContext.PushProperty("Method","Initialize");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}");
 
             await SignalRService.Open(userId);
@@ -91,42 +79,42 @@ namespace Messenger.Core.Services
         /// Registers the action from the view model to signal-r event
         /// </summary>
         /// <param name="onMessageReceived">Action to run upon receiving a message</param>
-        public void RegisterListenerForMessages(EventHandler<Message> onMessageReceived)
+        public static void RegisterListenerForMessages(EventHandler<Message> onMessageReceived)
         {
             SignalRService.MessageReceived += onMessageReceived;
         }
 
-        public void RegisterListenerForInvites(EventHandler<uint> onInviteReceived)
+        public static void RegisterListenerForInvites(EventHandler<uint> onInviteReceived)
         {
             SignalRService.InviteReceived += onInviteReceived;
         }
 
-        public void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
+        public static void RegisterListenerForTeamUpdate(EventHandler<Team> onTeamUpdated)
         {
             SignalRService.TeamUpdated += onTeamUpdated;
         }
 
-        public void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
+        public static void RegisterListenerForMessageUpdate(EventHandler<Message> onMessageUpdated)
         {
             SignalRService.MessageUpdated += onMessageUpdated;
         }
 
-        public void RegisterListenerForMessageReactionsUpdate(EventHandler<uint> onMessageReactionsUpdated)
+        public static void RegisterListenerForMessageReactionsUpdate(EventHandler<uint> onMessageReactionsUpdated)
         {
             SignalRService.MessageReactionsUpdated += onMessageReactionsUpdated;
         }
 
-        public void RegisterListenerForMessageDelete(EventHandler<Message> onMessageDeleted)
+        public static void RegisterListenerForMessageDelete(EventHandler<Message> onMessageDeleted)
         {
             SignalRService.MessageDeleted += onMessageDeleted;
         }
 
-        public void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
+        public static void RegisterListenerForChannelUpdate(EventHandler<Channel> onChannelUpdated)
         {
             SignalRService.ChannelUpdated += onChannelUpdated;
         }
 
-        public void RegisterListenerForUserUpdate(EventHandler<User> onUserUpdated)
+        public static void RegisterListenerForUserUpdate(EventHandler<User> onUserUpdated)
         {
             SignalRService.UserUpdated += onUserUpdated;
         }
@@ -140,10 +128,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">Id of the team to load messsages from</param>
         /// <returns>List of messages</returns>
-        public async Task<IEnumerable<Message>> LoadMessages(uint teamId)
+        public static async Task<IEnumerable<Message>> LoadMessages(uint teamId)
         {
             LogContext.PushProperty("Method", "LoadMessages");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameter teamId={teamId}");
 
@@ -154,10 +142,10 @@ namespace Messenger.Core.Services
             return messages;
         }
 
-        public async Task<Message> GetMessage(uint messageId)
+        public static async Task<Message> GetMessage(uint messageId)
         {
             LogContext.PushProperty("Method", "LoadMessages");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameter messageId={messageId}");
 
@@ -173,10 +161,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">A complete message object to send</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> SendMessage(Message message)
+        public static async Task<bool> SendMessage(Message message)
         {
             LogContext.PushProperty("Method","SendMessage");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameter message={message}");
 
@@ -229,10 +217,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public async Task<bool> DeleteMessage(uint messageId)
+        public static async Task<bool> DeleteMessage(uint messageId)
         {
             LogContext.PushProperty("Method", "DeleteMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
             var result = await MessageService.DeleteMessage(messageId);
@@ -263,10 +251,10 @@ namespace Messenger.Core.Services
         /// <param name="messageId">Id of the message to edit</param>
         /// <param name="newContent">New content of the message</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool> EditMessage(uint messageId, string newContent)
+        public static async Task<bool> EditMessage(uint messageId, string newContent)
         {
             LogContext.PushProperty("Method", "EditMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
             var result = await MessageService.EditMessage(messageId, newContent);
@@ -280,10 +268,10 @@ namespace Messenger.Core.Services
             return result;
         }
 
-        public async Task<IEnumerable<Reaction>> GetReactions(uint messageId)
+        public static async Task<IEnumerable<Reaction>> GetReactions(uint messageId)
         {
             LogContext.PushProperty("Method", "GetReactions");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
             var result = await MessageService.RetrieveReactions(messageId);
@@ -300,10 +288,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns></returns>
-        public async Task<uint?> AddReaction(uint messageId, string userId, string reaction)
+        public static async Task<uint?> AddReaction(uint messageId, string userId, string reaction)
         {
             LogContext.PushProperty("Method", "AddReaction");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
             var message = await MessageService.GetMessage(messageId);
@@ -330,10 +318,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
+        public static async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
         {
             LogContext.PushProperty("Method", "RemoveReaction");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
             var message = await MessageService.GetMessage(messageId);
@@ -362,10 +350,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">Current user id</param>
         /// <returns>List of teams</returns>
-        public async Task<IEnumerable<Team>> LoadTeams(string userId)
+        public static async Task<IEnumerable<Team>> LoadTeams(string userId)
         {
             LogContext.PushProperty("Method", "LoadTeams");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}");
 
             var teams = await TeamService.GetAllTeamsByUserId(userId);
@@ -380,10 +368,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">Id of the team to retrieve</param>
         /// <returns>A complete Team object</returns>
-        public async Task<Team> GetTeam(uint teamId)
+        public static async Task<Team> GetTeam(uint teamId)
         {
             LogContext.PushProperty("Method", "GetTeam");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
 
             var team = await TeamService.GetTeam(teamId);
@@ -400,10 +388,10 @@ namespace Messenger.Core.Services
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team(optional)</param>
         /// <returns>Id of the newly created team on success, null on fail (error will be handled in each service)</returns>
-        public async Task<uint?> CreateTeam(string creatorId, string teamName, string teamDescription = "")
+        public static async Task<uint?> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
             LogContext.PushProperty("Method","CreateTeam");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters creatorId={creatorId}, teamName={teamName}, teamDescription={teamDescription}");
 
@@ -461,10 +449,10 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team to rename</param>
         /// <param name="teamName">The new team name</param>
         /// <returns>True if the team was successfully renamed, false otherwise</returns>
-        public async Task<bool> ChangeTeamName(string teamName, uint teamId)
+        public static async Task<bool> ChangeTeamName(string teamName, uint teamId)
         {
             LogContext.PushProperty("Method", "ChangeTeamName");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamName={teamName}, teamId={teamId}");
 
             var result = await TeamService.ChangeTeamName(teamId, teamName);
@@ -483,10 +471,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public async Task<bool> DeleteTeam(uint teamId)
+        public static async Task<bool> DeleteTeam(uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
 
             var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
@@ -505,10 +493,10 @@ namespace Messenger.Core.Services
         /// <param name="teamDescription">New description of the team</param>
         /// <param name="teamId">Id of the team to rename</param>
         /// <returns>True if the team's description was successfully changed, false otherwise</returns>
-        public async Task<bool> ChangeTeamDescription(string teamDescription, uint teamId)
+        public static async Task<bool> ChangeTeamDescription(string teamDescription, uint teamId)
         {
             LogContext.PushProperty("Method", "ChangeTeamDescription");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamDescription={teamDescription}, teamId={teamId}");
 
             var result = await TeamService.ChangeTeamDescription(teamId, teamDescription);
@@ -528,10 +516,10 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team to add the channel to</param>
         /// <param name="channelName">Name of the newly created channel</param>
         /// <returns>True if the channel was successfully created, false otherwise</returns>
-        public async Task<bool> CreateChannel(string channelName, uint teamId)
+        public static async Task<bool> CreateChannel(string channelName, uint teamId)
         {
             LogContext.PushProperty("Method", "CreateChannel");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
 
             var channelId = await ChannelService.CreateChannel(channelName, teamId);
@@ -558,10 +546,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">Id of the channel to delete</param>
         /// <returns>An awaitable task</returns>
-        public async Task<bool> RemoveChannel(uint channelId)
+        public static async Task<bool> RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method", "RemoveChannel");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters channelId={channelId}");
 
             var result = await ChannelService.RemoveChannel(channelId);
@@ -581,10 +569,10 @@ namespace Messenger.Core.Services
         /// <param name="channelId">Id of the channel to rename</param>
         /// <param name="channelName">The new name of the channel</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public async Task<bool> RenameChannel(string channelName, uint channelId)
+        public static async Task<bool> RenameChannel(string channelName, uint channelId)
         {
             LogContext.PushProperty("Method", "RenameChannel");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters channelName={channelName}, channelId={channelId}");
 
             var result = await ChannelService.RenameChannel(channelName, channelId);
@@ -604,9 +592,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId"></param>
         /// <returns>Returns a list with all channels</returns>
-        public async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId) {
+        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId) {           
                 LogContext.PushProperty("Method", "GetChannelsForTeam");
-                LogContext.PushProperty("SourceContext", GetType().Name);
+                LogContext.PushProperty("SourceContext", "MessengerService");
                 logger.Information($"Function called with parameters teamId={teamId}");
 
                 var channels = await TeamService.GetAllChannelsByTeamId(teamId);
@@ -625,10 +613,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">Id of the team to load members from</param>
         /// <returns>List of teams</returns>
-        public async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
+        public static async Task<IEnumerable<User>> LoadTeamMembers(uint teamId)
         {
             LogContext.PushProperty("Method", "LoadTeamMembers");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters teamId={teamId}");
 
@@ -645,10 +633,10 @@ namespace Messenger.Core.Services
         /// <param name="username">DisplayName of the user</param>
         /// <param name="nameId">NameId of the user</param>
         /// <returns>A complete User object on success, null if the user was not found</returns>
-        public async Task<User> GetUserWithNameId(string username, uint nameId)
+        public static async Task<User> GetUserWithNameId(string username, uint nameId)
         {
             LogContext.PushProperty("Method", "GetUserWithNameId");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters username={username}, nameId={nameId}");
 
@@ -665,10 +653,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">User id to add</param>
         /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> InviteUser(string userId, uint teamId)
+        public static async Task<bool> InviteUser(string userId, uint teamId)
         {
             LogContext.PushProperty("Method","InviteUser");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             if (string.IsNullOrWhiteSpace(userId))
@@ -697,10 +685,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">User id to add</param>
         /// <param name="teamId">Id of the team to add the user to</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public async Task<bool> RemoveUser(string userId, uint teamId)
+        public static async Task<bool> RemoveUser(string userId, uint teamId)
         {
             LogContext.PushProperty("Method", "RemoveUser");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             if (string.IsNullOrWhiteSpace(userId))
@@ -724,10 +712,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user whos email should be updated</param>
         /// <param name="newEmail">The new email of the user</param>
         /// <returns>True if the email was successfully updated, false otherwise</returns>
-        public async Task<bool> UpdateUserEmail(string userId, string newEmail)
+        public static async Task<bool> UpdateUserEmail(string userId, string newEmail)
         {
             LogContext.PushProperty("Method", "UpdateUserEmail");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
 
             var result = await UserService.UpdateUserMail(userId, newEmail);
@@ -747,10 +735,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user whos Bio should be updated</param>
         /// <param name="newBio">The new bio of the user</param>
         /// <returns>True if the bio was successfully updated, false otherwise</returns>
-        public async Task<bool> UpdateUserBio(string userId, string newBio)
+        public static async Task<bool> UpdateUserBio(string userId, string newBio)
         {
             LogContext.PushProperty("Method", "UpdateUserBio");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
             var result = await UserService.UpdateUserBio(userId, newBio);
@@ -770,10 +758,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user whos photo should be updated</param>
         /// <param name="newPhotoURL">The new photo of the user</param>
         /// <returns>True if the photo was successfully updated, false otherwise</returns>
-        public async Task<bool> UpdateUserPhoto(string userId, string newPhotoURL)
+        public static async Task<bool> UpdateUserPhoto(string userId, string newPhotoURL)
         {
             LogContext.PushProperty("Method", "UpdateUserPhoto");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}, newPhotoURL={newPhotoURL}");
 
             var result = await UserService.UpdateUserPhoto(userId, newPhotoURL);
@@ -793,10 +781,10 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <returns>True if successful, false otherwise</returns>
-        public async Task<bool> AddRoleToTeam(string role, uint teamId)
+        public static async Task<bool> AddRoleToTeam(string role, uint teamId)
         {
             LogContext.PushProperty("Method", "AddRoleToTeam");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
             var result = await TeamService.AddRole(role, teamId);
@@ -815,10 +803,10 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
         /// <returns>True if successful, false otherwise</returns>
-        public async Task<bool> RemoveTeamRole(string role, uint teamId)
+        public static async Task<bool> RemoveTeamRole(string role, uint teamId)
         {
             LogContext.PushProperty("Method", "RemoveRoleToTeam");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
             var result = await TeamService.RemoveRole(role, teamId);
@@ -842,10 +830,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to assign the role to</param>
         /// <param name="teamId">The team to assign a role to a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public async Task<bool> AssignUserRole(string role, string userId, uint teamId)
+        public static async Task<bool> AssignUserRole(string role, string userId, uint teamId)
         {
             LogContext.PushProperty("Method", "AssignUserRole");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
             var result = await TeamService.AssignRole(role, userId, teamId);
@@ -866,10 +854,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to unassign the role from</param>
         /// <param name="teamId">The team to unassign a role from a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public async Task<bool> UnAssignUserRloe(string role, string userId, uint teamId)
+        public static async Task<bool> UnAssignUserRloe(string role, string userId, uint teamId)
         {
             LogContext.PushProperty("Method", "UnAssignUserRole");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
             var result = await TeamService.UnAssignRole(role, userId, teamId);
@@ -889,10 +877,10 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to grant a permission</param>
         /// <param name="permission">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        public static async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method", "GrantPermission");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
 
             var result = await TeamService.GrantPermission(teamId, role, permission);
@@ -911,10 +899,10 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to revoke a permission from</param>
         /// <param name="permission">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        public static async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method", "RevokePermission");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}");
 
             var result = await TeamService.RevokePermission(teamId, role, permission);
@@ -930,10 +918,10 @@ namespace Messenger.Core.Services
 
         #region Private Chat
 
-        public async Task<uint?> StartChat(string userId, string targetUserId)
+        public static async Task<uint?> StartChat(string userId, string targetUserId)
         {
             LogContext.PushProperty("Method", "StartChat");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters userId={userId}, targetUserNameId={targetUserId}");
 
             if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(targetUserId))
@@ -989,10 +977,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">A complete message object to be sent</param>
         /// <returns>true on valid, false on invalid</returns>
-        private bool ValidateMessage(Message message)
+        private static bool ValidateMessage(Message message)
         {
             LogContext.PushProperty("Method","ValidateMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters message={message}");
 
             // Sender / Recipient Id

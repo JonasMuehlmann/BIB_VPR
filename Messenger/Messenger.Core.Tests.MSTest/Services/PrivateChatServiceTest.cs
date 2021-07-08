@@ -14,26 +14,13 @@ namespace Messenger.Tests.MSTest
     [TestClass]
     public class PrivateChatServiceTest
     {
-        PrivateChatService privateChatService;
-        UserService userService;
-
-        /// <summary>
-        /// Initialize the service
-        /// </summary>
-        [TestInitialize]
-        public void Initialize()
-        {
-             privateChatService = new PrivateChatService();
-             userService = new UserService();
-        }
-
 
         [TestMethod]
         public void GetAllPrivateChatsNoneExist_Test()
         {
             Task.Run(async () =>
             {
-                var privateChats = await privateChatService.GetAllPrivateChatsFromUser("user1235");
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser("user1235");
 
                 Assert.IsTrue(Enumerable.Count(privateChats) == 0);
 
@@ -49,10 +36,10 @@ namespace Messenger.Tests.MSTest
                 string userId1 = "user123";
                 string userId2 = "user456";
 
-                var _ = await userService.GetOrCreateApplicationUser(new User(){Id=userId1});
-                _ = await userService.GetOrCreateApplicationUser(new User(){Id=userId2});
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId1});
+                _ = await UserService.GetOrCreateApplicationUser(new User(){Id=userId2});
 
-                var privateChatId = await privateChatService.CreatePrivateChat(userId1, userId2);
+                var privateChatId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
 
                 Assert.IsNotNull(privateChatId);
 
@@ -65,7 +52,7 @@ namespace Messenger.Tests.MSTest
         {
             Task.Run(async () =>
             {
-                var privateChats = await privateChatService.GetAllPrivateChatsFromUser("user456");
+                var privateChats = await PrivateChatService.GetAllPrivateChatsFromUser("user456");
 
                 Assert.IsNotNull(privateChats);
                 Assert.IsTrue(Enumerable.Count(privateChats) > 0);

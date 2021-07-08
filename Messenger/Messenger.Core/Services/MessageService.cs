@@ -20,14 +20,14 @@ namespace Messenger.Core.Services
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
         ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        public async Task<uint?> CreateMessage(uint recipientsId,
+        public static async Task<uint?> CreateMessage(uint recipientsId,
                                                string senderId,
                                                string message,
                                                uint? parentMessageId = null,
                                                IEnumerable<string> attachmentBlobNames = null)
         {
             LogContext.PushProperty("Method","CreateMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
 
             string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"{string.Join(",",attachmentBlobNames)}";
@@ -58,11 +58,11 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of a channel, whose messages should be retrieved</param>
         /// <returns>An enumerable of data rows containing the message data</returns>
-        public async Task<IList<Message>> RetrieveMessages(uint channelId)
+        public static async Task<IList<Message>> RetrieveMessages(uint teamId)
         {
             LogContext.PushProperty("Method","RetrieveMessages");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-            logger.Information($"Function called with parameters channelId={channelId}");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters teamId={teamId}");
 
             string query = $@"
                                 SELECT
@@ -91,10 +91,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to retrieve</param>
         /// <returns>A complete message object</returns>
-        public async Task<Message> GetMessage(uint messageId)
+        public static async Task<Message> GetMessage(uint messageId)
         {
             LogContext.PushProperty("Method", "GetMessage");
-            LogContext.PushProperty("SourceContext", GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
 
@@ -123,10 +123,10 @@ namespace Messenger.Core.Services
         /// <param name="messageId">The id of the message to edit</param>
         /// <param name="newContent">The new content of the message</param>
         /// <returns>True if the message got edited successfully, false otherwise</returns>
-        public async Task<bool> EditMessage(uint messageId, string newContent)
+        public static async Task<bool> EditMessage(uint messageId, string newContent)
         {
             LogContext.PushProperty("Method","EditMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
             string query = $@"
@@ -146,10 +146,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
-        public async Task<bool> DeleteMessage(uint messageId)
+        public static async Task<bool> DeleteMessage(uint messageId)
         {
             LogContext.PushProperty("Method","DeleteMessage");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
             string query = $@"
@@ -166,10 +166,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The message to retrieve Blob File Names from</param>
         /// <returns>An enumerable of Blob File Names</returns>
-        public async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
+        public static async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
             LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
             string query = $@"
@@ -197,10 +197,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns>The id of the created reaction</returns>
-        public async Task<uint> AddReaction(uint messageId, string userId, string reaction)
+        public static async Task<uint> AddReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","AddReaction");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                LogContext.PushProperty("SourceContext", "MessageService");
                 logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
                 string query = $@"
@@ -224,10 +224,10 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
+        public static async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","RemoveReaction");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                LogContext.PushProperty("SourceContext", "MessageService");
                 logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
                 string query = $@"
@@ -252,10 +252,10 @@ namespace Messenger.Core.Services
         /// True if the user did not yet make the reaction to to the message,
         /// false otherwise
         /// </returns>
-        public async Task<bool> CanMakeReaction(uint messageId, string userId, string reaction)
+        public static async Task<bool> CanMakeReaction(uint messageId, string userId, string reaction)
         {
                 LogContext.PushProperty("Method","CanMakeReaction");
-                LogContext.PushProperty("SourceContext", this.GetType().Name);
+                LogContext.PushProperty("SourceContext", "MessageService");
                 logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
 
                 string query = $@"
@@ -280,10 +280,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to retrieve reactions from</param>
         /// <returns>A list of reaction objects</returns>
-        public async Task<IEnumerable<Reaction>> RetrieveReactions(uint messageId)
+        public static async Task<IEnumerable<Reaction>> RetrieveReactions(uint messageId)
         {
             LogContext.PushProperty("Method","RetrieveReactions");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
