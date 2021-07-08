@@ -17,8 +17,6 @@ namespace Messenger.Helpers
     /// </summary>
     public class MessageBuilder
     {
-        private MessengerService MessengerService => Singleton<MessengerService>.Instance;
-
         /// <summary>
         /// Converts the given Message data model to MessageViewModel
         /// </summary>
