@@ -184,6 +184,8 @@ namespace Messenger.Core.Helpers
 
                     logger.Information($"tableName has been determined as {tableName}");
 
+                    logger.Information($"Running the following query: {query}");
+
                     var adapter = new SqlDataAdapter(query, connection);
                     var dataSet = new DataSet();
                     adapter.Fill(dataSet, tableName);
