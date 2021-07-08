@@ -18,7 +18,7 @@ namespace Messenger.Tests.MSTest
         public void CreateMessage_Test()
         {
             var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-
+          
             Task.Run(async () =>
             {
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "User"});
