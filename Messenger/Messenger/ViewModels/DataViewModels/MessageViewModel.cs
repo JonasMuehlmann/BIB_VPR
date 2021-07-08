@@ -25,6 +25,7 @@ namespace Messenger.ViewModels.DataViewModels
         private ObservableCollection<MessageViewModel> _replies;
         private ObservableCollection<Reaction> _reactions;
         private List<Attachment> _attachments;
+        private bool _isMyMessage;
 
         #endregion
 
@@ -100,6 +101,12 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _hasReacted, value); }
         }
 
+        public bool IsMyMessage
+        {
+            get { return _isMyMessage; }
+            set { Set(ref _isMyMessage, value); }
+        }
+
         public ReactionType MyReaction
         {
             get
@@ -121,7 +128,6 @@ namespace Messenger.ViewModels.DataViewModels
 
         public MessageViewModel()
         {
-            IsReply = false;
             HasReacted = false;
             Replies = new ObservableCollection<MessageViewModel>();
             Reactions = new ObservableCollection<Reaction>();
