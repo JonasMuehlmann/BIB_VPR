@@ -40,12 +40,12 @@ namespace Messenger.Core.Services
                                 INSERT INTO
                                     Messages
                                 VALUES (
-                                         {recipientsId},
                                         '{senderId}',
                                          {correctedParentMessageId},
                                         '{message}',
                                          GETDATE(),
-                                        '{correctedAttachmentBlobNames}'
+                                        '{correctedAttachmentBlobNames}',
+                                         {recipientsId}
                                 );
 
                                 SELECT SCOPE_IDENTITY();";
@@ -54,9 +54,9 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Retrieve all Messages of a team/chat with user data of the sender
+        /// Retrieve all Messages of a channel/chat with user data of the sender
         /// </summary>
-        /// <param name="teamId">The id of a team, whose messages should be retrieved</param>
+        /// <param name="channelId">The id of a channel, whose messages should be retrieved</param>
         /// <returns>An enumerable of data rows containing the message data</returns>
         public static async Task<IList<Message>> RetrieveMessages(uint teamId)
         {
@@ -80,7 +80,7 @@ namespace Messenger.Core.Services
                                 LEFT JOIN Users u
                                     ON m.SenderId = u.UserId
                                 WHERE
-                                    RecipientId = {teamId};";
+                                    RecipientId = {channelId};";
 
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);

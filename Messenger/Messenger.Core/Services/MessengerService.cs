@@ -293,7 +293,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("Method", "AddReaction");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
-            
+
             var message = await MessageService.GetMessage(messageId);
 
             if (message == null)
@@ -464,7 +464,7 @@ namespace Messenger.Core.Services
             logger.Information($"Return value: {result}");
 
             return result;
-        }        
+        }
 
         /// <summary>
         /// Delete a team alongside it's channels and memberships
@@ -937,6 +937,29 @@ namespace Messenger.Core.Services
                 logger.Information($"Error while starting a new private chat");
                 return null;
             }
+            await TeamService.AddRole("admin", chatId.Value);
+            await TeamService.AssignRole("admin", userId, chatId.Value);
+            await TeamService.AssignRole("admin", targetUserId, chatId.Value);
+            //
+            // Grant admin all permissions
+            bool grantedAllPermissions = true;
+
+            foreach (var permission in Enum.GetValues(typeof(Permissions)).Cast<Permissions>())
+            {
+                grantedAllPermissions &= await TeamService.GrantPermission(chatId.Value, "admin", permission);
+            }
+
+            uint? channelId = await ChannelService.CreateChannel("main",chatId.Value);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the team's main channel");
+                logger.Information($"Return value: false");
+
+                return null;
+            }
+
+            logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={chatId.Value}");
 
             await SignalRService.JoinTeam(chatId.ToString());
 
