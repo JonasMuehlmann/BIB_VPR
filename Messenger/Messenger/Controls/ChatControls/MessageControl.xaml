@@ -21,7 +21,7 @@
         <converters:ReactionTypeToBooleanConverter x:Key="ReactionToBooleanConverter" />
             <!--#region CONTAINER STYLE -->
         <Style x:Key="OuterGrid" TargetType="Grid">
-            <Setter Property="Margin" Value="10" />
+            <Setter Property="Margin" Value="20 10 10 10" />
         </Style>
         <Style x:Key="OuterBorder" TargetType="Border">
             <Setter Property="VerticalAlignment" Value="Top" />
@@ -291,6 +291,7 @@
                         Grid.Row="4">
                         <CommandBar
                             Style="{StaticResource ActionBarStyle}"
+                            OverflowButtonVisibility="{x:Bind MyMessageActionsVisibility}"
                             CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
                             <!-- REPLY TO COMMAND -->
                             <AppBarButton

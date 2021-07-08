@@ -105,6 +105,8 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty MyReactionProperty =
             DependencyProperty.Register("MyReaction", typeof(ReactionType), typeof(MessageControl), new PropertyMetadata(ReactionType.None));
 
+        public CommandBarOverflowButtonVisibility MyMessageActionsVisibility => Message != null && Message.IsMyMessage ? CommandBarOverflowButtonVisibility.Visible : CommandBarOverflowButtonVisibility.Collapsed;
+
         public MessageControl()
         {
             EnterEditModeCommand = new RelayCommand(EnterEditMode);
