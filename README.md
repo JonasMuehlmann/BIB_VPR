@@ -74,7 +74,6 @@ team)
 
 ## User profile management
 - Edit User data like:
-
     - User name
     - Bio
     - Email address
