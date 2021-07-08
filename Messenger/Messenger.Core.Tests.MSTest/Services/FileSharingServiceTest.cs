@@ -25,5 +25,11 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
+        }
     }
 }
