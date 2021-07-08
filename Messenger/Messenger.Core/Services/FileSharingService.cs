@@ -124,6 +124,50 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Upload a base64 encoded file to the blob storage
+        /// </summary>
+        /// <param name="data">The base64 encoded data to upload</param>
+        /// <param name="fileName">The name and extension to use for saving</param>
+        /// <returns>The name of the blob file on success, null otherwise</returns>
+        public static async Task<string> UploadFromBase64(string data, string fileName)
+        {
+            LogContext.PushProperty("Method","UploadFromBase64");
+            LogContext.PushProperty("SourceContext", "FileSharingService");
+            logger.Information($"Function called with parameters data={data.Substring(0, 20)}, fileName={fileName}");
+
+            // Adding GUID for deduplication
+            string blobFileName = Path.GetFileNameWithoutExtension(fileName)
+                                + Path.GetExtension(fileName)
+                                + "." + Guid.NewGuid().ToString();
+
+            logger.Information($"set blobFileName to {blobFileName} from fileName={fileName}");
+
+            try
+            {
+                var containerClient = ConnectToContainer();
+
+                BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
+
+                var bytes = Convert.FromBase64String(data);
+
+                // Read and upload file
+                using (MemoryStream memoryStream = new MemoryStream(bytes))
+                {
+                    await blobClient.UploadAsync(memoryStream, true);
+
+                    return blobFileName;
+                }
+            }
+            // TODO:Find better exception(s) to catch
+            catch(Exception e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Delete a blob file
         /// </summary>
         /// <param name="blobFileName">A blob file name to delete</param>
