@@ -111,14 +111,17 @@ namespace Messenger.Tests.MSTest
                 var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var messageId = await MessageService.CreateMessage(teamId.Value,"user1", testName + "Text");
+                var messageId = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Text");
                 Assert.IsNotNull(messageId);
+
+                var didPinMessage = await ChannelService.PinMessage(messageId.Value, channelId.Value);
+                Assert.IsTrue(didPinMessage);
 
                 var pinnedMessages = await ChannelService.RetrievePinnedMessages(channelId.Value);
                 Assert.AreEqual(1, Enumerable.Count(pinnedMessages));
 
                 var pinnedMessageId = pinnedMessages.FirstOrDefault().Id;
-                Assert.IsTrue(messageId.Value, pinnedMessages.FirstOrDefault().Id);
+                Assert.AreEqual(messageId.Value, pinnedMessages.FirstOrDefault().Id);
 
            }).GetAwaiter().GetResult();
         }
@@ -137,14 +140,20 @@ namespace Messenger.Tests.MSTest
                 var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var messageId = await MessageService.CreateMessage(teamId.Value,"user1", testName + "Text");
+                var messageId = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Text");
                 Assert.IsNotNull(messageId);
 
+                var didPinMessage = await ChannelService.PinMessage(messageId.Value, channelId.Value);
+                Assert.IsTrue(didPinMessage);
+
                 var pinnedMessages = await ChannelService.RetrievePinnedMessages(channelId.Value);
-                Assert.IsTrue(Enumerable.Count(pinnedMessages));
+                Assert.IsNotNull(pinnedMessages);
                 Assert.AreEqual(1, Enumerable.Count(pinnedMessages));
 
-                var didUnpin = ChannelService.UnPinMessage(messageId.Value, channelId.Value);
+                var didUnpin = await ChannelService.UnPinMessage(messageId.Value, channelId.Value);
+                Assert.IsTrue(didUnpin);
+
+                pinnedMessages = await ChannelService.RetrievePinnedMessages(channelId.Value);
                 Assert.AreEqual(0, Enumerable.Count(pinnedMessages));
 
            }).GetAwaiter().GetResult();
