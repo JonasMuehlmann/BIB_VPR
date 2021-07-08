@@ -271,6 +271,23 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
+            var hasMembershipQuery = $@"
+                                            SELECT
+                                                COUNT(*)
+                                            FROM
+                                                Memberships
+                                            WHERE
+                                                UserId='{userId}'
+                                                AND
+                                                TeamId = {teamId};
+                ";
+            var hasMembership = await SqlHelpers.ExecuteScalarAsync(hasMembershipQuery, Convert.ToBoolean);
+
+            if (hasMembership)
+            {
+                return false;
+            }
+
             var Team_rolesIdQuery = $@"
                                         SELECT
                                             Id
@@ -280,7 +297,6 @@ namespace Messenger.Core.Services
                                             Role = ''
                                             AND
                                             TeamId = {teamId}";
-
             var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
 
@@ -292,9 +308,7 @@ namespace Messenger.Core.Services
                                              {Team_rolesId},
                                              {teamId}
                                         );";
-
             var User_rolesId = await SqlHelpers.ExecuteScalarAsync(User_rolesIdQuery, Convert.ToUInt32);
-
 
             string query = $@"
                                 INSERT INTO
@@ -303,9 +317,7 @@ namespace Messenger.Core.Services
                                     '{userId}',
                                      {teamId}
                                 );";
-
             var result = await SqlHelpers.NonQueryAsync(query);
-
 
             return result;
         }
