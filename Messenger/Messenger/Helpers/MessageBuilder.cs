@@ -1,7 +1,9 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
+using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,11 +21,18 @@ namespace Messenger.Helpers
         /// </summary>
         /// <param name="message">Message data model to be converted</param>
         /// <returns>A complete MessageViewModel object</returns>
-        public async Task<MessageViewModel> Build(Message message)
+        public async Task<MessageViewModel> Build(Message message, UserViewModel currentUser)
         {
             MessageViewModel vm = Map(message);
 
             vm = await AssignReaction(vm);
+
+            if (vm.Reactions.Count > 0)
+            {
+                MarkMyReaction(ref vm, currentUser.Id);
+            }
+
+            vm.IsMyMessage = currentUser.Id == vm.SenderId;
 
             return vm;
         }
@@ -33,13 +42,13 @@ namespace Messenger.Helpers
         /// </summary>
         /// <param name="messages">Message data models to be converted</param>
         /// <returns>List of complete MessageViewModel objects</returns>
-        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages)
+        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages, UserViewModel currentUser)
         {
             var result = new List<MessageViewModel>();
 
             foreach (Message message in messages)
             {
-                result.Add(await Build(message));
+                result.Add(await Build(message, currentUser));
             }
 
             return result;
@@ -125,6 +134,21 @@ namespace Messenger.Helpers
                 IsReply = isReply,
                 HasReacted = false
             };
+        }
+
+        private void MarkMyReaction(ref MessageViewModel viewModel, string userId)
+        {
+            // Mark my reaction if exists
+            var myReaction = viewModel.Reactions
+                .Where(r => r.UserId == userId);
+
+            if (myReaction.Count() > 0)
+            {
+                viewModel.HasReacted = true;
+                viewModel.MyReaction = (ReactionType)Enum.Parse(
+                    typeof(ReactionType),
+                    myReaction.FirstOrDefault().Symbol);
+            }
         }
 
         /// <summary>

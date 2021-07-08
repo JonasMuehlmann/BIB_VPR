@@ -10,8 +10,11 @@ using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.Views;
+using Messenger.Views.DialogBoxes;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
@@ -88,6 +91,21 @@ namespace Messenger.ViewModels
                 Set(ref _messageToSend, value);
             }
         }
+
+        private Team _currentTeam;
+
+        public Team CurrentTeam
+        {
+            get
+            {
+                return _currentTeam;
+            }
+            set
+            {
+                Set(ref _currentTeam, value);
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -113,6 +131,12 @@ namespace Messenger.ViewModels
 
         public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
 
+        public ICommand OpenTeamManagerCommand => new RelayCommand(() => NavigationService.Open<TeamManagePage>());
+
+        public ICommand OpenSettingsCommand => new RelayCommand(() => NavigationService.Open<SettingsPage>());
+
+        public ICommand EditTeamDetailsCommand => new RelayCommand(EditTeamDetails);
+
         #endregion
 
         public ChatViewModel()
@@ -135,9 +159,34 @@ namespace Messenger.ViewModels
         /// </summary>
         private async void LoadAsync()
         {
+            var team = await Hub.GetCurrentTeam();
             var messages = await Hub.GetMessages();
 
+            CurrentTeam = team;
             UpdateView(messages);
+        }
+
+        private async void EditTeamDetails()
+        {
+            if (Hub.CurrentUser == null)
+            {
+                return;
+            }
+
+            
+
+            // Opens the dialog box for the input
+            var dialog = new ChangeTeamDialog()
+            {
+                TeamName = CurrentTeam.Name,
+                TeamDescription = CurrentTeam.Description
+            };
+
+            // Create team on confirm
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                await Hub.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
+            }
         }
 
         #region Helper
