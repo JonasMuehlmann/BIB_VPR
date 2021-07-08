@@ -117,7 +117,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AdaptiveCards">
-      <Version>2.3.0</Version>
+      <Version>2.7.1</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro.IconPacks.FontAwesome">
       <Version>4.8.0</Version>
@@ -162,6 +162,7 @@
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
+    <Compile Include="Commands\UserData\EditBioCommand.cs" />
     <Compile Include="Controls\ChatControls\MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
@@ -201,6 +202,7 @@
     <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\ThemeToFillBrushConverter.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />

@@ -32,6 +32,7 @@ namespace Messenger.Services
         {
             IdentityService.LoggedIn += OnLoggedIn;
             IdentityService.LoggedOut += OnLoggedOut;
+            MessengerService.RegisterListenerForUserUpdate(OnUserUpdate);
         }
 
         public async Task<UserViewModel> GetUserAsync()
@@ -46,6 +47,20 @@ namespace Messenger.Services
             }
 
             return _user;
+        }
+
+        public async Task<bool> UpdateUserBio(string bio)
+        {
+            bool isSuccess = await MessengerService.UpdateUserBio(_user.Id, bio);
+
+            return isSuccess;
+        }
+
+        private void OnUserUpdate(object sender, User user)
+        {
+            _user.Bio = user.Bio;
+            _user.Name = user.DisplayName;
+            _user.NameId = user.NameId;
         }
 
         private async void OnLoggedIn(object sender, EventArgs e)
