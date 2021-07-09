@@ -1,7 +1,5 @@
-namespace Messenger.Core.Models
-{
-public enum Permissions
-{
+namespace Messenger.Core.Models {
+  public enum Permissions {
     CanAddUser,
     CanRemoveUser,
     CanAddRole,
@@ -18,5 +16,5 @@ public enum Permissions
     CanDeleteTeam,
     CanPinMessages,
     CanUnpinMessages
-}
+  }
 }
