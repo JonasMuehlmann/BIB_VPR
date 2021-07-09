@@ -30,8 +30,7 @@ namespace Messenger.Core.Services
                                     Channels
                                 VALUES(
                                     '{channelName}',
-                                     {teamId},
-                                     NULL
+                                     {teamId}
                                 );
 
                             SELECT SCOPE_IDENTITY();";
