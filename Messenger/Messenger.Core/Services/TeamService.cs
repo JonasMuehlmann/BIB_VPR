@@ -559,7 +559,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve roles from</param>
         /// <returns>A list of available role names</returns>
-        public static async Task<IList<string>> ListRoles(uint teamId)
+        public static async Task<IList<TeamRole>> ListRoles(uint teamId)
         {
             LogContext.PushProperty("Method","AssignRole");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -573,9 +573,10 @@ namespace Messenger.Core.Services
                                 WHERE
                                     teamId={teamId}
                                     AND
-                                    Role != '';";
+                                    Role != '';
+                    ";
 
-            return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_roles", "Role");
+            return await SqlHelpers.MapToList(Mapper.TeamRoleFromDataRow, query);
         }
 
         /// <summary>
