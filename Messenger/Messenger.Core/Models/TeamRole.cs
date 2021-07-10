@@ -1,6 +1,3 @@
-// TODO: Implement roles object, adjust TeamService.ListRoles(), implement mapper,
-// implement GetTeamRole
-
 namespace Messenger.Core.Models
 {
     public class TeamRole
