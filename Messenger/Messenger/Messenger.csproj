@@ -207,6 +207,7 @@
     <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\TeamBuilder.cs" />
     <Compile Include="Helpers\ThemeToFillBrushConverter.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
@@ -237,7 +238,9 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\DataViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
