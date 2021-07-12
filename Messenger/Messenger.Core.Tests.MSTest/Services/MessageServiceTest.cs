@@ -22,14 +22,12 @@ namespace Messenger.Tests.MSTest
            {
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id="user1"});
                 var teamId = await TeamService.CreateTeam("MyTestTeam");
-
-                var teamId = await teamService.CreateTeam("MyTestTeam");
                 Assert.IsNotNull(teamId);
-             
+
                 var channelId = await ChannelService.CreateChannel("MyTestChannel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var result = await messageService.CreateMessage(channelId.Value,"user1", "my message text");
+                var result = await MessageService.CreateMessage(channelId.Value,"user1", "my message text");
 
                 Assert.IsTrue(result.Value > 0);
 

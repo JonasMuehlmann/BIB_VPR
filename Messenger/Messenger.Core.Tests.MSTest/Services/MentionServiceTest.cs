@@ -43,16 +43,16 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await messageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? mentionId = await mentionService.CreateMention(MentionTarget.User, userId);
@@ -69,16 +69,16 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                string userId = (await userService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await messageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? mentionId = await mentionService.CreateMention(MentionTarget.User, userId);
