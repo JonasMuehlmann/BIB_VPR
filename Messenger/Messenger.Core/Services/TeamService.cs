@@ -567,7 +567,7 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                 SELECT
-                                    Role
+                                    *
                                 FROM
                                     Team_roles
                                 WHERE
@@ -576,7 +576,7 @@ namespace Messenger.Core.Services
                                     Role != '';
                     ";
 
-            return await SqlHelpers.MapToList(Mapper.TeamRoleFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.TeamRoleFromDataRow, query, "Team_roles");
         }
 
         /// <summary>

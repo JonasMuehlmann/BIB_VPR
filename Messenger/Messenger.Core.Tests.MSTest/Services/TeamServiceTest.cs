@@ -281,7 +281,7 @@ namespace Messenger.Tests.MSTest
 
                 var roles = await TeamService.ListRoles(teamId.Value);
 
-                Assert.IsTrue(roles.Contains(testName + "Role"));
+                Assert.AreEqual(1, roles.Where((teamRole) => teamRole.Role == testName + "Role").Count());
 
             }).GetAwaiter().GetResult();
         }
@@ -307,7 +307,7 @@ namespace Messenger.Tests.MSTest
 
                 var roles = await TeamService.ListRoles(teamId.Value);
 
-                Assert.IsFalse(roles.Contains(testName + "Role"));
+                Assert.AreEqual(0, roles.Where((teamRole) => teamRole.Role == testName + "Role").Count());
 
             }).GetAwaiter().GetResult();
         }
