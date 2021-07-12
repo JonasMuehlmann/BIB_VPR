@@ -109,14 +109,16 @@ namespace Messenger.Core.Services
                     switch (mention.TargetType)
                     {
                         case MentionTarget.User:
+                            resolvedMessage += (await UserService.GetUser(mention.TargetId)).DisplayName;
                             break;
                         case MentionTarget.Role:
+                            resolvedMessage += (await TeamService.GetRole(Convert.ToUInt32(mention.TargetId)).Role;
                             break;
                         case MentionTarget.Channel:
+                            resolvedMessage += (await ChannelService.GetChannel(Convert.ToUInt32(mention.TargetId))).ChannelName;
                             break;
                         case MentionTarget.Message:
-                            break;
-                        case MentionTarget.All:
+                            resolvedMessage += $"#{mention.Id}";
                             break;
                     }
                 }
