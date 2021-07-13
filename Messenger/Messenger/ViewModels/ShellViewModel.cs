@@ -17,7 +17,7 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private Team _currentTeam;
+        private TeamViewModel _currentTeam;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
@@ -25,7 +25,7 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        public Team CurrentTeam
+        public TeamViewModel CurrentTeam
         {
             get
             {
@@ -73,21 +73,25 @@ namespace Messenger.ViewModels
             ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
-        private async void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            var team = await ChatHubService.GetCurrentTeam();
+            var team = ChatHubService.CurrentTeam;
 
             if (team == null)
             {
                 return;
             }
 
-            bool isPrivateChat = team.Name == string.Empty;
+            bool isPrivateChat = team.TeamName == string.Empty;
 
             if (isPrivateChat)
             {
                 var partnerName = team.Members.FirstOrDefault().DisplayName;
-                CurrentTeam = new Team() { Name = partnerName, Description = team.Description };
+                CurrentTeam = new TeamViewModel()
+                {
+                    TeamName = partnerName,
+                    Description = team.Description
+                };
             }
             else
             {
@@ -95,7 +99,7 @@ namespace Messenger.ViewModels
             }
         }
 
-        private void OnTeamUpdated(object sender, Team team)
+        private void OnTeamUpdated(object sender, TeamViewModel team)
         {
             CurrentTeam = null;
             CurrentTeam = team;
