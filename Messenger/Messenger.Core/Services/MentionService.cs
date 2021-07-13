@@ -113,7 +113,7 @@ namespace Messenger.Core.Services
                             resolvedMessage += (await UserService.GetUser(mention.TargetId)).DisplayName;
                             break;
                         case MentionTarget.Role:
-                            resolvedMessage += (await TeamService.GetRole(Convert.ToUInt32(mention.TargetId)).Role;
+                            resolvedMessage += (await TeamService.GetRole(Convert.ToUInt32(mention.TargetId))).Role;
                             break;
                         case MentionTarget.Channel:
                             resolvedMessage += (await ChannelService.GetChannel(Convert.ToUInt32(mention.TargetId))).ChannelName;
@@ -224,7 +224,7 @@ namespace Messenger.Core.Services
         /// <returns>List of top 10 matched mentionables</returns>
         private static async Task<IList<Mentionable>> SearchMessages(string messageId)
         {
-            LogContext.PushProperty("Method","SearchChannels");
+            LogContext.PushProperty("Method","SearchMessages");
             LogContext.PushProperty("SourceContext", "MentionService");
 
             logger.Information($"Function called with parameters messageId={messageId}");
@@ -233,7 +233,7 @@ namespace Messenger.Core.Services
                                     SELECT
                                         MessageId AS Id,
                                         SUBSTRING(Message, 0, 15) || '...' AS TargetName,
-                                        'Channel' AS TargetType
+                                        'Message' AS TargetType
                                     FROM
                                         Roles
                                     WHERE
@@ -264,16 +264,16 @@ namespace Messenger.Core.Services
                 {
                     case 'u':
                         mentionables.AddRange(await SearchUsers(searchString.Substring(2)));
-                        break
+                        break;
                     case 'r':
                         mentionables.AddRange(await SearchRoles(searchString.Substring(2)));
-                        break
+                        break;
                     case 'c':
                         mentionables.AddRange(await SearchChannels(searchString.Substring(2)));
-                        break
+                        break;
                     case 'm':
                         mentionables.AddRange(await SearchMessages(searchString.Substring(2)));
-                        break
+                        break;
                     default:
                         // Note: If we can't parse the filter, we remove it and do an
                         // unfiltered search instead
@@ -281,10 +281,10 @@ namespace Messenger.Core.Services
                 }
             }
 
-            mentionables.AddRange(await SearchUser(searchString.Substring(2)));
-            mentionables.AddRange(await SearchRole(searchString.Substring(2)));
-            mentionables.AddRange(await SearchChannel(searchString.Substring(2)));
-            mentionables.AddRange(await SearchMessage(searchString.Substring(2)));
+            mentionables.AddRange(await SearchUsers(searchString.Substring(2)));
+            mentionables.AddRange(await SearchRoles(searchString.Substring(2)));
+            mentionables.AddRange(await SearchChannels(searchString.Substring(2)));
+            mentionables.AddRange(await SearchMessages(searchString.Substring(2)));
 
             return mentionables;
         }
