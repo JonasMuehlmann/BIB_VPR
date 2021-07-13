@@ -131,10 +131,10 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Retrieve User objects of the top 10 matches for the searchString
+        /// Retrieve Mentionable objects of the top 10 user matches for the userName
         /// </summary>
         /// <param name="userName">User name to retrieve matches for</param>
-        /// <returns>List of top 10 matched User names</returns>
+        /// <returns>List of top 10 matched mentionables</returns>
         private static async Task<IList<Mentionable>> SearchUser(string userName)
         {
             LogContext.PushProperty("Method","SearchUser");
@@ -156,6 +156,34 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
+
+        /// <summary>
+        /// Retrieve Mentionable objects of the top 10 role matches for the userName
+        /// </summary>
+        /// <param name="roleName">Role name to retrieve matches for</param>
+        /// <returns>List of top 10 matched mentionables</returns>
+        private static async Task<IList<Mentionable>> SearchRoles(string roleName)
+        {
+            LogContext.PushProperty("Method","SearchRole");
+            LogContext.PushProperty("SourceContext", "MentionService");
+
+            logger.Information($"Function called with parameters roleName={roleName}");
+
+            string query = $@"
+                                    SELECT
+                                        Id,
+                                        Role as TargetName,
+                                        'Role' as TargetType
+                                    FROM
+                                        Roles
+                                    WHERE
+                                        LOWER(Role) LIKE LOWER('%{roleName}%')
+                                    ORDER BY
+                                        LEN(Role);";
+
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+        }
+
 
         /// <summary>
         /// Return the top 10 mentionables matching the searchString
