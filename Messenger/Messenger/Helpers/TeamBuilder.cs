@@ -80,11 +80,20 @@ namespace Messenger.Helpers
             {
                 viewModel.Members = new ObservableCollection<User>(members.Where(m => m.Id != currentUserId));
             }
+            else
+            {
+                viewModel.Members = new ObservableCollection<User>(members);
+            }
 
             return viewModel;
         }
 
-        private async Task<TeamViewModel> LoadChannels(TeamViewModel viewModel)
+        /// <summary>
+        /// Loads the children channels of the team
+        /// </summary>
+        /// <param name="viewModel">ViewModel of the team</param>
+        /// <returns>TeamViewModel with updated channels</returns>
+        public async Task<TeamViewModel> LoadChannels(TeamViewModel viewModel)
         {
             var channels = await MessengerService.GetChannelsForTeam((uint)viewModel.Id);
 
@@ -100,6 +109,14 @@ namespace Messenger.Helpers
             }
 
             return viewModel;
+        }
+
+        public async Task<TeamViewModel> LoadChannels(uint teamId)
+        {
+            Team team = await MessengerService.GetTeam(teamId);
+            TeamViewModel viewModel = await Build(team);
+
+            return await LoadChannels(viewModel);
         }
     }
 }
