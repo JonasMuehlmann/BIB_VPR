@@ -9,21 +9,21 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Messenger.Behaviors"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:model="using:Messenger.Core.Models"
+    xmlns:models="using:Messenger.ViewModels.DataViewModels"
     xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:templateSelectors="using:Messenger.TemplateSelectors"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
+        <DataTemplate x:Key="TeamTemplate" x:DataType="models:TeamViewModel">
             <my:TreeViewItem
-                AutomationProperties.Name="{x:Bind Name}"
+                AutomationProperties.Name="{x:Bind TeamName}"
                 IsExpanded="False"
                 ItemsSource="{x:Bind Channels}">
                 <StackPanel
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
-                    <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock Text="{x:Bind TeamName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="DodgerBlue"
@@ -34,7 +34,7 @@
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
-        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:Channel">
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="models:ChannelViewModel">
             <my:TreeViewItem
                 AutomationProperties.Name="{x:Bind ChannelName}">
                 <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
