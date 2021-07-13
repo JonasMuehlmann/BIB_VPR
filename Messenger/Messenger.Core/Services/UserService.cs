@@ -224,6 +224,24 @@ namespace Messenger.Core.Services
                 return null;
             }
 
+            // NOTE: MsGraphService sends Photo encoded in base64, here we upload that
+            // image to the blob storage and set the user's photo to the blob file name
+
+            if (userdata.Photo.Length > 100)
+            {
+                var blobFileName = await FileSharingService.UploadFromBase64(userdata.Photo, "profilePicture.png");
+
+                if (blobFileName == null)
+                {
+                    logger.Information("Could not upload existing profile picture, returning null");
+                    userdata.Photo = "";
+                }
+                else
+                {
+                    userdata.Photo = blobFileName;
+                }
+            }
+
             // Create and execute query
             string insertQuery = $@"
                                     INSERT INTO

@@ -39,6 +39,14 @@ namespace Messenger.Core.Services
             string query = $@"
                                 INSERT INTO
                                     Messages
+                                        (
+                                        SenderId,
+                                        ParentMessageId,
+                                        Message,
+                                        CreationDate,
+                                        attachmentsBlobNames,
+                                        RecipientId
+                                        )
                                 VALUES (
                                         '{senderId}',
                                          {correctedParentMessageId},
@@ -58,11 +66,11 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of a channel, whose messages should be retrieved</param>
         /// <returns>An enumerable of data rows containing the message data</returns>
-        public static async Task<IList<Message>> RetrieveMessages(uint teamId)
+        public static async Task<IList<Message>> RetrieveMessages(uint channelId)
         {
             LogContext.PushProperty("Method","RetrieveMessages");
             LogContext.PushProperty("SourceContext", "MessageService");
-            logger.Information($"Function called with parameters teamId={teamId}");
+            logger.Information($"Function called with parameters channelId={channelId}");
 
             string query = $@"
                                 SELECT
