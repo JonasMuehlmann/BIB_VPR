@@ -6,10 +6,10 @@ namespace Messenger.ViewModels.DataViewModels
     public class ChannelViewModel : Observable
     {
         private MessageViewModel _pinnedMessage;
-        private string _name;
-        private DateTime _creationDate;
+        private string _channelName;
         private uint _channelId;
         private string _description;
+        private uint _teamId;
 
         public MessageViewModel PinnedMessage
         {
@@ -17,16 +17,10 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _pinnedMessage, value); }
         }
 
-        public string Name
+        public string ChannelName
         {
-            get { return _name; }
-            set { Set(ref _name, value); }
-        }
-
-        public DateTime CreationDate
-        {
-            get { return _creationDate; }
-            set { Set(ref _creationDate, value); }
+            get { return _channelName; }
+            set { Set(ref _channelName, value); }
         }
 
         public uint ChannelId
@@ -39,6 +33,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _description; }
             set { Set(ref _description, value); }
+        }
+
+        public uint TeamId
+        {
+            get { return _teamId; }
+            set { Set(ref _teamId, value); }
         }
 
         public ChannelViewModel()
