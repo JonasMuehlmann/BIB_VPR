@@ -150,6 +150,20 @@ namespace Messenger.Core.Helpers
                 TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
             };
         }
+        /// <summary>
+        /// Maps to a full Mentionable model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Mentionable object</returns>
+        public static Mentionable MentionableFromDataRow(DataRow row)
+        {
+            return new Mentionable()
+            {
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], StringToEnum<MentionTarget>),
+                TargetName = SqlHelpers.TryConvertDbValue(row["TargetName"], Convert.ToString),
+                TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
+            };
+        }
 
         public static T StringToEnum<T>(object value)
         {
