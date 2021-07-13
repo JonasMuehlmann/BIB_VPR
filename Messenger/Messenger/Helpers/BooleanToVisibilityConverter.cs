@@ -11,6 +11,11 @@ namespace Messenger.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (parameter != null && parameter.ToString() == "invert")
+            {
+                return (bool)value ? Visibility.Collapsed : Visibility.Visible;
+            }
+
             return (bool)value ? Visibility.Visible : Visibility.Collapsed;
         }
 

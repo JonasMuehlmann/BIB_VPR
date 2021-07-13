@@ -153,9 +153,7 @@ namespace Messenger.Services
                 }
 
                 // Build view models from the data
-                var vms = await MessageBuilder.Build(messages);
-
-                MarkMyReactions(vms);
+                var vms = await MessageBuilder.Build(messages, CurrentUser);
 
                 var parents = MessageBuilder.AssignReplies(vms);
 
@@ -212,9 +210,7 @@ namespace Messenger.Services
                     return null;
                 }
 
-                var vms = await MessageBuilder.Build(fromDb);
-
-                MarkMyReactions(vms);
+                var vms = await MessageBuilder.Build(fromDb, CurrentUser);
 
                 var parents = MessageBuilder.AssignReplies(vms);
 
@@ -757,7 +753,7 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel vm = await MessageBuilder.Build(message);
+            MessageViewModel vm = await MessageBuilder.Build(message, CurrentUser);
 
             MessageManager.Add(vm);
 
@@ -809,7 +805,7 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel vm = await MessageBuilder.Build(message);
+            MessageViewModel vm = await MessageBuilder.Build(message, CurrentUser);
 
             MessageManager.Update(vm);
 
@@ -866,24 +862,6 @@ namespace Messenger.Services
                 else
                 {
                     team.Members = members.ToList();
-                }
-            }
-        }
-
-        private void MarkMyReactions(IEnumerable<MessageViewModel> viewModels)
-        {
-            // Mark my reaction if exists
-            foreach (MessageViewModel viewModel in viewModels.Where(vm => vm.Reactions.Count > 0))
-            {
-                var myReaction = viewModel.Reactions
-                    .Where(r => r.UserId == CurrentUser.Id);
-
-                if (myReaction.Count() > 0)
-                {
-                    viewModel.HasReacted = true;
-                    viewModel.MyReaction = (ReactionType)Enum.Parse(
-                        typeof(ReactionType),
-                        myReaction.FirstOrDefault().Symbol);
                 }
             }
         }

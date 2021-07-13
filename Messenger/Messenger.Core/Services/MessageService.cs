@@ -39,6 +39,14 @@ namespace Messenger.Core.Services
             string query = $@"
                                 INSERT INTO
                                     Messages
+                                        (
+                                        SenderId,
+                                        ParentMessageId,
+                                        Message,
+                                        CreationDate,
+                                        attachmentsBlobNames,
+                                        RecipientId
+                                        )
                                 VALUES (
                                         '{senderId}',
                                          {correctedParentMessageId},

@@ -7,11 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Messenger.Core.Models"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
+    xmlns:helpers="using:Messenger.Helpers"
     xmlns:local="using:Messenger.Controls.ChatControls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
+        <helpers:BooleanToAlignmentConverter x:Key="BooleanToAlignmentConverter" />
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="0 10" />
         </Style>
@@ -74,22 +76,34 @@
     <ScrollViewer>
         <ListView
             SelectionMode="None"
+            HorizontalAlignment="Stretch"
+            Padding="0 0 75 0"
             ItemsSource="{x:Bind Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="helpers:BindingHelper.HorizontalAlignBindingPath" Value="True" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel
+                        HorizontalAlignment="Stretch">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
             <!-- MESSAGE TEMPLATE -->
             <ListView.ItemTemplate>
                 <DataTemplate
                     x:DataType="vm:MessageViewModel">
-                    <Grid
-                        HorizontalAlignment="Stretch">
-                        <local:MessageControl
-                            HorizontalContentAlignment="Stretch"
-                            Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
-                            DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
-                            EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
-                            ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
-                            />
-                    </Grid>
+                    <local:MessageControl
+                        Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
+                        DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
+                        EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
+                        ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
+                        />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

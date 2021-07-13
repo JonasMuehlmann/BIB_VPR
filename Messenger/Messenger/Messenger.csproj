@@ -163,6 +163,9 @@
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Commands\UserData\EditBioCommand.cs" />
+    <Compile Include="Controls\ChatControls\ChatHeader.xaml.cs">
+      <DependentUpon>ChatHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChatControls\MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,8 @@
     <Compile Include="Controls\Shared\OnLoading.xaml.cs">
       <DependentUpon>OnLoading.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BindingHelper.cs" />
+    <Compile Include="Helpers\BooleanToAlignmentConverter.cs" />
     <Compile Include="Helpers\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\DateToStringConverter.cs" />
@@ -299,6 +304,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ChatControls\ChatHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ChatControls\MessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

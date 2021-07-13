@@ -24,22 +24,11 @@
             NavigateToChats="{x:Bind ViewModel.NavigateToChatsCommand}"
             NavigateToNotifications="{x:Bind ViewModel.NavigateToNotificationsCommand}"
             CurrentPageName="{x:Bind ViewModel.CurrentPageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-
-            />
-        <!-- NAVIGATION HEADER -->
-        <controls:NavigationHeader
-            Grid.Row="0"
-            Grid.Column="1"
-            OpenProfileCommand="{x:Bind ViewModel.OpenUserProfileCommand}"
-            OpenTeamManagerCommand="{x:Bind ViewModel.OpenTeamManagerCommand}"
-            CurrentTeamName="{x:Bind ViewModel.CurrentTeam.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            CurrentTeamDescription="{x:Bind ViewModel.CurrentTeam.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            ChangeTeamDetailsCommand="{x:Bind ViewModel.ChangeTeamDetailsCommand}"
             />
         <Grid Grid.Row="1" Grid.Column="0">
             <Frame x:Name="sideFrame" />
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
             <Frame x:Name="shellFrame" />
         </Grid>
     </Grid>
