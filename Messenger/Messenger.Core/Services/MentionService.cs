@@ -130,7 +130,32 @@ namespace Messenger.Core.Services
             return resolvedMessage;
         }
 
+        /// <summary>
+        /// Retrieve User objects of the top 10 matches for the searchString
+        /// </summary>
+        /// <param name="userName">User name to retrieve matches for</param>
+        /// <returns>List of top 10 matched User names</returns>
+        private static async Task<IList<Mentionable>> SearchUser(string userName)
+        {
+            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("SourceContext", "MentionService");
 
+            logger.Information($"Function called with parameters userName={userName}");
+
+            string query = $@"
+                                    SELECT
+                                        UserId as Id,
+                                        CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS TargetName,
+                                        'User' as TargetType
+                                    FROM
+                                        Users
+                                    WHERE
+                                        LOWER(UserName) LIKE LOWER('%{userName}%')
+                                    ORDER BY
+                                        LEN(UserName);";
+
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+        }
 
         /// <summary>
         /// Return the top 10 mentionables matching the searchString
