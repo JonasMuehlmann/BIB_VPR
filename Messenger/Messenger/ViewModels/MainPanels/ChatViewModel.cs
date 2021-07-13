@@ -92,17 +92,11 @@ namespace Messenger.ViewModels
             }
         }
 
-        private Team _currentTeam;
-
-        public Team CurrentTeam
+        public TeamViewModel CurrentTeam
         {
             get
             {
-                return _currentTeam;
-            }
-            set
-            {
-                Set(ref _currentTeam, value);
+                return Hub.CurrentTeam;
             }
         }
 
@@ -159,10 +153,8 @@ namespace Messenger.ViewModels
         /// </summary>
         private async void LoadAsync()
         {
-            var team = await Hub.GetCurrentTeam();
             var messages = await Hub.GetMessages();
 
-            CurrentTeam = team;
             UpdateView(messages);
         }
 
@@ -173,12 +165,10 @@ namespace Messenger.ViewModels
                 return;
             }
 
-            
-
             // Opens the dialog box for the input
             var dialog = new ChangeTeamDialog()
             {
-                TeamName = CurrentTeam.Name,
+                TeamName = CurrentTeam.TeamName,
                 TeamDescription = CurrentTeam.Description
             };
 
