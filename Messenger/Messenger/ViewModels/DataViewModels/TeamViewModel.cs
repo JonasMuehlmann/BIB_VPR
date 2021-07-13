@@ -1,4 +1,5 @@
-﻿using Messenger.Helpers;
+﻿using Messenger.Core.Models;
+using Messenger.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,14 +11,14 @@ namespace Messenger.ViewModels.DataViewModels
 {
     public class TeamViewModel : Observable
     {
-        private uint _id;
+        private uint? _id;
         private string _teamName;
         private string _description;
         private DateTime _creationDate;
-        private ObservableCollection<UserViewModel> _members;
+        private ObservableCollection<User> _members;
         private ObservableCollection<ChannelViewModel> _channels;
 
-        public uint Id
+        public uint? Id
         {
             get { return _id; }
             set { Set(ref _id, value); }
@@ -28,7 +29,6 @@ namespace Messenger.ViewModels.DataViewModels
             get { return _teamName; }
             set { Set(ref _teamName, value); }
         }
-
 
         public string Description
         {
@@ -42,7 +42,7 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _creationDate, value); }
         }
 
-        public ObservableCollection<UserViewModel> Members
+        public ObservableCollection<User> Members
         {
             get { return _members; }
             set { Set(ref _members, value); }
