@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -129,5 +130,52 @@ namespace Messenger.Core.Services
             return resolvedMessage;
         }
 
+
+
+        /// <summary>
+        /// Return the top 10 mentionables matching the searchString
+        /// </summary>
+        /// <param name="searchString">The string used to rank matched entities</param>
+        /// <returns>A list of Mentionables</returns>
+        public async Task<IList<Mentionable>> SearchMentionable(string searchString)
+        {
+            LogContext.PushProperty("Method","SearchMentionable");
+            LogContext.PushProperty("SourceContext", "MentionService");
+
+            logger.Information($"Function called with parameters searchString={searchString}");
+
+            var mentionables = new List<Mentionable>();
+
+            // Check for filters
+            if (char.IsLetter(searchString[0]) && searchString[1] == ':')
+            {
+                switch (searchString[0])
+                {
+                    case 'u':
+                        mentionables.AddRange(await SearchUser(searchString.Substring(2)));
+                        break
+                    case 'r':
+                        mentionables.AddRange(await SearchRole(searchString.Substring(2)));
+                        break
+                    case 'c':
+                        mentionables.AddRange(await SearchChannel(searchString.Substring(2)));
+                        break
+                    case 'm':
+                        mentionables.AddRange(await SearchMessage(searchString.Substring(2)));
+                        break
+                    default:
+                        // Note: If we can't parse the filter, we remove it and do an
+                        // unfiltered search instead
+                        return await SearchMentionable(searchString.Substring(2));
+                }
+            }
+
+            mentionables.AddRange(await SearchUser(searchString.Substring(2)));
+            mentionables.AddRange(await SearchRole(searchString.Substring(2)));
+            mentionables.AddRange(await SearchChannel(searchString.Substring(2)));
+            mentionables.AddRange(await SearchMessage(searchString.Substring(2)));
+
+            return mentionables;
+        }
     }
 }
