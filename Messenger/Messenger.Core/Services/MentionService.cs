@@ -130,12 +130,13 @@ namespace Messenger.Core.Services
             return resolvedMessage;
         }
 
+        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 user matches for the userName
         /// </summary>
         /// <param name="userName">User name to retrieve matches for</param>
         /// <returns>List of top 10 matched mentionables</returns>
-        private static async Task<IList<Mentionable>> SearchUser(string userName)
+        private static async Task<IList<Mentionable>> SearchUsers(string userName)
         {
             LogContext.PushProperty("Method","SearchUser");
             LogContext.PushProperty("SourceContext", "MentionService");
@@ -157,6 +158,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
 
+        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 role matches for the roleName
         /// </summary>
@@ -184,6 +186,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
 
+        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 channel matches for the
         /// channelName
@@ -212,6 +215,33 @@ namespace Messenger.Core.Services
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
 
+        // TODO: Filter by team
+        /// <summary>
+        /// Retrieve Mentionable objects of the top 10 channel matches for the
+        /// messageId
+        /// </summary>
+        /// <param name="messageId">Id of the message to search for</param>
+        /// <returns>List of top 10 matched mentionables</returns>
+        private static async Task<IList<Mentionable>> SearchMessages(string messageId)
+        {
+            LogContext.PushProperty("Method","SearchChannels");
+            LogContext.PushProperty("SourceContext", "MentionService");
+
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $@"
+                                    SELECT
+                                        MessageId AS Id,
+                                        SUBSTRING(Message, 0, 15) || '...' AS TargetName,
+                                        'Channel' AS TargetType
+                                    FROM
+                                        Roles
+                                    WHERE
+                                        LOWER(CONVERT(VARCHAR(15), MessageId)) LIKE LOWER('%{messageId}%')
+                                    ";
+
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+        }
 
         /// <summary>
         /// Return the top 10 mentionables matching the searchString
@@ -233,16 +263,16 @@ namespace Messenger.Core.Services
                 switch (searchString[0])
                 {
                     case 'u':
-                        mentionables.AddRange(await SearchUser(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchUsers(searchString.Substring(2)));
                         break
                     case 'r':
-                        mentionables.AddRange(await SearchRole(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchRoles(searchString.Substring(2)));
                         break
                     case 'c':
-                        mentionables.AddRange(await SearchChannel(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchChannels(searchString.Substring(2)));
                         break
                     case 'm':
-                        mentionables.AddRange(await SearchMessage(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchMessages(searchString.Substring(2)));
                         break
                     default:
                         // Note: If we can't parse the filter, we remove it and do an
