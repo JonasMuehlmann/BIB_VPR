@@ -144,9 +144,9 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        UserId as Id,
+                                        UserId AS Id,
                                         CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS TargetName,
-                                        'User' as TargetType
+                                        'User' AS TargetType
                                     FROM
                                         Users
                                     WHERE
@@ -158,28 +158,56 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        /// Retrieve Mentionable objects of the top 10 role matches for the userName
+        /// Retrieve Mentionable objects of the top 10 role matches for the roleName
         /// </summary>
         /// <param name="roleName">Role name to retrieve matches for</param>
         /// <returns>List of top 10 matched mentionables</returns>
         private static async Task<IList<Mentionable>> SearchRoles(string roleName)
         {
-            LogContext.PushProperty("Method","SearchRole");
+            LogContext.PushProperty("Method","SearchRoles");
             LogContext.PushProperty("SourceContext", "MentionService");
 
             logger.Information($"Function called with parameters roleName={roleName}");
 
             string query = $@"
                                     SELECT
-                                        Id,
-                                        Role as TargetName,
-                                        'Role' as TargetType
+                                        ChannelId AS Id,
+                                        ChannelName AS TargetName,
+                                        'Role' AS TargetType
                                     FROM
                                         Roles
                                     WHERE
                                         LOWER(Role) LIKE LOWER('%{roleName}%')
                                     ORDER BY
                                         LEN(Role);";
+
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+        }
+
+        /// <summary>
+        /// Retrieve Mentionable objects of the top 10 channel matches for the
+        /// channelName
+        /// </summary>
+        /// <param name="channelName">Channel name to retrieve matches for</param>
+        /// <returns>List of top 10 matched mentionables</returns>
+        private static async Task<IList<Mentionable>> SearchChannels(string channelName)
+        {
+            LogContext.PushProperty("Method","SearchChannels");
+            LogContext.PushProperty("SourceContext", "MentionService");
+
+            logger.Information($"Function called with parameters channelName={channelName}");
+
+            string query = $@"
+                                    SELECT
+                                        ChannelId AS Id,
+                                        ChannelName AS TargetName,
+                                        'Channel' AS TargetType
+                                    FROM
+                                        Roles
+                                    WHERE
+                                        LOWER(ChannelName) LIKE LOWER('%{channelName}%')
+                                    ORDER BY
+                                        LEN(ChannelName);";
 
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
