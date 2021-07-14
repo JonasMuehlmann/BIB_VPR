@@ -15,29 +15,28 @@ namespace Messenger.Helpers
     {
         private readonly UserViewModel _user;
 
-        public TeamBuilder(UserViewModel user)
+        public TeamBuilder()
         {
-            _user = user;
         }
 
-        public async Task<TeamViewModel> Build(Team team)
+        public async Task<TeamViewModel> Build(Team team, string userId)
         {
             TeamViewModel viewModel = Map(team);
 
-            var withMembers = await LoadMembers(viewModel, _user.Id);
+            var withMembers = await LoadMembers(viewModel, userId);
 
             var withChannels = await LoadChannels(withMembers);
 
             return withChannels;
         }
 
-        public async Task<List<TeamViewModel>> Build(IEnumerable<Team> teams)
+        public async Task<List<TeamViewModel>> Build(IEnumerable<Team> teams, string userId)
         {
             List<TeamViewModel> result = new List<TeamViewModel>();
 
             foreach (Team team in teams)
             {
-                var viewModel = await Build(team);
+                var viewModel = await Build(team, userId);
                 result.Add(viewModel);
             }
 
@@ -111,10 +110,10 @@ namespace Messenger.Helpers
             return viewModel;
         }
 
-        public async Task<TeamViewModel> LoadChannels(uint teamId)
+        public async Task<TeamViewModel> LoadChannels(uint teamId, string userId)
         {
             Team team = await MessengerService.GetTeam(teamId);
-            TeamViewModel viewModel = await Build(team);
+            TeamViewModel viewModel = await Build(team, userId);
 
             return await LoadChannels(viewModel);
         }
