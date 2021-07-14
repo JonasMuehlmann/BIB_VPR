@@ -100,6 +100,14 @@ namespace Messenger.ViewModels
             }
         }
 
+        public ChannelViewModel CurrentChannel
+        {
+            get
+            {
+                return Hub.CurrentChannel;
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -141,7 +149,7 @@ namespace Messenger.ViewModels
 
             // Register events
             Hub.TeamSwitched += OnTeamSwitched;
-            Hub.MessageReceived += OnMessagesUpdated;
+            Hub.MessageReceived += OnMessageReceived;
             Hub.MessageUpdated += OnMessagesUpdated;
             Hub.MessageDeleted += OnMessagesUpdated;
 
@@ -230,6 +238,16 @@ namespace Messenger.ViewModels
 
         /// <summary>
         /// Fires on MessageReceived of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">Received Message object</param>
+        private void OnMessageReceived(object sender, MessageViewModel vm)
+        {
+            Messages.Add(vm);
+        }
+
+        /// <summary>
+        /// Fires on MessageUpdated of ChatHubService
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>
