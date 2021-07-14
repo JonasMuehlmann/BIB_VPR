@@ -48,6 +48,21 @@ namespace Messenger.Helpers
             return _messagesByChannelId.TryGetValue(channelId, out messages);
         }
 
+        public bool TryGetLastMessage(uint channelId, out MessageViewModel message)
+        {
+            if (TryGetMessages(channelId, out ObservableCollection<MessageViewModel> messages)
+                && messages.Count > 0)
+            {
+                message = messages.LastOrDefault();
+                return true;
+            }
+            else
+            {
+                message = null;
+                return false;
+            }
+        }
+
         /// <summary>
         /// Adds the message to the dictionary
         /// </summary>

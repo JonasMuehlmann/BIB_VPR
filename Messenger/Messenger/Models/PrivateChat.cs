@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.ViewModels.DataViewModels;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Messenger.Models
@@ -10,6 +11,10 @@ namespace Messenger.Models
     public class PrivateChat : TeamViewModel
     {
         public User Partner { get; set; }
+
+        public MessageViewModel LastMessage { get; set; }
+
+        public ChannelViewModel MainChannel { get; set; }
 
         /// <summary>
         /// Creates a PrivateChat object from the given team data
@@ -28,12 +33,16 @@ namespace Messenger.Models
 
             User partner = teamData.Members.FirstOrDefault();
 
+            ChannelViewModel mainChannel = teamData.Channels.FirstOrDefault(); // Private chat has only one channel
+
             return new PrivateChat()
             {
                 Id = teamData.Id,
                 TeamName = string.Empty,
                 Description = teamData.Description,
                 CreationDate = teamData.CreationDate,
+                LastMessage = mainChannel.LastMessage,
+                MainChannel = mainChannel,
                 Partner = partner
             };
         }

@@ -1,4 +1,5 @@
 ﻿using Messenger.ViewModels.DataViewModels;
+using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -42,6 +43,15 @@ namespace Messenger.Controls.ChatControls
 
         public static readonly DependencyProperty CurrentTeamProperty =
             DependencyProperty.Register("CurrentTeam", typeof(TeamViewModel), typeof(ChatHeader), new PropertyMetadata(null));
+
+        public ChannelViewModel CurrentChannel
+        {
+            get { return (ChannelViewModel)GetValue(CurrentChannelProperty); }
+            set { SetValue(CurrentChannelProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentChannelProperty =
+            DependencyProperty.Register("CurrentChannel", typeof(ChannelViewModel), typeof(ChatHeader), new PropertyMetadata(null));
 
         public ChatHeader()
         {

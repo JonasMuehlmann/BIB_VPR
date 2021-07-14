@@ -13,8 +13,6 @@ namespace Messenger.Helpers
 {
     public class TeamBuilder
     {
-        private readonly UserViewModel _user;
-
         public TeamBuilder()
         {
         }
@@ -51,6 +49,7 @@ namespace Messenger.Helpers
                 TeamName = team.Name,
                 Description = team.Description,
                 CreationDate = team.CreationDate,
+                IsPrivateChat = string.IsNullOrEmpty(team.Name),
                 Members = new ObservableCollection<User>(),
                 Channels = new ObservableCollection<ChannelViewModel>()
             };

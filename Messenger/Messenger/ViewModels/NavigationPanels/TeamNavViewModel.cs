@@ -20,7 +20,7 @@ namespace Messenger.ViewModels
         #region Privates
 
         private ShellViewModel _shellViewModel;
-        private ICommand _itemInvokedCommand;
+        private ICommand _switchChannelCommand;
         private ICommand _createTeamCommand;
         private ObservableCollection<TeamViewModel> _teams;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
@@ -67,7 +67,7 @@ namespace Messenger.ViewModels
 
         public UserViewModel CurrentUser => ChatHubService.CurrentUser;
 
-        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(OnItemInvoked));
+        public ICommand SwitchChannelCommand => _switchChannelCommand ?? (_switchChannelCommand = new RelayCommand<ChannelViewModel>(SwitchChannel));
 
         public ICommand CreateTeamCommand => _createTeamCommand ?? (_createTeamCommand = new RelayCommand(CreateTeamAsync));
 
@@ -77,6 +77,7 @@ namespace Messenger.ViewModels
 
             Teams = new ObservableCollection<TeamViewModel>();
 
+            ChatHubService.MessageReceived += OnMessageReceived;
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             ChatHubService.TeamUpdated += OnTeamUpdated;
 
@@ -167,16 +168,32 @@ namespace Messenger.ViewModels
         /// Fires on click and invokes ChatHubService to load messages of the selected team
         /// </summary>
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
-        private async void OnItemInvoked(WinUI.TreeViewItemInvokedEventArgs args)
+        private async void SwitchChannel(ChannelViewModel channel)
         {
-            uint teamId = (uint)(args.InvokedItem as TeamViewModel).Id;
-
             // Invokes TeamSwitched event
-            await ChatHubService.SwitchTeam(teamId);
+            await ChatHubService.SwitchChannel(channel.TeamId, channel.ChannelId);
 
             NavigationService.Open<ChatPage>();
         }
 
+        /// <summary>
+        /// Fires on MessageReceived in ChatHubService and refreshes the view
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">MessageViewModel received</param>
+        private void OnMessageReceived(object sender, MessageViewModel message)
+        {
+            foreach (TeamViewModel team in _teams)
+            {
+                foreach (ChannelViewModel channel in team.Channels)
+                {
+                    if (channel.ChannelId == message.ChannelId)
+                    {
+                        channel.LastMessage = message;
+                    }
+                }
+            }
+        }
 
         #region Helpers
 

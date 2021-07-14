@@ -6,9 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid
         VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
@@ -41,18 +45,35 @@
             <StackPanel
                 Orientation="Horizontal"
                 VerticalAlignment="Center"
-                Spacing="10">
-                <TextBlock
-                    FontWeight="Bold"
-                    FontSize="26"
-                    Text="{x:Bind CurrentTeam.TeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    />
+                Spacing="25">
+                <StackPanel
+                    Spacing="-3">
+                    <TextBlock
+                        FontWeight="Bold"
+                        FontSize="24"
+                        Visibility="{x:Bind CurrentTeam.IsPrivateChat, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='invert'}"
+                        Text="{x:Bind CurrentTeam.TeamName, Mode=OneWay}"
+                        />
+                    <TextBlock
+                        FontWeight="Bold"
+                        FontSize="26"
+                        Text="{x:Bind CurrentTeam.Members[0].DisplayName, Mode=OneWay}"
+                        Visibility="{x:Bind CurrentTeam.IsPrivateChat, Converter={StaticResource BoolToVisibilityConverter}}"
+                        />
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        FontSize="18"
+                        Opacity=".75"
+                        Visibility="{x:Bind CurrentTeam.IsPrivateChat, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='invert'}"
+                        Text="{x:Bind CurrentChannel.ChannelName, Mode=OneWay}"
+                        />
+                </StackPanel>
                 <TextBlock
                     Text="{x:Bind CurrentTeam.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     FontSize="14"
                     Opacity=".75"
                     TextTrimming="WordEllipsis"
-                    VerticalAlignment="Bottom"
+                    VerticalAlignment="Center"
                     />
             </StackPanel>
             <Button
