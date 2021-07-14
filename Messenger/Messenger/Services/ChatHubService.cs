@@ -136,7 +136,7 @@ namespace Messenger.Services
 
             /** BUILDERS: converts DB data from MessengerService into corresponding view models **/
             MessageBuilder = new MessageBuilder();
-            TeamBuilder = new TeamBuilder(CurrentUser);
+            TeamBuilder = new TeamBuilder();
 
             InitializeAsync();
         }
@@ -423,7 +423,7 @@ namespace Messenger.Services
 
             /** FROM DB **/
             var fromDB = await MessengerService.LoadTeams(CurrentUser.Id);
-            var viewModels = await TeamBuilder.Build(fromDB);
+            var viewModels = await TeamBuilder.Build(fromDB, CurrentUser.Id);
 
             logger.Information($"Return value: {string.Join(", ", viewModels)}");
 
@@ -488,16 +488,21 @@ namespace Messenger.Services
         {
             LogContext.PushProperty("Method","SwitchTeam");
             LogContext.PushProperty("SourceContext", GetType().Name);
-
             logger.Information($"Function called with parameter teamId={teamId}");
 
-            CurrentTeam.Id = teamId;
-            // Invokes ui events with the list of messages of the team
+            IReadOnlyCollection<TeamViewModel> myTeams = await GetMyTeams();
+            TeamViewModel targetTeam = myTeams.Where(t => t.Id == teamId).FirstOrDefault();
 
-            var messages = await GetMessages();
+            if (targetTeam.Id == null)
+            {
+                return;
+            }
+
+            CurrentTeam = targetTeam; // Set current team
+
+            IEnumerable<MessageViewModel> messages = await GetMessages(); // Get messages for current team
 
             logger.Information($"Event {nameof(TeamSwitched)} invoked with {messages?.Count()} messages");
-
             TeamSwitched?.Invoke(this, messages);
         }
 
@@ -705,7 +710,7 @@ namespace Messenger.Services
             }
 
             Team chat = await MessengerService.GetTeam((uint)chatId); // Get created chat from DB
-            TeamViewModel viewModel = await TeamBuilder.Build(chat); // Convert to view model
+            TeamViewModel viewModel = await TeamBuilder.Build(chat, CurrentUser.Id); // Convert to view model
 
             TeamManager.AddTeam(viewModel); // Add to cache
 
