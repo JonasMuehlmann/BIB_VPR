@@ -20,7 +20,7 @@ namespace Messenger.Core.Services
         public static async Task<uint?> CreateMention<T>(MentionTarget target, T id)
         {
             LogContext.PushProperty("Method","CreateMention");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MentionService");
             logger.Information($"Function called with parameters target={target.ToString()}, id={id}");
 
             if (typeof(T) == typeof(string) || typeof(T) == typeof(uint))
@@ -52,7 +52,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> RemoveMention(uint mentionId)
         {
             LogContext.PushProperty("Method","RemoveMention");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MentionService");
             logger.Information($"Function called with parameters mentionId={mentionId}");
 
             var query = $@"
@@ -73,7 +73,7 @@ namespace Messenger.Core.Services
         public static async Task<Mention> RetrieveMention(uint mentionId)
         {
             LogContext.PushProperty("Method","RetrieveMention");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "MentionService");
             logger.Information($"Function called with parameters mentionId={mentionId}");
 
             var query = $@"
