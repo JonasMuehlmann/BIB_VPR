@@ -34,6 +34,11 @@ namespace Messenger.Helpers
 
             vm.IsMyMessage = currentUser.Id == vm.SenderId;
 
+            if (vm.Sender == null)
+            {
+                vm = await GetSender(vm);
+            }
+
             return vm;
         }
 
@@ -77,6 +82,7 @@ namespace Messenger.Helpers
 
         /// <summary>
         /// Sorts parent-messages/replies and assigns replies to matching parents
+        /// this should be called only after converting all loaded messages to view models
         /// </summary>
         /// <param name="viewModels">List of MessageViewModel to sort</param>
         /// <returns>List of parent messages with assigned replies</returns>
@@ -112,6 +118,15 @@ namespace Messenger.Helpers
             return parents;
         }
 
+        private async Task<MessageViewModel> GetSender(MessageViewModel viewModel)
+        {
+            User sender = await UserService.GetUser(viewModel.SenderId);
+
+            viewModel.Sender = sender;
+
+            return viewModel;
+        }
+
         /// <summary>
         /// Maps the properties from the data model
         /// </summary>
@@ -129,7 +144,7 @@ namespace Messenger.Helpers
                 Sender = message.Sender,
                 Content = message.Content,
                 CreationTime = message.CreationTime,
-                TeamId = message.RecipientId,
+                ChannelId = message.RecipientId,
                 Attachments = ParseBlobName(message.AttachmentsBlobName),
                 IsReply = isReply,
                 HasReacted = false

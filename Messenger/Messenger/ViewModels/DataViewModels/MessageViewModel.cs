@@ -1,10 +1,12 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -16,7 +18,7 @@ namespace Messenger.ViewModels.DataViewModels
         private string _senderId;
         private string _content;
         private DateTime _creationTime;
-        private uint? _teamId;
+        private uint? _channelId;
         private uint? _parentMessageId;
         private bool _isReply;
         private bool _hasReacted;
@@ -53,10 +55,10 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _creationTime, value); }
         }
 
-        public uint? TeamId
+        public uint? ChannelId
         {
-            get { return _teamId; }
-            set { Set(ref _teamId, value); }
+            get { return _channelId; }
+            set { Set(ref _channelId, value); }
         }
 
         public uint? ParentMessageId

@@ -32,7 +32,7 @@
                     OpenSettingsCommand="{x:Bind ViewModel.OpenSettingsCommand}"
                     OpenTeamManagerCommand="{x:Bind ViewModel.OpenTeamManagerCommand}"
                     EditTeamDetailsCommand="{x:Bind ViewModel.EditTeamDetailsCommand}"
-                    CurrentTeam="{x:Bind ViewModel.CurrentTeam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    CurrentTeam="{x:Bind ViewModel.CurrentTeam, Mode=OneWay}"
                     />
                 <MenuFlyoutSeparator
                     Grid.Row="1"
