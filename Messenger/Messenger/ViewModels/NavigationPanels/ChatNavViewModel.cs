@@ -9,6 +9,7 @@ using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.Views;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
@@ -61,6 +62,7 @@ namespace Messenger.ViewModels
 
             Chats = new ObservableCollection<PrivateChat>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            ChatHubService.MessageReceived += OnMessageReceived;
             Initialize();
         }
 
@@ -89,10 +91,13 @@ namespace Messenger.ViewModels
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
         private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
         {
-            uint teamId = (args.InvokedItem as Team).Id;
+            PrivateChat chat = args.InvokedItem as PrivateChat;
+            ChannelViewModel mainChannel = chat.MainChannel;
 
             // Invokes TeamSwitched event
-            await ChatHubService.SwitchTeam(teamId);
+            await ChatHubService.SwitchChannel((uint)chat.Id, mainChannel.ChannelId);
+
+            NavigationService.Open<ChatPage>();
         }
 
         /// <summary>
@@ -108,6 +113,24 @@ namespace Messenger.ViewModels
             }
 
             IsBusy = false;
+        }
+
+        /// <summary>
+        /// Fires on MessageReceived in ChatHubService and refreshes the view
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">MessageViewModel received</param>
+        private void OnMessageReceived(object sender, MessageViewModel message)
+        {
+            foreach (PrivateChat chat in _chats)
+            {
+                ChannelViewModel singleChannel = chat.Channels.FirstOrDefault();
+
+                if (singleChannel.ChannelId == message.ChannelId)
+                {
+                    chat.LastMessage = message;
+                }
+            }
         }
 
         /// <summary>
