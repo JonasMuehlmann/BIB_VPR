@@ -1,4 +1,4 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.ViewModels.DataViewModels;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -34,14 +34,14 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty EditTeamDetailsCommandProperty =
             DependencyProperty.Register("EditTeamDetailsCommand", typeof(ICommand), typeof(ChatHeader), new PropertyMetadata(null));
 
-        public Team CurrentTeam
+        public TeamViewModel CurrentTeam
         {
-            get { return (Team)GetValue(CurrentTeamProperty); }
+            get { return (TeamViewModel)GetValue(CurrentTeamProperty); }
             set { SetValue(CurrentTeamProperty, value); }
         }
 
         public static readonly DependencyProperty CurrentTeamProperty =
-            DependencyProperty.Register("CurrentTeam", typeof(Team), typeof(ChatHeader), new PropertyMetadata(null));
+            DependencyProperty.Register("CurrentTeam", typeof(TeamViewModel), typeof(ChatHeader), new PropertyMetadata(null));
 
         public ChatHeader()
         {

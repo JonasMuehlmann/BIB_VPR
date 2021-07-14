@@ -45,7 +45,7 @@
                 <TextBlock
                     FontWeight="Bold"
                     FontSize="26"
-                    Text="{x:Bind CurrentTeam.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{x:Bind CurrentTeam.TeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     />
                 <TextBlock
                     Text="{x:Bind CurrentTeam.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
