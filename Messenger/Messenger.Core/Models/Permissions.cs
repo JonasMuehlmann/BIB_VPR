@@ -15,6 +15,8 @@ namespace Messenger.Core.Models
         CanChangeChannelName,
         CanChangeChannelDescription,
         CanAttachFiles,
-        CanDeleteTeam
+        CanDeleteTeam,
+        CanPinMessages,
+        CanUnpinMessages
     }
 }
