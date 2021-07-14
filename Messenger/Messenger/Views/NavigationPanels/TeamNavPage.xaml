@@ -16,27 +16,26 @@
     <Page.Resources>
         <DataTemplate x:Key="TeamTemplate" x:DataType="models:TeamViewModel">
             <my:TreeViewItem
-                AutomationProperties.Name="{x:Bind TeamName}"
                 IsExpanded="False"
-                ItemsSource="{x:Bind Channels}">
+                ItemsSource="{Binding}">
                 <StackPanel
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
-                    <TextBlock Text="{x:Bind TeamName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock Text="{Binding TeamName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="DodgerBlue"
                         Opacity=".5">
                         <Run Text="#" />
-                        <Run Text="{x:Bind Id}" />
+                        <Run Text="{Binding Id}" />
                     </TextBlock>
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
         <DataTemplate x:Key="TeamChannelTemplate" x:DataType="models:ChannelViewModel">
             <my:TreeViewItem
-                AutomationProperties.Name="{x:Bind ChannelName}">
+                ItemsSource="{Binding}">
                 <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
             </my:TreeViewItem>
         </DataTemplate>
