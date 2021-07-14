@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Core.Helpers;
-using Messenger.Core.Models;
-using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
 using Messenger.Views.DialogBoxes;
-using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
