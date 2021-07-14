@@ -8,6 +8,7 @@ using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
@@ -63,7 +64,7 @@ namespace Messenger.ViewModels
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             switch (ChatHubService.ConnectionState)
             {
@@ -74,7 +75,7 @@ namespace Messenger.ViewModels
                     IsBusy = false;
                     break;
                 case ChatHubConnectionState.LoadedWithData:
-                    FilterAndUpdateChats(ChatHubService.CurrentUser.Teams);
+                    FilterAndUpdateChats(await ChatHubService.GetMyTeams());
                     IsBusy = false;
                     break;
                 default:
@@ -99,7 +100,7 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="teams">Enumerable of teams</param>
-        private void OnTeamsUpdated(object sender, IEnumerable<Team> teams)
+        private void OnTeamsUpdated(object sender, IEnumerable<TeamViewModel> teams)
         {
             if (teams != null)
             {
@@ -113,12 +114,12 @@ namespace Messenger.ViewModels
         /// Filters out private chats from the given teams list and updates the view
         /// </summary>
         /// <param name="teams">List of teams from the ChatHubService</param>
-        private void FilterAndUpdateChats(IEnumerable<Team> teams)
+        private void FilterAndUpdateChats(IEnumerable<TeamViewModel> teams)
         {
             if (teams != null)
             {
                 IEnumerable<PrivateChat> chatsList = teams
-                    .Where(team => string.IsNullOrEmpty(team.Name))
+                    .Where(team => string.IsNullOrEmpty(team.TeamName))
                     .Select(data => PrivateChat.CreatePrivateChatFromTeamData(data));
 
                 Chats.Clear();

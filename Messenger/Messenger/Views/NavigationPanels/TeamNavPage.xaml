@@ -9,34 +9,33 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Messenger.Behaviors"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:model="using:Messenger.Core.Models"
+    xmlns:models="using:Messenger.ViewModels.DataViewModels"
     xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:templateSelectors="using:Messenger.TemplateSelectors"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="TeamTemplate" x:DataType="model:Team">
+        <DataTemplate x:Key="TeamTemplate" x:DataType="models:TeamViewModel">
             <my:TreeViewItem
-                AutomationProperties.Name="{x:Bind Name}"
                 IsExpanded="False"
-                ItemsSource="{x:Bind Channels}">
+                ItemsSource="{Binding}">
                 <StackPanel
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
-                    <TextBlock Text="{x:Bind Name}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <TextBlock Text="{Binding TeamName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="DodgerBlue"
                         Opacity=".5">
                         <Run Text="#" />
-                        <Run Text="{x:Bind Id}" />
+                        <Run Text="{Binding Id}" />
                     </TextBlock>
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
-        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="model:Channel">
+        <DataTemplate x:Key="TeamChannelTemplate" x:DataType="models:ChannelViewModel">
             <my:TreeViewItem
-                AutomationProperties.Name="{x:Bind ChannelName}">
+                ItemsSource="{Binding}">
                 <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
             </my:TreeViewItem>
         </DataTemplate>

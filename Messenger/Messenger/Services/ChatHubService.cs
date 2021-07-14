@@ -25,30 +25,61 @@ namespace Messenger.Services
     {
         #region Private
 
+        private ILogger logger = GlobalLogger.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
-        private MessageBuilder MessageBuilder = new MessageBuilder();
+        private MessageBuilder MessageBuilder;
+        private TeamBuilder TeamBuilder;
+        private TeamViewModel _currentTeam;
+        private UserViewModel _currentUser;
+
+        /// <summary>
+        /// Instance to hold/manage messages
+        /// </summary>
+        private MessageManager MessageManager { get; }
+
+        /// <summary>
+        /// Instance to hold/manage teams
+        /// </summary>
+        private TeamManager TeamManager { get; }
 
         #endregion
 
         #region Properties
 
-        public MessageManager MessageManager { get; }
 
-        public uint? CurrentTeamId { get; set; }
+        /// <summary>
+        /// Currently selected team view model
+        /// </summary>
+        public TeamViewModel CurrentTeam
+        {
+            get { return _currentTeam; }
+            set { _currentTeam = value; }
+        }
 
-        public UserViewModel CurrentUser { get; private set; }
+        /// <summary>
+        /// Currently logged in user
+        /// </summary>
+        public UserViewModel CurrentUser
+        {
+            get { return _currentUser; }
+            set { _currentUser = value; }
+        }
 
-        public ILogger logger = GlobalLogger.Instance;
-
+        /// <summary>
+        /// Represents the current states of the service
+        /// - Loading: user or teams have not been loaded yet
+        /// - NoDataFound: user is loaded with empty teams list
+        /// - LoadedWithData: user is loaded with teams list
+        /// </summary>
         public ChatHubConnectionState ConnectionState
         {
             get
             {
-                if (CurrentUser == null || CurrentUser?.Teams == null)
+                if (CurrentUser == null || TeamManager.MyTeams == null)
                 {
                     return ChatHubConnectionState.Loading;
                 }
-                else if (CurrentUser.Teams.Count == 0)
+                else if (TeamManager.MyTeams.Count == 0)
                 {
                     return ChatHubConnectionState.NoDataFound;
                 }
@@ -85,22 +116,38 @@ namespace Messenger.Services
         /// <summary>
         /// Event handler for updates in teams list
         /// </summary>
-        public event EventHandler<IEnumerable<Team>> TeamsUpdated;
+        public event EventHandler<IEnumerable<TeamViewModel>> TeamsUpdated;
 
         /// <summary>
         /// Event handler for update at TeamDescription and TeamName
         /// </summary>
-        public event EventHandler<Team> TeamUpdated;
+        public event EventHandler<TeamViewModel> TeamUpdated;
 
         #endregion
 
+        /// <summary>
+        /// Provides view models with teams/channels information and messages
+        /// </summary>
         public ChatHubService()
         {
+            /** MANAGERS: instances to hold messages/teams **/
             MessageManager = new MessageManager();
+            TeamManager = new TeamManager();
+
+            /** BUILDERS: converts DB data from MessengerService into corresponding view models **/
+            MessageBuilder = new MessageBuilder();
+            TeamBuilder = new TeamBuilder();
 
             InitializeAsync();
         }
 
+        /// <summary>
+        /// Initialize the service
+        /// loads the following data:
+        /// - current user
+        /// - my teams (broadcasted/list managed in TeamManager instance)
+        /// - messages (entries created in MessageManager instance)
+        /// </summary>
         private async void InitializeAsync()
         {
             LogContext.PushProperty("Method", $"{nameof(InitializeAsync)}");
@@ -108,71 +155,62 @@ namespace Messenger.Services
 
             logger.Information($"Initializing ChatHubService");
 
+            /** REGISTER LISTENERS **/
             MessengerService.RegisterListenerForMessages(OnMessageReceived);
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
             MessengerService.RegisterListenerForMessageUpdate(OnMessageUpdated);
             MessengerService.RegisterListenerForMessageDelete(OnMessageDeleted);
 
-            // Load current user
+            /** (REQUIRED) LOAD USER **/
             CurrentUser = await UserDataService.GetUserAsync();
 
-            // Load teams
-            var teams = await GetTeamsList();
+            /** (REQUIRED) LOAD TEAMS **/
+            /* TeamManager <= MessengerService */
+            var teamViewModels = await GetMyTeams();
 
-            // Exit with empty teams list, if the user has joined no team
-            if (teams == null || teams.Count() <= 0)
+            if (teamViewModels == null || teamViewModels.Count() <= 0) 
             {
                 logger.Information($"Event {nameof(TeamsUpdated)} invoked with no team");
 
-                CurrentUser.Teams = new List<Team>();
+                TeamManager.Clear();
                 TeamsUpdated?.Invoke(this, null);
 
-                return;
+                return; // Exit if user has no team
+            }
+            else
+            {
+                TeamManager.AddTeam(teamViewModels);
+                CurrentTeam = TeamManager.MyTeams.FirstOrDefault(); // First team as current team
+
+                logger.Information($"Event {nameof(TeamsUpdated)} invoked with {teamViewModels.Count()} teams");
+                TeamsUpdated?.Invoke(this, TeamManager.MyTeams); // Broadcast readonly list of my teams
             }
 
-            // Load member data, if teams exist
-            foreach (Team team in teams)
+            /** (IF TEAMS) LOAD MESSAGES **/
+            /* MessageManager <= MessengerService */
+            foreach (TeamViewModel teamViewModel in TeamManager.MyTeams)
             {
-                var members = await MessengerService.LoadTeamMembers(team.Id);
-
-                team.Members = members != null ? members.ToList() : new List<User>();
-            }
-
-            await SetMembers(teams);
-
-            CurrentUser.Teams = teams.ToList();
-
-            // Load messages, if teams exist
-            foreach (Team team in teams)
-            {
-                var messages = await MessengerService.LoadMessages(team.Id);
+                var messages = await MessengerService.LoadMessages((uint)teamViewModel.Id);
 
                 if (messages == null)
                 {
                     continue;
                 }
 
-                // Build view models from the data
-                var vms = await MessageBuilder.Build(messages, CurrentUser);
+                var vms = await MessageBuilder.Build(messages, CurrentUser); // Convert to ViewModel
 
                 var parents = MessageBuilder.AssignReplies(vms);
 
-                MessageManager.CreateEntry(team.Id, parents);
+                MessageManager.CreateEntry((uint)teamViewModel.Id, parents); // Messages loaded in MessageManager
             }
-
-            // Sets the first team as the selected team
-            CurrentTeamId = CurrentUser.Teams.FirstOrDefault().Id;
-
-            logger.Information($"Event {nameof(TeamsUpdated)} invoked with {CurrentUser.Teams.Count} teams");
-
-            // Broadcast Teams
-            TeamsUpdated?.Invoke(this, CurrentUser.Teams);
         }
 
         #region Message
 
         /// <summary>
-        /// Gets all messages of the current team
+        /// Gets all messages of the current team in two possible ways:
+        /// • loads from the cache dwelling in MessageManager
+        /// • loads from the server database
         /// </summary>
         /// <returns>List of messages</returns>
         public async Task<ObservableCollection<MessageViewModel>> GetMessages()
@@ -182,7 +220,8 @@ namespace Messenger.Services
 
             logger.Information($"Function called");
 
-            if (CurrentTeamId == null)
+            /** NO TEAM SELECTED **/
+            if (CurrentTeam.Id == null)
             {
                 logger.Information("No current team set, exiting");
                 logger.Information("Return value: null");
@@ -190,19 +229,19 @@ namespace Messenger.Services
                 return null;
             }
 
-            uint teamId = (uint)CurrentTeamId;
+            /** CHECK IN CACHE **/
+            uint teamId = (uint)CurrentTeam.Id;
 
-            // Checks the cache if the messages has been loaded for the team
             if (MessageManager.TryGetMessages(teamId, out ObservableCollection<MessageViewModel> fromCache))
             {
-                // Loads from cache
+                /** LOAD FROM CACHE **/
                 logger.Information($"Return value: {fromCache}");
 
                 return fromCache;
             }
             else
             {
-                // Loads from database
+                /** LOAD FROM DB **/
                 var fromDb = await MessengerService.LoadMessages(teamId);
 
                 if (fromDb == null)
@@ -210,7 +249,7 @@ namespace Messenger.Services
                     return null;
                 }
 
-                var vms = await MessageBuilder.Build(fromDb, CurrentUser);
+                var vms = await MessageBuilder.Build(fromDb, CurrentUser); // Must be converted to view models from database models
 
                 var parents = MessageBuilder.AssignReplies(vms);
 
@@ -223,7 +262,10 @@ namespace Messenger.Services
         }
 
         /// <summary>
-        /// Sends a message to the current team
+        /// Invokes MessengerService to send given Message object,
+        /// marks following information before forwarded:
+        /// • CurrentUser.Id as SenderId
+        /// • CurrentTeam.Id as RecipientId
         /// </summary>
         /// <param name="content">Content to be written in the message</param>
         /// <returns>True on success, false on error</returns>
@@ -236,12 +278,11 @@ namespace Messenger.Services
             {
                 logger.Information($"Error while fetching user data");
                 logger.Information($"Return value: false");
-                return false;
+                return false; // Exit if no user
             }
 
-            // Set sender and recipient ids
             message.SenderId = CurrentUser.Id;
-            message.RecipientId = (uint)CurrentTeamId;
+            message.RecipientId = (uint)CurrentTeam.Id;
 
             bool isSuccess = await MessengerService.SendMessage(message);
 
@@ -250,6 +291,12 @@ namespace Messenger.Services
             return isSuccess;
         }
 
+        /// <summary>
+        /// Invokes MessengerService to edit the message content with the given string value
+        /// </summary>
+        /// <param name="messageId">Id of the message</param>
+        /// <param name="newContent">New content string</param>
+        /// <returns>True if successful, else false</returns>
         public async Task<bool> EditMessage(uint messageId, string newContent)
         {
             LogContext.PushProperty("Method", $"{nameof(SendMessage)}");
@@ -268,6 +315,11 @@ namespace Messenger.Services
             return isSuccess;
         }
 
+        /// <summary>
+        /// Invokes MessengerService to delete the message from the database
+        /// </summary>
+        /// <param name="messageId">Id of the message</param>
+        /// <returns>True if successful, else false</returns>
         public async Task<bool> DeleteMessage(uint messageId)
         {
             LogContext.PushProperty("Method", $"{nameof(DeleteMessage)}");
@@ -286,6 +338,14 @@ namespace Messenger.Services
             return isSuccess;
         }
 
+        /// <summary>
+        /// Invokes MessengerService to add reaction to the message,
+        /// following information will be forwarded from the service:
+        /// • CurrentUser.Id as UserId
+        /// </summary>
+        /// <param name="messageId">Id of the message</param>
+        /// <param name="type">Type of reaction to be added</param>
+        /// <returns>True if succesful, else false</returns>
         public async Task<bool> MakeReaction(uint messageId, ReactionType type)
         {
             LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
@@ -304,6 +364,14 @@ namespace Messenger.Services
             return isSuccess != null ? true : false;
         }
 
+        /// <summary>
+        /// Invokes MessengerService to remove reaction to the message,
+        /// following information will be forwarded from the service:
+        /// • CurrentUser.Id as UserId
+        /// </summary>
+        /// <param name="messageId">Id of the message</param>
+        /// <param name="type">Type of reaction to be removed</param>
+        /// <returns>True if succesful, else false</returns>
         public async Task<bool> RemoveReaction(uint messageId, ReactionType type)
         {
             LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
@@ -328,17 +396,17 @@ namespace Messenger.Services
         #region Team
 
         /// <summary>
-        /// Gets the list of teams of the current user
-        /// Should only be used to 'reload', since the list should be already loaded in UserViewModel.Teams
+        /// Loads teams from the database and converts to view models
         /// </summary>
-        /// <returns>List of teams</returns>
-        public async Task<IEnumerable<Team>> GetTeamsList()
+        /// <returns>List of team view models</returns>
+        public async Task<IReadOnlyCollection<TeamViewModel>> GetMyTeams()
         {
-            LogContext.PushProperty("Method",$"{nameof(GetTeamsList)}");
+            LogContext.PushProperty("Method",$"{nameof(GetMyTeams)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
             logger.Information($"Function called");
 
+            /** EXIT: NO USER **/
             if (CurrentUser == null)
             {
                 logger.Information("Return value: null");
@@ -346,33 +414,28 @@ namespace Messenger.Services
                 return null;
             }
 
-            var teams = await MessengerService.LoadTeams(CurrentUser.Id);
-
-            logger.Information($"Loading members for teams {string.Join(", ", teams.Select(team => team.Id))}");
-
-            await SetMembers(teams);
-
-            //get all channels
-            teams = await GetChannelsForAllTeams(teams);
-
-            // Updates the teams list under the current user
-            CurrentUser.Teams.Clear();
-            foreach (var team in teams)
+            /** FROM CACHE **/
+            if (TeamManager.MyTeams != null
+                && TeamManager.MyTeams.Count > 0)
             {
-                CurrentUser.Teams.Add(team);
+                return TeamManager.MyTeams;
             }
 
-            logger.Information($"Return value: {string.Join(", ", teams)}");
+            /** FROM DB **/
+            var fromDB = await MessengerService.LoadTeams(CurrentUser.Id);
+            var viewModels = await TeamBuilder.Build(fromDB, CurrentUser.Id);
 
-            return teams;
+            logger.Information($"Return value: {string.Join(", ", viewModels)}");
+
+            return viewModels;
         }
 
         /// <summary>
         /// Creates a new team and invokes registered events(TeamsUpdated)
         /// </summary>
-        /// <param name="teamName"></param>
-        /// <param name="teamDescription"></param>
-        /// <returns></returns>
+        /// <param name="teamName">Name of the team</param>
+        /// <param name="teamDescription">Description of the team</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task CreateTeam(string teamName, string teamDescription)
         {
             LogContext.PushProperty("Method","CreateTeam");
@@ -384,10 +447,10 @@ namespace Messenger.Services
 
             if (teamId != null)
             {
-                await SwitchTeam((uint)teamId);
+                await SwitchTeam((uint)teamId); // Switch to newly created team
             }
 
-            var teams = await GetTeamsList();
+            var teams = await GetMyTeams();
 
             logger.Information($"Event {nameof(TeamsUpdated)} invoked with {teams?.Count()} teams");
 
@@ -397,8 +460,8 @@ namespace Messenger.Services
         /// <summary>
         /// Updates the teamName and teamDescription of the current tem
         /// </summary>
-        /// <param name="teamName"></param>
-        /// <param name="teamDescription"></param>
+        /// <param name="teamName">Name of the team</param>
+        /// <param name="teamDescription">Description of the team</param>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateTeam(string teamName, string teamDescription)
         {
@@ -407,143 +470,85 @@ namespace Messenger.Services
 
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}");
 
-            await MessengerService.ChangeTeamName(teamName, (uint)CurrentTeamId);
-            await MessengerService.ChangeTeamDescription(teamDescription, (uint)CurrentTeamId);
+            await MessengerService.ChangeTeamName(teamName, (uint)CurrentTeam.Id);
+            await MessengerService.ChangeTeamDescription(teamDescription, (uint)CurrentTeam.Id);
 
-            for (int i = 0; i < CurrentUser.Teams.Count; i++)
-            {
-                if (CurrentUser.Teams[i].Id == (uint)CurrentTeamId)
-                {
-                    CurrentUser.Teams[i].Name = teamName;
-                    CurrentUser.Teams[i].Description = teamDescription;
-                }
-            }
+            CurrentTeam.TeamName = teamName;
+            CurrentTeam.Description = teamDescription;
 
-            TeamUpdated?.Invoke(this, await GetCurrentTeam());
+            TeamUpdated?.Invoke(this, CurrentTeam);
         }
 
         /// <summary>
-        /// Updates current team id and invokes registered events(TeamSwitched)
+        /// Updates CurrentTeam and invokes registered events(TeamSwitched)
         /// </summary>
         /// <param name="teamId">Id of the team to switch to</param>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task SwitchTeam(uint? teamId)
         {
             LogContext.PushProperty("Method","SwitchTeam");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-
+            LogContext.PushProperty("SourceContext", GetType().Name);
             logger.Information($"Function called with parameter teamId={teamId}");
 
-            CurrentTeamId = teamId;
-            // Invokes ui events with the list of messages of the team
+            IReadOnlyCollection<TeamViewModel> myTeams = await GetMyTeams();
+            TeamViewModel targetTeam = myTeams.Where(t => t.Id == teamId).FirstOrDefault();
 
-            var messages = await GetMessages();
+            if (targetTeam.Id == null)
+            {
+                return;
+            }
+
+            CurrentTeam = targetTeam; // Set current team
+
+            IEnumerable<MessageViewModel> messages = await GetMessages(); // Get messages for current team
 
             logger.Information($"Event {nameof(TeamSwitched)} invoked with {messages?.Count()} messages");
-
             TeamSwitched?.Invoke(this, messages);
         }
 
         /// <summary>
-        /// Returns the current team model from the loaded list
+        /// Creates a new channel with the given channel name
         /// </summary>
-        /// <returns>A complete team object</returns>
-        public async Task<Team> GetCurrentTeam()
-        {
-            LogContext.PushProperty("Method", $"{nameof(GetCurrentTeam)}");
-            LogContext.PushProperty("SourceContext", GetType().Name);
-
-            if (CurrentTeamId == null)
-            {
-                logger.Information($"Current team id is not set valid: {CurrentTeamId}");
-
-                return null;
-            }
-
-            var currentTeam = CurrentUser.Teams
-                .Where(t => t.Id == CurrentTeamId)
-                .FirstOrDefault();
-
-            if (currentTeam != null)
-            {
-                var channels = await GetChannelsList(currentTeam.Id);
-                if (channels != null)
-                {
-                    currentTeam.FilterAndUpdateChannels(channels);
-                }
-            }
-
-            logger.Information($"Return value: {currentTeam}");
-
-            return currentTeam;
-        }
-
-
-        /// <summary>
-        /// creates a new channel with name
-        /// </summary>
-        /// <param name="channelName"></param>
+        /// <param name="channelName">Name of the new channel</param>
         /// <returns>Task to await</returns>
-        public async Task CreateChannel(string channelName)
+        public async Task<bool> CreateChannel(string channelName)
         {
             LogContext.PushProperty("Method", "CreateChannel");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", GetType().Name);
 
             logger.Information($"Function called with parameter channelName={channelName}");
 
-            await MessengerService.CreateChannel(channelName, (uint)CurrentTeamId);
+            bool isSuccess = await MessengerService.CreateChannel(channelName, (uint)CurrentTeam.Id); // Create entry in DB
 
-            TeamsUpdated?.Invoke(this, await GetTeamsList());
+
+
+            TeamsUpdated?.Invoke(this, await GetMyTeams()); // Reload
+
+            return isSuccess;
         }
 
         /// <summary>
-        /// deletes a new Channel by its channelId
+        /// (Destructive) Deletes a channel by its channel id,
+        /// this also deletes all the messages in the channel
         /// </summary>
-        /// <param name="channelId"></param>
+        /// <param name="channelId">Id of the channel to be deleted</param>
         /// <returns>Task to await</returns>
-        public async Task RemoveChannel(uint channelId)
+        public async Task<bool> RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method", "RemoveChannel");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", GetType().Name);
 
             logger.Information($"Function called with parameter channelId={channelId}");
 
-            await MessengerService.RemoveChannel(channelId);
+            bool isSuccess = await MessengerService.RemoveChannel(channelId); // Remove from DB
 
-            TeamsUpdated?.Invoke(this, await GetTeamsList());
+            MessageManager.RemoveEntry(channelId); // Remove from the cache
+
+            TeamsUpdated?.Invoke(this, await GetMyTeams()); // Reload
+
+            return isSuccess;
         }
 
-        /// <summary>
-        /// get channels for a team
-        /// </summary>
-        /// <param name="teamId"></param>
-        /// <returns>the channels</returns>
-        public async Task<IEnumerable<Channel>> GetChannelsList(uint teamId)
-        {
-            LogContext.PushProperty("Method", "GetChannelsList");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-
-            logger.Information($"Function called with parameter teamId={teamId}");
-
-            return await MessengerService.GetChannelsForTeam(teamId);
-        }
-
-        private async Task<IEnumerable<Team>> GetChannelsForAllTeams(IEnumerable<Team> teams)
-        {
-            LogContext.PushProperty("Method", "GetChannelsList");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
-
-
-            logger.Information($"Function called with parameter teams={string.Join(",", teams)}");
-
-
-            foreach (Team t in teams) {
-                t.FilterAndUpdateChannels(await MessengerService.GetChannelsForTeam(t.Id));
-            }
-
-            return teams;
-        }
         #endregion
 
         #region Member
@@ -673,7 +678,7 @@ namespace Messenger.Services
 
             logger.Information($"Function called with parameters username={username}, nameId={nameId}");
 
-            var user = await MessengerService.GetUserWithNameId(username, nameId);
+            var user = await MessengerService.GetUserWithNameId(username, nameId); // Load from DB
 
             logger.Information($"Return value: {user}");
 
@@ -687,9 +692,9 @@ namespace Messenger.Services
         /// <summary>
         /// Start a new chat and invokes registered events(TeamsUpdated)
         /// </summary>
-        /// <param name="teamName"></param>
-        /// <param name="teamDescription"></param>
-        /// <returns></returns>
+        /// <param name="teamName">Name of the team</param>
+        /// <param name="teamDescription">Description of the team</param>
+        /// <returns>True if successful, else false</returns>
         public async Task<bool> StartChat(string targetUserId)
         {
             LogContext.PushProperty("Method", $"{nameof(SearchUser)}");
@@ -701,21 +706,17 @@ namespace Messenger.Services
 
             if (chatId == null)
             {
-                return false;
+                return false; // Exit if entry was not created in DB
             }
 
-            var chat = await MessengerService.GetTeam((uint)chatId);
-            var members = await MessengerService.LoadTeamMembers(chat.Id);
+            Team chat = await MessengerService.GetTeam((uint)chatId); // Get created chat from DB
+            TeamViewModel viewModel = await TeamBuilder.Build(chat, CurrentUser.Id); // Convert to view model
 
-            chat.Members = members.Where(m => m.Id != CurrentUser.Id).ToList();
+            TeamManager.AddTeam(viewModel); // Add to cache
 
-            CurrentUser.Teams.Add(chat);
+            TeamsUpdated?.Invoke(this, await GetMyTeams()); // Reload
 
-            await SwitchTeam((uint)chatId);
-
-            logger.Information($"Event {nameof(TeamsUpdated)} invoked with {CurrentUser.Teams.Count()} messages");
-
-            TeamsUpdated?.Invoke(this, CurrentUser.Teams);
+            await SwitchTeam((uint)viewModel.Id); // Switch to the created chat
 
             return true;
         }
@@ -745,22 +746,13 @@ namespace Messenger.Services
                 return;
             }
 
-            // Loads user data of the sender
-            message.Sender = await UserService.GetUser(message.SenderId);
+            MessageViewModel vm = await MessageBuilder.Build(message, CurrentUser); // Convert to view model
 
-            if (message.Sender == null)
-            {
-                return;
-            }
-
-            MessageViewModel vm = await MessageBuilder.Build(message, CurrentUser);
-
-            MessageManager.Add(vm);
+            MessageManager.Add(vm); // Add to cache
 
             logger.Information($"Event {nameof(MessageReceived)} invoked with message: {message}");
 
-            // Triggers view models to reload
-            MessageReceived?.Invoke(this, EventArgs.Empty);
+            MessageReceived?.Invoke(this, EventArgs.Empty); // Reload
         }
 
         /// <summary>
@@ -805,12 +797,11 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageViewModel vm = await MessageBuilder.Build(message, CurrentUser);
+            MessageViewModel vm = await MessageBuilder.Build(message, CurrentUser); // Convert to view model
 
-            MessageManager.Update(vm);
+            MessageManager.Update(vm); // Update cache
 
-            // Triggers view models to reload
-            MessageUpdated?.Invoke(this, EventArgs.Empty);
+            MessageUpdated?.Invoke(this, EventArgs.Empty); // Reload
         }
 
         /// <summary>
@@ -827,43 +818,9 @@ namespace Messenger.Services
                 return;
             }
 
-            MessageManager.Remove(message);
+            MessageManager.Remove(message); // Remove from cache
 
-            // Triggers view models to reload
-            MessageDeleted?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Determines the type of team and sets the corresponding member models
-        /// </summary>
-        /// <param name="team">Team object to reference to</param>
-        /// <param name="members">List of members to set</param>
-        private async Task SetMembers(IEnumerable<Team> teams)
-        {
-            LogContext.PushProperty("Method", $"{nameof(SetMembers)}");
-            LogContext.PushProperty("SourceContext", GetType().Name);
-
-            logger.Information($"Function called");
-
-            foreach (Team team in teams)
-            {
-                var members = await MessengerService.LoadTeamMembers(team.Id);
-                // If it is a private chat, exclude current user id
-                if (string.IsNullOrEmpty(team.Name))
-                {
-                    team.Members = members
-                        .Where(m => m.Id != CurrentUser.Id)
-                        .ToList();
-                }
-                else
-                {
-                    team.Members = members.ToList();
-                }
-            }
+            MessageDeleted?.Invoke(this, EventArgs.Empty); // Reload
         }
 
         #endregion

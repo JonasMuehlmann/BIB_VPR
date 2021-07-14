@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.ViewModels.DataViewModels;
 using System.Linq;
 
 namespace Messenger.Models
@@ -6,7 +7,7 @@ namespace Messenger.Models
     /// <summary>
     /// This extended model of a Team is mainly used to ease bindings in XAML
     /// </summary>
-    public class PrivateChat : Team
+    public class PrivateChat : TeamViewModel
     {
         public User Partner { get; set; }
 
@@ -15,7 +16,7 @@ namespace Messenger.Models
         /// </summary>
         /// <param name="teamData">Team data from the service</param>
         /// <returns>A complete PrivateChat object</returns>
-        public static PrivateChat CreatePrivateChatFromTeamData(Team teamData)
+        public static PrivateChat CreatePrivateChatFromTeamData(TeamViewModel teamData)
         {
             bool isMemberDataValid = teamData.Members != null
                 && teamData.Members.Count > 0;
@@ -30,7 +31,7 @@ namespace Messenger.Models
             return new PrivateChat()
             {
                 Id = teamData.Id,
-                Name = string.Empty,
+                TeamName = string.Empty,
                 Description = teamData.Description,
                 CreationDate = teamData.CreationDate,
                 Partner = partner
