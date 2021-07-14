@@ -16,29 +16,10 @@ namespace Messenger.Tests.MSTest
     [TestClass]
     public class MentionServiceTest
     {
-        MessageService messageService;
-        UserService userService;
-        TeamService teamService;
-        MentionService mentionService;
-        ChannelService channelService;
-
-        /// <summary>
-        /// Initialize the service
-        /// </summary>
-        [TestInitialize]
-        public void Initialize()
-        {
-            messageService = new MessageService();
-            userService =    new UserService();
-            teamService =    new TeamService();
-            mentionService = new MentionService();
-            channelService = new ChannelService();
-        }
 
         [TestMethod]
         public void CreateMention_Test()
         {
-
             var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
             Task.Run(async () =>
@@ -55,7 +36,7 @@ namespace Messenger.Tests.MSTest
                 uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
-                uint? mentionId = await mentionService.CreateMention(MentionTarget.User, userId);
+                uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
                 Assert.IsNotNull(mentionId);
 
             }).GetAwaiter().GetResult();
@@ -64,7 +45,6 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void RemoveMention_Test()
         {
-
             var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
             Task.Run(async () =>
@@ -87,6 +67,36 @@ namespace Messenger.Tests.MSTest
                 bool didRemove = await mentionService.RemoveMention(mentionId.Value);
                 Assert.IsTrue(didRemove);
 
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void ResolveMentionNoMention_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
+                uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
+                Assert.IsNotNull(mentionId);
+
+                var messageOriginal = (await MessageService.GetMessage(messageId.Value)).Content;
+                Assert.AreEqual(testName + "Message", messageOriginal);
+
+                var messageResolved = await MentionService.ResolveMentions(messageOriginal);
+                Assert.AreEqual(messageOriginal, messageResolved);
             }).GetAwaiter().GetResult();
         }
 

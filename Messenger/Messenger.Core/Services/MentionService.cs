@@ -17,7 +17,7 @@ namespace Messenger.Core.Services
         /// <param name="target">The type of the entity to mention</param>
         /// <param name="id">The id of the entity to mention</param>
         /// <returns>The created mention id on success, null on failure</returns>
-        public async Task<uint?> CreateMention<T>(MentionTarget target, T id)
+        public static async Task<uint?> CreateMention<T>(MentionTarget target, T id)
         {
             LogContext.PushProperty("Method","CreateMention");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -49,7 +49,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="mentionId">The id of the mention entry to remove</param>
         /// <returns>true on successfully, false otherwise</returns>
-        public async Task<bool> RemoveMention(uint mentionId)
+        public static async Task<bool> RemoveMention(uint mentionId)
         {
             LogContext.PushProperty("Method","RemoveMention");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -70,7 +70,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="mentionId">The id of the mention to retrieve</param>
         /// <returns>The mention object</returns>
-        public async Task<Mention> RetrieveMention(uint mentionId)
+        public static async Task<Mention> RetrieveMention(uint mentionId)
         {
             LogContext.PushProperty("Method","RetrieveMention");
             LogContext.PushProperty("SourceContext", this.GetType().Name);
@@ -93,7 +93,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">The message containing the mentions to resolve</param>
         /// <returns>The message with all mentions resolved</returns>
-        public async Task<string> ResolveMentions(string message)
+        public static async Task<string> ResolveMentions(string message)
         {
             // Regex example: blah blah @123456 blah blub
             //                          \_____/
@@ -261,7 +261,7 @@ namespace Messenger.Core.Services
         /// <param name="searchString">The string used to rank matched entities</param>
         /// <param name="teamId">The id of the team to search in</param>
         /// <returns>A list of Mentionables</returns>
-        public async Task<IList<Mentionable>> SearchMentionable(string searchString, uint teamId)
+        public static async Task<IList<Mentionable>> SearchMentionable(string searchString, uint teamId)
         {
             LogContext.PushProperty("Method","SearchMentionable");
             LogContext.PushProperty("SourceContext", "MentionService");
