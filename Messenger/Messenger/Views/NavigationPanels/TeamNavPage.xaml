@@ -11,32 +11,78 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:models="using:Messenger.ViewModels.DataViewModels"
     xmlns:shared="using:Messenger.Controls.Shared"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:templateSelectors="using:Messenger.TemplateSelectors"
+    xmlns:converters="using:Messenger.Helpers"
     mc:Ignorable="d">
     <Page.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <DataTemplate x:Key="TeamTemplate" x:DataType="models:TeamViewModel">
             <my:TreeViewItem
                 IsExpanded="False"
-                ItemsSource="{Binding}">
+                ItemsSource="{Binding Channels}"
+                Padding="0 10">
                 <StackPanel
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
+                    Spacing="10"
                     Orientation="Horizontal">
-                    <TextBlock Text="{Binding TeamName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                    <Viewbox
+                        Width="32"
+                        Height="32">
+                        <Border
+                            Background="{ThemeResource SystemAccentColor}"
+                            CornerRadius="50"
+                            Padding="6">
+                            <icons:PackIconFontAwesome
+                                Kind="UsersSolid"
+                                Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
+                                />
+                        </Border>
+                    </Viewbox>
                     <TextBlock
                         VerticalAlignment="Center"
-                        Foreground="DodgerBlue"
-                        Opacity=".5">
-                        <Run Text="#" />
-                        <Run Text="{Binding Id}" />
-                    </TextBlock>
+                        Text="{Binding TeamName}"
+                        />
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
+
         <DataTemplate x:Key="TeamChannelTemplate" x:DataType="models:ChannelViewModel">
             <my:TreeViewItem
                 ItemsSource="{Binding}">
-                <TextBlock Text="{x:Bind ChannelName}" Margin="{StaticResource XXSmallTopRightBottomMargin}" />
+                <StackPanel
+                    Spacing="15"
+                    Orientation="Horizontal">
+                    <Viewbox
+                        Width="16"
+                        Height="16">
+                        <icons:PackIconFontAwesome
+                            Kind="BookmarkSolid"
+                            Foreground="{ThemeResource TextControlBorderBrushFocused}"
+                            />
+                    </Viewbox>
+                    <StackPanel
+                        Spacing="-2"
+                        Padding="0 5 0 15">
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Text="{Binding ChannelName}"/>
+                        <TextBlock
+                            Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                            FontSize="12"
+                            Opacity=".75">
+                            <Run
+                                Text="{Binding LastMessage.Sender.DisplayName}"
+                                />
+                            <Run
+                                Text=":"
+                                />
+                            <Run
+                                Text="{Binding LastMessage.Content}"
+                                />
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
         <templateSelectors:TeamDataTemplateSelector
@@ -55,15 +101,11 @@
                     <i:BehaviorCollection>
                         <behaviors:TreeViewCollapseBehavior
                             x:Name="collapseBehavior" />
-                        <ic:EventTriggerBehavior
-                            EventName="ItemInvoked">
-                            <ic:InvokeCommandAction
-                                Command="{x:Bind ViewModel.ItemInvokedCommand}" />
-                        </ic:EventTriggerBehavior>
                     </i:BehaviorCollection>
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style x:Key="SearchFieldStyle" TargetType="TextBox">
             <Setter Property="Height" Value="30" />
             <Setter Property="Margin" Value="5" />
@@ -74,11 +116,9 @@
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
         <Style x:Key="NewTeamButtonStyle" TargetType="Button">
-            <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Margin" Value="0 0 15 30" />
-            <Setter Property="CornerRadius" Value="1" />
+            <Setter Property="CornerRadius" Value="3" />
         </Style>
 
         <!--#endregion-->
@@ -89,26 +129,70 @@
     <Grid
         x:Name="ContentArea">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <Grid
+            Padding="32 25 20 25"
+            BorderThickness="0 0 0 1"
+            BorderBrush="{ThemeResource SystemAccentColorLight1}"
+            HorizontalAlignment="Stretch">
+            <StackPanel
+                Spacing="10"
+                Orientation="Horizontal">
+                <TextBlock
+                    Text="Teams"
+                    FontSize="20"
+                    />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource SystemAccentColor}"
+                    FontSize="12">
+                    <Run
+                        Text="{x:Bind ViewModel.Teams.Count, Mode=OneWay}"
+                        />
+                    <Run
+                        Text="Teams active"
+                        />
+                </TextBlock>
+            </StackPanel>
+            <!-- CREATE NEW TEAM -->
+            <Button
+                x:Name="newChat"
+                Style="{StaticResource NewTeamButtonStyle}"
+                Command="{x:Bind ViewModel.CreateTeamCommand}"
+                Grid.Row="0">
+                <Viewbox
+                    Height="18"
+                    Width="18">
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <SymbolIcon
+                            Symbol="AddFriend"
+                            Foreground="{ThemeResource SystemAccentColor}"
+                            />
+                    </StackPanel>
+                </Viewbox>
+            </Button>
+        </Grid>
+        
         <!-- LOADING CONTROL -->
         <shared:OnLoading
-            Grid.Row="0"
+            Grid.Row="1"
             LoadingText="Loading Teams.."
             IsBusy="{x:Bind ViewModel.IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             />
 
         <!-- TEAMS LIST -->
         <ScrollViewer
-            Grid.Row="0">
+            Grid.Row="1">
             <StackPanel
                 Margin="0 0 0 20">
                 <my:TreeView
                     x:Name="treeView"
                     Style="{StaticResource TeamTreeViewStyle}"
                     Grid.Row="1"
+                    ItemInvoked="treeView_ItemInvoked"
                     ItemsSource="{x:Bind
                         ViewModel.Teams,
                         UpdateSourceTrigger=PropertyChanged,
@@ -117,30 +201,6 @@
                     />
             </StackPanel>
         </ScrollViewer>
-
-        <!-- CREATE NEW TEAM -->
-        <Button
-            x:Name="newChat"
-            Style="{StaticResource NewTeamButtonStyle}"
-            Command="{x:Bind ViewModel.CreateTeamCommand}"
-            Grid.Row="1">
-            <Viewbox
-                Height="18">
-                <StackPanel
-                    Orientation="Horizontal">
-                    <TextBlock
-                        Text="Create Team"
-                        Foreground="{ThemeResource SystemAccentColor}"
-                        Margin="0 0 5 0"
-                        FontWeight="SemiBold"
-                        />
-                    <SymbolIcon
-                        Symbol="AddFriend"
-                        Foreground="{ThemeResource SystemAccentColor}"
-                        />
-                </StackPanel>
-            </Viewbox>
-        </Button>
     </Grid>
 
     <!--#endregion-->
