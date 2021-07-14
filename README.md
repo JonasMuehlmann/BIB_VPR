@@ -73,7 +73,7 @@ team)
     - A message
 
 ## User profile management
-Edit User data like:
+- Edit User data like:
     - User name
     - Bio
     - Email address
@@ -83,3 +83,6 @@ Edit User data like:
 - Switch between light and dark theme
 
 # Screenshots
+![](docs/MicrosoftTeams-image.png)
+![](docs/MicrosoftTeams-image1.png)
+![](docs/MicrosoftTeams-image2.png)
