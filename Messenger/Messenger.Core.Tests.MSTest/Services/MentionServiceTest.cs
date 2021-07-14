@@ -119,14 +119,14 @@ namespace Messenger.Tests.MSTest
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
                 Assert.IsNotNull(mentionId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message" + $" @{mentionId.Value}");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, $"{testName}Message @{mentionId.Value}");
                 Assert.IsNotNull(messageId);
 
                 var messageOriginal = (await MessageService.GetMessage(messageId.Value)).Content;
                 Assert.AreEqual($"{testName}Message @{mentionId.Value}", messageOriginal);
 
                 var messageResolved = await MentionService.ResolveMentions(messageOriginal);
-                Assert.AreEqual($"{testName}Message {testName}User", messageResolved);
+                Assert.AreEqual($"{testName}Message {testName}UserName", messageResolved);
             }).GetAwaiter().GetResult();
         }
 
@@ -149,14 +149,14 @@ namespace Messenger.Tests.MSTest
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
                 Assert.IsNotNull(mentionId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, $" @{mentionId.Value}{testName}Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, $"@{mentionId.Value} {testName}Message");
                 Assert.IsNotNull(messageId);
 
                 var messageOriginal = (await MessageService.GetMessage(messageId.Value)).Content;
                 Assert.AreEqual($"@{mentionId.Value} {testName}Message", messageOriginal);
 
                 var messageResolved = await MentionService.ResolveMentions(messageOriginal);
-                Assert.AreEqual($"{testName}User {testName}Message", messageResolved);
+                Assert.AreEqual($"{testName}UserName {testName}Message", messageResolved);
             }).GetAwaiter().GetResult();
         }
 
@@ -186,7 +186,7 @@ namespace Messenger.Tests.MSTest
                 Assert.AreEqual($"{testName} @{mentionId.Value} Message", messageOriginal);
 
                 var messageResolved = await MentionService.ResolveMentions(messageOriginal);
-                Assert.AreEqual($"{testName} {testName}User Message", messageResolved);
+                Assert.AreEqual($"{testName} {testName}UserName Message", messageResolved);
             }).GetAwaiter().GetResult();
         }
     }

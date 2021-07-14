@@ -95,36 +95,69 @@ namespace Messenger.Core.Services
         /// <returns>The message with all mentions resolved</returns>
         public static async Task<string> ResolveMentions(string message)
         {
-            // Regex example: blah blah @123456 blah blub
-            //                          \_____/
-            // Match ----------------------'
-            var splitMessage = Regex.Split(message, @"((?<= )@\d+(?= ))");
+            LogContext.PushProperty("Method","ResolveMentions");
+            LogContext.PushProperty("SourceContext", "MentionService");
+            logger.Information($"Function called with parameters message={message}");
+
+            // Regex example:blah blah @123456 blah blub
+            //                         \_____/
+            // Match ---------------------'
+            //
+            //Regex example:@123456 blah blub
+            //              \_____/
+            // Match ----------'
+            //
+            //Regex example:blah blah @123456
+            //                        \_____/
+            // Match ---------------------'
+            //
+            //Regex example:blah blah@123456blah
+            // No matc
+            var splitMessage = Regex.Split(message, @"((?<= |^)@\d+(?= |$))");
             var resolvedMessage = "";
+            var resolvedSubstr = "";
 
             foreach (var substr in splitMessage)
             {
                 if (substr.StartsWith("@"))
                 {
+                    logger.Information($"Found mention {substr}");
                     var mention = await RetrieveMention(Convert.ToUInt32(substr.Substring(1)));
 
                     switch (mention.TargetType)
                     {
                         case MentionTarget.User:
-                            resolvedMessage += (await UserService.GetUser(mention.TargetId)).DisplayName;
+                            resolvedSubstr = (await UserService.GetUser(mention.TargetId)).DisplayName;
                             break;
                         case MentionTarget.Role:
-                            resolvedMessage += (await TeamService.GetRole(Convert.ToUInt32(mention.TargetId))).Role;
+                            resolvedSubstr = (await TeamService.GetRole(Convert.ToUInt32(mention.TargetId))).Role;
                             break;
                         case MentionTarget.Channel:
-                            resolvedMessage += (await ChannelService.GetChannel(Convert.ToUInt32(mention.TargetId))).ChannelName;
+                            resolvedSubstr = (await ChannelService.GetChannel(Convert.ToUInt32(mention.TargetId))).ChannelName;
                             break;
                         case MentionTarget.Message:
-                            resolvedMessage += $"#{mention.Id}";
+                            resolvedSubstr = $"#{mention.Id}";
+                            break;
+                        default:
+                            LogContext.PushProperty("Method","ResolveMentions");
+                            LogContext.PushProperty("SourceContext", "MentionService");
+                            logger.Information($"Could not resolve mention {mention}");
+
+                            resolvedSubstr = "";
                             break;
                     }
+
+                    LogContext.PushProperty("Method","ResolveMentions");
+                    LogContext.PushProperty("SourceContext", "MentionService");
+                    logger.Information($"Resolved mention {substr} to {resolvedSubstr}");
+
+                    resolvedMessage += resolvedSubstr;
+                }
+                else
+                {
+                    resolvedMessage += substr;
                 }
 
-                resolvedMessage += substr;
             }
 
             return resolvedMessage;
