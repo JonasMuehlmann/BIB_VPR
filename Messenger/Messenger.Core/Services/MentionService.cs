@@ -130,13 +130,13 @@ namespace Messenger.Core.Services
             return resolvedMessage;
         }
 
-        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 user matches for the userName
         /// </summary>
         /// <param name="userName">User name to retrieve matches for</param>
+        /// <param name="teamId">The id of the team to search in</param>
         /// <returns>List of top 10 matched mentionables</returns>
-        private static async Task<IList<Mentionable>> SearchUsers(string userName)
+        private static async Task<IList<Mentionable>> SearchUsers(string userName, uint teamId)
         {
             LogContext.PushProperty("Method","SearchUser");
             LogContext.PushProperty("SourceContext", "MentionService");
@@ -149,22 +149,26 @@ namespace Messenger.Core.Services
                                         CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS TargetName,
                                         'User' AS TargetType
                                     FROM
-                                        Users
+                                        Users u
+                                    LEFT JOIN Memberships m ON
+                                        u.UserId = m.UserId
                                     WHERE
                                         LOWER(UserName) LIKE LOWER('%{userName}%')
+                                        AND
+                                        m.teamId = {teamId}
                                     ORDER BY
                                         LEN(UserName);";
 
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
 
-        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 role matches for the roleName
         /// </summary>
         /// <param name="roleName">Role name to retrieve matches for</param>
+        /// <param name="teamId">The id of the team to search in</param>
         /// <returns>List of top 10 matched mentionables</returns>
-        private static async Task<IList<Mentionable>> SearchRoles(string roleName)
+        private static async Task<IList<Mentionable>> SearchRoles(string roleName, uint teamId)
         {
             LogContext.PushProperty("Method","SearchRoles");
             LogContext.PushProperty("SourceContext", "MentionService");
@@ -177,23 +181,25 @@ namespace Messenger.Core.Services
                                         ChannelName AS TargetName,
                                         'Role' AS TargetType
                                     FROM
-                                        Roles
+                                        Team_roles
                                     WHERE
                                         LOWER(Role) LIKE LOWER('%{roleName}%')
+                                        AND
+                                        teamId = {teamId}
                                     ORDER BY
                                         LEN(Role);";
 
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
 
-        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 channel matches for the
         /// channelName
         /// </summary>
         /// <param name="channelName">Channel name to retrieve matches for</param>
+        /// <param name="teamId">The id of the team to search in</param>
         /// <returns>List of top 10 matched mentionables</returns>
-        private static async Task<IList<Mentionable>> SearchChannels(string channelName)
+        private static async Task<IList<Mentionable>> SearchChannels(string channelName, uint teamId)
         {
             LogContext.PushProperty("Method","SearchChannels");
             LogContext.PushProperty("SourceContext", "MentionService");
@@ -206,23 +212,25 @@ namespace Messenger.Core.Services
                                         ChannelName AS TargetName,
                                         'Channel' AS TargetType
                                     FROM
-                                        Roles
+                                        Channels
                                     WHERE
                                         LOWER(ChannelName) LIKE LOWER('%{channelName}%')
+                                        AND
+                                        teamId = {teamId}
                                     ORDER BY
                                         LEN(ChannelName);";
 
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
         }
 
-        // TODO: Filter by team
         /// <summary>
         /// Retrieve Mentionable objects of the top 10 channel matches for the
         /// messageId
         /// </summary>
         /// <param name="messageId">Id of the message to search for</param>
+        /// <param name="teamId">The id of the team to search in</param>
         /// <returns>List of top 10 matched mentionables</returns>
-        private static async Task<IList<Mentionable>> SearchMessages(string messageId)
+        private static async Task<IList<Mentionable>> SearchMessages(string messageId, uint teamId)
         {
             LogContext.PushProperty("Method","SearchMessages");
             LogContext.PushProperty("SourceContext", "MentionService");
@@ -235,7 +243,11 @@ namespace Messenger.Core.Services
                                         SUBSTRING(Message, 0, 15) || '...' AS TargetName,
                                         'Message' AS TargetType
                                     FROM
-                                        Roles
+                                        Messages m
+                                    LEFT JOIN Channels c ON
+                                        m.RecipientId = c.ChannelId
+                                        AND
+                                        teamId = {teamId}
                                     WHERE
                                         LOWER(CONVERT(VARCHAR(15), MessageId)) LIKE LOWER('%{messageId}%')
                                     ";
@@ -247,8 +259,9 @@ namespace Messenger.Core.Services
         /// Return the top 10 mentionables matching the searchString
         /// </summary>
         /// <param name="searchString">The string used to rank matched entities</param>
+        /// <param name="teamId">The id of the team to search in</param>
         /// <returns>A list of Mentionables</returns>
-        public async Task<IList<Mentionable>> SearchMentionable(string searchString)
+        public async Task<IList<Mentionable>> SearchMentionable(string searchString, uint teamId)
         {
             LogContext.PushProperty("Method","SearchMentionable");
             LogContext.PushProperty("SourceContext", "MentionService");
@@ -263,28 +276,28 @@ namespace Messenger.Core.Services
                 switch (searchString[0])
                 {
                     case 'u':
-                        mentionables.AddRange(await SearchUsers(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchUsers(searchString.Substring(2), teamId));
                         break;
                     case 'r':
-                        mentionables.AddRange(await SearchRoles(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchRoles(searchString.Substring(2), teamId));
                         break;
                     case 'c':
-                        mentionables.AddRange(await SearchChannels(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchChannels(searchString.Substring(2), teamId));
                         break;
                     case 'm':
-                        mentionables.AddRange(await SearchMessages(searchString.Substring(2)));
+                        mentionables.AddRange(await SearchMessages(searchString.Substring(2), teamId));
                         break;
                     default:
                         // Note: If we can't parse the filter, we remove it and do an
                         // unfiltered search instead
-                        return await SearchMentionable(searchString.Substring(2));
+                        return await SearchMentionable(searchString.Substring(2), teamId);
                 }
             }
 
-            mentionables.AddRange(await SearchUsers(searchString.Substring(2)));
-            mentionables.AddRange(await SearchRoles(searchString.Substring(2)));
-            mentionables.AddRange(await SearchChannels(searchString.Substring(2)));
-            mentionables.AddRange(await SearchMessages(searchString.Substring(2)));
+            mentionables.AddRange(await SearchUsers(searchString.Substring(2), teamId));
+            mentionables.AddRange(await SearchRoles(searchString.Substring(2), teamId));
+            mentionables.AddRange(await SearchChannels(searchString.Substring(2), teamId));
+            mentionables.AddRange(await SearchMessages(searchString.Substring(2), teamId));
 
             return mentionables;
         }
