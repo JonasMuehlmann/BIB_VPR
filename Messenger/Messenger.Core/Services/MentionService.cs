@@ -326,11 +326,13 @@ namespace Messenger.Core.Services
                         return await SearchMentionable(searchString.Substring(2), teamId);
                 }
             }
-
-            mentionables.AddRange(await SearchUsers(searchString.Substring(2), teamId));
-            mentionables.AddRange(await SearchRoles(searchString.Substring(2), teamId));
-            mentionables.AddRange(await SearchChannels(searchString.Substring(2), teamId));
-            mentionables.AddRange(await SearchMessages(searchString.Substring(2), teamId));
+            else
+            {
+                mentionables.AddRange(await SearchUsers(searchString.Substring(2), teamId));
+                mentionables.AddRange(await SearchRoles(searchString.Substring(2), teamId));
+                mentionables.AddRange(await SearchChannels(searchString.Substring(2), teamId));
+                mentionables.AddRange(await SearchMessages(searchString.Substring(2), teamId));
+            }
 
             return mentionables;
         }
