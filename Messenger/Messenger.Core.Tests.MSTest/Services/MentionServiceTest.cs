@@ -300,5 +300,60 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void SearchMentionableChannel_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                Assert.IsNotNull(teamIdWanted);
+
+                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                Assert.IsNotNull(teamIdOther);
+
+                List<string> channelWantedTeam = new List<string>{
+                                      $"{testName}1"
+                                     ,$"{testName}1"
+                                     ,$"The{testName}2"
+                                     ,$"Another{testName}"
+                                     ,$"YetAnother{testName}"
+                                     ,$"ThisIsA{testName}"
+                                     ,$"A{testName}ThisBe"
+                                     };
+
+                List<string> channelOtherTeam = new List<string>{
+                                      $"SomeText"
+                                     ,$"Yeet"
+                                     ,$"Oi mate"
+                                     ,$"Deez Nuts {testName}"
+                                     ,$"  "
+                                     ,$"jdhsjdhjdhj{testName}dksdskdjkdjsk"
+                                     ,$"ksjdksjdahdj"
+                                     ,$"jdhsjdhjdhj {testName} dksdskdjkdjsk"
+                                 };
+
+                foreach (var channel in channelWantedTeam)
+                {
+                    Assert.IsNotNull(await ChannelService.CreateChannel(channel , teamIdWanted.Value));
+                }
+
+                foreach (var channel in channelOtherTeam)
+                {
+                    Assert.IsNotNull(await ChannelService.CreateChannel(channel , teamIdOther.Value));
+                }
+
+                var roleMatchString = $"{testName}1,{testName}1,The{testName}2,Another{testName},ThisIsA{testName},A{testName}ThisBe,YetAnother{testName}";
+
+                var matchedMentionables = await MentionService.SearchMentionable($"c:{testName}", teamIdWanted.Value);
+                Assert.IsNotNull(matchedMentionables);
+
+                Assert.AreEqual(roleMatchString, string.Join(",", matchedMentionables.Select((mentionable) => mentionable.TargetName)));
+
+            }).GetAwaiter().GetResult();
+        }
+
     }
 }
