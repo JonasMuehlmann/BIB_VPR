@@ -50,6 +50,17 @@ namespace Messenger.Helpers
             }
         }
 
+        public void AddChannel(ChannelViewModel channel)
+        {
+            foreach (TeamViewModel teamViewModel in myTeams)
+            {
+                if (teamViewModel.Id == channel.TeamId)
+                {
+                    teamViewModel.Channels.Add(channel);
+                }
+            }
+        }
+
         public void RemoveTeam(uint id)
         {
             IEnumerable<TeamViewModel> removed =

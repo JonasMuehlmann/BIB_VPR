@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Messenger.Models;
 using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
 using System;
@@ -55,7 +56,7 @@ namespace Messenger.Helpers
             };
         }
 
-        private ChannelViewModel Map(Channel channel)
+        public ChannelViewModel Map(Channel channel)
         {
             return new ChannelViewModel()
             {
@@ -74,12 +75,27 @@ namespace Messenger.Helpers
         {
             var members = await MessengerService.LoadTeamMembers((uint)viewModel.Id);
 
-            if (string.IsNullOrEmpty(viewModel.TeamName))
+            if (string.IsNullOrEmpty(viewModel.TeamName)) // Is private chat
             {
                 viewModel.Members = new ObservableCollection<User>(members.Where(m => m.Id != currentUserId));
             }
             else
             {
+                foreach (User member in members)
+                {
+                    var roles = await MessengerService.GetRolesList((uint)viewModel.Id, currentUserId);
+
+                    if (roles != null)
+                    {
+                        // TODO
+                        var memberRoles = roles.Select(role => new MemberRole()
+                        {
+                            Title = role,
+                            TeamId = (uint)viewModel.Id,
+                        });
+                    }
+                }
+
                 viewModel.Members = new ObservableCollection<User>(members);
             }
 
