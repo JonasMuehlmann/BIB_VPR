@@ -178,6 +178,9 @@
     <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ManageControls\MembersListControl.xaml.cs">
+      <DependentUpon>MembersListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Navigation\NavigationHeader.xaml.cs">
       <DependentUpon>NavigationHeader.xaml</DependentUpon>
     </Compile>
@@ -216,6 +219,7 @@
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
     <Compile Include="Models\Invitation.cs" />
+    <Compile Include="Models\MemberRole.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\PrivateChat.cs" />
@@ -325,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ManageControls\MembersListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
