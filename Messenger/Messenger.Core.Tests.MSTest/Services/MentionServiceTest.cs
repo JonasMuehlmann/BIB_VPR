@@ -1,4 +1,4 @@
-
+using System;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -337,12 +337,12 @@ namespace Messenger.Tests.MSTest
 
                 foreach (var channel in channelWantedTeam)
                 {
-                    Assert.IsNotNull(await ChannelService.CreateChannel(channel , teamIdWanted.Value));
+                    Assert.IsNotNull(await ChannelService.CreateChannel(channel, teamIdWanted.Value));
                 }
 
                 foreach (var channel in channelOtherTeam)
                 {
-                    Assert.IsNotNull(await ChannelService.CreateChannel(channel , teamIdOther.Value));
+                    Assert.IsNotNull(await ChannelService.CreateChannel(channel, teamIdOther.Value));
                 }
 
                 var roleMatchString = $"{testName}1,{testName}1,The{testName}2,Another{testName},ThisIsA{testName},A{testName}ThisBe,YetAnother{testName}";
@@ -355,5 +355,70 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void SearchMentionableMessage_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                Assert.IsNotNull(teamIdWanted);
+
+                uint? channelIdWanted = await ChannelService.CreateChannel(testName + "ChannelWanted", teamIdWanted.Value);
+                Assert.IsNotNull(channelIdWanted);
+
+                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                Assert.IsNotNull(teamIdOther);
+
+                uint? channelIdOther = await ChannelService.CreateChannel(testName + "ChannelWanted", teamIdWanted.Value);
+                Assert.IsNotNull(channelIdOther);
+
+                List<string> messageWantedTeam = new List<string>{
+                                      $"{testName}1"
+                                     ,$"{testName}1"
+                                     ,$"The{testName}2"
+                                     ,$"Another{testName}"
+                                     ,$"YetAnother{testName}"
+                                     ,$"ThisIsA{testName}"
+                                     ,$"A{testName}ThisBe"
+                                     };
+
+                List<string> messageOtherTeam = new List<string>{
+                                      $"SomeText"
+                                     ,$"Yeet"
+                                     ,$"Oi mate"
+                                     ,$"Deez Nuts {testName}"
+                                     ,$"  "
+                                     ,$"jdhsjdhjdhj{testName}dksdskdjkdjsk"
+                                     ,$"ksjdksjdahdj"
+                                     ,$"jdhsjdhjdhj {testName} dksdskdjkdjsk"
+                                 };
+
+                List<uint> messageIdsWanted = new List<uint>();
+
+                foreach (var message in messageWantedTeam)
+                {
+                    var messageId = await MessageService.CreateMessage(channelIdWanted.Value,userId, message);
+                    Assert.IsNotNull(messageId);
+
+                    messageIdsWanted.Add(messageId.Value);
+                }
+
+                foreach (var message in messageOtherTeam)
+                {
+                    Assert.IsNotNull(await MessageService.CreateMessage(channelIdOther.Value, userId, message));
+                }
+
+                var matchedMentionables = await MentionService.SearchMentionable($"m:{messageIdsWanted[0]}", teamIdWanted.Value);
+                Assert.IsNotNull(matchedMentionables);
+
+                Assert.AreEqual(messageIdsWanted[0], Convert.ToUInt32(matchedMentionables[0].TargetId));
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }
