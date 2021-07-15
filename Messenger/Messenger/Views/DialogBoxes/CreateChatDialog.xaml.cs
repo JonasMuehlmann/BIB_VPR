@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Messenger.ViewModels.DataViewModels;
 
 // Die Elementvorlage "Inhaltsdialogfeld" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 

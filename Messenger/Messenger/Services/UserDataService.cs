@@ -6,8 +6,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
-using Messenger.ViewModels;
-
+using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
 
 namespace Messenger.Services

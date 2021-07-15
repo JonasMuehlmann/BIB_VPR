@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Messenger.Core.Models;
 using Messenger.Helpers;
-
+using Messenger.Models;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Messenger.ViewModels
+namespace Messenger.ViewModels.DataViewModels
 {
     public class UserViewModel : Observable
     {
@@ -17,6 +17,7 @@ namespace Messenger.ViewModels
         private string _id;
         private uint _nameId;
         private List<Team> _teams = new List<Team>();
+        private List<MemberRole> _memberRoles = new List<MemberRole>();
 
         public string Id
         {
@@ -63,11 +64,13 @@ namespace Messenger.ViewModels
         public List<Team> Teams
         {
             get { return _teams; }
-            set
-            {
-                _teams = value;
-                Set(ref _teams, value);
-            }
+            set { Set(ref _teams, value); }
+        }
+
+        public List<MemberRole> MemberRoles
+        {
+            get { return _memberRoles; }
+            set { Set(ref _memberRoles, value); }
         }
 
         public UserViewModel()
