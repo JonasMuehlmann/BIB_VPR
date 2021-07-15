@@ -178,7 +178,7 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        u.UserId AS Id,
+                                        u.UserId AS TargetId,
                                         CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS TargetName,
                                         'User' AS TargetType
                                     FROM
@@ -192,7 +192,7 @@ namespace Messenger.Core.Services
                                     ORDER BY
                                         LEN(UserName);";
 
-            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query, "Users");
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        Id AS Id,
+                                        Id AS TargetId,
                                         Role AS TargetName,
                                         'Role' AS TargetType
                                     FROM
@@ -222,7 +222,7 @@ namespace Messenger.Core.Services
                                     ORDER BY
                                         LEN(Role);";
 
-            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query, "Team_roles");
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        ChannelId AS Id,
+                                        ChannelId AS TargetId,
                                         ChannelName AS TargetName,
                                         'Channel' AS TargetType
                                     FROM
@@ -253,7 +253,7 @@ namespace Messenger.Core.Services
                                     ORDER BY
                                         LEN(ChannelName);";
 
-            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query, "Channels");
         }
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        MessageId AS Id,
+                                        MessageId AS TargetId,
                                         SUBSTRING(Message, 0, 15) + '...' AS TargetName,
                                         'Message' AS TargetType
                                     FROM
@@ -285,7 +285,7 @@ namespace Messenger.Core.Services
                                         LOWER(CONVERT(VARCHAR(15), MessageId)) LIKE LOWER('%{messageId}%')
                                     ";
 
-            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query);
+            return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query, "Messages");
         }
 
         /// <summary>
