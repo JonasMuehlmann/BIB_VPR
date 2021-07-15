@@ -246,5 +246,59 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void SearchMentionableRole_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                Assert.IsNotNull(teamIdWanted);
+
+                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                Assert.IsNotNull(teamIdOther);
+
+                List<string> rolesWantedTeam = new List<string>{
+                                      $"{testName}1"
+                                     ,$"{testName}1"
+                                     ,$"The{testName}2"
+                                     ,$"Another{testName}"
+                                     ,$"YetAnother{testName}"
+                                     ,$"ThisIsA{testName}"
+                                     ,$"A{testName}ThisBe"
+                                     };
+
+                List<string> rolesOtherTeam = new List<string>{
+                                      $"SomeText"
+                                     ,$"Yeet"
+                                     ,$"Oi mate"
+                                     ,$"Deez Nuts {testName}"
+                                     ,$"  "
+                                     ,$"jdhsjdhjdhj{testName}dksdskdjkdjsk"
+                                     ,$"ksjdksjdahdj"
+                                     ,$"jdhsjdhjdhj {testName} dksdskdjkdjsk"
+                                 };
+
+                foreach (var role in rolesWantedTeam)
+                {
+                    Assert.IsNotNull(await TeamService.AddRole(role, teamIdWanted.Value));
+                }
+
+                foreach (var role in rolesOtherTeam)
+                {
+                    Assert.IsNotNull(await TeamService.AddRole(role, teamIdOther.Value));
+                }
+
+                var roleMatchString = $"{testName}1,{testName}1,The{testName}2,Another{testName},ThisIsA{testName},A{testName}ThisBe,YetAnother{testName}";
+
+                var matchedMentionables = await MentionService.SearchMentionable($"r:{testName}", teamIdWanted.Value);
+                Assert.IsNotNull(matchedMentionables);
+
+                Assert.AreEqual(roleMatchString, string.Join(",", matchedMentionables.Select((mentionable) => mentionable.TargetName)));
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }
