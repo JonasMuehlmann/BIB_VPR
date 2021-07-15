@@ -27,6 +27,8 @@ namespace Messenger.ViewModels
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
         private MessageViewModel _replyMessage;
         private Message _messageToSend;
+        private ChannelViewModel _currentChannel;
+        private TeamViewModel _currentTeam;
 
         #endregion
 
@@ -94,18 +96,14 @@ namespace Messenger.ViewModels
 
         public TeamViewModel CurrentTeam
         {
-            get
-            {
-                return Hub.CurrentTeam;
-            }
+            get { return _currentTeam; }
+            set { Set(ref _currentTeam, value); }
         }
 
         public ChannelViewModel CurrentChannel
         {
-            get
-            {
-                return Hub.CurrentChannel;
-            }
+            get { return _currentChannel; }
+            set { Set(ref _currentChannel, value); }
         }
 
         #endregion
@@ -162,6 +160,9 @@ namespace Messenger.ViewModels
         private async void LoadAsync()
         {
             var messages = await Hub.GetMessages();
+
+            CurrentTeam = Hub.CurrentTeam;
+            CurrentChannel = Hub.CurrentChannel;
 
             UpdateView(messages);
         }
@@ -243,7 +244,10 @@ namespace Messenger.ViewModels
         /// <param name="message">Received Message object</param>
         private void OnMessageReceived(object sender, MessageViewModel vm)
         {
-            Messages.Add(vm);
+            if (CurrentChannel.ChannelId == vm.ChannelId)
+            {
+                Messages.Add(vm);
+            }
         }
 
         /// <summary>
@@ -265,6 +269,9 @@ namespace Messenger.ViewModels
         /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
+            CurrentTeam = Hub.CurrentTeam;
+            CurrentChannel = Hub.CurrentChannel;
+
             UpdateView(messages);
         }
 

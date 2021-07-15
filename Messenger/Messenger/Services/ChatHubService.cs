@@ -133,6 +133,8 @@ namespace Messenger.Services
         /// </summary>
         public event EventHandler<TeamViewModel> TeamUpdated;
 
+        public event EventHandler<ChannelViewModel> ChannelUpdated;
+
         #endregion
 
         /// <summary>
@@ -170,6 +172,7 @@ namespace Messenger.Services
             MessengerService.RegisterListenerForInvites(OnInvitationReceived);
             MessengerService.RegisterListenerForMessageUpdate(OnMessageUpdated);
             MessengerService.RegisterListenerForMessageDelete(OnMessageDeleted);
+            MessengerService.RegisterListenerForChannelUpdate(OnChannelUpdated);
 
             /** (REQUIRED) LOAD USER **/
             CurrentUser = await UserDataService.GetUserAsync();
@@ -297,7 +300,7 @@ namespace Messenger.Services
             }
 
             message.SenderId = CurrentUser.Id;
-            message.RecipientId = (uint)CurrentTeam.Id;
+            message.RecipientId = (uint)CurrentChannel.ChannelId;
 
             bool isSuccess = await MessengerService.SendMessage(message);
 
@@ -535,8 +538,6 @@ namespace Messenger.Services
 
             bool isSuccess = await MessengerService.CreateChannel(channelName, (uint)CurrentTeam.Id); // Create entry in DB
 
-            TeamsUpdated?.Invoke(this, await GetMyTeams()); // Reload
-
             return isSuccess;
         }
 
@@ -556,8 +557,6 @@ namespace Messenger.Services
             bool isSuccess = await MessengerService.RemoveChannel(channelId); // Remove from DB
 
             MessageManager.RemoveEntry(channelId); // Remove from the cache
-
-            TeamsUpdated?.Invoke(this, await GetMyTeams()); // Reload
 
             return isSuccess;
         }
@@ -835,6 +834,22 @@ namespace Messenger.Services
             MessageManager.Remove(message); // Remove from cache
 
             MessageDeleted?.Invoke(this, EventArgs.Empty); // Reload
+        }
+
+        private void OnChannelUpdated(object sender, Channel channel)
+        {
+            bool isValid = channel != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            ChannelViewModel vm = TeamBuilder.Map(channel);
+
+            TeamManager.AddChannel(vm);
+
+            ChannelUpdated?.Invoke(this, vm);
         }
 
         #endregion

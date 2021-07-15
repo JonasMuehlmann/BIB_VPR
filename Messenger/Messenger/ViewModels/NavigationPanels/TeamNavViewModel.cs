@@ -80,6 +80,7 @@ namespace Messenger.ViewModels
             ChatHubService.MessageReceived += OnMessageReceived;
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             ChatHubService.TeamUpdated += OnTeamUpdated;
+            ChatHubService.ChannelUpdated += OnChannelUpdated;
 
             Initialize();
         }
@@ -191,6 +192,17 @@ namespace Messenger.ViewModels
                     {
                         channel.LastMessage = message;
                     }
+                }
+            }
+        }
+
+        private void OnChannelUpdated(object sender, ChannelViewModel channel)
+        {
+            foreach (TeamViewModel team in _teams)
+            {
+                if (team.Id == channel.TeamId)
+                {
+                    team.Channels.Add(channel);
                 }
             }
         }
