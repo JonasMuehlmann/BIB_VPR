@@ -1,6 +1,7 @@
 
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Core.Helpers;
@@ -187,6 +188,62 @@ namespace Messenger.Tests.MSTest
 
                 var messageResolved = await MentionService.ResolveMentions(messageOriginal);
                 Assert.AreEqual($"{testName} {testName}UserName Message", messageResolved);
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void SearchMentionableUser_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                List<User> usersWantedTeam = new List<User>{
+                                       new User(){Id="Id1",  NameId=1, DisplayName=$"{testName}1"}
+                                     , new User(){Id="Id2",  NameId=2, DisplayName=$"{testName}1"}
+                                     , new User(){Id="Id3",  NameId=1, DisplayName=$"The{testName}2"}
+                                     , new User(){Id="Id4",  NameId=1, DisplayName=$"Another{testName}"}
+                                     , new User(){Id="Id5",  NameId=1, DisplayName=$"YetAnother{testName}"}
+                                     , new User(){Id="Id6",  NameId=1, DisplayName=$"ThisIsA{testName}"}
+                                     , new User(){Id="Id7",  NameId=1, DisplayName=$"A{testName}ThisBe"}
+                                     };
+
+                List<User> usersOtherTeam = new List<User>{
+                                       new User(){Id="Id8",  NameId=1, DisplayName=$"SomeText"}
+                                     , new User(){Id="Id9",  NameId=1, DisplayName=$"Yeet"}
+                                     , new User(){Id="Id10", NameId=1, DisplayName=$"Oi mate"}
+                                     , new User(){Id="Id11", NameId=1, DisplayName=$"Deez Nuts {testName}"}
+                                     , new User(){Id="Id12", NameId=1, DisplayName=$"  "}
+                                     , new User(){Id="Id13", NameId=1, DisplayName=$"jdhsjdhjdhj{testName}dksdskdjkdjsk"}
+                                     , new User(){Id="Id14", NameId=1, DisplayName=$"ksjdksjdahdj"}
+                                     , new User(){Id="Id15", NameId=1, DisplayName=$"jdhsjdhjdhj {testName} dksdskdjkdjsk"}
+                                 };
+
+                var userMatchString = $"{testName}1#000001,{testName}1#000002,The{testName}2#000001,Another{testName}#000001,ThisIsA{testName}#000001,A{testName}ThisBe#000001,YetAnother{testName}#000001";
+
+                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                Assert.IsNotNull(teamIdWanted);
+
+                foreach (var user in usersWantedTeam)
+                {
+                    Assert.IsNotNull(await UserService.GetOrCreateApplicationUser(user));
+                    Assert.IsTrue(await TeamService.AddMember(user.Id, teamIdWanted.Value));
+                }
+
+                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                Assert.IsNotNull(teamIdOther);
+
+                foreach (var user in usersOtherTeam)
+                {
+                    Assert.IsNotNull(await UserService.GetOrCreateApplicationUser(user));
+                    Assert.IsTrue(await TeamService.AddMember(user.Id, teamIdOther.Value));
+                }
+
+                var matchedMentionables = await MentionService.SearchMentionable($"u:{testName}", teamIdWanted.Value);
+                Assert.IsNotNull(matchedMentionables);
+
+                Assert.AreEqual(userMatchString, string.Join(",", matchedMentionables.Select((mentionable) => mentionable.TargetName)));
+
             }).GetAwaiter().GetResult();
         }
     }
