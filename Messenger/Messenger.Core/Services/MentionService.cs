@@ -279,10 +279,10 @@ namespace Messenger.Core.Services
                                         Messages m
                                     LEFT JOIN Channels c ON
                                         m.RecipientId = c.ChannelId
-                                        AND
-                                        teamId = {teamId}
                                     WHERE
                                         LOWER(CONVERT(VARCHAR(15), MessageId)) LIKE LOWER('%{messageId}%')
+                                        AND
+                                        teamId = {teamId}
                                     ";
 
             return await SqlHelpers.MapToList(Mapper.MentionableFromDataRow, query, "Messages");
