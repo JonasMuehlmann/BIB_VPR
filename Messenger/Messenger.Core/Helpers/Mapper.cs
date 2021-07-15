@@ -155,5 +155,19 @@ namespace Messenger.Core.Helpers
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
         }
+
+        /// <summary>
+        /// Convert a specified column of a dataRow to an enum
+        /// </summary>
+        /// <typeparam name="T">The type of the enum to convert to</typeparam>
+        /// <param name="row">DataRow to convert</param>
+        /// <param name="columnName">Column of the row to convert</param>
+        /// <returns>The value of columnName of row as an enum</returns>
+        public static T EnumFromDataRow<T>(DataRow row, string columnName) where T: Enum
+        {
+            // Lord forgive me for I have created an abomination
+            // (つ◕_◕)つ Gimme' non-type template parameters
+            return SqlHelpers.TryConvertDbValue(row[columnName], (col) => (T)Enum.Parse(typeof(T), col as string));
+        }
     }
 }
