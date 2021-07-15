@@ -178,7 +178,7 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        UserId AS Id,
+                                        u.UserId AS Id,
                                         CONCAT(UserName, '#', '00000' + RIGHT(NameId, 3)) AS TargetName,
                                         'User' AS TargetType
                                     FROM
@@ -210,8 +210,8 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                     SELECT
-                                        ChannelId AS Id,
-                                        ChannelName AS TargetName,
+                                        Id AS Id,
+                                        Role AS TargetName,
                                         'Role' AS TargetType
                                     FROM
                                         Team_roles
@@ -273,7 +273,7 @@ namespace Messenger.Core.Services
             string query = $@"
                                     SELECT
                                         MessageId AS Id,
-                                        SUBSTRING(Message, 0, 15) || '...' AS TargetName,
+                                        SUBSTRING(Message, 0, 15) + '...' AS TargetName,
                                         'Message' AS TargetType
                                     FROM
                                         Messages m
