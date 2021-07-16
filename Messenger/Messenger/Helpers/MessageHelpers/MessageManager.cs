@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.MessageHelpers
 {
     /// <summary>
     /// Handles the dictionary for storing messages with the key of channel ids.

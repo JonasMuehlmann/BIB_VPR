@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamBuilder
     {
@@ -20,16 +20,17 @@ namespace Messenger.Helpers
 
         public async Task<TeamViewModel> Build(Team team, string userId)
         {
-            TeamViewModel viewModel = Map(team);
+            TeamFactory factory = new TeamFactory(team);
+            TeamViewModel viewModel = factory.CreateBaseViewModel();
 
             var withMembers = await LoadMembers(viewModel, userId);
 
             var withChannels = await LoadChannels(withMembers);
 
-            return withChannels;
+            return factory.GetViewModel(withChannels);
         }
 
-        public async Task<List<TeamViewModel>> Build(IEnumerable<Team> teams, string userId)
+        public async Task<IEnumerable<TeamViewModel>> Build(IEnumerable<Team> teams, string userId)
         {
             List<TeamViewModel> result = new List<TeamViewModel>();
 
@@ -40,30 +41,6 @@ namespace Messenger.Helpers
             }
 
             return result;
-        }
-
-        private TeamViewModel Map(Team team)
-        {
-            return new TeamViewModel()
-            {
-                Id = team.Id,
-                TeamName = team.Name,
-                Description = team.Description,
-                CreationDate = team.CreationDate,
-                IsPrivateChat = string.IsNullOrEmpty(team.Name),
-                Members = new ObservableCollection<User>(),
-                Channels = new ObservableCollection<ChannelViewModel>()
-            };
-        }
-
-        public ChannelViewModel Map(Channel channel)
-        {
-            return new ChannelViewModel()
-            {
-                ChannelId = channel.ChannelId,
-                TeamId = channel.TeamId,
-                ChannelName = channel.ChannelName
-            };
         }
 
         /// <summary>
@@ -77,29 +54,55 @@ namespace Messenger.Helpers
 
             if (string.IsNullOrEmpty(viewModel.TeamName)) // Is private chat
             {
-                viewModel.Members = new ObservableCollection<User>(members.Where(m => m.Id != currentUserId));
+                var chatPartner = Map(members.Where(m => m.Id != currentUserId));
+
+                viewModel.Members = new ObservableCollection<Member>(chatPartner);
             }
             else
             {
-                foreach (User member in members)
+                List<Member> mapped = Map(members).ToList();
+
+                foreach (Member member in mapped)
                 {
-                    var roles = await MessengerService.GetRolesList((uint)viewModel.Id, currentUserId);
+                    IList<MemberRole> roles = await GetMemberRoles((uint)viewModel.Id, member);
 
                     if (roles != null)
                     {
-                        // TODO
-                        var memberRoles = roles.Select(role => new MemberRole()
-                        {
-                            Title = role,
-                            TeamId = (uint)viewModel.Id,
-                        });
+                        member.MemberRoles = roles.ToList();
                     }
                 }
 
-                viewModel.Members = new ObservableCollection<User>(members);
+                viewModel.Members = new ObservableCollection<Member>(mapped);
             }
 
             return viewModel;
+        }
+
+        private async Task<IList<MemberRole>> GetMemberRoles(uint teamId, Member member)
+        {
+            List<MemberRole> memberRoles = new List<MemberRole>();
+
+            var roles = await MessengerService.GetRolesList(teamId, member.Id);
+
+            if (roles == null || roles.Count() <= 0)
+            {
+                return null;
+            }
+
+            foreach (string role in roles)
+            {
+                IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(teamId, role);
+
+                memberRoles.Add(
+                    new MemberRole()
+                    {
+                        Title = role,
+                        TeamId = teamId,
+                        Permissions = permissions.ToList()
+                    });
+            }
+
+            return memberRoles;
         }
 
         /// <summary>
@@ -131,6 +134,38 @@ namespace Messenger.Helpers
             TeamViewModel viewModel = await Build(team, userId);
 
             return await LoadChannels(viewModel);
+        }
+
+        public ChannelViewModel Map(Channel channel)
+        {
+            return new ChannelViewModel()
+            {
+                ChannelId = channel.ChannelId,
+                TeamId = channel.TeamId,
+                ChannelName = channel.ChannelName
+            };
+        }
+
+        private Member Map(User user)
+        {
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new Member()
+            {
+                Id = user.Id,
+                Name = user.DisplayName,
+                NameId = user.NameId,
+                Bio = user.Bio,
+                Mail = user.Mail
+            };
+        }
+
+        private IEnumerable<Member> Map(IEnumerable<User> users)
+        {
+            return users.Select(Map);
         }
     }
 }

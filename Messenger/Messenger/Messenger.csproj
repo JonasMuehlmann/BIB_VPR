@@ -178,6 +178,9 @@
     <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChatControls\UserProfileFlyout.xaml.cs">
+      <DependentUpon>UserProfileFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ManageControls\MembersListControl.xaml.cs">
       <DependentUpon>MembersListControl.xaml</DependentUpon>
     </Compile>
@@ -203,15 +206,16 @@
     <Compile Include="Helpers\DateToStringConverter.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
-    <Compile Include="Helpers\MessageManager.cs" />
+    <Compile Include="Helpers\MessageHelpers\MessageManager.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\NullToVisibilityConverter.cs" />
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
-    <Compile Include="Helpers\TeamBuilder.cs" />
-    <Compile Include="Helpers\TeamManager.cs" />
+    <Compile Include="Helpers\TeamHelpers\TeamBuilder.cs" />
+    <Compile Include="Helpers\TeamHelpers\TeamFactory.cs" />
+    <Compile Include="Helpers\TeamHelpers\TeamManager.cs" />
     <Compile Include="Helpers\ThemeToFillBrushConverter.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
@@ -219,10 +223,10 @@
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
     <Compile Include="Models\Invitation.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberRole.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationType.cs" />
-    <Compile Include="Models\PrivateChat.cs" />
     <Compile Include="Models\ReactionType.cs" />
     <Compile Include="Models\ToggleReactionArg.cs" />
     <Compile Include="Services\ActivationService.cs" />
@@ -233,7 +237,7 @@
     <Compile Include="Services\DragAndDrop\ListViewDropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\VisualDropConfiguration.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
-    <Compile Include="Helpers\MessageBuilder.cs" />
+    <Compile Include="Helpers\MessageHelpers\MessageBuilder.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Services\ToastNotificationsService.cs" />
@@ -245,6 +249,7 @@
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
     <Compile Include="ViewModels\DataViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\PrivateChatViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
@@ -329,6 +334,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ChatControls\UserProfileFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

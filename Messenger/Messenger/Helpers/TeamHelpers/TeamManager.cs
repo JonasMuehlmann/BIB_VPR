@@ -6,18 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamManager : Observable
     {
         private TeamViewModel _selectedTeam;
-        private List<TeamViewModel> myTeams = new List<TeamViewModel>();
+        private List<TeamViewModel> _myTeams = new List<TeamViewModel>();
+        private List<PrivateChatViewModel> _myChats = new List<PrivateChatViewModel>();
 
         public ReadOnlyCollection<TeamViewModel> MyTeams
         {
             get
             {
-                return myTeams.AsReadOnly();
+                return _myTeams.AsReadOnly();
+            }
+        }
+
+        public ReadOnlyCollection<PrivateChatViewModel> MyChats
+        {
+            get
+            {
+                return _myChats.AsReadOnly();
             }
         }
 
@@ -29,7 +38,7 @@ namespace Messenger.Helpers
 
         public void Clear()
         {
-            myTeams = new List<TeamViewModel>();
+            _myTeams = new List<TeamViewModel>();
         }
 
         public void AddTeam(TeamViewModel viewModel)
@@ -39,7 +48,17 @@ namespace Messenger.Helpers
                 return;
             }
 
-            myTeams.Add(viewModel);
+            _myTeams.Add(viewModel);
+        }
+
+        public void AddChat(PrivateChatViewModel viewModel)
+        {
+            if (!Validate(viewModel))
+            {
+                return;
+            }
+
+            _myChats.Add(viewModel);
         }
 
         public void AddTeam(IEnumerable<TeamViewModel> viewModels)
@@ -52,7 +71,7 @@ namespace Messenger.Helpers
 
         public void AddChannel(ChannelViewModel channel)
         {
-            foreach (TeamViewModel teamViewModel in myTeams)
+            foreach (TeamViewModel teamViewModel in _myTeams)
             {
                 if (teamViewModel.Id == channel.TeamId)
                 {
@@ -64,10 +83,10 @@ namespace Messenger.Helpers
         public void RemoveTeam(uint id)
         {
             IEnumerable<TeamViewModel> removed =
-                myTeams
+                _myTeams
                 .TakeWhile((team) => team.Id != id);
 
-            myTeams = removed.ToList();
+            _myTeams = removed.ToList();
         }
 
         private bool Validate(TeamViewModel viewModel)
