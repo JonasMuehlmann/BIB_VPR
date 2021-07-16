@@ -72,7 +72,7 @@
                             FontSize="12"
                             Opacity=".75">
                             <Run
-                                Text="{Binding LastMessage.Sender.DisplayName}"
+                                Text="{Binding LastMessage.Sender.Name}"
                                 />
                             <Run
                                 Text=":"
