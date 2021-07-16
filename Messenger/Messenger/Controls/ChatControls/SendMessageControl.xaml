@@ -75,7 +75,7 @@
             Visibility="{Binding ReplyMessage, ElementName=sendMessageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullConverter}}">
             <StackPanel>
                 <TextBlock
-                    Text="{x:Bind ReplyMessage.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{x:Bind ReplyMessage.Sender.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Opacity=".55"
                     />
                 <TextBlock
