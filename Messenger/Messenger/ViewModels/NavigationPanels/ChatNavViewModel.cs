@@ -18,7 +18,7 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ObservableCollection<PrivateChat> _chats;
+        private ObservableCollection<PrivateChatViewModel> _chats;
         private bool _isBusy;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
@@ -26,7 +26,7 @@ namespace Messenger.ViewModels
 
         #region Properties
 
-        public ObservableCollection<PrivateChat> Chats
+        public ObservableCollection<PrivateChatViewModel> Chats
         {
             get
             {
@@ -60,7 +60,7 @@ namespace Messenger.ViewModels
         {
             IsBusy = true;
 
-            Chats = new ObservableCollection<PrivateChat>();
+            Chats = new ObservableCollection<PrivateChatViewModel>();
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             ChatHubService.MessageReceived += OnMessageReceived;
             Initialize();
@@ -91,7 +91,7 @@ namespace Messenger.ViewModels
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
         private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
         {
-            PrivateChat chat = args.InvokedItem as PrivateChat;
+            PrivateChatViewModel chat = args.InvokedItem as PrivateChatViewModel;
             ChannelViewModel mainChannel = chat.MainChannel;
 
             // Invokes TeamSwitched event
@@ -122,11 +122,9 @@ namespace Messenger.ViewModels
         /// <param name="message">MessageViewModel received</param>
         private void OnMessageReceived(object sender, MessageViewModel message)
         {
-            foreach (PrivateChat chat in _chats)
+            foreach (PrivateChatViewModel chat in _chats)
             {
-                ChannelViewModel singleChannel = chat.Channels.FirstOrDefault();
-
-                if (singleChannel.ChannelId == message.ChannelId)
+                if (chat.MainChannel.ChannelId == message.ChannelId)
                 {
                     chat.LastMessage = message;
                 }
@@ -141,9 +139,8 @@ namespace Messenger.ViewModels
         {
             if (teams != null)
             {
-                IEnumerable<PrivateChat> chatsList = teams
-                    .Where(team => string.IsNullOrEmpty(team.TeamName))
-                    .Select(data => PrivateChat.CreatePrivateChatFromTeamData(data));
+                var chatsList = (IEnumerable<PrivateChatViewModel>)teams
+                    .Where(team => team is PrivateChatViewModel);
 
                 Chats.Clear();
                 foreach (var chat in chatsList)

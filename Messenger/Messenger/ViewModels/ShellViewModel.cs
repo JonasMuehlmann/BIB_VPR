@@ -86,7 +86,7 @@ namespace Messenger.ViewModels
 
             if (isPrivateChat)
             {
-                var partnerName = team.Members.FirstOrDefault().DisplayName;
+                var partnerName = team.Members.FirstOrDefault().Name;
                 CurrentTeam = new TeamViewModel()
                 {
                     TeamName = partnerName,

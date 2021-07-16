@@ -99,7 +99,7 @@ namespace Messenger.ViewModels
                     IsBusy = false;
                     break;
                 case ChatHubConnectionState.LoadedWithData:
-                    FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
+                     FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
                     IsBusy = false;
                     break;
                 default:
@@ -129,10 +129,7 @@ namespace Messenger.ViewModels
         /// <param name="team">The updated teams</param>
         private async void OnTeamUpdated(object sender, TeamViewModel team)
         {
-            if (ChatHubService.CurrentUser.Teams != null)
-            {
-                FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
-            }
+            FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
 
             IsBusy = false;
         }
