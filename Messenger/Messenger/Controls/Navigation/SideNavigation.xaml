@@ -32,8 +32,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="MenuPanelStyle" TargetType="StackPanel">
+            <Setter Property="Spacing" Value="3" />
+        </Style>
+        <Style x:Key="MenuTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10" />
+        </Style>
     </UserControl.Resources>
     <Grid
+        Padding="0 10 0 0"
         HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -47,10 +54,17 @@
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToTeams}"
             IsChecked="True">
-            <SymbolIcon
-                x:Name="TeamIcon"
-                Symbol="People">
-            </SymbolIcon>
+            <StackPanel Style="{StaticResource MenuPanelStyle}">
+                <SymbolIcon
+                    x:Name="TeamIcon"
+                    Symbol="People">
+                </SymbolIcon>
+                <TextBlock
+                    x:Name="TeamText"
+                    Text="Teams"
+                    Style="{StaticResource MenuTextStyle}"
+                    />
+            </StackPanel>
             <i:Interaction.Behaviors>
                 <ic:DataTriggerBehavior
                     Binding="{Binding IsChecked, ElementName=TeamsButton}"
@@ -60,12 +74,22 @@
                         PropertyName="Foreground"
                         Value="{ThemeResource SystemAccentColor}"
                         />
+                    <ic:ChangePropertyAction
+                        TargetObject="{Binding ElementName=TeamText}"
+                        PropertyName="Foreground"
+                        Value="{ThemeResource SystemAccentColor}"
+                        />
                 </ic:DataTriggerBehavior>
                 <ic:DataTriggerBehavior
                     Binding="{Binding IsChecked, ElementName=TeamsButton}"
                     Value="False">
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=TeamIcon}"
+                        PropertyName="Foreground"
+                        Value="{ThemeResource SystemAccentColorDark1}"
+                        />
+                    <ic:ChangePropertyAction
+                        TargetObject="{Binding ElementName=TeamText}"
                         PropertyName="Foreground"
                         Value="{ThemeResource SystemAccentColorDark1}"
                         />
@@ -78,17 +102,29 @@
             Grid.Column="1"
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToChats}">
-            <SymbolIcon
-                x:Name="ChatIcon"
-                Symbol="Comment"
-                Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
-            </SymbolIcon>
+            <StackPanel Style="{StaticResource MenuPanelStyle}">
+                <SymbolIcon
+                    x:Name="ChatsIcon"
+                    Symbol="Comment"
+                    Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
+                </SymbolIcon>
+                <TextBlock
+                    x:Name="ChatsText"
+                    Text="Chats"
+                    Style="{StaticResource MenuTextStyle}"
+                    />
+            </StackPanel>
             <i:Interaction.Behaviors>
                 <ic:DataTriggerBehavior
                     Binding="{Binding IsChecked, ElementName=ChatsButton}"
                     Value="True">
                     <ic:ChangePropertyAction
-                        TargetObject="{Binding ElementName=ChatIcon}"
+                        TargetObject="{Binding ElementName=ChatsIcon}"
+                        PropertyName="Foreground"
+                        Value="{ThemeResource SystemAccentColor}"
+                        />
+                    <ic:ChangePropertyAction
+                        TargetObject="{Binding ElementName=ChatsText}"
                         PropertyName="Foreground"
                         Value="{ThemeResource SystemAccentColor}"
                         />
@@ -97,7 +133,12 @@
                     Binding="{Binding IsChecked, ElementName=ChatsButton}"
                     Value="False">
                     <ic:ChangePropertyAction
-                        TargetObject="{Binding ElementName=ChatIcon}"
+                        TargetObject="{Binding ElementName=ChatsIcon}"
+                        PropertyName="Foreground"
+                        Value="{ThemeResource SystemAccentColorDark1}"
+                        />
+                    <ic:ChangePropertyAction
+                        TargetObject="{Binding ElementName=ChatsText}"
                         PropertyName="Foreground"
                         Value="{ThemeResource SystemAccentColorDark1}"
                         />
@@ -110,17 +151,29 @@
             x:Name="NotificationsButton"
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToNotifications}">
-            <SymbolIcon
-                x:Name="NotificationIcon"
-                Symbol="Mail"
-                Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
-            </SymbolIcon>
+            <StackPanel Style="{StaticResource MenuPanelStyle}">
+                <SymbolIcon
+                    x:Name="NotificationsIcon"
+                    Symbol="Mail"
+                    Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
+                </SymbolIcon>
+                <TextBlock
+                    x:Name="NotificationsText"
+                    Text="Notifications"
+                    Style="{StaticResource MenuTextStyle}"
+                    />
+            </StackPanel>
             <i:Interaction.Behaviors>
                 <ic:DataTriggerBehavior
                         Binding="{Binding IsChecked, ElementName=NotificationsButton}"
                         Value="True">
                     <ic:ChangePropertyAction
-                            TargetObject="{Binding ElementName=NotificationIcon}"
+                            TargetObject="{Binding ElementName=NotificationsIcon}"
+                            PropertyName="Foreground"
+                            Value="{ThemeResource SystemAccentColor}"
+                            />
+                    <ic:ChangePropertyAction
+                            TargetObject="{Binding ElementName=NotificationsText}"
                             PropertyName="Foreground"
                             Value="{ThemeResource SystemAccentColor}"
                             />
@@ -129,7 +182,12 @@
                         Binding="{Binding IsChecked, ElementName=NotificationsButton}"
                         Value="False">
                     <ic:ChangePropertyAction
-                            TargetObject="{Binding ElementName=NotificationIcon}"
+                            TargetObject="{Binding ElementName=NotificationsIcon}"
+                            PropertyName="Foreground"
+                            Value="{ThemeResource SystemAccentColorDark1}"
+                            />
+                    <ic:ChangePropertyAction
+                            TargetObject="{Binding ElementName=NotificationsText}"
                             PropertyName="Foreground"
                             Value="{ThemeResource SystemAccentColorDark1}"
                             />

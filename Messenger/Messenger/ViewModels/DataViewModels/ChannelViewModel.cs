@@ -10,6 +10,7 @@ namespace Messenger.ViewModels.DataViewModels
         private uint _channelId;
         private string _description;
         private uint _teamId;
+        private MessageViewModel _lastMessage;
 
         public MessageViewModel PinnedMessage
         {
@@ -39,6 +40,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _teamId; }
             set { Set(ref _teamId, value); }
+        }
+
+        public MessageViewModel LastMessage
+        {
+            get { return _lastMessage; }
+            set { Set(ref _lastMessage, value); }
         }
 
         public ChannelViewModel()

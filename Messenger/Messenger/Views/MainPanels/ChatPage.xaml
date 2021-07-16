@@ -33,6 +33,7 @@
                     OpenTeamManagerCommand="{x:Bind ViewModel.OpenTeamManagerCommand}"
                     EditTeamDetailsCommand="{x:Bind ViewModel.EditTeamDetailsCommand}"
                     CurrentTeam="{x:Bind ViewModel.CurrentTeam, Mode=OneWay}"
+                    CurrentChannel="{x:Bind ViewModel.CurrentChannel, Mode=OneWay}"
                     />
                 <MenuFlyoutSeparator
                     Grid.Row="1"

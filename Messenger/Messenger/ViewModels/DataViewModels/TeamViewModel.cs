@@ -1,11 +1,7 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -17,6 +13,7 @@ namespace Messenger.ViewModels.DataViewModels
         private DateTime _creationDate;
         private ObservableCollection<User> _members;
         private ObservableCollection<ChannelViewModel> _channels;
+        private bool _isPrivateChat;
 
         public uint? Id
         {
@@ -52,6 +49,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _channels; }
             set { Set(ref _channels, value); }
+        }
+
+        public bool IsPrivateChat
+        {
+            get { return _isPrivateChat; }
+            set { Set(ref _isPrivateChat, value); }
         }
 
         public TeamViewModel()
