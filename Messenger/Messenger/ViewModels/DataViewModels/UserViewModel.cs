@@ -16,8 +16,6 @@ namespace Messenger.ViewModels.DataViewModels
         private BitmapImage _photo;
         private string _id;
         private uint _nameId;
-        private List<Team> _teams = new List<Team>();
-        private List<MemberRole> _memberRoles = new List<MemberRole>();
 
         public string Id
         {
@@ -59,18 +57,6 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get => _photo;
             set => Set(ref _photo, value);
-        }
-
-        public List<Team> Teams
-        {
-            get { return _teams; }
-            set { Set(ref _teams, value); }
-        }
-
-        public List<MemberRole> MemberRoles
-        {
-            get { return _memberRoles; }
-            set { Set(ref _memberRoles, value); }
         }
 
         public UserViewModel()
