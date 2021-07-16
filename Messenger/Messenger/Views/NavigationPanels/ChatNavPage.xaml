@@ -44,17 +44,17 @@
                             <TextBlock
                                 Text="{Binding Partner.Name, Mode=OneWay}"/>
                             <TextBlock
-                                Visibility="{Binding MainChannel.LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                                Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
                                 FontSize="12"
                                 Opacity=".75">
                                 <Run
-                                    Text="{Binding MainChannel.LastMessage.Sender.Name}"
+                                    Text="{Binding LastMessage.Sender.Name}"
                                     />
                                 <Run
                                     Text=":"
                                     />
                                 <Run
-                                    Text="{Binding MainChannel.LastMessage.Content}"
+                                    Text="{Binding LastMessage.Content}"
                                     />
                                 </TextBlock>
                         </StackPanel>
