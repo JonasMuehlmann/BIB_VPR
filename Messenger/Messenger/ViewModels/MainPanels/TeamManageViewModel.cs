@@ -103,9 +103,9 @@ namespace Messenger.ViewModels
         /// The method is responsible for loading all members of the team from the database
         /// </summary>
         private void LoadTeamMember() {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
-                IEnumerable<Member> members = ChatHubService.CurrentTeam.Members;
+                IEnumerable<Member> members = ChatHubService.SelectedTeam.Members;
 
                 _membersStore.Clear();
 
@@ -122,7 +122,7 @@ namespace Messenger.ViewModels
         /// Clears the Member list if there was something in from removeUser tab
         /// </summary>
         private void InitAddTeamMembers() {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 _membersStore.Clear();
                 Members = CopyList(_membersStore);
@@ -134,10 +134,10 @@ namespace Messenger.ViewModels
         /// </summary>
         private void InitChannels()
         {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 _membersStore.Clear();
-                CurrentTeam = ChatHubService.CurrentTeam;
+                CurrentTeam = ChatHubService.SelectedTeam;
             }
         }
 
@@ -147,9 +147,9 @@ namespace Messenger.ViewModels
         /// <param name="userId"></param>
         private async void RemoveUserAsync(string userId)
         {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
-                await ChatHubService.RemoveUser(userId, (uint)ChatHubService.CurrentTeam.Id);
+                await ChatHubService.RemoveUser(userId, (uint)ChatHubService.SelectedTeam.Id);
                 LoadTeamMember();
             }
         }
@@ -161,7 +161,7 @@ namespace Messenger.ViewModels
         /// <param name="channelId"></param>
         private async void RemoveChannelAsync(uint channelId)
         {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 await ChatHubService.RemoveChannel(channelId);
             }
@@ -174,12 +174,12 @@ namespace Messenger.ViewModels
         private async void AddUserAsync(string username)
         {
             var usernameSp = username.Split("#");
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 User user = await ChatHubService.GetUser(usernameSp[0], Convert.ToUInt32(usernameSp[1]));
                 if (user != null)
                 {
-                    await ChatHubService.InviteUser(new Models.Invitation(user.Id, (uint)ChatHubService.CurrentTeam.Id));
+                    await ChatHubService.InviteUser(new Models.Invitation(user.Id, (uint)ChatHubService.SelectedTeam.Id));
                     InitAddTeamMembers();
                 }
             }
@@ -251,7 +251,7 @@ namespace Messenger.ViewModels
         {
             if (teams != null)
             {
-                CurrentTeam = ChatHubService.CurrentTeam;
+                CurrentTeam = ChatHubService.SelectedTeam;
             }
         }
 

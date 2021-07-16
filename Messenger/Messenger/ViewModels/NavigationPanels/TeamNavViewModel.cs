@@ -169,7 +169,7 @@ namespace Messenger.ViewModels
         private async void SwitchChannel(ChannelViewModel channel)
         {
             // Invokes TeamSwitched event
-            await ChatHubService.SwitchChannel(channel.TeamId, channel.ChannelId);
+            await ChatHubService.SwitchChannel(channel.ChannelId);
 
             NavigationService.Open<ChatPage>();
         }
