@@ -123,8 +123,7 @@ namespace Messenger.Services
                 NameId = userFromDatabase.NameId,
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
-                Photo = userPhoto,
-                Teams = teams != null ? new List<Team>(teams) : new List<Team>(),
+                Photo = userPhoto
             };
         }
 
