@@ -14,20 +14,22 @@ namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamBuilder
     {
-        public TeamBuilder()
+        private readonly TeamFactory _factory;
+
+        public TeamBuilder(TeamFactory factory)
         {
+            _factory = factory;
         }
 
         public async Task<TeamViewModel> Build(Team team, string userId)
         {
-            TeamFactory factory = new TeamFactory(team);
-            TeamViewModel viewModel = factory.CreateBaseViewModel();
+            TeamViewModel viewModel = _factory.CreateBaseViewModel(team);
 
             var withMembers = await LoadMembers(viewModel, userId);
 
             var withChannels = await LoadChannels(withMembers);
 
-            return factory.GetViewModel(withChannels);
+            return _factory.GetViewModel(withChannels);
         }
 
         public async Task<IEnumerable<TeamViewModel>> Build(IEnumerable<Team> teams, string userId)

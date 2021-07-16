@@ -1,4 +1,5 @@
-﻿using Messenger.ViewModels.DataViewModels;
+﻿using Messenger.Core.Models;
+using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,9 +11,10 @@ namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamManager : Observable
     {
-        private TeamViewModel _selectedTeam;
+        private readonly TeamBuilder _builder;
         private List<TeamViewModel> _myTeams = new List<TeamViewModel>();
         private List<PrivateChatViewModel> _myChats = new List<PrivateChatViewModel>();
+        private UserViewModel _currentUser;
 
         public ReadOnlyCollection<TeamViewModel> MyTeams
         {
@@ -30,10 +32,23 @@ namespace Messenger.Helpers.TeamHelpers
             }
         }
 
-        public TeamViewModel SelectedTeam
+        public UserViewModel CurrentUser
         {
-            get { return _selectedTeam; }
-            set { Set(ref _selectedTeam, value); }
+            get { return _currentUser; }
+            set { Set(ref _currentUser, value); }
+        }
+
+        public TeamManager(TeamBuilder builder)
+        {
+            _builder = builder;
+        }
+
+        public static TeamManager CreateTeamManager()
+        {
+            TeamFactory factory = new TeamFactory();
+            TeamBuilder builder = new TeamBuilder(factory);
+
+            return new TeamManager(builder);
         }
 
         public void Clear()
@@ -41,43 +56,83 @@ namespace Messenger.Helpers.TeamHelpers
             _myTeams = new List<TeamViewModel>();
         }
 
-        public void AddTeam(TeamViewModel viewModel)
+        public TeamViewModel GetTeam(uint teamId)
         {
-            if (!Validate(viewModel))
-            {
-                return;
-            }
-
-            _myTeams.Add(viewModel);
+            return _myTeams
+                .Where(team => team.Id == teamId)
+                .FirstOrDefault();
         }
 
-        public void AddChat(PrivateChatViewModel viewModel)
+        public PrivateChatViewModel GetChat(uint chatId)
         {
-            if (!Validate(viewModel))
-            {
-                return;
-            }
-
-            _myChats.Add(viewModel);
+            return _myChats
+                .Where(chat => chat.Id == chatId)
+                .FirstOrDefault();
         }
 
-        public void AddTeam(IEnumerable<TeamViewModel> viewModels)
+        public ChannelViewModel GetChannel(uint channelId)
         {
-            foreach (TeamViewModel viewModel in viewModels)
+            foreach (TeamViewModel team in _myTeams)
             {
-                AddTeam(viewModel);
+                foreach (ChannelViewModel channel in team.Channels)
+                {
+                    if (channel.ChannelId == channelId)
+                    {
+                        return channel;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<TeamViewModel> AddTeam(Team teamData)
+        {
+            if (!Validate(teamData))
+            {
+                return null;
+            }
+
+            TeamViewModel viewModel = await _builder.Build(teamData, CurrentUser.Id);
+
+            if (viewModel is PrivateChatViewModel)
+            {
+                PrivateChatViewModel chat = viewModel as PrivateChatViewModel;
+                _myChats.Add(chat);
+
+                return chat;
+            }
+            else
+            {
+                _myTeams.Add(viewModel);
+
+                return viewModel;
             }
         }
 
-        public void AddChannel(ChannelViewModel channel)
+        public async Task AddTeam(IEnumerable<Team> teamData)
+        {
+            foreach (Team data in teamData)
+            {
+                await AddTeam(data);
+            }
+        }
+
+        public ChannelViewModel AddChannel(Channel channelData)
         {
             foreach (TeamViewModel teamViewModel in _myTeams)
             {
-                if (teamViewModel.Id == channel.TeamId)
+                if (teamViewModel.Id == channelData.TeamId)
                 {
-                    teamViewModel.Channels.Add(channel);
+                    ChannelViewModel viewModel = _builder.Map(channelData);
+
+                    teamViewModel.Channels.Add(viewModel);
+
+                    return viewModel;
                 }
             }
+
+            return null;
         }
 
         public void RemoveTeam(uint id)
@@ -89,11 +144,10 @@ namespace Messenger.Helpers.TeamHelpers
             _myTeams = removed.ToList();
         }
 
-        private bool Validate(TeamViewModel viewModel)
+        private bool Validate(Team teamData)
         {
-            bool isValid = viewModel != null
-                && viewModel.Id != null
-                && viewModel.Members != null;
+            bool isValid = teamData != null
+                && teamData.Id > 0;
 
             return isValid;
         }
