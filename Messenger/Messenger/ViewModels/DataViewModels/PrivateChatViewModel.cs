@@ -40,6 +40,7 @@ namespace Messenger.ViewModels.DataViewModels
             TeamName = viewModel.TeamName;
             Description = viewModel.Description;
             CreationDate = viewModel.CreationDate;
+            Members = viewModel.Members;
             Partner = partner;
             MainChannel = mainChannel;
         }
