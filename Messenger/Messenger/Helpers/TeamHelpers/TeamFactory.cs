@@ -7,28 +7,17 @@ namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamFactory
     {
-        private readonly Team _data;
-
-        private TeamViewModel _baseViewModel;
-
-        public TeamFactory(Team data)
+        public TeamViewModel CreateBaseViewModel(Team data)
         {
-            _data = data;
-        }
-
-        public TeamViewModel CreateBaseViewModel()
-        {
-            _baseViewModel = new TeamViewModel()
+            return new TeamViewModel()
             {
-                Id = _data.Id,
-                TeamName = _data.Name,
-                Description = _data.Description,
-                CreationDate = _data.CreationDate,
+                Id = data.Id,
+                TeamName = data.Name,
+                Description = data.Description,
+                CreationDate = data.CreationDate,
                 Members = new ObservableCollection<Member>(),
                 Channels = new ObservableCollection<ChannelViewModel>()
             };
-
-            return _baseViewModel;
         }
 
         public TeamViewModel GetViewModel(TeamViewModel viewModel)
