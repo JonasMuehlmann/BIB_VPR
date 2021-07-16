@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Messenger.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -19,6 +21,15 @@ namespace Messenger.Controls.ManageControls
 {
     public sealed partial class MembersListControl : UserControl
     {
+        public ObservableCollection<Member> Members
+        {
+            get { return (ObservableCollection<Member>)GetValue(MembersProperty); }
+            set { SetValue(MembersProperty, value); }
+        }
+
+        public static readonly DependencyProperty MembersProperty =
+            DependencyProperty.Register("Members", typeof(ObservableCollection<Member>), typeof(MembersListControl), new PropertyMetadata(new ObservableCollection<Member>()));
+
         public MembersListControl()
         {
             this.InitializeComponent();
