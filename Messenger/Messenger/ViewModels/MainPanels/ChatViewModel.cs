@@ -149,7 +149,7 @@ namespace Messenger.ViewModels
             Hub.TeamSwitched += OnTeamSwitched;
             Hub.MessageReceived += OnMessageReceived;
             Hub.MessageUpdated += OnMessagesUpdated;
-            Hub.MessageDeleted += OnMessagesUpdated;
+            Hub.MessageDeleted += OnMessageDeleted;
 
             LoadAsync();
         }
@@ -161,8 +161,8 @@ namespace Messenger.ViewModels
         {
             var messages = await Hub.GetMessages();
 
-            CurrentTeam = Hub.CurrentTeam;
-            CurrentChannel = Hub.CurrentChannel;
+            CurrentTeam = Hub.SelectedTeam;
+            CurrentChannel = Hub.SelectedChannel;
 
             UpdateView(messages);
         }
@@ -254,8 +254,20 @@ namespace Messenger.ViewModels
         /// Fires on MessageUpdated of ChatHubService
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">Received Message object</param>
-        private async void OnMessagesUpdated(object sender, EventArgs e)
+        /// <param name="message">Updated Message object</param>
+        private async void OnMessagesUpdated(object sender, MessageViewModel vm)
+        {
+            var messages = await Hub.GetMessages();
+
+            UpdateView(messages);
+        }
+
+        /// <summary>
+        /// Fires on MessageDeleted of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">Deleted Message object</param>
+        private async void OnMessageDeleted(object sender, EventArgs e)
         {
             var messages = await Hub.GetMessages();
 
@@ -269,8 +281,8 @@ namespace Messenger.ViewModels
         /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            CurrentTeam = Hub.CurrentTeam;
-            CurrentChannel = Hub.CurrentChannel;
+            CurrentTeam = Hub.SelectedTeam;
+            CurrentChannel = Hub.SelectedChannel;
 
             UpdateView(messages);
         }
