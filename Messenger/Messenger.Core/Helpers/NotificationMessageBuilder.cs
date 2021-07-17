@@ -87,7 +87,55 @@ namespace Messenger.Core.Helpers
         /// <returns>A JObject containing the necessary information</returns>
         public static async Task<JObject> MakeMessageInSubscribedTeamNotificationMessage(uint messageId)
         {
-            return await MakeMessageInSubscribedChannelNotificationMessage(messageId);
+            var senderNameQuery = $@"
+                                        SELECT
+                                            UserName
+                                        FROM
+                                            Users
+                                        LEFT JOIN Messages ON
+                                            senderId = userId
+                                        WHERE
+                                            messageId = {messageId};
+                ";
+
+            var channelNameQuery = $@"
+                                        SELECT
+                                            channelName
+                                        FROM
+                                            Channels
+                                        LEFT JOIN Messages ON
+                                            channelId = recipientId
+                                        WHERE
+                                            messageId = {messageId};
+                ";
+
+            var teamNameQuery = $@"
+                                    SELECT
+                                        t.teamName
+                                    FROM
+                                        Teams t
+                                        Channels c
+                                    LEFT JOIN Messages ON
+                                        c.channelId = recipientId
+                                    WHERE
+                                        messageId = {messageId}
+                                        AND
+                                        c.teamId = t.teamId;
+                ";
+
+            var senderName  = await SqlHelpers.ExecuteScalarAsync(senderNameQuery,  Convert.ToString);
+            var channelName = await SqlHelpers.ExecuteScalarAsync(channelNameQuery, Convert.ToString);
+            var teamName    = await SqlHelpers.ExecuteScalarAsync(teamNameQuery,    Convert.ToString);
+
+            return new JObject
+            {
+                {"notificationType",   NotificationType.MessageInSubscribedTeam.ToString()},
+                {"notificationSource", NotificationSource.Team.ToString()},
+                {"senderName",         senderName},
+                {"channelName",        channelName},
+                {"teamName",           teamName},
+            };
+
         }
 
         /// <summary>
