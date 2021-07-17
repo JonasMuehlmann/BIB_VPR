@@ -6,8 +6,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
-using Messenger.ViewModels;
-
+using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
 
 namespace Messenger.Services
@@ -124,8 +123,7 @@ namespace Messenger.Services
                 NameId = userFromDatabase.NameId,
                 Bio = userFromDatabase.Bio,
                 Mail = userFromDatabase.Mail,
-                Photo = userPhoto,
-                Teams = teams != null ? new List<Team>(teams) : new List<Team>(),
+                Photo = userPhoto
             };
         }
 

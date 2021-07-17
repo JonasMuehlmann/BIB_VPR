@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
@@ -22,9 +26,9 @@ namespace Messenger.ViewModels
         #region Privates
 
         private ShellViewModel _shellViewModel;
-        private ObservableCollection<User> _membersView;
+        private ObservableCollection<Member> _membersView;
         private TeamViewModel _teamView;
-        private List<User> _membersStore;
+        private List<Member> _membersStore;
         private ICommand _removeTeamMembers;
         private ICommand _addTeamMembers;
         private ICommand _channelManagement;
@@ -38,7 +42,7 @@ namespace Messenger.ViewModels
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
-
+        private User _selectedSearchedUser;
 
         public ShellViewModel ShellViewModel
         {
@@ -52,7 +56,7 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ObservableCollection<User> Members
+        public ObservableCollection<Member> Members
         {
             get
             {
@@ -63,7 +67,7 @@ namespace Messenger.ViewModels
                 //TODO add UserNull handling
                 if (value.Count == 0 || value == null)
                 {
-                    value.Add(new User() { DisplayName = "Keine Nutzer gefunden" });
+                    value.Add(new Member() { Name = "Keine Nutzer gefunden" });
                 }
                 Set(ref _membersView, value);
             }
@@ -81,9 +85,40 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ICommand RemoveTeamMembers => _removeTeamMembers ?? (_removeTeamMembers = new RelayCommand(LoadTeamMembersAsync));
-        public ICommand AddTeamMembers => _addTeamMembers ?? (_addTeamMembers = new RelayCommand(InitAddTeamMembers));
-        public ICommand ChannelManagement => _channelManagement ?? (_channelManagement = new RelayCommand(InitChannels));
+        #region Search Users
+
+        public User SelectedSearchedUser
+        {
+            get
+            {
+                return _selectedSearchedUser;
+            }
+            set
+            {
+                Set(ref _selectedSearchedUser, value);
+            }
+        }
+
+        public Func<string, Task<IReadOnlyList<string>>> OnSearchFunction
+        {
+            get
+            {
+                return OnSearch;
+            }
+        }
+
+        public Func<string, uint, Task<User>> GetSelectedUserFunction
+        {
+            get
+            {
+                return GetSelectedUser;
+            }
+        }
+
+        #endregion
+
+        public ICommand InviteUserCommand => new InviteUserCommand(ChatHubService);
+        public ICommand RemoveUserCommand => new RemoveUserCommand(ChatHubService);
         public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(CreateChannel));
         public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
         public ICommand RemoveChannelClick => _removeChannelClick ?? (_removeChannelClick = new RelayCommand<uint>(RemoveChannelAsync));
@@ -95,35 +130,61 @@ namespace Messenger.ViewModels
 
         public TeamManageViewModel()
         {
-            Members = new ObservableCollection<User>();
-            _membersStore = new List<User>();
+            Members = new ObservableCollection<Member>();
+            _membersStore = new List<Member>();
+
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            CurrentTeam = ChatHubService.SelectedTeam;
+
+            LoadTeamMember();
         }
 
         /// <summary>
         /// The method is responsible for loading all members of the team from the database
         /// </summary>
-        private void LoadTeamMembersAsync() {
-            if (ChatHubService.CurrentTeam.Id != null)
-            {
-                IEnumerable<User> members = ChatHubService.CurrentTeam.Members;
+        private void LoadTeamMember() {
+            IEnumerable<Member> members = ChatHubService.SelectedTeam.Members;
 
-                _membersStore.Clear();
+            _membersStore.Clear();
 
-                foreach (var user in members) {
-                    _membersStore.Add(user);
-                }
-
-                Members = CopyList(_membersStore);
+            foreach (var user in members) {
+                _membersStore.Add(user);
             }
+
+            Members = new ObservableCollection<Member>(CopyList(_membersStore));
         }
 
+        private async Task<IReadOnlyList<string>> OnSearch(string keyword)
+        {
+            IEnumerable<string> result = await ChatHubService.SearchUser(keyword);
+
+            return result
+                .TakeWhile(user =>
+                {
+                    TeamViewModel selectedTeam = ChatHubService.SelectedTeam;
+                    var data = user.Split('#');
+                    string name = data[0];
+                    uint nameId = Convert.ToUInt32(data[1]);
+
+                    bool isMember = selectedTeam.Members
+                        .Any(member => member.Name == name && member.NameId == nameId);
+
+                    return !isMember;
+                }).ToList();
+        }
+
+        private async Task<User> GetSelectedUser(string name, uint nameId)
+        {
+            User result = await ChatHubService.GetUserWithNameId(name, nameId);
+
+            return result;
+        }
 
         /// <summary>
         /// Clears the Member list if there was something in from removeUser tab
         /// </summary>
         private void InitAddTeamMembers() {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 _membersStore.Clear();
                 Members = CopyList(_membersStore);
@@ -135,10 +196,10 @@ namespace Messenger.ViewModels
         /// </summary>
         private void InitChannels()
         {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 _membersStore.Clear();
-                CurrentTeam = ChatHubService.CurrentTeam;
+                CurrentTeam = ChatHubService.SelectedTeam;
             }
         }
 
@@ -148,10 +209,10 @@ namespace Messenger.ViewModels
         /// <param name="userId"></param>
         private async void RemoveUserAsync(string userId)
         {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
-                await ChatHubService.RemoveUser(userId, (uint)ChatHubService.CurrentTeam.Id);
-                LoadTeamMembersAsync();
+                await ChatHubService.RemoveUser(userId, (uint)ChatHubService.SelectedTeam.Id);
+                LoadTeamMember();
             }
         }
 
@@ -162,7 +223,7 @@ namespace Messenger.ViewModels
         /// <param name="channelId"></param>
         private async void RemoveChannelAsync(uint channelId)
         {
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 await ChatHubService.RemoveChannel(channelId);
             }
@@ -175,12 +236,16 @@ namespace Messenger.ViewModels
         private async void AddUserAsync(string username)
         {
             var usernameSp = username.Split("#");
-            if (ChatHubService.CurrentTeam.Id != null)
+            if (ChatHubService.SelectedTeam.Id != null)
             {
                 User user = await ChatHubService.GetUser(usernameSp[0], Convert.ToUInt32(usernameSp[1]));
                 if (user != null)
                 {
-                    await ChatHubService.InviteUser(new Models.Invitation(user.Id, (uint)ChatHubService.CurrentTeam.Id));
+                    await ChatHubService.InviteUser(new Invitation()
+                    {
+                        UserId = user.Id,
+                        TeamId = (uint)ChatHubService.SelectedTeam.Id
+                    });
                     InitAddTeamMembers();
                 }
             }
@@ -200,7 +265,7 @@ namespace Messenger.ViewModels
                 Members = CopyList(_membersStore);
             }
             else {
-                Members = CopyList(_membersStore.FindAll(x => x.DisplayName.Contains(searchBox.Text)));
+                Members = CopyList(_membersStore.FindAll(x => x.Name.Contains(searchBox.Text)));
             }
         }
 
@@ -217,7 +282,7 @@ namespace Messenger.ViewModels
             var usernames = await ChatHubService.SearchUser(searchBox.Text);
             foreach (var username in usernames)
             {
-                Members.Add(new User() {DisplayName = username});
+                Members.Add(new Member() { Name = username });
             }
         }
 
@@ -252,7 +317,7 @@ namespace Messenger.ViewModels
         {
             if (teams != null)
             {
-                CurrentTeam = ChatHubService.CurrentTeam;
+                CurrentTeam = ChatHubService.SelectedTeam;
             }
         }
 
@@ -263,8 +328,8 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="memberList"></param>
         /// <returns>a copy of the given list on input</returns>
-        private ObservableCollection<User> CopyList(List<User> memberList) {
-            ObservableCollection<User> memb = new ObservableCollection<User>();
+        private ObservableCollection<Member> CopyList(List<Member> memberList) {
+            ObservableCollection<Member> memb = new ObservableCollection<Member>();
             foreach (var user in memberList)
             {
                 memb.Add(user);

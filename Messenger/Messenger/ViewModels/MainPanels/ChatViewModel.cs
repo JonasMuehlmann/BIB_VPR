@@ -27,6 +27,8 @@ namespace Messenger.ViewModels
         private ChatHubService Hub => Singleton<ChatHubService>.Instance;
         private MessageViewModel _replyMessage;
         private Message _messageToSend;
+        private ChannelViewModel _currentChannel;
+        private TeamViewModel _currentTeam;
 
         #endregion
 
@@ -94,18 +96,14 @@ namespace Messenger.ViewModels
 
         public TeamViewModel CurrentTeam
         {
-            get
-            {
-                return Hub.CurrentTeam;
-            }
+            get { return _currentTeam; }
+            set { Set(ref _currentTeam, value); }
         }
 
         public ChannelViewModel CurrentChannel
         {
-            get
-            {
-                return Hub.CurrentChannel;
-            }
+            get { return _currentChannel; }
+            set { Set(ref _currentChannel, value); }
         }
 
         #endregion
@@ -151,7 +149,7 @@ namespace Messenger.ViewModels
             Hub.TeamSwitched += OnTeamSwitched;
             Hub.MessageReceived += OnMessageReceived;
             Hub.MessageUpdated += OnMessagesUpdated;
-            Hub.MessageDeleted += OnMessagesUpdated;
+            Hub.MessageDeleted += OnMessageDeleted;
 
             LoadAsync();
         }
@@ -162,6 +160,9 @@ namespace Messenger.ViewModels
         private async void LoadAsync()
         {
             var messages = await Hub.GetMessages();
+
+            CurrentTeam = Hub.SelectedTeam;
+            CurrentChannel = Hub.SelectedChannel;
 
             UpdateView(messages);
         }
@@ -243,15 +244,30 @@ namespace Messenger.ViewModels
         /// <param name="message">Received Message object</param>
         private void OnMessageReceived(object sender, MessageViewModel vm)
         {
-            Messages.Add(vm);
+            if (CurrentChannel.ChannelId == vm.ChannelId)
+            {
+                Messages.Add(vm);
+            }
         }
 
         /// <summary>
         /// Fires on MessageUpdated of ChatHubService
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">Received Message object</param>
-        private async void OnMessagesUpdated(object sender, EventArgs e)
+        /// <param name="message">Updated Message object</param>
+        private async void OnMessagesUpdated(object sender, MessageViewModel vm)
+        {
+            var messages = await Hub.GetMessages();
+
+            UpdateView(messages);
+        }
+
+        /// <summary>
+        /// Fires on MessageDeleted of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">Deleted Message object</param>
+        private async void OnMessageDeleted(object sender, EventArgs e)
         {
             var messages = await Hub.GetMessages();
 
@@ -265,6 +281,9 @@ namespace Messenger.ViewModels
         /// <param name="messages">List of message of the current team</param>
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
+            CurrentTeam = Hub.SelectedTeam;
+            CurrentChannel = Hub.SelectedChannel;
+
             UpdateView(messages);
         }
 

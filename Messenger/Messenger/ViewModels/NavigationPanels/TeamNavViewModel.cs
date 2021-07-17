@@ -80,6 +80,7 @@ namespace Messenger.ViewModels
             ChatHubService.MessageReceived += OnMessageReceived;
             ChatHubService.TeamsUpdated += OnTeamsUpdated;
             ChatHubService.TeamUpdated += OnTeamUpdated;
+            ChatHubService.ChannelUpdated += OnChannelUpdated;
 
             Initialize();
         }
@@ -98,7 +99,7 @@ namespace Messenger.ViewModels
                     IsBusy = false;
                     break;
                 case ChatHubConnectionState.LoadedWithData:
-                    FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
+                     FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
                     IsBusy = false;
                     break;
                 default:
@@ -128,10 +129,7 @@ namespace Messenger.ViewModels
         /// <param name="team">The updated teams</param>
         private async void OnTeamUpdated(object sender, TeamViewModel team)
         {
-            if (ChatHubService.CurrentUser.Teams != null)
-            {
-                FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
-            }
+            FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
 
             IsBusy = false;
         }
@@ -171,7 +169,7 @@ namespace Messenger.ViewModels
         private async void SwitchChannel(ChannelViewModel channel)
         {
             // Invokes TeamSwitched event
-            await ChatHubService.SwitchChannel(channel.TeamId, channel.ChannelId);
+            await ChatHubService.SwitchChannel(channel.ChannelId);
 
             NavigationService.Open<ChatPage>();
         }
@@ -191,6 +189,17 @@ namespace Messenger.ViewModels
                     {
                         channel.LastMessage = message;
                     }
+                }
+            }
+        }
+
+        private void OnChannelUpdated(object sender, ChannelViewModel channel)
+        {
+            foreach (TeamViewModel team in _teams)
+            {
+                if (team.Id == channel.TeamId)
+                {
+                    team.Channels.Add(channel);
                 }
             }
         }

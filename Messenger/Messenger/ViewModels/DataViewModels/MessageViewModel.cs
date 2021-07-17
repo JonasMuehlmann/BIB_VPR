@@ -23,7 +23,7 @@ namespace Messenger.ViewModels.DataViewModels
         private bool _isReply;
         private bool _hasReacted;
         private ReactionType _myReaction;
-        private User _sender;
+        private UserViewModel _sender;
         private ObservableCollection<MessageViewModel> _replies;
         private ObservableCollection<Reaction> _reactions;
         private List<Attachment> _attachments;
@@ -67,7 +67,7 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _parentMessageId, value); }
         }
 
-        public User Sender
+        public UserViewModel Sender
         {
             get { return _sender; }
             set { Set(ref _sender, value); }

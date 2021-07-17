@@ -19,7 +19,7 @@
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:ReactionTypeToBooleanConverter x:Key="ReactionToBooleanConverter" />
-            <!--#region CONTAINER STYLE -->
+        <!--#region CONTAINER STYLE -->
         <Style x:Key="OuterGrid" TargetType="Grid">
             <Setter Property="Margin" Value="20 10 10 10" />
         </Style>
@@ -104,15 +104,17 @@
         <Border Style="{StaticResource OuterBorder}">
             <StackPanel
                 Orientation="Horizontal">
-                <Grid
+                <Button
                     Visibility="{Binding
                         ElementName=messageControl,
                         Path=Message.IsMyMessage,
                         Converter={StaticResource BoolToVisConverter},
                         ConverterParameter='invert'}"
                     Background="Transparent"
-                    VerticalAlignment="Stretch"
-                    Padding="10">
+                    CornerRadius="50"
+                    VerticalAlignment="Top"
+                    Padding="10"
+                    Margin="0 0 5 0">
                     <Viewbox
                         VerticalAlignment="Top"
                         Width="40"
@@ -121,7 +123,25 @@
                              Kind="UserCircleSolid"
                              />
                     </Viewbox>
-                </Grid>
+                    <Button.Flyout>
+                        <Flyout
+                            ShowMode="TransientWithDismissOnPointerMoveAway"
+                            Placement="BottomEdgeAlignedLeft">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemAccentColorLight2}" />
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <local:UserProfileFlyout
+                                User="{Binding
+                                ElementName=messageControl,
+                                Path=Message.Sender,
+                                Mode=OneWay}"
+                                />
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
                 <Grid
                     MinWidth="350"
                     MaxWidth="450"
@@ -156,7 +176,7 @@
                                     Converter={StaticResource BoolToVisConverter},
                                     ConverterParameter='invert'}"
                                 Style="{StaticResource HeaderStyle}"
-                                Text="{Binding Message.Sender.DisplayName, ElementName=messageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding Message.Sender.Name, ElementName=messageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
                             <StackPanel
                                 Orientation="Horizontal">
