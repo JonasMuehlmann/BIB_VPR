@@ -105,6 +105,7 @@
                 Background="{ThemeResource SystemAccentColorLight1}"
                 Text="{x:Bind MessageContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MessageContent}"
+                PreviewKeyDown="tbxContent_PreviewKeyDown"
                 />
         </Grid>
         <!-- ACTIONS -->
