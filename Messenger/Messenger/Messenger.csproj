@@ -163,6 +163,9 @@
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Commands\UserData\EditBioCommand.cs" />
+    <Compile Include="Controls\ChatControls\ChatHeader.xaml.cs">
+      <DependentUpon>ChatHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChatControls\MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,8 @@
     <Compile Include="Controls\Shared\OnLoading.xaml.cs">
       <DependentUpon>OnLoading.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BindingHelper.cs" />
+    <Compile Include="Helpers\BooleanToAlignmentConverter.cs" />
     <Compile Include="Helpers\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\DateToStringConverter.cs" />
@@ -202,6 +207,8 @@
     <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\TeamBuilder.cs" />
+    <Compile Include="Helpers\TeamManager.cs" />
     <Compile Include="Helpers\ThemeToFillBrushConverter.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
@@ -232,7 +239,9 @@
     <Compile Include="Services\UserActivityService.Sample.cs" />
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\DataViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
@@ -299,6 +308,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ChatControls\ChatHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ChatControls\MessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

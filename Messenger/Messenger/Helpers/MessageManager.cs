@@ -8,21 +8,21 @@ using System.Linq;
 namespace Messenger.Helpers
 {
     /// <summary>
-    /// Handles the dictionary for storing messages with the key of team ids.
+    /// Handles the dictionary for storing messages with the key of channel ids.
     /// </summary>
     public class MessageManager
     {
-        private readonly ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> _messagesByTeamId = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
+        private readonly ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> _messagesByChannelId = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
 
         /// <summary>
         /// Creates new entry in the dictionary
         /// </summary>
-        /// <param name="teamId">Id of the team (Key)</param>
+        /// <param name="channelId">Id of the channel (Key)</param>
         /// <param name="messages">List of loaded messages (Value)</param>
-        public void CreateEntry(uint teamId, IEnumerable<MessageViewModel> messages)
+        public void CreateEntry(uint channelId, IEnumerable<MessageViewModel> messages)
         {
-            _messagesByTeamId.AddOrUpdate(
-                teamId,
+            _messagesByChannelId.AddOrUpdate(
+                channelId,
                 (key) =>
                 new ObservableCollection<MessageViewModel>(messages),
                 (key, list) =>
@@ -38,14 +38,29 @@ namespace Messenger.Helpers
         }
 
         /// <summary>
-        /// Gets the list of messages with the key of the given team id
+        /// Gets the list of messages with the key of the given channel id
         /// </summary>
-        /// <param name="teamId">Id of the team (Key)</param>
+        /// <param name="channelId">Id of the team (Key)</param>
         /// <param name="messages">List of messages (Value)</param>
         /// <returns>True if the team exists, else false</returns>
-        public bool TryGetMessages(uint teamId, out ObservableCollection<MessageViewModel> messages)
+        public bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages)
         {
-            return _messagesByTeamId.TryGetValue(teamId, out messages);
+            return _messagesByChannelId.TryGetValue(channelId, out messages);
+        }
+
+        public bool TryGetLastMessage(uint channelId, out MessageViewModel message)
+        {
+            if (TryGetMessages(channelId, out ObservableCollection<MessageViewModel> messages)
+                && messages.Count > 0)
+            {
+                message = messages.LastOrDefault();
+                return true;
+            }
+            else
+            {
+                message = null;
+                return false;
+            }
         }
 
         /// <summary>
@@ -56,8 +71,8 @@ namespace Messenger.Helpers
         {
             if (!message.IsReply)
             {
-                _messagesByTeamId.AddOrUpdate(
-                    (uint)message.TeamId,
+                _messagesByChannelId.AddOrUpdate(
+                    (uint)message.ChannelId,
                     new ObservableCollection<MessageViewModel>() { message },
                     (key, list) =>
                     {
@@ -67,8 +82,8 @@ namespace Messenger.Helpers
             }
             else
             {
-                _messagesByTeamId.AddOrUpdate(
-                    (uint)message.TeamId,
+                _messagesByChannelId.AddOrUpdate(
+                    (uint)message.ChannelId,
                     new ObservableCollection<MessageViewModel>() { message },
                     (key, list) =>
                     {
@@ -93,8 +108,8 @@ namespace Messenger.Helpers
         {
             if (!message.IsReply)
             {
-                _messagesByTeamId.AddOrUpdate(
-                    (uint)message.TeamId,
+                _messagesByChannelId.AddOrUpdate(
+                    (uint)message.ChannelId,
                     new ObservableCollection<MessageViewModel>() { message },
                     (key, list) =>
                     {
@@ -113,8 +128,8 @@ namespace Messenger.Helpers
             }
             else
             {
-                _messagesByTeamId.AddOrUpdate(
-                    (uint)message.TeamId,
+                _messagesByChannelId.AddOrUpdate(
+                    (uint)message.ChannelId,
                     new ObservableCollection<MessageViewModel>() { message },
                     (key, list) =>
                     {
@@ -151,7 +166,7 @@ namespace Messenger.Helpers
         {
             if (data.ParentMessageId == null)
             {
-                _messagesByTeamId.AddOrUpdate(
+                _messagesByChannelId.AddOrUpdate(
                     data.RecipientId,
                     new ObservableCollection<MessageViewModel>(),
                     (key, list) =>
@@ -164,7 +179,7 @@ namespace Messenger.Helpers
             }
             else
             {
-                if (_messagesByTeamId.TryGetValue(
+                if (_messagesByChannelId.TryGetValue(
                     data.RecipientId,
                     out ObservableCollection<MessageViewModel> parents))
                 {
@@ -178,6 +193,25 @@ namespace Messenger.Helpers
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Removes entry with the given key
+        /// </summary>
+        /// <param name="channelId">Id of the channel</param>
+        /// <returns>Count of messages deleted</returns>
+        public int RemoveEntry(uint channelId)
+        {
+            bool entryExists = _messagesByChannelId.TryRemove(channelId, out ObservableCollection<MessageViewModel> entry);
+
+            if (entryExists)
+            {
+                return entry.Count();
+            }
+            else
+            {
+                return 0;
             }
         }
     }

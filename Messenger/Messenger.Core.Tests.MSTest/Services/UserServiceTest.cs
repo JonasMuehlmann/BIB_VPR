@@ -21,14 +21,17 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void GetOrCreateApplicationUserExisting_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var data = new User() { Id = "123-456-abc-edf", DisplayName="testUser"};
+                var data = new User(){Id=testName+"UserId", DisplayName=testName+"UserName"};
+
                 User retrievedUser = await UserService.GetOrCreateApplicationUser(data);
+                Assert.AreEqual(testName + "UserId", retrievedUser.Id);
 
-
-                Assert.IsNotNull(retrievedUser);
-                Assert.AreEqual(retrievedUser.Mail, "test.bib@edu.bib");
+                retrievedUser = await UserService.GetOrCreateApplicationUser(data);
+                Assert.AreEqual(testName + "UserId", retrievedUser.Id);
 
             }).GetAwaiter().GetResult();
         }
@@ -38,17 +41,19 @@ namespace Messenger.Tests.MSTest
         /// Should fetch the existing user from database
         /// </summary>
         [TestMethod]
-        public void GetOrCreateApplicationUserFirstNameId_Test()
+        public void GetOrCreateApplicationNonExisting_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var data = new User { Id = "xyz", DisplayName = "foobar" };
+                var data = new User(){Id=testName+"UserId", DisplayName=testName+"UserName"};
 
                 User retrievedUser = await UserService.GetOrCreateApplicationUser(data);
-
-                Assert.AreEqual(1u, retrievedUser.NameId);
+                Assert.AreEqual(testName + "UserId", retrievedUser.Id);
 
             }).GetAwaiter().GetResult();
+
         }
 
 
@@ -58,34 +63,21 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void GetOrCreateApplicationUserSecondNameId_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var data = new User() { Id = "1234", DisplayName = "foobar" };
-                User retrievedUser = await UserService.GetOrCreateApplicationUser(data);
+                var user1 = new User(){Id=testName+"UserId1", DisplayName=testName+"UserName"};
+                var user2 = new User(){Id=testName+"UserId2", DisplayName=testName+"UserName"};
 
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(user1);
+                Assert.AreEqual(1u, retrievedUser.NameId);
+
+                retrievedUser = await UserService.GetOrCreateApplicationUser(user2);
                 Assert.AreEqual(2u, retrievedUser.NameId);
 
             }).GetAwaiter().GetResult();
         }
-
-
-         public void GetOrCreateApplicationUserNew_Test()
-         {
-             string id = "123-456-abc-edg";
-
-             User referenceUser = new User{
-                 Id = id
-             };
-
-             Task.Run(async () =>
-             {
-                 var data = new User() { Id =  id};
-                 User createdUser = await UserService.GetOrCreateApplicationUser(data);
-
-                 Assert.AreEqual(createdUser.ToString(), referenceUser.ToString());
-
-             }).GetAwaiter().GetResult();
-         }
 
 
         /// <summary>
@@ -94,20 +86,20 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void UpdateUsername_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                string id = "123-456-abc-edf";
+                var user = new User(){Id=testName+"UserId", DisplayName=testName+"UserName"};
 
-                User userBefore = await UserService.GetUser(id);
-                string newName = "JayKim94";
-                userBefore.DisplayName = newName;
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(user);
+                Assert.AreEqual(testName + "UserId", retrievedUser.Id);
 
-                bool success = await UserService.UpdateUsername(id, newName);
+                bool didRename = await UserService.UpdateUsername(testName + "UserId", testName + "UserNameAfter");
+                Assert.IsTrue(didRename);
 
-                User userAfter = await UserService.GetUser(id);
-
-                Assert.IsTrue(success);
-                Assert.AreEqual(userBefore.ToString(), userAfter.ToString());
+                User userAfter = await UserService.GetUser(testName + "UserId");
+                Assert.AreEqual(testName + "UserNameAfter", userAfter.DisplayName);
 
             }).GetAwaiter().GetResult();
         }
@@ -118,11 +110,20 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void UpdateUserInfo_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                bool success = await UserService.Update("123-456-abc-edf", "Bio", "Updated bio");
+                var user = new User(){Id=testName+"UserId", DisplayName=testName+"UserName"};
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(user);
+                Assert.AreEqual(testName + "UserId", retrievedUser.Id);
 
-                Assert.IsTrue(success);
+                bool didChangeBio = await UserService.Update(testName + "UserId", "Bio", testName + "BioAfter");
+                Assert.IsTrue(didChangeBio);
+
+                User userAfter = await UserService.GetUser(testName + "UserId");
+                Assert.AreEqual(testName + "BioAfter", userAfter.Bio);
+
             }).GetAwaiter().GetResult();
         }
 
@@ -132,14 +133,18 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void DeleteUser_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                string id = "123-456-abc-edf";
-                bool success = await UserService.DeleteUser(id);
+                var user = new User(){Id=testName+"UserId", DisplayName=testName+"UserName"};
+                User retrievedUser = await UserService.GetOrCreateApplicationUser(user);
+                Assert.AreEqual(testName + "UserId", retrievedUser.Id);
 
+                bool didDelete = await UserService.DeleteUser(testName + "UserId");
+                Assert.IsTrue(didDelete);
 
-                Assert.IsTrue(success);
-                Assert.IsNull(await UserService.GetUser(id));
+                Assert.IsNull(await UserService.GetUser(testName + "UserId"));
 
             }).GetAwaiter().GetResult();
         }
@@ -150,13 +155,14 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void DeleteNonExistentUser_Test()
         {
+            string testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                string id = "djdsdjksdjskdjskdjdksj";
-                bool success = await UserService.DeleteUser(id);
+                string id = testName + "UserId";
+                bool  didDelete = await UserService.DeleteUser(testName + "UserId");
 
-
-                Assert.IsFalse(success);
+                Assert.IsFalse(didDelete);
 
             }).GetAwaiter().GetResult();
         }
@@ -199,38 +205,6 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
 
-        }
-        [AssemblyCleanup]
-        public static void Cleanup()
-        {
-            // Reset DB
-            string query = @"
-                             DELETE FROM Notifications;
-                             DELETE FROM Reactions;
-                             DELETE FROM Messages;
-                             DELETE FROM Memberships;
-                             DELETE FROM Channels;
-                             DELETE FROM Role_permissions;
-                             DELETE FROM User_roles;
-                             DELETE FROM Team_roles;
-                             DELETE FROM Teams;
-                             DELETE FROM Users;
-                             DBCC CHECKIDENT (Notifications,    RESEED, 0);
-                             DBCC CHECKIDENT (Memberships,      RESEED, 0);
-                             DBCC CHECKIDENT (Messages,         RESEED, 0);
-                             DBCC CHECKIDENT (Channels,         RESEED, 0);
-                             DBCC CHECKIDENT (Team_roles,       RESEED, 0);
-                             DBCC CHECKIDENT (User_roles,       RESEED, 0);
-                             DBCC CHECKIDENT (Role_permissions, RESEED, 0);
-                             DBCC CHECKIDENT (Reactions, RESEED, 0);
-                             DBCC CHECKIDENT (Teams,            RESEED, 0);";
-
-            using (SqlConnection connection = AzureServiceBase.GetDefaultConnection())
-            {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
-            }
         }
 
         [TestMethod]
@@ -317,5 +291,10 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
+        }
     }
 }

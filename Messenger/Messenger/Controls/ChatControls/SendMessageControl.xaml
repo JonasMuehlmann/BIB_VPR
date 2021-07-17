@@ -29,7 +29,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         </Style>
         <Style x:Key="MessageContent" TargetType="TextBox">
-            <Setter Property="Padding" Value="40 10" />
+            <Setter Property="Padding" Value="20 10" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="FontSize" Value="16" />
@@ -38,16 +38,14 @@
             <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
-        <Style x:Key="SendButton" TargetType="Button">
+        <Style x:Key="IconButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Width" Value="40" />
         </Style>
-        <Style x:Key="OpenFilesButton" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0 0 1 0" />
-            <Setter Property="BorderBrush" Value="#000000AA" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Margin" Value="5 0" />
+        <Style x:Key="SendButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
+        </Style>
+        <Style x:Key="OpenFilesButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
         </Style>
         <DataTemplate x:Key="Attachment">
             <Border
@@ -98,15 +96,20 @@
                 </Viewbox>
             </Button>
         </Grid>
+        <!-- CONTENT BAR -->
         <Grid
             VerticalAlignment="Center">
             <TextBox
                 Name="tbxContent"
                 PlaceholderText="Write something..."
+                Background="{ThemeResource SystemAccentColorLight1}"
                 Text="{x:Bind MessageContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MessageContent}"
                 />
-            <!-- ACTIONS -->
+        </Grid>
+        <!-- ACTIONS -->
+        <Grid
+            Margin="0 5 0 0">
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Left"
@@ -118,6 +121,15 @@
                         Width="18">
                         <icons:PackIconFontAwesome
                             Kind="PlusCircleSolid"
+                            />
+                    </Viewbox>
+                </Button>
+                <Button
+                    Style="{StaticResource OpenFilesButton}">
+                    <Viewbox
+                        Width="18">
+                        <icons:PackIconFontAwesome
+                            Kind="SmileRegular"
                             />
                     </Viewbox>
                 </Button>

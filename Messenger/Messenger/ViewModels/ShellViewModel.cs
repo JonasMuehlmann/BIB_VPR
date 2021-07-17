@@ -10,10 +10,6 @@ using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
-using Messenger.Views.DialogBoxes;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
@@ -21,7 +17,7 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private Team _currentTeam;
+        private TeamViewModel _currentTeam;
 
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
@@ -29,7 +25,7 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        public Team CurrentTeam
+        public TeamViewModel CurrentTeam
         {
             get
             {
@@ -63,12 +59,6 @@ namespace Messenger.ViewModels
 
         public ICommand NavigateToNotificationsCommand => new RelayCommand(() => NavigationService.Navigate<NotificationNavPage>());
 
-        public ICommand OpenUserProfileCommand => new RelayCommand(() => NavigationService.Open<SettingsPage>());
-
-        public ICommand OpenTeamManagerCommand => new RelayCommand(() => NavigationService.Open<TeamManagePage>());
-
-        public ICommand ChangeTeamDetailsCommand => new RelayCommand(RefactorTeamDetails);
-
         #endregion
 
         public ShellViewModel()
@@ -83,21 +73,25 @@ namespace Messenger.ViewModels
             ChatHubService.TeamUpdated += OnTeamUpdated;
         }
 
-        private async void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
+        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            var team = await ChatHubService.GetCurrentTeam();
+            var team = ChatHubService.CurrentTeam;
 
             if (team == null)
             {
                 return;
             }
 
-            bool isPrivateChat = team.Name == string.Empty;
+            bool isPrivateChat = team.TeamName == string.Empty;
 
             if (isPrivateChat)
             {
                 var partnerName = team.Members.FirstOrDefault().DisplayName;
-                CurrentTeam = new Team() { Name = partnerName, Description = team.Description };
+                CurrentTeam = new TeamViewModel()
+                {
+                    TeamName = partnerName,
+                    Description = team.Description
+                };
             }
             else
             {
@@ -105,7 +99,7 @@ namespace Messenger.ViewModels
             }
         }
 
-        private void OnTeamUpdated(object sender, Team team)
+        private void OnTeamUpdated(object sender, TeamViewModel team)
         {
             CurrentTeam = null;
             CurrentTeam = team;
@@ -114,30 +108,6 @@ namespace Messenger.ViewModels
         private void OnLoggedOut(object sender, EventArgs e)
         {
             IdentityService.LoggedOut -= OnLoggedOut;
-        }
-
-        private async void RefactorTeamDetails()
-        {
-            if (ChatHubService.CurrentUser == null)
-            {
-                return;
-            }
-
-            //Get the current Team
-            var team = await ChatHubService.GetCurrentTeam();
-
-            // Opens the dialog box for the input
-            var dialog = new ChangeTeamDialog()
-            {
-                TeamName = team.Name,
-                TeamDescription = team.Description
-            };
-
-            // Create team on confirm
-            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-            {
-                await ChatHubService.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
-            }
         }
     }
 }

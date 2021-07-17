@@ -1,7 +1,9 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Models;
+using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,11 +21,23 @@ namespace Messenger.Helpers
         /// </summary>
         /// <param name="message">Message data model to be converted</param>
         /// <returns>A complete MessageViewModel object</returns>
-        public async Task<MessageViewModel> Build(Message message)
+        public async Task<MessageViewModel> Build(Message message, UserViewModel currentUser)
         {
             MessageViewModel vm = Map(message);
 
             vm = await AssignReaction(vm);
+
+            if (vm.Reactions.Count > 0)
+            {
+                MarkMyReaction(ref vm, currentUser.Id);
+            }
+
+            vm.IsMyMessage = currentUser.Id == vm.SenderId;
+
+            if (vm.Sender == null)
+            {
+                vm = await GetSender(vm);
+            }
 
             return vm;
         }
@@ -33,13 +47,13 @@ namespace Messenger.Helpers
         /// </summary>
         /// <param name="messages">Message data models to be converted</param>
         /// <returns>List of complete MessageViewModel objects</returns>
-        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages)
+        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages, UserViewModel currentUser)
         {
             var result = new List<MessageViewModel>();
 
             foreach (Message message in messages)
             {
-                result.Add(await Build(message));
+                result.Add(await Build(message, currentUser));
             }
 
             return result;
@@ -68,6 +82,7 @@ namespace Messenger.Helpers
 
         /// <summary>
         /// Sorts parent-messages/replies and assigns replies to matching parents
+        /// this should be called only after converting all loaded messages to view models
         /// </summary>
         /// <param name="viewModels">List of MessageViewModel to sort</param>
         /// <returns>List of parent messages with assigned replies</returns>
@@ -103,6 +118,15 @@ namespace Messenger.Helpers
             return parents;
         }
 
+        private async Task<MessageViewModel> GetSender(MessageViewModel viewModel)
+        {
+            User sender = await UserService.GetUser(viewModel.SenderId);
+
+            viewModel.Sender = sender;
+
+            return viewModel;
+        }
+
         /// <summary>
         /// Maps the properties from the data model
         /// </summary>
@@ -120,11 +144,26 @@ namespace Messenger.Helpers
                 Sender = message.Sender,
                 Content = message.Content,
                 CreationTime = message.CreationTime,
-                TeamId = message.RecipientId,
+                ChannelId = message.RecipientId,
                 Attachments = ParseBlobName(message.AttachmentsBlobName),
                 IsReply = isReply,
                 HasReacted = false
             };
+        }
+
+        private void MarkMyReaction(ref MessageViewModel viewModel, string userId)
+        {
+            // Mark my reaction if exists
+            var myReaction = viewModel.Reactions
+                .Where(r => r.UserId == userId);
+
+            if (myReaction.Count() > 0)
+            {
+                viewModel.HasReacted = true;
+                viewModel.MyReaction = (ReactionType)Enum.Parse(
+                    typeof(ReactionType),
+                    myReaction.FirstOrDefault().Symbol);
+            }
         }
 
         /// <summary>

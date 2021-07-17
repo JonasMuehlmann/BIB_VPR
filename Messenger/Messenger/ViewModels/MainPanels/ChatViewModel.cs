@@ -10,8 +10,11 @@ using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.Views;
+using Messenger.Views.DialogBoxes;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
@@ -88,6 +91,23 @@ namespace Messenger.ViewModels
                 Set(ref _messageToSend, value);
             }
         }
+
+        public TeamViewModel CurrentTeam
+        {
+            get
+            {
+                return Hub.CurrentTeam;
+            }
+        }
+
+        public ChannelViewModel CurrentChannel
+        {
+            get
+            {
+                return Hub.CurrentChannel;
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -113,6 +133,12 @@ namespace Messenger.ViewModels
 
         public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
 
+        public ICommand OpenTeamManagerCommand => new RelayCommand(() => NavigationService.Open<TeamManagePage>());
+
+        public ICommand OpenSettingsCommand => new RelayCommand(() => NavigationService.Open<SettingsPage>());
+
+        public ICommand EditTeamDetailsCommand => new RelayCommand(EditTeamDetails);
+
         #endregion
 
         public ChatViewModel()
@@ -123,7 +149,7 @@ namespace Messenger.ViewModels
 
             // Register events
             Hub.TeamSwitched += OnTeamSwitched;
-            Hub.MessageReceived += OnMessagesUpdated;
+            Hub.MessageReceived += OnMessageReceived;
             Hub.MessageUpdated += OnMessagesUpdated;
             Hub.MessageDeleted += OnMessagesUpdated;
 
@@ -138,6 +164,27 @@ namespace Messenger.ViewModels
             var messages = await Hub.GetMessages();
 
             UpdateView(messages);
+        }
+
+        private async void EditTeamDetails()
+        {
+            if (Hub.CurrentUser == null)
+            {
+                return;
+            }
+
+            // Opens the dialog box for the input
+            var dialog = new ChangeTeamDialog()
+            {
+                TeamName = CurrentTeam.TeamName,
+                TeamDescription = CurrentTeam.Description
+            };
+
+            // Create team on confirm
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                await Hub.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
+            }
         }
 
         #region Helper
@@ -191,6 +238,16 @@ namespace Messenger.ViewModels
 
         /// <summary>
         /// Fires on MessageReceived of ChatHubService
+        /// </summary>
+        /// <param name="sender">Service that invoked the event</param>
+        /// <param name="message">Received Message object</param>
+        private void OnMessageReceived(object sender, MessageViewModel vm)
+        {
+            Messages.Add(vm);
+        }
+
+        /// <summary>
+        /// Fires on MessageUpdated of ChatHubService
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="message">Received Message object</param>

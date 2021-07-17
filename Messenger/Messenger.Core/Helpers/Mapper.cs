@@ -154,6 +154,20 @@ namespace Messenger.Core.Helpers
             };
         }
 
+                /// Maps to a full TeamRole model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped TeamRole object</returns>
+        public static TeamRole TeamRoleFromDataRow(DataRow row)
+        {
+            return new TeamRole()
+            {
+                Id     = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                Role   = SqlHelpers.TryConvertDbValue(row["Role"], Convert.ToString),
+                TeamId = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
+            };
+        }
+
         /// <summary>
         ///	Convert a DataRows column to a string
         /// </summary>

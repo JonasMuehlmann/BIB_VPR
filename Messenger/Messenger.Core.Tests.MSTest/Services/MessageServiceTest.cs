@@ -17,41 +17,42 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void CreateMessage_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+          
+            Task.Run(async () =>
+            {
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "User"});
 
-           Task.Run(async () =>
-           {
-                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id="user1"});
-                var teamId = await TeamService.CreateTeam("MyTestTeam");
-
-                var teamId = await teamService.CreateTeam("MyTestTeam");
+                var teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
-             
-                var channelId = await ChannelService.CreateChannel("MyTestChannel", teamId.Value);
+
+                var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var result = await messageService.CreateMessage(channelId.Value,"user1", "my message text");
-
+                var result = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Message");
                 Assert.IsTrue(result.Value > 0);
 
-           }).GetAwaiter().GetResult();
+            }).GetAwaiter().GetResult();
         }
 
         [TestMethod]
         public void RetrieveMessages_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-            var _ = await UserService.GetOrCreateApplicationUser(new User(){Id="user1"});
-                var teamId = await TeamService.CreateTeam("MyTestTeam123");
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "User"});
+
+                var teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                var channelId = await ChannelService.CreateChannel("MyTestChannel123", teamId.Value);
+                var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var result = await MessageService.CreateMessage(channelId.Value,"user1", "my message text");
+                var result = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Message");
 
                 var messages = await MessageService.RetrieveMessages(teamId.Value);
-
                 Assert.IsTrue(messages.Count > 0);
                 Assert.IsNotNull(messages[0]);
 
@@ -61,13 +62,16 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void RetrieveMessagesNoneExist_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
-                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id="user1"});
-                var teamId = await TeamService.CreateTeam("MyTestTeamXYZ");
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "User"});
+
+                var teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                var channelId = await ChannelService.CreateChannel("MyTestChannelXYZ", teamId.Value);
+                var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
                 var messages = await MessageService.RetrieveMessages(channelId.Value);
@@ -184,7 +188,6 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void RemoveReaction_Test()
         {
-
             var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
             Task.Run(async () =>
@@ -212,6 +215,12 @@ namespace Messenger.Tests.MSTest
                 Assert.AreEqual(0, reactions.Count());
 
             }).GetAwaiter().GetResult();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ServiceCleanup.Cleanup();
         }
     }
 }
