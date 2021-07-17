@@ -775,6 +775,20 @@ namespace Messenger.Core.Services
             return result;
         }
 
+        public static async Task<IEnumerable<string>> GetRolesList(uint teamId, string userId)
+        {
+            var rolesString = await TeamService.GetUsersRoles(teamId, userId);
+
+            if (rolesString != null && rolesString.Count() > 0)
+            {
+                return rolesString;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Add a role to a team with the specified teamId and notify other clients
         /// </summary>

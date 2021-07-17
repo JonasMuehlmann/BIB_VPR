@@ -483,6 +483,33 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void ListPermissionsOfRole_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                var didAddRole = await TeamService.AddRole("admin", teamId.Value);
+                Assert.IsTrue(didAddRole);
+
+                var canAddRole = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsFalse(canAddRole);
+
+                var didGrantPermission = await TeamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
+                Assert.IsTrue(didGrantPermission);
+
+                var permissions = await TeamService.GetPermissionsOfRole(teamId.Value, "admin");
+                Assert.AreEqual(1, permissions.Count);
+                Assert.AreEqual(Permissions.CanAddRole, permissions[0]);
+
+            }).GetAwaiter().GetResult();
+        }
+
         [TestCleanup]
         public void Cleanup()
         {

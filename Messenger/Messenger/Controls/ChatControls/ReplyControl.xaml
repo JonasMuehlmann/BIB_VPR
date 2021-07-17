@@ -58,7 +58,7 @@
                         FontSize="12"
                         FontWeight="SemiBold"
                         Opacity=".65"
-                        Text="{x:Bind Reply.Sender.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{x:Bind Reply.Sender.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         />
                     <TextBlock
                         Text=" • "

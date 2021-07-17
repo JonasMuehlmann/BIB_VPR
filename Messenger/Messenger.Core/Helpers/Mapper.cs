@@ -154,7 +154,40 @@ namespace Messenger.Core.Helpers
             };
         }
 
-                /// Maps to a full TeamRole model from the data rows
+        /// Maps to a full Mention model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Mention object</returns>
+        public static Mention MentionFromDataRow(DataRow row)
+        {
+            return new Mention()
+            {
+                Id         = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], StringToEnum<MentionTarget>),
+                TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
+            };
+        }
+
+        /// <summary>
+        /// Maps to a full Mentionable model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Mentionable object</returns>
+        public static Mentionable MentionableFromDataRow(DataRow row)
+        {
+            return new Mentionable()
+            {
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], StringToEnum<MentionTarget>),
+                TargetName = SqlHelpers.TryConvertDbValue(row["TargetName"], Convert.ToString),
+                TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
+            };
+        }
+
+        public static T StringToEnum<T>(object value)
+        {
+            return (T)Enum.Parse(typeof(T), value as string);
+        }
+
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully mapped TeamRole object</returns>
@@ -187,6 +220,19 @@ namespace Messenger.Core.Helpers
         public static JObject strToJObject(object str)
         {
             return JObject.Parse(str as string);
+        }
+      
+        /// Convert a specified column of a dataRow to an enum
+        /// </summary>
+        /// <typeparam name="T">The type of the enum to convert to</typeparam>
+        /// <param name="row">DataRow to convert</param>
+        /// <param name="columnName">Column of the row to convert</param>
+        /// <returns>The value of columnName of row as an enum</returns>
+        public static T EnumFromDataRow<T>(DataRow row, string columnName) where T: Enum
+        {
+            // Lord forgive me for I have created an abomination
+            // (つ◕_◕)つ Gimme' non-type template parameters
+            return SqlHelpers.TryConvertDbValue(row[columnName], (col) => (T)Enum.Parse(typeof(T), col as string));
         }
     }
 }

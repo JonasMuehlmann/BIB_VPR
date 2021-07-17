@@ -75,28 +75,14 @@ namespace Messenger.ViewModels
 
         private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
         {
-            var team = ChatHubService.CurrentTeam;
+            var team = ChatHubService.SelectedTeam;
 
             if (team == null)
             {
                 return;
             }
 
-            bool isPrivateChat = team.TeamName == string.Empty;
-
-            if (isPrivateChat)
-            {
-                var partnerName = team.Members.FirstOrDefault().DisplayName;
-                CurrentTeam = new TeamViewModel()
-                {
-                    TeamName = partnerName,
-                    Description = team.Description
-                };
-            }
-            else
-            {
-                CurrentTeam = team;
-            }
+            CurrentTeam = team;
         }
 
         private void OnTeamUpdated(object sender, TeamViewModel team)

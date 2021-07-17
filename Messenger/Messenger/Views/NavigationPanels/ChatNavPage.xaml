@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:model="using:Messenger.Models"
+    xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:my="using:Microsoft.UI.Xaml.Controls"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -16,7 +16,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <DataTemplate x:Key="ChatTemplate" x:DataType="model:PrivateChat">
+        <DataTemplate x:Key="ChatTemplate" x:DataType="vm:PrivateChatViewModel">
             <my:TreeViewItem
                 IsExpanded="False"
                 Padding="0 10">
@@ -42,19 +42,19 @@
                         </Viewbox>
                         <StackPanel>
                             <TextBlock
-                                Text="{Binding Partner.DisplayName, Mode=OneWay}"/>
+                                Text="{Binding Partner.Name, Mode=OneWay}"/>
                             <TextBlock
-                                Visibility="{Binding MainChannel.LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                                Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
                                 FontSize="12"
                                 Opacity=".75">
                                 <Run
-                                    Text="{Binding MainChannel.LastMessage.Sender.DisplayName}"
+                                    Text="{Binding LastMessage.Sender.Name}"
                                     />
                                 <Run
                                     Text=":"
                                     />
                                 <Run
-                                    Text="{Binding MainChannel.LastMessage.Content}"
+                                    Text="{Binding LastMessage.Content}"
                                     />
                                 </TextBlock>
                         </StackPanel>

@@ -40,11 +40,17 @@ namespace Messenger.Commands.PrivateChat
         /// </summary>
         /// <param name="username">DisplayName of the user to search for</param>
         /// <returns>List of search result strings</returns>
-        private async Task<IList<string>> SearchUsers(string username)
+        private async Task<IReadOnlyList<string>> SearchUsers(string username)
         {
             var userStrings = await _hub.SearchUser(username);
 
-            return userStrings;
+            return userStrings
+                .TakeWhile((user) =>
+                {
+                    var data = user.Split('#');
+                    return !(_hub.CurrentUser.Name == data[0]
+                        && _hub.CurrentUser.NameId.ToString() == data[1]);
+                }).ToList();
         }
 
         private async Task<User> GetUserWithName(string username, uint nameId)
@@ -117,6 +123,8 @@ namespace Messenger.Commands.PrivateChat
                                 .ShowAsync();
                     }
                 }
+
+                _dialog.SelectedUser = null;
             }
             catch (Exception e)
             {

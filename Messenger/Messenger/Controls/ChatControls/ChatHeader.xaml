@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </UserControl.Resources>
     <Grid
         VerticalAlignment="Center">
@@ -51,20 +51,20 @@
                     <TextBlock
                         FontWeight="Bold"
                         FontSize="24"
-                        Visibility="{x:Bind CurrentTeam.IsPrivateChat, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='invert'}"
+                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}}"
                         Text="{x:Bind CurrentTeam.TeamName, Mode=OneWay}"
                         />
                     <TextBlock
                         FontWeight="Bold"
                         FontSize="26"
-                        Text="{x:Bind CurrentTeam.Members[0].DisplayName, Mode=OneWay}"
-                        Visibility="{x:Bind CurrentTeam.IsPrivateChat, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Text="{x:Bind CurrentTeam.Members[0].Name, Mode=OneWay}"
+                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter='invert'}"
                         />
                     <TextBlock
                         FontWeight="SemiBold"
                         FontSize="18"
                         Opacity=".75"
-                        Visibility="{x:Bind CurrentTeam.IsPrivateChat, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='invert'}"
+                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}}"
                         Text="{x:Bind CurrentChannel.ChannelName, Mode=OneWay}"
                         />
                 </StackPanel>

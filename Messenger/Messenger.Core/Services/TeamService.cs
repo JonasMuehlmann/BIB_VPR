@@ -477,6 +477,40 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Build a role object from a specified roleId
+        /// </summary>
+        /// <param name="roleId">The id of the role to build an object from</param>
+        /// <returns>The built role object on success, null otherwise</returns>
+        public static async Task<TeamRole> GetRole(uint roleId)
+        {
+            // TODO: Prevent adding duplicate roles
+            LogContext.PushProperty("Method","GetRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters roleId={roleId}");
+
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Team_roles
+                                WHERE
+                                    ID = {roleId};
+                ";
+
+            var rows = await SqlHelpers.GetRows("Team_roles", query);
+
+            if (rows.Count() == 0)
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
+
+            return rows.Select(Mapper.TeamRoleFromDataRow).First();
+        }
+
+        /// <summary>
         /// Assign a team's member a role
         /// </summary>
         /// <param name="role">The name of the role to assign to the user</param>
@@ -825,6 +859,37 @@ namespace Messenger.Core.Services
                 return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean);
         }
 
+        /// <summary>
+        /// List all permissions a role has
+        /// </summary>
+        /// <param name="teamId">The id of the team list permissions of</param>
+        /// <param name="role">The role of the team to list permission of</param>
+        /// <returns>A list of Permissions the role has</returns>
+        public static async Task<IList<Permissions>> GetPermissionsOfRole(uint teamId, string role)
+        {
+            LogContext.PushProperty("Method","GetPermissionsOfRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}");
+
+            string query = $@"
+                SELECT
+                    Permissions
+                FROM
+                    Permissions p
+                LEFT JOIN Role_permissions rp ON
+                    rp.permissionsId = p.Id
+                LEFT JOIN Team_roles tr ON
+                   tr.Id = rp.Team_rolesId
+                WHERE
+                    teamId = {teamId}
+                    AND
+                    Role = '{role}';
+            ";
+
+
+                // (つ◕_◕)つ Gimme' non-type template parameters
+                return await SqlHelpers.MapToList((val) => Mapper.EnumFromDataRow<Permissions>(val, "permissions"), query);
+        }
         #endregion
     }
 }
