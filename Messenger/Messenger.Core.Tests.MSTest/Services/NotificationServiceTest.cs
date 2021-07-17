@@ -27,18 +27,18 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                string receiverId = (await userService.GetOrCreateApplicationUser(new User(){Id = testName + "UserReceiver"})).Id;
+                string receiverId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserReceiver"})).Id;
                 Assert.IsNotNull(receiverId);
                 Assert.AreNotEqual("",receiverId);
 
-                string senderId = (await userService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                string senderId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
                 Assert.IsNotNull(senderId);
                 Assert.AreNotEqual("",senderId);
 
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
                 var notificationMessage = new JObject
@@ -71,18 +71,18 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                string receiverId = (await userService.GetOrCreateApplicationUser(new User(){Id = testName + "UserReceiver"})).Id;
+                string receiverId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserReceiver"})).Id;
                 Assert.IsNotNull(receiverId);
                 Assert.AreNotEqual("",receiverId);
 
-                string senderId = (await userService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                string senderId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
                 Assert.IsNotNull(senderId);
                 Assert.AreNotEqual("",senderId);
 
-                uint? teamId = await teamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await channelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
                 var notificationMessage = new JObject

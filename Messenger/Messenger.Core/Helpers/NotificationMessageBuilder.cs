@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Messenger.Core.Models;
+using Messenger.Core.Services;
 
 namespace Messenger.Core.Helpers
 {
@@ -266,7 +267,7 @@ namespace Messenger.Core.Helpers
         /// notificationSource,
         /// channelName,
         /// teamName,
-        /// mentioneerName,
+        /// mentionerName,
         /// mentionTarget
         /// </summary>
         /// <param name="teamId">The id of the team the user got removed from</param>
@@ -278,12 +279,12 @@ namespace Messenger.Core.Helpers
                                             channelName
                                         FROM
                                             Channels
-                                        LEFT JOIN Messages m ON
+                                        LEFT JOIN Messages mes ON
                                             channelId = recipientId
-                                        LEFT JOIN Reactions r ON
-                                            r.messageId = m.messageId
+                                        LEFT JOIN Mentions men ON
+                                            men.messageId = mes.messageId
                                         WHERE
-                                            reactionId = {reactionId};
+                                            men.Id = {mentionId};
                 ";
 
             var teamNameQuery = $@"
@@ -292,20 +293,35 @@ namespace Messenger.Core.Helpers
                                     FROM
                                         Teams t
                                         Channels c
-                                    LEFT JOIN Messages m ON
+                                    LEFT JOIN Messages mes ON
                                         c.channelId = recipientId
                                     LEFT JOIN Reactions r ON
                                         r.messageId = m.messageId
+                                    LEFT JOIN Mentions men ON
+                                        men.messageId = mes.messageId
                                     WHERE
-                                        reactionId = {reactionId};
+                                        men.Id = {mentionId}
                                         AND
                                         c.teamId = t.teamId;
                 ";
 
-            var channelName    = await SqlHelpers.ExecuteScalarAsync(channelNameQuery,    Convert.ToString);
-            var teamName       = await SqlHelpers.ExecuteScalarAsync(teamNameQuery,       Convert.ToString);
-            var mentioneerName = await SqlHelpers.ExecuteScalarAsync(mentioneerNameQuery, Convert.ToString);
-            var mentionTarget  = await SqlHelpers.ExecuteScalarAsync(mentionTargetName,   Convert.ToString);
+                var mentionerNameQuery = $@"
+                                                SELECT
+                                                    DisplayName
+                                                FROM
+                                                    Users
+                                                LEFT JOIN Messages mes ON
+                                                    UserId = SenderId
+                                                LEFT JOIN Mentions men ON
+                                                    men.messageId = mes.messageId
+                                                WHERE
+                                                    men.Id = {mentionId};
+                    ";
+
+            var channelName        = await SqlHelpers.ExecuteScalarAsync(channelNameQuery,    Convert.ToString);
+            var teamName           = await SqlHelpers.ExecuteScalarAsync(teamNameQuery,       Convert.ToString);
+            var mentionerName      = await SqlHelpers.ExecuteScalarAsync(mentionerNameQuery, Convert.ToString);
+            var mentionTargetName  = await MentionService.ResolveMentions($"@{mentionId}");
 
             return new JObject
             {
@@ -313,8 +329,8 @@ namespace Messenger.Core.Helpers
                 {"notificationSource", NotificationSource.Channel.ToString()},
                 {"teamName",           teamName},
                 {"channelName",        channelName},
-                {"mentioneerName",     mentioneerName},
-                {"mentionTarget",      mentionTarget},
+                {"mentionerName",      mentionerName},
+                {"mentionTarget",      mentionTargetName},
             };
         }
     }

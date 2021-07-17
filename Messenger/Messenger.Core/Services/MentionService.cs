@@ -16,12 +16,13 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="target">The type of the entity to mention</param>
         /// <param name="id">The id of the entity to mention</param>
+        /// <param name="mentionerId">The id of the user who mentions an entity</param>
         /// <returns>The created mention id on success, null on failure</returns>
-        public static async Task<uint?> CreateMention<T>(MentionTarget target, T id)
+        public static async Task<uint?> CreateMention<T>(MentionTarget target, T id, string mentionerId)
         {
             LogContext.PushProperty("Method","CreateMention");
             LogContext.PushProperty("SourceContext", "MentionService");
-            logger.Information($"Function called with parameters target={target.ToString()}, id={id}");
+            logger.Information($"Function called with parameters target={target.ToString()}, id={id},mentionerId={mentionerId}");
 
             if (typeof(T) == typeof(string) || typeof(T) == typeof(uint))
             {
@@ -30,7 +31,8 @@ namespace Messenger.Core.Services
                                     mentions
                                 VALUES(
                                     '{target.ToString()}',
-                                    '{id}'
+                                    '{id}',
+                                    {mentionerId}
                                       );
 
                                 SELECT SCOPE_IDENTITY();
