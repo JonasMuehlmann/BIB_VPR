@@ -6,10 +6,9 @@
 
         public uint TeamId { get; set; }
 
-        public Invitation(string userId, uint teamId)
+        public Invitation()
         {
-            UserId = userId;
-            TeamId = teamId;
+
         }
 
         public override string ToString()

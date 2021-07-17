@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Messenger.Core.Models;
 using Messenger.Helpers;
-
+using Messenger.Models;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Messenger.ViewModels
+namespace Messenger.ViewModels.DataViewModels
 {
     public class UserViewModel : Observable
     {
@@ -16,7 +16,6 @@ namespace Messenger.ViewModels
         private BitmapImage _photo;
         private string _id;
         private uint _nameId;
-        private List<Team> _teams = new List<Team>();
 
         public string Id
         {
@@ -58,16 +57,6 @@ namespace Messenger.ViewModels
         {
             get => _photo;
             set => Set(ref _photo, value);
-        }
-
-        public List<Team> Teams
-        {
-            get { return _teams; }
-            set
-            {
-                _teams = value;
-                Set(ref _teams, value);
-            }
         }
 
         public UserViewModel()

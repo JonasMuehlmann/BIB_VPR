@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.MessageHelpers
 {
     /// <summary>
     /// Converts and completes MessageViewModels to be shown on UI
@@ -122,7 +122,7 @@ namespace Messenger.Helpers
         {
             User sender = await UserService.GetUser(viewModel.SenderId);
 
-            viewModel.Sender = sender;
+            viewModel.Sender = Map(sender);
 
             return viewModel;
         }
@@ -141,13 +141,32 @@ namespace Messenger.Helpers
                 Id = message.Id,
                 SenderId = message.SenderId,
                 ParentMessageId = message.ParentMessageId,
-                Sender = message.Sender,
+                Sender = Map(message.Sender),
                 Content = message.Content,
                 CreationTime = message.CreationTime,
                 ChannelId = message.RecipientId,
                 Attachments = ParseBlobName(message.AttachmentsBlobName),
                 IsReply = isReply,
                 HasReacted = false
+            };
+        }
+
+        private UserViewModel Map(User user)
+        {
+            if (user == null)
+            {
+                return null;
+            }
+
+            // TODO: Download profile photo
+
+            return new UserViewModel()
+            {
+                Id = user.Id,
+                Name = user.DisplayName,
+                NameId = user.NameId,
+                Bio = user.Bio,
+                Mail = user.Mail
             };
         }
 

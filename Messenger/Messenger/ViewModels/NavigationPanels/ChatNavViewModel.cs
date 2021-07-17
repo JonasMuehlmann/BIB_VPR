@@ -18,7 +18,7 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ObservableCollection<PrivateChat> _chats;
+        private ObservableCollection<PrivateChatViewModel> _chats;
         private bool _isBusy;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
@@ -26,7 +26,7 @@ namespace Messenger.ViewModels
 
         #region Properties
 
-        public ObservableCollection<PrivateChat> Chats
+        public ObservableCollection<PrivateChatViewModel> Chats
         {
             get
             {
@@ -60,8 +60,8 @@ namespace Messenger.ViewModels
         {
             IsBusy = true;
 
-            Chats = new ObservableCollection<PrivateChat>();
-            ChatHubService.TeamsUpdated += OnTeamsUpdated;
+            Chats = new ObservableCollection<PrivateChatViewModel>();
+            ChatHubService.ChatsUpdated += OnChatsUpdated;
             ChatHubService.MessageReceived += OnMessageReceived;
             Initialize();
         }
@@ -77,7 +77,11 @@ namespace Messenger.ViewModels
                     IsBusy = false;
                     break;
                 case ChatHubConnectionState.LoadedWithData:
-                    FilterAndUpdateChats(await ChatHubService.GetMyTeams());
+                    Chats.Clear();
+                    foreach (PrivateChatViewModel vm in await ChatHubService.GetMyChats())
+                    {
+                        Chats.Add(vm);
+                    }
                     IsBusy = false;
                     break;
                 default:
@@ -91,11 +95,10 @@ namespace Messenger.ViewModels
         /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
         private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
         {
-            PrivateChat chat = args.InvokedItem as PrivateChat;
-            ChannelViewModel mainChannel = chat.MainChannel;
+            PrivateChatViewModel chat = args.InvokedItem as PrivateChatViewModel;
 
             // Invokes TeamSwitched event
-            await ChatHubService.SwitchChannel((uint)chat.Id, mainChannel.ChannelId);
+            await ChatHubService.SwitchChat((uint)chat.Id);
 
             NavigationService.Open<ChatPage>();
         }
@@ -105,11 +108,15 @@ namespace Messenger.ViewModels
         /// </summary>
         /// <param name="sender">Service that invoked the event</param>
         /// <param name="teams">Enumerable of teams</param>
-        private void OnTeamsUpdated(object sender, IEnumerable<TeamViewModel> teams)
+        private void OnChatsUpdated(object sender, IEnumerable<PrivateChatViewModel> chats)
         {
-            if (teams != null)
+            if (chats != null)
             {
-                FilterAndUpdateChats(teams);
+                Chats.Clear();
+                foreach (PrivateChatViewModel viewModel in chats)
+                {
+                    Chats.Add(viewModel);
+                }
             }
 
             IsBusy = false;
@@ -122,33 +129,11 @@ namespace Messenger.ViewModels
         /// <param name="message">MessageViewModel received</param>
         private void OnMessageReceived(object sender, MessageViewModel message)
         {
-            foreach (PrivateChat chat in _chats)
+            foreach (PrivateChatViewModel chat in _chats)
             {
-                ChannelViewModel singleChannel = chat.Channels.FirstOrDefault();
-
-                if (singleChannel.ChannelId == message.ChannelId)
+                if (chat.MainChannel.ChannelId == message.ChannelId)
                 {
                     chat.LastMessage = message;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Filters out private chats from the given teams list and updates the view
-        /// </summary>
-        /// <param name="teams">List of teams from the ChatHubService</param>
-        private void FilterAndUpdateChats(IEnumerable<TeamViewModel> teams)
-        {
-            if (teams != null)
-            {
-                IEnumerable<PrivateChat> chatsList = teams
-                    .Where(team => string.IsNullOrEmpty(team.TeamName))
-                    .Select(data => PrivateChat.CreatePrivateChatFromTeamData(data));
-
-                Chats.Clear();
-                foreach (var chat in chatsList)
-                {
-                    Chats.Add(chat);
                 }
             }
         }

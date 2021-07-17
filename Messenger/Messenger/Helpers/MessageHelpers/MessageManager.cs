@@ -4,37 +4,65 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.MessageHelpers
 {
     /// <summary>
     /// Handles the dictionary for storing messages with the key of channel ids.
     /// </summary>
-    public class MessageManager
+    public class MessageManager : Observable
     {
+        private readonly MessageBuilder _builder;
+        private UserViewModel _currentUser;
+
         private readonly ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> _messagesByChannelId = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
 
-        /// <summary>
-        /// Creates new entry in the dictionary
-        /// </summary>
-        /// <param name="channelId">Id of the channel (Key)</param>
-        /// <param name="messages">List of loaded messages (Value)</param>
-        public void CreateEntry(uint channelId, IEnumerable<MessageViewModel> messages)
+        public UserViewModel CurrentUser
         {
-            _messagesByChannelId.AddOrUpdate(
-                channelId,
-                (key) =>
-                new ObservableCollection<MessageViewModel>(messages),
-                (key, list) =>
-                {
-                    list.Clear();
-                    foreach (var message in messages)
-                    {
-                        list.Add(message);
-                    }
+            get { return _currentUser; }
+            set { Set(ref _currentUser, value); }
+        }
 
-                    return list;
-                });
+        public MessageManager(MessageBuilder builder)
+        {
+            _builder = builder;
+        }
+
+        public static MessageManager CreateMessageManager()
+        {
+            MessageBuilder builder = new MessageBuilder();
+
+            return new MessageManager(builder);
+        }
+
+        public async Task<MessageViewModel> AddMessage(Message messageData)
+        {
+            MessageViewModel viewModel = await _builder.Build(messageData, CurrentUser);
+
+            Add(viewModel);
+
+            return viewModel;
+        }
+
+        public async Task AddMessage(IEnumerable<Message> messageData)
+        {
+            foreach (Message data in messageData)
+            {
+                await AddMessage(data);
+            }
+        }
+
+        public ObservableCollection<MessageViewModel> GetMessages(uint channelId)
+        {
+            if (TryGetMessages(channelId, out ObservableCollection<MessageViewModel> messages))
+            {
+                return messages;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -63,48 +91,20 @@ namespace Messenger.Helpers
             }
         }
 
-        /// <summary>
-        /// Adds the message to the dictionary
-        /// </summary>
-        /// <param name="message">MessageViewModel to add</param>
-        public void Add(MessageViewModel message)
+        public async Task<MessageViewModel> UpdateMessage(Message messageData)
         {
-            if (!message.IsReply)
-            {
-                _messagesByChannelId.AddOrUpdate(
-                    (uint)message.ChannelId,
-                    new ObservableCollection<MessageViewModel>() { message },
-                    (key, list) =>
-                    {
-                        list.Add(message);
-                        return list;
-                    });
-            }
-            else
-            {
-                _messagesByChannelId.AddOrUpdate(
-                    (uint)message.ChannelId,
-                    new ObservableCollection<MessageViewModel>() { message },
-                    (key, list) =>
-                    {
-                        foreach (MessageViewModel viewModel in list)
-                        {
-                            if (viewModel.Id == message.ParentMessageId)
-                            {
-                                viewModel.Replies.Add(message);
-                            }
-                        }
+            MessageViewModel viewModel = await _builder.Build(messageData, CurrentUser);
 
-                        return list;
-                    });
-            }
+            Update(viewModel);
+
+            return viewModel;
         }
 
         /// <summary>
         /// Finds and updates the message in the dictionary
         /// </summary>
         /// <param name="message">MessageViewModel to update</param>
-        public void Update(MessageViewModel message)
+        private void Update(MessageViewModel message)
         {
             if (!message.IsReply)
             {
@@ -162,7 +162,7 @@ namespace Messenger.Helpers
         /// Finds and removes the MessageViewModel with the given Message data model
         /// </summary>
         /// <param name="data">Message data model to be searched with</param>
-        public void Remove(Message data)
+        public void RemoveMessage(Message data)
         {
             if (data.ParentMessageId == null)
             {
@@ -212,6 +212,43 @@ namespace Messenger.Helpers
             else
             {
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Adds the message to the dictionary
+        /// </summary>
+        /// <param name="message">MessageViewModel to add</param>
+        private void Add(MessageViewModel message)
+        {
+            if (!message.IsReply)
+            {
+                _messagesByChannelId.AddOrUpdate(
+                    (uint)message.ChannelId,
+                    new ObservableCollection<MessageViewModel>() { message },
+                    (key, list) =>
+                    {
+                        list.Add(message);
+                        return list;
+                    });
+            }
+            else
+            {
+                _messagesByChannelId.AddOrUpdate(
+                    (uint)message.ChannelId,
+                    new ObservableCollection<MessageViewModel>() { message },
+                    (key, list) =>
+                    {
+                        foreach (MessageViewModel viewModel in list)
+                        {
+                            if (viewModel.Id == message.ParentMessageId)
+                            {
+                                viewModel.Replies.Add(message);
+                            }
+                        }
+
+                        return list;
+                    });
             }
         }
     }

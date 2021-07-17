@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers;
+using Messenger.Models;
 using System;
 using System.Collections.ObjectModel;
 
@@ -7,15 +8,14 @@ namespace Messenger.ViewModels.DataViewModels
 {
     public class TeamViewModel : Observable
     {
-        private uint? _id;
+        private uint _id;
         private string _teamName;
         private string _description;
         private DateTime _creationDate;
-        private ObservableCollection<User> _members;
+        private ObservableCollection<Member> _members;
         private ObservableCollection<ChannelViewModel> _channels;
-        private bool _isPrivateChat;
 
-        public uint? Id
+        public uint Id
         {
             get { return _id; }
             set { Set(ref _id, value); }
@@ -39,7 +39,7 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _creationDate, value); }
         }
 
-        public ObservableCollection<User> Members
+        public ObservableCollection<Member> Members
         {
             get { return _members; }
             set { Set(ref _members, value); }
@@ -49,12 +49,6 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _channels; }
             set { Set(ref _channels, value); }
-        }
-
-        public bool IsPrivateChat
-        {
-            get { return _isPrivateChat; }
-            set { Set(ref _isPrivateChat, value); }
         }
 
         public TeamViewModel()
