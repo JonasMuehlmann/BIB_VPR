@@ -32,7 +32,7 @@ namespace Messenger.Core.Services
                                 VALUES(
                                     '{target.ToString()}',
                                     '{id}',
-                                    {mentionerId}
+                                    '{mentionerId}'
                                       );
 
                                 SELECT SCOPE_IDENTITY();
