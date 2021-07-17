@@ -87,13 +87,13 @@ namespace Messenger.Tests.MSTest
                     {"TeamId"             , teamId.Value},
                     {"ChannelId"          , channelId.Value}
                 };
-                uint? notificationId = await notificationService.SendNotification(receiverId, notificationMessage);
+                uint? notificationId = await NotificationService.SendNotification(receiverId, notificationMessage);
                 Assert.IsNotNull(notificationId);
 
-                var didRemoveNotification = await notificationService.RemoveNotification(notificationId.Value);
+                var didRemoveNotification = await NotificationService.RemoveNotification(notificationId.Value);
                 Assert.IsTrue(didRemoveNotification);
 
-                var notifications = await notificationService.RetrieveNotifications(receiverId);
+                var notifications = await NotificationService.RetrieveNotifications(receiverId);
 
                 Assert.AreEqual(0, Enumerable.Count(notifications));
 

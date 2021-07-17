@@ -19,10 +19,10 @@ namespace Messenger.Core.Services
         /// </param>
         /// <param name="message">The message the notification holds</param>
         /// <returns>The id of the notification on success, null otherwise</returns>
-        public async Task<uint?> SendNotification(string recipientId, JObject message)
+        public static async Task<uint?> SendNotification(string recipientId, JObject message)
         {
             LogContext.PushProperty("Method","SendNotification");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters recipientId={recipientId}, message={message}");
 
@@ -46,10 +46,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="notificationId">The id of the notification to remove</param>
         /// <returns>True on success, false on failure</returns>
-        public async Task<bool> RemoveNotification(uint notificationId)
+        public static async Task<bool> RemoveNotification(uint notificationId)
         {
             LogContext.PushProperty("Method","RemoveNotification");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters notificationId={notificationId}");
 
@@ -67,10 +67,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to retrieve notifications from</param>
         /// <returns>An enumerable of notification objects</returns>
-        public async Task<IEnumerable<Notification>> RetrieveNotifications(string userId)
+        public static async Task<IEnumerable<Notification>> RetrieveNotifications(string userId)
         {
             LogContext.PushProperty("Method","RetrieveNotifications");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters userId={userId}");
 
