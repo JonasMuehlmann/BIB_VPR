@@ -13,12 +13,6 @@ namespace Messenger.Tests.MSTest
     [TestClass]
     public class NotificationServiceTest
     {
-        private NotificationService notificationService = new NotificationService();
-        private UserService userService = new UserService();
-        private TeamService teamService = new TeamService();
-        private ChannelService channelService = new ChannelService();
-
-
         [TestMethod]
         public void SendNotification_Test()
         {
