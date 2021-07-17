@@ -1,4 +1,7 @@
-﻿using Messenger.Services;
+﻿using Messenger.Models;
+using Messenger.Services;
+using Messenger.ViewModels;
+using Messenger.Views.DialogBoxes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +14,11 @@ namespace Messenger.Commands.Messenger
     public class RemoveUserCommand : ICommand
     {
         private readonly ChatHubService _hub;
+        private readonly TeamManageViewModel _viewModel;
 
-        public RemoveUserCommand(ChatHubService hub)
+        public RemoveUserCommand(TeamManageViewModel viewModel, ChatHubService hub)
         {
+            _viewModel = viewModel;
             _hub = hub;
         }
 
@@ -30,11 +35,26 @@ namespace Messenger.Commands.Messenger
             {
                 string userId = parameter.ToString();
 
-                await _hub.RemoveUser(userId, _hub.SelectedTeam.Id);
+                bool isSuccess = await _hub.RemoveUser(userId, _hub.SelectedTeam.Id);
+
+                if (isSuccess)
+                {
+                    Member memberToRemove = _viewModel.Members.Single(member => member.Id == userId);
+
+                    _viewModel.Members.Remove(memberToRemove);
+                }
+                else
+                {
+                    await ResultConfirmationDialog
+                            .Set(false, "We could not remove the user, try again.")
+                            .ShowAsync();
+                }
             }
             catch (Exception e)
             {
-                
+                await ResultConfirmationDialog
+                    .Set(false, "We could not remove the user, try again.")
+                    .ShowAsync();
             }
         }
     }
