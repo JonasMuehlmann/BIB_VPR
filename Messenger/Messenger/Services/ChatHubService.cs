@@ -25,8 +25,6 @@ namespace Messenger.Services
 
         private ILogger logger = GlobalLogger.Instance;
         private UserDataService UserDataService => Singleton<UserDataService>.Instance;
-        private MessageBuilder MessageBuilder;
-        private TeamBuilder TeamBuilder;
         private UserViewModel _currentUser;
         private TeamViewModel _selectedTeam;
         private ChannelViewModel _selectedChannel;
@@ -569,8 +567,7 @@ namespace Messenger.Services
 
             /** EXIT IF THE CHANNEL DOES NOT EXIST IN CACHE **/
             if (channel == null
-                || team == null
-                || team.Id == null)
+                || team == null)
             {
                 return;
             }
@@ -637,7 +634,7 @@ namespace Messenger.Services
         /// </summary>
         /// <param name="invitation">Model to build required fields, used only under UI-logic</param>
         /// <returns>True on success, false on error</returns>
-        public async Task<bool> InviteUser(Invitation invitation)
+        public async Task<Member> InviteUser(Invitation invitation)
         {
             LogContext.PushProperty("Method",$"{nameof(InviteUser)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -648,7 +645,10 @@ namespace Messenger.Services
 
             logger.Information($"Return value: {isSuccess}");
 
-            return isSuccess;
+            var user = await UserService.GetUser(invitation.UserId);
+            Member member = await TeamManager.AddMember(invitation.TeamId, user);
+
+            return member;
         }
 
         /// <summary>
@@ -703,7 +703,7 @@ namespace Messenger.Services
         /// </summary>
         /// <param name="teamId">Id of the team</param>
         /// <returns>List of User objects</returns>
-        public async Task<IEnumerable<User>> GetTeamMembers(uint teamId)
+        public async Task<IEnumerable<Member>> GetTeamMembers(uint teamId)
         {
             LogContext.PushProperty("Method", $"{nameof(GetTeamMembers)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
@@ -719,7 +719,10 @@ namespace Messenger.Services
 
             logger.Information($"Return value: {teamId}");
 
-            return await MessengerService.LoadTeamMembers(teamId);
+            var users = await MessengerService.LoadTeamMembers(teamId);
+            IList<Member> members = await TeamManager.AddMember(teamId, users);
+
+            return members;
         }
 
         /// <summary>
