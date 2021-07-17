@@ -183,7 +183,7 @@ namespace Messenger.Services
             /** (REQUIRED) LOAD TEAMS **/
             IReadOnlyCollection<TeamViewModel> teamViewModels = await GetMyTeams();
 
-            /** EXIT IF NO CURRENT USER **/
+            /** EXIT IF NO TEAMS **/
             if (teamViewModels == null || teamViewModels.Count() <= 0) 
             {
                 logger.Information($"Event {nameof(TeamsUpdated)} invoked with no team");

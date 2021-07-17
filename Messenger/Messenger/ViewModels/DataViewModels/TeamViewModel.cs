@@ -8,14 +8,14 @@ namespace Messenger.ViewModels.DataViewModels
 {
     public class TeamViewModel : Observable
     {
-        private uint? _id;
+        private uint _id;
         private string _teamName;
         private string _description;
         private DateTime _creationDate;
         private ObservableCollection<Member> _members;
         private ObservableCollection<ChannelViewModel> _channels;
 
-        public uint? Id
+        public uint Id
         {
             get { return _id; }
             set { Set(ref _id, value); }
