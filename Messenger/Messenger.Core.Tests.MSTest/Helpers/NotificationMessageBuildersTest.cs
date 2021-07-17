@@ -19,20 +19,20 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User"})).Id;
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User", DisplayName = testName + "User"})).Id;
                 Assert.IsNotNull(userId);
                 Assert.AreNotEqual("",userId);
 
                 uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
                 uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
-                var notificationMessageBuilt = NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
+                var notificationMessageBuilt = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
 
                 var notificationMessageReference = new JObject()
                 {
@@ -40,10 +40,11 @@ namespace Messenger.Tests.MSTest
                     {"notificationSource", NotificationSource.Channel.ToString()},
                     {"senderName",         testName + "User"},
                     {"channelName",        testName + "Channel"},
+                    {"channelId",          channelId.Value},
                     {"teamName",           testName + "Team"}
                 };
 
-                Assert.AreEqual(notificationMessageReference, notificationMessageBuilt);
+                Assert.AreEqual(notificationMessageReference.ToString(), notificationMessageBuilt.ToString());
 
             }).GetAwaiter().GetResult();
         }
@@ -55,31 +56,32 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User"})).Id;
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User", DisplayName = testName + "User"})).Id;
                 Assert.IsNotNull(userId);
                 Assert.AreNotEqual("",userId);
 
                 uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
                 uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
-                var notificationMessageBuilt = NotificationMessageBuilder.MakeMessageInSubscribedTeamNotificationMessage(messageId.Value);
+                var notificationMessageBuilt = await NotificationMessageBuilder.MakeMessageInSubscribedTeamNotificationMessage(messageId.Value);
 
                 var notificationMessageReference = new JObject()
                 {
                     {"notificationType",   NotificationType.MessageInSubscribedTeam.ToString()},
-                    {"notificationSource", NotificationSource.Channel.ToString()},
+                    {"notificationSource", NotificationSource.Team.ToString()},
                     {"senderName",         testName + "User"},
                     {"channelName",        testName + "Channel"},
+                    {"channelId",          channelId.Value},
                     {"teamName",           testName + "Team"}
                 };
 
-                Assert.AreEqual(notificationMessageReference, notificationMessageBuilt);
+                Assert.AreEqual(notificationMessageReference.ToString(), notificationMessageBuilt.ToString());
 
             }).GetAwaiter().GetResult();
         }
@@ -91,29 +93,35 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User"})).Id;
-                Assert.IsNotNull(userId);
-                Assert.AreNotEqual("",userId);
+                string userId1 = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User1"})).Id;
+                Assert.IsNotNull(userId1);
+                Assert.AreNotEqual("",userId1);
 
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                string userId2 = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "User2"})).Id;
+                Assert.IsNotNull(userId2);
+                Assert.AreNotEqual("",userId2);
+
+
+                uint? teamId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId1, testName + "Message");
                 Assert.IsNotNull(messageId);
 
-                var notificationMessageBuilt = NotificationMessageBuilder.MakeMessageInPrivateChatNotificationMessage(messageId.Value);
+                var notificationMessageBuilt = await NotificationMessageBuilder.MakeMessageInPrivateChatNotificationMessage(messageId.Value);
 
                 var notificationMessageReference = new JObject()
                 {
                     {"notificationType",   NotificationType.MessageInPrivateChat.ToString()},
-                    {"notificationSource", NotificationSource.Channel.ToString()},
-                    {"PartnerName",        testName + "User"},
+                    {"notificationSource", NotificationSource.PrivateChat.ToString()},
+                    {"partnerName",        testName + "User1"},
+                    {"channelId",          channelId.Value}
                 };
 
-                Assert.AreEqual(notificationMessageReference, notificationMessageBuilt);
+                Assert.AreEqual(notificationMessageReference.ToString(), notificationMessageBuilt.ToString());
 
             }).GetAwaiter().GetResult();
         }
@@ -132,22 +140,23 @@ namespace Messenger.Tests.MSTest
                 uint? teamId = await TeamService.CreateTeam(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
                 uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
-                var notificationMessageBuilt = NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage(teamId.Value);
+                var notificationMessageBuilt = await NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage(teamId.Value);
 
                 var notificationMessageReference = new JObject()
                 {
                     {"notificationType",   NotificationType.InvitedToTeam.ToString()},
-                    {"notificationSource", NotificationSource.Channel.ToString()},
+                    {"notificationSource", NotificationSource.Team.ToString()},
                     {"teamName",           testName + "Team"},
+                    {"teamId",             teamId.Value},
                 };
 
-                Assert.AreEqual(notificationMessageReference, notificationMessageBuilt);
+                Assert.AreEqual(notificationMessageReference.ToString(), notificationMessageBuilt.ToString());
 
             }).GetAwaiter().GetResult();
         }
