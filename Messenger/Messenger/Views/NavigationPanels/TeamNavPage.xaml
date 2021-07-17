@@ -49,7 +49,7 @@
         <DataTemplate x:Key="TeamChannelTemplate" x:DataType="models:ChannelViewModel">
             <my:TreeViewItem
                 ItemsSource="{Binding}">
-                <StackPanel
+                    <StackPanel
                     Spacing="15"
                     Orientation="Horizontal">
                     <Viewbox
@@ -62,29 +62,30 @@
                     </Viewbox>
                     <StackPanel
                         Spacing="-2"
-                        Padding="0 5 0 15">
+                        Padding="0 5">
                         <TextBlock
                             FontSize="14"
                             FontWeight="SemiBold"
                             Text="{Binding ChannelName}"/>
                         <TextBlock
-                            Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                            Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"
                             FontSize="12"
                             Opacity=".75">
                             <Run
-                                Text="{Binding LastMessage.Sender.Name}"
+                                Text="{Binding LastMessage.Sender.Name, Mode=OneWay}"
                                 />
                             <Run
                                 Text=":"
                                 />
                             <Run
-                                Text="{Binding LastMessage.Content}"
+                                Text="{Binding LastMessage.Content, Mode=OneWay}"
                                 />
                         </TextBlock>
                     </StackPanel>
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
+
         <templateSelectors:TeamDataTemplateSelector
             x:Key="TreeViewTemplateSelector"
             TeamTemplate="{StaticResource TeamTemplate}"
