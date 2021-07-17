@@ -137,6 +137,40 @@ namespace Messenger.Core.Helpers
         }
 
         /// <summary>
+        /// Maps to a full Mention model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Mention object</returns>
+        public static Mention MentionFromDataRow(DataRow row)
+        {
+            return new Mention()
+            {
+                Id         = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], StringToEnum<MentionTarget>),
+                TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
+            };
+        }
+
+        /// <summary>
+        /// Maps to a full Mentionable model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Mentionable object</returns>
+        public static Mentionable MentionableFromDataRow(DataRow row)
+        {
+            return new Mentionable()
+            {
+                TargetType = SqlHelpers.TryConvertDbValue(row["TargetType"], StringToEnum<MentionTarget>),
+                TargetName = SqlHelpers.TryConvertDbValue(row["TargetName"], Convert.ToString),
+                TargetId   = SqlHelpers.TryConvertDbValue(row["TargetId"], Convert.ToString)
+            };
+        }
+
+        public static T StringToEnum<T>(object value)
+        {
+            return (T)Enum.Parse(typeof(T), value as string);
+        }
+
         /// Maps to a full TeamRole model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>

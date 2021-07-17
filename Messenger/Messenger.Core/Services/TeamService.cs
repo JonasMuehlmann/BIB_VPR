@@ -477,6 +477,40 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Build a role object from a specified roleId
+        /// </summary>
+        /// <param name="roleId">The id of the role to build an object from</param>
+        /// <returns>The built role object on success, null otherwise</returns>
+        public static async Task<TeamRole> GetRole(uint roleId)
+        {
+            // TODO: Prevent adding duplicate roles
+            LogContext.PushProperty("Method","GetRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters roleId={roleId}");
+
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Team_roles
+                                WHERE
+                                    ID = {roleId};
+                ";
+
+            var rows = await SqlHelpers.GetRows("Team_roles", query);
+
+            if (rows.Count() == 0)
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
+
+            return rows.Select(Mapper.TeamRoleFromDataRow).First();
+        }
+
+        /// <summary>
         /// Assign a team's member a role
         /// </summary>
         /// <param name="role">The name of the role to assign to the user</param>
