@@ -10,6 +10,8 @@ namespace Messenger.Tests.MSTest
         {
             // Reset DB
             string query = @"
+                                DELETE FROM Notifications;
+                                DELETE FROM Mentions;
                                 DELETE FROM PinnedMessages;
                                 DELETE FROM Reactions;
                                 DELETE FROM Messages;
@@ -20,6 +22,9 @@ namespace Messenger.Tests.MSTest
                                 DELETE FROM Team_roles;
                                 DELETE FROM Teams;
                                 DELETE FROM Users;
+
+                                DBCC CHECKIDENT (Notifications,    RESEED, 0);
+                                DBCC CHECKIDENT (Mentions,         RESEED, 0);
                                 DBCC CHECKIDENT (Memberships,      RESEED, 0);
                                 DBCC CHECKIDENT (Messages,         RESEED, 0);
                                 DBCC CHECKIDENT (Channels,         RESEED, 0);
