@@ -12,7 +12,17 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="600">
-    <Grid>
+    <StackPanel>
+        <StackPanel
+            Margin="0 5 5 0"
+            Padding="2 0 0 20"
+            BorderBrush="{ThemeResource SystemAccentColorLight1}"
+            BorderThickness="0 0 0 1">
+            <TextBlock
+                Text="Members"
+                FontSize="24"
+                />
+        </StackPanel>
         <ScrollViewer
             HorizontalScrollMode="Disabled"
             HorizontalScrollBarVisibility="Disabled">
@@ -22,12 +32,14 @@
                     Path=Members,
                     Mode=TwoWay,
                     UpdateSourceTrigger=PropertyChanged}"
+                SelectionMode="Single"
                 HorizontalContentAlignment="Stretch"
                 HorizontalAlignment="Stretch"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:UserViewModel">
-                        <Grid>
+                        <Grid
+                            Padding="0 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -43,44 +55,79 @@
                                 />
                             </Viewbox>
                             <StackPanel
-                            Grid.Column="1"
-                            Spacing="3"
-                            Orientation="Horizontal">
+                                Grid.Column="1"
+                                Spacing="3"
+                                Orientation="Horizontal">
                                 <TextBlock
-                                Text="{Binding Name}"
-                                FontSize="14"
-                                FontWeight="SemiBold"
-                                VerticalAlignment="Center"
-                                />
+                                    Text="{Binding Name}"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center"
+                                    />
                                 <TextBlock
-                                Text="•"
-                                VerticalAlignment="Center"
-                                Opacity=".55"
-                                />
-                                <TextBlock
-                                VerticalAlignment="Center"
-                                Text="{Binding Mail}"
-                                FontSize="12"
-                                Opacity=".55"
-                                />
-                            </StackPanel>
-                            <StackPanel
-                            Grid.Column="2"
-                            Spacing="10"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Right">
+                                    Text="•"
+                                    VerticalAlignment="Center"
+                                    Opacity=".55"
+                                    />
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Text="Admin"
+                                    Text="{Binding Mail}"
                                     FontSize="12"
+                                    Opacity=".55"
                                     />
-                                <Viewbox
-                                    Width="24"
-                                    Height="24">
-                                    <icons:PackIconFontAwesome
-                                        Kind="ClipboardSolid"
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="2"
+                                Spacing="5"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                                <Grid
+                                    MaxHeight="17"
+                                    BorderThickness="1"
+                                    Margin="5 0"
+                                    Padding="5 0"
+                                    CornerRadius="3">
+                                    <Grid.BorderBrush>
+                                        <SolidColorBrush Color="IndianRed" Opacity=".85" />
+                                    </Grid.BorderBrush>
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="IndianRed" Opacity=".35" />
+                                    </Grid.Background>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Foreground="IndianRed"
+                                        FontWeight="SemiBold"
+                                        FontSize="10"
+                                        Text="Admin"
                                         />
-                                </Viewbox>
+                                </Grid>
+                                <Button
+                                    Background="Transparent"
+                                    Padding="5">
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                Text="Manage roles"
+                                                />
+                                            <MenuFlyoutItem
+                                                Command="{Binding
+                                                    Path=RemoveMemberCommand,
+                                                    ElementName=membersListControl}"
+                                                CommandParameter="{Binding
+                                                    Path=Id}"
+                                                Text="Kick"
+                                                />
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                    <Viewbox
+                                        Width="18"
+                                        Height="18">
+                                        <icons:PackIconFontAwesome
+                                            Kind="ClipboardRegular"
+                                            Opacity=".75"
+                                            />
+                                    </Viewbox>
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -134,7 +181,6 @@
                             Spacing="10"
                             Orientation="Horizontal"
                             HorizontalAlignment="Right">
-
                             <ItemsControl>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -209,7 +255,7 @@
                                         />
                                 </Grid>
                             </ItemsControl>
-                            
+
                             <Viewbox
                                 Width="24"
                                 Height="24">
@@ -222,5 +268,5 @@
                 </ListViewItem>
             </ListView>
         </ScrollViewer>
-    </Grid>
+    </StackPanel>
 </UserControl>

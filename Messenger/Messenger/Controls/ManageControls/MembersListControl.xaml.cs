@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -29,6 +30,15 @@ namespace Messenger.Controls.ManageControls
 
         public static readonly DependencyProperty MembersProperty =
             DependencyProperty.Register("Members", typeof(ObservableCollection<Member>), typeof(MembersListControl), new PropertyMetadata(new ObservableCollection<Member>()));
+
+        public ICommand RemoveUserCommand
+        {
+            get { return (ICommand)GetValue(RemoveUserCommandProperty); }
+            set { SetValue(RemoveUserCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty RemoveUserCommandProperty =
+            DependencyProperty.Register("RemoveUserCommand", typeof(ICommand), typeof(MembersListControl), new PropertyMetadata(null));
 
         public MembersListControl()
         {
