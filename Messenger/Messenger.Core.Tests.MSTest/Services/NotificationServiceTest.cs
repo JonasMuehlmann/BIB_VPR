@@ -43,10 +43,10 @@ namespace Messenger.Tests.MSTest
                     {"TeamId"             , teamId.Value},
                     {"ChannelId"          , channelId.Value}
                 };
-                uint? notificationId = await notificationService.SendNotification(receiverId, notificationMessage);
+                uint? notificationId = await NotificationService.SendNotification(receiverId, notificationMessage);
                 Assert.IsNotNull(notificationId);
 
-                var notifications = await notificationService.RetrieveNotifications(receiverId);
+                var notifications = await NotificationService.RetrieveNotifications(receiverId);
                 Assert.AreEqual(1, Enumerable.Count(notifications));
 
                 var notification = notifications.First();
