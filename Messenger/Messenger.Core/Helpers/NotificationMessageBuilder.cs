@@ -50,7 +50,7 @@ namespace Messenger.Core.Helpers
                                     SELECT
                                         t.teamName
                                     FROM
-                                        Teams t
+                                        Teams t,
                                         Channels c
                                     LEFT JOIN Messages ON
                                         c.channelId = recipientId
@@ -113,7 +113,7 @@ namespace Messenger.Core.Helpers
                                     SELECT
                                         t.teamName
                                     FROM
-                                        Teams t
+                                        Teams t,
                                         Channels c
                                     LEFT JOIN Messages ON
                                         c.channelId = recipientId
@@ -153,7 +153,7 @@ namespace Messenger.Core.Helpers
                                     SELECT
                                         t.teamName
                                     FROM
-                                        Teams t
+                                        Teams t,
                                         Channels c
                                     LEFT JOIN Messages ON
                                         c.channelId = recipientId
@@ -262,7 +262,7 @@ namespace Messenger.Core.Helpers
                                     SELECT
                                         t.teamName
                                     FROM
-                                        Teams t
+                                        Teams t,
                                         Channels c
                                     LEFT JOIN Messages m ON
                                         c.channelId = recipientId
@@ -339,7 +339,7 @@ namespace Messenger.Core.Helpers
                                     SELECT
                                         t.teamName
                                     FROM
-                                        Teams t
+                                        Teams t,
                                         Channels c
                                     LEFT JOIN Messages mes ON
                                         c.channelId = recipientId
