@@ -42,14 +42,14 @@ namespace Messenger.Views.DialogBoxes
         public static readonly DependencyProperty SearchResultsProperty =
             DependencyProperty.Register("SearchResults", typeof(ObservableCollection<User>), typeof(CreateChatDialog), new PropertyMetadata(new ObservableCollection<User>()));
 
-        public Func<string, Task<IList<string>>> OnSearch
+        public Func<string, Task<IReadOnlyList<string>>> OnSearch
         {
-            get { return (Func<string, Task<IList<string>>>)GetValue(OnSearchProperty); }
+            get { return (Func<string, Task<IReadOnlyList<string>>>)GetValue(OnSearchProperty); }
             set { SetValue(OnSearchProperty, value); }
         }
 
         public static readonly DependencyProperty OnSearchProperty =
-            DependencyProperty.Register("OnSearch", typeof(Func<string, Task<IList<string>>>), typeof(CreateChatDialog), new PropertyMetadata(null));
+            DependencyProperty.Register("OnSearch", typeof(Func<string, Task<IReadOnlyList<string>>>), typeof(CreateChatDialog), new PropertyMetadata(null));
 
         public Func<string, uint, Task<User>> GetSelectedUser
         {
@@ -84,6 +84,7 @@ namespace Messenger.Views.DialogBoxes
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            SelectedUser = null;
         }
 
         private async void SearchUserBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -122,13 +123,7 @@ namespace Messenger.Views.DialogBoxes
 
             User selected = await GetSelectedUser?.Invoke(displayName, nameId);
 
-            UserInfoPanel.DataContext = selected;
             SelectedUser = selected;
-
-            if (UserInfoPanel.Visibility != Visibility.Visible)
-            {
-                UserInfoPanel.Visibility = Visibility.Visible;
-            }
         }
     }
 }

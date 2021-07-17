@@ -157,7 +157,9 @@
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Commands\Messenger\DeleteMessageCommand.cs" />
     <Compile Include="Commands\Messenger\EditMessageCommand.cs" />
+    <Compile Include="Commands\Messenger\InviteUserCommand.cs" />
     <Compile Include="Commands\Messenger\OpenFilesCommand.cs" />
+    <Compile Include="Commands\Messenger\RemoveUserCommand.cs" />
     <Compile Include="Commands\Messenger\ReplyToCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
@@ -198,6 +200,9 @@
     </Compile>
     <Compile Include="Controls\Shared\OnLoading.xaml.cs">
       <DependentUpon>OnLoading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shared\UserSearchPanel.xaml.cs">
+      <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
     <Compile Include="Helpers\BooleanToAlignmentConverter.cs" />
@@ -362,6 +367,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shared\OnLoading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shared\UserSearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
