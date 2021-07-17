@@ -80,7 +80,7 @@ namespace Messenger.Helpers.TeamHelpers
             return viewModel;
         }
 
-        private async Task<IList<MemberRole>> GetMemberRoles(uint teamId, Member member)
+        public async Task<IList<MemberRole>> GetMemberRoles(uint teamId, Member member)
         {
             List<MemberRole> memberRoles = new List<MemberRole>();
 
@@ -98,7 +98,7 @@ namespace Messenger.Helpers.TeamHelpers
                 memberRoles.Add(
                     new MemberRole()
                     {
-                        Title = role,
+                        Title = role.ToUpper(),
                         TeamId = teamId,
                         Permissions = permissions.ToList()
                     });
@@ -148,7 +148,7 @@ namespace Messenger.Helpers.TeamHelpers
             };
         }
 
-        private Member Map(User user)
+        public Member Map(User user)
         {
             if (user == null)
             {
@@ -161,7 +161,8 @@ namespace Messenger.Helpers.TeamHelpers
                 Name = user.DisplayName,
                 NameId = user.NameId,
                 Bio = user.Bio,
-                Mail = user.Mail
+                Mail = user.Mail,
+                MemberRoles = new List<MemberRole>()
             };
         }
 

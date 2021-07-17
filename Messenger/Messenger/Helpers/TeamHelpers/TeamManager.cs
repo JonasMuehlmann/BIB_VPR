@@ -1,4 +1,5 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -129,6 +130,46 @@ namespace Messenger.Helpers.TeamHelpers
                     teamViewModel.Channels.Add(viewModel);
 
                     return viewModel;
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<IList<Member>> AddMember(uint teamId, IEnumerable<User> userData)
+        {
+            List<Member> members = new List<Member>();
+
+            foreach (User data in userData)
+            {
+                Member member = await AddMember(teamId, data);
+
+                members.Add(member);
+            }
+
+            return members;
+        }
+
+        public async Task<Member> AddMember(uint teamId, User userData)
+        {
+            foreach (TeamViewModel teamViewModel in _myTeams)
+            {
+                if (teamViewModel.Id == teamId)
+                {
+                    Member member = _builder.Map(userData);
+                    IList<MemberRole> memberRoles = await _builder.GetMemberRoles(teamId, member);
+
+                    if (memberRoles != null && memberRoles.Count > 0)
+                    {
+                        foreach (MemberRole role in memberRoles)
+                        {
+                            member.MemberRoles.Add(role);
+                        }
+                    }
+
+                    teamViewModel.Members.Add(member);
+
+                    return member;
                 }
             }
 
