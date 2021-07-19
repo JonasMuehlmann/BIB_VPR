@@ -142,5 +142,30 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+        /// <summary>
+        /// Get A user's notification mutes
+        /// </summary>
+        /// <param name="userId">The id of the user to get mutes for</param>
+        /// </param>
+        /// <returns>An enumerable of NotificationMute objects representing the usera's mutes</returns>
+        public static async Task<IEnumerable<NotificationMute>>  GetUsersMutes(string userId)
+        {
+            LogContext.PushProperty("Method","GetUsersMutes");
+            LogContext.PushProperty("SourceContext", "NotificationService");
+
+            logger.Information($"Function called with parameters userId={userId}");
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    NotificationMutes
+                                WHERE
+                                    UserId = '{userId}';
+                ";
+
+            return await SqlHelpers.MapToList(query, Mapper.NotificationMuteFromDataRow);
+        }
+
     }
 }
