@@ -118,5 +118,29 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
+
+        /// <summary>
+        /// Remove a notification mute
+        /// </summary>
+        /// <param name="muteId">The id of the mute to remove</param>
+        /// </param>
+        /// <returns>True on success, false otherwise</returns>
+        public static async Task<bool> RemoveMute(uint muteId)
+        {
+            LogContext.PushProperty("Method","RemoveMute");
+            LogContext.PushProperty("SourceContext", "NotificationService");
+
+            logger.Information($"Function called with parameters muteId={muteId}");
+
+            string query = $@"
+                                REMOVE FROM
+                                    NotificationMutes
+                                WHERE
+                                    Id = {muteId};
+                ";
+
+            return await SqlHelpers.NonQueryAsync(query);
+        }
+
     }
 }
