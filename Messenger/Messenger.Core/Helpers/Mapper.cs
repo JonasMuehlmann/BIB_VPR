@@ -188,6 +188,8 @@ namespace Messenger.Core.Helpers
             return (T)Enum.Parse(typeof(T), value as string);
         }
 
+        /// <summary>
+        /// Maps to a full TeamRole model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
         /// <returns>A fully mapped TeamRole object</returns>
@@ -198,6 +200,24 @@ namespace Messenger.Core.Helpers
                 Id     = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
                 Role   = SqlHelpers.TryConvertDbValue(row["Role"], Convert.ToString),
                 TeamId = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
+            };
+        }
+
+        /// <summary>
+        /// Maps to a full NotificationMute model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped NotificationMute object</returns>
+        public static NotificationMute NotificationMuteFromDataRow(DataRow row)
+        {
+            return new NotificationMute()
+            {
+                Id                      = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                NotificationType        = SqlHelpers.TryConvertDbValue(row["NotificationType"], StringToEnum<NotificationType>),
+                NotificationSourceType  = SqlHelpers.TryConvertDbValue(row["NotificationSourceType"], StringToEnum<NotificationSource>),
+                NotificationSourceValue = SqlHelpers.TryConvertDbValue(row["NotificationSourceValue"], Convert.ToString),
+                SenderId                = SqlHelpers.TryConvertDbValue(row["SenderId"], Convert.ToString),
+                UserId                  = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
             };
         }
 
@@ -221,7 +241,7 @@ namespace Messenger.Core.Helpers
         {
             return JObject.Parse(str as string);
         }
-      
+
         /// Convert a specified column of a dataRow to an enum
         /// </summary>
         /// <typeparam name="T">The type of the enum to convert to</typeparam>
