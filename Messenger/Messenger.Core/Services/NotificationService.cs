@@ -147,8 +147,8 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">The id of the user to get mutes for</param>
         /// </param>
-        /// <returns>An enumerable of NotificationMute objects representing the usera's mutes</returns>
-        public static async Task<IEnumerable<NotificationMute>>  GetUsersMutes(string userId)
+        /// <returns>An IList of NotificationMute objects representing the usera's mutes</returns>
+        public static async Task<IList<NotificationMute>>  GetUsersMutes(string userId)
         {
             LogContext.PushProperty("Method","GetUsersMutes");
             LogContext.PushProperty("SourceContext", "NotificationService");
@@ -164,7 +164,7 @@ namespace Messenger.Core.Services
                                     UserId = '{userId}';
                 ";
 
-            return await SqlHelpers.MapToList(query, Mapper.NotificationMuteFromDataRow);
+            return await SqlHelpers.MapToList(Mapper.NotificationMuteFromDataRow, query);
         }
 
     }
