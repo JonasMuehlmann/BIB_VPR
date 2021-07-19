@@ -84,5 +84,39 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.NotificationFromDataRow, query);
         }
+
+        /// <summary>
+        /// Add a notification mute for a specified user
+        /// </summary>
+        /// <param name="notificationType">The type of notification event to mute</param>
+        /// <param name="notificationSourceType">
+        /// The type of the notification source to muted
+        /// </param>
+        /// <param name="notificationSourceValue">
+        /// The name of the notification source to muted
+        /// </param>
+        /// <returns>The id of the Notification mute on success, null otherwise</returns>
+        public static async Task<uint?> AddMute(NotificationType notificationType, NotificationSource notificationSourceType, string notificationSourceValue, string userId)
+        {
+            LogContext.PushProperty("Method","AddMute");
+            LogContext.PushProperty("SourceContext", "NotificationService");
+
+            logger.Information($"Function called with parameters notificationType={notificationType.ToString()}, notificationSourceType={notificationSourceType.ToString()}, notificationSourceValue={notificationSourceValue}, userId={userId}");
+
+            string query = $@"
+                                INSERT INTO
+                                    NotificationMutes
+                                VALUES(
+                                        NotificationType = '{notificationType.ToString()}',
+                                        NotificationSourceType = '{notificationSourceType.ToString()}',
+                                        NotificationSourceValue = '{notificationSourceValue.ToString()}',
+                                        UserId = '{userId}'
+                                      );
+
+                                SELECT SCOPE_IDENTITY();
+                ";
+
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+        }
     }
 }
