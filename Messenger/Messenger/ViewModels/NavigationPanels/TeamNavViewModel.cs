@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
 using Messenger.Views.DialogBoxes;
@@ -19,27 +21,13 @@ namespace Messenger.ViewModels
     {
         #region Privates
 
-        private ShellViewModel _shellViewModel;
-        private ICommand _switchChannelCommand;
-        private ICommand _createTeamCommand;
-        private ObservableCollection<TeamViewModel> _teams;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
+
+        private ObservableCollection<TeamViewModel> _teams;
 
         #endregion
 
         private bool _isBusy;
-
-        public ShellViewModel ShellViewModel
-        {
-            get
-            {
-                return _shellViewModel;
-            }
-            set
-            {
-                Set(ref _shellViewModel, value);
-            }
-        }
 
         public ObservableCollection<TeamViewModel> Teams
         {
@@ -65,11 +53,11 @@ namespace Messenger.ViewModels
             }
         }
 
-        public UserViewModel CurrentUser => ChatHubService.CurrentUser;
+        public UserViewModel CurrentUser => App.StateProvider?.CurrentUser;
 
-        public ICommand SwitchChannelCommand => _switchChannelCommand ?? (_switchChannelCommand = new RelayCommand<ChannelViewModel>(SwitchChannel));
+        public ICommand TeamChannelSwitchCommand => new ChannelSwitchCommand(ChatHubService);
 
-        public ICommand CreateTeamCommand => _createTeamCommand ?? (_createTeamCommand = new RelayCommand(CreateTeamAsync));
+        public ICommand CreateTeamCommand => new CreateTeamCommand(ChatHubService);
 
         public TeamNavViewModel()
         {
@@ -77,29 +65,27 @@ namespace Messenger.ViewModels
 
             Teams = new ObservableCollection<TeamViewModel>();
 
-            ChatHubService.MessageReceived += OnMessageReceived;
-            ChatHubService.TeamsUpdated += OnTeamsUpdated;
-            ChatHubService.TeamUpdated += OnTeamUpdated;
-            ChatHubService.ChannelUpdated += OnChannelUpdated;
-
-            Initialize();
+            App.EventProvider.MessageUpdated += OnMessageUpdated;
+            App.EventProvider.TeamsLoaded += Initialize;
+            App.EventProvider.TeamUpdated += OnTeamUpdated;
+            App.EventProvider.ChannelUpdated += OnChannelUpdated;
         }
 
-        /// <summary>
-        //  Loads the teams list if the user data has already been loaded
-        /// </summary>
-        private async void Initialize()
+        private void Initialize(object sender, BroadcastArgs e)
         {
             switch (ChatHubService.ConnectionState)
             {
                 case ChatHubConnectionState.Loading:
-                    IsBusy = true;
                     break;
                 case ChatHubConnectionState.NoDataFound:
                     IsBusy = false;
                     break;
                 case ChatHubConnectionState.LoadedWithData:
-                     FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
+                    Teams.Clear();
+                    foreach (TeamViewModel team in CacheQuery.GetMyTeams())
+                    {
+                        Teams.Add(team);
+                    }
                     IsBusy = false;
                     break;
                 default:
@@ -107,120 +93,112 @@ namespace Messenger.ViewModels
             }
         }
 
-        /// <summary>
-        /// Fires on TeamsUpdated(e.g. CreateTeam, UpdateTeam, etc.) and refreshes the view
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="teams">Enumerable of teams</param>
-        private void OnTeamsUpdated(object sender, IEnumerable<TeamViewModel> teams)
+        private void OnChannelUpdated(object sender, BroadcastArgs e)
         {
-            if (teams != null)
-            {
-                FilterAndUpdateTeams(teams);
-            }
+            ChannelViewModel channel = e.Payload as ChannelViewModel;
 
-            IsBusy = false;
-        }
-
-        /// <summary>
-        /// Updates the refactored team in the list
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="team">The updated teams</param>
-        private async void OnTeamUpdated(object sender, TeamViewModel team)
-        {
-            FilterAndUpdateTeams(await ChatHubService.GetMyTeams());
-
-            IsBusy = false;
-        }
-
-
-
-        /// <summary>
-        /// Creates the team with the given name and description
-        /// </summary>
-        /// <param name="team">New team to be created with the name and description</param>
-        public async void CreateTeamAsync()
-        {
-            if (CurrentUser == null)
+            if (channel == null)
             {
                 return;
             }
 
-            // Opens the dialog box for the input
-            var dialog = new CreateTeamDialog();
-            ContentDialogResult result = await dialog.ShowAsync();
-
-            // Create team on confirm
-            if (result == ContentDialogResult.Primary)
+            if (e.Reason == BroadcastReasons.Created)
             {
-                await ChatHubService.CreateTeam(dialog.TeamName, dialog.TeamDescription);
-
-                await ResultConfirmationDialog
-                    .Set(true, $"You created a new team {dialog.TeamName}")
-                    .ShowAsync();
-            }
-        }
-
-        /// <summary>
-        /// Fires on click and invokes ChatHubService to load messages of the selected team
-        /// </summary>
-        /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
-        private async void SwitchChannel(ChannelViewModel channel)
-        {
-            // Invokes TeamSwitched event
-            await ChatHubService.SwitchChannel(channel.ChannelId);
-
-            NavigationService.Open<ChatPage>();
-        }
-
-        /// <summary>
-        /// Fires on MessageReceived in ChatHubService and refreshes the view
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">MessageViewModel received</param>
-        private void OnMessageReceived(object sender, MessageViewModel message)
-        {
-            foreach (TeamViewModel team in _teams)
-            {
-                foreach (ChannelViewModel channel in team.Channels)
+                foreach (TeamViewModel team in _teams)
                 {
-                    if (channel.ChannelId == message.ChannelId)
+                    if (team.Id == channel.TeamId)
                     {
-                        channel.LastMessage = message;
+                        team.Channels.Add(channel);
+                        break;
+                    }
+                }
+            }
+            else if (e.Reason == BroadcastReasons.Updated)
+            {
+                foreach (TeamViewModel team in _teams)
+                {
+                    if (team.Id == channel.TeamId)
+                    {
+                        ChannelViewModel target = team.Channels.Single(ch => ch.ChannelId == channel.ChannelId);
+                        int index = team.Channels.IndexOf(target);
+
+                        team.Channels[index] = channel;
+                    }
+                }
+            }
+            else if (e.Reason == BroadcastReasons.Deleted)
+            {
+                foreach (TeamViewModel team in _teams)
+                {
+                    if (team.Id == channel.TeamId)
+                    {
+                        ChannelViewModel target = team.Channels.Single(ch => ch.ChannelId == channel.ChannelId);
+
+                        team.Channels.Remove(target);
                     }
                 }
             }
         }
 
-        private void OnChannelUpdated(object sender, ChannelViewModel channel)
+        private void OnTeamUpdated(object sender, BroadcastArgs e)
         {
-            foreach (TeamViewModel team in _teams)
+            TeamViewModel team = e.Payload as TeamViewModel;
+
+            if (team == null)
             {
-                if (team.Id == channel.TeamId)
+                return;
+            }
+
+            if (e.Reason == BroadcastReasons.Created)
+            {
+                _teams.Add(team);
+            }
+            else if (e.Reason == BroadcastReasons.Updated)
+            {
+                TeamViewModel target = _teams.Single(t => t.Id == team.Id);
+                int index = _teams.IndexOf(target);
+
+                _teams[index] = team;
+            }
+            else if (e.Reason == BroadcastReasons.Deleted)
+            {
+                TeamViewModel target = _teams.Single(t => t.Id == team.Id);
+
+                if (target != null)
                 {
-                    team.Channels.Add(channel);
+                    _teams.Remove(target);
                 }
             }
         }
 
-        #region Helpers
-
-        private void FilterAndUpdateTeams(IEnumerable<TeamViewModel> teams)
+        private void OnTeamsLoaded(object sender, BroadcastArgs e)
         {
-            if (teams != null)
-            {
-                IEnumerable<TeamViewModel> teamsList = teams.Where(t => !string.IsNullOrEmpty(t.TeamName));
+            IEnumerable<TeamViewModel> teams = e.Payload as IEnumerable<TeamViewModel>;
 
-                Teams.Clear();
-                
-                foreach (TeamViewModel team in teamsList)
+            if (teams != null && teams.Count() > 0)
+            {
+                _teams = new ObservableCollection<TeamViewModel>(teams);
+            }
+            IsBusy = false;
+        }
+
+        private void OnMessageUpdated(object sender, BroadcastArgs e)
+        {
+            if (e.Reason == BroadcastReasons.Created)
+            {
+                MessageViewModel message = e.Payload as MessageViewModel;
+
+                foreach (TeamViewModel team in Teams)
                 {
-                    Teams.Add(team);
+                    if (team.Channels.Any(c => c.ChannelId == message.ChannelId))
+                    {
+                        ChannelViewModel channel = team.Channels.Single(c => c.ChannelId == message.ChannelId);
+
+                        channel.LastMessage = message;
+                        break;
+                    }
                 }
             }
         }
-
-        #endregion
     }
 }
