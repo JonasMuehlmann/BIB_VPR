@@ -106,12 +106,14 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
+                Spacing="5"
                 Padding="15 20 15 15">
                 <TextBlock
                     Text="Bio"
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     />
                 <TextBlock
+                    HorizontalAlignment="Left"
                     TextWrapping="WrapWholeWords"
                     MaxWidth="225">
                     <Run
