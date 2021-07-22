@@ -2,6 +2,7 @@
 using Messenger.Core.Models;
 using Messenger.Services;
 using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using Serilog.Context;
@@ -24,6 +25,8 @@ namespace Messenger.Commands.PrivateChat
 
         public event EventHandler CanExecuteChanged;
 
+        public UserViewModel CurrentUser => App.StateProvider.CurrentUser;
+
         public StartChatCommand(ChatNavViewModel viewModel, ChatHubService hub)
         {
             _viewModel = viewModel;
@@ -42,14 +45,14 @@ namespace Messenger.Commands.PrivateChat
         /// <returns>List of search result strings</returns>
         private async Task<IReadOnlyList<string>> SearchUsers(string username)
         {
-            var userStrings = await _hub.SearchUser(username);
+            IList<string> userStrings = await _hub.SearchUser(username);
 
             return userStrings
                 .TakeWhile((user) =>
                 {
-                    var data = user.Split('#');
-                    return !(_hub.CurrentUser.Name == data[0]
-                        && _hub.CurrentUser.NameId.ToString() == data[1]);
+                    string[] data = user.Split('#');
+                    return !(CurrentUser.Name == data[0]
+                        && CurrentUser.NameId.ToString() == data[1]);
                 }).ToList();
         }
 
@@ -72,17 +75,19 @@ namespace Messenger.Commands.PrivateChat
         /// </summary>
         public async void Execute(object parameter)
         {
+
+
             LogContext.PushProperty("Method", "Execute");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
             try
             {
-                if (_hub.CurrentUser == null)
+                if (CurrentUser == null)
                 {
                     return;
                 }
 
-                _dialog.CurrentUser = _hub.CurrentUser;
+                _dialog.CurrentUser = CurrentUser;
 
                 if (await _dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
