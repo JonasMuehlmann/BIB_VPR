@@ -119,10 +119,7 @@ namespace Messenger.ViewModels
 
         #endregion
 
-        public ICommand OpenManageRolesCommand => new RelayCommand(async () =>
-        {
-            await new ManageRolesDialog().ShowAsync();
-        });
+        public ICommand OpenManageRolesCommand => new OpenManageRolesCommand();
 
         public ICommand InviteUserCommand => new InviteUserCommand(this, ChatHubService);
         public ICommand RemoveUserCommand => new RemoveUserCommand(this, ChatHubService);
