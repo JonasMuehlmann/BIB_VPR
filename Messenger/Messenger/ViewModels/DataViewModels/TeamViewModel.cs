@@ -6,13 +6,13 @@ using System.Collections.ObjectModel;
 
 namespace Messenger.ViewModels.DataViewModels
 {
-    public class TeamViewModel : Observable
+    public class TeamViewModel : DataViewModel
     {
         private uint _id;
         private string _teamName;
         private string _description;
         private DateTime _creationDate;
-        private ObservableCollection<Member> _members;
+        private ObservableCollection<MemberViewModel> _members;
         private ObservableCollection<ChannelViewModel> _channels;
 
         public uint Id
@@ -39,7 +39,7 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _creationDate, value); }
         }
 
-        public ObservableCollection<Member> Members
+        public ObservableCollection<MemberViewModel> Members
         {
             get { return _members; }
             set { Set(ref _members, value); }

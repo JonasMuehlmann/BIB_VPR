@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Messenger.ViewModels.DataViewModels
 {
-    public class UserViewModel : Observable
+    public class UserViewModel : DataViewModel
     {
         private string _name;
         private string _userPrincipalName;
