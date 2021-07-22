@@ -17,9 +17,11 @@ namespace Messenger.Core.Models
         public DateTime CreationTime { get; set; }
 
         /// <summary>
-        /// Team where the message was posted
+        /// Channel where the message was posted
         /// </summary>
         public uint RecipientId { get; set; }
+
+        public uint TeamId { get; set; }
 
         /// <summary>
         /// Null in case of a Top-level message
