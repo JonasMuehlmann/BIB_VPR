@@ -21,6 +21,7 @@ namespace Messenger.Core.Services
         ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
         public static async Task<uint?> CreateMessage(uint recipientsId,
+                                               uint teamId,
                                                string senderId,
                                                string message,
                                                uint? parentMessageId = null,
@@ -45,7 +46,8 @@ namespace Messenger.Core.Services
                                         Message,
                                         CreationDate,
                                         attachmentsBlobNames,
-                                        RecipientId
+                                        RecipientId,
+                                        TeamId
                                         )
                                 VALUES (
                                         '{senderId}',
@@ -53,7 +55,8 @@ namespace Messenger.Core.Services
                                         '{message}',
                                          GETDATE(),
                                         '{correctedAttachmentBlobNames}',
-                                         {recipientsId}
+                                         {recipientsId},
+                                         {teamId}
                                 );
 
                                 SELECT SCOPE_IDENTITY();";
@@ -80,6 +83,7 @@ namespace Messenger.Core.Services
                                     m.ParentMessageId,
                                     m.Message,
                                     m.CreationDate,
+                                    m.TeamId,
                                     u.UserId,
                                     u.NameId,
                                     u.UserName
@@ -107,7 +111,7 @@ namespace Messenger.Core.Services
 
 
             // TODO: Cleanup
-            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, m.TeamId, "
                             + $"u.UserId, u.NameId, u.UserName "
                             + $"FROM Messages m "
                             + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
