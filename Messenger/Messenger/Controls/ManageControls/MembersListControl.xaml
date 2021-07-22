@@ -13,16 +13,44 @@
     d:DesignHeight="300"
     d:DesignWidth="600">
     <StackPanel>
-        <StackPanel
+        <Grid
             Margin="0 5 5 0"
-            Padding="2 0 0 20"
+            Padding="2 0 5 20"
             BorderBrush="{ThemeResource SystemAccentColorLight1}"
             BorderThickness="0 0 0 1">
             <TextBlock
                 Text="Members"
+                Padding="0 5 0 5"
                 FontSize="24"
                 />
-        </StackPanel>
+            <Button
+                Command="{Binding
+                    ElementName=membersListControl,
+                    Path=OpenManageRolesCommand}"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Background="Transparent"
+                Padding="10 5 10 5"
+                Margin="0"
+                Foreground="{ThemeResource SystemAccentColor}">
+                <StackPanel
+                    Spacing="5"
+                    Orientation="Horizontal">
+                    <Viewbox
+                        Width="20"
+                        Height="20">
+                        <icons:PackIconFontAwesome
+                            Kind="UserTagSolid"
+                            />
+                    </Viewbox>
+                    <TextBlock
+                        Text="Roles"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        />
+                </StackPanel>
+            </Button>
+        </Grid>
         <ScrollViewer
             HorizontalScrollMode="Disabled"
             HorizontalScrollBarVisibility="Disabled">
@@ -37,7 +65,7 @@
                 HorizontalAlignment="Stretch"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:UserViewModel">
+                    <DataTemplate x:DataType="vm:MemberViewModel">
                         <Grid
                             Padding="0 10">
                             <Grid.ColumnDefinitions>
@@ -51,8 +79,8 @@
                             Height="24"
                             Margin="0 0 10 0">
                                 <icons:PackIconFontAwesome
-                                Kind="UserCircleSolid"
-                                />
+                                    Kind="UserCircleSolid"
+                                    />
                             </Viewbox>
                             <StackPanel
                                 Grid.Column="1"
@@ -81,37 +109,51 @@
                                 Spacing="5"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                                <Grid
-                                    MaxHeight="17"
-                                    BorderThickness="1"
-                                    Margin="5 0"
-                                    Padding="5 0"
-                                    CornerRadius="3">
-                                    <Grid.BorderBrush>
-                                        <SolidColorBrush Color="IndianRed" Opacity=".85" />
-                                    </Grid.BorderBrush>
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="IndianRed" Opacity=".35" />
-                                    </Grid.Background>
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Foreground="IndianRed"
-                                        FontWeight="SemiBold"
-                                        FontSize="10"
-                                        Text="Admin"
-                                        />
-                                </Grid>
+                                <ItemsControl
+                                    ItemsSource="{Binding MemberRoles}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel
+                                                VerticalAlignment="Center"
+                                                />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="models:MemberRole">
+                                            <Grid
+                                                MaxHeight="17"
+                                                BorderThickness="1"
+                                                Margin="5 0"
+                                                Padding="5 0"
+                                                CornerRadius="3">
+                                            <Grid.BorderBrush>
+                                                <SolidColorBrush Color="IndianRed" Opacity=".85" />
+                                            </Grid.BorderBrush>
+                                            <Grid.Background>
+                                                <SolidColorBrush Color="IndianRed" Opacity=".35" />
+                                            </Grid.Background>
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="IndianRed"
+                                                FontWeight="SemiBold"
+                                                FontSize="10"
+                                                Text="{Binding Title}"
+                                                />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                                 <Button
                                     Background="Transparent"
                                     Padding="5">
                                     <Button.Flyout>
-                                        <MenuFlyout>
+                                        <MenuFlyout Placement="BottomEdgeAlignedRight">
                                             <MenuFlyoutItem
                                                 Text="Manage roles"
                                                 />
                                             <MenuFlyoutItem
                                                 Command="{Binding
-                                                    Path=RemoveMemberCommand,
+                                                    Path=RemoveUserCommand,
                                                     ElementName=membersListControl}"
                                                 CommandParameter="{Binding
                                                     Path=Id}"

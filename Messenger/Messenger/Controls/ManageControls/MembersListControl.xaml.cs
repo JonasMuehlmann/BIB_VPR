@@ -1,4 +1,5 @@
 ﻿using Messenger.Models;
+using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,14 +23,23 @@ namespace Messenger.Controls.ManageControls
 {
     public sealed partial class MembersListControl : UserControl
     {
-        public ObservableCollection<Member> Members
+        public ICommand OpenManageRolesCommand
         {
-            get { return (ObservableCollection<Member>)GetValue(MembersProperty); }
+            get { return (ICommand)GetValue(OpenManageRolesCommandProperty); }
+            set { SetValue(OpenManageRolesCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty OpenManageRolesCommandProperty =
+            DependencyProperty.Register("OpenManageRolesCommand", typeof(ICommand), typeof(MembersListControl), new PropertyMetadata(null));
+
+        public ObservableCollection<MemberViewModel> Members
+        {
+            get { return (ObservableCollection<MemberViewModel>)GetValue(MembersProperty); }
             set { SetValue(MembersProperty, value); }
         }
 
         public static readonly DependencyProperty MembersProperty =
-            DependencyProperty.Register("Members", typeof(ObservableCollection<Member>), typeof(MembersListControl), new PropertyMetadata(new ObservableCollection<Member>()));
+            DependencyProperty.Register("Members", typeof(ObservableCollection<MemberViewModel>), typeof(MembersListControl), new PropertyMetadata(new ObservableCollection<MemberViewModel>()));
 
         public ICommand RemoveUserCommand
         {
