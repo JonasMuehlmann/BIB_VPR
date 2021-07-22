@@ -1,6 +1,7 @@
 ﻿using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Messenger.Commands.Messenger
+namespace Messenger.Commands.TeamManage
 {
     public class RemoveUserCommand : ICommand
     {
@@ -33,17 +34,13 @@ namespace Messenger.Commands.Messenger
         {
             try
             {
+                TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
+
                 string userId = parameter.ToString();
 
-                bool isSuccess = await _hub.RemoveUser(userId, _hub.SelectedTeam.Id);
+                MemberViewModel member = await _hub.RemoveUser(userId, selectedTeam.Id);
 
-                if (isSuccess)
-                {
-                    Member memberToRemove = _viewModel.Members.Single(member => member.Id == userId);
-
-                    _viewModel.Members.Remove(memberToRemove);
-                }
-                else
+                if (member == null)
                 {
                     await ResultConfirmationDialog
                             .Set(false, "We could not remove the user, try again.")

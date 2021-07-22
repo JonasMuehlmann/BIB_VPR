@@ -157,9 +157,13 @@
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Commands\Messenger\DeleteMessageCommand.cs" />
     <Compile Include="Commands\Messenger\EditMessageCommand.cs" />
-    <Compile Include="Commands\Messenger\InviteUserCommand.cs" />
+    <Compile Include="Commands\PrivateChat\UpdateTeamDetailsCommand.cs" />
+    <Compile Include="Commands\TeamManage\ChannelSwitchCommand.cs" />
+    <Compile Include="Commands\TeamManage\CreateTeamCommand.cs" />
+    <Compile Include="Commands\TeamManage\InviteUserCommand.cs" />
     <Compile Include="Commands\Messenger\OpenFilesCommand.cs" />
-    <Compile Include="Commands\Messenger\RemoveUserCommand.cs" />
+    <Compile Include="Commands\TeamManage\OpenManageRolesCommand.cs" />
+    <Compile Include="Commands\TeamManage\RemoveUserCommand.cs" />
     <Compile Include="Commands\Messenger\ReplyToCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
@@ -227,8 +231,7 @@
     <Compile Include="Models\DragDropCompletedData.cs" />
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
-    <Compile Include="Models\Invitation.cs" />
-    <Compile Include="Models\Member.cs" />
+    <Compile Include="ViewModels\DataViewModels\MemberViewModel.cs" />
     <Compile Include="Models\MemberRole.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationType.cs" />
@@ -243,7 +246,13 @@
     <Compile Include="Services\DragAndDrop\VisualDropConfiguration.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
     <Compile Include="Helpers\MessageHelpers\MessageBuilder.cs" />
+    <Compile Include="Services\Providers\EventProvider.cs" />
+    <Compile Include="Helpers\CacheQuery.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\Providers\BroadcastArgs.cs" />
+    <Compile Include="Services\Providers\BroadcastOptions.cs" />
+    <Compile Include="Services\Providers\BroadcastReasons.cs" />
+    <Compile Include="Services\Providers\StateProvider.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Services\ToastNotificationsService.cs" />
     <Compile Include="Services\ToastNotificationsService.Samples.cs" />
@@ -253,6 +262,7 @@
     <Compile Include="Services\UserDataService.cs" />
     <Compile Include="TemplateSelectors\TeamDataTemplateSelector.cs" />
     <Compile Include="ViewModels\DataViewModels\ChannelViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\DataViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\PrivateChatViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
@@ -277,6 +287,9 @@
     </Compile>
     <Compile Include="Views\DialogBoxes\CreateTeamDialog.xaml.cs">
       <DependentUpon>CreateTeamDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\ManageRolesDialog.xaml.cs">
+      <DependentUpon>ManageRolesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogBoxes\ResultConfirmationDialog.xaml.cs">
       <DependentUpon>ResultConfirmationDialog.xaml</DependentUpon>
@@ -411,6 +424,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DialogBoxes\CreateTeamDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\ManageRolesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,12 +3,13 @@ using Messenger.Core.Models;
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.ViewModels;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
 using System.Windows.Input;
 
-namespace Messenger.Commands.Messenger
+namespace Messenger.Commands.TeamManage
 {
     public class InviteUserCommand : ICommand
     {
@@ -31,7 +32,8 @@ namespace Messenger.Commands.Messenger
 
         public async void Execute(object parameter)
         {
-            bool executable = parameter != null;
+            bool executable = parameter != null
+                && parameter is TeamManageViewModel;
 
             if (!executable)
             {
@@ -40,26 +42,18 @@ namespace Messenger.Commands.Messenger
 
             try
             {
-                if (parameter is TeamManageViewModel)
+                TeamManageViewModel viewModel = parameter as TeamManageViewModel;
+
+                uint teamId = App.StateProvider.SelectedTeam.Id;
+                string userId = viewModel.SelectedSearchedUser.Id;
+
+                MemberViewModel member = await _hub.InviteUser(userId, teamId);
+
+                if (member == null)
                 {
-                    Invitation invitation = new Invitation()
-                    {
-                        TeamId = (parameter as TeamManageViewModel).CurrentTeam.Id,
-                        UserId = (parameter as TeamManageViewModel).SelectedSearchedUser.Id
-                    };
-
-                    Member member = await _hub.InviteUser(invitation);
-
-                    if (member != null)
-                    {
-                        _viewModel.Members.Add(member);
-                    }
-                    else
-                    {
-                        await ResultConfirmationDialog
-                            .Set(false, "We could not invite the user, try again.")
-                            .ShowAsync();
-                    }
+                    await ResultConfirmationDialog
+                        .Set(false, "We could not invite the user, try again.")
+                        .ShowAsync();
                 }
             }
             catch (Exception e)
