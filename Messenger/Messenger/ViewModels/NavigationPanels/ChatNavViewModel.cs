@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Messenger.Commands.PrivateChat;
+using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
 using WinUI = Microsoft.UI.Xaml.Controls;
@@ -18,9 +21,11 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ObservableCollection<PrivateChatViewModel> _chats;
-        private bool _isBusy;
         private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
+
+        private ObservableCollection<PrivateChatViewModel> _chats;
+
+        private bool _isBusy;
 
         #endregion
 
@@ -50,7 +55,7 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ICommand SwitchChatCommand => new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(SwitchChat);
+        public ICommand SwitchChatCommand => new ChannelSwitchCommand(ChatHubService);
 
         public ICommand StartChatCommand => new StartChatCommand(this, ChatHubService);
 
@@ -59,14 +64,16 @@ namespace Messenger.ViewModels
         public ChatNavViewModel()
         {
             IsBusy = true;
-
             Chats = new ObservableCollection<PrivateChatViewModel>();
-            ChatHubService.ChatsUpdated += OnChatsUpdated;
-            ChatHubService.MessageReceived += OnMessageReceived;
+
+            App.EventProvider.ChatsLoaded += OnChatsLoaded;
+            App.EventProvider.PrivateChatUpdated += OnPrivateChatUpdated;
+            App.EventProvider.MessageUpdated += OnMessageUpdated;
+
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             switch (ChatHubService.ConnectionState)
             {
@@ -78,7 +85,7 @@ namespace Messenger.ViewModels
                     break;
                 case ChatHubConnectionState.LoadedWithData:
                     Chats.Clear();
-                    foreach (PrivateChatViewModel vm in await ChatHubService.GetMyChats())
+                    foreach (PrivateChatViewModel vm in CacheQuery.GetMyChats())
                     {
                         Chats.Add(vm);
                     }
@@ -89,52 +96,61 @@ namespace Messenger.ViewModels
             }
         }
 
-        /// <summary>
-        /// Command on chat item click and invokes ChatHubService to load messages of the selected chat
-        /// </summary>
-        /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
-        private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
+        private void OnMessageUpdated(object sender, BroadcastArgs e)
         {
-            PrivateChatViewModel chat = args.InvokedItem as PrivateChatViewModel;
-
-            // Invokes TeamSwitched event
-            await ChatHubService.SwitchChat((uint)chat.Id);
-
-            NavigationService.Open<ChatPage>();
-        }
-
-        /// <summary>
-        /// Fires on TeamsUpdated in ChatHubService and refreshes the view
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="teams">Enumerable of teams</param>
-        private void OnChatsUpdated(object sender, IEnumerable<PrivateChatViewModel> chats)
-        {
-            if (chats != null)
+            if (e.Reason == BroadcastReasons.Created)
             {
-                Chats.Clear();
-                foreach (PrivateChatViewModel viewModel in chats)
+                MessageViewModel message = e.Payload as MessageViewModel;
+
+                foreach (PrivateChatViewModel privateChat in _chats)
                 {
-                    Chats.Add(viewModel);
+                    if (privateChat.MainChannel.ChannelId == message.ChannelId)
+                    {
+                        privateChat.LastMessage = message;
+                        break;
+                    }
                 }
             }
-
-            IsBusy = false;
         }
 
-        /// <summary>
-        /// Fires on MessageReceived in ChatHubService and refreshes the view
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">MessageViewModel received</param>
-        private void OnMessageReceived(object sender, MessageViewModel message)
+        private void OnPrivateChatUpdated(object sender, BroadcastArgs e)
         {
-            foreach (PrivateChatViewModel chat in _chats)
+            PrivateChatViewModel privateChat = e.Payload as PrivateChatViewModel;
+
+            if (privateChat == null)
             {
-                if (chat.MainChannel.ChannelId == message.ChannelId)
+                return;
+            }
+
+            if (e.Reason == BroadcastReasons.Created)
+            {
+                _chats.Add(privateChat);
+            }
+            else if (e.Reason == BroadcastReasons.Updated)
+            {
+                PrivateChatViewModel target = _chats.Single(t => t.Id == privateChat.Id);
+                int index = _chats.IndexOf(target);
+
+                _chats[index] = privateChat;
+            }
+            else if (e.Reason == BroadcastReasons.Deleted)
+            {
+                PrivateChatViewModel target = _chats.Single(t => t.Id == privateChat.Id);
+
+                if (target != null)
                 {
-                    chat.LastMessage = message;
+                    _chats.Remove(target);
                 }
+            }
+        }
+
+        private void OnChatsLoaded(object sender, BroadcastArgs e)
+        {
+            IEnumerable<PrivateChatViewModel> chats = e.Payload as IEnumerable<PrivateChatViewModel>;
+
+            if (chats != null && chats.Count() > 0)
+            {
+                _chats = new ObservableCollection<PrivateChatViewModel>(chats);
             }
         }
     }
