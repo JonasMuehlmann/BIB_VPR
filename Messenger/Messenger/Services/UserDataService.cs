@@ -6,6 +6,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
 
@@ -31,7 +32,6 @@ namespace Messenger.Services
         {
             IdentityService.LoggedIn += OnLoggedIn;
             IdentityService.LoggedOut += OnLoggedOut;
-            MessengerService.RegisterListenerForUserUpdate(OnUserUpdate);
         }
 
         public async Task<UserViewModel> GetUserAsync()
@@ -44,6 +44,8 @@ namespace Messenger.Services
                     _user = GetDefaultUserData();
                 }
             }
+
+            App.StateProvider.CurrentUser = _user;
 
             return _user;
         }
@@ -65,6 +67,8 @@ namespace Messenger.Services
         private async void OnLoggedIn(object sender, EventArgs e)
         {
             _user = await GetUserFromGraphApiAsync();
+
+            App.StateProvider.CurrentUser = _user;
             
             UserDataUpdated?.Invoke(this, _user);
         }
