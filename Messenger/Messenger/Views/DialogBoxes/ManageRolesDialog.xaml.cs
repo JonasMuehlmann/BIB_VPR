@@ -5,21 +5,12 @@ using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// Die Elementvorlage "Inhaltsdialogfeld" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
 namespace Messenger.Views.DialogBoxes
 {
@@ -42,6 +33,15 @@ namespace Messenger.Views.DialogBoxes
 
         public static readonly DependencyProperty SelectedRoleProperty =
             DependencyProperty.Register("SelectedRole", typeof(MemberRole), typeof(ManageRolesDialog), new PropertyMetadata(null));
+
+        public ObservableCollection<Permissions> SelectablePermissions
+        {
+            get { return (ObservableCollection<Permissions>)GetValue(SelectablePermissionsProperty); }
+            set { SetValue(SelectablePermissionsProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectablePermissionsProperty =
+            DependencyProperty.Register("SelectablePermissions", typeof(ObservableCollection<Permissions>), typeof(ManageRolesDialog), new PropertyMetadata(new ObservableCollection<Permissions>()));
 
         public ManageRolesDialog()
         {
@@ -66,11 +66,16 @@ namespace Messenger.Views.DialogBoxes
                 dialog.MemberRoles.Add(
                     new MemberRole()
                     {
-                        Title = role.Role.ToUpper(),
+                        Title = string.Concat(role.Role.Substring(0, 1).ToUpper(), role.Role.Substring(1)),
                         TeamId = selectedTeam.Id,
                         Permissions = permissions.ToList()
                     });
             }
+
+            MemberRole defaultRole = dialog.MemberRoles.First();
+            defaultRole.Color = dialog.colorPicker.Color;
+            dialog.SelectedRole = defaultRole;
+            dialog.UpdateSelectablePermissions(defaultRole);
 
             return dialog.ShowAsync();
         }
@@ -78,8 +83,6 @@ namespace Messenger.Views.DialogBoxes
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            SelectablePermissions.ItemsSource = Enum.GetNames(typeof(Permissions));
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -88,6 +91,43 @@ namespace Messenger.Views.DialogBoxes
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        }
+
+        private void SelectedPermissions_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MemberRole role = e.AddedItems.Single() as MemberRole;
+            role.Color = colorPicker.Color;
+            SelectedRole = role;
+            SelectablePermissions.Clear();
+
+            UpdateSelectablePermissions(role);
+        }
+
+        public void UpdateSelectablePermissions(MemberRole role)
+        {
+            Array permissions = Enum.GetValues(typeof(Permissions));
+
+            SelectablePermissionsComboBox.Items.Clear();
+
+            foreach (Permissions permission in permissions.Cast<Permissions>().Where(p => !role.Permissions.Any(rp => rp == p)))
+            {
+                SelectablePermissionsComboBox.Items.Add(permission);
+            }
+        }
+
+        private void ColorPickerCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorPickerButton.Flyout.Hide();
+        }
+
+        private void ColorPickerOkButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedRole.Color = colorPicker.Color;
         }
     }
 }

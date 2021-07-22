@@ -6,78 +6,226 @@
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Messenger.Helpers"
     xmlns:models="using:Messenger.Models"
+    xmlns:core="using:Messenger.Core.Models"
     xmlns:icons="using:MahApps.Metro.IconPacks"
+    Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+    CornerRadius="5"
     mc:Ignorable="d"
     PrimaryButtonText="Close"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <ContentDialog.Resources>
+        <converters:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
+        <Flyout
+            x:Key="myColorPickerFlyout"
+            Placement="Right">
+            <RelativePanel>
+                <ColorPicker
+                    x:Name="colorPicker"
+                    IsColorChannelTextInputVisible="True"
+                    IsHexInputVisible="True"
+                    IsAlphaSliderVisible="False"
+                    ColorSpectrumShape="Ring"
+                    MaxWidth="150"
+                    />
+                <Grid
+                    RelativePanel.Below="colorPicker"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Name="ColorPickerOkButton"
+                        Click="ColorPickerOkButton_Click"
+                        Content="OK"
+                        Margin="0,12,2,0"
+                        HorizontalAlignment="Stretch"
+                        />
+                    <Button
+                        Name="ColorPickerCancelButton"
+                        Content="Cancel"
+                        Margin="2,12,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="ColorPickerCancelButton_Click"
+                        Grid.Column="1"
+                        />
+                </Grid>
+            </RelativePanel>
+        </Flyout>
+    </ContentDialog.Resources>
     <Grid
+        Padding="10 5"
         ColumnSpacing="25">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition MaxWidth="250" />
+            <ColumnDefinition MinWidth="300" />
         </Grid.ColumnDefinitions>
         <StackPanel
             Grid.Column="0">
             <StackPanel
-                Spacing="10">
+                Spacing="20">
                 <TextBlock
                     Text="Member Roles"
                     FontSize="24"
                     FontWeight="SemiBold"
                     />
-                <ListBox>
-                    <ListBoxItem>
-                        <StackPanel>
-                            <TextBlock
-                                Text="Admin"
-                                />
-                        </StackPanel>
-                    </ListBoxItem>
+                <ListBox
+                    SelectionMode="Single"
+                    SelectionChanged="ListBox_SelectionChanged"
+                    SelectedItem="{x:Bind
+                        Path=SelectedRole,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{x:Bind
+                        Path=MemberRoles,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="CornerRadius" Value="10" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:MemberRole">
+                            <Grid>
+                                <TextBlock
+                                    Text="{Binding Title}"
+                                    FontWeight="SemiBold"
+                                    />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
         </StackPanel>
         <Grid
             Grid.Column="1">
             <StackPanel
-                Spacing="10">
+                Spacing="20">
                 <TextBlock
                     Text="Permissions"
                     FontSize="24"
                     FontWeight="Thin"
                     Opacity=".55"
                     />
-                <StackPanel
-                    Orientation="Horizontal">
-                    <ComboBox
-                        x:Name="SelectablePermissions"
-                        PlaceholderText="Add Permissions...">
-                    </ComboBox>
-                    <Button
-                        Background="Transparent"
-                        Padding="20 5">
-                        <icons:PackIconFontAwesome
-                            Kind="PlusCircleSolid"
+                <Grid
+                    Padding="0 0 10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        BorderThickness="1"
+                        Padding="10 0"
+                        CornerRadius="3">
+                        <Grid.BorderBrush>
+                            <SolidColorBrush Color="{x:Bind
+                                Path=SelectedRole.Color,
+                                Mode=OneWay}" Opacity=".85" />
+                        </Grid.BorderBrush>
+                        <Grid.Background>
+                            <SolidColorBrush Color="{x:Bind
+                                Path=SelectedRole.Color,
+                                Mode=OneWay}" Opacity=".35" />
+                        </Grid.Background>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{x:Bind
+                                Path=SelectedRole.Color,
+                                Converter={StaticResource ColorToSolidBrushConverter},
+                                Mode=OneWay}"
+                            FontWeight="SemiBold"
+                            FontSize="14"
+                            Text="{x:Bind
+                                SelectedRole.Title,
+                                Mode=OneWay}"
                             />
+                    </Grid>
+                    <Button
+                        Grid.Column="1"
+                        x:Name="ColorPickerButton"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        Flyout="{StaticResource myColorPickerFlyout}">
+                        <Viewbox
+                            Width="18"
+                            Height="18">
+                            <icons:PackIconFontAwesome
+                                Kind="PaletteSolid"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                />
+                        </Viewbox>
                     </Button>
-                </StackPanel>
-                <ScrollViewer>
-                    <ListView
-                        MaxHeight="150"
-                        SelectionMode="Single"
-                        ItemsSource="{Binding
-                            ElementName=manageRolesDialog,
-                            Path=MemberRoles,
-                            Mode=OneWay}"
-                        x:Name="SelectedPermissions">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="models:MemberRole">
+                </Grid>
+                <Grid
+                    Padding="0 0 10 0">
+                    <ComboBox
+                        x:Name="SelectablePermissionsComboBox"
+                        Width="200"
+                        PlaceholderText="Add Permissions...">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="core:Permissions">
                                 <Grid>
                                     <TextBlock
-                                        Text="{Binding Title}"
-                                        FontSize="14"
+                                        Text="{Binding}"
                                         />
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button
+                        HorizontalAlignment="Right"
+                        Opacity=".75"
+                        Background="Transparent">
+                        <Viewbox
+                            Width="16"
+                            Height="16">
+                            <icons:PackIconFontAwesome
+                                Kind="PlusCircleSolid"
+                                />
+                        </Viewbox>
+                    </Button>
+                </Grid>
+                <ScrollViewer>
+                    <ListView
+                        MinHeight="150"
+                        MaxHeight="300"
+                        SelectionMode="Single"
+                        ItemClick="SelectedPermissions_ItemClick"
+                        ItemsSource="{x:Bind
+                            SelectedRole.Permissions,
+                            Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Grid>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="{Binding}"
+                                        FontSize="12"
+                                        />
+                                    <Button
+                                        Background="Transparent"
+                                        Opacity=".35"
+                                        HorizontalAlignment="Right">
+                                        <Viewbox
+                                            Width="14"
+                                            Height="14">
+                                            <icons:PackIconFontAwesome
+                                                Kind="BanSolid"
+                                                />
+                                        </Viewbox>
+                                    </Button>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
