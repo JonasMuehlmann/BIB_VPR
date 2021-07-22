@@ -1,6 +1,8 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers;
 using System.Collections.Generic;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace Messenger.Models
 {
@@ -11,6 +13,8 @@ namespace Messenger.Models
         private IList<Permissions> _permissions;
 
         private uint _teamId;
+
+        private Color _color;
 
         public string Title
         {
@@ -28,6 +32,12 @@ namespace Messenger.Models
         {
             get { return _teamId; }
             set { Set(ref _teamId, value); }
+        }
+
+        public Color Color
+        {
+            get { return _color; }
+            set { Set(ref _color, value); }
         }
 
         public MemberRole()
