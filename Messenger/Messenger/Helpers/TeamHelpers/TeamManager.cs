@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Models;
+using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ namespace Messenger.Helpers.TeamHelpers
         private readonly TeamBuilder _builder;
         private List<TeamViewModel> _myTeams = new List<TeamViewModel>();
         private List<PrivateChatViewModel> _myChats = new List<PrivateChatViewModel>();
-        private UserViewModel _currentUser;
 
         public ReadOnlyCollection<TeamViewModel> MyTeams
         {
@@ -33,93 +33,76 @@ namespace Messenger.Helpers.TeamHelpers
             }
         }
 
-        public UserViewModel CurrentUser
+        public TeamManager()
         {
-            get { return _currentUser; }
-            set { Set(ref _currentUser, value); }
-        }
-
-        public TeamManager(TeamBuilder builder)
-        {
-            _builder = builder;
-        }
-
-        public static TeamManager CreateTeamManager()
-        {
-            TeamFactory factory = new TeamFactory();
-            TeamBuilder builder = new TeamBuilder(factory);
-
-            return new TeamManager(builder);
+            _builder = new TeamBuilder();
+            Clear();
         }
 
         public void Clear()
         {
             _myTeams = new List<TeamViewModel>();
+            _myChats = new List<PrivateChatViewModel>();
         }
 
-        public TeamViewModel GetTeam(uint teamId)
+        public async Task<TeamViewModel> AddOrUpdateTeam(Team teamData)
         {
-            return _myTeams
-                .Where(team => team.Id == teamId)
-                .FirstOrDefault();
-        }
-
-        public PrivateChatViewModel GetChat(uint chatId)
-        {
-            return _myChats
-                .Where(chat => chat.Id == chatId)
-                .FirstOrDefault();
-        }
-
-        public ChannelViewModel GetChannel(uint channelId)
-        {
-            foreach (TeamViewModel team in _myTeams)
-            {
-                foreach (ChannelViewModel channel in team.Channels)
-                {
-                    if (channel.ChannelId == channelId)
-                    {
-                        return channel;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        public async Task<TeamViewModel> AddTeam(Team teamData)
-        {
-            if (!Validate(teamData))
-            {
-                return null;
-            }
-
-            TeamViewModel viewModel = await _builder.Build(teamData, CurrentUser.Id);
+            dynamic viewModel = await _builder.Build(teamData, App.StateProvider.CurrentUser.Id);
 
             if (viewModel is PrivateChatViewModel)
             {
-                PrivateChatViewModel chat = viewModel as PrivateChatViewModel;
-                _myChats.Add(chat);
+                PrivateChatViewModel chatViewModel = viewModel as PrivateChatViewModel;
 
-                return chat;
+                if (!_myChats.Any(chat => chat.Id == chatViewModel.Id))
+                {
+                    _myChats.Add(chatViewModel);
+                }
+                else
+                {
+                    PrivateChatViewModel oldValue = _myChats.SingleOrDefault(e => e.Id == chatViewModel.Id);
+
+                    int index = _myChats.IndexOf(oldValue);
+
+                    _myChats[index] = chatViewModel;
+                }
+
+                return chatViewModel;
             }
             else
             {
-                _myTeams.Add(viewModel);
+                TeamViewModel teamViewModel = viewModel as TeamViewModel;
 
-                return viewModel;
+                if (!_myTeams.Any(team => team.Id == teamViewModel.Id))
+                {
+                    _myTeams.Add(teamViewModel);
+                }
+                else
+                {
+                    TeamViewModel oldValue = _myTeams.SingleOrDefault(e => e.Id == teamViewModel.Id);
+
+                    int index = _myTeams.IndexOf(oldValue);
+
+                    _myTeams[index] = teamViewModel;
+                }
+
+                return teamViewModel;
             }
         }
 
-        public async Task AddTeam(IEnumerable<Team> teamData)
+        public async Task<IList<TeamViewModel>> AddOrUpdateTeam(IEnumerable<Team> teamData)
         {
+            List<TeamViewModel> result = new List<TeamViewModel>();
+
             foreach (Team data in teamData)
             {
-                await AddTeam(data);
+                TeamViewModel viewModel = await AddOrUpdateTeam(data);
+                result.Add(viewModel);
             }
+
+            return result;
         }
 
-        public ChannelViewModel AddChannel(Channel channelData)
+        public ChannelViewModel AddOrUpdateChannel(Channel channelData)
         {
             foreach (TeamViewModel teamViewModel in _myTeams)
             {
@@ -127,7 +110,16 @@ namespace Messenger.Helpers.TeamHelpers
                 {
                     ChannelViewModel viewModel = _builder.Map(channelData);
 
-                    teamViewModel.Channels.Add(viewModel);
+                    if (!teamViewModel.Channels.Any(channel => channel.ChannelId == viewModel.ChannelId))
+                    {
+                        teamViewModel.Channels.Add(viewModel);
+                    }
+                    else
+                    {
+                        int index = teamViewModel.Channels.IndexOf(viewModel);
+
+                        teamViewModel.Channels[index] = viewModel;
+                    }
 
                     return viewModel;
                 }
@@ -136,28 +128,26 @@ namespace Messenger.Helpers.TeamHelpers
             return null;
         }
 
-        public async Task<IList<Member>> AddMember(uint teamId, IEnumerable<User> userData)
+        public IList<ChannelViewModel> AddOrUpdateChannel(IEnumerable<Channel> channelData)
         {
-            List<Member> members = new List<Member>();
+            IList<ChannelViewModel> result = new List<ChannelViewModel>();
 
-            foreach (User data in userData)
+            foreach (Channel channel in channelData)
             {
-                Member member = await AddMember(teamId, data);
-
-                members.Add(member);
+                result.Add(AddOrUpdateChannel(channel));
             }
 
-            return members;
+            return result;
         }
 
-        public async Task<Member> AddMember(uint teamId, User userData)
+        public async Task<MemberViewModel> AddOrUpdateMember(uint teamId, User userData)
         {
             foreach (TeamViewModel teamViewModel in _myTeams)
             {
                 if (teamViewModel.Id == teamId)
                 {
-                    Member member = _builder.Map(userData);
-                    IList<MemberRole> memberRoles = await _builder.GetMemberRoles(teamId, member);
+                    MemberViewModel member = _builder.Map(userData);
+                    IList<MemberRole> memberRoles = await _builder.WithMemberRoles(teamId, member);
 
                     if (memberRoles != null && memberRoles.Count > 0)
                     {
@@ -167,7 +157,18 @@ namespace Messenger.Helpers.TeamHelpers
                         }
                     }
 
-                    teamViewModel.Members.Add(member);
+                    if (!teamViewModel.Members.Any(m => m.Id == member.Id))
+                    {
+                        teamViewModel.Members.Add(member);
+                    }
+                    else
+                    {
+                        MemberViewModel oldValue = teamViewModel.Members.SingleOrDefault(m => m.Id == member.Id);
+
+                        int index = teamViewModel.Members.IndexOf(oldValue);
+
+                        teamViewModel.Members[index] = member;
+                    }
 
                     return member;
                 }
@@ -176,21 +177,64 @@ namespace Messenger.Helpers.TeamHelpers
             return null;
         }
 
-        public void RemoveTeam(uint id)
+        public async Task<IList<MemberViewModel>> AddOrUpdateMember(uint teamId, IEnumerable<User> userData)
         {
-            IEnumerable<TeamViewModel> removed =
-                _myTeams
-                .TakeWhile((team) => team.Id != id);
+            List<MemberViewModel> members = new List<MemberViewModel>();
 
-            _myTeams = removed.ToList();
+            foreach (User data in userData)
+            {
+                MemberViewModel member = await AddOrUpdateMember(teamId, data);
+
+                members.Add(member);
+            }
+
+            return members;
         }
 
-        private bool Validate(Team teamData)
+        public TeamViewModel RemoveTeam(uint teamId)
         {
-            bool isValid = teamData != null
-                && teamData.Id > 0;
+            TeamViewModel viewModel = _myTeams.Single(team => team.Id == teamId);
 
-            return isValid;
+            if (viewModel == null)
+            {
+                return null;
+            }
+
+            _myTeams.Remove(viewModel);
+
+            return viewModel;
+        }
+
+        public ChannelViewModel RemoveChannel(uint channelId)
+        {
+            ChannelViewModel channelViewModel = _myTeams.SelectMany(team => team.Channels).SingleOrDefault(channel => channel.ChannelId == channelId);
+
+            TeamViewModel teamViewModel = _myTeams.SingleOrDefault(team => team.Id == channelViewModel.TeamId);
+
+            teamViewModel.Channels.Remove(channelViewModel);
+
+            return channelViewModel;
+        }
+
+        public MemberViewModel RemoveMember(uint teamId, string userId)
+        {
+            TeamViewModel teamViewModel = _myTeams.Single(team => team.Id == teamId);
+
+            if (teamViewModel == null)
+            {
+                return null;
+            }
+
+            MemberViewModel memberViewModel = teamViewModel.Members.Single(member => member.Id == userId);
+
+            if (memberViewModel == null)
+            {
+                return null;
+            }
+
+            teamViewModel.Members.Remove(memberViewModel);
+
+            return memberViewModel;
         }
     }
 }
