@@ -74,11 +74,6 @@
                     <i:BehaviorCollection>
                         <behaviors:TreeViewCollapseBehavior
                             x:Name="collapseBehavior" />
-                        <ic:EventTriggerBehavior
-                            EventName="ItemInvoked">
-                            <ic:InvokeCommandAction
-                                Command="{x:Bind ViewModel.SwitchChatCommand}" />
-                        </ic:EventTriggerBehavior>
                     </i:BehaviorCollection>
                 </Setter.Value>
             </Setter>
@@ -158,10 +153,10 @@
                     x:Name="treeView"
                     Style="{StaticResource TeamTreeViewStyle}"
                     Grid.Row="1"
+                    ItemInvoked="treeView_ItemInvoked"
                     ItemsSource="{x:Bind
                         ViewModel.Chats,
-                        UpdateSourceTrigger=PropertyChanged,
-                        Mode=TwoWay}"
+                        Mode=OneWay}"
                     ItemTemplate="{StaticResource ChatTemplate}"
                     />
             </StackPanel>
