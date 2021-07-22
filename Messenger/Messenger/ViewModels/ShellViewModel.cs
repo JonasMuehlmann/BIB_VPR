@@ -17,39 +17,9 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private TeamViewModel _currentTeam;
-
         private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
-        private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
-
         #endregion
-
-        public TeamViewModel CurrentTeam
-        {
-            get
-            {
-                return _currentTeam;
-            }
-            set
-            {
-                Set(ref _currentTeam, value);
-            }
-        }
-
-        private string _currentPageName;
-
-        public string CurrentPageName
-        {
-            get
-            {
-                return _currentPageName;
-            }
-            set
-            {
-                Set(ref _currentPageName, value);
-            }
-        }
 
         #region Commands
 
@@ -69,26 +39,6 @@ namespace Messenger.ViewModels
         public void Initialize()
         {
             IdentityService.LoggedOut += OnLoggedOut;
-            ChatHubService.TeamSwitched += OnTeamSwitched;
-            ChatHubService.TeamUpdated += OnTeamUpdated;
-        }
-
-        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
-        {
-            var team = ChatHubService.SelectedTeam;
-
-            if (team == null)
-            {
-                return;
-            }
-
-            CurrentTeam = team;
-        }
-
-        private void OnTeamUpdated(object sender, TeamViewModel team)
-        {
-            CurrentTeam = null;
-            CurrentTeam = team;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
