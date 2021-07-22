@@ -16,18 +16,18 @@ namespace Messenger.Helpers.TeamHelpers
     {
         private readonly TeamFactory _factory;
 
-        public TeamBuilder(TeamFactory factory)
+        public TeamBuilder()
         {
-            _factory = factory;
+            _factory = new TeamFactory();
         }
 
         public async Task<TeamViewModel> Build(Team team, string userId)
         {
             TeamViewModel viewModel = _factory.CreateBaseViewModel(team);
 
-            var withMembers = await LoadMembers(viewModel, userId);
+            var withMembers = await WithMembers(viewModel, userId);
 
-            var withChannels = await LoadChannels(withMembers);
+            var withChannels = await WithChannels(withMembers);
 
             return _factory.GetViewModel(withChannels);
         }
@@ -50,23 +50,25 @@ namespace Messenger.Helpers.TeamHelpers
         /// </summary>
         /// <param name="team">Team object to reference to</param>
         /// <param name="members">List of members to set</param>
-        private async Task<TeamViewModel> LoadMembers(TeamViewModel viewModel, string currentUserId)
+        private async Task<TeamViewModel> WithMembers(TeamViewModel viewModel, string currentUserId)
         {
-            var members = await MessengerService.LoadTeamMembers((uint)viewModel.Id);
+            var members = await MessengerService.GetTeamMembers(viewModel.Id);
 
             if (string.IsNullOrEmpty(viewModel.TeamName)) // Is private chat
             {
                 var chatPartner = Map(members.Where(m => m.Id != currentUserId));
 
-                viewModel.Members = new ObservableCollection<Member>(chatPartner);
+                viewModel.Members = new ObservableCollection<MemberViewModel>(chatPartner);
             }
             else
             {
-                List<Member> mapped = Map(members).ToList();
+                List<MemberViewModel> mapped = Map(members).ToList();
 
-                foreach (Member member in mapped)
+                foreach (MemberViewModel member in mapped)
                 {
-                    IList<MemberRole> roles = await GetMemberRoles((uint)viewModel.Id, member);
+                    member.TeamId = viewModel.Id;
+
+                    IList<MemberRole> roles = await WithMemberRoles(viewModel.Id, member);
 
                     if (roles != null)
                     {
@@ -74,13 +76,13 @@ namespace Messenger.Helpers.TeamHelpers
                     }
                 }
 
-                viewModel.Members = new ObservableCollection<Member>(mapped);
+                viewModel.Members = new ObservableCollection<MemberViewModel>(mapped);
             }
 
             return viewModel;
         }
 
-        public async Task<IList<MemberRole>> GetMemberRoles(uint teamId, Member member)
+        public async Task<IList<MemberRole>> WithMemberRoles(uint teamId, MemberViewModel member)
         {
             List<MemberRole> memberRoles = new List<MemberRole>();
 
@@ -112,7 +114,7 @@ namespace Messenger.Helpers.TeamHelpers
         /// </summary>
         /// <param name="viewModel">ViewModel of the team</param>
         /// <returns>TeamViewModel with updated channels</returns>
-        public async Task<TeamViewModel> LoadChannels(TeamViewModel viewModel)
+        public async Task<TeamViewModel> WithChannels(TeamViewModel viewModel)
         {
             var channels = await MessengerService.GetChannelsForTeam((uint)viewModel.Id);
 
@@ -130,12 +132,12 @@ namespace Messenger.Helpers.TeamHelpers
             return viewModel;
         }
 
-        public async Task<TeamViewModel> LoadChannels(uint teamId, string userId)
+        public async Task<TeamViewModel> WithChannels(uint teamId, string userId)
         {
             Team team = await MessengerService.GetTeam(teamId);
             TeamViewModel viewModel = await Build(team, userId);
 
-            return await LoadChannels(viewModel);
+            return await WithChannels(viewModel);
         }
 
         public ChannelViewModel Map(Channel channel)
@@ -148,14 +150,14 @@ namespace Messenger.Helpers.TeamHelpers
             };
         }
 
-        public Member Map(User user)
+        public MemberViewModel Map(User user)
         {
             if (user == null)
             {
                 return null;
             }
 
-            return new Member()
+            return new MemberViewModel()
             {
                 Id = user.Id,
                 Name = user.DisplayName,
@@ -166,7 +168,7 @@ namespace Messenger.Helpers.TeamHelpers
             };
         }
 
-        private IEnumerable<Member> Map(IEnumerable<User> users)
+        private IEnumerable<MemberViewModel> Map(IEnumerable<User> users)
         {
             return users.Select(Map);
         }

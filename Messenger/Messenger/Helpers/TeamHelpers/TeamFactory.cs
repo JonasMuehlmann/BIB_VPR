@@ -15,7 +15,7 @@ namespace Messenger.Helpers.TeamHelpers
                 TeamName = data.Name,
                 Description = data.Description,
                 CreationDate = data.CreationDate,
-                Members = new ObservableCollection<Member>(),
+                Members = new ObservableCollection<MemberViewModel>(),
                 Channels = new ObservableCollection<ChannelViewModel>()
             };
         }
