@@ -21,22 +21,16 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="message">Message data model to be converted</param>
         /// <returns>A complete MessageViewModel object</returns>
-        public async Task<MessageViewModel> Build(Message message, UserViewModel currentUser)
+        public async Task<MessageViewModel> Build(Message message)
         {
             MessageViewModel vm = Map(message);
+            vm.IsMyMessage = App.StateProvider.CurrentUser.Id == vm.SenderId;
 
-            vm = await AssignReaction(vm);
-
-            if (vm.Reactions.Count > 0)
-            {
-                MarkMyReaction(ref vm, currentUser.Id);
-            }
-
-            vm.IsMyMessage = currentUser.Id == vm.SenderId;
+            vm = await WithReactions(vm);
 
             if (vm.Sender == null)
             {
-                vm = await GetSender(vm);
+                vm = await WithSender(vm);
             }
 
             return vm;
@@ -47,13 +41,13 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="messages">Message data models to be converted</param>
         /// <returns>List of complete MessageViewModel objects</returns>
-        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages, UserViewModel currentUser)
+        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages)
         {
             var result = new List<MessageViewModel>();
 
             foreach (Message message in messages)
             {
-                result.Add(await Build(message, currentUser));
+                result.Add(await Build(message));
             }
 
             return result;
@@ -64,13 +58,15 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="viewModel">MessageViewModel to load reactions for</param>
         /// <returns>MessageViewModel with the list of reactions</returns>
-        public async Task<MessageViewModel> AssignReaction(MessageViewModel viewModel)
+        public async Task<MessageViewModel> WithReactions(MessageViewModel viewModel)
         {
             // Loads the latest reactions made on the message
             var reactions = await MessengerService.GetReactions((uint)viewModel.Id);
             if (reactions != null && reactions.Count() > 0)
             {
                 viewModel.Reactions = new ObservableCollection<Reaction>(reactions);
+                UserViewModel currentUser = App.StateProvider.CurrentUser;
+                MarkMyReaction(ref viewModel, currentUser.Id);
             }
             else
             {
@@ -86,7 +82,7 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="viewModels">List of MessageViewModel to sort</param>
         /// <returns>List of parent messages with assigned replies</returns>
-        public IList<MessageViewModel> AssignReplies(IEnumerable<MessageViewModel> viewModels)
+        public IList<MessageViewModel> WithReplies(IEnumerable<MessageViewModel> viewModels)
         {
             List<MessageViewModel> parents = new List<MessageViewModel>();
             List<MessageViewModel> replies = new List<MessageViewModel>();
@@ -118,7 +114,7 @@ namespace Messenger.Helpers.MessageHelpers
             return parents;
         }
 
-        private async Task<MessageViewModel> GetSender(MessageViewModel viewModel)
+        private async Task<MessageViewModel> WithSender(MessageViewModel viewModel)
         {
             User sender = await UserService.GetUser(viewModel.SenderId);
 
