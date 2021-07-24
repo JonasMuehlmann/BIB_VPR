@@ -83,7 +83,6 @@ namespace Messenger.Core.Helpers
                 Id              = SqlHelpers.TryConvertDbValue(row["MessageId"], Convert.ToUInt32),
                 SenderId        = SqlHelpers.TryConvertDbValue(row["SenderId"], Convert.ToString),
                 RecipientId     = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToUInt32),
-                TeamId          = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32),
                 Content         = SqlHelpers.TryConvertDbValue(row["Message"], Convert.ToString),
                 CreationTime    = SqlHelpers.TryConvertDbValue(row["CreationDate"].ToString(), Convert.ToDateTime),
                 ParentMessageId = SqlHelpers.TryConvertDbValue(row["ParentMessageId"], Convert.ToUInt32),
