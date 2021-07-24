@@ -78,9 +78,9 @@ namespace Messenger.SignalR
         /// </summary>
         /// <param name="message">A complete message object to be sent</param>
         /// <returns>Task to be awaited</returns>
-        public async Task SendMessage(Message message)
+        public async Task SendMessage(Message message, string teamId)
         {
-            await Clients.Group(message.TeamId.ToString()).SendAsync("ReceiveMessage", message);
+            await Clients.Group(teamId).SendAsync("ReceiveMessage", message);
         }
 
         /// <summary>
@@ -88,24 +88,24 @@ namespace Messenger.SignalR
         /// </summary>
         /// <param name="message">A complete message object to be sent</param>
         /// <returns>Task to be awaited</returns>
-        public async Task UpdateMessage(Message message)
+        public async Task UpdateMessage(Message message, string teamId)
         {
-            await Clients.Group(message.TeamId.ToString()).SendAsync("MessageUpdated", message);
+            await Clients.Group(teamId).SendAsync("MessageUpdated", message);
         }
         
-        public async Task CreateMessageReaction(Message message, Reaction reaction)
+        public async Task CreateMessageReaction(Message message, string teamId, Reaction reaction)
         {
-            await Clients.Group(message.TeamId.ToString()).SendAsync("MessageReactionCreated", message, reaction);
+            await Clients.Group(teamId).SendAsync("MessageReactionCreated", message, reaction);
         }
 
-        public async Task DeleteMessageReaction(Message message, Reaction reaction)
+        public async Task DeleteMessageReaction(Message message, string teamId, Reaction reaction)
         {
-            await Clients.Group(message.TeamId.ToString()).SendAsync("MessageReactionDeleted", message, reaction);
+            await Clients.Group(teamId).SendAsync("MessageReactionDeleted", message, reaction);
         }
 
-        public async Task DeleteMessage(Message message)
+        public async Task DeleteMessage(Message message, string teamId)
         {
-            await Clients.Group(message.TeamId.ToString()).SendAsync("MessageDeleted", message);
+            await Clients.Group(teamId).SendAsync("MessageDeleted", message);
         }
 
         #endregion
