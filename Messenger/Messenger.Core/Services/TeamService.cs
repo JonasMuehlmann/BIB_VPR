@@ -434,7 +434,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <returns>Id of the added team role</returns>
-        public static async Task<uint> AddRole(string role, uint teamId)
+        public static async Task<uint?> AddRole(string role, uint teamId)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","AddRole");
@@ -459,7 +459,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<uint> RemoveRole(string role, uint teamId)
+        public static async Task<uint?> RemoveRole(string role, uint teamId)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","RemoveRole");
