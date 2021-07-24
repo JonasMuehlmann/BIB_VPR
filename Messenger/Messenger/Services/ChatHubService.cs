@@ -226,10 +226,9 @@ namespace Messenger.Services
             LogContext.PushProperty("SourceContext", GetType().Name);
 
             message.SenderId = App.StateProvider.CurrentUser.Id;
-            message.TeamId = App.StateProvider.SelectedTeam.Id;
             message.RecipientId = App.StateProvider.SelectedChannel.ChannelId;
 
-            bool isSuccess = await MessengerService.SendMessage(message);
+            bool isSuccess = await MessengerService.SendMessage(message, App.StateProvider.SelectedTeam.Id);
 
             logger.Information($"Return value: {isSuccess}");
 
@@ -253,7 +252,7 @@ namespace Messenger.Services
                 return false;
             }
 
-            bool isSuccess = await MessengerService.UpdateMessage(messageId, newContent);
+            bool isSuccess = await MessengerService.UpdateMessage(messageId, newContent, App.StateProvider.SelectedTeam.Id);
 
             logger.Information($"Return value: {isSuccess}");
 
@@ -276,7 +275,7 @@ namespace Messenger.Services
                 return false;
             }
 
-            bool isSuccess = await MessengerService.DeleteMessage(messageId);
+            bool isSuccess = await MessengerService.DeleteMessage(messageId, App.StateProvider.SelectedTeam.Id);
 
             logger.Information($"Return value: {isSuccess}");
 
@@ -296,7 +295,7 @@ namespace Messenger.Services
             LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
-            Reaction reaction = await MessengerService.CreateMessageReaction(messageId, App.StateProvider.CurrentUser.Id, type.ToString());
+            Reaction reaction = await MessengerService.CreateMessageReaction(messageId, App.StateProvider.CurrentUser.Id, App.StateProvider.SelectedTeam.Id, type.ToString());
 
             logger.Information($"Return value: {reaction}");
 
@@ -316,7 +315,7 @@ namespace Messenger.Services
             LogContext.PushProperty("Method", $"{nameof(MakeReaction)}");
             LogContext.PushProperty("SourceContext", GetType().Name);
 
-            Reaction reaction = await MessengerService.DeleteMessageReaction(messageId, App.StateProvider.CurrentUser.Id, type.ToString());
+            Reaction reaction = await MessengerService.DeleteMessageReaction(messageId, App.StateProvider.CurrentUser.Id, App.StateProvider.SelectedTeam.Id, type.ToString());
 
             logger.Information($"Return value: {reaction}");
 
