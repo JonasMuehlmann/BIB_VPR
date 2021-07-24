@@ -34,7 +34,7 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
@@ -59,7 +59,7 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
@@ -87,7 +87,7 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
@@ -120,7 +120,7 @@ namespace Messenger.Tests.MSTest
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
                 Assert.IsNotNull(mentionId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, userId, $"{testName}Message @{mentionId.Value}");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, $"{testName}Message @{mentionId.Value}");
                 Assert.IsNotNull(messageId);
 
                 var messageOriginal = (await MessageService.GetMessage(messageId.Value)).Content;
@@ -150,7 +150,7 @@ namespace Messenger.Tests.MSTest
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
                 Assert.IsNotNull(mentionId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, userId, $"@{mentionId.Value} {testName}Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, $"@{mentionId.Value} {testName}Message");
                 Assert.IsNotNull(messageId);
 
                 var messageOriginal = (await MessageService.GetMessage(messageId.Value)).Content;
@@ -180,7 +180,7 @@ namespace Messenger.Tests.MSTest
                 uint? mentionId = await MentionService.CreateMention(MentionTarget.User, userId);
                 Assert.IsNotNull(mentionId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, userId, $"{testName} @{mentionId.Value} Message");
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, $"{testName} @{mentionId.Value} Message");
                 Assert.IsNotNull(messageId);
 
                 var messageOriginal = (await MessageService.GetMessage(messageId.Value)).Content;
@@ -402,7 +402,7 @@ namespace Messenger.Tests.MSTest
 
                 foreach (var message in messageWantedTeam)
                 {
-                    var messageId = await MessageService.CreateMessage(channelIdWanted.Value, (uint)teamIdWanted, userId, message);
+                    var messageId = await MessageService.CreateMessage(channelIdWanted.Value, userId, message);
                     Assert.IsNotNull(messageId);
 
                     messageIdsWanted.Add(messageId.Value);
@@ -410,7 +410,7 @@ namespace Messenger.Tests.MSTest
 
                 foreach (var message in messageOtherTeam)
                 {
-                    Assert.IsNotNull(await MessageService.CreateMessage(channelIdOther.Value, (uint)teamIdWanted, userId, message));
+                    Assert.IsNotNull(await MessageService.CreateMessage(channelIdOther.Value, userId, message));
                 }
 
                 var matchedMentionables = await MentionService.SearchMentionable($"m:{messageIdsWanted[0]}", teamIdWanted.Value);

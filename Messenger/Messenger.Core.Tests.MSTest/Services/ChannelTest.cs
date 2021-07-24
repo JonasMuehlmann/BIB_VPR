@@ -112,7 +112,7 @@ namespace Messenger.Tests.MSTest
                 var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, testName + "User", testName + "Text");
+                var messageId = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Text");
                 Assert.IsNotNull(messageId);
 
                 var didPinMessage = await ChannelService.PinMessage(messageId.Value, channelId.Value);
@@ -141,7 +141,7 @@ namespace Messenger.Tests.MSTest
                 var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var messageId = await MessageService.CreateMessage(channelId.Value, (uint)teamId, testName + "User", testName + "Text");
+                var messageId = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Text");
                 Assert.IsNotNull(messageId);
 
                 var didPinMessage = await ChannelService.PinMessage(messageId.Value, channelId.Value);
