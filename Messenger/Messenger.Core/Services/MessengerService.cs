@@ -790,8 +790,8 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            uint roledId = await TeamService.AddRole(role, teamId);
-            TeamRole teamRole = await TeamService.GetRole(roledId);
+            uint? roledId = await TeamService.AddRole(role, teamId);
+            TeamRole teamRole = await TeamService.GetRole((uint)roledId);
 
             if (teamRole == null)
             {
@@ -817,8 +817,8 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            uint roleId = await TeamService.RemoveRole(role, teamId);
-            TeamRole teamRole = await TeamService.GetRole(roleId);
+            uint? roleId = await TeamService.RemoveRole(role, teamId);
+            TeamRole teamRole = await TeamService.GetRole((uint)roleId);
 
             if (teamRole == null)
             {
