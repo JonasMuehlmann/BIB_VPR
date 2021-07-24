@@ -21,8 +21,6 @@ namespace Messenger.Core.Models
         /// </summary>
         public uint RecipientId { get; set; }
 
-        public uint TeamId { get; set; }
-
         /// <summary>
         /// Null in case of a Top-level message
         /// </summary>
