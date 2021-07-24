@@ -199,14 +199,14 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">A complete message object to be sent</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task SendMessage(Message message)
+        public static async Task SendMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}");
 
-            await _connection.SendAsync("SendMessage", message);
+            await _connection.SendAsync("SendMessage", message, teamId.ToString());
 
             logger.Information($"Sent message #{message.Id} to the channel #{message.RecipientId}");
         }
@@ -216,50 +216,50 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">The updated message object</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task UpdateMessage(Message message)
+        public static async Task UpdateMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "UpdateMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}");
 
-            await _connection.SendAsync("UpdateMessage", message);
+            await _connection.SendAsync("UpdateMessage", message, teamId.ToString());
 
             logger.Information($"Updated message #{message.Id} from the channel #{message.RecipientId}");
         }
 
-        public static async Task DeleteMessage(Message message)
+        public static async Task DeleteMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}");
 
-            await _connection.SendAsync("DeleteMessage", message);
+            await _connection.SendAsync("DeleteMessage", message, teamId.ToString());
 
             logger.Information($"Deleted message #{message.Id} from the channel #{message.RecipientId}");
         }
 
-        public static async Task CreateMessageReaction(Message message, Reaction reaction)
+        public static async Task CreateMessageReaction(Message message, uint teamId, Reaction reaction)
         {
             LogContext.PushProperty("Method", "CreateMessageReaction");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}, reaction={reaction}");
 
-            await _connection.SendAsync("CreateMessageReaction", message, reaction);
+            await _connection.SendAsync("CreateMessageReaction", message, teamId.ToString(), reaction);
 
             logger.Information($"Created reaction #{reaction.Id} to the message #{message.Id} from the channel #{message.RecipientId}");
         }
 
-        public static async Task DeleteMessageReaction(Message message, Reaction reaction)
+        public static async Task DeleteMessageReaction(Message message, uint teamId, Reaction reaction)
         {
             LogContext.PushProperty("Method", "DeleteMessageReaction");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}, reaction={reaction}");
 
-            await _connection.SendAsync("DeleteMessageReaction", message, reaction);
+            await _connection.SendAsync("DeleteMessageReaction", message, teamId.ToString(), reaction);
 
             logger.Information($"Deleted reaction #{reaction.Id} from the message #{message.Id} from the channel #{message.RecipientId}");
         }
