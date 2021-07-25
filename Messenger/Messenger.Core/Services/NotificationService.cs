@@ -95,22 +95,29 @@ namespace Messenger.Core.Services
         /// <param name="notificationSourceValue">
         /// The name of the notification source to muted
         /// </param>
+        /// <param name="userId">The id of the user muting the notification</param>
+        /// <param name="senderId">
+        /// The id of the sender of notifications to be muted
+        /// </param>
         /// <returns>The id of the Notification mute on success, null otherwise</returns>
-        public static async Task<uint?> AddMute(NotificationType notificationType, NotificationSource notificationSourceType, string notificationSourceValue, string userId)
+        public static async Task<uint?> AddMute(NotificationType notificationType, NotificationSource notificationSourceType, string notificationSourceValue, string userId, string senderId = null)
         {
             LogContext.PushProperty("Method","AddMute");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters notificationType={notificationType.ToString()}, notificationSourceType={notificationSourceType.ToString()}, notificationSourceValue={notificationSourceValue}, userId={userId}");
 
+            senderId = senderId is null ? "NULL" : $"'{senderId}'";
+
             string query = $@"
                                 INSERT INTO
                                     NotificationMutes
                                 VALUES(
-                                        NotificationType = '{notificationType.ToString()}',
-                                        NotificationSourceType = '{notificationSourceType.ToString()}',
-                                        NotificationSourceValue = '{notificationSourceValue.ToString()}',
-                                        UserId = '{userId}'
+                                        '{notificationType.ToString()}',
+                                        '{notificationSourceType.ToString()}',
+                                        '{notificationSourceValue.ToString()}',
+                                        '{userId}',
+                                         {senderId}
                                       );
 
                                 SELECT SCOPE_IDENTITY();
@@ -180,39 +187,55 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters message={message}, userId={userId}");
 
-            NotificationType notificationType         = message["NotificationType"].ToObject<NotificationType>();
-            NotificationSource notificationSourceType = message["NotificationSourceType"].ToObject<NotificationSource>();
-            string notificationSourceValue            = message["NotificationSourceValue"].ToObject<string>();
-            string senderId;
+            NotificationType notificationType         = message["notificationType"].ToObject<NotificationType>();
+            NotificationSource notificationSourceType = message["notificationSource"].ToObject<NotificationSource>();
+
+            string notificationSourceValue = null;
+            string senderId = null;
+            uint messageId;
 
             switch (notificationType)
             {
                 case NotificationType.UserMentioned:
-                    var mentionId = message["mentionId"].ToObject<uint>();
-                    senderId = (await MentionService.RetrieveMention(mentionId)).MentionerId;
+                    var mentionId           = message["mentionId"].ToObject<uint>();
+                    senderId                = (await MentionService.RetrieveMention(mentionId)).MentionerId;
+                    notificationSourceValue = message["channelId"].ToObject<string>();
                     break;
 
                 case NotificationType.MessageInSubscribedChannel:
+                    messageId               = message["messageId"].ToObject<uint>();
+                    senderId                = (await MessageService.GetMessage(messageId)).SenderId;
+                    notificationSourceValue = message["channelId"].ToObject<string>();
+                    break;
+
                 case NotificationType.MessageInSubscribedTeam:
+                    messageId               = message["messageId"].ToObject<uint>();
+                    senderId                = (await MessageService.GetMessage(messageId)).SenderId;
+                    notificationSourceValue = message["teamId"].ToObject<string>();
+                    break;
+
                 case NotificationType.MessageInPrivateChat:
-                    var messageId = message["messageId"].ToObject<uint>();
-                    senderId = (await MessageService.GetMessage(messageId)).SenderId;
+                    messageId               = message["messageId"].ToObject<uint>();
+                    senderId                = (await MessageService.GetMessage(messageId)).SenderId;
+                    notificationSourceValue = message["channelId"].ToObject<string>();
                     break;
 
                 case NotificationType.ReactionToMessage:
                     var reactionId = message["reactionId"].ToObject<uint>();
-                    senderId = (await MessageService.GetReaction(reactionId)).UserId;
+                    senderId       = (await MessageService.GetReaction(reactionId)).UserId;
                     break;
 
-                default:
-                    senderId = null;
+                case NotificationType.InvitedToTeam:
+                    notificationSourceValue = message["teamId"].ToObject<string>();
+                    break;
+
+                case NotificationType.RemovedFromTeam:
+                    notificationSourceValue = message["teamId"].ToObject<string>();
                     break;
             }
 
-
-
-
-            var senderIdQueryFragment = senderId is null ? "NULL" : "'{senderId}'";
+            var senderIdQueryFragment = senderId is null ? "NULL" : $"'{senderId}'";
+            var notificationSourceValueQueryFragment = notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
 
             var query = $@"
                             SELECT
@@ -231,7 +254,7 @@ namespace Messenger.Core.Services
                                 SenderId = {senderIdQueryFragment};
                 ";
 
-            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean);
+            return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
         }
     }
 }
