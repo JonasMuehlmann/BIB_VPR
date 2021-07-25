@@ -148,7 +148,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to get mutes for</param>
         /// </param>
         /// <returns>An IList of NotificationMute objects representing the usera's mutes</returns>
-        public static async Task<IList<NotificationMute>>  GetUsersMutes(string userId)
+        public static async Task<IList<NotificationMute>> GetUsersMutes(string userId)
         {
             LogContext.PushProperty("Method","GetUsersMutes");
             LogContext.PushProperty("SourceContext", "NotificationService");
@@ -167,5 +167,71 @@ namespace Messenger.Core.Services
             return await SqlHelpers.MapToList(Mapper.NotificationMuteFromDataRow, query);
         }
 
+        /// <summary>
+        /// Check whether a notification can be sent to a user
+        /// </summary>
+        /// <param name="userId">The id of the notification receiver</param>
+        /// </param>
+        /// <returns>True if the notification can be sent, false otherwise</returns>
+        public static async Task<bool> CanSendNotification(JObject message, string userId)
+        {
+            LogContext.PushProperty("Method","CanSendNotification");
+            LogContext.PushProperty("SourceContext", "NotificationService");
+
+            logger.Information($"Function called with parameters message={message}, userId={userId}");
+
+            NotificationType notificationType         = message["NotificationType"].ToObject<NotificationType>();
+            NotificationSource notificationSourceType = message["NotificationSourceType"].ToObject<NotificationSource>();
+            string notificationSourceValue            = message["NotificationSourceValue"].ToObject<string>();
+            string senderId;
+
+            switch (notificationType)
+            {
+                case NotificationType.UserMentioned:
+                    var mentionId = message["mentionId"].ToObject<uint>();
+                    senderId = (await MentionService.RetrieveMention(mentionId)).MentionerId;
+                    break;
+
+                case NotificationType.MessageInSubscribedChannel:
+                case NotificationType.MessageInSubscribedTeam:
+                case NotificationType.MessageInPrivateChat:
+                    var messageId = message["messageId"].ToObject<uint>();
+                    senderId = (await MessageService.GetMessage(messageId)).SenderId;
+                    break;
+
+                case NotificationType.ReactionToMessage:
+                    var reactionId = message["reactionId"].ToObject<uint>();
+                    senderId = (await MessageService.GetReaction(reactionId)).UserId;
+                    break;
+
+                default:
+                    senderId = null;
+                    break;
+            }
+
+
+
+
+            var senderIdQueryFragment = senderId is null ? "NULL" : "'{senderId}'";
+
+            var query = $@"
+                            SELECT
+                                COUNT(*)
+                            FROM
+                                NotificationMutes
+                            WHERE
+                                NotificationType = '{notificationType}'
+                                AND
+                                NotificationSourceType = '{notificationSourceType}'
+                                AND
+                                NotificationSourceValue = '{notificationSourceValue}'
+                                AND
+                                UserId = '{userId}'
+                                AND
+                                SenderId = {senderIdQueryFragment};
+                ";
+
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean);
+        }
     }
 }
