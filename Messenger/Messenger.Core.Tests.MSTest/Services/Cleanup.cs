@@ -10,6 +10,7 @@ namespace Messenger.Tests.MSTest
         {
             // Reset DB
             string query = @"
+                                DELETE FROM NotificationMutes;
                                 DELETE FROM Notifications;
                                 DELETE FROM Mentions;
                                 DELETE FROM PinnedMessages;
@@ -23,16 +24,17 @@ namespace Messenger.Tests.MSTest
                                 DELETE FROM Teams;
                                 DELETE FROM Users;
 
-                                DBCC CHECKIDENT (Notifications,    RESEED, 0);
-                                DBCC CHECKIDENT (Mentions,         RESEED, 0);
-                                DBCC CHECKIDENT (Memberships,      RESEED, 0);
-                                DBCC CHECKIDENT (Messages,         RESEED, 0);
-                                DBCC CHECKIDENT (Channels,         RESEED, 0);
-                                DBCC CHECKIDENT (Team_roles,       RESEED, 0);
-                                DBCC CHECKIDENT (User_roles,       RESEED, 0);
-                                DBCC CHECKIDENT (Role_permissions, RESEED, 0);
-                                DBCC CHECKIDENT (Reactions,        RESEED, 0);
-                                DBCC CHECKIDENT (Teams,            RESEED, 0);
+                                DBCC CHECKIDENT (NotificationMutes,    RESEED, 0);
+                                DBCC CHECKIDENT (Notifications,        RESEED, 0);
+                                DBCC CHECKIDENT (Mentions,             RESEED, 0);
+                                DBCC CHECKIDENT (Memberships,          RESEED, 0);
+                                DBCC CHECKIDENT (Messages,             RESEED, 0);
+                                DBCC CHECKIDENT (Channels,             RESEED, 0);
+                                DBCC CHECKIDENT (Team_roles,           RESEED, 0);
+                                DBCC CHECKIDENT (User_roles,           RESEED, 0);
+                                DBCC CHECKIDENT (Role_permissions,     RESEED, 0);
+                                DBCC CHECKIDENT (Reactions,            RESEED, 0);
+                                DBCC CHECKIDENT (Teams,                RESEED, 0);
                     ";
 
             using (SqlConnection connection = AzureServiceBase.GetDefaultConnection())
