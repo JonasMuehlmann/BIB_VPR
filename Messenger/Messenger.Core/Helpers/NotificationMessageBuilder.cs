@@ -16,6 +16,7 @@ namespace Messenger.Core.Helpers
         /// Sets the following fields in the JObject:
         /// notificationType,
         /// notificationSource,
+        /// messageId,
         /// senderName,
         /// channelName,
         /// channelId,
@@ -82,6 +83,7 @@ namespace Messenger.Core.Helpers
             {
                 {"notificationType",   NotificationType.MessageInSubscribedChannel.ToString()},
                 {"notificationSource", NotificationSource.Channel.ToString()},
+                {"messageId",          messageId.ToString()},
                 {"senderName",         senderName},
                 {"channelName",        channelName},
                 {"channelId",          channelId},
@@ -94,6 +96,7 @@ namespace Messenger.Core.Helpers
         /// Sets the following fields in the JObject:
         /// notificationType,
         /// notificationSource,
+        /// messageId,
         /// channelName,
         /// channelId,
         /// senderName,
@@ -160,6 +163,7 @@ namespace Messenger.Core.Helpers
             {
                 {"notificationType",   NotificationType.MessageInSubscribedTeam.ToString()},
                 {"notificationSource", NotificationSource.Team.ToString()},
+                {"messageId",          messageId.ToString()},
                 {"senderName",         senderName},
                 {"channelName",        channelName},
                 {"channelId",          channelId},
@@ -173,6 +177,7 @@ namespace Messenger.Core.Helpers
         /// Sets the following fields in the JObject:
         /// notificationType,
         /// notificationSource,
+        /// messageId,
         /// partnerName,
         /// channelId
         /// </summary>
@@ -208,6 +213,7 @@ namespace Messenger.Core.Helpers
             {
                 {"notificationType",   NotificationType.MessageInPrivateChat.ToString()},
                 {"notificationSource", NotificationSource.PrivateChat.ToString()},
+                {"messageId",          messageId.ToString()},
                 {"partnerName",        partnerName},
                 {"channelId",          channelId}
             };
@@ -301,6 +307,7 @@ namespace Messenger.Core.Helpers
         /// Sets the following fields in the JObject:
         /// notificationType,
         /// notificationSource,
+        /// reactionId,
         /// channelName,
         /// channelId,
         /// teamName,
@@ -382,6 +389,7 @@ namespace Messenger.Core.Helpers
             {
                 {"notificationType",   NotificationType.ReactionToMessage.ToString()},
                 {"notificationSource", NotificationSource.Channel.ToString()},
+                {"reactionId",         reactionId.ToString()},
                 {"teamName",           teamName},
                 {"channelName",        channelName},
                 {"reactorName",        reactorName},
@@ -395,6 +403,7 @@ namespace Messenger.Core.Helpers
         /// Sets the following fields in the JObject:
         /// notificationType,
         /// notificationSource,
+        /// mentionId,
         /// channelName,
         /// channelId,
         /// teamName,
@@ -472,6 +481,7 @@ namespace Messenger.Core.Helpers
             {
                 {"notificationType",   NotificationType.UserMentioned.ToString()},
                 {"notificationSource", NotificationSource.Channel.ToString()},
+                {"mentionId",          mentionId.ToString()},
                 {"teamName",           teamName},
                 {"channelName",        channelName},
                 {"channelId",          channelId},
