@@ -141,5 +141,41 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void RemoveMute_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                Assert.IsNotNull( userId);
+                Assert.AreNotEqual("", userId);
+
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                Assert.IsNotNull(messageId);
+
+                var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
+
+
+                var muteId = await NotificationService.AddMute(NotificationType.MessageInSubscribedChannel, NotificationSource.Channel, channelId.Value.ToString(), userId, userId);
+                Assert.IsNotNull(muteId);
+
+                Assert.IsFalse(await NotificationService.CanSendNotification(notification, userId));
+
+                var didRemoveMute = await NotificationService.RemoveMute(muteId.Value);
+                Assert.IsTrue(didRemoveMute);
+                Assert.IsTrue(await NotificationService.CanSendNotification(notification, userId));
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }

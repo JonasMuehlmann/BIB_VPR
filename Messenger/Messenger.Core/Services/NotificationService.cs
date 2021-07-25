@@ -140,7 +140,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters muteId={muteId}");
 
             string query = $@"
-                                REMOVE FROM
+                                DELETE FROM
                                     NotificationMutes
                                 WHERE
                                     Id = {muteId};
