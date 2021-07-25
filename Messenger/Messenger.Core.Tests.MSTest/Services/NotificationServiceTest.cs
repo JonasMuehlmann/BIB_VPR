@@ -35,13 +35,17 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, senderId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
                 var notificationMessage = new JObject
                 {
-                    {"NotificationType"   , NotificationType.MessageInSubscribedChannel.ToString()},
-                    {"NotificationSource" , NotificationSource.Channel.ToString()},
-                    {"SenderId"           , senderId},
-                    {"TeamId"             , teamId.Value},
-                    {"ChannelId"          , channelId.Value}
+                    {"notificationType"   , NotificationType.MessageInSubscribedChannel.ToString()},
+                    {"notificationSource" , NotificationSource.Channel.ToString()},
+                    {"messageId"          , messageId.Value.ToString()},
+                    {"senderId"           , senderId},
+                    {"teamId"             , teamId.Value},
+                    {"channelId"          , channelId.Value}
                 };
                 uint? notificationId = await NotificationService.SendNotification(receiverId, notificationMessage);
                 Assert.IsNotNull(notificationId);
@@ -79,13 +83,17 @@ namespace Messenger.Tests.MSTest
                 uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
+                uint? messageId = await MessageService.CreateMessage(channelId.Value, senderId, testName + "Message");
+                Assert.IsNotNull(messageId);
+
                 var notificationMessage = new JObject
                 {
-                    {"NotificationType"   , NotificationType.MessageInSubscribedChannel.ToString()},
-                    {"NotificationSource" , NotificationSource.Channel.ToString()},
-                    {"SenderId"           , senderId},
-                    {"TeamId"             , teamId.Value},
-                    {"ChannelId"          , channelId.Value}
+                    {"notificationType"   , NotificationType.MessageInSubscribedChannel.ToString()},
+                    {"notificationSource" , NotificationSource.Channel.ToString()},
+                    {"messageId"          , messageId.Value.ToString()},
+                    {"senderId"           , senderId},
+                    {"teamId"             , teamId.Value},
+                    {"channelId"          , channelId.Value}
                 };
                 uint? notificationId = await NotificationService.SendNotification(receiverId, notificationMessage);
                 Assert.IsNotNull(notificationId);

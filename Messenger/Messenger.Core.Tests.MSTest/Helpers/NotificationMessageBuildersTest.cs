@@ -38,6 +38,7 @@ namespace Messenger.Tests.MSTest
                 {
                     {"notificationType",   NotificationType.MessageInSubscribedChannel.ToString()},
                     {"notificationSource", NotificationSource.Channel.ToString()},
+                    {"messageId"          ,messageId.Value.ToString()},
                     {"senderName",         testName + "User"},
                     {"channelName",        testName + "Channel"},
                     {"channelId",          channelId.Value},
@@ -75,6 +76,7 @@ namespace Messenger.Tests.MSTest
                 {
                     {"notificationType",   NotificationType.MessageInSubscribedTeam.ToString()},
                     {"notificationSource", NotificationSource.Team.ToString()},
+                    {"messageId"          ,messageId.Value.ToString()},
                     {"senderName",         testName + "User"},
                     {"channelName",        testName + "Channel"},
                     {"channelId",          channelId.Value},
@@ -117,6 +119,7 @@ namespace Messenger.Tests.MSTest
                 {
                     {"notificationType",   NotificationType.MessageInPrivateChat.ToString()},
                     {"notificationSource", NotificationSource.PrivateChat.ToString()},
+                    {"messageId"          , messageId.Value.ToString()},
                     {"partnerName",        testName + "User1"},
                     {"channelId",          channelId.Value}
                 };
