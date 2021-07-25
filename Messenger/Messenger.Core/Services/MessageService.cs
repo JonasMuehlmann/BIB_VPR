@@ -298,5 +298,21 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query);
         }
+        /// <summary>
+        ///	Retrieve a reaction object from a reactionId
+        /// </summary>
+        /// <param name="reactionId">The id of the reaction to make an object from</param>
+        /// <returns>A reaction object</returns>
+        public static async Task<Reaction> GetReaction(uint reactionId)
+        {
+            LogContext.PushProperty("Method","GetReaction");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters reactionId={reactionId}");
+
+            string query = $@"SELECT * FROM Reactions WHERE reactionId={reactionId};";
+
+            // TODO: Implement SqlHelper to build objects from a single row
+            return (await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query)).First();
+        }
     }
 }
