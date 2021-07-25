@@ -307,7 +307,7 @@ namespace Messenger.Core.Helpers
         /// reactorName,
         /// reaction
         /// </summary>
-        /// <param name="teamId">The id of the team the user got removed from</param>
+        /// <param name="reactionId">The id of the reaction made</param>
         /// <returns>A JObject containing the necessary information</returns>
         public static async Task<JObject> MakeReactionToMessageNotificationMessage(uint reactionId)
         {
@@ -401,7 +401,7 @@ namespace Messenger.Core.Helpers
         /// mentionerName,
         /// mentionTarget
         /// </summary>
-        /// <param name="teamId">The id of the team the user got removed from</param>
+        /// <param name="mentionId">The id of the mention</param>
         /// <returns>A JObject containing the necessary information</returns>
         public static async Task<JObject> MakeUserMentionedNotificationMessage(uint mentionId)
         {
