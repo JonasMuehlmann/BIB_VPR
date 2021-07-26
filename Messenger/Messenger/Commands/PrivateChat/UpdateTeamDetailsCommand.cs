@@ -1,5 +1,5 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.Services;
+using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
@@ -11,15 +11,15 @@ namespace Messenger.Commands.PrivateChat
 {
     public class UpdateTeamDetailsCommand : ICommand
     {
-        private readonly ChatHubService _hub;
-
         private ILogger _log => GlobalLogger.Instance;
+
+        private ChangeTeamDialog _dialog;
 
         public event EventHandler CanExecuteChanged;
 
-        public UpdateTeamDetailsCommand(ChatHubService hub)
+        public UpdateTeamDetailsCommand()
         {
-            _hub = hub;
+            _dialog = new ChangeTeamDialog();
         }
 
         public bool CanExecute(object parameter)
@@ -33,17 +33,25 @@ namespace Messenger.Commands.PrivateChat
             {
                 TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
 
-                // Opens the dialog box for the input
-                var dialog = new ChangeTeamDialog()
-                {
-                    TeamName = selectedTeam.TeamName,
-                    TeamDescription = selectedTeam.Description
-                };
+                _dialog.TeamName = selectedTeam.TeamName;
+                _dialog.TeamDescription = selectedTeam.Description;
 
-                // Create team on confirm
-                if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                bool isSuccess = true;
+
+                /** CREATE ON CONFIRM & CHANGES **/
+                if (await _dialog.ShowAsync() == ContentDialogResult.Primary
+                    && (_dialog.TeamName != selectedTeam.TeamName
+                        || _dialog.TeamDescription != selectedTeam.Description))
                 {
-                    await _hub.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
+                    isSuccess &= await MessengerService.UpdateTeamName(_dialog.TeamName, selectedTeam.Id);
+                    isSuccess &= await MessengerService.UpdateTeamDescription(_dialog.TeamDescription, selectedTeam.Id);
+                }
+
+                if (!isSuccess)
+                {
+                    await ResultConfirmationDialog
+                        .Set(false, "We could not update the team details.")
+                        .ShowAsync();
                 }
             }
             catch (Exception e)
