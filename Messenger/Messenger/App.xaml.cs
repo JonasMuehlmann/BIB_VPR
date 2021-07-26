@@ -31,7 +31,6 @@ namespace Messenger
             InitializeComponent();
             UnhandledException += OnAppUnhandledException;
 
-            StateProvider = new StateProvider();
             EventProvider = new EventProvider();
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.

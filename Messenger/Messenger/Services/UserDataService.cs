@@ -6,6 +6,7 @@ using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Windows.Storage;
@@ -45,30 +46,12 @@ namespace Messenger.Services
                 }
             }
 
-            App.StateProvider.CurrentUser = _user;
-
             return _user;
-        }
-
-        public async Task<bool> UpdateUserBio(string bio)
-        {
-            bool isSuccess = await MessengerService.UpdateUserBio(_user.Id, bio);
-
-            return isSuccess;
-        }
-
-        private void OnUserUpdate(object sender, User user)
-        {
-            _user.Bio = user.Bio;
-            _user.Name = user.DisplayName;
-            _user.NameId = user.NameId;
         }
 
         private async void OnLoggedIn(object sender, EventArgs e)
         {
             _user = await GetUserFromGraphApiAsync();
-
-            App.StateProvider.CurrentUser = _user;
             
             UserDataUpdated?.Invoke(this, _user);
         }
@@ -82,6 +65,7 @@ namespace Messenger.Services
         private async Task<UserViewModel> GetUserFromCacheAsync()
         {
             var cacheData = await ApplicationData.Current.LocalFolder.ReadAsync<User>(_userSettingsKey);
+
             return await GetUserViewModelFromData(cacheData);
         }
 
@@ -114,13 +98,8 @@ namespace Messenger.Services
                 ? ImageHelper.ImageFromAssetsFile("DefaultIcon.png")
                 : await ImageHelper.ImageFromStringAsync(userData.Photo);
 
-            var userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
-
-            // Connect to signal-r hub and retrieve the team list
-            var teams = await InitializeSignalR(userData.Id);
-
-            // Merged with user model from the application database
-            return new UserViewModel()
+            User userFromDatabase = await UserService.GetOrCreateApplicationUser(userData);
+            UserViewModel viewModel = new UserViewModel()
             {
                 Id = userData.Id,
                 Name = userFromDatabase.DisplayName,
@@ -129,6 +108,24 @@ namespace Messenger.Services
                 Mail = userFromDatabase.Mail,
                 Photo = userPhoto
             };
+
+            App.StateProvider = await StateProvider.Initialize(viewModel);
+
+            /* BROADCAST MY TEAMS */
+            App.EventProvider.Broadcast(
+                BroadcastOptions.TeamsLoaded,
+                BroadcastReasons.Loaded);
+
+            /* BROADCAST MY CHATS */
+            App.EventProvider.Broadcast(
+                BroadcastOptions.ChatsLoaded,
+                BroadcastReasons.Loaded);
+
+            // Connect to signal-r hub and retrieve the team list
+            await InitializeSignalR(viewModel.Id);
+
+            // Merged with user model from the application database
+            return viewModel;
         }
 
         private UserViewModel GetDefaultUserData()
