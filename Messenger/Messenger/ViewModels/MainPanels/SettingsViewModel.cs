@@ -63,7 +63,7 @@ namespace Messenger.ViewModels
 
         public ICommand LogoutCommand => _logoutCommand ?? (_logoutCommand = new RelayCommand(OnLogout));
 
-        public ICommand EditBioCommand { get => new EditBioCommand(UserDataService); }
+        public ICommand UpdateUserBioCommand { get => new UpdateUserBioCommand(); }
 
         public UserViewModel User
         {

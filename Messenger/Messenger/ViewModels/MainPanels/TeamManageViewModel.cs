@@ -24,39 +24,21 @@ namespace Messenger.ViewModels
 {
     public class TeamManageViewModel : Observable
     {
-
         #region Privates
 
-        private ShellViewModel _shellViewModel;
         private ObservableCollection<MemberViewModel> _membersView;
+
         private TeamViewModel _teamView;
+
         private List<MemberViewModel> _membersStore;
-        private ICommand _removeTeamMembers;
-        private ICommand _addTeamMembers;
-        private ICommand _channelManagement;
-        private ICommand _createChannel;
-        private ICommand _removeTeamMemberClick;
-        private ICommand _removeChannelClick;
-        private ICommand _addTeamMemberClick; 
+
         private KeyEventHandler _removeSearchBoxInput;
+
         private KeyEventHandler _addSearchBoxInput;
 
-        private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
-
-        #endregion
         private User _selectedSearchedUser;
 
-        public ShellViewModel ShellViewModel
-        {
-            get
-            {
-                return _shellViewModel;
-            }
-            set
-            {
-                _shellViewModel = value;
-            }
-        }
+        #endregion
 
         public ObservableCollection<MemberViewModel> Members
         {
@@ -119,15 +101,20 @@ namespace Messenger.ViewModels
 
         #endregion
 
+        public ICommand CreateChannelCommand => new CreateChannelCommand();
+
+        public ICommand InviteUserCommand => new InviteUserCommand(this);
+
+        public ICommand RemoveUserCommand => new RemoveUserCommand();
+
+        public ICommand RemoveChannelClick => new RemoveChannelCommand();
+
         public ICommand OpenManageRolesCommand => new OpenManageRolesCommand();
 
-        public ICommand InviteUserCommand => new InviteUserCommand(this, ChatHubService);
-        public ICommand RemoveUserCommand => new RemoveUserCommand(this, ChatHubService);
         public ICommand NavigateBackCommand => new RelayCommand(() => NavigationService.Open<ChatPage>());
-        public ICommand CreateChannelCommand => _createChannel ?? (_createChannel = new RelayCommand(CreateChannel));
-        public ICommand RemoveTeamMemberClick => _removeTeamMemberClick ?? (_removeTeamMemberClick = new RelayCommand<string>(RemoveUserAsync));
-        public ICommand RemoveChannelClick => _removeChannelClick ?? (_removeChannelClick = new RelayCommand<uint>(RemoveChannelAsync));
+
         public KeyEventHandler RemoveSearchInput => _removeSearchBoxInput ?? (_removeSearchBoxInput = new KeyEventHandler(RemoveSearchTextBoxKeyUp));
+
         public KeyEventHandler AddSearchInput => _addSearchBoxInput ?? (_addSearchBoxInput = new KeyEventHandler(AddSearchTextBoxKeyUp));
 
         public UserViewModel CurrentUser => App.StateProvider.CurrentUser;
@@ -157,9 +144,8 @@ namespace Messenger.ViewModels
 
         private async Task<IReadOnlyList<string>> OnSearch(string keyword)
         {
-            IEnumerable<string> result = await ChatHubService.SearchUser(keyword);
-
-            var filtered = result
+            /** FILTER OUT MEMBERS **/
+            return (await UserService.SearchUser(keyword))
                 .TakeWhile(user =>
                 {
                     TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
@@ -173,35 +159,11 @@ namespace Messenger.ViewModels
 
                     return !isMember;
                 }).ToList();
-
-            return filtered;
         }
 
         private async Task<User> GetSelectedUser(string name, uint nameId)
         {
-            User result = await ChatHubService.GetUserWithNameId(name, nameId);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Removes some user from Team
-        /// </summary>
-        /// <param name="userId"></param>
-        private async void RemoveUserAsync(string userId)
-        {
-            await ChatHubService.RemoveUser(userId, App.StateProvider.SelectedTeam.Id);
-            LoadTeamMember();
-        }
-
-
-        /// <summary>
-        /// Removes channels
-        /// </summary>
-        /// <param name="channelId"></param>
-        private async void RemoveChannelAsync(uint channelId)
-        {
-            await ChatHubService.RemoveChannel(channelId);
+            return await UserService.GetUser(name, nameId);
         }
 
         /// <summary>
@@ -230,33 +192,12 @@ namespace Messenger.ViewModels
         private async void AddSearchTextBoxKeyUp(object sender, KeyRoutedEventArgs e) {
             TextBox searchBox = sender as TextBox;
 
+            var usernames = await UserService.SearchUser(searchBox.Text);
+
             Members.Clear();
-            var usernames = await ChatHubService.SearchUser(searchBox.Text);
             foreach (var username in usernames)
             {
                 Members.Add(new MemberViewModel() { Name = username });
-            }
-        }
-
-
-        private async void CreateChannel() {
-            if (CurrentUser == null)
-            {
-                return;
-            }
-
-            // Opens the dialog box for the input
-            var dialog = new CreateChannelDialog();
-            ContentDialogResult result = await dialog.ShowAsync();
-
-            // Create team on confirm
-            if (result == ContentDialogResult.Primary)
-            {
-               await ChatHubService.CreateChannel(dialog.ChannelName);
-
-                await ResultConfirmationDialog
-                    .Set(true, $"You created a new channel {dialog.ChannelName}")
-                    .ShowAsync();
             }
         }
 
