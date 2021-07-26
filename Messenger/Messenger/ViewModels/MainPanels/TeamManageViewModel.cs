@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Commands.Messenger;
 using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;

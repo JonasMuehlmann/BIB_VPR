@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Commands.Messenger;
 using Messenger.Commands.PrivateChat;
 using Messenger.Core.Models;

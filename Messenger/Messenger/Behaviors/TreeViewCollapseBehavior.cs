@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-
-using Messenger.Helpers;
+using Messenger.Commands;
 
 using Microsoft.Xaml.Interactivity;
 
