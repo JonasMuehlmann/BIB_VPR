@@ -9,7 +9,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:controls="using:Messenger.Controls.ManageControls"
-    xmlns:converters="using:Messenger.Helpers"
+    xmlns:converters="using:Messenger.Helpers.Converters"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />

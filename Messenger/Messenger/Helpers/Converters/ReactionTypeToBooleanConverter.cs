@@ -2,7 +2,7 @@
 using System;
 using Windows.UI.Xaml.Data;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.Converters
 {
     /// <summary>
     /// Returns true if the reaction type matches my reaction, else false

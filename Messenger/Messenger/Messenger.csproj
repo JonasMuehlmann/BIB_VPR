@@ -211,23 +211,23 @@
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
-    <Compile Include="Helpers\BooleanToAlignmentConverter.cs" />
-    <Compile Include="Helpers\BooleanToGlyphConverter.cs" />
-    <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Helpers\ColorToSolidBrushConverter.cs" />
-    <Compile Include="Helpers\DateToStringConverter.cs" />
-    <Compile Include="Helpers\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\BooleanToAlignmentConverter.cs" />
+    <Compile Include="Helpers\Converters\BooleanToGlyphConverter.cs" />
+    <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\ColorToSolidBrushConverter.cs" />
+    <Compile Include="Helpers\Converters\DateToStringConverter.cs" />
+    <Compile Include="Helpers\Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\MessageHelpers\MessageManager.cs" />
     <Compile Include="Models\ManagerEventArgs.cs" />
-    <Compile Include="Helpers\NullToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Helpers\Observable.cs" />
-    <Compile Include="Helpers\ReactionTypeToBooleanConverter.cs" />
-    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\Converters\ReactionTypeToBooleanConverter.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Helpers\TeamHelpers\TeamBuilder.cs" />
     <Compile Include="Helpers\TeamHelpers\TeamManager.cs" />
-    <Compile Include="Helpers\ThemeToFillBrushConverter.cs" />
+    <Compile Include="Helpers\Converters\ThemeToFillBrushConverter.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ChatHubConnectionState.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />
