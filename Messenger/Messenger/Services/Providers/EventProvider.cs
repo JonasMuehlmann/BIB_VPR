@@ -5,6 +5,7 @@ using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,10 @@ namespace Messenger.Services.Providers
     public class EventProvider
     {
         /// <summary>
-        /// Payload: loaded enumerable list
+        /// Events with the payload of a list of objects
+        /// Fires on 'loaded' events including:
+        /// • Loaded from DB (initialize)
+        /// • Loaded from cache (switch channel/chats, etc.)
         /// </summary>
         #region Loaded Events
 
@@ -27,7 +31,8 @@ namespace Messenger.Services.Providers
         #endregion
 
         /// <summary>
-        /// Payload: updated single object
+        /// Events with the payload of a single object,
+        /// mostly fired by Signal-R to trigger data update
         /// </summary>
         #region Updated Events
 
@@ -59,15 +64,19 @@ namespace Messenger.Services.Providers
             SignalRService.ReceiveMessage += OnReceiveMessage;
             SignalRService.MessageUpdated += OnMessageUpdated;
             SignalRService.MessageDeleted += OnMessageDeleted;
+            SignalRService.MessageReactionsUpdated += OnMessageReactionsUpdated;
             SignalRService.TeamCreated += OnTeamCreated;
             SignalRService.TeamUpdated += OnTeamUpdated;
             SignalRService.TeamDeleted += OnTeamDeleted;
+            SignalRService.TeamRoleUpdated += OnTeamRoleUpdated;
+            SignalRService.TeamRoleDeleted += OnTeamRoleDeleted;
             SignalRService.ChannelCreated += OnChannelCreated;
             SignalRService.ChannelUpdated += OnChannelUpdated;
             SignalRService.ChannelDeleted += OnChannelDeleted;
             SignalRService.MemberAdded += OnMemberAdded;
             SignalRService.MemberUpdated += OnMemberUpdated;
             SignalRService.MemberRemoved += OnMemberRemoved;
+            SignalRService.UserUpdated += OnUserUpdated;
         }
 
         /// <summary>
@@ -89,7 +98,10 @@ namespace Messenger.Services.Providers
             switch (target)
             {
                 case BroadcastOptions.MessagesSwitched:
-                    args.Payload = CacheQuery.GetMessagesByChannelId(App.StateProvider.SelectedChannel.ChannelId);
+                    if (CacheQuery.TryGetMessages(App.StateProvider.SelectedChannel.ChannelId, out ObservableCollection<MessageViewModel> messages))
+                    {
+                        args.Payload = messages;
+                    }
                     break;
                 case BroadcastOptions.TeamsLoaded:
                     args.Payload = CacheQuery.GetMyTeams();
@@ -135,6 +147,11 @@ namespace Messenger.Services.Providers
                         break;
                     MessageUpdated?.Invoke(this, args);
                     break;
+                case BroadcastOptions.UserUpdated:
+                    if (!(parameter is User))
+                        break;
+                    MessageUpdated?.Invoke(this, args);
+                    break;
                 default:
                     break;
             }
@@ -142,16 +159,10 @@ namespace Messenger.Services.Providers
 
         #region Message
 
-        /// <summary>
-        /// Loads the sender information and saves the message to the cache
-        /// Fires on "ReceiveMessage"
-        /// </summary>
-        /// <param name="sender">Service that triggered this event</param>
-        /// <param name="message">Received message object</param>
-        private async void OnReceiveMessage(object sender, SignalREventArgs<Message> e)
+        private async void OnReceiveMessage(object sender, SignalREventArgs<Message> args)
         {
-            bool isValid = e.Value != null
-                && !string.IsNullOrEmpty(e.Value.SenderId);
+            bool isValid = args.Value != null
+                && !string.IsNullOrEmpty(args.Value.SenderId);
 
             /** EXIT IF MESSAGE IS NOT VALID **/
             if (!isValid)
@@ -159,7 +170,7 @@ namespace Messenger.Services.Providers
                 return;
             }
 
-            Message message = e.Value;
+            Message message = args.Value;
             
             /** ADD TO CACHE **/
             MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
@@ -171,14 +182,9 @@ namespace Messenger.Services.Providers
                 viewModel);
         }
 
-        /// <summary>
-        /// Fires on "MessageUpdated"
-        /// </summary>
-        /// <param name="sender">Service that triggered this event</param>
-        /// <param name="message">Id of the team that the user was invited to</param>
-        private async void OnMessageUpdated(object sender, SignalREventArgs<Message> e)
+        private async void OnMessageUpdated(object sender, SignalREventArgs<Message> args)
         {
-            bool isValid = e.Value != null;
+            bool isValid = args.Value != null;
 
             /** EXIT IF MESSAGE IS NOT VALID **/
             if (!isValid)
@@ -186,7 +192,7 @@ namespace Messenger.Services.Providers
                 return;
             }
 
-            Message message = e.Value;
+            Message message = args.Value;
 
             /** UPDATE IN CACHE **/
             MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
@@ -198,14 +204,9 @@ namespace Messenger.Services.Providers
                 viewModel);
         }
 
-        /// <summary>
-        /// Fires on "MessageDeleted"
-        /// </summary>
-        /// <param name="sender">Service that triggered this event</param>
-        /// <param name="message">Id of the team that the user was invited to</param>
-        private void OnMessageDeleted(object sender, SignalREventArgs<Message> e)
+        private void OnMessageDeleted(object sender, SignalREventArgs<Message> args)
         {
-            bool isValid = e.Value != null;
+            bool isValid = args.Value != null;
 
             /** EXIT IF MESSAGE IS NOT VALID **/
             if (!isValid)
@@ -213,7 +214,7 @@ namespace Messenger.Services.Providers
                 return;
             }
 
-            Message message = e.Value;
+            Message message = args.Value;
 
             /** REMOVE FROM CACHE **/
             MessageViewModel viewModel = CacheQuery.Remove<MessageViewModel>(message);
@@ -225,27 +226,41 @@ namespace Messenger.Services.Providers
                 viewModel);
         }
 
-        #endregion
-
-        #region Team
-
-        /// <summary>
-        /// Fires on "ReceiveInvitation"
-        /// </summary>
-        /// <param name="sender">Service that triggered this event</param>
-        /// <param name="teamId">Id of the team that the user was invited to</param>
-        private async void OnReceiveInvitation(object sender, SignalREventArgs<User, Team> e)
+        private async void OnMessageReactionsUpdated(object sender, SignalREventArgs<Message> args)
         {
-            bool isValid = e.FirstValue != null
-                && e.SecondValue != null;
+            bool isValid = args.Value != null;
 
             if (!isValid)
             {
                 return;
             }
 
-            User user = e.FirstValue;
-            Team team = e.SecondValue;
+            Message message = args.Value;
+
+            /** RELOAD FROM DB **/
+            MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
+
+            /** TRIGGER MESSAGE UPDATED (DELETED) **/
+            Broadcast(
+                BroadcastOptions.MessageUpdated,
+                BroadcastReasons.Updated,
+                viewModel);
+        }
+
+        #endregion
+
+        #region Team
+
+        private async void OnReceiveInvitation(object sender, SignalREventArgs<Team> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            Team team = e.Value;
 
             if (string.IsNullOrEmpty(team.Name))
             {
@@ -271,10 +286,7 @@ namespace Messenger.Services.Providers
         {
             bool isValid = e.Value != null;
 
-            if (!isValid)
-            {
-                return;
-            }
+            if (!isValid) return;
 
             Team team = e.Value;
 
@@ -358,6 +370,46 @@ namespace Messenger.Services.Providers
                     BroadcastReasons.Created,
                     teamViewModel);
             }
+        }
+
+        #endregion
+
+        #region TeamRole
+
+        private async void OnTeamRoleUpdated(object sender, SignalREventArgs<TeamRole> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid) return;
+
+            TeamRole teamRole = e.Value;
+
+            TeamRoleViewModel teamRoleViewModel = await CacheQuery.AddOrUpdate<TeamRoleViewModel>(teamRole);
+
+            TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>(teamRoleViewModel.TeamId);
+
+            Broadcast(
+                BroadcastOptions.TeamUpdated,
+                BroadcastReasons.Updated,
+                teamViewModel);
+        }
+
+        private void OnTeamRoleDeleted(object sender, SignalREventArgs<TeamRole> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid) return;
+
+            TeamRole teamRole = e.Value;
+
+            TeamRoleViewModel teamRoleViewModel = CacheQuery.Remove<TeamRoleViewModel>(teamRole.Id);
+
+            TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>(teamRoleViewModel.TeamId);
+
+            Broadcast(
+                BroadcastOptions.TeamUpdated,
+                BroadcastReasons.Updated,
+                teamViewModel);
         }
 
         #endregion
@@ -504,6 +556,24 @@ namespace Messenger.Services.Providers
                 BroadcastOptions.TeamUpdated,
                 BroadcastReasons.Updated,
                 teamViewModel);
+        }
+
+        #endregion
+
+        #region User Data
+
+        private void OnUserUpdated(object sender, SignalREventArgs<User> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid) return;
+
+            User user = e.Value;
+
+            Broadcast(
+                BroadcastOptions.UserUpdated,
+                BroadcastReasons.Updated,
+                user);
         }
 
         #endregion
