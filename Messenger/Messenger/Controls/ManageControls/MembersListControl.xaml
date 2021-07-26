@@ -119,7 +119,7 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate x:DataType="models:MemberRole">
+                                        <DataTemplate x:DataType="vm:TeamRoleViewModel">
                                             <Grid
                                                 MaxHeight="17"
                                                 BorderThickness="1"
@@ -231,7 +231,7 @@
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="models:MemberRole">
+                                    <DataTemplate x:DataType="vm:TeamRoleViewModel">
                                         <Grid
                                             MaxHeight="17"
                                             BorderThickness="1"

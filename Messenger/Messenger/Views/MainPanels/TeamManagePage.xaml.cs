@@ -15,15 +15,5 @@ namespace Messenger.Views
         {
             InitializeComponent();
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            Console.WriteLine("Test");
-            if (e.Parameter as string != "")
-            {
-                ViewModel.ShellViewModel = e.Parameter as ShellViewModel;
-            }
-            //Console.WriteLine(e.Parameter as string);
-        }
     }
 }

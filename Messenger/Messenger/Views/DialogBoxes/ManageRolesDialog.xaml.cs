@@ -16,23 +16,23 @@ namespace Messenger.Views.DialogBoxes
 {
     public sealed partial class ManageRolesDialog : ContentDialog
     {
-        public ObservableCollection<MemberRole> MemberRoles
+        public ObservableCollection<TeamRoleViewModel> MemberRoles
         {
-            get { return (ObservableCollection<MemberRole>)GetValue(MemberRolesProperty); }
+            get { return (ObservableCollection<TeamRoleViewModel>)GetValue(MemberRolesProperty); }
             set { SetValue(MemberRolesProperty, value); }
         }
 
         public static readonly DependencyProperty MemberRolesProperty =
-            DependencyProperty.Register("MemberRoles", typeof(ObservableCollection<MemberRole>), typeof(ManageRolesDialog), new PropertyMetadata(new ObservableCollection<MemberRole>()));
+            DependencyProperty.Register("MemberRoles", typeof(ObservableCollection<TeamRoleViewModel>), typeof(ManageRolesDialog), new PropertyMetadata(new ObservableCollection<TeamRoleViewModel>()));
 
-        public MemberRole SelectedRole
+        public TeamRoleViewModel SelectedRole
         {
-            get { return (MemberRole)GetValue(SelectedRoleProperty); }
+            get { return (TeamRoleViewModel)GetValue(SelectedRoleProperty); }
             set { SetValue(SelectedRoleProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedRoleProperty =
-            DependencyProperty.Register("SelectedRole", typeof(MemberRole), typeof(ManageRolesDialog), new PropertyMetadata(null));
+            DependencyProperty.Register("SelectedRole", typeof(TeamRoleViewModel), typeof(ManageRolesDialog), new PropertyMetadata(null));
 
         public ObservableCollection<Permissions> SelectablePermissions
         {
@@ -53,7 +53,7 @@ namespace Messenger.Views.DialogBoxes
             TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
 
             ManageRolesDialog dialog = new ManageRolesDialog();
-            dialog.MemberRoles = new ObservableCollection<MemberRole>();
+            dialog.MemberRoles = new ObservableCollection<TeamRoleViewModel>();
 
             IEnumerable<TeamRole> roles = await TeamService.ListRoles(selectedTeam.Id);
 
@@ -64,7 +64,7 @@ namespace Messenger.Views.DialogBoxes
                 IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(selectedTeam.Id, role.Role);
 
                 dialog.MemberRoles.Add(
-                    new MemberRole()
+                    new TeamRoleViewModel()
                     {
                         Title = string.Concat(role.Role.Substring(0, 1).ToUpper(), role.Role.Substring(1)),
                         TeamId = selectedTeam.Id,
@@ -72,7 +72,7 @@ namespace Messenger.Views.DialogBoxes
                     });
             }
 
-            MemberRole defaultRole = dialog.MemberRoles.First();
+            TeamRoleViewModel defaultRole = dialog.MemberRoles.First();
             defaultRole.Color = dialog.colorPicker.Color;
             dialog.SelectedRole = defaultRole;
             dialog.UpdateSelectablePermissions(defaultRole);
@@ -100,7 +100,7 @@ namespace Messenger.Views.DialogBoxes
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MemberRole role = e.AddedItems.Single() as MemberRole;
+            TeamRoleViewModel role = e.AddedItems.Single() as TeamRoleViewModel;
             role.Color = colorPicker.Color;
             SelectedRole = role;
             SelectablePermissions.Clear();
@@ -108,7 +108,7 @@ namespace Messenger.Views.DialogBoxes
             UpdateSelectablePermissions(role);
         }
 
-        public void UpdateSelectablePermissions(MemberRole role)
+        public void UpdateSelectablePermissions(TeamRoleViewModel role)
         {
             Array permissions = Enum.GetValues(typeof(Permissions));
 
