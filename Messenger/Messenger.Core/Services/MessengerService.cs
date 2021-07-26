@@ -252,7 +252,7 @@ namespace Messenger.Core.Services
             Reaction result = (await MessageService.RetrieveReactions(messageId))
                 .Single(r => r.Id == reactionId);
 
-            await SignalRService.CreateMessageReaction(message, teamId, result);
+            await SignalRService.UpdateMessageReactions(message, teamId);
 
             logger.Information($"Return value: {result}");
 
@@ -287,7 +287,7 @@ namespace Messenger.Core.Services
 
             if (isSuccess)
             {
-                await SignalRService.DeleteMessageReaction(message, teamId, userReaction);
+                await SignalRService.UpdateMessageReactions(message, teamId);
             }
 
             logger.Information($"Return value: {userReaction}");
@@ -798,7 +798,7 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            await SignalRService.CreateTeamRole(teamRole);
+            await SignalRService.AddOrUpdateTeamRole(teamRole);
 
             logger.Information($"Return value: {true}");
 
@@ -936,9 +936,8 @@ namespace Messenger.Core.Services
             }
 
             TeamRole teamRole = await TeamService.GetRole((uint)roleId);
-            IEnumerable<Permissions> permissions = await TeamService.GetPermissionsOfRole(teamId, role);
 
-            await SignalRService.UpdateRolePermissions(teamRole, permissions);
+            await SignalRService.AddOrUpdateTeamRole(teamRole);
 
             logger.Information($"Return value: {true}");
 
@@ -972,9 +971,7 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            IEnumerable<Permissions> permissions = await TeamService.GetPermissionsOfRole(teamId, role);
-
-            await SignalRService.UpdateRolePermissions(teamRole, permissions);
+            await SignalRService.AddOrUpdateTeamRole(teamRole);
 
             logger.Information($"Return value: {true}");
 
