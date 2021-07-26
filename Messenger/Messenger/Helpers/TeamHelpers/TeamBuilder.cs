@@ -19,9 +19,15 @@ namespace Messenger.Helpers.TeamHelpers
         {
             TeamViewModel withMembers = await Map(team).WithMembers(userId);
             TeamViewModel withChannels = await withMembers.WithChannels();
-            TeamViewModel withTeamRoles = await withChannels.WithTeamRoles();
 
-            return DetermineTeamType(withTeamRoles);
+            if (withChannels is PrivateChatViewModel)
+            {
+                return withChannels;
+            }
+            else
+            {
+                return await withChannels.WithTeamRoles();
+            }
         }
 
         public static async Task<IEnumerable<TeamViewModel>> Build(this IEnumerable<Team> teams, string userId)
@@ -46,14 +52,18 @@ namespace Messenger.Helpers.TeamHelpers
         /// <param name="members">List of members to set</param>
         public static async Task<TeamViewModel> WithMembers(this TeamViewModel viewModel, string currentUserId)
         {
-            var members = await MessengerService.GetTeamMembers(viewModel.Id);
+            IEnumerable<User> members = await MessengerService.GetTeamMembers(viewModel.Id);
 
-            if (string.IsNullOrEmpty(viewModel.TeamName))
+            viewModel = DetermineTeamType(viewModel);
+
+            if (viewModel is PrivateChatViewModel)
             {
-                /* PRIVATE CHAT HAS ONLY PARTNER AS MEMBER */
-                IEnumerable<MemberViewModel> chatPartner = Map(members.Where(m => m.Id != currentUserId));
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
 
-                viewModel.Members = new ObservableCollection<MemberViewModel>(chatPartner);
+                /* PRIVATE CHAT HAS ONLY PARTNER AS MEMBER */
+                chatViewModel.Partner = Map(members.Where(m => m.Id != currentUserId)).SingleOrDefault();
+
+                return chatViewModel;
             }
             else
             {
@@ -66,9 +76,9 @@ namespace Messenger.Helpers.TeamHelpers
                 }
 
                 viewModel.Members = new ObservableCollection<MemberViewModel>(mapped);
-            }
 
-            return viewModel;
+                return viewModel;
+            }
         }
 
         /// <summary>
@@ -78,24 +88,36 @@ namespace Messenger.Helpers.TeamHelpers
         /// <returns>TeamViewModel with updated channels</returns>
         public static async Task<TeamViewModel> WithChannels(this TeamViewModel viewModel)
         {
-            var channels = await MessengerService.GetChannelsForTeam((uint)viewModel.Id);
+            IEnumerable<ChannelViewModel> channelViewModels = Map(await MessengerService.GetChannelsForTeam(viewModel.Id));
 
-            if (channels.Count() > 0)
+            if (viewModel is PrivateChatViewModel)
             {
-                var channelViewModels = channels.Select(Map);
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
 
+                chatViewModel.MainChannel = channelViewModels.SingleOrDefault();
+
+                return chatViewModel;
+            }
+            else
+            {
                 viewModel.Channels.Clear();
+
                 foreach (ChannelViewModel channelViewModel in channelViewModels)
                 {
                     viewModel.Channels.Add(channelViewModel);
                 }
-            }
 
-            return viewModel;
+                return viewModel;
+            }
         }
 
         public static async Task<TeamViewModel> WithTeamRoles(this TeamViewModel viewModel)
         {
+            if (viewModel is PrivateChatViewModel)
+            {
+                return (PrivateChatViewModel)viewModel;
+            }
+
             IList<TeamRole> teamRoles = await TeamService.ListRoles(viewModel.Id);
 
             if (teamRoles == null || teamRoles.Count() <= 0)
@@ -203,6 +225,18 @@ namespace Messenger.Helpers.TeamHelpers
                 TeamId = channel.TeamId,
                 ChannelName = channel.ChannelName
             };
+        }
+
+        public static IEnumerable<ChannelViewModel> Map(IEnumerable<Channel> channels)
+        {
+            List<ChannelViewModel> viewModels = new List<ChannelViewModel>();
+
+            foreach (Channel channel in channels)
+            {
+                viewModels.Add(Map(channel));
+            }
+
+            return viewModels;
         }
 
         public static MemberViewModel Map(User user)
