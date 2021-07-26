@@ -93,14 +93,9 @@ namespace Messenger.SignalR
             await Clients.Group(teamId).SendAsync("MessageUpdated", message);
         }
         
-        public async Task CreateMessageReaction(Message message, string teamId, Reaction reaction)
+        public async Task UpdateMessageReactions(Message message, string teamId)
         {
-            await Clients.Group(teamId).SendAsync("MessageReactionCreated", message, reaction);
-        }
-
-        public async Task DeleteMessageReaction(Message message, string teamId, Reaction reaction)
-        {
-            await Clients.Group(teamId).SendAsync("MessageReactionDeleted", message, reaction);
+            await Clients.Group(teamId).SendAsync("MessageReactionsUpdated", message);
         }
 
         public async Task DeleteMessage(Message message, string teamId)
@@ -155,29 +150,9 @@ namespace Messenger.SignalR
         /// </summary>
         /// <param name="teamId">The id of the team whose roles got updated</param>
         /// <returns>Task to be awaited</returns>
-        public async Task CreateTeamRole(TeamRole role)
-        {
-            await Clients.Group(role.TeamId.ToString()).SendAsync("TeamRoleCreated", role);
-        }
-
-        /// <summary>
-        /// Update a team's roles and notify other clients
-        /// </summary>
-        /// <param name="teamId">The id of the team whose roles got updated</param>
-        /// <returns>Task to be awaited</returns>
-        public async Task UpdateTeamRole(TeamRole role)
+        public async Task AddOrUpdateTeamRole(TeamRole role)
         {
             await Clients.Group(role.TeamId.ToString()).SendAsync("TeamRoleUpdated", role);
-        }
-
-        /// <summary>
-        /// Update a team's role permissions and notify other clients
-        /// </summary>
-        /// <param name="teamId">The id of the team whose roles got updated</param>
-        /// <returns>Task to be awaited</returns>
-        public async Task UpdateRolePermissions(TeamRole role, IEnumerable<Permissions> permissions)
-        {
-            await Clients.Group(role.TeamId.ToString()).SendAsync("RolePermissionsUpdated", role, permissions);
         }
 
         /// <summary>
