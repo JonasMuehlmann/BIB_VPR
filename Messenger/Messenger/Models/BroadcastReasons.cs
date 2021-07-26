@@ -1,4 +1,4 @@
-﻿namespace Messenger.Services.Providers
+﻿namespace Messenger.Models
 {
     public enum BroadcastReasons
     {

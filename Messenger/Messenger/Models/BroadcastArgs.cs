@@ -1,5 +1,5 @@
-﻿namespace Messenger.Services.Providers
-{
+﻿namespace Messenger.Models
+{ 
     public class BroadcastArgs
     {
         public object Payload { get; set; }
