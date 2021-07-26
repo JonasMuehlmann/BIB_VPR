@@ -1,8 +1,14 @@
-﻿using Messenger.Helpers;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
+using Messenger.Core.Services;
+using Messenger.Helpers;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
 using Messenger.ViewModels.DataViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Messenger.Services.Providers
 {
@@ -13,6 +19,8 @@ namespace Messenger.Services.Providers
         private ChannelViewModel _selectedChannel;
 
         private UserViewModel _currentUser;
+
+        private IdentityService IdentityService => Singleton<IdentityService>.Instance;
 
         public readonly TeamManager TeamManager;
 
@@ -36,10 +44,32 @@ namespace Messenger.Services.Providers
             set { Set(ref _currentUser, value); }
         }
 
-        public StateProvider()
+        private StateProvider()
         {
-            TeamManager = new TeamManager();
+            TeamManager = new TeamManager(this);
             MessageManager = new MessageManager();
+        }
+
+        public static async Task<StateProvider> Initialize(UserViewModel user)
+        {
+            StateProvider provider = new StateProvider() { CurrentUser = user };
+
+            /** LOAD TEAMS/PRIVATE CHATS FROM DATABASE **/
+            await provider.TeamManager.Initialize(user);
+
+            /** LOAD MESSAGES FOR TEAMS **/
+            if (provider.TeamManager.MyTeams.Count() > 0)
+            {
+                await provider.MessageManager.CreateEntry(provider.TeamManager.MyTeams);
+            }
+
+            /** LOAD MESSAGES FOR PRIVATE CHATS **/
+            if (provider.TeamManager.MyChats.Count() > 0)
+            {
+                await provider.MessageManager.CreateEntry(provider.TeamManager.MyChats);
+            }
+
+            return provider;
         }
     }
 }
