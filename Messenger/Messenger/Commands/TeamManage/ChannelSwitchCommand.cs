@@ -1,6 +1,8 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
 using Serilog;
@@ -11,13 +13,10 @@ namespace Messenger.Commands.TeamManage
 {
     public class ChannelSwitchCommand : ICommand
     {
-        private readonly ChatHubService _hub;
-
         private ILogger _log = GlobalLogger.Instance;
 
-        public ChannelSwitchCommand(ChatHubService hub)
+        public ChannelSwitchCommand()
         {
-            _hub = hub;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -42,11 +41,39 @@ namespace Messenger.Commands.TeamManage
 
                 if (CacheQuery.IsChannelOf<PrivateChatViewModel>(viewModel))
                 {
-                    _hub.SwitchChat(viewModel.TeamId);
+                    /** GET FROM CACHE **/
+                    PrivateChatViewModel chatViewModel = CacheQuery.Get<PrivateChatViewModel>(viewModel.TeamId);
+
+                    /** UPDATES TEAM AS PRIVATE CHAT AND SETS CHANNEL TO MAIN **/
+                    App.StateProvider.SelectedTeam = chatViewModel;
+                    App.StateProvider.SelectedChannel = chatViewModel.MainChannel;
+
+                    /** TRIGGERS NAVIGATION AND MESSAGE CONTROLS **/
+                    App.EventProvider.Broadcast(
+                        BroadcastOptions.MessagesSwitched,
+                        BroadcastReasons.Loaded);
                 }
                 else if (CacheQuery.IsChannelOf<TeamViewModel>(viewModel))
                 {
-                    _hub.SwitchTeamChannel(viewModel.ChannelId);
+                    /** GET CHANNEL AND TEAM FROM CACHE **/
+                    ChannelViewModel channel = CacheQuery.Get<ChannelViewModel>(viewModel.ChannelId);
+                    TeamViewModel team = CacheQuery.Get<TeamViewModel>(channel.TeamId);
+
+                    /** EXIT IF THE CHANNEL DOES NOT EXIST IN CACHE **/
+                    if (channel == null
+                        || team == null)
+                    {
+                        return;
+                    }
+
+                    /** UPDATE SELECTED TEAM/CHANNEL **/
+                    App.StateProvider.SelectedTeam = team;
+                    App.StateProvider.SelectedChannel = channel;
+
+                    /** TRIGGERS NAVIGATION AND MESSAGE CONTROLS **/
+                    App.EventProvider.Broadcast(
+                        BroadcastOptions.MessagesSwitched,
+                        BroadcastReasons.Loaded);
                 }
 
                 NavigationService.Open<ChatPage>();

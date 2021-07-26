@@ -8,12 +8,8 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
-    public class RemoveUserCommand : ICommand
+    public class RemoveChannelCommand : ICommand
     {
-        public RemoveUserCommand()
-        {
-        }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -24,8 +20,7 @@ namespace Messenger.Commands.TeamManage
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-                && string.IsNullOrEmpty(parameter.ToString())
-                && App.StateProvider.SelectedTeam != null;
+                && parameter is uint;
 
             if (!executable) return;
 
@@ -33,23 +28,23 @@ namespace Messenger.Commands.TeamManage
             {
                 TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
 
-                string userId = parameter.ToString();
+                uint channelId = (uint)parameter;
 
-                User user = await UserService.GetUser(userId);
+                ChannelViewModel channel = CacheQuery.Get<ChannelViewModel>(channelId);
 
-                if (user == null)
+                if (channel == null)
                 {
                     await ResultConfirmationDialog
-                        .Set(false, $"No user was found with id: {userId}")
+                        .Set(false, $"No channel was found with id: {channelId}")
                         .ShowAsync();
                 }
 
-                bool isSuccess = await MessengerService.RemoveMember(userId, selectedTeam.Id);
+                Channel deleted = await MessengerService.DeleteChannel(channel.ChannelId);
 
-                if (isSuccess)
+                if (deleted != null)
                 {
                     await ResultConfirmationDialog
-                        .Set(true, $"Invited user \"{user.DisplayName}\" to the team")
+                        .Set(true, $"Removed channel {channel.ChannelName}#{channel.ChannelId} from the team #{channel.TeamId}")
                         .ShowAsync();
                 }
             }

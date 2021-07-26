@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Services;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
@@ -8,16 +9,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Messenger.Commands.TeamManage
 {
-    public class CreateTeamCommand : ICommand
+    public class CreateChannelCommand : ICommand
     {
         private ILogger _log = GlobalLogger.Instance;
-
-        private CreateTeamDialog _dialog;
-
-        public CreateTeamCommand()
-        {
-            _dialog = new CreateTeamDialog();
-        }
 
         public event EventHandler CanExecuteChanged;
 
@@ -34,14 +28,17 @@ namespace Messenger.Commands.TeamManage
 
             try
             {
+                CreateChannelDialog _dialog = new CreateChannelDialog();
+                TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
+
                 if (await _dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    uint? teamId = await MessengerService.CreateTeam(_dialog.TeamName, _dialog.TeamDescription);
+                    uint? teamId = await MessengerService.CreateChannel(_dialog.ChannelName, selectedTeam.Id);
 
                     if (teamId != null)
                     {
                         await ResultConfirmationDialog
-                            .Set(true, $"You created a new team {_dialog.TeamName}")
+                            .Set(true, $"Created a new channel {_dialog.ChannelName}")
                             .ShowAsync();
                     }
                 }
