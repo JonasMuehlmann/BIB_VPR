@@ -1,12 +1,10 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Helpers;
 using System.Collections.Generic;
 using Windows.UI;
-using Windows.UI.Xaml.Media;
 
-namespace Messenger.Models
+namespace Messenger.ViewModels.DataViewModels
 {
-    public class MemberRole : Observable
+    public class TeamRoleViewModel : DataViewModel
     {
         private string _title;
 
@@ -15,6 +13,14 @@ namespace Messenger.Models
         private uint _teamId;
 
         private Color _color;
+
+        private uint _id;
+
+        public uint Id
+        {
+            get { return _id; }
+            set { Set(ref _id, value); }
+        }
 
         public string Title
         {
@@ -40,7 +46,7 @@ namespace Messenger.Models
             set { Set(ref _color, value); }
         }
 
-        public MemberRole()
+        public TeamRoleViewModel()
         {
             Permissions = new List<Permissions>();
         }
