@@ -1,8 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
-using Messenger.Models;
-using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,32 +12,6 @@ namespace Messenger.Helpers
 {
     public static class CacheQuery
     {
-        public static TeamManager TeamManager
-        {
-            get
-            {
-                if (App.StateProvider == null)
-                {
-                    App.StateProvider = new StateProvider();
-                }
-
-                return App.StateProvider.TeamManager;
-            }
-        }
-
-        public static MessageManager MessageManager
-        {
-            get
-            {
-                if (App.StateProvider == null)
-                {
-                    App.StateProvider = new StateProvider();
-                }
-
-                return App.StateProvider.MessageManager;
-            }
-        }
-
         public static bool IsChannelOf<T>(ChannelViewModel viewModel)
         {
             Type type = typeof(T);
@@ -64,11 +36,7 @@ namespace Messenger.Helpers
 
         public static IReadOnlyCollection<PrivateChatViewModel> GetMyChats() => App.StateProvider.TeamManager.MyChats;
 
-        public static bool TryGetLastMessage(uint channelId, out MessageViewModel lastMessage) => App.StateProvider.MessageManager.TryGetLastMessage(channelId, out lastMessage);
-
         public static bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages) => App.StateProvider.MessageManager.TryGetMessages(channelId, out messages);
-
-        public static ObservableCollection<MessageViewModel> GetMessagesByChannelId(uint channelId) => App.StateProvider.MessageManager.GetMessages(channelId);
 
         public static T Get<T>(params object[] parameters) where T : DataViewModel
         {
@@ -121,11 +89,11 @@ namespace Messenger.Helpers
             }
             else if (IsTypeOf<MessageViewModel>(type))
             {
-                target = await messageManager.AddMessage((Message)parameters.First());
+                target = await messageManager.AddOrUpdateMessage((Message)parameters.First());
             }
             else if (IsTypeOf<IEnumerable<MessageViewModel>>(type))
             {
-                target = await messageManager.AddMessage((IEnumerable<Message>)parameters.First());
+                target = await messageManager.AddOrUpdateMessage((IEnumerable<Message>)parameters.First());
             }
             else if (IsTypeOf<TeamViewModel>(type) || IsTypeOf<PrivateChatViewModel>(type))
             {
@@ -134,6 +102,10 @@ namespace Messenger.Helpers
             else if (IsTypeOf<IEnumerable<TeamViewModel>>(type) || IsTypeOf<IEnumerable<PrivateChatViewModel>>(type))
             {
                 target = await teamManager.AddOrUpdateTeam((IEnumerable<Team>)parameters.First());
+            }
+            else if (IsTypeOf<TeamRoleViewModel>(type))
+            {
+                target = teamManager.AddOrUpdateTeamRole((TeamRole)parameters.First());
             }
             else if (IsTypeOf<ChannelViewModel>(type))
             {
@@ -175,9 +147,12 @@ namespace Messenger.Helpers
             {
                 target = teamManager.RemoveTeam((uint)parameters.First());
             }
+            else if (IsTypeOf<TeamRoleViewModel>(type))
+            {
+                target = teamManager.RemoveTeamRole((uint)parameters.First());
+            }
             else if (IsTypeOf<ChannelViewModel>(type))
             {
-
                 target = teamManager.RemoveChannel((uint)parameters.First());
             }
             else if (IsTypeOf<MemberViewModel>(type))
@@ -188,7 +163,7 @@ namespace Messenger.Helpers
             return target;
         }
 
-        private static bool IsTypeOf<T>(Type type)
+        public static bool IsTypeOf<T>(Type type)
         {
             return typeof(T) == type;
         }
