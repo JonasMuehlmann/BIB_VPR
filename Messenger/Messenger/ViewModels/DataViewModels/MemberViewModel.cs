@@ -11,11 +11,11 @@ namespace Messenger.ViewModels.DataViewModels
 {
     public class MemberViewModel : UserViewModel
     {
-        private List<MemberRole> _memberRoles = new List<MemberRole>();
+        private List<TeamRoleViewModel> _memberRoles = new List<TeamRoleViewModel>();
 
         private uint _teamId;
 
-        public List<MemberRole> MemberRoles
+        public List<TeamRoleViewModel> MemberRoles
         {
             get { return _memberRoles; }
             set { Set(ref _memberRoles, value); }

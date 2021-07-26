@@ -14,6 +14,7 @@ namespace Messenger.ViewModels.DataViewModels
         private DateTime _creationDate;
         private ObservableCollection<MemberViewModel> _members;
         private ObservableCollection<ChannelViewModel> _channels;
+        private ObservableCollection<TeamRoleViewModel> _teamRoles;
 
         public uint Id
         {
@@ -49,6 +50,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _channels; }
             set { Set(ref _channels, value); }
+        }
+
+        public ObservableCollection<TeamRoleViewModel> TeamRoles
+        {
+            get { return _teamRoles; }
+            set { Set(ref _teamRoles, value); }
         }
 
         public TeamViewModel()
