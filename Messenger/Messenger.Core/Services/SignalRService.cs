@@ -25,11 +25,11 @@ namespace Messenger.Core.Services
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>
         public static event EventHandler<SignalREventArgs<Message>> ReceiveMessage;
+        public static event EventHandler<SignalREventArgs<Team>> ReceiveInvitation;
 
         public static event EventHandler<SignalREventArgs<Message>> MessageUpdated;
         public static event EventHandler<SignalREventArgs<Message>> MessageDeleted;
-        public static event EventHandler<SignalREventArgs<Message, Reaction>> MessageReactionCreated;
-        public static event EventHandler<SignalREventArgs<Message, Reaction>> MessageReactionDeleted;
+        public static event EventHandler<SignalREventArgs<Message>> MessageReactionsUpdated;
 
         public static event EventHandler<SignalREventArgs<Team>> TeamCreated;
         public static event EventHandler<SignalREventArgs<Team>> TeamUpdated;
@@ -39,12 +39,9 @@ namespace Messenger.Core.Services
         public static event EventHandler<SignalREventArgs<Channel>> ChannelUpdated;
         public static event EventHandler<SignalREventArgs<Channel>> ChannelDeleted;
 
-        public static event EventHandler<SignalREventArgs<TeamRole>> TeamRoleCreated;
         public static event EventHandler<SignalREventArgs<TeamRole>> TeamRoleUpdated;
         public static event EventHandler<SignalREventArgs<TeamRole>> TeamRoleDeleted;
-        public static event EventHandler<SignalREventArgs<TeamRole, IEnumerable<Permissions>>> RolePermissionsUpdated;
 
-        public static event EventHandler<SignalREventArgs<User, Team>> ReceiveInvitation;
         public static event EventHandler<SignalREventArgs<User, Team>> MemberAdded;
         public static event EventHandler<SignalREventArgs<User, Team>> MemberUpdated;
         public static event EventHandler<SignalREventArgs<User, Team>> MemberRemoved;
@@ -60,13 +57,15 @@ namespace Messenger.Core.Services
                     log.AddConsole();
                 })
                 .Build();
+            
+            /** RECEIVE: PASSIVE EVENTS TRIGGERED ONLY FROM OTHER USERS **/
+            _connection.On<Message>("ReceiveMessage", (message) => ReceiveMessage?.Invoke(typeof(SignalRService), BuildArgument(message)));
+            _connection.On<Team>("ReceiveInvitation", (team) => ReceiveInvitation?.Invoke(typeof(SignalRService), BuildArgument(team)));
 
             /** MESSAGE **/
-            _connection.On<Message>("ReceiveMessage", (message) => ReceiveMessage?.Invoke(typeof(SignalRService), BuildArgument(message)));
             _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(typeof(SignalRService), BuildArgument(message)));
             _connection.On<Message>("MessageDeleted", (message) => MessageDeleted?.Invoke(typeof(SignalRService), BuildArgument(message)));
-            _connection.On<Message, Reaction>("MessageReactionCreated", (message, reaction) => MessageReactionCreated?.Invoke(typeof(SignalRService), BuildArgument(message, reaction)));
-            _connection.On<Message, Reaction>("MessageReactionDeleted", (message, reaction) => MessageReactionDeleted?.Invoke(typeof(SignalRService), BuildArgument(message, reaction)));
+            _connection.On<Message>("MessageReactionsUpdated", (message) => MessageReactionsUpdated?.Invoke(typeof(SignalRService), BuildArgument(message)));
 
             /** TEAM **/
             _connection.On<Team>("TeamCreated", (team) => TeamCreated?.Invoke(typeof(SignalRService), BuildArgument(team)));
@@ -79,13 +78,10 @@ namespace Messenger.Core.Services
             _connection.On<Channel>("ChannelDeleted", (channel) => ChannelDeleted?.Invoke(typeof(SignalRService), BuildArgument(channel)));
 
             /** TEAM ROLES **/
-            _connection.On<TeamRole>("TeamRoleCreated", (role) => TeamRoleCreated?.Invoke(typeof(SignalRService), BuildArgument(role)));
             _connection.On<TeamRole>("TeamRoleUpdated", (role) => TeamRoleUpdated?.Invoke(typeof(SignalRService), BuildArgument(role)));
             _connection.On<TeamRole>("TeamRoleDeleted", (role) => TeamRoleDeleted?.Invoke(typeof(SignalRService), BuildArgument(role)));
-            _connection.On<TeamRole, IEnumerable<Permissions>>("RolePermissionsUpdated", (role, permissions) => RolePermissionsUpdated?.Invoke(typeof(SignalRService), BuildArgument(role, permissions)));
 
             /** MEMBER **/
-            _connection.On<User, Team>("ReceiveInvitation", (user, team) => ReceiveInvitation?.Invoke(typeof(SignalRService), BuildArgument(user, team)));
             _connection.On<User, Team>("MemberAdded", (user, team) => MemberAdded?.Invoke(typeof(SignalRService), BuildArgument(user, team)));
             _connection.On<User, Team>("MemberUpdated", (user, team) => MemberUpdated?.Invoke(typeof(SignalRService), BuildArgument(user, team)));
             _connection.On<User, Team>("MemberRemoved", (user, team) => MemberRemoved?.Invoke(typeof(SignalRService), BuildArgument(user, team)));
@@ -240,28 +236,16 @@ namespace Messenger.Core.Services
             logger.Information($"Deleted message #{message.Id} from the channel #{message.RecipientId}");
         }
 
-        public static async Task CreateMessageReaction(Message message, uint teamId, Reaction reaction)
+        public static async Task UpdateMessageReactions(Message message, uint teamId)
         {
-            LogContext.PushProperty("Method", "CreateMessageReaction");
+            LogContext.PushProperty("Method", "UpdateMessageReactions");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
-            logger.Information($"Function called with parameter message={message}, reaction={reaction}");
+            logger.Information($"Function called with parameter message={message}");
 
-            await _connection.SendAsync("CreateMessageReaction", message, teamId.ToString(), reaction);
+            await _connection.SendAsync("UpdateMessageReactions", message, teamId.ToString());
 
-            logger.Information($"Created reaction #{reaction.Id} to the message #{message.Id} from the channel #{message.RecipientId}");
-        }
-
-        public static async Task DeleteMessageReaction(Message message, uint teamId, Reaction reaction)
-        {
-            LogContext.PushProperty("Method", "DeleteMessageReaction");
-            LogContext.PushProperty("SourceContext", "SignalRService");
-
-            logger.Information($"Function called with parameter message={message}, reaction={reaction}");
-
-            await _connection.SendAsync("DeleteMessageReaction", message, teamId.ToString(), reaction);
-
-            logger.Information($"Deleted reaction #{reaction.Id} from the message #{message.Id} from the channel #{message.RecipientId}");
+            logger.Information($"Updated reactions in message #{message.Id} from the channel #{message.RecipientId}");
         }
 
         #endregion
@@ -354,28 +338,16 @@ namespace Messenger.Core.Services
 
         #region Team Roles
 
-        public static async Task CreateTeamRole(TeamRole role)
+        public static async Task AddOrUpdateTeamRole(TeamRole role)
         {
-            LogContext.PushProperty("Method", "CreateTeamRole");
+            LogContext.PushProperty("Method", "AddOrUpdateTeamRole");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter role={role}");
 
-            await _connection.SendAsync("CreateTeamRole", role);
+            await _connection.SendAsync("AddOrUpdateTeamRole", role);
 
-            logger.Information($"Created team role '{role.Role}' in team #{role.TeamId})");
-        }
-
-        public static async Task UpdateTeamRole(TeamRole role)
-        {
-            LogContext.PushProperty("Method", "UpdateTeamRole");
-            LogContext.PushProperty("SourceContext", "SignalRService");
-
-            logger.Information($"Function called with parameter role={role}");
-
-            await _connection.SendAsync("UpdateTeamRole", role);
-
-            logger.Information($"Updated team role '{role.Role}' in team #{role.TeamId})");
+            logger.Information($"Added/Updated team role '{role.Role}' in team #{role.TeamId})");
         }
 
         public static async Task DeleteTeamRole(TeamRole role)
@@ -388,18 +360,6 @@ namespace Messenger.Core.Services
             await _connection.SendAsync("DeleteTeamRole", role);
 
             logger.Information($"Deleted team role '{role.Role}' from team #{role.TeamId})");
-        }
-
-        public static async Task UpdateRolePermissions(TeamRole role, IEnumerable<Permissions> permissions)
-        {
-            LogContext.PushProperty("Method", "UpdateRolePermissions");
-            LogContext.PushProperty("SourceContext", "SignalRService");
-
-            logger.Information($"Function called with parameter role={role}, permissions={permissions}");
-
-            await _connection.SendAsync("UpdateRolePermissions", role);
-
-            logger.Information($"Updated team role permissions of '{role.Role}' in team #{role.TeamId} to '{string.Join(", ", permissions)}')");
         }
 
         #endregion
