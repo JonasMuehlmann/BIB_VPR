@@ -1,57 +1,113 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Models;
-using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamManager : Observable
     {
-        private readonly TeamBuilder _builder;
-        private List<TeamViewModel> _myTeams = new List<TeamViewModel>();
-        private List<PrivateChatViewModel> _myChats = new List<PrivateChatViewModel>();
+        #region Private
 
-        public ReadOnlyCollection<TeamViewModel> MyTeams
+        private readonly StateProvider _provider;
+
+        private ObservableCollection<TeamViewModel> _myTeams = new ObservableCollection<TeamViewModel>();
+
+        private ObservableCollection<PrivateChatViewModel> _myChats = new ObservableCollection<PrivateChatViewModel>();
+
+        #endregion
+
+        public ObservableCollection<TeamViewModel> MyTeams
         {
             get
             {
-                return _myTeams.AsReadOnly();
+                return _myTeams;
             }
         }
 
-        public ReadOnlyCollection<PrivateChatViewModel> MyChats
+        public ObservableCollection<PrivateChatViewModel> MyChats
         {
             get
             {
-                return _myChats.AsReadOnly();
+                return _myChats;
             }
         }
 
-        public TeamManager()
+        public TeamManager(StateProvider provider)
         {
-            _builder = new TeamBuilder();
-            Clear();
+            _provider = provider;
         }
 
-        public void Clear()
+        public async Task Initialize(UserViewModel user)
         {
-            _myTeams = new List<TeamViewModel>();
-            _myChats = new List<PrivateChatViewModel>();
+            await LoadTeamsFromDatabase(user);
+
+            _provider.MessageManager.MessagesLoadedForChannel += OnMessagesLoadedForChannel;
         }
+
+        /// <summary>
+        /// Fires only when initializing, to set the last message of the channel to be shown on the navigation panel
+        /// </summary>
+        /// <param name="sender">Message Manager</param>
+        /// <param name="args">Argument containing the messages, team and channel</param>
+        private void OnMessagesLoadedForChannel(object sender, ManagerEventArgs args)
+        {
+            if (args.Team is PrivateChatViewModel)
+            {
+                foreach (PrivateChatViewModel chat in _myChats)
+                {
+                    if (chat.MainChannel == args.Channel)
+                    {
+                        chat.LastMessage = args.Messages.Last();
+                    }
+                }
+            }
+            else
+            {
+                foreach (TeamViewModel team in _myTeams)
+                {
+                    if (team.Channels.Contains(args.Channel))
+                    {
+                        ChannelViewModel channel = team.Channels.Single(c => c.ChannelId == args.Channel.ChannelId);
+
+                        channel.LastMessage = args.Messages.Last();
+                    }
+                }
+            }
+        }
+
+        #region Load
+
+        public async Task<IEnumerable<TeamViewModel>> LoadTeamsFromDatabase(UserViewModel user)
+        {
+            IEnumerable<Team> data = await TeamBuilder.GetTeamsFromDatabase(user);
+
+            /* EXIT IF NO DATA */
+            if (data == null || data.Count() <= 0)
+            {
+                return null;
+            }
+
+            IEnumerable<TeamViewModel> viewModels = await AddOrUpdateTeam(data);
+
+            return viewModels;
+        }
+
+        #endregion
+
+        #region Add or Update
 
         public async Task<TeamViewModel> AddOrUpdateTeam(Team teamData)
         {
-            dynamic viewModel = await _builder.Build(teamData, App.StateProvider.CurrentUser.Id);
+            dynamic viewModel = await TeamBuilder.Build(teamData, _provider.CurrentUser.Id);
 
             if (viewModel is PrivateChatViewModel)
             {
-                PrivateChatViewModel chatViewModel = viewModel as PrivateChatViewModel;
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
 
                 if (!_myChats.Any(chat => chat.Id == chatViewModel.Id))
                 {
@@ -108,7 +164,7 @@ namespace Messenger.Helpers.TeamHelpers
             {
                 if (teamViewModel.Id == channelData.TeamId)
                 {
-                    ChannelViewModel viewModel = _builder.Map(channelData);
+                    ChannelViewModel viewModel = TeamBuilder.Map(channelData);
 
                     if (!teamViewModel.Channels.Any(channel => channel.ChannelId == viewModel.ChannelId))
                     {
@@ -146,16 +202,9 @@ namespace Messenger.Helpers.TeamHelpers
             {
                 if (teamViewModel.Id == teamId)
                 {
-                    MemberViewModel member = _builder.Map(userData);
-                    IList<MemberRole> memberRoles = await _builder.WithMemberRoles(teamId, member);
-
-                    if (memberRoles != null && memberRoles.Count > 0)
-                    {
-                        foreach (MemberRole role in memberRoles)
-                        {
-                            member.MemberRoles.Add(role);
-                        }
-                    }
+                    MemberViewModel member = await TeamBuilder
+                        .Map(userData)
+                        .WithMemberRoles(teamId);
 
                     if (!teamViewModel.Members.Any(m => m.Id == member.Id))
                     {
@@ -191,10 +240,42 @@ namespace Messenger.Helpers.TeamHelpers
             return members;
         }
 
+        public async Task<TeamRoleViewModel> AddOrUpdateTeamRole(TeamRole teamRole)
+        {
+            foreach (TeamViewModel teamViewModel in _myTeams)
+            {
+                if (teamViewModel.Id == teamRole.TeamId)
+                {
+                    TeamRoleViewModel roleViewModel = await TeamBuilder.Map(teamRole).WithPermissions();
+
+                    if (!teamViewModel.TeamRoles.Any(r => r.Id == roleViewModel.Id))
+                    {
+                        teamViewModel.TeamRoles.Add(roleViewModel);
+                    }
+                    else
+                    {
+                        TeamRoleViewModel oldValue = teamViewModel.TeamRoles.SingleOrDefault(r => r.Id == roleViewModel.Id);
+
+                        int index = teamViewModel.TeamRoles.IndexOf(oldValue);
+
+                        teamViewModel.TeamRoles[index] = roleViewModel;
+                    }
+
+                    return roleViewModel;
+                }
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Remove
+
         public TeamViewModel RemoveTeam(uint teamId)
         {
-            TeamViewModel viewModel = _myTeams.Single(team => team.Id == teamId);
-
+            TeamViewModel viewModel = _myTeams.SingleOrDefault(team => team.Id == teamId);
+            
             if (viewModel == null)
             {
                 return null;
@@ -205,9 +286,30 @@ namespace Messenger.Helpers.TeamHelpers
             return viewModel;
         }
 
+        public TeamRoleViewModel RemoveTeamRole(uint roleId)
+        {
+            TeamRoleViewModel teamRole = _myTeams.SelectMany(t => t.TeamRoles).SingleOrDefault(r => r.Id == roleId);
+
+            if (teamRole == null)
+            {
+                return null;
+            }
+
+            TeamViewModel team = _myTeams.SingleOrDefault(t => t.Id == teamRole.TeamId);
+
+            team.TeamRoles.Remove(teamRole);
+
+            return teamRole;
+        }
+
         public ChannelViewModel RemoveChannel(uint channelId)
         {
             ChannelViewModel channelViewModel = _myTeams.SelectMany(team => team.Channels).SingleOrDefault(channel => channel.ChannelId == channelId);
+
+            if (channelViewModel == null)
+            {
+                return null;
+            }
 
             TeamViewModel teamViewModel = _myTeams.SingleOrDefault(team => team.Id == channelViewModel.TeamId);
 
@@ -236,5 +338,7 @@ namespace Messenger.Helpers.TeamHelpers
 
             return memberViewModel;
         }
+
+        #endregion
     }
 }
