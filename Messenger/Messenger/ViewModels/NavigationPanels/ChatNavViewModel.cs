@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Messenger.Commands.PrivateChat;
 using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
-using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
 using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
-using Messenger.Views;
-using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
@@ -21,7 +17,7 @@ namespace Messenger.ViewModels
     {
         #region Private
 
-        private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
+        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
 
         private ObservableCollection<PrivateChatViewModel> _chats;
 
@@ -55,65 +51,58 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ICommand SwitchChatCommand => new ChannelSwitchCommand(ChatHubService);
+        public UserViewModel CurrentUser { get; set; }
 
-        public ICommand StartChatCommand => new StartChatCommand(this, ChatHubService);
+        public ICommand SwitchChatCommand => new ChannelSwitchCommand();
+
+        public ICommand StartChatCommand => new StartChatCommand(this);
 
         #endregion
 
         public ChatNavViewModel()
         {
-            IsBusy = true;
-            Chats = new ObservableCollection<PrivateChatViewModel>();
-
-            App.EventProvider.ChatsLoaded += OnChatsLoaded;
-            App.EventProvider.PrivateChatUpdated += OnPrivateChatUpdated;
-            App.EventProvider.MessageUpdated += OnMessageUpdated;
-
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            switch (ChatHubService.ConnectionState)
-            {
-                case ChatHubConnectionState.Loading:
-                    IsBusy = true;
-                    break;
-                case ChatHubConnectionState.NoDataFound:
-                    IsBusy = false;
-                    break;
-                case ChatHubConnectionState.LoadedWithData:
-                    Chats.Clear();
-                    foreach (PrivateChatViewModel vm in CacheQuery.GetMyChats())
-                    {
-                        Chats.Add(vm);
-                    }
-                    IsBusy = false;
-                    break;
-                default:
-                    break;
-            }
-        }
+            IsBusy = true;
+            Chats = new ObservableCollection<PrivateChatViewModel>();
 
-        private void OnMessageUpdated(object sender, BroadcastArgs e)
-        {
-            if (e.Reason == BroadcastReasons.Created)
+            /** GET DATA FROM CACHE IF ALREADY INITIALIZED **/
+            if (App.StateProvider != null)
             {
-                MessageViewModel message = e.Payload as MessageViewModel;
+                Chats.Clear();
 
-                foreach (PrivateChatViewModel privateChat in _chats)
+                foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
                 {
-                    if (privateChat.MainChannel.ChannelId == message.ChannelId)
-                    {
-                        privateChat.LastMessage = message;
-                        break;
-                    }
+                    Chats.Add(chat);
                 }
+
+                IsBusy = false;
+            }
+
+            CurrentUser = await UserDataService.GetUserAsync();
+        }
+
+        public void OnChatsLoaded(object sender, BroadcastArgs e)
+        {
+            IEnumerable<PrivateChatViewModel> chats = e.Payload as IEnumerable<PrivateChatViewModel>;
+
+            if (chats != null && chats.Count() > 0)
+            {
+                Chats.Clear();
+
+                foreach (PrivateChatViewModel chat in chats)
+                {
+                    Chats.Add(chat);
+                }
+
+                IsBusy = false;
             }
         }
 
-        private void OnPrivateChatUpdated(object sender, BroadcastArgs e)
+        public void OnChatUpdated(object sender, BroadcastArgs e)
         {
             PrivateChatViewModel privateChat = e.Payload as PrivateChatViewModel;
 
@@ -144,13 +133,20 @@ namespace Messenger.ViewModels
             }
         }
 
-        private void OnChatsLoaded(object sender, BroadcastArgs e)
+        public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
-            IEnumerable<PrivateChatViewModel> chats = e.Payload as IEnumerable<PrivateChatViewModel>;
-
-            if (chats != null && chats.Count() > 0)
+            if (e.Reason == BroadcastReasons.Created)
             {
-                _chats = new ObservableCollection<PrivateChatViewModel>(chats);
+                MessageViewModel message = e.Payload as MessageViewModel;
+
+                foreach (PrivateChatViewModel privateChat in _chats)
+                {
+                    if (privateChat.MainChannel.ChannelId == message.ChannelId)
+                    {
+                        privateChat.LastMessage = message;
+                        break;
+                    }
+                }
             }
         }
     }
