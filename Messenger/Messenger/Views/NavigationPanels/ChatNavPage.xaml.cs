@@ -27,5 +27,23 @@ namespace Messenger.Views
                     break;
             }
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            App.EventProvider.ChatsLoaded += ViewModel.OnChatsLoaded;
+            App.EventProvider.PrivateChatUpdated += ViewModel.OnChatUpdated;
+            App.EventProvider.MessageUpdated += ViewModel.OnMessageUpdated;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            App.EventProvider.ChatsLoaded -= ViewModel.OnChatsLoaded;
+            App.EventProvider.PrivateChatUpdated -= ViewModel.OnChatUpdated;
+            App.EventProvider.MessageUpdated -= ViewModel.OnMessageUpdated;
+        }
     }
 }

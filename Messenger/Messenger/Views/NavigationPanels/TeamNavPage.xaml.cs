@@ -28,5 +28,25 @@ namespace Messenger.Views
                     break;
             }
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            App.EventProvider.TeamsLoaded += ViewModel.OnTeamsLoaded;
+            App.EventProvider.TeamUpdated += ViewModel.OnTeamUpdated;
+            App.EventProvider.ChannelUpdated += ViewModel.OnChannelUpdated;
+            App.EventProvider.MessageUpdated += ViewModel.OnMessageUpdated;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            App.EventProvider.TeamsLoaded -= ViewModel.OnTeamsLoaded;
+            App.EventProvider.TeamUpdated -= ViewModel.OnTeamUpdated;
+            App.EventProvider.ChannelUpdated -= ViewModel.OnChannelUpdated;
+            App.EventProvider.MessageUpdated -= ViewModel.OnMessageUpdated;
+        }
     }
 }
