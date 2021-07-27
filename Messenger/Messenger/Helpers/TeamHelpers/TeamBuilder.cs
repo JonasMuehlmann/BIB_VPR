@@ -170,9 +170,16 @@ namespace Messenger.Helpers.TeamHelpers
         {
             IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(viewModel.TeamId, viewModel.Title);
 
-            if (permissions != null && permissions.Count() > 0)
+            if (permissions == null || permissions.Count() <= 0)
             {
-                viewModel.Permissions = permissions.ToList();
+                return viewModel;    
+            }
+
+            viewModel.Permissions.Clear();
+
+            foreach (Permissions permission in permissions)
+            {
+                viewModel.Permissions.Add(permission);
             }
 
             return viewModel;
@@ -201,9 +208,9 @@ namespace Messenger.Helpers.TeamHelpers
             return new TeamRoleViewModel()
             {
                 Id = teamRole.Id,
-                Title = teamRole.Role,
+                Title = string.Concat(teamRole.Role.Substring(0, 1).ToUpper(), teamRole.Role.Substring(1)),
                 TeamId = teamRole.TeamId,
-                Permissions = new List<Permissions>()
+                Permissions = new ObservableCollection<Permissions>()
             };
         }
 
@@ -211,9 +218,9 @@ namespace Messenger.Helpers.TeamHelpers
         {
             return new TeamRoleViewModel()
             {
-                Title = roleTitle,
+                Title = string.Concat(roleTitle.Substring(0, 1).ToUpper(), roleTitle.Substring(1)),
                 TeamId = teamId,
-                Permissions = new List<Permissions>()
+                Permissions = new ObservableCollection<Permissions>()
             };
         }
 
