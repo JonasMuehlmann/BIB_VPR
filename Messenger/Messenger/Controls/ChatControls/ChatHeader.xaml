@@ -14,6 +14,7 @@
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </UserControl.Resources>
     <Grid
+        RowSpacing="10"
         VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
@@ -24,7 +25,79 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="0"
+            CornerRadius="5"
+            Orientation="Horizontal"
+            Margin="5 10">
+            <Grid
+                BorderThickness="1"
+                Padding="20 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox
+                    VerticalAlignment="Bottom"
+                    Grid.Column="0"
+                    Width="16"
+                    Height="16">
+                    <SymbolIcon
+                        Opacity=".55"
+                        Symbol="FourBars"
+                        />
+                </Viewbox>
+                <StackPanel
+                    Grid.Column="1"
+                    Spacing="5"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Text="Online"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource SystemAccentColor}"
+                        />
+                    <Viewbox
+                        Opacity=".55"
+                        VerticalAlignment="Bottom"
+                        Margin="5 0 0 0"
+                        Width="16"
+                        Height="16">
+                        <icons:PackIconFontAwesome
+                            Kind="UserTagSolid"
+                            />
+                    </Viewbox>
+                </StackPanel>
+                <StackPanel
+                    Margin="5 0 0 0"
+                    VerticalAlignment="Center"
+                    Grid.Column="2"
+                    Spacing="5"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        FontSize="12"
+                        Foreground="{ThemeResource SystemAccentColor}">
+                        <Run
+                            Text="{x:Bind CurrentUser.Name, Mode=OneWay}"
+                            />
+                        <Run
+                            Text="#"
+                            />
+                        <Run
+                            Text="{x:Bind CurrentUser.NameId, Mode=OneWay}"
+                            />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
         <Viewbox
+            Grid.Column="0"
+            Grid.Row="1"
             VerticalAlignment="Center"
             Width="48"
             Height="48">
@@ -40,6 +113,7 @@
         </Viewbox>
         <StackPanel
             Grid.Column="1"
+            Grid.Row="1"
             Orientation="Horizontal"
             VerticalAlignment="Stretch">
             <StackPanel
@@ -103,9 +177,9 @@
             VerticalAlignment="Center"
             Spacing="5"
             Grid.Column="2"
+            Grid.Row="1"
             Padding="0 0 40 0">
             <Button
-                Command="{x:Bind OpenTeamManagerCommand}"
                 Padding="15 10"
                 CornerRadius="3"
                 Opacity=".75"
@@ -114,36 +188,28 @@
                     Orientation="Horizontal"
                     Spacing="5">
                     <Viewbox
-                        Width="16"
-                        Height="16">
-                        <SymbolIcon Symbol="Contact"/>
+                        Width="20"
+                        Height="20">
+                        <icons:PackIconFontAwesome
+                            Kind="EllipsisVSolid"
+                            />
                     </Viewbox>
-                    <TextBlock
-                        FontSize="12"
-                        Text="Manage"
-                        />
                 </StackPanel>
-            </Button>
-            <Button
-                x:Uid="Shell_SettingsButton"
-                Command="{x:Bind OpenSettingsCommand}"
-                Padding="15 10"
-                CornerRadius="3"
-                Opacity=".75"
-                Background="Transparent">
-                <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="5">
-                    <Viewbox
-                        Width="16"
-                        Height="16">
-                        <SymbolIcon Symbol="Setting"/>
-                    </Viewbox>
-                    <TextBlock
-                        FontSize="12"
-                        Text="Settings"
-                        />
-                </StackPanel>
+                <Button.Flyout>
+                    <MenuFlyout
+                        Placement="BottomEdgeAlignedRight">
+                        <MenuFlyoutItem
+                            Icon="Contact"
+                            Text="Team Manage"
+                            Command="{x:Bind OpenTeamManagerCommand}"
+                            />
+                        <MenuFlyoutItem
+                            Icon="Setting"
+                            Text="Settings"
+                            Command="{x:Bind OpenSettingsCommand}"
+                            />
+                    </MenuFlyout>
+                </Button.Flyout>
             </Button>
         </StackPanel>
     </Grid>
