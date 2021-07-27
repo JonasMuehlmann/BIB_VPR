@@ -134,7 +134,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid
-            Padding="32 25 20 25"
+            Padding="32 0 20 25"
             BorderThickness="0 0 0 1"
             BorderBrush="{ThemeResource SystemAccentColorLight1}"
             HorizontalAlignment="Stretch">
@@ -181,7 +181,7 @@
         <shared:OnLoading
             Grid.Row="1"
             LoadingText="Loading Teams.."
-            IsBusy="{x:Bind ViewModel.IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            IsBusy="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
             />
 
         <!-- TEAMS LIST -->
