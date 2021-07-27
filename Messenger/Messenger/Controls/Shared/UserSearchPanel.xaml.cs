@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -58,6 +59,7 @@ namespace Messenger.Controls.Shared
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput
                 && sender.Text.Length > 2)
             {
+
                 var searchUsers = await OnSearch?.Invoke(sender.Text);
 
                 if (searchUsers == null)

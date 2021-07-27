@@ -23,7 +23,6 @@
             NavigateToTeams="{x:Bind ViewModel.NavigateToTeamsCommmand}"
             NavigateToChats="{x:Bind ViewModel.NavigateToChatsCommand}"
             NavigateToNotifications="{x:Bind ViewModel.NavigateToNotificationsCommand}"
-            CurrentPageName="{x:Bind ViewModel.CurrentPageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             />
         <Grid Grid.Row="1" Grid.Column="0">
             <Frame x:Name="sideFrame" />

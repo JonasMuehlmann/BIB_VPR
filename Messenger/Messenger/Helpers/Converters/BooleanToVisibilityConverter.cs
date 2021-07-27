@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.Converters
 {
     /// <summary>
     /// Returns collapsed visibility option if the value is false, else visible

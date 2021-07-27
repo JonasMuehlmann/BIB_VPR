@@ -9,7 +9,7 @@
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:models="using:Messenger.Models"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
-    xmlns:converters="using:Messenger.Helpers"
+    xmlns:converters="using:Messenger.Helpers.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="600">

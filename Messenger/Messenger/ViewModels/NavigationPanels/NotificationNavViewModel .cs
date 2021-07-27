@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Helpers;
 using Messenger.Models;
 

@@ -1,25 +1,19 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.Services;
+using Messenger.Core.Services;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Messenger.Commands.UserData
 {
-    public class EditBioCommand : ICommand
+    public class UpdateUserBioCommand : ICommand
     {
-        private readonly UserDataService _service;
-
         private ILogger _logger => GlobalLogger.Instance;
 
-        public EditBioCommand(UserDataService service)
+        public UpdateUserBioCommand()
         {
-            _service = service;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -33,7 +27,8 @@ namespace Messenger.Commands.UserData
         {
             bool executable = parameter != null
                 && parameter is string
-                && !string.IsNullOrEmpty(parameter.ToString());
+                && !string.IsNullOrEmpty(parameter.ToString())
+                && App.StateProvider.CurrentUser != null;
 
             if (!executable)
             {
@@ -42,7 +37,10 @@ namespace Messenger.Commands.UserData
 
             try
             {
-                bool isSuccess = await _service.UpdateUserBio(parameter.ToString());
+                UserViewModel currentUser = App.StateProvider.CurrentUser;
+                string newBio = parameter.ToString();
+
+                bool isSuccess = await MessengerService.UpdateUserBio(currentUser.Id, newBio);
 
                 if (isSuccess)
                 {

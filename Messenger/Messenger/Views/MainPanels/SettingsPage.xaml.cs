@@ -103,7 +103,7 @@ namespace Messenger.Views
 
         private void EditAcceptButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            ViewModel.EditBioCommand?.Execute(ViewModel.CurrentBio);
+            ViewModel.UpdateUserBioCommand?.Execute(ViewModel.CurrentBio);
 
             EditBioPanel.Visibility = Visibility.Collapsed;
             UserBioTextBlock.Visibility = Visibility.Visible;

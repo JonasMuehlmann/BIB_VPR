@@ -277,7 +277,7 @@ namespace Messenger.Tests.MSTest
 
                 var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var roles = await TeamService.ListRoles(teamId.Value);
 
@@ -299,11 +299,11 @@ namespace Messenger.Tests.MSTest
 
                 var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var didRemoveRole = await TeamService.RemoveRole(testName + "Role", teamId.Value);
 
-                Assert.IsTrue(didRemoveRole);
+                Assert.IsNotNull(didRemoveRole);
 
                 var roles = await TeamService.ListRoles(teamId.Value);
 
@@ -334,7 +334,7 @@ namespace Messenger.Tests.MSTest
 
                 var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var didAssignRole = await TeamService.AssignRole(testName + "Role", userId, teamId.Value);
 
@@ -370,7 +370,7 @@ namespace Messenger.Tests.MSTest
 
                 var didAddRole = await TeamService.AddRole(testName + "Role", teamId.Value);
 
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var didAssignRole = await TeamService.AssignRole(testName + "Role", userId, teamId.Value);
 
@@ -408,11 +408,11 @@ namespace Messenger.Tests.MSTest
 
                 var didAddRole = await TeamService.AddRole(testName + "Role1", teamId.Value);
 
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 didAddRole = await TeamService.AddRole(testName + "Role2", teamId.Value);
 
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var didAssignRole = await TeamService.AssignRole(testName + "Role1", userId, teamId.Value);
 
@@ -441,13 +441,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(teamId);
 
                 var didAddRole = await TeamService.AddRole("admin", teamId.Value);
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var canAddRole = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsFalse(canAddRole);
 
                 var didGrantPermission = await TeamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
-                Assert.IsTrue(didGrantPermission);
+                Assert.IsNotNull(didGrantPermission);
 
                 var hasPermission = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(hasPermission );
@@ -466,16 +466,16 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(teamId);
 
                 var didAddRole = await TeamService.AddRole("admin", teamId.Value);
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var didGrantPermission = await TeamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
-                Assert.IsTrue(didGrantPermission);
+                Assert.IsNotNull(didGrantPermission);
 
                 var hasPermission = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsTrue(hasPermission);
 
                 var didRevokePermission = await TeamService.RevokePermission(teamId.Value, "admin", Permissions.CanAddRole);
-                Assert.IsTrue(didRevokePermission);
+                Assert.IsNotNull(didRevokePermission);
 
                 hasPermission = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsFalse(hasPermission);
@@ -495,13 +495,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(teamId);
 
                 var didAddRole = await TeamService.AddRole("admin", teamId.Value);
-                Assert.IsTrue(didAddRole);
+                Assert.IsNotNull(didAddRole);
 
                 var canAddRole = await TeamService.HasPermission(teamId.Value, "admin", Permissions.CanAddRole);
                 Assert.IsFalse(canAddRole);
 
                 var didGrantPermission = await TeamService.GrantPermission(teamId.Value, "admin", Permissions.CanAddRole);
-                Assert.IsTrue(didGrantPermission);
+                Assert.IsNotNull(didGrantPermission);
 
                 var permissions = await TeamService.GetPermissionsOfRole(teamId.Value, "admin");
                 Assert.AreEqual(1, permissions.Count);

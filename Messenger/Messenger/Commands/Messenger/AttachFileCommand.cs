@@ -10,14 +10,14 @@ using Windows.Storage.Pickers;
 
 namespace Messenger.Commands.Messenger
 {
-    public class OpenFilesCommand : ICommand
+    public class AttachFileCommand : ICommand
     {
         private readonly ChatViewModel _viewModel;
         private ILogger _logger => GlobalLogger.Instance;
 
         public event EventHandler CanExecuteChanged;
 
-        public OpenFilesCommand(ChatViewModel viewModel)
+        public AttachFileCommand(ChatViewModel viewModel)
         {
             _viewModel = viewModel;
         }

@@ -1,25 +1,19 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.Services;
+using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
-    public class EditMessageCommand : ICommand
+    public class UpdateMessageCommand : ICommand
     {
-        private readonly ChatHubService _hub;
         private ILogger _logger => GlobalLogger.Instance;
 
-        public EditMessageCommand(ChatHubService hub)
+        public UpdateMessageCommand()
         {
-            _hub = hub;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -32,7 +26,9 @@ namespace Messenger.Commands.Messenger
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-                && parameter is MessageViewModel;
+                && parameter is MessageViewModel
+                && App.StateProvider.CurrentUser != null
+                && App.StateProvider.SelectedTeam != null;
 
             if (!executable)
             {
@@ -42,8 +38,9 @@ namespace Messenger.Commands.Messenger
             try
             {
                 MessageViewModel vm = (MessageViewModel)parameter;
+                TeamViewModel team = App.StateProvider.SelectedTeam;
 
-                bool isSuccess = await _hub.EditMessage((uint)vm.Id, vm.Content);
+                bool isSuccess = await MessengerService.UpdateMessage((uint)vm.Id, vm.Content, team.Id);
 
                 if (!isSuccess)
                 {
