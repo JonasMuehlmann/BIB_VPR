@@ -36,7 +36,7 @@ namespace Messenger.Commands.TeamManage
             {
                 if (await _dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    uint? teamId = await MessengerService.CreateTeam(_dialog.TeamName, _dialog.TeamDescription);
+                    uint? teamId = await MessengerService.CreateTeam(App.StateProvider.CurrentUser.Id, _dialog.TeamName, _dialog.TeamDescription);
 
                     if (teamId != null)
                     {
