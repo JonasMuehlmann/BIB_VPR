@@ -6,6 +6,7 @@ using Messenger.Services;
 using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Security.Authentication.Web;
 using Windows.UI.Xaml;
 
@@ -32,6 +33,7 @@ namespace Messenger
             UnhandledException += OnAppUnhandledException;
 
             EventProvider = new EventProvider();
+            StateProvider = new StateProvider();
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
@@ -44,6 +46,9 @@ namespace Messenger
             {
                 await ActivationService.ActivateAsync(args);
             }
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
