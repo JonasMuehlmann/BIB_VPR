@@ -161,6 +161,7 @@
     <Compile Include="Commands\TeamManage\ChannelSwitchCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateChannelCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamCommand.cs" />
+    <Compile Include="Commands\TeamManage\CreateTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\InviteUserCommand.cs" />
     <Compile Include="Commands\Messenger\AttachFileCommand.cs" />
     <Compile Include="Commands\TeamManage\OpenManageRolesCommand.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Helpers\Converters\BooleanToAlignmentConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\ColorToHexCodeConverter.cs" />
     <Compile Include="Helpers\Converters\ColorToSolidBrushConverter.cs" />
     <Compile Include="Helpers\Converters\DateToStringConverter.cs" />
     <Compile Include="Helpers\Converters\EnumToBooleanConverter.cs" />
@@ -267,6 +269,7 @@
     <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\PrivateChatViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
+    <Compile Include="ViewModels\DialogBoxes\ManageRolesDialogViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
     <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
