@@ -47,15 +47,15 @@ namespace Messenger.Services
             set { _contentFrame = value; }
         }
 
-        public static bool CanGoBack => Frame.CanGoBack;
+        public static bool CanGoBack => ContentFrame.CanGoBack;
 
-        public static bool CanGoForward => Frame.CanGoForward;
+        public static bool CanGoForward => ContentFrame.CanGoForward;
 
         public static bool GoBack()
         {
             if (CanGoBack)
             {
-                Frame.GoBack();
+                ContentFrame.GoBack();
                 return true;
             }
 
