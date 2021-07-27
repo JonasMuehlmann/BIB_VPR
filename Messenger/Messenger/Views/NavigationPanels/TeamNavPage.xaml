@@ -13,7 +13,7 @@
     xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:templateSelectors="using:Messenger.TemplateSelectors"
-    xmlns:converters="using:Messenger.Helpers"
+    xmlns:converters="using:Messenger.Helpers.Converters"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />

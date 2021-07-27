@@ -1,20 +1,16 @@
 ﻿using System;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.Converters
 {
-    public class BooleanToAlignmentConverter : IValueConverter
+    public class ThemeToFillBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value == null || !(value is bool))
-            {
-                return null;
-            }
-
-            bool isMyMessage = (bool)value;
-
-            return isMyMessage ? "Right" : "Left";
+            return (ElementTheme)value == ElementTheme.Dark ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.WhiteSmoke);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

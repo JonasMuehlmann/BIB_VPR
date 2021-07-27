@@ -31,9 +31,9 @@
                     Margin="10 15 0 10"
                     OpenSettingsCommand="{x:Bind ViewModel.OpenSettingsCommand}"
                     OpenTeamManagerCommand="{x:Bind ViewModel.OpenTeamManagerCommand}"
-                    EditTeamDetailsCommand="{x:Bind ViewModel.EditTeamDetailsCommand}"
-                    CurrentTeam="{x:Bind ViewModel.CurrentTeam, Mode=OneWay}"
-                    CurrentChannel="{x:Bind ViewModel.CurrentChannel, Mode=OneWay}"
+                    EditTeamDetailsCommand="{x:Bind ViewModel.UpdateTeamDetailsCommand}"
+                    CurrentTeam="{x:Bind ViewModel.SelectedTeam, Mode=OneWay}"
+                    CurrentChannel="{x:Bind ViewModel.SelectedChannel, Mode=OneWay}"
                     />
                 <MenuFlyoutSeparator
                     Grid.Row="1"
@@ -44,9 +44,9 @@
                 <controls:MessagesListControl
                     Grid.Row="2"
                     Margin="10 15 0 10"
-                    Messages="{x:Bind ViewModel.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Messages="{x:Bind ViewModel.Messages, Mode=OneWay}"
                     ReplyToCommand="{x:Bind ViewModel.ReplyToCommand}"
-                    EditMessageCommand="{x:Bind ViewModel.EditMessageCommand}"
+                    EditMessageCommand="{x:Bind ViewModel.UpdateMessageCommand}"
                     DeleteMessageCommand="{x:Bind ViewModel.DeleteMessageCommand}"
                     ToggleReactionCommand="{x:Bind ViewModel.ToggleReactionCommand}"
                     />

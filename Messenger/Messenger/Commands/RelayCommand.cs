@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Messenger.Helpers
+namespace Messenger.Commands
 {
     public class RelayCommand : ICommand
     {

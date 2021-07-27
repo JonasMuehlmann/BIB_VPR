@@ -73,5 +73,20 @@ namespace Messenger.Controls.ChatControls
 
         }
 
+        private void tbxContent_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Enter:
+                case Windows.System.VirtualKey.Accept:
+                    if (MessageContent.Length > 0)
+                    {
+                        SendMessageCommand?.Execute(MessageContent);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

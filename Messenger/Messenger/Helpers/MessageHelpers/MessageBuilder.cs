@@ -14,32 +14,30 @@ namespace Messenger.Helpers.MessageHelpers
     /// <summary>
     /// Converts and completes MessageViewModels to be shown on UI
     /// </summary>
-    public class MessageBuilder
+    public static class MessageBuilder
     {
+        public static async Task<IEnumerable<Message>> GetMessagesFromDatabase(ChannelViewModel channel)
+        {
+            return await MessengerService.GetMessages(channel.ChannelId);
+        }
+
         /// <summary>
         /// Converts the given Message data model to MessageViewModel
         /// </summary>
         /// <param name="message">Message data model to be converted</param>
         /// <returns>A complete MessageViewModel object</returns>
-        public async Task<MessageViewModel> Build(Message message, UserViewModel currentUser)
+        public static async Task<MessageViewModel> Build(this Message message)
         {
-            MessageViewModel vm = Map(message);
+            MessageViewModel withReactions = await Map(message).WithReactions();
 
-            vm = await AssignReaction(vm);
-
-            if (vm.Reactions.Count > 0)
+            if (withReactions.Sender == null)
             {
-                MarkMyReaction(ref vm, currentUser.Id);
+                return await withReactions.WithSender();
             }
-
-            vm.IsMyMessage = currentUser.Id == vm.SenderId;
-
-            if (vm.Sender == null)
+            else
             {
-                vm = await GetSender(vm);
+                return withReactions;
             }
-
-            return vm;
         }
 
         /// <summary>
@@ -47,13 +45,13 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="messages">Message data models to be converted</param>
         /// <returns>List of complete MessageViewModel objects</returns>
-        public async Task<IEnumerable<MessageViewModel>> Build(IEnumerable<Message> messages, UserViewModel currentUser)
+        public static async Task<IEnumerable<MessageViewModel>> Build(this IEnumerable<Message> messages)
         {
             var result = new List<MessageViewModel>();
 
             foreach (Message message in messages)
             {
-                result.Add(await Build(message, currentUser));
+                result.Add(await Build(message));
             }
 
             return result;
@@ -64,18 +62,41 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="viewModel">MessageViewModel to load reactions for</param>
         /// <returns>MessageViewModel with the list of reactions</returns>
-        public async Task<MessageViewModel> AssignReaction(MessageViewModel viewModel)
+        public static async Task<MessageViewModel> WithReactions(this MessageViewModel viewModel)
         {
-            // Loads the latest reactions made on the message
-            var reactions = await MessengerService.GetReactions((uint)viewModel.Id);
+            /* LOAD REACTIONS */
+            IEnumerable<Reaction> reactions = await MessengerService.GetReactions((uint)viewModel.Id);
+
             if (reactions != null && reactions.Count() > 0)
             {
                 viewModel.Reactions = new ObservableCollection<Reaction>(reactions);
+
+                /* MARK MY REACTION IF EXISTS */
+                Reaction myReaction = viewModel.Reactions
+                    .Where(r => r.UserId == App.StateProvider.CurrentUser.Id)
+                    .SingleOrDefault();
+
+                if (myReaction != null)
+                {
+                    viewModel.HasReacted = true;
+                    viewModel.MyReaction = (ReactionType)Enum.Parse(
+                        typeof(ReactionType),
+                        myReaction.Symbol);
+                }
             }
             else
             {
                 viewModel.Reactions = new ObservableCollection<Reaction>();
             }
+
+            return viewModel;
+        }
+
+        public static async Task<MessageViewModel> WithSender(this MessageViewModel viewModel)
+        {
+            User sender = await UserService.GetUser(viewModel.SenderId);
+
+            viewModel.Sender = Map(sender);
 
             return viewModel;
         }
@@ -86,7 +107,7 @@ namespace Messenger.Helpers.MessageHelpers
         /// </summary>
         /// <param name="viewModels">List of MessageViewModel to sort</param>
         /// <returns>List of parent messages with assigned replies</returns>
-        public IList<MessageViewModel> AssignReplies(IEnumerable<MessageViewModel> viewModels)
+        public static IList<MessageViewModel> SortReplies(this IEnumerable<MessageViewModel> viewModels)
         {
             List<MessageViewModel> parents = new List<MessageViewModel>();
             List<MessageViewModel> replies = new List<MessageViewModel>();
@@ -118,21 +139,12 @@ namespace Messenger.Helpers.MessageHelpers
             return parents;
         }
 
-        private async Task<MessageViewModel> GetSender(MessageViewModel viewModel)
-        {
-            User sender = await UserService.GetUser(viewModel.SenderId);
-
-            viewModel.Sender = Map(sender);
-
-            return viewModel;
-        }
-
         /// <summary>
         /// Maps the properties from the data model
         /// </summary>
         /// <param name="message">Message data model to map from</param>
         /// <returns>Mapped MessageViewModel object</returns>
-        private MessageViewModel Map(Message message)
+        public static MessageViewModel Map(Message message)
         {
             bool isReply = (message.ParentMessageId != null) ? true : false;
 
@@ -145,20 +157,19 @@ namespace Messenger.Helpers.MessageHelpers
                 Content = message.Content,
                 CreationTime = message.CreationTime,
                 ChannelId = message.RecipientId,
-                Attachments = ParseBlobName(message.AttachmentsBlobName),
+                Attachments = message.AttachmentsBlobName.Parse(),
                 IsReply = isReply,
+                IsMyMessage = App.StateProvider.CurrentUser.Id == message.SenderId,
                 HasReacted = false
             };
         }
 
-        private UserViewModel Map(User user)
+        public static UserViewModel Map(User user)
         {
             if (user == null)
             {
                 return null;
             }
-
-            // TODO: Download profile photo
 
             return new UserViewModel()
             {
@@ -170,32 +181,17 @@ namespace Messenger.Helpers.MessageHelpers
             };
         }
 
-        private void MarkMyReaction(ref MessageViewModel viewModel, string userId)
-        {
-            // Mark my reaction if exists
-            var myReaction = viewModel.Reactions
-                .Where(r => r.UserId == userId);
-
-            if (myReaction.Count() > 0)
-            {
-                viewModel.HasReacted = true;
-                viewModel.MyReaction = (ReactionType)Enum.Parse(
-                    typeof(ReactionType),
-                    myReaction.FirstOrDefault().Symbol);
-            }
-        }
+        #region Helpers
 
         /// <summary>
         /// Parses the attachments blob name of a message and maps to Attachment models
         /// </summary>
         /// <param name="blobName">Blob name to parse</param>
         /// <returns>List of Attachment objects</returns>
-        private List<Attachment> ParseBlobName(IEnumerable<string> blobName)
+        public static List<Attachment> Parse(this IEnumerable<string> blobName)
         {
-            var attachmentsList = new List<Attachment>();
-            string[][] data = blobName
-                .Select(b => b.Split('.'))
-                .ToArray();
+            List<Attachment> attachmentsList = new List<Attachment>();
+            string[][] data = blobName.Select(b => b.Split('.')).ToArray();
 
             if (data.GetLength(0) <= 0)
             {
@@ -218,5 +214,7 @@ namespace Messenger.Helpers.MessageHelpers
 
             return attachmentsList;
         }
+
+        #endregion
     }
 }

@@ -5,10 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Messenger.Models"
+    xmlns:vm="using:Messenger.ViewModels.DataViewModels"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:controls="using:Messenger.Controls.ManageControls"
-    xmlns:converters="using:Messenger.Helpers"
-    Style="{StaticResource PageStyle}"
+    xmlns:converters="using:Messenger.Helpers.Converters"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
@@ -67,120 +68,134 @@
 
     <Grid
         x:Name="ContentArea">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            Padding="25">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <toolkit:DropShadowPanel
+            Color="Black"
+            OffsetX="-3"
+            OffsetY="-10"
+            BlurRadius="30"
+            ShadowOpacity=".75"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch">
+            <Grid
+                Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+                Padding="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button
-                Margin="0 0 0 50"
-                Background="Transparent">
-                <StackPanel
-                    Spacing="10"
-                    Orientation="Horizontal">
-                    <Viewbox
-                        Width="16"
-                        Height="16">
-                        <SymbolIcon
-                            Symbol="Back"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                <!-- BACK BUTTON -->
+                <Button
+                    Command="{x:Bind ViewModel.NavigateBackCommand}"
+                    Margin="0 0 0 50"
+                    Background="Transparent">
+                    <StackPanel
+                        Spacing="10"
+                        Orientation="Horizontal">
+                        <Viewbox
+                            Width="16"
+                            Height="16">
+                            <SymbolIcon
+                                Symbol="Back"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                />
+                        </Viewbox>
+                        <TextBlock
+                            Text="Back"
+                            FontWeight="SemiBold"
+                            Opacity=".35"
                             />
-                    </Viewbox>
-                    <TextBlock
-                        Text="Back"
-                        FontWeight="SemiBold"
-                        Opacity=".35"
-                        />
-                </StackPanel>
-            </Button>
-            
-            <controls:MembersListControl
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="20 0"
-                Members="{x:Bind ViewModel.Members, Mode=OneWay}"
-                />
-            
-            <StackPanel
-                Margin="20 0"
-                Grid.Row="1"
-                Grid.Column="1">
-                <StackPanel
-                    Margin="0 5 5 25"
-                    Padding="2 0 0 20"
-                    BorderBrush="{ThemeResource SystemAccentColorLight1}"
-                    BorderThickness="0 0 0 1">
-                    <TextBlock
-                        Text="Invite Member"
-                        FontSize="24"
-                        />
-                </StackPanel>
-                <shared:UserSearchPanel
-                    OnSearch="{x:Bind ViewModel.OnSearchFunction}"
-                    GetSelectedUser="{x:Bind ViewModel.GetSelectedUserFunction}"
-                    SelectedUser="{x:Bind ViewModel.SelectedSearchedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    </StackPanel>
+                </Button>
+
+                <!-- MEMBERS -->
+                <controls:MembersListControl
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20 0"
+                    Members="{x:Bind ViewModel.Members, Mode=OneWay}"
+                    RemoveUserCommand="{x:Bind ViewModel.RemoveUserCommand}"
+                    OpenManageRolesCommand="{x:Bind ViewModel.OpenManageRolesCommand}"
                     />
 
-                <Grid
-                    Visibility="{x:Bind ViewModel.SelectedSearchedUser, Mode=OneWay,
-                        Converter={StaticResource NullToVisibilityConverter}}"
-                    Margin="0 20"
-                    ColumnSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button
-                        HorizontalAlignment="Stretch"
-                        CornerRadius="3"
-                        Background="Transparent"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource SystemAccentColor}"
-                        Grid.Column="0"
-                        Command="{x:Bind ViewModel.InviteUserCommand}"
-                        CommandParameter="{x:Bind ViewModel}"
-                        Padding="20 7">
-                        <StackPanel
-                            Spacing="5"
-                            Orientation="Horizontal">
-                            <SymbolIcon
-                                Symbol="AddFriend"
-                                />
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Text="Invite"
-                                />
-                        </StackPanel>
-                    </Button>
-                    <Button
-                        HorizontalAlignment="Stretch"
-                        CornerRadius="3"
-                        Grid.Column="1"
-                        Background="Transparent"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource SystemAccentColor}"
-                        Padding="20 7">
-                        <StackPanel
-                            Spacing="7"
-                            Orientation="Horizontal">
-                            <SymbolIcon
-                                Symbol="LeaveChat"
-                                />
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Text="Start Chat"
-                                />
-                        </StackPanel>
-                    </Button>
-                </Grid>
-            </StackPanel>
-        </Grid>
+                <StackPanel
+                    Margin="20 0"
+                    Grid.Row="1"
+                    Grid.Column="1">
+                    <StackPanel
+                        Margin="0 5 5 25"
+                        Padding="2 0 0 20"
+                        BorderBrush="{ThemeResource SystemAccentColorLight1}"
+                        BorderThickness="0 0 0 1">
+                        <TextBlock
+                            Text="Invite Member"
+                            FontSize="24"
+                            />
+                    </StackPanel>
+                    <shared:UserSearchPanel
+                        OnSearch="{x:Bind ViewModel.OnSearchFunction}"
+                        GetSelectedUser="{x:Bind ViewModel.GetSelectedUserFunction}"
+                        SelectedUser="{x:Bind ViewModel.SelectedSearchedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        />
+
+                    <Grid
+                        Visibility="{x:Bind ViewModel.SelectedSearchedUser, Mode=OneWay,
+                            Converter={StaticResource NullToVisibilityConverter}}"
+                        Margin="0 20"
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            CornerRadius="3"
+                            Background="Transparent"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource SystemAccentColor}"
+                            Grid.Column="0"
+                            Command="{x:Bind ViewModel.InviteUserCommand}"
+                            CommandParameter="{x:Bind ViewModel}"
+                            Padding="20 7">
+                            <StackPanel
+                                Spacing="5"
+                                Orientation="Horizontal">
+                                <SymbolIcon
+                                    Symbol="AddFriend"
+                                    />
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Text="Invite"
+                                    />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            CornerRadius="3"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource SystemAccentColor}"
+                            Padding="20 7">
+                            <StackPanel
+                                Spacing="7"
+                                Orientation="Horizontal">
+                                <SymbolIcon
+                                    Symbol="LeaveChat"
+                                    />
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Text="Start Chat"
+                                    />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </toolkit:DropShadowPanel>
     </Grid>
 </Page>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Messenger.ViewModels.DataViewModels
 {
-    public class MessageViewModel : Observable
+    public class MessageViewModel : DataViewModel
     {
         #region Private
 

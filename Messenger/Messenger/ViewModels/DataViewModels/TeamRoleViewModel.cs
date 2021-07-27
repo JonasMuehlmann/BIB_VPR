@@ -1,16 +1,26 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Helpers;
 using System.Collections.Generic;
+using Windows.UI;
 
-namespace Messenger.Models
+namespace Messenger.ViewModels.DataViewModels
 {
-    public class MemberRole : Observable
+    public class TeamRoleViewModel : DataViewModel
     {
         private string _title;
 
         private IList<Permissions> _permissions;
 
         private uint _teamId;
+
+        private Color _color;
+
+        private uint _id;
+
+        public uint Id
+        {
+            get { return _id; }
+            set { Set(ref _id, value); }
+        }
 
         public string Title
         {
@@ -30,7 +40,13 @@ namespace Messenger.Models
             set { Set(ref _teamId, value); }
         }
 
-        public MemberRole()
+        public Color Color
+        {
+            get { return _color; }
+            set { Set(ref _color, value); }
+        }
+
+        public TeamRoleViewModel()
         {
             Permissions = new List<Permissions>();
         }

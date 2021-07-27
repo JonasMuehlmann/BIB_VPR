@@ -3,14 +3,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Messenger.Commands.PrivateChat;
+using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
-using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
-using Messenger.Views;
-using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
@@ -18,9 +17,11 @@ namespace Messenger.ViewModels
     {
         #region Private
 
+        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
+
         private ObservableCollection<PrivateChatViewModel> _chats;
+
         private bool _isBusy;
-        private ChatHubService ChatHubService => Singleton<ChatHubService>.Instance;
 
         #endregion
 
@@ -50,90 +51,101 @@ namespace Messenger.ViewModels
             }
         }
 
-        public ICommand SwitchChatCommand => new RelayCommand<WinUI.TreeViewItemInvokedEventArgs>(SwitchChat);
+        public UserViewModel CurrentUser { get; set; }
 
-        public ICommand StartChatCommand => new StartChatCommand(this, ChatHubService);
+        public ICommand SwitchChatCommand => new ChannelSwitchCommand();
+
+        public ICommand StartChatCommand => new StartChatCommand(this);
 
         #endregion
 
         public ChatNavViewModel()
         {
-            IsBusy = true;
-
-            Chats = new ObservableCollection<PrivateChatViewModel>();
-            ChatHubService.ChatsUpdated += OnChatsUpdated;
-            ChatHubService.MessageReceived += OnMessageReceived;
             Initialize();
         }
 
         private async void Initialize()
         {
-            switch (ChatHubService.ConnectionState)
-            {
-                case ChatHubConnectionState.Loading:
-                    IsBusy = true;
-                    break;
-                case ChatHubConnectionState.NoDataFound:
-                    IsBusy = false;
-                    break;
-                case ChatHubConnectionState.LoadedWithData:
-                    Chats.Clear();
-                    foreach (PrivateChatViewModel vm in await ChatHubService.GetMyChats())
-                    {
-                        Chats.Add(vm);
-                    }
-                    IsBusy = false;
-                    break;
-                default:
-                    break;
-            }
-        }
+            IsBusy = true;
+            Chats = new ObservableCollection<PrivateChatViewModel>();
 
-        /// <summary>
-        /// Command on chat item click and invokes ChatHubService to load messages of the selected chat
-        /// </summary>
-        /// <param name="args">Event argument from the event, contains the data of the invoked item</param>
-        private async void SwitchChat(WinUI.TreeViewItemInvokedEventArgs args)
-        {
-            PrivateChatViewModel chat = args.InvokedItem as PrivateChatViewModel;
-
-            // Invokes TeamSwitched event
-            await ChatHubService.SwitchChat((uint)chat.Id);
-
-            NavigationService.Open<ChatPage>();
-        }
-
-        /// <summary>
-        /// Fires on TeamsUpdated in ChatHubService and refreshes the view
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="teams">Enumerable of teams</param>
-        private void OnChatsUpdated(object sender, IEnumerable<PrivateChatViewModel> chats)
-        {
-            if (chats != null)
+            /** GET DATA FROM CACHE IF ALREADY INITIALIZED **/
+            if (App.StateProvider != null)
             {
                 Chats.Clear();
-                foreach (PrivateChatViewModel viewModel in chats)
+
+                foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
                 {
-                    Chats.Add(viewModel);
+                    Chats.Add(chat);
                 }
+
+                IsBusy = false;
             }
 
-            IsBusy = false;
+            CurrentUser = await UserDataService.GetUserAsync();
         }
 
-        /// <summary>
-        /// Fires on MessageReceived in ChatHubService and refreshes the view
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">MessageViewModel received</param>
-        private void OnMessageReceived(object sender, MessageViewModel message)
+        public void OnChatsLoaded(object sender, BroadcastArgs e)
         {
-            foreach (PrivateChatViewModel chat in _chats)
+            IEnumerable<PrivateChatViewModel> chats = e.Payload as IEnumerable<PrivateChatViewModel>;
+
+            if (chats != null && chats.Count() > 0)
             {
-                if (chat.MainChannel.ChannelId == message.ChannelId)
+                Chats.Clear();
+
+                foreach (PrivateChatViewModel chat in chats)
                 {
-                    chat.LastMessage = message;
+                    Chats.Add(chat);
+                }
+
+                IsBusy = false;
+            }
+        }
+
+        public void OnChatUpdated(object sender, BroadcastArgs e)
+        {
+            PrivateChatViewModel privateChat = e.Payload as PrivateChatViewModel;
+
+            if (privateChat == null)
+            {
+                return;
+            }
+
+            if (e.Reason == BroadcastReasons.Created)
+            {
+                _chats.Add(privateChat);
+            }
+            else if (e.Reason == BroadcastReasons.Updated)
+            {
+                PrivateChatViewModel target = _chats.Single(t => t.Id == privateChat.Id);
+                int index = _chats.IndexOf(target);
+
+                _chats[index] = privateChat;
+            }
+            else if (e.Reason == BroadcastReasons.Deleted)
+            {
+                PrivateChatViewModel target = _chats.Single(t => t.Id == privateChat.Id);
+
+                if (target != null)
+                {
+                    _chats.Remove(target);
+                }
+            }
+        }
+
+        public void OnMessageUpdated(object sender, BroadcastArgs e)
+        {
+            if (e.Reason == BroadcastReasons.Created)
+            {
+                MessageViewModel message = e.Payload as MessageViewModel;
+
+                foreach (PrivateChatViewModel privateChat in _chats)
+                {
+                    if (privateChat.MainChannel.ChannelId == message.ChannelId)
+                    {
+                        privateChat.LastMessage = message;
+                        break;
+                    }
                 }
             }
         }

@@ -6,13 +6,13 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
-    public class ReplyToCommand : ICommand
+    public class ReplyMessageCommand : ICommand
     {
         private readonly ChatViewModel _viewModel;
 
         public event EventHandler CanExecuteChanged;
 
-        public ReplyToCommand(ChatViewModel viewModel)
+        public ReplyMessageCommand(ChatViewModel viewModel)
         {
             _viewModel = viewModel;
         }

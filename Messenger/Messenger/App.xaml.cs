@@ -3,7 +3,8 @@
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.Services;
-
+using Messenger.Services.Providers;
+using Messenger.ViewModels.DataViewModels;
 using Windows.ApplicationModel.Activation;
 using Windows.Security.Authentication.Web;
 using Windows.UI.Xaml;
@@ -21,10 +22,16 @@ namespace Messenger
             get { return _activationService.Value; }
         }
 
+        internal static StateProvider StateProvider;
+
+        internal static EventProvider EventProvider;
+
         public App()
         {
             InitializeComponent();
             UnhandledException += OnAppUnhandledException;
+
+            EventProvider = new EventProvider();
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);

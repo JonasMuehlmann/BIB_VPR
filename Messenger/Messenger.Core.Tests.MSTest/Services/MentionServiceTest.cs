@@ -402,7 +402,7 @@ namespace Messenger.Tests.MSTest
 
                 foreach (var message in messageWantedTeam)
                 {
-                    var messageId = await MessageService.CreateMessage(channelIdWanted.Value,userId, message);
+                    var messageId = await MessageService.CreateMessage(channelIdWanted.Value, userId, message);
                     Assert.IsNotNull(messageId);
 
                     messageIdsWanted.Add(messageId.Value);

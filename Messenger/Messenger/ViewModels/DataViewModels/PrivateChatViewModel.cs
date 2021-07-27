@@ -9,11 +9,11 @@ namespace Messenger.ViewModels.DataViewModels
 {
     public class PrivateChatViewModel : TeamViewModel
     {
-        private Member _partner;
+        private MemberViewModel _partner;
         private MessageViewModel _lastMessage;
         private ChannelViewModel _mainChannel;
 
-        public Member Partner
+        public MemberViewModel Partner
         {
             get { return _partner; }
             set { Set(ref _partner, value); }
@@ -33,7 +33,7 @@ namespace Messenger.ViewModels.DataViewModels
 
         public PrivateChatViewModel(TeamViewModel viewModel)
         {
-            Member partner = viewModel.Members.FirstOrDefault();
+            MemberViewModel partner = viewModel.Members.FirstOrDefault();
             ChannelViewModel mainChannel = viewModel.Channels.FirstOrDefault();
 
             Id = viewModel.Id;
