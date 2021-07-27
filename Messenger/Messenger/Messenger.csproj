@@ -162,15 +162,16 @@
     <Compile Include="Commands\TeamManage\CreateChannelCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamRoleCommand.cs" />
+    <Compile Include="Commands\TeamManage\GrantPermissionCommand.cs" />
     <Compile Include="Commands\TeamManage\InviteUserCommand.cs" />
     <Compile Include="Commands\Messenger\AttachFileCommand.cs" />
-    <Compile Include="Commands\TeamManage\OpenManageRolesCommand.cs" />
     <Compile Include="Commands\TeamManage\RemoveChannelCommand.cs" />
     <Compile Include="Commands\TeamManage\RemoveUserCommand.cs" />
     <Compile Include="Commands\Messenger\ReplyMessageCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
+    <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
     <Compile Include="Controls\ChatControls\ChatHeader.xaml.cs">
       <DependentUpon>ChatHeader.xaml</DependentUpon>

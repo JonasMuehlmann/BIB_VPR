@@ -110,7 +110,7 @@ namespace Messenger.ViewModels
 
         public ICommand RemoveChannelClick => new RemoveChannelCommand();
 
-        public ICommand OpenManageRolesCommand => new OpenManageRolesCommand();
+        public ICommand OpenManageRolesCommand => new RelayCommand(async () => await new ManageRolesDialog().ShowAsync());
 
         public ICommand NavigateBackCommand => new RelayCommand(() => NavigationService.Open<ChatPage>());
 
