@@ -14,6 +14,8 @@ namespace Messenger.Core.Services
     /// </summary>
     public class MessengerService
     {
+        public static SignalRService SignalRService => Singleton<SignalRService>.Instance;
+
         public static ILogger logger => GlobalLogger.Instance;
 
         #region Initializers
@@ -53,7 +55,7 @@ namespace Messenger.Core.Services
             /** CONNECT TO EACH SIGNAL-R GROUPS **/
             foreach (Team team in teams)
             {
-                await SignalRService.JoinTeam(team.Id.ToString());
+                await SignalRService.JoinTeam(userId, team.Id.ToString());
 
                 result.Add(team);
 
@@ -402,7 +404,7 @@ namespace Messenger.Core.Services
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={teamId.Value}");
 
             await SignalRService.CreateTeam(team);
-            await SignalRService.JoinTeam(team.Id.ToString());
+            await SignalRService.JoinTeam(creatorId, team.Id.ToString());
 
             logger.Information($"Joined the hub of the team identified by {teamId}");
 
@@ -1039,7 +1041,7 @@ namespace Messenger.Core.Services
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={chatId.Value}");
 
             await SignalRService.CreateTeam(chat);
-            await SignalRService.JoinTeam(chat.Id.ToString());
+            await SignalRService.JoinTeam(userId, chat.Id.ToString());
 
             logger.Information($"Return value: {chatId}");
 
