@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Commands.Messenger;
-using Messenger.Core.Helpers;
+using Messenger.Commands.PrivateChat;
 using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views;
-using Messenger.Views.DialogBoxes;
 using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Messenger.ViewModels
 {
@@ -23,12 +21,12 @@ namespace Messenger.ViewModels
         #region Private
 
         private ObservableCollection<MessageViewModel> _messages;
+
         private IReadOnlyList<StorageFile> _selectedFiles;
-        private ChatHubService Hub => Singleton<ChatHubService>.Instance;
+
         private MessageViewModel _replyMessage;
+
         private Message _messageToSend;
-        private ChannelViewModel _currentChannel;
-        private TeamViewModel _currentTeam;
 
         #endregion
 
@@ -94,197 +92,106 @@ namespace Messenger.ViewModels
             }
         }
 
-        public TeamViewModel CurrentTeam
-        {
-            get { return _currentTeam; }
-            set { Set(ref _currentTeam, value); }
-        }
+        public TeamViewModel SelectedTeam => App.StateProvider.SelectedTeam;
 
-        public ChannelViewModel CurrentChannel
-        {
-            get { return _currentChannel; }
-            set { Set(ref _currentChannel, value); }
-        }
+        public ChannelViewModel SelectedChannel => App.StateProvider.SelectedChannel;
 
         #endregion
 
         #region Commands
 
-        /// <summary>
-        /// Sends the current MessageToSend model
-        /// </summary>
-        public ICommand SendMessageCommand => new SendMessageCommand(this, Hub);
+        public ICommand SendMessageCommand => new SendMessageCommand(this);
 
-        /// <summary>
-        /// Open file open picker for attachments on the message
-        /// </summary>
-        public ICommand OpenFilesCommand => new OpenFilesCommand(this);
+        public ICommand OpenFilesCommand => new AttachFileCommand(this);
 
-        /// <summary>
-        /// Marks the current MessageToSend model as a reply
-        /// </summary>
-        public ICommand ReplyToCommand => new ReplyToCommand(this);
+        public ICommand ReplyToCommand => new ReplyMessageCommand(this);
 
-        public ICommand EditMessageCommand => new EditMessageCommand(Hub);
+        public ICommand UpdateMessageCommand => new UpdateMessageCommand();
 
-        public ICommand DeleteMessageCommand => new DeleteMessageCommand(Hub);
+        public ICommand UpdateTeamDetailsCommand => new UpdateTeamDetailsCommand();
 
-        public ICommand ToggleReactionCommand => new ToggleReactionCommand(Hub);
+        public ICommand DeleteMessageCommand => new DeleteMessageCommand();
+
+        public ICommand ToggleReactionCommand => new ToggleReactionCommand();
 
         public ICommand OpenTeamManagerCommand => new RelayCommand(() => NavigationService.Open<TeamManagePage>());
 
         public ICommand OpenSettingsCommand => new RelayCommand(() => NavigationService.Open<SettingsPage>());
 
-        public ICommand EditTeamDetailsCommand => new RelayCommand(EditTeamDetails);
-
         #endregion
 
         public ChatViewModel()
         {
-            // Initialize models
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             Messages = new ObservableCollection<MessageViewModel>();
             MessageToSend = new Message();
 
-            // Register events
-            Hub.TeamSwitched += OnTeamSwitched;
-            Hub.MessageReceived += OnMessageReceived;
-            Hub.MessageUpdated += OnMessagesUpdated;
-            Hub.MessageDeleted += OnMessageDeleted;
-
-            LoadAsync();
-        }
-         
-        /// <summary>
-        /// Loads messages from the hub
-        /// </summary>
-        private async void LoadAsync()
-        {
-            var messages = await Hub.GetMessages();
-
-            CurrentTeam = Hub.SelectedTeam;
-            CurrentChannel = Hub.SelectedChannel;
-
-            UpdateView(messages);
-        }
-
-        private async void EditTeamDetails()
-        {
-            if (Hub.CurrentUser == null)
+            /** LOAD FROM CACHE **/
+            if (App.StateProvider != null)
             {
-                return;
-            }
-
-            // Opens the dialog box for the input
-            var dialog = new ChangeTeamDialog()
-            {
-                TeamName = CurrentTeam.TeamName,
-                TeamDescription = CurrentTeam.Description
-            };
-
-            // Create team on confirm
-            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-            {
-                await Hub.UpdateTeam(dialog.TeamName, dialog.TeamDescription);
-            }
-        }
-
-        #region Helper
-
-        /// <summary>
-        /// Updates the view with the given messages
-        /// </summary>
-        /// <param name="messages">Messages from the hub</param>
-        private void UpdateView(IEnumerable<MessageViewModel> messages)
-        {
-            Messages.Clear();
-
-            if (messages == null)
-            {
-                return;
-            }
-
-            foreach (var message in messages)
-            {
-                var myReaction = GetMyReaction(message);
-
-                if (myReaction != ReactionType.None)
+                if (CacheQuery.TryGetMessages(SelectedChannel.ChannelId, out ObservableCollection<MessageViewModel> messages))
                 {
-                    message.HasReacted = true;
-                    message.MyReaction = myReaction;
+                    Messages.Clear();
+
+                    foreach (MessageViewModel message in messages)
+                    {
+                        Messages.Add(message);
+                    }
                 }
-
-                Messages.Add(message);
             }
         }
-
-        private ReactionType GetMyReaction(MessageViewModel message)
-        {
-            if (message.Reactions.Any(r => r.UserId == Hub.CurrentUser.Id))
-            {
-                var reaction = (ReactionType)message
-                    .Reactions
-                    .Where(r => r.UserId == Hub.CurrentUser.Id)
-                    .Select(r => Enum.Parse(typeof(ReactionType), r.Symbol))
-                    .FirstOrDefault();
-
-                return reaction;
-            }
-
-            return ReactionType.None;
-        }
-
-        #endregion
 
         #region Events
 
-        /// <summary>
-        /// Fires on MessageReceived of ChatHubService
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">Received Message object</param>
-        private void OnMessageReceived(object sender, MessageViewModel vm)
+        public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
-            if (CurrentChannel.ChannelId == vm.ChannelId)
+            MessageViewModel message = e.Payload as MessageViewModel;
+
+            if (message == null) return;
+
+            if (e.Reason == BroadcastReasons.Created)
             {
-                Messages.Add(vm);
+                Messages.Add(message);
+            }
+            else if (e.Reason == BroadcastReasons.Updated)
+            {
+                MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+
+                if (target != null)
+                {
+                    int index = Messages.IndexOf(target);
+
+                    Messages[index] = target;
+                }
+            }
+            else if (e.Reason == BroadcastReasons.Deleted)
+            {
+                MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+
+                if (target != null)
+                {
+                    Messages.Remove(target);
+                }
             }
         }
 
-        /// <summary>
-        /// Fires on MessageUpdated of ChatHubService
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">Updated Message object</param>
-        private async void OnMessagesUpdated(object sender, MessageViewModel vm)
+        public void OnMessagesSwitched(object sender, BroadcastArgs e)
         {
-            var messages = await Hub.GetMessages();
+            IEnumerable<MessageViewModel> messages = e.Payload as IEnumerable<MessageViewModel>;
 
-            UpdateView(messages);
-        }
+            if (messages != null && messages.Count() > 0)
+            {
+                Messages.Clear();
 
-        /// <summary>
-        /// Fires on MessageDeleted of ChatHubService
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="message">Deleted Message object</param>
-        private async void OnMessageDeleted(object sender, EventArgs e)
-        {
-            var messages = await Hub.GetMessages();
-
-            UpdateView(messages);
-        }
-
-        /// <summary>
-        /// Fires on TeamSwitched of ChatHubService
-        /// </summary>
-        /// <param name="sender">Service that invoked the event</param>
-        /// <param name="messages">List of message of the current team</param>
-        private void OnTeamSwitched(object sender, IEnumerable<MessageViewModel> messages)
-        {
-            CurrentTeam = Hub.SelectedTeam;
-            CurrentChannel = Hub.SelectedChannel;
-
-            UpdateView(messages);
+                foreach (MessageViewModel message in messages)
+                {
+                    Messages.Add(message);
+                }
+            }
         }
 
         #endregion

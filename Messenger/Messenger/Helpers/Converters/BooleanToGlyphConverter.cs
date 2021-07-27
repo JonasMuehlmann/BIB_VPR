@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.Converters
 {
     /// <summary>
     /// Returns caret symbol if the value is true, else down caret symbol

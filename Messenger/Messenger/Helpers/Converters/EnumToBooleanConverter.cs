@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Data;
 
-namespace Messenger.Helpers
+namespace Messenger.Helpers.Converters
 {
     /// <summary>
     /// Returns true if the value matches with the parameter enum, else false

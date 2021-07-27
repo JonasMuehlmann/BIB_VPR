@@ -1,26 +1,21 @@
 ﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
+using Messenger.Core.Services;
 using Messenger.Models;
-using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
     public class ToggleReactionCommand : ICommand
     {
-        private readonly ChatHubService _hub;
         private ILogger _logger => GlobalLogger.Instance;
 
-        public ToggleReactionCommand(ChatHubService hub)
+        public ToggleReactionCommand()
         {
-            _hub = hub;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -42,28 +37,41 @@ namespace Messenger.Commands.Messenger
 
             try
             {
-                var arg = parameter as ToggleReactionArg;
+                ToggleReactionArg arg = (ToggleReactionArg)parameter;
                 MessageViewModel message = arg.Message;
                 ReactionType type = arg.Type;
 
+                TeamViewModel team = App.StateProvider.SelectedTeam;
+                UserViewModel currentUser = App.StateProvider.CurrentUser;
+
                 bool isSuccess;
+
+                /** IF USER HAS ALREADY MADE A REACTION **/
                 if (message.HasReacted)
                 {
+                    /* IF TYPE IS DIFFERENT, REMOVE THE OLD ONE AND MAKE THE NEW ONE */
                     if (message.MyReaction != type)
                     {
-                        var removed = await _hub.RemoveReaction((uint)message.Id, message.MyReaction);
-                        var made = await _hub.MakeReaction((uint)message.Id, type);
+                        Reaction removed = await MessengerService.DeleteMessageReaction((uint)message.Id, currentUser.Id, team.Id, message.MyReaction.ToString());
 
-                        isSuccess = removed && made;
+                        Reaction created = await MessengerService.CreateMessageReaction((uint)message.Id, currentUser.Id, team.Id, type.ToString());
+
+                        isSuccess = removed != null && created != null;
                     }
+                    /* ELSE REMOVE ONLY */
                     else
                     {
-                        isSuccess = await _hub.MakeReaction((uint)message.Id, message.MyReaction);
+                        Reaction removed = await MessengerService.DeleteMessageReaction((uint)message.Id, currentUser.Id, team.Id, message.MyReaction.ToString());
+
+                        isSuccess = removed != null;
                     }
                 }
+                /** ELSE MAKE ONLY **/
                 else
                 {
-                    isSuccess = await _hub.MakeReaction((uint)message.Id, type);
+                    Reaction created = await MessengerService.CreateMessageReaction((uint)message.Id, currentUser.Id, team.Id, type.ToString());
+
+                    isSuccess = created != null;
                 }
 
                 if (!isSuccess)
