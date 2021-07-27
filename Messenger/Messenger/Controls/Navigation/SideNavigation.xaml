@@ -6,6 +6,8 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -33,14 +35,15 @@
             </Setter>
         </Style>
         <Style x:Key="MenuPanelStyle" TargetType="StackPanel">
-            <Setter Property="Spacing" Value="3" />
+            <Setter Property="Spacing" Value="7" />
         </Style>
         <Style x:Key="MenuTextStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
     </UserControl.Resources>
     <Grid
-        Padding="0 10 0 0"
+        Padding="0 30"
         HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -50,15 +53,22 @@
         <!-- TEAMS -->
         <RadioButton
             Grid.Column="0"
+            extensions:Mouse.Cursor="Hand"
+            FocusVisualPrimaryBrush="Transparent"
             x:Name="TeamsButton"
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToTeams}"
             IsChecked="True">
             <StackPanel Style="{StaticResource MenuPanelStyle}">
-                <SymbolIcon
-                    x:Name="TeamIcon"
-                    Symbol="People">
-                </SymbolIcon>
+                <Viewbox
+                    Width="24"
+                    Height="24">
+                    <icons:PackIconFontAwesome
+                        x:Name="TeamIcon"
+                        Kind="UsersSolid"
+                        Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                        />
+                </Viewbox>
                 <TextBlock
                     x:Name="TeamText"
                     Text="Teams"
@@ -99,15 +109,21 @@
         <!-- CHATS -->
         <RadioButton
             x:Name="ChatsButton"
+            extensions:Mouse.Cursor="Hand"
+            FocusVisualPrimaryBrush="Transparent"
             Grid.Column="1"
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToChats}">
             <StackPanel Style="{StaticResource MenuPanelStyle}">
-                <SymbolIcon
-                    x:Name="ChatsIcon"
-                    Symbol="Comment"
-                    Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
-                </SymbolIcon>
+                <Viewbox
+                    Width="24"
+                    Height="24">
+                    <icons:PackIconFontAwesome
+                        x:Name="ChatsIcon"
+                        Kind="CommentsSolid"
+                        Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                        />
+                </Viewbox>
                 <TextBlock
                     x:Name="ChatsText"
                     Text="Chats"
@@ -149,14 +165,20 @@
         <RadioButton
             Grid.Column="2"
             x:Name="NotificationsButton"
+            extensions:Mouse.Cursor="Hand"
+            FocusVisualPrimaryBrush="Transparent"
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToNotifications}">
             <StackPanel Style="{StaticResource MenuPanelStyle}">
-                <SymbolIcon
-                    x:Name="NotificationsIcon"
-                    Symbol="Mail"
-                    Foreground="{StaticResource AppBarItemForegroundThemeBrush}">
-                </SymbolIcon>
+                <Viewbox
+                    Width="24"
+                    Height="24">
+                    <icons:PackIconFontAwesome
+                        x:Name="NotificationsIcon"
+                        Kind="BellSolid"
+                        Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                        />
+                </Viewbox>
                 <TextBlock
                     x:Name="NotificationsText"
                     Text="Notifications"
