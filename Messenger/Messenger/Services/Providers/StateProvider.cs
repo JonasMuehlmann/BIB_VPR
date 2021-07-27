@@ -1,12 +1,10 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,19 +42,38 @@ namespace Messenger.Services.Providers
             set { Set(ref _currentUser, value); }
         }
 
-        private StateProvider()
+        public StateProvider()
         {
             TeamManager = new TeamManager(this);
             MessageManager = new MessageManager();
         }
+    }
 
-        public static async Task<StateProvider> Initialize(UserViewModel user)
+    public static class StateProviderExtension
+    {
+        public static async Task<StateProvider> Initialize(this StateProvider provider, UserViewModel user)
         {
-            StateProvider provider = new StateProvider() { CurrentUser = user };
+            provider.CurrentUser = user;
 
             /** LOAD TEAMS/PRIVATE CHATS FROM DATABASE **/
             await provider.TeamManager.Initialize(user);
+            await provider.LoadAllMessages();
 
+            /* BROADCAST MY TEAMS */
+            App.EventProvider.Broadcast(
+                BroadcastOptions.TeamsLoaded,
+                BroadcastReasons.Loaded);
+
+            /* BROADCAST MY CHATS */
+            App.EventProvider.Broadcast(
+                BroadcastOptions.ChatsLoaded,
+                BroadcastReasons.Loaded);
+
+            return provider;
+        }
+
+        public static async Task LoadAllMessages(this StateProvider provider)
+        {
             /** LOAD MESSAGES FOR TEAMS **/
             if (provider.TeamManager.MyTeams.Count() > 0)
             {
@@ -68,8 +85,6 @@ namespace Messenger.Services.Providers
             {
                 await provider.MessageManager.CreateEntry(provider.TeamManager.MyChats);
             }
-
-            return provider;
         }
     }
 }

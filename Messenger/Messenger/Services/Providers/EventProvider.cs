@@ -1,4 +1,5 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Models;
@@ -14,6 +15,8 @@ namespace Messenger.Services.Providers
 {
     public class EventProvider
     {
+        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
+
         /// <summary>
         /// Events with the payload of a list of objects
         /// Fires on 'loaded' events including:
