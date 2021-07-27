@@ -6,6 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using Serilog;
 using Serilog.Context;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Helpers
 {
@@ -137,6 +139,21 @@ namespace Messenger.Core.Helpers
         }
 
         /// <summary>
+        /// Maps to a full Notification model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped Notification object</returns>
+        public static Notification NotificationFromDataRow(DataRow row)
+        {
+            return new Notification()
+            {
+                Id           = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                RecipientId  = SqlHelpers.TryConvertDbValue(row["RecipientId"], Convert.ToString),
+                CreationTime = SqlHelpers.TryConvertDbValue(row["CreationTime"], Convert.ToDateTime),
+                Message      = SqlHelpers.TryConvertDbValue(row["Message"], strToJObject)
+            };
+        }
+
         /// Maps to a full Mention model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
@@ -171,6 +188,7 @@ namespace Messenger.Core.Helpers
             return (T)Enum.Parse(typeof(T), value as string);
         }
 
+        /// <summary>
         /// Maps to a full TeamRole model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
@@ -185,12 +203,45 @@ namespace Messenger.Core.Helpers
             };
         }
 
+        /// <summary>
+        /// Maps to a full NotificationMute model from the data rows
+        /// </summary>
+        /// <param name="row">DataRow from the DataSet</param>
+        /// <returns>A fully mapped NotificationMute object</returns>
+        public static NotificationMute NotificationMuteFromDataRow(DataRow row)
+        {
+            return new NotificationMute()
+            {
+                Id                      = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
+                NotificationType        = SqlHelpers.TryConvertDbValue(row["NotificationType"], StringToEnum<NotificationType>),
+                NotificationSourceType  = SqlHelpers.TryConvertDbValue(row["NotificationSourceType"], StringToEnum<NotificationSource>),
+                NotificationSourceValue = SqlHelpers.TryConvertDbValue(row["NotificationSourceValue"], Convert.ToString),
+                SenderId                = SqlHelpers.TryConvertDbValue(row["SenderId"], Convert.ToString),
+                UserId                  = SqlHelpers.TryConvertDbValue(row["UserId"], Convert.ToString),
+            };
+        }
+
+        /// <summary>
+        ///	Convert a DataRows column to a string
+        /// </summary>
+        /// <param name="row">the row to convert</param>
+        /// <param name="columnName">The column of the row to convert</param>
+        /// <returns>A string representation of the selected column</returns>
         public static string StringFromDataRow(DataRow row, string columnName)
         {
             return SqlHelpers.TryConvertDbValue(row[columnName], Convert.ToString);
         }
 
         /// <summary>
+        /// Parse a json encoded string to a JObject
+        /// </summary>
+        /// <param name="str">The json encoded string to convert</param>
+        /// <returns>A JObject representing the input</returns>
+        public static JObject strToJObject(object str)
+        {
+            return JObject.Parse(str as string);
+        }
+
         /// Convert a specified column of a dataRow to an enum
         /// </summary>
         /// <typeparam name="T">The type of the enum to convert to</typeparam>
