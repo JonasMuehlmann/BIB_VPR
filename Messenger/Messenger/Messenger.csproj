@@ -161,11 +161,13 @@
     <Compile Include="Commands\TeamManage\ChannelSwitchCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateChannelCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamCommand.cs" />
+    <Compile Include="Commands\TeamManage\UpdateTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\GrantPermissionCommand.cs" />
     <Compile Include="Commands\TeamManage\InviteUserCommand.cs" />
     <Compile Include="Commands\Messenger\AttachFileCommand.cs" />
     <Compile Include="Commands\TeamManage\RemoveChannelCommand.cs" />
+    <Compile Include="Commands\TeamManage\RemoveTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\RemoveUserCommand.cs" />
     <Compile Include="Commands\Messenger\ReplyMessageCommand.cs" />
     <Compile Include="Commands\Messenger\SendMessageCommand.cs" />
@@ -213,6 +215,7 @@
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\Converters\BooleanToAlignmentConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
@@ -295,6 +298,9 @@
     </Compile>
     <Compile Include="Views\DialogBoxes\ManageRolesDialog.xaml.cs">
       <DependentUpon>ManageRolesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\OperationConfirmationDialog.xaml.cs">
+      <DependentUpon>OperationConfirmationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogBoxes\ResultConfirmationDialog.xaml.cs">
       <DependentUpon>ResultConfirmationDialog.xaml</DependentUpon>
@@ -433,6 +439,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogBoxes\ManageRolesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\OperationConfirmationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
