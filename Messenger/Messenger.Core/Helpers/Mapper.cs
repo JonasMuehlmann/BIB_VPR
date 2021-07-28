@@ -199,7 +199,8 @@ namespace Messenger.Core.Helpers
             {
                 Id     = SqlHelpers.TryConvertDbValue(row["Id"], Convert.ToUInt32),
                 Role   = SqlHelpers.TryConvertDbValue(row["Role"], Convert.ToString),
-                TeamId = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32)
+                TeamId = SqlHelpers.TryConvertDbValue(row["TeamId"], Convert.ToUInt32),
+                Color = SqlHelpers.TryConvertDbValue(row["Color"], Convert.ToString)
             };
         }
 
