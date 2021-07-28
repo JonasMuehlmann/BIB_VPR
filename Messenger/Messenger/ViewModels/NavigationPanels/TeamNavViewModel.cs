@@ -64,16 +64,16 @@ namespace Messenger.ViewModels
 
         public TeamNavViewModel()
         {
+            IsBusy = true;
+            Teams = new ObservableCollection<TeamViewModel>();
+
             Initialize();
         }
 
         private async void Initialize()
         {
-            IsBusy = true;
-            Teams = new ObservableCollection<TeamViewModel>();
-
             /** GET DATA FROM CACHE IF ALREADY INITIALIZED **/
-            if (App.StateProvider != null)
+            if (App.StateProvider != null && Teams.Count <= 0)
             {
                 Teams.Clear();
 
@@ -81,11 +81,11 @@ namespace Messenger.ViewModels
                 {
                     Teams.Add(team);
                 }
-
-                IsBusy = false;
             }
 
             CurrentUser = await UserDataService.GetUserAsync();
+
+            IsBusy = false;
         }
 
         public void OnTeamsLoaded(object sender, BroadcastArgs e)
