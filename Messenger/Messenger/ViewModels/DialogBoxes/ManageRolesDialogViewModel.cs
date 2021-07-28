@@ -12,6 +12,8 @@ using Messenger.Commands.TeamManage;
 using Messenger.Core.Services;
 using Windows.UI.Xaml.Controls;
 using Messenger.Models;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace Messenger.ViewModels.DialogBoxes
 {
@@ -24,6 +26,12 @@ namespace Messenger.ViewModels.DialogBoxes
         private ObservableCollection<Permissions> _grantablePermissions;
 
         private bool _hasFullPermissions;
+
+        private bool _hasChanged;
+
+        private bool _isInEditMode;
+
+        private TeamRoleViewModel _pendingChange;
 
         private ObservableCollection<TeamRoleViewModel> _teamRoles;
 
@@ -55,8 +63,17 @@ namespace Messenger.ViewModels.DialogBoxes
 
                 HasFullPermissions = hasFullPermissions;
 
+                /** CREATE SEPARATE INSTANCE FROM THE SELECTED VIEW MODEL **/
+                PendingChange = new TeamRoleViewModel(value);
+
                 Set(ref _selectedTeamRole, value);
             }
+        }
+
+        public TeamRoleViewModel PendingChange
+        {
+            get { return _pendingChange; }
+            set { Set(ref _pendingChange, value); }
         }
 
         public string NewRoleTitle
@@ -71,9 +88,23 @@ namespace Messenger.ViewModels.DialogBoxes
             set { Set(ref _hasFullPermissions, value); }
         }
 
-        public SelectionChangedEventHandler SelectedTeamRoleChanged;
+        public bool HasChanged
+        {
+            get { return _hasChanged; }
+            set { Set(ref _hasChanged, value); }
+        }
+
+        public bool IsInEditMode
+        {
+            get { return _isInEditMode; }
+            set { Set(ref _isInEditMode, value); }
+        }
 
         public ICommand CreateTeamRoleCommand { get => new CreateTeamRoleCommand(this); }
+
+        public ICommand UpdateTeamRoleCommand { get => new UpdateTeamRoleCommand(this); }
+
+        public ICommand RemoveTeamRoleCommand { get => new RemoveTeamRoleCommand(); }
 
         public ICommand GrantPermissionCommand { get => new GrantPermissionCommand(this); }
 
@@ -82,7 +113,6 @@ namespace Messenger.ViewModels.DialogBoxes
         public ManageRolesDialogViewModel()
         {
             App.EventProvider.TeamUpdated += OnTeamUpdated;
-            SelectedTeamRoleChanged += OnSelectedTeamRoleChanged;
             GrantablePermissions = new ObservableCollection<Permissions>();
 
             /** REFERENCE TO STATE (UPDATES AUTOMATICALLY) **/
@@ -102,9 +132,7 @@ namespace Messenger.ViewModels.DialogBoxes
             }
         }
 
-        private void OnSelectedTeamRoleChanged(object sender, SelectionChangedEventArgs e) => FilterGrantablePermissions();
-
-        private void FilterGrantablePermissions()
+        public void FilterGrantablePermissions()
         {
             GrantablePermissions.Clear();
 
