@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI;
 
 namespace Messenger.Helpers.TeamHelpers
 {
@@ -142,7 +143,7 @@ namespace Messenger.Helpers.TeamHelpers
         public static async Task<MemberViewModel> WithMemberRoles(this MemberViewModel viewModel, uint teamId)
         {
             /** LOAD CUSTOM ROLES FOR THE TEAM **/
-            IEnumerable<string> roles = await TeamService.GetUsersRoles(teamId, viewModel.Id);
+            IEnumerable<TeamRole> roles = await TeamService.GetUsersRoles(teamId, viewModel.Id);
 
             if (roles == null || roles.Count() <= 0)
             {
@@ -150,9 +151,9 @@ namespace Messenger.Helpers.TeamHelpers
             }
 
             /** LOAD PERMISSIONS FOR EACH ROLE **/
-            foreach (string role in roles)
+            foreach (TeamRole role in roles)
             {
-                TeamRoleViewModel memberRole = await Map(teamId, role).WithPermissions();
+                TeamRoleViewModel memberRole = await Map(role).WithPermissions();
 
                 viewModel.MemberRoles.Add(memberRole);
             }
@@ -210,17 +211,8 @@ namespace Messenger.Helpers.TeamHelpers
                 Id = teamRole.Id,
                 Title = string.Concat(teamRole.Role.Substring(0, 1).ToUpper(), teamRole.Role.Substring(1)),
                 TeamId = teamRole.TeamId,
-                Permissions = new ObservableCollection<Permissions>()
-            };
-        }
-
-        public static TeamRoleViewModel Map(uint teamId, string roleTitle)
-        {
-            return new TeamRoleViewModel()
-            {
-                Title = string.Concat(roleTitle.Substring(0, 1).ToUpper(), roleTitle.Substring(1)),
-                TeamId = teamId,
-                Permissions = new ObservableCollection<Permissions>()
+                Permissions = new ObservableCollection<Permissions>(),
+                Color = teamRole.Color.ToColor(),
             };
         }
 
