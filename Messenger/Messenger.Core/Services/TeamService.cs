@@ -433,8 +433,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
+        /// <param name="colorCode">Hex code of the color</param>
         /// <returns>Id of the added team role</returns>
-        public static async Task<uint?> AddRole(string role, uint teamId)
+        public static async Task<uint?> AddRole(string role, uint teamId, string colorCode)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","AddRole");
@@ -446,11 +447,31 @@ namespace Messenger.Core.Services
                                     Team_Roles
                                 VALUES(
                                     '{role}',
-                                     {teamId}
+                                     {teamId},
+                                    '{colorCode}'
                                 );
                                 SELECT SCOPE_IDENTITY();";
 
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+        }
+
+        public static async Task<bool> UpdateRole(uint roleId, string role, string colorCode)
+        {
+            // TODO: Prevent adding duplicate roles
+            LogContext.PushProperty("Method", "UpdateRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters roleId={roleId}, role={role}, colorCode={colorCode}");
+
+            string query = $@"
+                                UPDATE 
+                                    Team_roles
+                                SET
+                                    Role='{role}',
+                                    Color='{colorCode}'
+                                WHERE
+                                    Id={roleId};";
+
+            return await SqlHelpers.NonQueryAsync(query);
         }
 
         /// <summary>
@@ -650,7 +671,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="userId">The id of the user to retrieve roles from</param>
         /// <returns>The list of role names of the user in the specified team</returns>
-        public static async Task<IList<string>> GetUsersRoles(uint teamId, string userId)
+        public static async Task<IList<TeamRole>> GetUsersRoles(uint teamId, string userId)
         {
             LogContext.PushProperty("Method","GetUsersRoles");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -658,7 +679,10 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                 SELECT
-                                    Role
+                                    tr.Id,
+                                    tr.Role,
+                                    tr.TeamId,
+                                    tr.Color
                                 FROM
                                     Team_roles tr
                                 INNER JOIN
@@ -671,7 +695,7 @@ namespace Messenger.Core.Services
                                     AND tr.Role != '';";
 
 
-            return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_Roles", "Role");
+            return await SqlHelpers.MapToList(Mapper.TeamRoleFromDataRow, query, "Team_Roles");
         }
 
         /// <summary>

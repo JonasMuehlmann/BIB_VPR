@@ -365,7 +365,7 @@ namespace Messenger.Core.Services
             // Create membership for the creator and save to database, also make him the
             // admin
             await TeamService.AddMember(creatorId, (uint)teamId);
-            await TeamService.AddRole("admin", (uint)teamId);
+            await TeamService.AddRole("admin", (uint)teamId, "CD5C5C");
             await TeamService.AssignRole("admin", creatorId, (uint)teamId);
 
             // Grant admin all permissions
@@ -766,13 +766,13 @@ namespace Messenger.Core.Services
             return result;
         }
 
-        public static async Task<IEnumerable<string>> GetRolesList(uint teamId, string userId)
+        public static async Task<IEnumerable<TeamRole>> GetRolesList(uint teamId, string userId)
         {
-            var rolesString = await TeamService.GetUsersRoles(teamId, userId);
+            IEnumerable<TeamRole> roles = await TeamService.GetUsersRoles(teamId, userId);
 
-            if (rolesString != null && rolesString.Count() > 0)
+            if (roles != null && roles.Count() > 0)
             {
-                return rolesString;
+                return roles;
             }
             else
             {
@@ -785,17 +785,39 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
+        /// <param name="colorCode">Hex code of the color</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> CreateTeamRole(string role, uint teamId)
+        public static async Task<bool> CreateTeamRole(string role, uint teamId, string colorCode)
         {
             LogContext.PushProperty("Method", "AddRoleToTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            uint? roledId = await TeamService.AddRole(role, teamId);
-            TeamRole teamRole = await TeamService.GetRole((uint)roledId);
+            uint? roleId = await TeamService.AddRole(role, teamId, colorCode);
+            TeamRole teamRole = await TeamService.GetRole((uint)roleId);
 
             if (teamRole == null)
+            {
+                return false;
+            }
+
+            await SignalRService.AddOrUpdateTeamRole(teamRole);
+
+            logger.Information($"Return value: {true}");
+
+            return true;
+        }
+
+        public static async Task<bool> UpdateTeamRole(uint roleId, string role, string colorCode)
+        {
+            LogContext.PushProperty("Method", "AddRoleToTeam");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters roleId={roleId}, role={role}, colorCode={colorCode}");
+
+            bool isSuccess = await TeamService.UpdateRole(roleId, role, colorCode);
+            TeamRole teamRole = await TeamService.GetRole(roleId);
+
+            if (!isSuccess || teamRole == null)
             {
                 return false;
             }
@@ -1004,7 +1026,7 @@ namespace Messenger.Core.Services
                 return null;
             }
 
-            await TeamService.AddRole("admin", chatId.Value);
+            await TeamService.AddRole("admin", chatId.Value, "CD5C5C");
             await TeamService.AssignRole("admin", userId, chatId.Value);
             await TeamService.AssignRole("admin", targetUserId, chatId.Value);
 
