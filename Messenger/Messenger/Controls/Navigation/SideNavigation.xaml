@@ -21,6 +21,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="UseSystemFocusVisuals" Value="False" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -54,7 +55,6 @@
         <RadioButton
             Grid.Column="0"
             extensions:Mouse.Cursor="Hand"
-            FocusVisualPrimaryBrush="Transparent"
             x:Name="TeamsButton"
             Style="{StaticResource NavigationButtonStyle}"
             Command="{x:Bind NavigateToTeams}"
