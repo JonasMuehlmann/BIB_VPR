@@ -13,7 +13,7 @@ namespace Messenger.ViewModels.DataViewModels
 
         private uint _teamId;
 
-        private Color _color = Colors.White;
+        private Color _color;
 
         private uint _id;
 
@@ -50,6 +50,15 @@ namespace Messenger.ViewModels.DataViewModels
         public TeamRoleViewModel()
         {
             Permissions = new ObservableCollection<Permissions>();
+        }
+
+        public TeamRoleViewModel(TeamRoleViewModel data)
+        {
+            Id = data.Id;
+            Title = data.Title;
+            Permissions = data.Permissions;
+            TeamId = data.TeamId;
+            Color = data.Color;
         }
     }
 }
