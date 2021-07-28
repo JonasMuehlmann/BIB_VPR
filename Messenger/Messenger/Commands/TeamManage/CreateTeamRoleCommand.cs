@@ -30,14 +30,17 @@ namespace Messenger.Commands.TeamManage
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-                && parameter is string;
+                && parameter is string
+                && parameter.ToString().Length > 0;
+
+            if (!executable) return;
 
             try
             {
                 TeamViewModel currentTeam = App.StateProvider.SelectedTeam;
                 string roleTitle = parameter.ToString();
 
-                bool isSuccess = await MessengerService.CreateTeamRole(roleTitle, currentTeam.Id);
+                bool isSuccess = await MessengerService.CreateTeamRole(roleTitle, currentTeam.Id, "FFFFFF");
 
                 if (isSuccess)
                 {
