@@ -6,6 +6,11 @@ namespace Messenger.Core.Models
         public string Role {get; set;}
         public uint TeamId {get; set;}
 
+        /// <summary>
+        /// Hex
+        /// </summary>
+        public string Color { get; set; }
+
         public TeamRole()
         {
             Role = "";
