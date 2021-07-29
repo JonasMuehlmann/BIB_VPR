@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Messenger.Core.Models;
+using DuoVia.FuzzyStrings;
 
 namespace Messenger.Core.Helpers
 {
@@ -11,15 +12,13 @@ namespace Messenger.Core.Helpers
     public class EmojiPicker
     {
         private List<Emoji> emojisOriginal;
-        public List<Emoji> emojisFiltered;
         public List<Emoji> emojis;
         public EmojiCategory emojiCategorieFilter;
 
         public EmojiPicker(string emojiFilePath)
         {
             string fileContent = File.ReadAllText(emojiFilePath);
-             emojisOriginal= JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
-            emojisFiltered = emojisOriginal;
+            emojisOriginal= JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
             emojis = emojisOriginal;
             emojiCategorieFilter = EmojiCategory.None;
         }
@@ -63,10 +62,15 @@ namespace Messenger.Core.Helpers
 
         public void FilterCategories()
         {
-            emojisFiltered = emojisOriginal.Where((emoji) => {
+            emojis = emojisOriginal.Where((emoji) => {
                     return emojiCategorieFilter.HasFlag(emoji.Category)
                         || emojiCategorieFilter == EmojiCategory.None;
             }).ToList();
+        }
+
+        public void Rank(string searchTerm)
+        {
+            emojis = emojis.OrderByDescending(emoji => LongestCommonSubsequenceExtensions.LongestCommonSubsequence(emoji.Name, searchTerm).Item2 * 100.0).ToList();
         }
     }
     public class EmojiUtils
