@@ -20,8 +20,21 @@ namespace Messenger.Tests.MSTest
         {
             var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+
             var emojiPicker = new EmojiPicker("/home/jonas/RiderProjects/BIB_VPR/Messenger/emojis.json");
-            Console.WriteLine(emojiPicker.emojis[0]);
+
+            emojiPicker.AddFilter(EmojiCategory.Smileys);
+            emojiPicker.AddFilter(EmojiCategory.FoodDrink);
+            emojiPicker.AddFilter(EmojiCategory.Component);
+
+            emojiPicker.FilterCategories();
+
+            sw.Stop();
+
+            Console.WriteLine("Elapsed Ms={0}",sw.Elapsed.TotalMilliseconds);
 
             Assert.IsTrue(false);
         }
