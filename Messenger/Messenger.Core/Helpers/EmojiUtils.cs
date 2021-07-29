@@ -10,23 +10,23 @@ namespace Messenger.Core.Helpers
     public class EmojiPicker
     {
         public List<Emoji> emojis;
-        public EmojiCategorieFilter emojiCategorieFilter;
+        public EmojiCategory emojiCategorieFilter;
 
         public EmojiPicker(string emojiFilePath)
         {
             string fileContent = File.ReadAllText(emojiFilePath);
             emojis = JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
-            emojiCategorieFilter = EmojiCategorieFilter.None;
+            emojiCategorieFilter = EmojiCategory.None;
         }
 
-        public void AddFilter(EmojiCategorieFilter filter)
+        public void AddFilter(EmojiCategory filter)
         {
             if (!emojiCategorieFilter.HasFlag(filter))
             {
                 emojiCategorieFilter |= filter;
             }
         }
-        public void RemoveFilter(EmojiCategorieFilter filter)
+        public void RemoveFilter(EmojiCategory filter)
         {
             if (emojiCategorieFilter.HasFlag(filter))
             {

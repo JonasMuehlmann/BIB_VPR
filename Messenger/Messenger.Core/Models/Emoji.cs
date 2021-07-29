@@ -1,5 +1,5 @@
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 
 namespace Messenger.Core.Models
@@ -7,17 +7,18 @@ namespace Messenger.Core.Models
     public class Emoji
     {
         [JsonProperty("emoji")]
-        public string Emoji_    { get; set; }
-        public string Name      { get; set; }
-        public string ShortName { get; set; }
-        public string Category  { get; set; }
+        public string Emoji_           { get; set; }
+        public string Name             { get; set; }
+        public string ShortName        { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("category")]
+        public EmojiCategory Category  { get; set; }
 
         public Emoji()
         {
             Emoji_ = "";
             Name = "";
             ShortName = "";
-            Category = "";
         }
 
         public override string ToString()
