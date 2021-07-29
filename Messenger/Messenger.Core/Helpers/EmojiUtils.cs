@@ -42,9 +42,29 @@ namespace Messenger.Core.Helpers
             emojiCategorieFilter = EmojiCategory.None;
         }
 
+        public List<Emoji> GetEmojisFromCategory(EmojiCategory category)
+        {
+            return emojisOriginal.Where((emoji) => {return emoji.Category == category;}).ToList();
+        }
+
+        public Dictionary<EmojiCategory, List<Emoji>> GetEmojisPerCategory()
+        {
+            Dictionary<EmojiCategory, List<Emoji>> emojis = new Dictionary<EmojiCategory, List<Emoji>>();
+
+            foreach (var category in Enum.GetValues(typeof(EmojiCategory)).Cast<EmojiCategory>())
+            {
+                emojis[category] = GetEmojisFromCategory(category);
+            }
+
+            return emojis;
+        }
+
         public void FilterCategories()
         {
-            emojis = emojisOriginal.Where((emoji) => {return emojiCategorieFilter.HasFlag(emoji.Category) || emojiCategorieFilter == EmojiCategory.None;}).ToList();
+            emojis = emojisOriginal.Where((emoji) => {
+                    return emojiCategorieFilter.HasFlag(emoji.Category)
+                        || emojiCategorieFilter == EmojiCategory.None;
+            }).ToList();
         }
     }
     public class EmojiUtils
