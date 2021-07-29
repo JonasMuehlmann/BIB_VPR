@@ -37,6 +37,11 @@ namespace Messenger.Core.Helpers
             }
         }
 
+        public void ResetFilters()
+        {
+            emojiCategorieFilter = EmojiCategory.None;
+        }
+
         public void FilterCategories()
         {
             emojis = emojisOriginal.Where((emoji) => {return emojiCategorieFilter.HasFlag(emoji.Category) || emojiCategorieFilter == EmojiCategory.None;}).ToList();
