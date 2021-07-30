@@ -73,7 +73,9 @@ namespace Messenger.Helpers.TeamHelpers
                 /* LOAD MEMBER ROLES */
                 foreach (MemberViewModel member in mapped)
                 {
-                    await member.WithMemberRoles(viewModel.Id);
+                    member.TeamId = viewModel.Id;
+
+                    await member.WithMemberRoles();
                 }
 
                 viewModel.Members = new ObservableCollection<MemberViewModel>(mapped);
@@ -140,25 +142,36 @@ namespace Messenger.Helpers.TeamHelpers
 
         #region Member Extension
 
-        public static async Task<MemberViewModel> WithMemberRoles(this MemberViewModel viewModel, uint teamId)
+        public static async Task<MemberViewModel> WithMemberRoles(this MemberViewModel viewModel)
         {
             /** LOAD CUSTOM ROLES FOR THE TEAM **/
-            IEnumerable<TeamRole> roles = await TeamService.GetUsersRoles(teamId, viewModel.Id);
+            IEnumerable<TeamRole> allRoles = await TeamService.ListRoles(viewModel.TeamId);
+            IEnumerable<TeamRoleViewModel> allRoleViewModels = await Map(allRoles).WithPermissions();
 
-            if (roles == null || roles.Count() <= 0)
+            IEnumerable<TeamRole> userRoles = await TeamService.GetUsersRoles(viewModel.TeamId, viewModel.Id);
+
+            if (userRoles == null || userRoles.Count() <= 0)
             {
+                foreach (TeamRoleViewModel assignable in allRoleViewModels)
+                {
+                    viewModel.AssignableMemberRoles.Add(assignable);
+                }
+
                 return viewModel;
             }
 
             /** LOAD PERMISSIONS FOR EACH ROLE **/
-            foreach (TeamRole role in roles)
+            foreach (TeamRoleViewModel roleViewModel in allRoleViewModels)
             {
-                TeamRoleViewModel memberRole = await Map(role).WithPermissions();
-
-                viewModel.MemberRoles.Add(memberRole);
+                if (userRoles.Any(u => u.Id == roleViewModel.Id))
+                {
+                    viewModel.MemberRoles.Add(roleViewModel);
+                }
+                else
+                {
+                    viewModel.AssignableMemberRoles.Add(roleViewModel);
+                }
             }
-
-            viewModel.TeamId = teamId;
 
             return viewModel;
         }
@@ -184,6 +197,16 @@ namespace Messenger.Helpers.TeamHelpers
             }
 
             return viewModel;
+        }
+
+        public static async Task<IEnumerable<TeamRoleViewModel>> WithPermissions(this IEnumerable<TeamRoleViewModel> viewModels)
+        {
+            foreach (TeamRoleViewModel viewModel in viewModels)
+            {
+                await viewModel.WithPermissions();
+            }
+
+            return viewModels;
         }
 
         #endregion
@@ -214,6 +237,11 @@ namespace Messenger.Helpers.TeamHelpers
                 Permissions = new ObservableCollection<Permissions>(),
                 Color = teamRole.Color.ToColor(),
             };
+        }
+
+        public static IEnumerable<TeamRoleViewModel> Map(IEnumerable<TeamRole> teamRoles)
+        {
+            return teamRoles.Select(Map);
         }
 
         public static ChannelViewModel Map(Channel channel)
@@ -252,7 +280,8 @@ namespace Messenger.Helpers.TeamHelpers
                 NameId = user.NameId,
                 Bio = user.Bio,
                 Mail = user.Mail,
-                MemberRoles = new List<TeamRoleViewModel>()
+                MemberRoles = new List<TeamRoleViewModel>(),
+                AssignableMemberRoles = new List<TeamRoleViewModel>()
             };
         }
 
@@ -260,6 +289,7 @@ namespace Messenger.Helpers.TeamHelpers
         {
             return users.Select(Map);
         }
+
 
         #endregion
 

@@ -202,9 +202,10 @@ namespace Messenger.Helpers.TeamHelpers
             {
                 if (teamViewModel.Id == teamId)
                 {
-                    MemberViewModel member = await TeamBuilder
-                        .Map(userData)
-                        .WithMemberRoles(teamId);
+                    MemberViewModel member = TeamBuilder.Map(userData);
+                    member.TeamId = teamId;
+
+                    await member.WithMemberRoles();
 
                     if (!teamViewModel.Members.Any(m => m.Id == member.Id))
                     {
