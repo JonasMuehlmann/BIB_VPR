@@ -165,7 +165,6 @@
     <Compile Include="Commands\TeamManage\AssignTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\UpdateTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamRoleCommand.cs" />
-    <Compile Include="Commands\TeamManage\GrantPermissionCommand.cs" />
     <Compile Include="Commands\TeamManage\InviteUserCommand.cs" />
     <Compile Include="Commands\Messenger\AttachFileCommand.cs" />
     <Compile Include="Commands\TeamManage\RemoveChannelCommand.cs" />

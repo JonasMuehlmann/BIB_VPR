@@ -1,4 +1,5 @@
-﻿using Messenger.Core.Services;
+﻿using Messenger.Core.Models;
+using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.DialogBoxes;
@@ -37,6 +38,14 @@ namespace Messenger.Commands.TeamManage
                 TeamRoleViewModel teamRole = (TeamRoleViewModel)parameter;
 
                 bool isSuccess = await MessengerService.UpdateTeamRole(teamRole.Id, teamRole.Title, teamRole.Color.ToHex());
+
+                if (teamRole.PendingPermissions.Count > 0)
+                {
+                    foreach (Permissions permission in teamRole.PendingPermissions)
+                    {
+                        isSuccess &= await MessengerService.GrantPermission(teamRole.TeamId, teamRole.Title, permission);
+                    }
+                }
             }
             catch (Exception e)
             {
