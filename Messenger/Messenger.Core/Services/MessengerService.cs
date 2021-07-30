@@ -911,7 +911,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to unassign the role from</param>
         /// <param name="teamId">The team to unassign a role from a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> UnAssignUserRloe(string role, string userId, uint teamId)
+        public static async Task<bool> UnassignUserRole(string role, string userId, uint teamId)
         {
             LogContext.PushProperty("Method", "UnAssignUserRole");
             LogContext.PushProperty("SourceContext", "MessengerService");
