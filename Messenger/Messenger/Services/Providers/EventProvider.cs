@@ -503,7 +503,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(user);
+            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>((uint)team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
@@ -527,7 +527,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(user);
+            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
@@ -551,7 +551,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>(user);
+            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
