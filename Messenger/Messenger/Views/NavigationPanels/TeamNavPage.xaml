@@ -134,9 +134,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid
-            Padding="32 0 20 25"
-            BorderThickness="0 0 0 1"
-            BorderBrush="{ThemeResource SystemAccentColorLight1}"
+            Padding="32 0 20 20"
             HorizontalAlignment="Stretch">
             <StackPanel
                 Spacing="10"
