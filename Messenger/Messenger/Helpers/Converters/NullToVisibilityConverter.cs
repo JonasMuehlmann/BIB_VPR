@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -22,7 +23,7 @@ namespace Messenger.Helpers.Converters
                     && string.IsNullOrEmpty((string)value);
 
                 emptyList = value is IList
-                    && (value as IList).Count == 0;
+                    && (value as IList).Count <= 0;
             }
 
             bool isCollapsed = isNull || emptyString || emptyList;

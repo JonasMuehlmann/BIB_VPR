@@ -1,133 +1,244 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Core.Services;
-using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.ViewModels.DialogBoxes;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Messenger.Views.DialogBoxes
 {
     public sealed partial class ManageRolesDialog : ContentDialog
     {
-        public ObservableCollection<TeamRoleViewModel> MemberRoles
-        {
-            get { return (ObservableCollection<TeamRoleViewModel>)GetValue(MemberRolesProperty); }
-            set { SetValue(MemberRolesProperty, value); }
-        }
+        public ManageRolesDialogViewModel ViewModel { get; } = new ManageRolesDialogViewModel();
 
-        public static readonly DependencyProperty MemberRolesProperty =
-            DependencyProperty.Register("MemberRoles", typeof(ObservableCollection<TeamRoleViewModel>), typeof(ManageRolesDialog), new PropertyMetadata(new ObservableCollection<TeamRoleViewModel>()));
+        public List<ToolTip> OpenTooltips { get; set; }
 
-        public TeamRoleViewModel SelectedRole
-        {
-            get { return (TeamRoleViewModel)GetValue(SelectedRoleProperty); }
-            set { SetValue(SelectedRoleProperty, value); }
-        }
+        public List<Button> ActivatedButtons { get; set; }
 
-        public static readonly DependencyProperty SelectedRoleProperty =
-            DependencyProperty.Register("SelectedRole", typeof(TeamRoleViewModel), typeof(ManageRolesDialog), new PropertyMetadata(null));
+        public Color OriginalColor { get; set; }
 
-        public ObservableCollection<Permissions> SelectablePermissions
-        {
-            get { return (ObservableCollection<Permissions>)GetValue(SelectablePermissionsProperty); }
-            set { SetValue(SelectablePermissionsProperty, value); }
-        }
-
-        public static readonly DependencyProperty SelectablePermissionsProperty =
-            DependencyProperty.Register("SelectablePermissions", typeof(ObservableCollection<Permissions>), typeof(ManageRolesDialog), new PropertyMetadata(new ObservableCollection<Permissions>()));
+        public string OriginalTitle { get; set; }
 
         public ManageRolesDialog()
         {
             InitializeComponent();
+
+            OpenTooltips = new List<ToolTip>();
+            ActivatedButtons = new List<Button>();
         }
 
-        public async static Task<IAsyncOperation<ContentDialogResult>> Open()
+        #region Team Roles List
+
+        private void TeamRolesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
-
-            ManageRolesDialog dialog = new ManageRolesDialog();
-            dialog.MemberRoles = new ObservableCollection<TeamRoleViewModel>();
-
-            IEnumerable<TeamRole> roles = await TeamService.ListRoles(selectedTeam.Id);
-
-            if (roles == null || roles.Count() <= 0) return dialog.ShowAsync();
-
-            foreach (TeamRole role in roles)
+            if (ViewModel.HasChanged)
             {
-                IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(selectedTeam.Id, role.Role);
+                TeamRoleViewModel previousRole = e.RemovedItems.Single() as TeamRoleViewModel;
 
-                dialog.MemberRoles.Add(
-                    new TeamRoleViewModel()
-                    {
-                        Title = string.Concat(role.Role.Substring(0, 1).ToUpper(), role.Role.Substring(1)),
-                        TeamId = selectedTeam.Id,
-                        Permissions = permissions.ToList()
-                    });
+                if (previousRole.Title != ViewModel.PendingChange.Title)
+                {
+                    previousRole.Title = OriginalTitle;
+                }
+
+                previousRole.Color = OriginalColor;
+
+                ViewModel.HasChanged = false;
             }
 
-            TeamRoleViewModel defaultRole = dialog.MemberRoles.First();
-            defaultRole.Color = dialog.colorPicker.Color;
-            dialog.SelectedRole = defaultRole;
-            dialog.UpdateSelectablePermissions(defaultRole);
+            ViewModel.FilterGrantablePermissions();
 
-            return dialog.ShowAsync();
+            ClearAll();
         }
 
-        protected override void OnApplyTemplate()
+        private void RemoveTeamRoleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            base.OnApplyTemplate();
-        }
+            Button button = sender as Button;
+            TeamRoleViewModel teamRole = button.DataContext as TeamRoleViewModel;
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
+            object flagged = ToolTipService.GetToolTip(button);
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
-        private void SelectedPermissions_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TeamRoleViewModel role = e.AddedItems.Single() as TeamRoleViewModel;
-            role.Color = colorPicker.Color;
-            SelectedRole = role;
-            SelectablePermissions.Clear();
-
-            UpdateSelectablePermissions(role);
-        }
-
-        public void UpdateSelectablePermissions(TeamRoleViewModel role)
-        {
-            Array permissions = Enum.GetValues(typeof(Permissions));
-
-            SelectablePermissionsComboBox.Items.Clear();
-
-            foreach (Permissions permission in permissions.Cast<Permissions>().Where(p => !role.Permissions.Any(rp => rp == p)))
+            if (flagged != null)
             {
-                SelectablePermissionsComboBox.Items.Add(permission);
+                (flagged as ToolTip).IsOpen = false;
+                OpenTooltips.Remove((flagged as ToolTip));
+
+                ViewModel.RemoveTeamRoleCommand.Execute(teamRole);
             }
+            else
+            {
+                button.Foreground = new SolidColorBrush(Colors.IndianRed);
+                button.Opacity = 1.0;
+
+                ToolTip toolTip = new ToolTip();
+                toolTip.Placement = Windows.UI.Xaml.Controls.Primitives.PlacementMode.Right;
+                toolTip.Foreground = new SolidColorBrush(Colors.White);
+                toolTip.Background = new SolidColorBrush(Colors.IndianRed);
+                toolTip.Content = "Click again to remove";
+
+                ToolTipService.SetToolTip(button, toolTip);
+                toolTip.IsOpen = true;
+
+                OpenTooltips.Add(toolTip);
+            }
+        }
+
+        #endregion
+
+        #region Edit Color
+
+        private void ColorPickerOkButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (OriginalColor != colorPicker.Color)
+            {
+                ViewModel.PendingChange.Color = colorPicker.Color;
+                ViewModel.HasChanged = true;
+            }
+
+            ColorPickerButton.Flyout.Hide();
         }
 
         private void ColorPickerCancelButton_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.PendingChange.Color = OriginalColor;
             ColorPickerButton.Flyout.Hide();
         }
 
-        private void ColorPickerOkButton_Click(object sender, RoutedEventArgs e)
+        private void ColorPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
         {
-            SelectedRole.Color = colorPicker.Color;
+            ViewModel.PendingChange.Color = sender.Color;
         }
+
+        private void ColorPicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            OriginalColor = ViewModel.SelectedTeamRole.Color;
+        }
+
+        #endregion
+
+        #region Edit Title
+
+        private void EditTitleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.IsInEditMode = true;
+            OriginalTitle = ViewModel.SelectedTeamRole.Title;
+        }
+
+        private void EditTitleAcceptButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (OriginalTitle != ViewModel.PendingChange.Title)
+            {
+                ViewModel.HasChanged = true;
+            }
+
+            ViewModel.IsInEditMode = false;
+        }
+
+        private void EditTitleCancelButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.PendingChange.Title = OriginalTitle;
+            ViewModel.IsInEditMode = false;
+        }
+
+        #endregion
+
+        #region Edit Permissions
+
+        private void RevokePermissionButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Permissions permission = (Permissions)button.DataContext;
+
+            object flagged = ToolTipService.GetToolTip(button);
+
+            if (flagged != null)
+            {
+                (flagged as ToolTip).IsOpen = false;
+                OpenTooltips.Remove(flagged as ToolTip);
+
+                ViewModel.RevokePermissionCommand.Execute(permission);
+            }
+            else
+            {
+                button.Foreground = new SolidColorBrush(Colors.IndianRed);
+                button.Opacity = 1.0;
+
+                ToolTip toolTip = new ToolTip();
+                toolTip.Placement = Windows.UI.Xaml.Controls.Primitives.PlacementMode.Right;
+                toolTip.Foreground = new SolidColorBrush(Colors.White);
+                toolTip.Background = new SolidColorBrush(Colors.IndianRed);
+                toolTip.Content = "Click again to remove";
+
+                ToolTipService.SetToolTip(button, toolTip);
+                toolTip.IsOpen = true;
+
+                OpenTooltips.Add(toolTip);
+            }
+        }
+
+        private void GrantablePermission_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox permissionCheckBox = sender as CheckBox;
+
+            if (Enum.TryParse(typeof(Permissions), permissionCheckBox.Content.ToString(), out object result))
+            {
+                Permissions permission = (Permissions)result;
+
+                ViewModel.PendingChange.Permissions.Add(permission);
+                ViewModel.PendingChange.PendingPermissions.Add(permission);
+
+                ViewModel.GrantablePermissions.Remove(permission);
+
+                ViewModel.HasChanged = true;
+            }
+        }
+
+        #endregion
+
+        #region Actions
+
+        private void UpdateTeamRoleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.UpdateTeamRoleCommand?.Execute(ViewModel.PendingChange);
+        }
+
+        private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ClearAll();
+            Hide();
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private void ClearAll()
+        {
+            if (OpenTooltips.Count > 0)
+            {
+                foreach (ToolTip toolTip in OpenTooltips)
+                {
+                    toolTip.IsOpen = false;
+                }
+
+                OpenTooltips.Clear();
+            }
+
+            if (ActivatedButtons.Count > 0)
+            {
+                foreach (Button button in ActivatedButtons)
+                {
+                    button.Foreground = new SolidColorBrush(Colors.White);
+                    button.Opacity = .35;
+                }
+
+                ActivatedButtons.Clear();
+            }
+        }
+
+        #endregion
     }
 }

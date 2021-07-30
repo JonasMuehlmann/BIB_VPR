@@ -283,12 +283,12 @@ namespace Messenger.Tests.MSTest
 
                 foreach (var role in rolesWantedTeam)
                 {
-                    Assert.IsNotNull(await TeamService.AddRole(role, teamIdWanted.Value));
+                    Assert.IsNotNull(await TeamService.AddRole(role, teamIdWanted.Value, "FFFFFF"));
                 }
 
                 foreach (var role in rolesOtherTeam)
                 {
-                    Assert.IsNotNull(await TeamService.AddRole(role, teamIdOther.Value));
+                    Assert.IsNotNull(await TeamService.AddRole(role, teamIdOther.Value, "FFFFFF"));
                 }
 
                 var roleMatchString = $"{testName}1,{testName}1,The{testName}2,Another{testName},ThisIsA{testName},A{testName}ThisBe,YetAnother{testName}";

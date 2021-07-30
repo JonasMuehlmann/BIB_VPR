@@ -84,7 +84,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1.75*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -117,13 +117,10 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="20 0"
-                    Members="{x:Bind ViewModel.Members, Mode=OneWay}"
-                    RemoveUserCommand="{x:Bind ViewModel.RemoveUserCommand}"
-                    OpenManageRolesCommand="{x:Bind ViewModel.OpenManageRolesCommand}"
                     />
 
                 <StackPanel
-                    Margin="20 0"
+                    Margin="20 10"
                     Grid.Row="1"
                     Grid.Column="1">
                     <StackPanel

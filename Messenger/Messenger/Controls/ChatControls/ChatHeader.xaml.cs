@@ -53,6 +53,8 @@ namespace Messenger.Controls.ChatControls
         public static readonly DependencyProperty CurrentChannelProperty =
             DependencyProperty.Register("CurrentChannel", typeof(ChannelViewModel), typeof(ChatHeader), new PropertyMetadata(null));
 
+        public UserViewModel CurrentUser { get => App.StateProvider?.CurrentUser; }
+
         public ChatHeader()
         {
             InitializeComponent();

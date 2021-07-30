@@ -1,4 +1,5 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Models;
@@ -14,6 +15,8 @@ namespace Messenger.Services.Providers
 {
     public class EventProvider
     {
+        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
+
         /// <summary>
         /// Events with the payload of a list of objects
         /// Fires on 'loaded' events including:
@@ -500,7 +503,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(user);
+            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>((uint)team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
@@ -524,7 +527,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(user);
+            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
@@ -548,7 +551,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>(user);
+            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/

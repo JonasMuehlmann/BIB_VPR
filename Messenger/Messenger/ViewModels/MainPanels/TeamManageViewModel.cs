@@ -39,6 +39,8 @@ namespace Messenger.ViewModels
 
         private User _selectedSearchedUser;
 
+        private MemberViewModel _selectedMember;
+
         #endregion
 
         public ObservableCollection<MemberViewModel> Members
@@ -68,6 +70,12 @@ namespace Messenger.ViewModels
             {
                 Set(ref _teamView, value);
             }
+        }
+
+        public MemberViewModel SelectedMember
+        {
+            get { return _selectedMember; }
+            set { Set(ref _selectedMember, value); }
         }
 
         #region Search Users
@@ -106,11 +114,7 @@ namespace Messenger.ViewModels
 
         public ICommand InviteUserCommand => new InviteUserCommand(this);
 
-        public ICommand RemoveUserCommand => new RemoveUserCommand();
-
         public ICommand RemoveChannelClick => new RemoveChannelCommand();
-
-        public ICommand OpenManageRolesCommand => new OpenManageRolesCommand();
 
         public ICommand NavigateBackCommand => new RelayCommand(() => NavigationService.Open<ChatPage>());
 

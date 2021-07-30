@@ -31,6 +31,12 @@ namespace Messenger.Commands.TeamManage
 
             try
             {
+                OperationConfirmationDialog dialog = OperationConfirmationDialog.Set("You're about to remove a member");
+
+                await dialog.ShowAsync();
+
+                if (!dialog.Response) return;
+
                 TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
 
                 string userId = parameter.ToString();
