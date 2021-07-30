@@ -55,7 +55,8 @@ namespace Messenger.Core.Services
                                                 Team_roles
                                             VALUES(
                                                 '',
-                                                {result}
+                                                {result},
+                                                'FFFFFF'
                                             );";
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
@@ -463,7 +464,7 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters roleId={roleId}, role={role}, colorCode={colorCode}");
 
             string query = $@"
-                                UPDATE 
+                                UPDATE
                                     Team_roles
                                 SET
                                     Role='{role}',
@@ -756,12 +757,12 @@ namespace Messenger.Core.Services
                                 VALUES({permissionsId}, {teamRoleId});";
 
             bool isSuccess = await SqlHelpers.NonQueryAsync(query);
-            
+
             if (!isSuccess)
             {
                 return null;
             }
-            
+
             return teamRoleId;
         }
 
