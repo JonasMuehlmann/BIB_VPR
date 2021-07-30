@@ -158,9 +158,11 @@
     <Compile Include="Commands\Messenger\DeleteMessageCommand.cs" />
     <Compile Include="Commands\Messenger\UpdateMessageCommand.cs" />
     <Compile Include="Commands\PrivateChat\UpdateTeamDetailsCommand.cs" />
+    <Compile Include="Commands\TeamManage\UnassignTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\ChannelSwitchCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateChannelCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamCommand.cs" />
+    <Compile Include="Commands\TeamManage\AssignTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\UpdateTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\GrantPermissionCommand.cs" />
@@ -211,6 +213,9 @@
     <Compile Include="Controls\Shared\OnLoading.xaml.cs">
       <DependentUpon>OnLoading.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shared\RoleTag.xaml.cs">
+      <DependentUpon>RoleTag.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shared\UserSearchPanel.xaml.cs">
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
@@ -239,6 +244,7 @@
     <Compile Include="Models\DragDropCompletedData.cs" />
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
+    <Compile Include="ViewModels\Controls\MembersListControlViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MemberViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamRoleViewModel.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -273,6 +279,7 @@
     <Compile Include="ViewModels\DataViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\PrivateChatViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
+    <Compile Include="ViewModels\DialogBoxes\ManageMemberRolesDialogViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxes\ManageRolesDialogViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
@@ -295,6 +302,9 @@
     </Compile>
     <Compile Include="Views\DialogBoxes\CreateTeamDialog.xaml.cs">
       <DependentUpon>CreateTeamDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\ManageMemberRolesDialog.xaml.cs">
+      <DependentUpon>ManageMemberRolesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogBoxes\ManageRolesDialog.xaml.cs">
       <DependentUpon>ManageRolesDialog.xaml</DependentUpon>
@@ -394,6 +404,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Shared\RoleTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Shared\UserSearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -435,6 +449,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DialogBoxes\CreateTeamDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\ManageMemberRolesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
