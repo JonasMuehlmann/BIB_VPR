@@ -10,6 +10,7 @@
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:core="using:Messenger.Core.Models"
     xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
     CornerRadius="3"
     mc:Ignorable="d">
@@ -24,13 +25,14 @@
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
         <converters:ColorToHexCodeConverter x:Key="ColorToHexCodeConverter" />
+        <converters:BooleanToGlyphConverter x:Key="BooleanToGlyphConverter" />
         <Flyout
             x:Key="myColorPickerFlyout"
             Placement="Right">
             <RelativePanel>
                 <ColorPicker
                     x:Name="colorPicker"
-                    MaxWidth="150"
+                    MaxWidth="125"
                     IsColorChannelTextInputVisible="True"
                     IsHexInputVisible="True"
                     IsAlphaSliderVisible="False"
@@ -67,6 +69,7 @@
     </ContentDialog.Resources>
     <Grid
         Padding="10 5"
+        MinWidth="800"
         ColumnSpacing="25">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -76,6 +79,8 @@
             <ColumnDefinition MaxWidth="250" />
             <ColumnDefinition MinWidth="275" />
         </Grid.ColumnDefinitions>
+
+        <!-- TEAM ROLES PANEL -->
         <StackPanel
             Grid.Column="0">
             <StackPanel
@@ -176,12 +181,13 @@
                 </ListBox>
             </StackPanel>
         </StackPanel>
+        
         <!-- NO SELECTED TEAM ROLE -->
         <Grid
             Grid.Column="1"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            MinHeight="250"
+            MinHeight="400"
             Visibility="{x:Bind
                 ViewModel.SelectedTeamRole,
                 Mode=OneWay,
@@ -204,6 +210,7 @@
                     />
             </StackPanel>
         </Grid>
+        
         <!-- SELECTED ROLE PANEL -->
         <Grid
             Visibility="{x:Bind
@@ -213,14 +220,21 @@
             Grid.Column="1">
             <StackPanel>
                 <TextBlock
-                    Text="Permissions"
+                    Text="Edit Role"
                     FontSize="24"
                     FontWeight="Thin"
                     Opacity=".55"
                     />
+                
                 <!-- SELECTED ROLE TITLE -->
-                <Grid
-                    Margin="0 20 0 0">
+                <TextBlock
+                    Text="Role Title"
+                    FontSize="18"
+                    FontWeight="Thin"
+                    Opacity=".55"
+                    Margin="0 20 0 5"
+                    />
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -277,6 +291,11 @@
                                     Foreground="{ThemeResource SystemAccentColor}"
                                     />
                             </Viewbox>
+                            <TextBlock
+                                Text="Edit"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                />
                         </StackPanel>
                     </Button>
                     <StackPanel
@@ -321,10 +340,18 @@
                         </Button>
                     </StackPanel>
                 </Grid>
+
                 <!-- COLOR PANEL -->
-                <Grid
-                    Padding="0 20 0 20">
+                <TextBlock
+                    Text="Role Color"
+                    FontSize="18"
+                    FontWeight="Thin"
+                    Opacity=".55"
+                    Margin="0 15 0 10"
+                    />
+                <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
@@ -355,8 +382,21 @@
                                 Mode=OneWay}"
                             />
                     </Grid>
-                    <Button
+                    <Grid
                         Grid.Column="1"
+                        Margin="10 0">
+                        <TextBlock
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource SystemAccentColor}"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind
+                                ViewModel.PendingChange.Color,
+                                Converter={StaticResource ColorToHexCodeConverter},
+                                Mode=OneWay}"
+                            />
+                    </Grid>
+                    <Button
+                        Grid.Column="2"
                         x:Name="ColorPickerButton"
                         ToolTipService.ToolTip="Change Color"
                         HorizontalAlignment="Right"
@@ -373,9 +413,15 @@
                                     Foreground="{ThemeResource SystemAccentColor}"
                                     />
                             </Viewbox>
+                            <TextBlock
+                                Text="Edit"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource SystemAccentColor}"
+                                />
                         </StackPanel>
                     </Button>
                 </Grid>
+                
                 <!-- FULL PERMISSION PANEL (NO COMBO BOX) -->
                 <StackPanel
                     Margin="0 20"
@@ -398,55 +444,15 @@
                         Foreground="{ThemeResource SystemAccentColorDark1}"
                         />
                 </StackPanel>
-                <!-- ADD PERMISSION PANEL (GRANTABLE PERMISSIONS) -->
-                <Grid
-                    Visibility="{x:Bind
-                        ViewModel.HasFullPermissions,
-                        Converter={StaticResource BoolToVisibilityConverter},
-                        ConverterParameter='invert',
-                        Mode=OneWay}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel
-                        Grid.Column="0">
-                        <ComboBox
-                            x:Name="SelectablePermissionsComboBox"
-                            HorizontalAlignment="Stretch"
-                            Margin="0 0 10 0"
-                            ItemsSource="{x:Bind
-                                ViewModel.GrantablePermissions,
-                                Mode=OneWay}"
-                            PlaceholderText="Choose Permissions...">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate x:DataType="core:Permissions">
-                                    <Grid>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            />
-                                    </Grid>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-                    <Button
-                        Grid.Column="1"
-                        Opacity=".75"
-                        Command="{x:Bind ViewModel.GrantPermissionCommand}"
-                        CommandParameter="{Binding
-                            ElementName=SelectablePermissionsComboBox,
-                            Path=SelectedItem}"
-                        Background="Transparent">
-                        <Viewbox
-                            Width="16"
-                            Height="16">
-                            <icons:PackIconFontAwesome
-                                Kind="PlusCircleSolid"
-                                />
-                        </Viewbox>
-                    </Button>
-                </Grid>
+                
+                <TextBlock
+                    Text="Role Permissions"
+                    FontSize="18"
+                    FontWeight="Thin"
+                    Opacity=".55"
+                    Margin="0 20 0 5"
+                    />
+                
                 <!-- NO PERMISSIONS PANEL (NO LIST BOX) -->
                 <StackPanel
                     Visibility="{x:Bind
@@ -469,18 +475,17 @@
                         Text="This role has no given permissions."
                         />
                 </StackPanel>
+                
                 <!-- PERMISSIONS LIST -->
                 <ScrollViewer
+                    MaxHeight="275"
                     Visibility="{x:Bind
-                        ViewModel.SelectedTeamRole.Permissions,
+                        ViewModel.PendingChange.Permissions,
                         Converter={StaticResource NullToVisibilityConverter}}">
                     <ListView
-                        MinHeight="150"
-                        MaxHeight="300"
                         SelectionMode="Single"
-                        ItemClick="SelectedPermissions_ItemClick"
                         ItemsSource="{x:Bind
-                            ViewModel.SelectedTeamRole.Permissions,
+                            ViewModel.PendingChange.Permissions,
                             Mode=OneWay}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -497,10 +502,8 @@
                                         FontSize="12"
                                         />
                                     <Button
-                                        Command="{Binding
-                                            ElementName=manageRolesDialog,
-                                            Path=ViewModel.RevokePermissionCommand}"
-                                        CommandParameter="{Binding}"
+                                        Name="RevokePermissionButton"
+                                        Tapped="RevokePermissionButton_Tapped"
                                         Background="Transparent"
                                         Opacity=".35"
                                         HorizontalAlignment="Right">
@@ -517,6 +520,57 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
+                
+                <!-- ADD PERMISSION PANEL (GRANTABLE PERMISSIONS) -->
+                <Grid
+                    Margin="0 20 0 5"
+                    Visibility="{x:Bind
+                        ViewModel.HasFullPermissions,
+                        Converter={StaticResource BoolToVisibilityConverter},
+                        ConverterParameter='invert',
+                        Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Column="0">
+                        <StackPanel
+                            Spacing="10"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                FontWeight="Thin"
+                                Opacity=".55"
+                                Text="Grantable Permissions"
+                                />
+                        </StackPanel>
+                        <ScrollViewer>
+                            <GridView
+                                MaxWidth="600"
+                                MaxHeight="150"
+                                Margin="15 10"
+                                ItemsSource="{x:Bind
+                                    ViewModel.GrantablePermissions,
+                                    Mode=OneWay}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="core:Permissions">
+                                        <Grid
+                                            Width="225">
+                                            <CheckBox
+                                                Checked="GrantablePermission_Checked"
+                                                FontSize="13"
+                                                Content="{Binding}"
+                                                />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Grid>
+
                 <Button
                     x:Name="UpdateTeamRoleButton"
                     Tapped="UpdateTeamRoleButton_Tapped"

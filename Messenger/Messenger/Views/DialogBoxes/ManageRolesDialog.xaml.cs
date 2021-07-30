@@ -1,5 +1,7 @@
-﻿using Messenger.ViewModels.DataViewModels;
+﻿using Messenger.Core.Models;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.DialogBoxes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI;
@@ -29,41 +31,27 @@ namespace Messenger.Views.DialogBoxes
             ActivatedButtons = new List<Button>();
         }
 
-        protected override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
+        #region Team Roles List
 
-        private void SelectedPermissions_ItemClick(object sender, ItemClickEventArgs e)
+        private void TeamRolesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void ColorPickerOkButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (OriginalColor != colorPicker.Color)
+            if (ViewModel.HasChanged)
             {
-                ViewModel.PendingChange.Color = colorPicker.Color;
-                ViewModel.HasChanged = true;
+                TeamRoleViewModel previousRole = e.RemovedItems.Single() as TeamRoleViewModel;
+
+                if (previousRole.Title != ViewModel.PendingChange.Title)
+                {
+                    previousRole.Title = OriginalTitle;
+                }
+
+                previousRole.Color = OriginalColor;
+
+                ViewModel.HasChanged = false;
             }
 
-            ColorPickerButton.Flyout.Hide();
-        }
+            ViewModel.FilterGrantablePermissions();
 
-        private void ColorPickerCancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.PendingChange.Color = OriginalColor;
-            ColorPickerButton.Flyout.Hide();
-        }
-
-        private void ColorPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
-        {
-            ViewModel.PendingChange.Color = sender.Color;
-        }
-
-        private void ColorPicker_Loaded(object sender, RoutedEventArgs e)
-        {
-            OriginalColor = ViewModel.SelectedTeamRole.Color;
+            ClearAll();
         }
 
         private void RemoveTeamRoleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
@@ -98,26 +86,134 @@ namespace Messenger.Views.DialogBoxes
             }
         }
 
-        private void TeamRolesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        #endregion
+
+        #region Edit Color
+
+        private void ColorPickerOkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.HasChanged)
+            if (OriginalColor != colorPicker.Color)
             {
-                TeamRoleViewModel previousRole = e.RemovedItems.Single() as TeamRoleViewModel;
-
-                if (previousRole.Title != ViewModel.PendingChange.Title)
-                {
-                    previousRole.Title = OriginalTitle;
-                }
-
-                previousRole.Color = OriginalColor;
-
-                ViewModel.HasChanged = false;
+                ViewModel.PendingChange.Color = colorPicker.Color;
+                ViewModel.HasChanged = true;
             }
 
-            ViewModel.FilterGrantablePermissions();
-
-            ClearAll();
+            ColorPickerButton.Flyout.Hide();
         }
+
+        private void ColorPickerCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PendingChange.Color = OriginalColor;
+            ColorPickerButton.Flyout.Hide();
+        }
+
+        private void ColorPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
+        {
+            ViewModel.PendingChange.Color = sender.Color;
+        }
+
+        private void ColorPicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            OriginalColor = ViewModel.SelectedTeamRole.Color;
+        }
+
+        #endregion
+
+        #region Edit Title
+
+        private void EditTitleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.IsInEditMode = true;
+            OriginalTitle = ViewModel.SelectedTeamRole.Title;
+        }
+
+        private void EditTitleAcceptButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (OriginalTitle != ViewModel.PendingChange.Title)
+            {
+                ViewModel.HasChanged = true;
+            }
+
+            ViewModel.IsInEditMode = false;
+        }
+
+        private void EditTitleCancelButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.PendingChange.Title = OriginalTitle;
+            ViewModel.IsInEditMode = false;
+        }
+
+        #endregion
+
+        #region Edit Permissions
+
+        private void RevokePermissionButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Permissions permission = (Permissions)button.DataContext;
+
+            object flagged = ToolTipService.GetToolTip(button);
+
+            if (flagged != null)
+            {
+                (flagged as ToolTip).IsOpen = false;
+                OpenTooltips.Remove(flagged as ToolTip);
+
+                ViewModel.RevokePermissionCommand.Execute(permission);
+            }
+            else
+            {
+                button.Foreground = new SolidColorBrush(Colors.IndianRed);
+                button.Opacity = 1.0;
+
+                ToolTip toolTip = new ToolTip();
+                toolTip.Placement = Windows.UI.Xaml.Controls.Primitives.PlacementMode.Right;
+                toolTip.Foreground = new SolidColorBrush(Colors.White);
+                toolTip.Background = new SolidColorBrush(Colors.IndianRed);
+                toolTip.Content = "Click again to remove";
+
+                ToolTipService.SetToolTip(button, toolTip);
+                toolTip.IsOpen = true;
+
+                OpenTooltips.Add(toolTip);
+            }
+        }
+
+        private void GrantablePermission_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox permissionCheckBox = sender as CheckBox;
+
+            if (Enum.TryParse(typeof(Permissions), permissionCheckBox.Content.ToString(), out object result))
+            {
+                Permissions permission = (Permissions)result;
+
+                ViewModel.PendingChange.Permissions.Add(permission);
+                ViewModel.PendingChange.PendingPermissions.Add(permission);
+
+                ViewModel.GrantablePermissions.Remove(permission);
+
+                ViewModel.HasChanged = true;
+            }
+        }
+
+        #endregion
+
+        #region Actions
+
+        private void UpdateTeamRoleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.UpdateTeamRoleCommand?.Execute(ViewModel.PendingChange);
+        }
+
+        private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ClearAll();
+            Hide();
+        }
+
+        #endregion
+
+        #region Helpers
 
         private void ClearAll()
         {
@@ -143,37 +239,6 @@ namespace Messenger.Views.DialogBoxes
             }
         }
 
-        private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            ClearAll();
-            Hide();
-        }
-
-        private void EditTitleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            ViewModel.IsInEditMode = true;
-            OriginalTitle = ViewModel.SelectedTeamRole.Title;
-        }
-
-        private void EditTitleAcceptButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (OriginalTitle != ViewModel.PendingChange.Title)
-            {
-                ViewModel.HasChanged = true;
-            }
-
-            ViewModel.IsInEditMode = false;
-        }
-
-        private void EditTitleCancelButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            ViewModel.PendingChange.Title = OriginalTitle;
-            ViewModel.IsInEditMode = false;
-        }
-
-        private void UpdateTeamRoleButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            ViewModel.UpdateTeamRoleCommand?.Execute(ViewModel.PendingChange);
-        }
+        #endregion
     }
 }
