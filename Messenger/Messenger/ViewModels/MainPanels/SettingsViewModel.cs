@@ -8,6 +8,7 @@ using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.Views;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 
@@ -65,6 +66,8 @@ namespace Messenger.ViewModels
         public ICommand LogoutCommand => _logoutCommand ?? (_logoutCommand = new RelayCommand(OnLogout));
 
         public ICommand UpdateUserBioCommand { get => new UpdateUserBioCommand(); }
+
+        public ICommand NavigateBackCommand => new RelayCommand(() => NavigationService.GoBack());
 
         public UserViewModel User
         {
