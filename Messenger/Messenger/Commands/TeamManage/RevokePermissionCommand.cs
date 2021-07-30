@@ -39,9 +39,20 @@ namespace Messenger.Commands.TeamManage
             {
                 TeamViewModel currentTeam = App.StateProvider.SelectedTeam;
                 TeamRoleViewModel selectedRole = _vm.SelectedTeamRole;
+                TeamRoleViewModel pendingChange = _vm.PendingChange;
                 Permissions permission = (Permissions)parameter;
 
-                bool isSuccess = await MessengerService.RevokePermission(currentTeam.Id, selectedRole.Title, permission);
+                if (selectedRole.Permissions.Any(p => p == permission))
+                {
+                    bool isSuccess = await MessengerService.RevokePermission(currentTeam.Id, selectedRole.Title, permission);
+                    return;
+                }
+
+                if (pendingChange.Permissions.Any(p => p == permission))
+                {
+                    pendingChange.Permissions.Remove(permission);
+                    return;
+                }
             }
             catch (Exception e)
             {
