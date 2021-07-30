@@ -15,6 +15,8 @@ namespace Messenger.Views.DialogBoxes
         {
             ViewModel = new ManageMemberRolesDialogViewModel(member);
 
+            App.EventProvider.TeamUpdated += ViewModel.OnTeamUpdated;
+
             InitializeComponent();
         }
 

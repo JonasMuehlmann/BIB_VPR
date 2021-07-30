@@ -2,6 +2,7 @@
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,6 @@ namespace Messenger.ViewModels.DialogBoxes
     {
         private MemberViewModel _member;
 
-        private MemberViewModel _pendingChange;
-
         private TeamRoleViewModel _selectedAssignableTeamRole;
 
         private TeamRoleViewModel _selectedAssignedTeamRole;
@@ -22,20 +21,7 @@ namespace Messenger.ViewModels.DialogBoxes
         public MemberViewModel Member
         {
             get { return _member; }
-            set
-            {
-                Set(ref _member, value);
-
-                if (value == null) return;
-
-                PendingChange = new MemberViewModel(value);
-            }
-        }
-
-        public MemberViewModel PendingChange
-        {
-            get { return _pendingChange; }
-            set { Set(ref _pendingChange, value); }
+            set { Set(ref _member, value); }
         }
 
         public TeamRoleViewModel SelectedAssignableTeamRole
@@ -112,6 +98,16 @@ namespace Messenger.ViewModels.DialogBoxes
                     }
                 }
             }
+        }
+
+        public void OnTeamUpdated(object sender, BroadcastArgs args)
+        {
+            if (Member == null) return;
+
+            TeamViewModel team = args.Payload as TeamViewModel;
+            MemberViewModel member = team.Members.SingleOrDefault(m => m.Id == Member.Id);
+
+            Member = member;
         }
     }
 }
