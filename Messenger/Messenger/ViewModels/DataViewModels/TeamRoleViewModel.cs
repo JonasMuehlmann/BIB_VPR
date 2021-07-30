@@ -16,7 +16,7 @@ namespace Messenger.ViewModels.DataViewModels
 
         private uint _id;
 
-        private ObservableCollection<Permissions> _permissionsToAdd;
+        private ObservableCollection<Permissions> _pendingPermissions;
 
         public uint Id
         {
@@ -50,8 +50,8 @@ namespace Messenger.ViewModels.DataViewModels
 
         public ObservableCollection<Permissions> PendingPermissions
         {
-            get { return _permissionsToAdd; }
-            set { Set(ref _permissionsToAdd, value); }
+            get { return _pendingPermissions; }
+            set { Set(ref _pendingPermissions, value); }
         }
 
         public TeamRoleViewModel()

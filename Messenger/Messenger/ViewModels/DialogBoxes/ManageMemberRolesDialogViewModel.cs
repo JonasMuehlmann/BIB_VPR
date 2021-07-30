@@ -1,16 +1,11 @@
-﻿using Messenger.Controls.Shared;
+﻿using Messenger.Commands.TeamManage;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using System.Windows.Input;
 
 namespace Messenger.ViewModels.DialogBoxes
 {
@@ -71,6 +66,10 @@ namespace Messenger.ViewModels.DialogBoxes
             }
         }
 
+        public ICommand AssignTeamRoleCommand { get => new AssignTeamRoleCommand(this); }
+
+        public ICommand UnassignTeamRoleCommand { get => new UnassignTeamRoleCommand(this); }
+
         public ManageMemberRolesDialogViewModel(MemberViewModel member)
         {
             Member = member;
@@ -80,7 +79,6 @@ namespace Messenger.ViewModels.DialogBoxes
 
         private async void Initialize()
         {
-
             if (Member.MemberRoles.Count > 0)
             {
                 foreach (TeamRoleViewModel memberRole in Member.MemberRoles)

@@ -106,8 +106,6 @@ namespace Messenger.ViewModels.DialogBoxes
 
         public ICommand RemoveTeamRoleCommand { get => new RemoveTeamRoleCommand(); }
 
-        public ICommand GrantPermissionCommand { get => new GrantPermissionCommand(this); }
-
         public ICommand RevokePermissionCommand { get => new RevokePermissionCommand(this); }
 
         public ManageRolesDialogViewModel()
