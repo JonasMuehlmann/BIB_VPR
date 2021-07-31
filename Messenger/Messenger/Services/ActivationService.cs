@@ -150,7 +150,7 @@ namespace Messenger.Services
             NavigationService.Frame = frame;
             Window.Current.Content = frame;
             await ThemeSelectorService.SetRequestedThemeAsync();
-            NavigationService.Navigate<Views.LogInPage>();
+            NavigationService.Navigate<Views.Pages.LogInPage>();
         }
 
         public void SetShell(Lazy<UIElement> shell)

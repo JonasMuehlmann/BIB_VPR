@@ -2,18 +2,11 @@
 using Messenger.Core.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Commands.TeamManage;
-using Messenger.Core.Services;
-using Windows.UI.Xaml.Controls;
 using Messenger.Models;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 
 namespace Messenger.ViewModels.DialogBoxes
 {
@@ -102,7 +95,7 @@ namespace Messenger.ViewModels.DialogBoxes
 
         public ICommand CreateTeamRoleCommand { get => new CreateTeamRoleCommand(this); }
 
-        public ICommand UpdateTeamRoleCommand { get => new UpdateTeamRoleCommand(this); }
+        public ICommand UpdateTeamRoleCommand { get => new UpdateTeamRoleCommand(); }
 
         public ICommand RemoveTeamRoleCommand { get => new RemoveTeamRoleCommand(); }
 
@@ -110,14 +103,13 @@ namespace Messenger.ViewModels.DialogBoxes
 
         public ManageRolesDialogViewModel()
         {
-            App.EventProvider.TeamUpdated += OnTeamUpdated;
             GrantablePermissions = new ObservableCollection<Permissions>();
 
             /** REFERENCE TO STATE (UPDATES AUTOMATICALLY) **/
             TeamRoles = App.StateProvider.SelectedTeam.TeamRoles;
         }
 
-        private void OnTeamUpdated(object sender, BroadcastArgs args)
+        public void OnTeamUpdated(object sender, BroadcastArgs args)
         {
             TeamViewModel team = (TeamViewModel)args.Payload;
 

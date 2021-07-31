@@ -6,7 +6,7 @@
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Messenger.Controls.Shared"
+    xmlns:subcontrols="using:Messenger.Views.Subcontrols"
     mc:Ignorable="d"
     Title="Start a new chat"
     PrimaryButtonText="Start"
@@ -31,7 +31,7 @@
         </DataTemplate>
     </ContentDialog.TitleTemplate>
     <Grid>
-        <controls:UserSearchPanel
+        <subcontrols:UserSearchPanel
             OnSearch="{Binding
                 ElementName=createDialog,
                 Path=OnSearch}"

@@ -8,8 +8,8 @@
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:core="using:Messenger.Core.Models"
     xmlns:icons="using:MahApps.Metro.IconPacks"
-    xmlns:shared="using:Messenger.Controls.Shared"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:subcontrols="using:Messenger.Views.Subcontrols"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:converters="using:Messenger.Helpers.Converters"
     Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
@@ -100,7 +100,7 @@
                         Mode=OneWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <controls:WrapPanel
+                            <toolkit:WrapPanel
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 HorizontalSpacing="10"
@@ -109,7 +109,7 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="vm:TeamRoleViewModel">
-                            <shared:RoleTag
+                            <subcontrols:RoleTag
                                 extensions:Mouse.Cursor="Hand"
                                 Role="{Binding}"
                                 />
@@ -172,7 +172,7 @@
                                 ItemsSource="{Binding Permissions}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <controls:UniformGrid
+                                        <toolkit:UniformGrid
                                             RowSpacing="10"
                                             Columns="2"
                                             />
@@ -251,7 +251,7 @@
                         Mode=OneWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <controls:WrapPanel
+                            <toolkit:WrapPanel
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 HorizontalSpacing="10"
@@ -260,7 +260,7 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="vm:TeamRoleViewModel">
-                            <shared:RoleTag
+                            <subcontrols:RoleTag
                                 extensions:Mouse.Cursor="Hand"
                                 Role="{Binding}"
                                 />
@@ -322,7 +322,7 @@
                                 ItemsSource="{Binding Permissions}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <controls:UniformGrid
+                                        <toolkit:UniformGrid
                                             RowSpacing="10"
                                             Columns="2"
                                             />

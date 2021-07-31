@@ -64,12 +64,12 @@ namespace Messenger
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.TeamNavPage), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Views.Pages.TeamNavPage), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()
         {
-            return new Views.ShellPage();
+            return new Views.Pages.ShellPage();
         }
 
         private async void OnLoggedOut(object sender, EventArgs e)

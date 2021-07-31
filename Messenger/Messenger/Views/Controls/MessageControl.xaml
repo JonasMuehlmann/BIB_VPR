@@ -1,0 +1,452 @@
+﻿<UserControl
+    x:Name="messageControl"
+    x:Class="Messenger.Views.Controls.MessageControl"
+    xmlns:local="using:Messenger.Views.Controls"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:models="using:Messenger.Models"
+    xmlns:subcontrols="using:Messenger.Views.Subcontrols"
+    xmlns:vm="using:Messenger.ViewModels.DataViewModels"
+    xmlns:converters="using:Messenger.Helpers.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="600">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <converters:BooleanToGlyphConverter x:Key="BoolToGlyphConverter" />
+        <converters:DateToStringConverter x:Key="DateToStringConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:ReactionTypeToBooleanConverter x:Key="ReactionToBooleanConverter" />
+        <!--#region CONTAINER STYLE -->
+        <Style x:Key="OuterGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="20 10 10 10" />
+        </Style>
+        <Style x:Key="OuterBorder" TargetType="Border">
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <!--#endregion-->
+        <!--#region HEADER STYLE -->
+        <Style x:Key="HeaderPanelStyle" TargetType="Grid">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="CharacterSpacing" Value="-50" />
+            <Setter Property="Opacity" Value=".65" />
+        </Style>
+        <Style x:Key="SubHeaderStyle" TargetType="TextBlock"
+               BasedOn="{StaticResource HeaderStyle}">
+            <Setter Property="Opacity" Value=".35" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <!--#endregion-->
+        <!--#region CONTENT STYLE -->
+        <Style x:Key="ContentStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+            <Setter Property="TextWrapping" Value="WrapWholeWords" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="0 10 15 20" />
+        </Style>
+        <Style x:Key="EditboxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Margin" Value="0 15 5 5" />
+            <Setter Property="Padding" Value="10 5" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style x:Key="AttachmentsHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Opacity" Value=".75" />
+            <Setter Property="Margin" Value="5 0 0 0" />
+        </Style>
+        <Style x:Key="AttachmentHypertext" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource SystemAccentColor}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Margin" Value="16 0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <ContentPresenter
+                                />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="AttachmentToggleStyle" TargetType="ToggleButton" BasedOn="{StaticResource NakedToggleButton}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Padding" Value="0 0 7 0" />
+        </Style>
+        <!--#endregion-->
+        <!--#region ACTION BAR STYLE -->
+        <Style x:Key="ActionViewboxStyle" TargetType="Viewbox">
+            <Setter Property="MaxHeight" Value="35" />
+            <Setter Property="Margin" Value="0 10 0 0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style x:Key="ReactionButtonStyle" TargetType="AppBarToggleButton" BasedOn="{StaticResource ReactionButtonStyle}">
+            
+        </Style>
+        <!--#endregion-->
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource OuterGrid}">
+        <Border Style="{StaticResource OuterBorder}">
+            <StackPanel
+                Orientation="Horizontal">
+                <Button
+                    Visibility="{Binding
+                        ElementName=messageControl,
+                        Path=Message.IsMyMessage,
+                        Converter={StaticResource BoolToVisConverter},
+                        ConverterParameter='invert'}"
+                    Background="Transparent"
+                    CornerRadius="50"
+                    VerticalAlignment="Top"
+                    Padding="10"
+                    Margin="0 0 5 0">
+                    <Viewbox
+                        VerticalAlignment="Top"
+                        Width="40"
+                        Height="40">
+                        <icons:PackIconFontAwesome
+                             Kind="UserCircleSolid"
+                             />
+                    </Viewbox>
+                    <Button.Flyout>
+                        <Flyout
+                            ShowMode="TransientWithDismissOnPointerMoveAway"
+                            Placement="BottomEdgeAlignedLeft">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemAccentColorLight2}" />
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <subcontrols:UserProfileFlyout
+                                Member="{Binding
+                                    ElementName=messageControl,
+                                    Path=Message.Sender,
+                                    Mode=OneWay}"
+                                    />
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Grid
+                    MinWidth="350"
+                    MaxWidth="450"
+                    Padding="20 15 20 20"
+                    CornerRadius="5"
+                    Background="{ThemeResource SystemAccentColorLight1}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" MaxHeight="500" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" MaxHeight="200"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- MESSAGE HEADER -->
+                    <Grid
+                        Grid.Row="0"
+                        Style="{StaticResource HeaderPanelStyle}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Stretch">
+                            <TextBlock
+                                Visibility="{Binding
+                                    ElementName=messageControl,
+                                    Path=Message.IsMyMessage,
+                                    Converter={StaticResource BoolToVisConverter},
+                                    ConverterParameter='invert'}"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="{Binding Message.Sender.Name, ElementName=messageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Visibility="{Binding
+                                        ElementName=messageControl,
+                                        Path=Message.IsMyMessage,
+                                        Converter={StaticResource BoolToVisConverter},
+                                        ConverterParameter='invert'}"
+                                    Text=" • "
+                                    />
+                                <TextBlock
+                                    Style="{StaticResource SubHeaderStyle}"
+                                    Text="{Binding Message.CreationTime, Converter={StaticResource DateToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=messageControl}"
+                                    />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="2"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="5 0">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding ElementName=messageControl, Path=Message.Reactions.Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    />
+                            </TextBlock>
+                            <Viewbox
+                                Height="15">
+                                <SymbolIcon
+                                    Symbol="Like"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    />
+                            </Viewbox>
+                        </StackPanel>
+                    </Grid>
+                    <!-- MESSAGE CONTENT -->
+                    <!-- MESSAGE CONTENT: SHOW MODE -->
+                    <TextBlock
+                        x:Name="ShowContent"
+                        Grid.Row="1"
+                        Style="{StaticResource ContentStyle}"
+                        Text="{x:Bind Message.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                    <!-- MESSAGE CONTENT: EDIT MODE -->
+                    <StackPanel
+                        Grid.Row="1"
+                        Visibility="Collapsed"
+                        x:Name="EditContent">
+                        <TextBox
+                            x:Name="NewContentTextBox"
+                            Style="{StaticResource EditboxStyle}"
+                            Text="{x:Bind Message.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                        <Viewbox
+                            Style="{StaticResource ActionViewboxStyle}"
+                            MaxHeight="35">
+                            <CommandBar
+                            Style="{StaticResource ActionBarStyle}"
+                            CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
+                                <!-- REPLY TO COMMAND -->
+                                <AppBarButton
+                                    Name="EditAcceptButton"
+                                    Style="{StaticResource ActionButtonStyle}"
+                                    Icon="Accept"
+                                    Label="Accept"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Tapped="EditAcceptButton_Tapped"
+                                    />
+                                <AppBarButton
+                                    Style="{StaticResource ActionButtonStyle}"
+                                    Icon="Cancel"
+                                    Label="Cancel"
+                                    Foreground="{ThemeResource SystemAccentColorDark1}"
+                                    Command="{x:Bind ExitEditModeCommand}"
+                                    />
+                            </CommandBar>
+                        </Viewbox>
+                    </StackPanel>
+                    <!-- ATTACHMENTS PANEL (TOGGLE) -->
+                    <StackPanel
+                        Visibility="{x:Bind Message.Attachments, Converter={StaticResource NullToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Grid.Row="3">
+                        <ToggleButton
+                            x:Name="AttachmentsExpandButton"
+                            Style="{StaticResource AttachmentToggleStyle}">
+                            <Grid
+                                Margin="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox
+                                    Grid.Column="0"
+                                    Width="14"
+                                    Opacity="0.75">
+                                    <SymbolIcon
+                                        Symbol="Attach"
+                                        />
+                                </Viewbox>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Style="{StaticResource AttachmentsHeaderStyle}"
+                                    Text="Attachments"
+                                    />
+                                <FontIcon
+                                    Grid.Column="2"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Glyph="{Binding ElementName=AttachmentsExpandButton, Path=IsChecked, Converter={StaticResource BoolToGlyphConverter}}"
+                                    Opacity=".5"
+                                    FontSize="12"
+                                    HorizontalAlignment="Right"
+                                    />
+                            </Grid>
+                        </ToggleButton>
+                        <!-- ATTACHMENTS DETAILS -->
+                        <StackPanel
+                            Visibility="{Binding ElementName=AttachmentsExpandButton, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
+                            <!-- PLACEHOLDER -->
+                            <Button
+                                Style="{StaticResource AttachmentHypertext}"
+                                Content="example_data_02941.png (114.22 KB)"
+                                />
+                        </StackPanel>
+                    </StackPanel>
+                    <!-- ACTIONS -->
+                    <Viewbox
+                        Style="{StaticResource ActionViewboxStyle}"
+                        Grid.Row="4">
+                        <CommandBar
+                            Style="{StaticResource ActionBarStyle}"
+                            OverflowButtonVisibility="{x:Bind MyMessageActionsVisibility}"
+                            CommandBarOverflowPresenterStyle="{StaticResource OverflowStyle}">
+                            <!-- REPLY TO COMMAND -->
+                            <AppBarButton
+                                Style="{StaticResource ActionButtonStyle}"
+                                Icon="MailReply"
+                                Label="Reply"
+                                Command="{Binding ReplyToCommand, ElementName=messageControl}"
+                                CommandParameter="{Binding ElementName=messageControl, Path=Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                            <!-- ADD OR UPDATE REACTION -->
+                            <AppBarButton
+                                Style="{StaticResource ActionButtonStyle}"
+                                Icon="Like"
+                                Label="React"
+                                Tapped="AppBarButton_Tapped">
+                                <FlyoutBase.AttachedFlyout>
+                                    <CommandBarFlyout
+                                        Placement="TopEdgeAlignedLeft">
+                                        <AppBarToggleButton
+                                            x:Name="LikeButton"
+                                            Style="{StaticResource ReactionButtonStyle}"
+                                            Content="Like"
+                                            Icon="Like"
+                                            Tapped="LikeButton_Tapped"
+                                            IsChecked="{x:Bind
+                                                Message.MyReaction,
+                                                Converter={StaticResource ReactionToBooleanConverter},
+                                                ConverterParameter='Like'}"
+                                            />
+                                        <AppBarToggleButton
+                                            x:Name="DislikeButton"
+                                            Style="{StaticResource ReactionButtonStyle}"
+                                            Content="Dislike"
+                                            Icon="Dislike"
+                                            Tapped="DislikeButton_Tapped"
+                                            IsChecked="{x:Bind
+                                                Message.MyReaction,
+                                                Converter={StaticResource ReactionToBooleanConverter},
+                                                ConverterParameter='Dislike'}"
+                                            />
+                                        <AppBarToggleButton
+                                            x:Name="SurprisedButton"
+                                            Style="{StaticResource ReactionButtonStyle}"
+                                            Content="Surprised"
+                                            Tapped="SurprisedButton_Tapped"
+                                            IsChecked="{x:Bind
+                                                Message.MyReaction,
+                                                Converter={StaticResource ReactionToBooleanConverter},
+                                                ConverterParameter='Surprised'}">
+                                            <AppBarToggleButton.Icon>
+                                                <icons:PathIconFontAwesome
+                                                    Kind="SurpriseRegular"
+                                                    />
+                                            </AppBarToggleButton.Icon>
+                                        </AppBarToggleButton>
+                                        <AppBarToggleButton
+                                            x:Name="AngryButton"
+                                            Style="{StaticResource ReactionButtonStyle}"
+                                            Content="Angry"
+                                            Tapped="AngryButton_Tapped"
+                                            IsChecked="{x:Bind
+                                                Message.MyReaction,
+                                                Converter={StaticResource ReactionToBooleanConverter},
+                                                ConverterParameter='Angry'}">
+                                            <AppBarToggleButton.Icon>
+                                                <icons:PathIconFontAwesome
+                                                    Kind="AngryRegular"
+                                                    />
+                                            </AppBarToggleButton.Icon>
+                                        </AppBarToggleButton>
+                                    </CommandBarFlyout>
+                                </FlyoutBase.AttachedFlyout>
+                            </AppBarButton>
+                            <!-- EXTRA ACTIONS (EDIT / DELETE) -->
+                            <CommandBar.SecondaryCommands>
+                                <AppBarButton
+                                    x:Name="EditButton"
+                                    Icon="Edit"
+                                    Label="Edit"
+                                    Command="{x:Bind EnterEditModeCommand}"
+                                    />
+                                <AppBarButton
+                                    x:Name="DeleteButton"
+                                    Icon="Delete"
+                                    Label="Delete"
+                                    Tapped="DeleteButton_Tapped"
+                                    />
+                            </CommandBar.SecondaryCommands>
+                        </CommandBar>
+                    </Viewbox>
+                    <!-- REPLIES -->
+                    <Grid
+                        Visibility="{x:Bind Message.Replies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityConverter}}"
+                        Grid.Row="5"
+                        Margin="0 15">
+                        <MenuFlyoutSeparator
+                            Opacity=".25"
+                            Padding="0"
+                            />
+                        <Grid
+                            Background="{ThemeResource SystemAccentColorLight1}"
+                            Width="55">
+                            <TextBlock
+                                Text="Replies"
+                                Opacity=".25"
+                                FontSize="12"
+                                TextAlignment="Center"
+                                />
+                        </Grid>
+                    </Grid>
+                    <ListView
+                        Grid.Row="6"
+                        ItemsSource="{x:Bind Message.Replies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="Padding" Value="0" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate
+                                x:DataType="vm:MessageViewModel">
+                                <subcontrols:ReplyControl
+                                    Reply="{Binding}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

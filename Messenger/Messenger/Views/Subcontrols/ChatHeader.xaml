@@ -1,0 +1,214 @@
+﻿<UserControl
+    x:Class="Messenger.Views.Subcontrols.ChatHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Messenger.Views.Subcontrols"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
+    xmlns:converters="using:Messenger.Helpers.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
+    <Grid
+        RowSpacing="10"
+        VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="0"
+            CornerRadius="5"
+            Orientation="Horizontal"
+            Margin="35 10">
+            <Grid
+                BorderThickness="1"
+                ColumnSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Spacing="5"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Viewbox
+                        Opacity=".35"
+                        VerticalAlignment="Bottom"
+                        Width="18"
+                        Height="18">
+                        <icons:PackIconFontAwesome
+                            Kind="UserTagSolid"
+                            />
+                    </Viewbox>
+                </StackPanel>
+                <StackPanel
+                    Margin="5 0 0 0"
+                    VerticalAlignment="Center"
+                    Grid.Column="1"
+                    Spacing="5"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="12"
+                        Opacity=".55"
+                        Text="Logged in as"
+                        />
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        FontSize="12"
+                        Foreground="{ThemeResource SystemAccentColor}">
+                        <Run
+                            Text="{x:Bind
+                                CurrentUser.Name,
+                                Mode=OneWay}"
+                            />
+                        <Run
+                            Text="#"
+                            />
+                        <Run
+                            Text="{x:Bind
+                                CurrentUser.NameId,
+                                Mode=OneWay}"
+                            />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <Viewbox
+            Grid.Column="0"
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            Width="48"
+            Height="48">
+            <Border
+                Background="{ThemeResource SystemAccentColor}"
+                CornerRadius="50"
+                Padding="6">
+                <icons:PackIconFontAwesome
+                    Kind="UsersSolid"
+                    Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
+                    />
+            </Border>
+        </Viewbox>
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="1"
+            Orientation="Horizontal"
+            VerticalAlignment="Stretch">
+            <StackPanel
+                Orientation="Horizontal"
+                VerticalAlignment="Center"
+                Spacing="25">
+                <StackPanel
+                    Spacing="-3">
+                    <TextBlock
+                        FontWeight="Bold"
+                        FontSize="24"
+                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}}"
+                        Text="{x:Bind CurrentTeam.TeamName, Mode=OneWay}"
+                        />
+                    <TextBlock
+                        FontWeight="Bold"
+                        FontSize="26"
+                        Text="{x:Bind CurrentTeam.Members[0].Name, Mode=OneWay}"
+                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter='invert'}"
+                        />
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        FontSize="18"
+                        Opacity=".75"
+                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}}"
+                        Text="{x:Bind CurrentChannel.ChannelName, Mode=OneWay}"
+                        />
+                </StackPanel>
+                <TextBlock
+                    Text="{x:Bind CurrentTeam.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    FontSize="14"
+                    Opacity=".75"
+                    TextTrimming="WordEllipsis"
+                    VerticalAlignment="Center"
+                    />
+            </StackPanel>
+            <Button
+                ToolTipService.ToolTip="Edit team details"
+                Background="Transparent"
+                VerticalAlignment="Center"
+                Margin="10"
+                Opacity=".75"
+                Command="{x:Bind
+                    UpdateTeamDetailsCommand}">
+                <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <Viewbox
+                        Width="24"
+                        Height="24">
+                        <icons:PackIconFontAwesome
+                            Kind="EditRegular"
+                            Foreground="{ThemeResource SystemAccentColor}"
+                            />
+                    </Viewbox>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Spacing="5"
+            Grid.Column="2"
+            Grid.Row="1"
+            Padding="0 0 70 0">
+            <Button
+                Padding="15 10"
+                CornerRadius="3"
+                Opacity=".75"
+                Background="Transparent">
+                <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <Viewbox
+                        Width="28"
+                        Height="28">
+                        <icons:PackIconFontAwesome
+                            Kind="UsersCogSolid"
+                            />
+                    </Viewbox>
+                </StackPanel>
+                <Button.Flyout>
+                    <MenuFlyout
+                        Placement="BottomEdgeAlignedRight">
+                        <MenuFlyout.MenuFlyoutPresenterStyle>
+                            <Style TargetType="MenuFlyoutPresenter">
+                                <Setter Property="Background" Value="{ThemeResource SystemAccentColorLight1}" />
+                            </Style>
+                        </MenuFlyout.MenuFlyoutPresenterStyle>
+                        <MenuFlyoutItem
+                            Width="150"
+                            Icon="Contact"
+                            Text="Team Manage"
+                            Command="{x:Bind OpenTeamManageCommand}"
+                            />
+                        <MenuFlyoutItem
+                            Icon="Setting"
+                            Text="Settings"
+                            Command="{x:Bind OpenSettingsCommand}"
+                            />
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

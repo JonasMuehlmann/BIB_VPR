@@ -1,23 +1,15 @@
-﻿using Messenger.Core.Models;
+﻿using System;
+using System.Windows.Input;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
-using Messenger.ViewModels.DialogBoxes;
 using Messenger.Views.DialogBoxes;
-using System;
-using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
     public class UpdateTeamRoleCommand : ICommand
     {
-        private ManageRolesDialogViewModel _vm;
-
-        public UpdateTeamRoleCommand(ManageRolesDialogViewModel vm)
-        {
-            _vm = vm;
-        }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)

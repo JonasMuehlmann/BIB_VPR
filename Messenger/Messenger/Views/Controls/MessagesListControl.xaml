@@ -1,0 +1,115 @@
+﻿<UserControl
+    x:Class="Messenger.Views.Controls.MessagesListControl"
+    x:Name="messagesListControl"
+    xmlns:local="using:Messenger.Views.Controls"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Messenger.Core.Models"
+    xmlns:vm="using:Messenger.ViewModels.DataViewModels"
+    xmlns:converters="using:Messenger.Helpers.Converters"
+    xmlns:helpers="using:Messenger.Helpers"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:BooleanToAlignmentConverter x:Key="BooleanToAlignmentConverter" />
+        <Style x:Key="OuterGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="0 10" />
+        </Style>
+        <Style x:Key="OuterBorder" TargetType="Border">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Width" Value="450" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
+            <Setter Property="Margin" Value="{StaticResource MediumLeftMargin}" />
+        </Style>
+        <Style x:Key="HeaderPanelStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="10 0 0 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Orientation" Value="Horizontal" />
+        </Style>
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="{StaticResource SmallRightMargin}" />
+        </Style>
+        <Style x:Key="SubHeaderStyle" TargetType="TextBlock"
+               BasedOn="{StaticResource HeaderStyle}">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style x:Key="ContentStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="{StaticResource MediumLeftRightMargin}" />
+            <Setter Property="TextWrapping" Value="WrapWholeWords" />
+        </Style>
+        <Style x:Key="ReplyStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Margin" Value="{StaticResource MediumLeftMargin}" />
+        </Style>
+        <Style x:Key="ReactsStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="{StaticResource MediumLeftMargin}" />
+        </Style>
+        <ControlTemplate x:Key="ReplyButton" TargetType="Button">
+            <Grid
+                Background="Transparent">
+                <SymbolIcon
+                    Symbol="Redo"
+                    Foreground="{ThemeResource SystemBaseHighColor}"
+                    />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ReactButton" TargetType="Button">
+            <Grid
+                Background="Transparent">
+                <SymbolIcon
+                    Symbol="Globe"
+                    Foreground="{ThemeResource SystemBaseHighColor}"
+                    />
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <ListView
+            SelectionMode="None"
+            HorizontalAlignment="Stretch"
+            Padding="0 0 75 0"
+            ItemsSource="{x:Bind
+                ViewModel.Messages,
+                Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="helpers:BindingHelper.HorizontalAlignBindingPath" Value="True" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel
+                        HorizontalAlignment="Stretch">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <!-- MESSAGE TEMPLATE -->
+            <ListView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="vm:MessageViewModel">
+                    <local:MessageControl
+                        Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
+                        DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
+                        EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
+                        ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
+                        />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ScrollViewer>
+</UserControl>

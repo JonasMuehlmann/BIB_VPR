@@ -1,13 +1,12 @@
-﻿using Messenger.ViewModels;
-using System;
+﻿using System;
 using Messenger.Core.Models;
 using System.Windows.Input;
-using Messenger.Services;
 using Serilog;
 using Messenger.Core.Helpers;
 using Messenger.Views.DialogBoxes;
 using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.ViewModels.Pages;
 
 namespace Messenger.Commands.Messenger
 {
@@ -62,7 +61,6 @@ namespace Messenger.Commands.Messenger
                 {
                     // Resets the models in the view model
                     _viewModel.ReplyMessage = null;
-                    _viewModel.SelectedFiles = null;
                     _viewModel.MessageToSend = new Message();
                 }
                 else

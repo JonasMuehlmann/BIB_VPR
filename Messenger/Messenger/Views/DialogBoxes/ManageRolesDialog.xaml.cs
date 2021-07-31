@@ -15,20 +15,34 @@ namespace Messenger.Views.DialogBoxes
     {
         public ManageRolesDialogViewModel ViewModel { get; } = new ManageRolesDialogViewModel();
 
+        #region UI Components
+
         public List<ToolTip> OpenTooltips { get; set; }
 
         public List<Button> ActivatedButtons { get; set; }
+
+        #endregion
 
         public Color OriginalColor { get; set; }
 
         public string OriginalTitle { get; set; }
 
+        /// <summary>
+        /// Independent content dialog with own view model to add, remove and update team roles
+        /// </summary>
         public ManageRolesDialog()
         {
             InitializeComponent();
 
             OpenTooltips = new List<ToolTip>();
             ActivatedButtons = new List<Button>();
+        }
+
+        protected override void OnApplyTemplate()
+        {
+            App.EventProvider.TeamUpdated += ViewModel.OnTeamUpdated;
+
+            base.OnApplyTemplate();
         }
 
         #region Team Roles List
@@ -207,6 +221,8 @@ namespace Messenger.Views.DialogBoxes
 
         private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+            App.EventProvider.TeamUpdated -= ViewModel.OnTeamUpdated;
+
             ClearAll();
             Hide();
         }

@@ -1,8 +1,8 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.ViewModels.Pages;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
-namespace Messenger.Commands.PrivateChat
+namespace Messenger.Commands.TeamManage
 {
     public class StartChatCommand : ICommand
     {
