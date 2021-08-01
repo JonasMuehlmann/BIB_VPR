@@ -217,6 +217,37 @@ namespace Messenger.Tests.MSTest
             }).GetAwaiter().GetResult();
         }
 
+        [TestMethod]
+        public void RetrieveReplies_Test()
+        {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "User"});
+
+                var teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var parentMessageId = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Message");
+                Assert.IsNotNull(parentMessageId);
+
+                var childMessageId1 = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Message", parentMessageId.Value);
+                Assert.IsNotNull(childMessageId1);
+
+                var childMessageId2 = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Message", parentMessageId.Value);
+                Assert.IsNotNull(childMessageId2);
+
+                var repliesToParentMessage = await MessageService.RetrieveReplies(parentMessageId.Value);
+
+                Assert.AreEqual(repliesToParentMessage.Count, 2);
+
+            }).GetAwaiter().GetResult();
+        }
+
         [TestCleanup]
         public void Cleanup()
         {
