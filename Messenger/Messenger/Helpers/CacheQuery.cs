@@ -105,7 +105,7 @@ namespace Messenger.Helpers
             }
             else if (IsTypeOf<TeamRoleViewModel>(type))
             {
-                target = teamManager.AddOrUpdateTeamRole((TeamRole)parameters.First());
+                target = await teamManager.AddOrUpdateTeamRole((TeamRole)parameters.First());
             }
             else if (IsTypeOf<ChannelViewModel>(type))
             {

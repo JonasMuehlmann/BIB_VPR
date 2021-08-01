@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:icons="using:MahApps.Metro.IconPacks"
-    xmlns:models="using:Messenger.Models"
+    xmlns:shared="using:Messenger.Controls.Shared"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -24,9 +24,8 @@
                 FontSize="24"
                 />
             <Button
-                Command="{Binding
-                    ElementName=membersListControl,
-                    Path=OpenManageRolesCommand}"
+                Command="{x:Bind
+                    Path=ViewModel.OpenManageRolesCommand}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
                 Background="Transparent"
@@ -44,7 +43,7 @@
                             />
                     </Viewbox>
                     <TextBlock
-                        Text="Roles"
+                        Text="Manage Roles"
                         FontSize="14"
                         FontWeight="SemiBold"
                         />
@@ -55,11 +54,9 @@
             HorizontalScrollMode="Disabled"
             HorizontalScrollBarVisibility="Disabled">
             <ListView
-                ItemsSource="{Binding
-                    ElementName=membersListControl,
-                    Path=Members,
-                    Mode=TwoWay,
-                    UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{x:Bind
+                    Path=ViewModel.Members,
+                    Mode=OneWay}"
                 SelectionMode="Single"
                 HorizontalContentAlignment="Stretch"
                 HorizontalAlignment="Stretch"
@@ -114,32 +111,17 @@
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="10"
                                                 VerticalAlignment="Center"
                                                 />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="vm:TeamRoleViewModel">
-                                            <Grid
-                                                MaxHeight="17"
-                                                BorderThickness="1"
-                                                Margin="5 0"
-                                                Padding="5 0"
-                                                CornerRadius="3">
-                                            <Grid.BorderBrush>
-                                                <SolidColorBrush Color="IndianRed" Opacity=".85" />
-                                            </Grid.BorderBrush>
-                                            <Grid.Background>
-                                                <SolidColorBrush Color="IndianRed" Opacity=".35" />
-                                            </Grid.Background>
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="IndianRed"
-                                                FontWeight="SemiBold"
-                                                FontSize="10"
-                                                Text="{Binding Title}"
+                                            <shared:RoleTag
+                                                Role="{Binding}"
                                                 />
-                                            </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
@@ -147,13 +129,17 @@
                                     Background="Transparent"
                                     Padding="5">
                                     <Button.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                            <MenuFlyoutItem
-                                                Text="Manage roles"
-                                                />
+                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                             <MenuFlyoutItem
                                                 Command="{Binding
-                                                    Path=RemoveUserCommand,
+                                                    Path=ViewModel.OpenManageMemberRolesCommand,
+                                                    ElementName=membersListControl}"
+                                                CommandParameter="{Binding}"
+                                                Text="Assign/Unassign roles">
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem
+                                                Command="{Binding
+                                                    Path=ViewModel.RemoveUserCommand,
                                                     ElementName=membersListControl}"
                                                 CommandParameter="{Binding
                                                     Path=Id}"
@@ -180,134 +166,6 @@
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     </Style>
                 </ListView.ItemContainerStyle>
-                <ListViewItem>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Viewbox
-                            Grid.Column="0"
-                            Width="24"
-                            Height="24"
-                            Margin="0 0 10 0">
-                            <icons:PackIconFontAwesome
-                                Kind="UserCircleSolid"
-                                />
-                        </Viewbox>
-                        <StackPanel
-                            Grid.Column="1"
-                            Spacing="3"
-                            Orientation="Horizontal">
-                            <TextBlock
-                                Text="Jawoon Kim"
-                                FontSize="14"
-                                FontWeight="SemiBold"
-                                VerticalAlignment="Center"
-                                />
-                            <TextBlock
-                                Text="•"
-                                VerticalAlignment="Center"
-                                Opacity=".55"
-                                />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Text="jawoon.kim@edu.bib.de"
-                                FontSize="12"
-                                Opacity=".55"
-                                />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Column="2"
-                            Spacing="10"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Right">
-                            <ItemsControl>
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel
-                                            Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:TeamRoleViewModel">
-                                        <Grid
-                                            MaxHeight="17"
-                                            BorderThickness="1"
-                                            Margin="5 0"
-                                            Opacity=".35"
-                                            Padding="5 0"
-                                            CornerRadius="3">
-                                            <Grid.BorderBrush>
-                                                <SolidColorBrush Color="IndianRed" Opacity=".85" />
-                                            </Grid.BorderBrush>
-                                            <Grid.Background>
-                                                <SolidColorBrush Color="IndianRed" Opacity=".35" />
-                                            </Grid.Background>
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="IndianRed"
-                                                FontWeight="SemiBold"
-                                                FontSize="10"
-                                                Text="{Binding Title}"
-                                                />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                                <Grid
-                                    MaxHeight="17"
-                                    BorderThickness="1"
-                                    Margin="5 0"
-                                    Opacity=".35"
-                                    Padding="5 0"
-                                    CornerRadius="3">
-                                    <Grid.BorderBrush>
-                                        <SolidColorBrush Color="IndianRed" Opacity=".85" />
-                                    </Grid.BorderBrush>
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="IndianRed" Opacity=".35" />
-                                    </Grid.Background>
-                                    <TextBlock
-                                        VerticalAlignment="Top"
-                                        Foreground="IndianRed"
-                                        FontWeight="SemiBold"
-                                        FontSize="10"
-                                        Text="Admin"
-                                        />
-                                </Grid>
-                                <Grid
-                                    MaxHeight="17"
-                                    Opacity=".35"
-                                    Padding="5 0"
-                                    CornerRadius="3"
-                                    BorderThickness="1">
-                                    <Grid.BorderBrush>
-                                        <SolidColorBrush Color="CadetBlue" Opacity=".85" />
-                                    </Grid.BorderBrush>
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="CadetBlue" Opacity=".35" />
-                                    </Grid.Background>
-                                    <TextBlock
-                                        VerticalAlignment="Top"
-                                        Foreground="CadetBlue"
-                                        FontWeight="SemiBold"
-                                        FontSize="10"
-                                        Text="Developer"
-                                        />
-                                </Grid>
-                            </ItemsControl>
-
-                            <Viewbox
-                                Width="24"
-                                Height="24">
-                                <icons:PackIconFontAwesome
-                                    Kind="ClipboardSolid"
-                                    />
-                            </Viewbox>
-                        </StackPanel>
-                    </Grid>
-                </ListViewItem>
             </ListView>
         </ScrollViewer>
     </StackPanel>

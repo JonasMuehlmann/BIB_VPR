@@ -17,8 +17,6 @@ namespace Messenger.SignalR
 
         private readonly static ConnectionMapping _connections = new ConnectionMapping();
 
-        private string _userId;
-
         #endregion
 
         #region Connection
@@ -30,7 +28,6 @@ namespace Messenger.SignalR
         /// <returns>Task to be awaited</returns>
         public Task Register(string userId)
         {
-            _userId = userId;
             _connections.Add(userId, Context.ConnectionId);
 
             return Task.CompletedTask;
@@ -41,32 +38,20 @@ namespace Messenger.SignalR
         /// </summary>
         /// <param name="teamId">Client group name to be added to</param>
         /// <returns>Task to be awaited</returns>
-        public async Task JoinTeam(string teamId)
+        public async Task JoinTeam(string userId, string teamId)
         {
-            foreach (string connection in _connections.GetConnections(_userId))
+            foreach (string connection in _connections.GetConnections(userId))
             {
                 await Groups.AddToGroupAsync(connection, teamId);
             }
         }
 
-        public async Task LeaveTeam(string teamId)
+        public async Task LeaveTeam(string userId, string teamId)
         {
-            foreach (string connection in _connections.GetConnections(_userId))
+            foreach (string connection in _connections.GetConnections(userId))
             {
                 await Groups.RemoveFromGroupAsync(connection, teamId);
             }
-        }
-
-        /// <summary>
-        /// Removes the current connection id on disconnection
-        /// </summary>
-        /// <param name="exception">Exceptions to be handled on disconnection(handled by SignalR)</param>
-        /// <returns>Task to be awaited</returns>
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            _connections.Remove(_userId, Context.ConnectionId);
-
-            return base.OnDisconnectedAsync(exception);
         }
 
         #endregion

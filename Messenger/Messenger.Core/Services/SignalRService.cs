@@ -9,46 +9,46 @@ using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
-    public static class SignalRService
+    public class SignalRService
     {
         #region Private
 
-        private static string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
+        private string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
 
-        private static HubConnection _connection;
+        private HubConnection _connection;
 
-        public static Serilog.ILogger logger => GlobalLogger.Instance;
+        public Serilog.ILogger logger => GlobalLogger.Instance;
 
         #endregion
 
         /// <summary>
         /// Delegate on "ReceiveMessage"(Hub Method)
         /// </summary>
-        public static event EventHandler<SignalREventArgs<Message>> ReceiveMessage;
-        public static event EventHandler<SignalREventArgs<Team>> ReceiveInvitation;
+        public event EventHandler<SignalREventArgs<Message>> ReceiveMessage;
+        public event EventHandler<SignalREventArgs<Team>> ReceiveInvitation;
 
-        public static event EventHandler<SignalREventArgs<Message>> MessageUpdated;
-        public static event EventHandler<SignalREventArgs<Message>> MessageDeleted;
-        public static event EventHandler<SignalREventArgs<Message>> MessageReactionsUpdated;
+        public event EventHandler<SignalREventArgs<Message>> MessageUpdated;
+        public event EventHandler<SignalREventArgs<Message>> MessageDeleted;
+        public event EventHandler<SignalREventArgs<Message>> MessageReactionsUpdated;
 
-        public static event EventHandler<SignalREventArgs<Team>> TeamCreated;
-        public static event EventHandler<SignalREventArgs<Team>> TeamUpdated;
-        public static event EventHandler<SignalREventArgs<Team>> TeamDeleted;
+        public event EventHandler<SignalREventArgs<Team>> TeamCreated;
+        public event EventHandler<SignalREventArgs<Team>> TeamUpdated;
+        public event EventHandler<SignalREventArgs<Team>> TeamDeleted;
 
-        public static event EventHandler<SignalREventArgs<Channel>> ChannelCreated;
-        public static event EventHandler<SignalREventArgs<Channel>> ChannelUpdated;
-        public static event EventHandler<SignalREventArgs<Channel>> ChannelDeleted;
+        public event EventHandler<SignalREventArgs<Channel>> ChannelCreated;
+        public event EventHandler<SignalREventArgs<Channel>> ChannelUpdated;
+        public event EventHandler<SignalREventArgs<Channel>> ChannelDeleted;
 
-        public static event EventHandler<SignalREventArgs<TeamRole>> TeamRoleUpdated;
-        public static event EventHandler<SignalREventArgs<TeamRole>> TeamRoleDeleted;
+        public event EventHandler<SignalREventArgs<TeamRole>> TeamRoleUpdated;
+        public event EventHandler<SignalREventArgs<TeamRole>> TeamRoleDeleted;
 
-        public static event EventHandler<SignalREventArgs<User, Team>> MemberAdded;
-        public static event EventHandler<SignalREventArgs<User, Team>> MemberUpdated;
-        public static event EventHandler<SignalREventArgs<User, Team>> MemberRemoved;
+        public event EventHandler<SignalREventArgs<User, Team>> MemberAdded;
+        public event EventHandler<SignalREventArgs<User, Team>> MemberUpdated;
+        public event EventHandler<SignalREventArgs<User, Team>> MemberRemoved;
 
-        public static event EventHandler<SignalREventArgs<User>> UserUpdated;
+        public event EventHandler<SignalREventArgs<User>> UserUpdated;
 
-        public static void Initialize()
+        public void Initialize()
         {
             _connection = new HubConnectionBuilder()
                 .WithUrl(HUB_URL)
@@ -97,7 +97,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="userId">Id of the current user</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task OpenConnection(string userId)
+        public async Task OpenConnection(string userId)
         {
             LogContext.PushProperty("Method", "Open");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -106,13 +106,10 @@ namespace Messenger.Core.Services
 
             try
             {
-                if (_connection.State == HubConnectionState.Disconnected)
-                {
-                    await _connection.StartAsync();
-                    await _connection.SendAsync("Register", userId);
+                await _connection.StartAsync();
+                await _connection.SendAsync("Register", userId);
 
-                    logger.Information($"Connecting the user identity by userId={userId} to the hub");
-                }
+                logger.Information($"Connecting the user identity by userId={userId} to the hub");
             }
             catch (Exception e)
             {
@@ -124,7 +121,7 @@ namespace Messenger.Core.Services
         /// Closes the connection with the hub
         /// </summary>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task CloseConnection()
+        public async Task CloseConnection()
         {
             LogContext.PushProperty("Method","Close");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -148,7 +145,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">Team id as the group name</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task JoinTeam(string teamId)
+        public async Task JoinTeam(string userId, string teamId)
         {
             LogContext.PushProperty("Method", "JoinTeam");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -157,7 +154,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                await _connection.SendAsync("JoinTeam", teamId);
+                await _connection.SendAsync("JoinTeam", userId, teamId);
 
                 logger.Information($"Adding the current user to the hub group with the name {teamId}");
             }
@@ -167,7 +164,7 @@ namespace Messenger.Core.Services
             }
         }
 
-        public static async Task LeaveTeam(string teamId)
+        public async Task LeaveTeam(string userId, string teamId)
         {
             LogContext.PushProperty("Method", "LeaveTeam");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -176,7 +173,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                await _connection.SendAsync("LeaveTeam", teamId);
+                await _connection.SendAsync("LeaveTeam", userId, teamId);
 
                 logger.Information($"Removing the current user from the hub group with the name {teamId}");
             }
@@ -195,7 +192,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">A complete message object to be sent</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task SendMessage(Message message, uint teamId)
+        public async Task SendMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method","SendMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -212,7 +209,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="message">The updated message object</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task UpdateMessage(Message message, uint teamId)
+        public async Task UpdateMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "UpdateMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -224,7 +221,7 @@ namespace Messenger.Core.Services
             logger.Information($"Updated message #{message.Id} from the channel #{message.RecipientId}");
         }
 
-        public static async Task DeleteMessage(Message message, uint teamId)
+        public async Task DeleteMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -236,7 +233,7 @@ namespace Messenger.Core.Services
             logger.Information($"Deleted message #{message.Id} from the channel #{message.RecipientId}");
         }
 
-        public static async Task UpdateMessageReactions(Message message, uint teamId)
+        public async Task UpdateMessageReactions(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "UpdateMessageReactions");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -258,7 +255,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">Id of the user to add</param>
         /// <param name="teamId">Id the of team to add user to</param>
         /// <returns>Asynchronous task to be awaited</returns>
-        public static async Task CreateTeam(Team team)
+        public async Task CreateTeam(Team team)
         {
             LogContext.PushProperty("Method", "CreateTeam");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -270,7 +267,7 @@ namespace Messenger.Core.Services
             logger.Information($"Created team #{team.Id} ({team.CreationDate})");
         }
 
-        public static async Task UpdateTeam(Team team)
+        public async Task UpdateTeam(Team team)
         {
             LogContext.PushProperty("Method", "UpdateTeam");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -282,7 +279,7 @@ namespace Messenger.Core.Services
             logger.Information($"Updated team '{team.Name}' #{team.Id} ({team.CreationDate})");
         }
 
-        public static async Task DeleteTeam(Team team)
+        public async Task DeleteTeam(Team team)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -298,7 +295,7 @@ namespace Messenger.Core.Services
 
         #region Channel
 
-        public static async Task CreateChannel(Channel channel)
+        public async Task CreateChannel(Channel channel)
         {
             LogContext.PushProperty("Method", "CreateChannel");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -310,7 +307,7 @@ namespace Messenger.Core.Services
             logger.Information($"Created channel #{channel.ChannelId} in team #{channel.TeamId})");
         }
 
-        public static async Task UpdateChannel(Channel channel)
+        public async Task UpdateChannel(Channel channel)
         {
             LogContext.PushProperty("Method", "UpdateChannel");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -322,7 +319,7 @@ namespace Messenger.Core.Services
             logger.Information($"Updated channel #{channel.ChannelId} in team #{channel.TeamId})");
         }
 
-        public static async Task DeleteChannel(Channel channel)
+        public async Task DeleteChannel(Channel channel)
         {
             LogContext.PushProperty("Method", "DeleteChannel");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -338,7 +335,7 @@ namespace Messenger.Core.Services
 
         #region Team Roles
 
-        public static async Task AddOrUpdateTeamRole(TeamRole role)
+        public async Task AddOrUpdateTeamRole(TeamRole role)
         {
             LogContext.PushProperty("Method", "AddOrUpdateTeamRole");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -350,7 +347,7 @@ namespace Messenger.Core.Services
             logger.Information($"Added/Updated team role '{role.Role}' in team #{role.TeamId})");
         }
 
-        public static async Task DeleteTeamRole(TeamRole role)
+        public async Task DeleteTeamRole(TeamRole role)
         {
             LogContext.PushProperty("Method", "DeleteTeamRole");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -366,7 +363,7 @@ namespace Messenger.Core.Services
 
         #region Member
 
-        public static async Task SendInvitation(User user, Team team)
+        public async Task SendInvitation(User user, Team team)
         {
             LogContext.PushProperty("Method", "SendInvitation");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -378,7 +375,7 @@ namespace Messenger.Core.Services
             logger.Information($"Sent invitation to team #{team.Id} to user #{user.Id}");
         }
 
-        public static async Task AddMember(User user, Team team)
+        public async Task AddMember(User user, Team team)
         {
             LogContext.PushProperty("Method", "AddMember");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -390,7 +387,7 @@ namespace Messenger.Core.Services
             logger.Information($"Added member #{user.Id} to team #{team.Id}");
         }
 
-        public static async Task UpdateMember(User user, Team team)
+        public async Task UpdateMember(User user, Team team)
         {
             LogContext.PushProperty("Method", "UpdateMember");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -402,7 +399,7 @@ namespace Messenger.Core.Services
             logger.Information($"Updated member #{user.Id} in team #{team.Id}");
         }
 
-        public static async Task RemoveMember(User user, Team team)
+        public async Task RemoveMember(User user, Team team)
         {
             LogContext.PushProperty("Method", "RemoveMember");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -418,7 +415,7 @@ namespace Messenger.Core.Services
 
         #region User
 
-        public static async Task UpdateUser(User user)
+        public async Task UpdateUser(User user)
         {
             LogContext.PushProperty("Method", "UpdateUser");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -434,7 +431,7 @@ namespace Messenger.Core.Services
 
         #region Helpers
 
-        private static async Task Reconnect(Exception e)
+        private async Task Reconnect(Exception e)
         {
             LogContext.PushProperty("Method","Reconnect");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -448,7 +445,7 @@ namespace Messenger.Core.Services
             logger.Information($"Building a new connection to the hub");
         }
 
-        private static async Task<HubConnection> CreateHubConnection()
+        private async Task<HubConnection> CreateHubConnection()
         {
             LogContext.PushProperty("Method","CreateHubConnection");
             LogContext.PushProperty("SourceContext", "SignalRService");
@@ -468,12 +465,12 @@ namespace Messenger.Core.Services
             return hubConnection;
         }
 
-        private static SignalREventArgs<T> BuildArgument<T>(T value)
+        private SignalREventArgs<T> BuildArgument<T>(T value)
         {
             return new SignalREventArgs<T>(value);
         }
 
-        private static SignalREventArgs<TOne, TTwo> BuildArgument<TOne, TTwo>(TOne firstValue, TTwo secondValue)
+        private SignalREventArgs<TOne, TTwo> BuildArgument<TOne, TTwo>(TOne firstValue, TTwo secondValue)
         {
             return new SignalREventArgs<TOne, TTwo>(firstValue, secondValue);
         }

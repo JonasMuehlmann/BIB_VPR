@@ -9,11 +9,11 @@
     Style="{StaticResource PageStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="325"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- SIDE NAVIGATION -->
