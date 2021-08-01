@@ -1,12 +1,8 @@
 ﻿using Messenger.Core.Models;
-using Messenger.Core.Services;
-using Messenger.Helpers;
 using Messenger.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -23,7 +19,7 @@ namespace Messenger.ViewModels.DataViewModels
         private bool _isReply;
         private bool _hasReacted;
         private ReactionType _myReaction;
-        private UserViewModel _sender;
+        private MemberViewModel _sender;
         private ObservableCollection<MessageViewModel> _replies;
         private ObservableCollection<Reaction> _reactions;
         private List<Attachment> _attachments;
@@ -67,7 +63,7 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _parentMessageId, value); }
         }
 
-        public UserViewModel Sender
+        public MemberViewModel Sender
         {
             get { return _sender; }
             set { Set(ref _sender, value); }

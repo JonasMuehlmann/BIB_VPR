@@ -120,12 +120,6 @@
                         Text="{x:Bind CurrentTeam.TeamName, Mode=OneWay}"
                         />
                     <TextBlock
-                        FontWeight="Bold"
-                        FontSize="26"
-                        Text="{x:Bind CurrentTeam.Members[0].Name, Mode=OneWay}"
-                        Visibility="{x:Bind CurrentTeam.TeamName, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter='invert'}"
-                        />
-                    <TextBlock
                         FontWeight="SemiBold"
                         FontSize="18"
                         Opacity=".75"

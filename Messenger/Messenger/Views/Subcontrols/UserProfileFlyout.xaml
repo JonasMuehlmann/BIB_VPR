@@ -8,8 +8,7 @@
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:subcontrols="using:Messenger.Views.Subcontrols"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -78,7 +77,7 @@
                             Mode=OneWay}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <controls:WrapPanel
+                                <toolkit:WrapPanel
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     HorizontalSpacing="10"
@@ -87,7 +86,7 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="vm:TeamRoleViewModel">
-                                <subcontrols:RoleTag
+                                <local:RoleTag
                                     extensions:Mouse.Cursor="Hand"
                                     Role="{Binding}"
                                     />

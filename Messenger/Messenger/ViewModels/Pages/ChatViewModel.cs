@@ -16,8 +16,10 @@ namespace Messenger.ViewModels.Pages
         #endregion
 
         #region Properties
+
         /// <summary>
-        /// Message that the user is replying to
+        /// Message that the user is replying to,
+        /// update is triggered by MessageView, data is injected to SendMessageControl
         /// </summary>
         public MessageViewModel ReplyMessage
         {
@@ -32,7 +34,8 @@ namespace Messenger.ViewModels.Pages
         }
 
         /// <summary>
-        /// Message object to be sent
+        /// Message object to be sent,
+        /// update is triggered by SendMessageControl, data is injected to SendMessageCommand
         /// </summary>
         public Message MessageToSend
         {
@@ -58,10 +61,18 @@ namespace Messenger.ViewModels.Pages
 
         #endregion
 
+        /// <summary>
+        /// Defines data to be bound to 'Chat Page',
+        /// also serves as a shared data pool between MessagesListControl and SendMessageControl
+        /// </summary>
         public ChatViewModel()
         {
             MessagesListViewModel = new MessagesListControlViewModel(this);
             SendMessageControlViewModel = new SendMessageControlViewModel(this);
+            MessageToSend = new Message();
+
+            App.EventProvider.MessagesSwitched += MessagesListViewModel.OnMessagesSwitched;
+            App.EventProvider.MessageUpdated += MessagesListViewModel.OnMessageUpdated;
         }
     }
 }

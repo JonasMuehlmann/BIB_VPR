@@ -63,14 +63,19 @@ namespace Messenger.ViewModels.Pages
 
         public TeamNavViewModel()
         {
-            IsBusy = true;
-            Teams = new ObservableCollection<TeamViewModel>();
-
             Initialize();
         }
 
         private async void Initialize()
         {
+            IsBusy = true;
+            Teams = new ObservableCollection<TeamViewModel>();
+
+            App.EventProvider.TeamsLoaded += OnTeamsLoaded;
+            App.EventProvider.TeamUpdated += OnTeamUpdated;
+            App.EventProvider.ChannelUpdated += OnChannelUpdated;
+            App.EventProvider.MessageUpdated += OnMessageUpdated;
+
             /** GET DATA FROM CACHE IF ALREADY INITIALIZED **/
             if (App.StateProvider != null && Teams.Count <= 0)
             {

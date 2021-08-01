@@ -6,7 +6,7 @@
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:subcontrols="using:Messenger.Views.Subcontrols"
+    xmlns:controls="using:Messenger.Views.Controls"
     mc:Ignorable="d"
     Title="Start a new chat"
     PrimaryButtonText="Start"
@@ -31,18 +31,10 @@
         </DataTemplate>
     </ContentDialog.TitleTemplate>
     <Grid>
-        <subcontrols:UserSearchPanel
-            OnSearch="{Binding
-                ElementName=createDialog,
-                Path=OnSearch}"
-            GetSelectedUser="{Binding
-                ElementName=createDialog,
-                Path=GetSelectedUser}"
-            SelectedUser="{Binding
-                ElementName=createDialog,
-                Path=SelectedUser,
-                Mode=TwoWay,
-                UpdateSourceTrigger=PropertyChanged}"
+        <controls:UserSearchPanel
+            ViewModel="{x:Bind
+                ViewModel.UserSearchPanelViewModel,
+                Mode=OneWay}"
             />
     </Grid>
 </ContentDialog>

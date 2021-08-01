@@ -176,17 +176,20 @@
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
+    <Compile Include="ViewModels\Controls\InboxControlViewModel.cs" />
+    <Compile Include="ViewModels\Controls\UserSearchPanelViewModel.cs" />
+    <Compile Include="ViewModels\DialogBoxes\CreateChatDialogViewModel.cs" />
     <Compile Include="Views\Subcontrols\ChatHeader.xaml.cs">
       <DependentUpon>ChatHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\MessageControl.xaml.cs">
-      <DependentUpon>MessageControl.xaml</DependentUpon>
+    <Compile Include="Views\Subcontrols\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\MessagesListControl.xaml.cs">
       <DependentUpon>MessagesListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Subcontrols\ReplyControl.xaml.cs">
-      <DependentUpon>ReplyControl.xaml</DependentUpon>
+    <Compile Include="Views\Subcontrols\ReplyView.xaml.cs">
+      <DependentUpon>ReplyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
@@ -200,10 +203,7 @@
     <Compile Include="Views\Subcontrols\SideNavigation.xaml.cs">
       <DependentUpon>SideNavigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Subcontrols\ActionControl.xaml.cs">
-      <DependentUpon>ActionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Subcontrols\InboxControl.xaml.cs">
+    <Compile Include="Views\Controls\InboxControl.xaml.cs">
       <DependentUpon>InboxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Subcontrols\OnLoading.xaml.cs">
@@ -212,7 +212,7 @@
     <Compile Include="Views\Subcontrols\RoleTag.xaml.cs">
       <DependentUpon>RoleTag.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Subcontrols\UserSearchPanel.xaml.cs">
+    <Compile Include="Views\Controls\UserSearchPanel.xaml.cs">
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
@@ -358,7 +358,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\MessageControl.xaml">
+    <Page Include="Views\Subcontrols\MessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,7 +366,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Subcontrols\ReplyControl.xaml">
+    <Page Include="Views\Subcontrols\ReplyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -386,11 +386,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Subcontrols\ActionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Subcontrols\InboxControl.xaml">
+    <Page Include="Views\Controls\InboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -402,7 +398,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Subcontrols\UserSearchPanel.xaml">
+    <Page Include="Views\Controls\UserSearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

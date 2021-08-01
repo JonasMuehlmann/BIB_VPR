@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="Messenger.Views.Subcontrols.InboxControl"
+    x:Class="Messenger.Views.Controls.InboxControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Messenger.Views.Subcontrols"
+    xmlns:local="using:Messenger.Views.Controls"
     xmlns:models="using:Messenger.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -31,22 +31,22 @@
 
                             <!-- MODEL: NOTIFICATION -->
                             <TextBlock
-                                Text="{x:Bind User}"
+                                Text="{Binding User}"
                                 Grid.Row="0"
                                 FontWeight="Bold"
                                 />
                             <TextBlock
-                                Text="{x:Bind WhenSent}"
+                                Text="{Binding WhenSent}"
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 />
                             <TextBlock
-                                Text="{x:Bind KindOfMessage}"
+                                Text="{Binding KindOfMessage}"
                                 Grid.Row="1"
                                 />
                             <TextBlock
-                                Text="{x:Bind WhereSent}"
+                                Text="{Binding WhereSent}"
                                 Grid.Row="2"
                                 />
                         </Grid>
@@ -57,7 +57,9 @@
     </UserControl.Resources>
     <!-- LIST VIEW -->
     <ListView
-        ItemsSource="{x:Bind Notifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        ItemsSource="{x:Bind
+            ViewModel.Notifications,
+            Mode=OneWay}"
         Style="{StaticResource InboxListView}"
         />
 

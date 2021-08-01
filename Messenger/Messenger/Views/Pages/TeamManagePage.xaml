@@ -126,6 +126,7 @@
                     Margin="20 10"
                     Grid.Row="1"
                     Grid.Column="1">
+
                     <StackPanel
                         Margin="0 5 5 25"
                         Padding="2 0 0 20"
@@ -136,14 +137,17 @@
                             FontSize="24"
                             />
                     </StackPanel>
-                    <subcontrols:UserSearchPanel
-                        OnSearch="{x:Bind ViewModel.OnSearchFunction}"
-                        GetSelectedUser="{x:Bind ViewModel.GetSelectedUserFunction}"
-                        SelectedUser="{x:Bind ViewModel.SelectedSearchedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    
+                    <controls:UserSearchPanel
+                        ViewModel="{x:Bind
+                            ViewModel.UserSearchPanelViewModel,
+                            Mode=OneWay}"
                         />
 
                     <Grid
-                        Visibility="{x:Bind ViewModel.SelectedSearchedUser, Mode=OneWay,
+                        Visibility="{x:Bind
+                            ViewModel.UserSearchPanelViewModel.SelectedUser,
+                            Mode=OneWay,
                             Converter={StaticResource NullToVisibilityConverter}}"
                         Margin="0 20"
                         ColumnSpacing="10">
@@ -159,7 +163,9 @@
                             BorderBrush="{ThemeResource SystemAccentColor}"
                             Grid.Column="0"
                             Command="{x:Bind ViewModel.InviteUserCommand}"
-                            CommandParameter="{x:Bind ViewModel}"
+                            CommandParameter="{x:Bind
+                                ViewModel.UserSearchPanelViewModel.SelectedUser,
+                                Mode=OneWay}"
                             Padding="20 7">
                             <StackPanel
                                 Spacing="5"

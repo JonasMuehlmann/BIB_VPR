@@ -53,7 +53,7 @@ namespace Messenger.ViewModels.Pages
 
         public ICommand SwitchChatCommand => new ChannelSwitchCommand();
 
-        public ICommand StartChatCommand => new StartChatCommand(this);
+        public ICommand StartChatCommand => new StartChatCommand();
 
         #endregion
 

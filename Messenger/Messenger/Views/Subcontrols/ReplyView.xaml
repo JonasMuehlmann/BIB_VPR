@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Messenger.Views.Subcontrols.ReplyControl"
+    x:Class="Messenger.Views.Subcontrols.ReplyView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Messenger.Views.Subcontrols"
@@ -58,7 +58,9 @@
                         FontSize="12"
                         FontWeight="SemiBold"
                         Opacity=".65"
-                        Text="{x:Bind Reply.Sender.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{x:Bind
+                            Reply.Sender.Name,
+                            Mode=OneWay}"
                         />
                     <TextBlock
                         Text=" • "
@@ -68,7 +70,10 @@
                         FontSize="12"
                         FontWeight="Light"
                         Opacity=".35"
-                        Text="{x:Bind Reply.CreationTime, Converter={StaticResource DateToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{x:Bind
+                            Reply.CreationTime,
+                            Converter={StaticResource DateToStringConverter},
+                            Mode=OneWay}"
                         />
                 </StackPanel>
                 <Grid
@@ -76,8 +81,10 @@
                     Grid.Column="1">
                     <TextBlock
                         FontSize="14"
-                        Text="{x:Bind Reply.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="WrapWholeWords"
+                        Text="{x:Bind
+                            Reply.Content,
+                            Mode=OneWay}"
                         />
                 </Grid>
                 <Grid

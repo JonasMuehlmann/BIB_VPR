@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Messenger.Core.Models"
+    xmlns:subcontrols="using:Messenger.Views.Subcontrols"
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:converters="using:Messenger.Helpers.Converters"
     xmlns:helpers="using:Messenger.Helpers"
@@ -75,14 +75,14 @@
         </ControlTemplate>
     </UserControl.Resources>
     <ScrollViewer>
+        <!-- MESSAGES LIST -->
         <ListView
             SelectionMode="None"
             HorizontalAlignment="Stretch"
             Padding="0 0 75 0"
             ItemsSource="{x:Bind
                 ViewModel.Messages,
-                Mode=TwoWay,
-                UpdateSourceTrigger=PropertyChanged}">
+                Mode=OneWay}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="helpers:BindingHelper.HorizontalAlignBindingPath" Value="True" />
@@ -101,12 +101,20 @@
             <ListView.ItemTemplate>
                 <DataTemplate
                     x:DataType="vm:MessageViewModel">
-                    <local:MessageControl
-                        Message="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ReplyToCommand="{Binding ElementName=messagesListControl, Path=ReplyToCommand}"
-                        DeleteMessageCommand="{Binding ElementName=messagesListControl, Path=DeleteMessageCommand}"
-                        EditMessageCommand="{Binding ElementName=messagesListControl, Path=EditMessageCommand}"
-                        ToggleReactionCommand="{Binding ElementName=messagesListControl, Path=ToggleReactionCommand}"
+                    <subcontrols:MessageView
+                        Message="{Binding}"
+                        DeleteMessageCommand="{Binding
+                            ElementName=messagesListControl,
+                            Path=ViewModel.DeleteMessageCommand}"
+                        ToggleReactionCommand="{Binding
+                            ElementName=messagesListControl,
+                            Path=ViewModel.ToggleReactionCommand}"
+                        UpdateMessageCommand="{Binding
+                            ElementName=messagesListControl,
+                            Path=ViewModel.UpdateMessageCommand}"
+                        ReplyToCommand="{Binding
+                            ElementName=messagesListControl,
+                            Path=ViewModel.ReplyToCommand}"
                         />
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -63,6 +63,7 @@ namespace Messenger.Helpers.TeamHelpers
 
                 /* PRIVATE CHAT HAS ONLY PARTNER AS MEMBER */
                 chatViewModel.Partner = Map(members.Where(m => m.Id != currentUserId)).SingleOrDefault();
+                chatViewModel.TeamName = chatViewModel.Partner.Name;
 
                 return chatViewModel;
             }

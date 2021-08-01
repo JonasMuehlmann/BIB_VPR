@@ -29,7 +29,7 @@ namespace Messenger.Views.Controls
                 case Windows.System.VirtualKey.Accept:
                     if (tbxContent.Text?.Length > 0)
                     {
-                        ViewModel.SendMessageCommand?.Execute(tbxContent.Text);
+                        ViewModel.SendMessageCommand?.Execute(ViewModel.ParentViewModel.MessageToSend);
                     }
                     break;
                 default:

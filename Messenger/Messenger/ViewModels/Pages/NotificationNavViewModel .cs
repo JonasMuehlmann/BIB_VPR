@@ -4,24 +4,13 @@ using System.Windows.Input;
 using Messenger.Commands;
 using Messenger.Helpers;
 using Messenger.Models;
+using Messenger.ViewModels.Controls;
 
 namespace Messenger.ViewModels.Pages
 {
     public class NotificationNavViewModel : Observable
     {
-        private ObservableCollection<Notification> _notifications;
-
-        public ObservableCollection<Notification> Notifications
-        {
-            get
-            {
-                return _notifications;
-            }
-            set
-            {
-                Set(ref _notifications, value);
-            }
-        }
+        public InboxControlViewModel InboxControlViewModel { get; set; }
 
         public ICommand ClearInboxCommand => new RelayCommand(ClearInbox);
 
@@ -29,16 +18,7 @@ namespace Messenger.ViewModels.Pages
 
         public NotificationNavViewModel()
         {
-            Notifications = new ObservableCollection<Notification>();
-            Notifications.Clear();
-            // TODO: Load actual data from ChatHubService
-            Notifications.Add(new Notification()
-            {
-                User = "John Smith",
-                KindOfMessage = NotificationType.Mention,
-                WhereSent = "[Team] bib International College",
-                WhenSent = new DateTime(2021, 4, 2, 8, 42, 5)
-            });
+            InboxControlViewModel = new InboxControlViewModel();
         }
 
         /// <summary>
@@ -46,7 +26,7 @@ namespace Messenger.ViewModels.Pages
         /// </summary>
         private void ClearInbox()
         {
-            Notifications.Clear();
+            InboxControlViewModel.Notifications.Clear();
         }
 
         /// <summary>
@@ -54,10 +34,10 @@ namespace Messenger.ViewModels.Pages
         /// </summary>
         private void RefreshInbox()
         {
-            Notifications.Clear();
+            InboxControlViewModel.Notifications.Clear();
 
             // TODO: Load actual data from ChatHubService
-            Notifications.Add(new Notification()
+            InboxControlViewModel.Notifications.Add(new Notification()
             {
                 User = "Jay Kim",
                 KindOfMessage = NotificationType.TeamJoined,
