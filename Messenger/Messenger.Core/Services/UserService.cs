@@ -8,9 +8,10 @@ using System.Linq;
 using Serilog.Context;
 using System.Collections.Generic;
 
+
 namespace Messenger.Core.Services
 {
-    public class UserService : AzureServiceBase
+    public class UserService : SignalREnabledAzureServiceBase
     {
         // TODO: Maybe use an enum of values like User.Name?
         // TODO: Prevent changing user id
@@ -23,14 +24,16 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public static async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
-            LogContext.PushProperty("Method","Update");
+            LogContext.PushProperty("Method",        "Update");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
-            logger.Information($"Function called with parameters userId={userId}, columnToChange={columnToChange}, newVal={newVal}");
+            logger.Information($"Function called with parameters userId={userId}, columnToChange={columnToChange}, newVal={newVal}"
+                              );
 
             if (columnToChange == "Username")
             {
                 logger.Information("Forwarding arguments to UpdateUsername()");
+
                 return await UpdateUsername(userId, newVal);
             }
 
@@ -51,6 +54,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(queryUpdateOther);
         }
 
+
         /// <summary>
         /// Update a specified users name
         ///</summary>
@@ -59,7 +63,7 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public static async Task<bool> UpdateUsername(string userId, string newUsername)
         {
-            LogContext.PushProperty("Method","UpdateUsername");
+            LogContext.PushProperty("Method",        "UpdateUsername");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userId={userId}, newUsername={newUsername}");
@@ -71,6 +75,7 @@ namespace Messenger.Core.Services
             if (newNameId == null)
             {
                 logger.Information($"Return value: false");
+
                 return false;
             }
 
@@ -99,9 +104,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose email will be updated</param>
         /// <param name="newMail">The new email to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public static async Task<bool> UpdateUserMail(string userId, string newMail)
+        private static async Task<bool> UpdateUserMailImpl(string userId, string newMail)
         {
-            LogContext.PushProperty("Method","UpdateUserMail");
+            LogContext.PushProperty("Method",        "UpdateUserMailImpl");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
@@ -118,15 +123,16 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
 
+
         /// <summary>
         /// Update a specified users photo
         ///</summary>
         /// <param name="userId">The id of the user, whose photo will be updated</param>
         /// <param name="newPhoto">The new photo to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public static async Task<bool> UpdateUserPhoto(string userId, string newPhoto)
+        private static async Task<bool> UpdateUserPhotoImpl(string userId, string newPhoto)
         {
-            LogContext.PushProperty("Method","UpdateUserMail");
+            LogContext.PushProperty("Method",        "UpdateUserMailImpl");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
@@ -150,9 +156,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose  bio will be updated</param>
         /// <param name="newBio">The new  bio to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        public static async Task<bool> UpdateUserBio(string userId, string newBio)
+        private static async Task<bool> UpdateUserBioImpl(string userId, string newBio)
         {
-            LogContext.PushProperty("Method","UpdateUserMail");
+            LogContext.PushProperty("Method",        "UpdateUserMailImpl");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
@@ -169,6 +175,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(queryUpdate);
         }
 
+
         /// <summary>
         /// Create or retrieve an application user from a specified user object holding a GraphService Id.
         /// </summary>
@@ -176,8 +183,7 @@ namespace Messenger.Core.Services
         /// <returns>The existing or newly created User object</returns>
         public static async Task<User> GetOrCreateApplicationUser(User userdata)
         {
-
-            LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+            LogContext.PushProperty("Method",        "GetOrCreateApplicationUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameter userdata={userdata}");
@@ -197,10 +203,11 @@ namespace Messenger.Core.Services
             if (rows.Length > 0)
             {
                 logger.Information("Returning existing user");
+
                 // Exists: return existing application user object from database
                 return rows
-                        .Select(Mapper.UserFromDataRow)
-                        .FirstOrDefault();
+                      .Select(Mapper.UserFromDataRow)
+                      .FirstOrDefault();
             }
 
             // Not exists: create Application user based on MicrosoftGraphService user
@@ -211,7 +218,7 @@ namespace Messenger.Core.Services
 
             uint? newNameId = await DetermineNewNameId(displayName, GetDefaultConnection());
 
-            LogContext.PushProperty("Method","GetOrCreateApplicationUser");
+            LogContext.PushProperty("Method",        "GetOrCreateApplicationUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"newNameId has been determined as {newNameId}");
@@ -263,6 +270,7 @@ namespace Messenger.Core.Services
             userdata.NameId = Convert.ToUInt32(newNameId);
 
             logger.Information("Returning new user");
+
             return Mapper.UserFromMSGraph(userdata);
         }
 
@@ -274,7 +282,7 @@ namespace Messenger.Core.Services
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
         public static async Task<bool> DeleteUser(string userId)
         {
-            LogContext.PushProperty("Method","DeleteUser");
+            LogContext.PushProperty("Method",        "DeleteUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userId={userId}");
@@ -288,6 +296,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         #region Helpers
 
         /// <summary>
@@ -297,7 +306,7 @@ namespace Messenger.Core.Services
         /// <returns>A full User object</returns>
         public static async Task<User> GetUser(string userId)
         {
-            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("Method",        "GetUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userId={userId}");
@@ -321,6 +330,7 @@ namespace Messenger.Core.Services
             return rows.Select(Mapper.UserFromDataRow).First();
         }
 
+
         /// <summary>
         /// Construct a User object from a given UserName and NameId
         /// </summary>
@@ -329,7 +339,7 @@ namespace Messenger.Core.Services
         /// <returns>A full User object</returns>
         public static async Task<User> GetUser(string userName, uint nameId)
         {
-            LogContext.PushProperty("Method","GetUser");
+            LogContext.PushProperty("Method",        "GetUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
@@ -345,10 +355,11 @@ namespace Messenger.Core.Services
                                         NameId={nameId}";
 
             return (await SqlHelpers
-                .GetRows("Users", selectQuery))
-                .Select(Mapper.UserFromDataRow)
-                .FirstOrDefault();
+                      .GetRows("Users", selectQuery))
+                  .Select(Mapper.UserFromDataRow)
+                  .FirstOrDefault();
         }
+
 
         /// <summary>
         /// Retrieve the UserNames and NameIds of the top 10 matches for the given
@@ -358,7 +369,7 @@ namespace Messenger.Core.Services
         /// <returns>List of top 10 matched User names</returns>
         public static async Task<IList<string>> SearchUser(string userName)
         {
-            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("Method",        "SearchUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters userName={userName}");
@@ -375,7 +386,7 @@ namespace Messenger.Core.Services
 
             var rows = await SqlHelpers.GetRows("Users", selectQuery);
 
-            LogContext.PushProperty("Method","SearchUser");
+            LogContext.PushProperty("Method",        "SearchUser");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Retrieved {rows.Count()} rows");
@@ -392,7 +403,7 @@ namespace Messenger.Core.Services
         ///<returns>Null on database errors, the appropriate NameId otherwise</returns>
         private static async Task<uint?> DetermineNewNameId(string username, SqlConnection connection)
         {
-            LogContext.PushProperty("Method","DetermineNewNameId");
+            LogContext.PushProperty("Method",        "DetermineNewNameId");
             LogContext.PushProperty("SourceContext", "MessengerService");
 
             logger.Information($"Function called with parameters username={username},connection={connection}");
@@ -409,5 +420,77 @@ namespace Messenger.Core.Services
         }
 
         #endregion
+
+
+        #region SignalREnabled
+        /// Update A user's email
+        /// </summary>
+        /// <param name="userId">Id of the user whos email should be updated</param>
+        /// <param name="newEmail">The new email of the user</param>
+        /// <returns>True if the email was successfully updated, false otherwise</returns>
+        public static async Task<bool> UpdateUserEmail(string userId, string newEmail)
+        {
+            LogContext.PushProperty("Method",        "UpdateUserEmail");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
+
+            var result = await UserService.UpdateUserMailImpl(userId, newEmail);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Update A user's bio
+        /// </summary>
+        /// <param name="userId">Id of the user whos Bio should be updated</param>
+        /// <param name="newBio">The new bio of the user</param>
+        /// <returns>True if the bio was successfully updated, false otherwise</returns>
+        public static async Task<bool> UpdateUserBio(string userId, string newBio)
+        {
+            LogContext.PushProperty("Method",        "UpdateUserBio");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
+
+            var result = await UserService.UpdateUserBioImpl(userId, newBio);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        /// Update A user's Photo
+        /// </summary>
+        /// <param name="userId">Id of the user whos photo should be updated</param>
+        /// <param name="newPhotoURL">The new photo of the user</param>
+        /// <returns>True if the photo was successfully updated, false otherwise</returns>
+        public static async Task<bool> UpdateUserPhoto(string userId, string newPhotoURL)
+        {
+            LogContext.PushProperty("Method",        "UpdateUserPhoto");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters userId={userId}, newPhotoURL={newPhotoURL}");
+
+            var result = await UserService.UpdateUserPhotoImpl(userId, newPhotoURL);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+        #endregion SignalREnabled
     }
 }

@@ -20,7 +20,7 @@ namespace Messenger.Core.Services
         /// <returns>The teamId of the created Team</returns>
         public static async Task<uint?> CreatePrivateChat(string myUserId, string otherUserId)
         {
-            LogContext.PushProperty("Method","CreatePrivateChat");
+            LogContext.PushProperty("Method",        "CreatePrivateChat");
             LogContext.PushProperty("SourceContext", "PrivateChatService");
             logger.Information($"Function called with parameters myUserId={myUserId}, otherUserId={otherUserId}");
 
@@ -48,7 +48,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
-            var success1 = await AddMember(myUserId, teamID.Value);
+            var success1 = await AddMember(myUserId,    teamID.Value);
             var success2 = await AddMember(otherUserId, teamID.Value);
 
             if (!(success1 && success2))
@@ -72,7 +72,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Team objects</returns>
         public static async Task<IEnumerable<Team>> GetAllPrivateChatsFromUser(string userId)
         {
-            LogContext.PushProperty("Method","GetAllPrivateChatsFromUser");
+            LogContext.PushProperty("Method",        "GetAllPrivateChatsFromUser");
             LogContext.PushProperty("SourceContext", "PrivateChatService");
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -87,7 +87,7 @@ namespace Messenger.Core.Services
         /// <returns>The user id of the conversation partner</returns>
         public static async Task<string> GetPartner(uint teamId)
         {
-            LogContext.PushProperty("Method","GetPartner");
+            LogContext.PushProperty("Method",        "GetPartner");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters teamId={teamId}");
 
@@ -103,9 +103,77 @@ namespace Messenger.Core.Services
                             AND
                                 t.TeamName='';";
 
-            var        otherUser   = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+            var otherUser = await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
 
             return SqlHelpers.TryConvertDbValue(otherUser, Convert.ToString);
+        }
+
+
+        public static async Task<uint?> StartChat(string userId, string targetUserId)
+        {
+            LogContext.PushProperty("Method",        "StartChat");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters userId={userId}, targetUserNameId={targetUserId}");
+
+            if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(targetUserId))
+            {
+                logger.Information($"Invalid 'UserId's");
+
+                return null;
+            }
+
+            uint? chatId = await PrivateChatService.CreatePrivateChat(userId, targetUserId);
+
+            if (chatId == null)
+            {
+                logger.Information($"Error while starting a new private chat");
+
+                return null;
+            }
+
+            await TeamService.AddRole("admin", chatId.Value, "CD5C5C");
+            await TeamService.AssignRole("admin", userId,       chatId.Value);
+            await TeamService.AssignRole("admin", targetUserId, chatId.Value);
+
+            // Grant admin all permissions
+            bool grantedAllPermissions = true;
+
+            foreach (var permission in Enum.GetValues(typeof(Permissions)).Cast<Permissions>())
+            {
+                uint? teamRoleId = await TeamService.GrantPermission(chatId.Value, "admin", permission);
+
+                grantedAllPermissions &= teamRoleId != null;
+            }
+
+            uint? channelId = await ChannelService.CreateChannel("main", chatId.Value);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the team's main channel");
+                logger.Information($"Return value: false");
+
+                return null;
+            }
+
+            Team chat = await TeamService.GetTeam((uint) chatId);
+
+            if (chat == null)
+            {
+                logger.Information($"could not retrieve the team from the server");
+                logger.Information($"Return value: null");
+
+                return null;
+            }
+
+            logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={chatId.Value}"
+                              );
+
+            await SignalRService.CreateTeam(chat);
+            await SignalRService.JoinTeam(userId, chat.Id.ToString());
+
+            logger.Information($"Return value: {chatId}");
+
+            return chatId;
         }
     }
 }

@@ -7,9 +7,10 @@ using Messenger.Core.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+
 namespace Messenger.Core.Services
 {
-    public class NotificationService : AzureServiceBase
+    public class NotificationService : SignalREnabledAzureServiceBase
     {
         /// <summary>
         /// Send a notification to a specified user
@@ -21,7 +22,7 @@ namespace Messenger.Core.Services
         /// <returns>The id of the notification on success, null otherwise</returns>
         public static async Task<uint?> SendNotification(string recipientId, JObject message)
         {
-            LogContext.PushProperty("Method","SendNotification");
+            LogContext.PushProperty("Method",        "SendNotification");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters recipientId={recipientId}, message={message}");
@@ -41,6 +42,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
+
         /// <summary>
         /// Remove a notification from the db
         /// </summary>
@@ -48,7 +50,7 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false on failure</returns>
         public static async Task<bool> RemoveNotification(uint notificationId)
         {
-            LogContext.PushProperty("Method","RemoveNotification");
+            LogContext.PushProperty("Method",        "RemoveNotification");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters notificationId={notificationId}");
@@ -62,6 +64,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         /// <summary>
         /// Retrieve all notifications a user currently has
         /// </summary>
@@ -69,7 +72,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of notification objects</returns>
         public static async Task<IEnumerable<Notification>> RetrieveNotifications(string userId)
         {
-            LogContext.PushProperty("Method","RetrieveNotifications");
+            LogContext.PushProperty("Method",        "RetrieveNotifications");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters userId={userId}");
@@ -84,6 +87,7 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.NotificationFromDataRow, query);
         }
+
 
         /// <summary>
         /// Add a notification mute for a specified user
@@ -100,12 +104,19 @@ namespace Messenger.Core.Services
         /// The id of the sender of notifications to be muted
         /// </param>
         /// <returns>The id of the Notification mute on success, null otherwise</returns>
-        public static async Task<uint?> AddMute(NotificationType notificationType, NotificationSource notificationSourceType, string notificationSourceValue, string userId, string senderId = null)
+        public static async Task<uint?> AddMute(
+            NotificationType   notificationType,
+            NotificationSource notificationSourceType,
+            string             notificationSourceValue,
+            string             userId,
+            string             senderId = null
+        )
         {
-            LogContext.PushProperty("Method","AddMute");
+            LogContext.PushProperty("Method",        "AddMute");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
-            logger.Information($"Function called with parameters notificationType={notificationType.ToString()}, notificationSourceType={notificationSourceType.ToString()}, notificationSourceValue={notificationSourceValue}, userId={userId}");
+            logger.Information($"Function called with parameters notificationType={notificationType.ToString()}, notificationSourceType={notificationSourceType.ToString()}, notificationSourceValue={notificationSourceValue}, userId={userId}"
+                              );
 
             senderId = senderId is null ? "NULL" : $"'{senderId}'";
 
@@ -126,6 +137,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
+
         /// <summary>
         /// Remove a notification mute
         /// </summary>
@@ -134,7 +146,7 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false otherwise</returns>
         public static async Task<bool> RemoveMute(uint muteId)
         {
-            LogContext.PushProperty("Method","RemoveMute");
+            LogContext.PushProperty("Method",        "RemoveMute");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters muteId={muteId}");
@@ -149,6 +161,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         /// <summary>
         /// Get A user's notification mutes
         /// </summary>
@@ -157,7 +170,7 @@ namespace Messenger.Core.Services
         /// <returns>An IList of NotificationMute objects representing the usera's mutes</returns>
         public static async Task<IList<NotificationMute>> GetUsersMutes(string userId)
         {
-            LogContext.PushProperty("Method","GetUsersMutes");
+            LogContext.PushProperty("Method",        "GetUsersMutes");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters userId={userId}");
@@ -174,6 +187,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.MapToList(Mapper.NotificationMuteFromDataRow, query);
         }
 
+
         /// <summary>
         /// Check whether a notification can be sent to a user
         /// </summary>
@@ -182,60 +196,69 @@ namespace Messenger.Core.Services
         /// <returns>True if the notification can be sent, false otherwise</returns>
         public static async Task<bool> CanSendNotification(JObject message, string userId)
         {
-            LogContext.PushProperty("Method","CanSendNotification");
+            LogContext.PushProperty("Method",        "CanSendNotification");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters message={message}, userId={userId}");
 
-            NotificationType notificationType         = message["notificationType"].ToObject<NotificationType>();
+            NotificationType   notificationType       = message["notificationType"].ToObject<NotificationType>();
             NotificationSource notificationSourceType = message["notificationSource"].ToObject<NotificationSource>();
 
             string notificationSourceValue = null;
-            string senderId = null;
-            uint messageId;
+            string senderId                = null;
+            uint   messageId;
 
             switch (notificationType)
             {
                 case NotificationType.UserMentioned:
-                    var mentionId           = message["mentionId"].ToObject<uint>();
+                    var mentionId = message["mentionId"].ToObject<uint>();
                     senderId                = (await MentionService.RetrieveMention(mentionId)).MentionerId;
                     notificationSourceValue = message["channelId"].ToObject<string>();
+
                     break;
 
                 case NotificationType.MessageInSubscribedChannel:
                     messageId               = message["messageId"].ToObject<uint>();
                     senderId                = (await MessageService.GetMessage(messageId)).SenderId;
                     notificationSourceValue = message["channelId"].ToObject<string>();
+
                     break;
 
                 case NotificationType.MessageInSubscribedTeam:
                     messageId               = message["messageId"].ToObject<uint>();
                     senderId                = (await MessageService.GetMessage(messageId)).SenderId;
                     notificationSourceValue = message["teamId"].ToObject<string>();
+
                     break;
 
                 case NotificationType.MessageInPrivateChat:
                     messageId               = message["messageId"].ToObject<uint>();
                     senderId                = (await MessageService.GetMessage(messageId)).SenderId;
                     notificationSourceValue = message["channelId"].ToObject<string>();
+
                     break;
 
                 case NotificationType.ReactionToMessage:
                     var reactionId = message["reactionId"].ToObject<uint>();
-                    senderId       = (await MessageService.GetReaction(reactionId)).UserId;
+                    senderId = (await MessageService.GetReaction(reactionId)).UserId;
+
                     break;
 
                 case NotificationType.InvitedToTeam:
                     notificationSourceValue = message["teamId"].ToObject<string>();
+
                     break;
 
                 case NotificationType.RemovedFromTeam:
                     notificationSourceValue = message["teamId"].ToObject<string>();
+
                     break;
             }
 
             var senderIdQueryFragment = senderId is null ? "NULL" : $"'{senderId}'";
-            var notificationSourceValueQueryFragment = notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
+
+            var notificationSourceValueQueryFragment =
+                notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
 
             var query = $@"
                             SELECT

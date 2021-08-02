@@ -7,9 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Serilog.Context;
 
+
 namespace Messenger.Core.Services
 {
-    public class MessageService : AzureServiceBase
+    public class MessageService : SignalREnabledAzureServiceBase
     {
         /// <summary>
         /// Send a message to a specified recipient and retrieve the sent messages id.
@@ -20,18 +21,24 @@ namespace Messenger.Core.Services
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
         ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        public static async Task<uint?> CreateMessage(uint recipientsId,
-                                               string senderId,
-                                               string message,
-                                               uint? parentMessageId = null,
-                                               IEnumerable<string> attachmentBlobNames = null)
+        public static async Task<uint?> CreateMessage(
+            uint                recipientsId,
+            string              senderId,
+            string              message,
+            uint?               parentMessageId     = null,
+            IEnumerable<string> attachmentBlobNames = null
+        )
         {
-            LogContext.PushProperty("Method","CreateMessage");
+            LogContext.PushProperty("Method",        "CreateMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
-            logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
 
-            string correctedAttachmentBlobNames = attachmentBlobNames is null ? "NULL" : $"{string.Join(",",attachmentBlobNames)}";
-            string correctedParentMessageId     = parentMessageId     is null ? "NULL" : $"{parentMessageId}";
+            logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}"
+                              );
+
+            string correctedAttachmentBlobNames =
+                attachmentBlobNames is null ? "NULL" : $"{string.Join(",", attachmentBlobNames)}";
+
+            string correctedParentMessageId = parentMessageId is null ? "NULL" : $"{parentMessageId}";
 
             logger.Information($"attachmentBlobNames has been corrected to {correctedAttachmentBlobNames}");
             logger.Information($"parentMessageId has been corrected to {correctedParentMessageId}");
@@ -61,6 +68,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
+
         /// <summary>
         /// Retrieve all Messages of a channel/chat with user data of the sender
         /// </summary>
@@ -68,7 +76,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of data rows containing the message data</returns>
         public static async Task<IList<Message>> RetrieveMessages(uint channelId)
         {
-            LogContext.PushProperty("Method","RetrieveMessages");
+            LogContext.PushProperty("Method",        "RetrieveMessages");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters channelId={channelId}");
 
@@ -93,6 +101,8 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
+
+
         /// <summary>
         /// Retrieve all replies to a message
         /// </summary>
@@ -100,7 +110,7 @@ namespace Messenger.Core.Services
         /// <returns>An IList of Message objects representing the replies</returns>
         public static async Task<IList<Message>> RetrieveReplies(uint messageId)
         {
-            LogContext.PushProperty("Method","RetrieveReplies");
+            LogContext.PushProperty("Method",        "RetrieveReplies");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
@@ -126,6 +136,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
 
+
         /// <summary>
         /// Retrieve a message from a given MessageId
         /// </summary>
@@ -133,17 +144,18 @@ namespace Messenger.Core.Services
         /// <returns>A complete message object</returns>
         public static async Task<Message> GetMessage(uint messageId)
         {
-            LogContext.PushProperty("Method", "GetMessage");
+            LogContext.PushProperty("Method",        "GetMessage");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
 
             // TODO: Cleanup
-            string query = $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
-                            + $"u.UserId, u.NameId, u.UserName "
-                            + $"FROM Messages m "
-                            + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
-                            + $"WHERE MessageId={messageId};";
+            string query =
+                $"SELECT m.MessageId, m.RecipientId, m.SenderId, m.ParentMessageId, m.Message, m.CreationDate, "
+              + $"u.UserId, u.NameId, u.UserName "
+              + $"FROM Messages m "
+              + $"LEFT JOIN Users u ON m.SenderId = u.UserId "
+              + $"WHERE MessageId={messageId};";
 
             var rows = await SqlHelpers.GetRows("Messages", query);
 
@@ -157,6 +169,7 @@ namespace Messenger.Core.Services
             return rows.Select(Mapper.MessageFromDataRow).First();
         }
 
+
         /// <summary>
         /// Set the content of a specified message to a specified text
         /// </summary>
@@ -165,7 +178,7 @@ namespace Messenger.Core.Services
         /// <returns>True if the message got edited successfully, false otherwise</returns>
         public static async Task<bool> EditMessage(uint messageId, string newContent)
         {
-            LogContext.PushProperty("Method","EditMessage");
+            LogContext.PushProperty("Method",        "EditMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
@@ -178,8 +191,8 @@ namespace Messenger.Core.Services
                                     MessageId={messageId};";
 
             return await SqlHelpers.NonQueryAsync(query);
-
         }
+
 
         /// <summary>
         /// Delete a message
@@ -188,7 +201,7 @@ namespace Messenger.Core.Services
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
         public static async Task<bool> DeleteMessage(uint messageId)
         {
-            LogContext.PushProperty("Method","DeleteMessage");
+            LogContext.PushProperty("Method",        "DeleteMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
@@ -201,6 +214,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         /// <summary>
         /// Retrieve the Blob File Names of files attached to a specified message
         /// </summary>
@@ -208,7 +222,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of Blob File Names</returns>
         public static async Task<IEnumerable<string>> GetBlobFileNamesOfAttachments(uint messageId)
         {
-            LogContext.PushProperty("Method","GetBlobFileNamesOfAttachments");
+            LogContext.PushProperty("Method",        "GetBlobFileNamesOfAttachments");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
@@ -230,6 +244,7 @@ namespace Messenger.Core.Services
             return blobFileString.Split(',');
         }
 
+
         /// <summary>
         ///	Add a reaction to a message
         /// </summary>
@@ -239,11 +254,13 @@ namespace Messenger.Core.Services
         /// <returns>The id of the created reaction</returns>
         public static async Task<uint> AddReaction(uint messageId, string userId, string reaction)
         {
-                LogContext.PushProperty("Method","AddReaction");
-                LogContext.PushProperty("SourceContext", "MessageService");
-                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+            LogContext.PushProperty("Method",        "AddReaction");
+            LogContext.PushProperty("SourceContext", "MessageService");
 
-                string query = $@"
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
+                              );
+
+            string query = $@"
                                     INSERT INTO
                                         Reactions
                                     VALUES(
@@ -254,8 +271,9 @@ namespace Messenger.Core.Services
 
                                     SELECT SCOPE_IDENTITY();";
 
-                return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
+
 
         /// <summary>
         ///	Remove a reaction from a message
@@ -266,11 +284,13 @@ namespace Messenger.Core.Services
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
         public static async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
         {
-                LogContext.PushProperty("Method","RemoveReaction");
-                LogContext.PushProperty("SourceContext", "MessageService");
-                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+            LogContext.PushProperty("Method",        "RemoveReaction");
+            LogContext.PushProperty("SourceContext", "MessageService");
 
-                string query = $@"
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
+                              );
+
+            string query = $@"
                                     DELETE FROM
                                         Reactions
                                     WHERE
@@ -280,8 +300,10 @@ namespace Messenger.Core.Services
                                         AND
                                         reaction = '{reaction}';";
 
-                return await SqlHelpers.NonQueryAsync(query);
+            return await SqlHelpers.NonQueryAsync(query);
         }
+
+
         /// <summary>
         /// Check if a user made a speific reaction to a message
         /// </summary>
@@ -294,11 +316,13 @@ namespace Messenger.Core.Services
         /// </returns>
         public static async Task<bool> CanMakeReaction(uint messageId, string userId, string reaction)
         {
-                LogContext.PushProperty("Method","CanMakeReaction");
-                LogContext.PushProperty("SourceContext", "MessageService");
-                logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}");
+            LogContext.PushProperty("Method",        "CanMakeReaction");
+            LogContext.PushProperty("SourceContext", "MessageService");
 
-                string query = $@"
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
+                              );
+
+            string query = $@"
                                     SELECT
                                         COUNT(*)
                                     FROM
@@ -310,10 +334,11 @@ namespace Messenger.Core.Services
                                         AND
                                         Reaction = '{reaction}';";
 
-                // NOTE: Inverting because Errors in the SqlHelpers return default
-                // values for the type to be converted to(false in this case)
-                return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
+            // NOTE: Inverting because Errors in the SqlHelpers return default
+            // values for the type to be converted to(false in this case)
+            return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
         }
+
 
         /// <summary>
         ///	Retrieve The reactions of a message
@@ -322,7 +347,7 @@ namespace Messenger.Core.Services
         /// <returns>A list of reaction objects</returns>
         public static async Task<IEnumerable<Reaction>> RetrieveReactions(uint messageId)
         {
-            LogContext.PushProperty("Method","RetrieveReactions");
+            LogContext.PushProperty("Method",        "RetrieveReactions");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
@@ -330,6 +355,8 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query);
         }
+
+
         /// <summary>
         ///	Retrieve a reaction object from a reactionId
         /// </summary>
@@ -337,7 +364,7 @@ namespace Messenger.Core.Services
         /// <returns>A reaction object</returns>
         public static async Task<Reaction> GetReaction(uint reactionId)
         {
-            LogContext.PushProperty("Method","GetReaction");
+            LogContext.PushProperty("Method",        "GetReaction");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters reactionId={reactionId}");
 
@@ -345,6 +372,262 @@ namespace Messenger.Core.Services
 
             // TODO: Implement SqlHelper to build objects from a single row
             return (await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query)).First();
+        }
+
+        #region SignalREnabled
+
+        
+        /// <summary>
+        /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
+        /// </summary>
+        /// <param name="message">A complete message object to send</param>
+        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
+        public static async Task<bool> SendMessage(Message message, uint teamId)
+        {
+            LogContext.PushProperty("Method",        "SendMessage");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+
+            logger.Information($"Function called with parameter message={message}");
+
+            // Check the validity of the message
+            if (!ValidateMessage(message))
+            {
+                logger.Information($"message object has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Upload attachments
+            if (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count > 0)
+            {
+                foreach (var attachment in message.AttachmentsBlobName)
+                {
+                    await FileSharingService.Upload(attachment);
+                }
+            }
+
+            logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}"
+                              );
+
+            // Save to database
+            uint? id = await MessageService.CreateMessage(message.RecipientId,
+                                                          message.SenderId,
+                                                          message.Content,
+                                                          message.ParentMessageId,
+                                                          message.AttachmentsBlobName
+                                                         );
+
+            if (id == null)
+            {
+                return false;
+            }
+
+            message.Id = (uint) id;
+
+            await SignalRService.SendMessage(message, teamId);
+
+            logger.Information($"Broadcasts the following message to the hub: {message}");
+            logger.Information($"Return value: true");
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// Delete a Message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to delete</param>
+        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        public static async Task<bool> DeleteMessage(uint messageId, uint teamId)
+        {
+            LogContext.PushProperty("Method",        "DeleteMessage");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            var result = await MessageService.DeleteMessage(messageId);
+
+            var message = await MessageService.GetMessage(messageId);
+
+            var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
+
+            if (blobFileNames          != null
+             && blobFileNames?.Count() > 0)
+            {
+                foreach (var blobFileName in blobFileNames)
+                {
+                    result &= await FileSharingService.Delete(blobFileName);
+                }
+            }
+
+            await SignalRService.DeleteMessage(message, teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Change a messages content and notify other clients
+        /// </summary>
+        /// <param name="messageId">Id of the message to edit</param>
+        /// <param name="newContent">New content of the message</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public static async Task<bool> UpdateMessage(uint messageId, string newContent, uint teamId)
+        {
+            LogContext.PushProperty("Method",        "UpdateMessage");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
+
+            var result = await MessageService.EditMessage(messageId, newContent);
+
+            var message = await MessageService.GetMessage(messageId);
+
+            await SignalRService.UpdateMessage(message, teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        public static async Task<IEnumerable<Reaction>> GetReactions(uint messageId)
+        {
+            LogContext.PushProperty("Method",        "GetReactions");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            var result = await MessageService.RetrieveReactions(messageId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        /// <summary>
+        ///	Add a reaction to a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to add a reaction to</param>
+        /// <param name="userId">The id of the user making the reaction</param>
+        /// <param name="reaction">The reaction to add to the message</param>
+        /// <returns></returns>
+        public static async Task<Reaction> CreateMessageReaction(
+            uint   messageId,
+            string userId,
+            uint   teamId,
+            string reaction
+        )
+        {
+            LogContext.PushProperty("Method",        "AddReaction");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
+                              );
+
+            var message = await MessageService.GetMessage(messageId);
+
+            if (message == null)
+            {
+                logger.Information($"Could not retrieve the message from the database");
+
+                return null;
+            }
+
+            uint reactionId = await MessageService.AddReaction(messageId, userId, reaction);
+
+            Reaction result = (await MessageService.RetrieveReactions(messageId))
+               .Single(r => r.Id == reactionId);
+
+            await SignalRService.UpdateMessageReactions(message, teamId);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        /// <summary>
+        ///	Remove a reaction from a message and notify other clients
+        /// </summary>
+        /// <param name="messageId">The id of the message to remove a reaction from</param>
+        /// <param name="userId">The id of the user whose reaction to remove</param>
+        /// <param name="reaction">The reaction to remove from the message</param>
+        /// <returns>Whetever or not to the reaction was successfully removed</returns>
+        public static async Task<Reaction> DeleteMessageReaction(
+            uint   messageId,
+            string userId,
+            uint   teamId,
+            string reaction
+        )
+        {
+            LogContext.PushProperty("Method",        "RemoveReaction");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+
+            logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
+                              );
+
+            Message message = await MessageService.GetMessage(messageId);
+
+            Reaction userReaction = (await MessageService.RetrieveReactions(messageId))
+               .Single(r => r.UserId == userId);
+
+            if (message      == null
+             || userReaction == null)
+            {
+                logger.Information($"Could not retrieve the message from the database");
+
+                return null;
+            }
+
+            bool isSuccess = await MessageService.RemoveReaction(message.Id, userId, reaction);
+
+            if (isSuccess)
+            {
+                await SignalRService.UpdateMessageReactions(message, teamId);
+            }
+
+            logger.Information($"Return value: {userReaction}");
+
+            return userReaction;
+        }
+
+        #endregion SignalREnabled
+
+        /// <summary>
+        /// Checks the validity of the message to be sent
+        /// </summary>
+        /// <param name="message">A complete message object to be sent</param>
+        /// <returns>true on valid, false on invalid</returns>
+        private static bool ValidateMessage(Message message)
+        {
+            LogContext.PushProperty("Method",        "ValidateMessage");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters message={message}");
+
+            // Sender / Recipient Id
+            if (message == null || string.IsNullOrWhiteSpace(message.SenderId))
+            {
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Content
+            if (string.IsNullOrWhiteSpace(message.Content))
+            {
+                logger.Information($"message has been determined invalid");
+                logger.Information($"Return value: false");
+
+                return false;
+            }
+
+            // Valid
+            logger.Information($"Return value: true");
+
+            return true;
         }
     }
 }

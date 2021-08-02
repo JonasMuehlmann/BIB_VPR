@@ -297,12 +297,12 @@ namespace Messenger.Core.Services
 
         public async Task CreateChannel(Channel channel)
         {
-            LogContext.PushProperty("Method", "CreateChannel");
+            LogContext.PushProperty("Method", "CreateChannelImpl");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter channel={channel}");
 
-            await _connection.SendAsync("CreateChannel", channel);
+            await _connection.SendAsync("CreateChannelImpl", channel);
 
             logger.Information($"Created channel #{channel.ChannelId} in team #{channel.TeamId})");
         }
