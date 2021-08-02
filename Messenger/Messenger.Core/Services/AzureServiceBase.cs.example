@@ -1,0 +1,38 @@
+﻿using System;
+using System.Configuration;
+using System.Data.SqlClient;
+using Serilog;
+using Messenger.Core.Helpers;
+
+namespace Messenger.Core.Services
+{
+    public abstract class AzureServiceBase
+    {
+        #region Private
+
+        private static string connectionStringTest = @"insert Connection string here and remove .example suffix of file";
+        private static string connectionStringProd = @"insert Connection string here and remove .example suffix of file";
+
+        public static ILogger logger => GlobalLogger.Instance;
+        #endregion
+
+        public static SqlConnection GetDefaultConnection()
+        {
+            string connectionString;
+
+            var envVar = Environment.GetEnvironmentVariable("BIB_VPR_DEBUG");
+
+            if (envVar is null || envVar == "false")
+            {
+                connectionString = connectionStringProd;
+            }
+            else
+            {
+                connectionString = connectionStringTest;
+            }
+
+            return new SqlConnection(connectionString);
+        }
+
+    }
+}
