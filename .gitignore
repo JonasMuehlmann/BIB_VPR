@@ -3,6 +3,7 @@
 
 # ignore because it contains secrets
 AzureServiceBase.cs
+AzureServiceBase.cs.example
 #doxygen output
 
 html/
