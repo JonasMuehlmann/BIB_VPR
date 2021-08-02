@@ -93,6 +93,38 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
+        /// <summary>
+        /// Retrieve all replies to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to retrieve replies from</param>
+        /// <returns>An IList of Message objects representing the replies</returns>
+        public static async Task<IList<Message>> RetrieveReplies(uint messageId)
+        {
+            LogContext.PushProperty("Method","RetrieveReplies");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $@"
+                                SELECT
+                                    m.MessageId,
+                                    m.RecipientId,
+                                    m.SenderId,
+                                    m.ParentMessageId,
+                                    m.Message,
+                                    m.CreationDate,
+                                    u.UserId,
+                                    u.NameId,
+                                    u.UserName
+                                FROM
+                                    Messages m
+                                LEFT JOIN Users u
+                                    ON m.SenderId = u.UserId
+                                WHERE
+                                    ParentMessageId = {messageId}";
+
+
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
+        }
 
         /// <summary>
         /// Retrieve a message from a given MessageId
