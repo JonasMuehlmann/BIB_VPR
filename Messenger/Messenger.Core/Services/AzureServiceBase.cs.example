@@ -10,13 +10,12 @@ namespace Messenger.Core.Services
     {
         #region Private
 
-        private static string connectionStringTest = @"Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database_test;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        private static string connectionStringProd = "Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database;Persist Security Info=False;User ID=pbt3h19a;Password=uMb7ZXAA5TjajDw;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private static string connectionStringTest = @"insert Connection string here and remove .example suffix of file";
+        private static string connectionStringProd = @"insert Connection string here and remove .example suffix of file";
 
         public static ILogger logger => GlobalLogger.Instance;
         #endregion
 
-        // public static SqlConnection GetDefaultConnection() => new SqlConnection(connectionString);
         public static SqlConnection GetDefaultConnection()
         {
             string connectionString;
