@@ -3,10 +3,6 @@ using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.DialogBoxes;
 using Messenger.Views.DialogBoxes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage

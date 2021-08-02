@@ -1,6 +1,6 @@
-﻿using Messenger.Controls.Shared;
-using Messenger.ViewModels.DataViewModels;
+﻿using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.DialogBoxes;
+using Messenger.Views.Subcontrols;
 using Windows.UI.Xaml.Controls;
 
 namespace Messenger.Views.DialogBoxes
@@ -22,6 +22,8 @@ namespace Messenger.Views.DialogBoxes
 
         private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+            App.EventProvider.TeamUpdated -= ViewModel.OnTeamUpdated;
+
             Hide();
         }
     }

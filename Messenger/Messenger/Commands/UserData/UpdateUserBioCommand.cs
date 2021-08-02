@@ -1,10 +1,10 @@
-﻿using Messenger.Core.Helpers;
+﻿using System;
+using System.Windows.Input;
+using Serilog;
+using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
-using Serilog;
-using System;
-using System.Windows.Input;
 
 namespace Messenger.Commands.UserData
 {

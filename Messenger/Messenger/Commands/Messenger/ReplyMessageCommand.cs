@@ -1,6 +1,5 @@
-﻿using Messenger.Core.Models;
-using Messenger.ViewModels;
-using Messenger.ViewModels.DataViewModels;
+﻿using Messenger.ViewModels.DataViewModels;
+using Messenger.ViewModels.Pages;
 using System;
 using System.Windows.Input;
 

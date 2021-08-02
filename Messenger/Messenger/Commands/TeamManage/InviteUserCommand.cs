@@ -1,9 +1,6 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Helpers;
-using Messenger.ViewModels;
-using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
@@ -13,12 +10,10 @@ namespace Messenger.Commands.TeamManage
 {
     public class InviteUserCommand : ICommand
     {
-        private readonly TeamManageViewModel _viewModel;
         private ILogger _logger = GlobalLogger.Instance;
 
-        public InviteUserCommand(TeamManageViewModel viewModel)
+        public InviteUserCommand()
         {
-            _viewModel = viewModel;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -31,9 +26,7 @@ namespace Messenger.Commands.TeamManage
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-                && parameter is TeamManageViewModel
-                && _viewModel != null
-                && _viewModel.SelectedSearchedUser != null;
+                && parameter is User;
 
             if (!executable)
             {
@@ -42,21 +35,10 @@ namespace Messenger.Commands.TeamManage
 
             try
             {
-                TeamManageViewModel viewModel = (TeamManageViewModel)parameter;
-
+                User user = (User)parameter;
                 uint teamId = App.StateProvider.SelectedTeam.Id;
-                string userId = viewModel.SelectedSearchedUser.Id;
 
-                User user = await UserService.GetUser(userId);
-
-                if (user == null)
-                {
-                    await ResultConfirmationDialog
-                        .Set(false, $"No user was found with id: {userId}")
-                        .ShowAsync();
-                }
-
-                bool isSuccess = await MessengerService.SendInvitation(userId, teamId);
+                bool isSuccess = await MessengerService.SendInvitation(user.Id, teamId);
 
                 if (isSuccess)
                 {

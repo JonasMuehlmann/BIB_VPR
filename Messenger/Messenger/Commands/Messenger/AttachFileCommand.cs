@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.ViewModels;
+using Messenger.ViewModels.Pages;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,6 @@ namespace Messenger.Commands.Messenger
                     var attachmentPaths = files.Select(f => f.Path).ToList();
 
                     // Sets the models in the view model
-                    _viewModel.SelectedFiles = files;
                     _viewModel.MessageToSend.AttachmentsBlobName = attachmentPaths;
                 }
             }

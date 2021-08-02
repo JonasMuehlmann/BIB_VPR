@@ -1,5 +1,6 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
+using Messenger.Helpers.TeamHelpers;
 using Messenger.Models;
 using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
@@ -94,9 +95,15 @@ namespace Messenger.Helpers.MessageHelpers
 
         public static async Task<MessageViewModel> WithSender(this MessageViewModel viewModel)
         {
+            ChannelViewModel recipient = TeamBuilder.Map(await ChannelService.GetChannel((uint)viewModel.ChannelId));
             User sender = await UserService.GetUser(viewModel.SenderId);
 
-            viewModel.Sender = Map(sender);
+            if (recipient == null || sender == null)
+            {
+                return viewModel;
+            }
+
+            viewModel.Sender = Map(sender).ToMemberViewModel(recipient.TeamId);
 
             return viewModel;
         }
@@ -153,7 +160,6 @@ namespace Messenger.Helpers.MessageHelpers
                 Id = message.Id,
                 SenderId = message.SenderId,
                 ParentMessageId = message.ParentMessageId,
-                Sender = Map(message.Sender),
                 Content = message.Content,
                 CreationTime = message.CreationTime,
                 ChannelId = message.RecipientId,

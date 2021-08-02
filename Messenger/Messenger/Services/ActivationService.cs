@@ -36,8 +36,6 @@ namespace Messenger.Services
             _shell = shell;
             _defaultNavItem = defaultNavItem;
             IdentityService.LoggedIn += OnLoggedIn;
-            ApplicationView.PreferredLaunchViewSize = new Size(1280, 768);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -150,7 +148,7 @@ namespace Messenger.Services
             NavigationService.Frame = frame;
             Window.Current.Content = frame;
             await ThemeSelectorService.SetRequestedThemeAsync();
-            NavigationService.Navigate<Views.LogInPage>();
+            NavigationService.Navigate<Views.Pages.LogInPage>();
         }
 
         public void SetShell(Lazy<UIElement> shell)

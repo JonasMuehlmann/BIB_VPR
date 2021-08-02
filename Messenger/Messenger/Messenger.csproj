@@ -157,7 +157,7 @@
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Commands\Messenger\DeleteMessageCommand.cs" />
     <Compile Include="Commands\Messenger\UpdateMessageCommand.cs" />
-    <Compile Include="Commands\PrivateChat\UpdateTeamDetailsCommand.cs" />
+    <Compile Include="Commands\TeamManage\UpdateTeamDetailsCommand.cs" />
     <Compile Include="Commands\TeamManage\UnassignTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\ChannelSwitchCommand.cs" />
     <Compile Include="Commands\TeamManage\CreateChannelCommand.cs" />
@@ -176,46 +176,43 @@
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
-    <Compile Include="Controls\ChatControls\ChatHeader.xaml.cs">
+    <Compile Include="ViewModels\Controls\InboxControlViewModel.cs" />
+    <Compile Include="ViewModels\Controls\UserSearchPanelViewModel.cs" />
+    <Compile Include="ViewModels\DialogBoxes\CreateChatDialogViewModel.cs" />
+    <Compile Include="Views\Subcontrols\ChatHeader.xaml.cs">
       <DependentUpon>ChatHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChatControls\MessageControl.xaml.cs">
-      <DependentUpon>MessageControl.xaml</DependentUpon>
+    <Compile Include="Views\Subcontrols\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChatControls\MessagesListControl.xaml.cs">
+    <Compile Include="Views\Controls\MessagesListControl.xaml.cs">
       <DependentUpon>MessagesListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChatControls\ReplyControl.xaml.cs">
-      <DependentUpon>ReplyControl.xaml</DependentUpon>
+    <Compile Include="Views\Subcontrols\ReplyView.xaml.cs">
+      <DependentUpon>ReplyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChatControls\SendMessageControl.xaml.cs">
+    <Compile Include="Views\Controls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChatControls\UserProfileFlyout.xaml.cs">
+    <Compile Include="Views\Subcontrols\UserProfileFlyout.xaml.cs">
       <DependentUpon>UserProfileFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ManageControls\MembersListControl.xaml.cs">
+    <Compile Include="Views\Controls\MembersListControl.xaml.cs">
       <DependentUpon>MembersListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Navigation\NavigationHeader.xaml.cs">
-      <DependentUpon>NavigationHeader.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Navigation\SideNavigation.xaml.cs">
+    <Compile Include="Views\Subcontrols\SideNavigation.xaml.cs">
       <DependentUpon>SideNavigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NotificationControls\ActionControl.xaml.cs">
-      <DependentUpon>ActionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NotificationControls\InboxControl.xaml.cs">
+    <Compile Include="Views\Controls\InboxControl.xaml.cs">
       <DependentUpon>InboxControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shared\OnLoading.xaml.cs">
+    <Compile Include="Views\Subcontrols\OnLoading.xaml.cs">
       <DependentUpon>OnLoading.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shared\RoleTag.xaml.cs">
+    <Compile Include="Views\Subcontrols\RoleTag.xaml.cs">
       <DependentUpon>RoleTag.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shared\UserSearchPanel.xaml.cs">
+    <Compile Include="Views\Controls\UserSearchPanel.xaml.cs">
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
@@ -244,6 +241,8 @@
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
     <Compile Include="ViewModels\Controls\MembersListControlViewModel.cs" />
+    <Compile Include="ViewModels\Controls\MessagesListControlViewModel.cs" />
+    <Compile Include="ViewModels\Controls\SendMessageControlViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MemberViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamRoleViewModel.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -280,15 +279,15 @@
     <Compile Include="ViewModels\DataViewModels\TeamViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxes\ManageMemberRolesDialogViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxes\ManageRolesDialogViewModel.cs" />
-    <Compile Include="ViewModels\LogInViewModel.cs" />
-    <Compile Include="ViewModels\MainPanels\TeamManageViewModel.cs" />
-    <Compile Include="ViewModels\NavigationPanels\NotificationNavViewModel .cs" />
-    <Compile Include="ViewModels\NavigationPanels\TeamNavViewModel.cs" />
-    <Compile Include="ViewModels\NavigationPanels\ChatNavViewModel.cs" />
-    <Compile Include="ViewModels\MainPanels\ChatViewModel.cs" />
-    <Compile Include="ViewModels\SchemeActivationSampleViewModel.cs" />
-    <Compile Include="ViewModels\MainPanels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Pages\LogInViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TeamManageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\NotificationNavViewModel .cs" />
+    <Compile Include="ViewModels\Pages\TeamNavViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ChatNavViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ChatViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SchemeActivationSampleViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ShellViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\UserViewModel.cs" />
     <Compile Include="Views\DialogBoxes\ChangeTeamDialog.xaml.cs">
       <DependentUpon>ChangeTeamDialog.xaml</DependentUpon>
@@ -314,37 +313,37 @@
     <Compile Include="Views\DialogBoxes\ResultConfirmationDialog.xaml.cs">
       <DependentUpon>ResultConfirmationDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FirstRunDialog.xaml.cs">
+    <Compile Include="Views\DialogBoxes\FirstRunDialog.xaml.cs">
       <DependentUpon>FirstRunDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LogInPage.xaml.cs">
+    <Compile Include="Views\Pages\LogInPage.xaml.cs">
       <DependentUpon>LogInPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPanels\LandingPage.xaml.cs">
+    <Compile Include="Views\Pages\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPanels\TeamManagePage.xaml.cs">
+    <Compile Include="Views\Pages\TeamManagePage.xaml.cs">
       <DependentUpon>TeamManagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPanels\ChatPage.xaml.cs">
+    <Compile Include="Views\Pages\ChatPage.xaml.cs">
       <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationPanels\NotificationNavPage.xaml.cs">
+    <Compile Include="Views\Pages\NotificationNavPage.xaml.cs">
       <DependentUpon>NotificationNavPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationPanels\TeamNavPage.xaml.cs">
+    <Compile Include="Views\Pages\TeamNavPage.xaml.cs">
       <DependentUpon>TeamNavPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationPanels\ChatNavPage.xaml.cs">
+    <Compile Include="Views\Pages\ChatNavPage.xaml.cs">
       <DependentUpon>ChatNavPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SchemeActivationSamplePage.xaml.cs">
+    <Compile Include="Views\Pages\SchemeActivationSamplePage.xaml.cs">
       <DependentUpon>SchemeActivationSamplePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPanels\SettingsPage.xaml.cs">
+    <Compile Include="Views\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ShellPage.xaml.cs">
+    <Compile Include="Views\Pages\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -355,59 +354,51 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\ChatControls\ChatHeader.xaml">
+    <Page Include="Views\Subcontrols\ChatHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ChatControls\MessageControl.xaml">
+    <Page Include="Views\Subcontrols\MessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ChatControls\MessagesListControl.xaml">
+    <Page Include="Views\Controls\MessagesListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ChatControls\ReplyControl.xaml">
+    <Page Include="Views\Subcontrols\ReplyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ChatControls\SendMessageControl.xaml">
+    <Page Include="Views\Controls\SendMessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ChatControls\UserProfileFlyout.xaml">
+    <Page Include="Views\Subcontrols\UserProfileFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ManageControls\MembersListControl.xaml">
+    <Page Include="Views\Controls\MembersListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Navigation\NavigationHeader.xaml">
+    <Page Include="Views\Subcontrols\SideNavigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Navigation\SideNavigation.xaml">
+    <Page Include="Views\Controls\InboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\NotificationControls\ActionControl.xaml">
+    <Page Include="Views\Subcontrols\OnLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\NotificationControls\InboxControl.xaml">
+    <Page Include="Views\Subcontrols\RoleTag.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shared\OnLoading.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Shared\RoleTag.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Shared\UserSearchPanel.xaml">
+    <Page Include="Views\Controls\UserSearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -467,47 +458,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FirstRunDialog.xaml">
+    <Page Include="Views\DialogBoxes\FirstRunDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\LogInPage.xaml">
+    <Page Include="Views\Pages\LogInPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MainPanels\LandingPage.xaml">
+    <Page Include="Views\Pages\LandingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainPanels\TeamManagePage.xaml">
+    <Page Include="Views\Pages\TeamManagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MainPanels\ChatPage.xaml">
+    <Page Include="Views\Pages\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\NavigationPanels\NotificationNavPage.xaml">
+    <Page Include="Views\Pages\NotificationNavPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\NavigationPanels\TeamNavPage.xaml">
+    <Page Include="Views\Pages\TeamNavPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\NavigationPanels\ChatNavPage.xaml">
+    <Page Include="Views\Pages\ChatNavPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SchemeActivationSamplePage.xaml">
+    <Page Include="Views\Pages\SchemeActivationSamplePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MainPanels\SettingsPage.xaml">
+    <Page Include="Views\Pages\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ShellPage.xaml">
+    <Page Include="Views\Pages\ShellPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

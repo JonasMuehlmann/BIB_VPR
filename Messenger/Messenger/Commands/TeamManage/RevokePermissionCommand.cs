@@ -1,14 +1,11 @@
-﻿using Messenger.Core.Models;
+﻿using System;
+using System.Linq;
+using System.Windows.Input;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.DialogBoxes;
 using Messenger.Views.DialogBoxes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {

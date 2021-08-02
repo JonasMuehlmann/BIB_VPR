@@ -1,6 +1,5 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Services;
-using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;

@@ -102,12 +102,10 @@ namespace Messenger.ViewModels.DialogBoxes
 
         public void OnTeamUpdated(object sender, BroadcastArgs args)
         {
-            if (Member == null) return;
-
             TeamViewModel team = args.Payload as TeamViewModel;
             MemberViewModel member = team.Members.SingleOrDefault(m => m.Id == Member.Id);
 
-            Member = member;
+            Member = new MemberViewModel(member);
         }
     }
 }

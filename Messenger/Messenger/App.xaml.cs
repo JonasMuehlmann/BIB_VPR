@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
 using Messenger.Services;
@@ -7,7 +6,9 @@ using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.Security.Authentication.Web;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace Messenger
@@ -38,6 +39,9 @@ namespace Messenger
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
             IdentityService.LoggedOut += OnLoggedOut;
+
+            ApplicationView.PreferredLaunchViewSize = new Size(1440, 900);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -64,12 +68,12 @@ namespace Messenger
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.TeamNavPage), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Views.Pages.TeamNavPage), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()
         {
-            return new Views.ShellPage();
+            return new Views.Pages.ShellPage();
         }
 
         private async void OnLoggedOut(object sender, EventArgs e)

@@ -1,6 +1,4 @@
-﻿using Messenger.Core.Helpers;
-using Messenger.Views;
-using Messenger.Views.MainPanels;
+﻿using Messenger.Views.Pages;
 using System;
 
 using Windows.UI.Xaml;
