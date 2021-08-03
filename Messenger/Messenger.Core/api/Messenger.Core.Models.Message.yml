@@ -1,0 +1,951 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Models.Message
+  commentId: T:Messenger.Core.Models.Message
+  id: Message
+  parent: Messenger.Core.Models
+  children:
+  - Messenger.Core.Models.Message.#ctor
+  - Messenger.Core.Models.Message.AttachmentsBlobName
+  - Messenger.Core.Models.Message.Content
+  - Messenger.Core.Models.Message.CreationTime
+  - Messenger.Core.Models.Message.Id
+  - Messenger.Core.Models.Message.ParentMessageId
+  - Messenger.Core.Models.Message.RecipientId
+  - Messenger.Core.Models.Message.Sender
+  - Messenger.Core.Models.Message.SenderId
+  - Messenger.Core.Models.Message.ToString
+  langs:
+  - csharp
+  - vb
+  name: Message
+  nameWithType: Message
+  fullName: Messenger.Core.Models.Message
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Message
+    path: Models/Message.cs
+    startLine: 10
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  summary: "\nAn abstract class of a message used asa base for Privatemessage and Teammessage\n"
+  example: []
+  syntax:
+    content: public class Message
+    content.vb: Public Class Message
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Core.Models.Message.Id
+  commentId: P:Messenger.Core.Models.Message.Id
+  id: Id
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: Message.Id
+  fullName: Messenger.Core.Models.Message.Id
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Id
+    path: Models/Message.cs
+    startLine: 12
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public uint Id { get; set; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: Public Property Id As UInteger
+  overload: Messenger.Core.Models.Message.Id*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.SenderId
+  commentId: P:Messenger.Core.Models.Message.SenderId
+  id: SenderId
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: SenderId
+  nameWithType: Message.SenderId
+  fullName: Messenger.Core.Models.Message.SenderId
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SenderId
+    path: Models/Message.cs
+    startLine: 14
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public string SenderId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SenderId As String
+  overload: Messenger.Core.Models.Message.SenderId*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.Content
+  commentId: P:Messenger.Core.Models.Message.Content
+  id: Content
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: Content
+  nameWithType: Message.Content
+  fullName: Messenger.Core.Models.Message.Content
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Content
+    path: Models/Message.cs
+    startLine: 16
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public string Content { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Content As String
+  overload: Messenger.Core.Models.Message.Content*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.CreationTime
+  commentId: P:Messenger.Core.Models.Message.CreationTime
+  id: CreationTime
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: CreationTime
+  nameWithType: Message.CreationTime
+  fullName: Messenger.Core.Models.Message.CreationTime
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: CreationTime
+    path: Models/Message.cs
+    startLine: 18
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public DateTime CreationTime { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property CreationTime As Date
+  overload: Messenger.Core.Models.Message.CreationTime*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.RecipientId
+  commentId: P:Messenger.Core.Models.Message.RecipientId
+  id: RecipientId
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: RecipientId
+  nameWithType: Message.RecipientId
+  fullName: Messenger.Core.Models.Message.RecipientId
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: RecipientId
+    path: Models/Message.cs
+    startLine: 23
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  summary: "\nTeam where the message was posted\n"
+  example: []
+  syntax:
+    content: public uint RecipientId { get; set; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: Public Property RecipientId As UInteger
+  overload: Messenger.Core.Models.Message.RecipientId*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.ParentMessageId
+  commentId: P:Messenger.Core.Models.Message.ParentMessageId
+  id: ParentMessageId
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: ParentMessageId
+  nameWithType: Message.ParentMessageId
+  fullName: Messenger.Core.Models.Message.ParentMessageId
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ParentMessageId
+    path: Models/Message.cs
+    startLine: 28
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  summary: "\nNull in case of a Top-level message\n"
+  example: []
+  syntax:
+    content: public uint? ParentMessageId { get; set; }
+    parameters: []
+    return:
+      type: System.Nullable{System.UInt32}
+    content.vb: Public Property ParentMessageId As UInteger?
+  overload: Messenger.Core.Models.Message.ParentMessageId*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.Sender
+  commentId: P:Messenger.Core.Models.Message.Sender
+  id: Sender
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: Sender
+  nameWithType: Message.Sender
+  fullName: Messenger.Core.Models.Message.Sender
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Sender
+    path: Models/Message.cs
+    startLine: 30
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public User Sender { get; set; }
+    parameters: []
+    return:
+      type: Messenger.Core.Models.User
+    content.vb: Public Property Sender As User
+  overload: Messenger.Core.Models.Message.Sender*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.AttachmentsBlobName
+  commentId: P:Messenger.Core.Models.Message.AttachmentsBlobName
+  id: AttachmentsBlobName
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: AttachmentsBlobName
+  nameWithType: Message.AttachmentsBlobName
+  fullName: Messenger.Core.Models.Message.AttachmentsBlobName
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: AttachmentsBlobName
+    path: Models/Message.cs
+    startLine: 32
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public List<string> AttachmentsBlobName { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property AttachmentsBlobName As List(Of String)
+  overload: Messenger.Core.Models.Message.AttachmentsBlobName*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.#ctor
+  commentId: M:Messenger.Core.Models.Message.#ctor
+  id: '#ctor'
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: Message()
+  nameWithType: Message.Message()
+  fullName: Messenger.Core.Models.Message.Message()
+  type: Constructor
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: .ctor
+    path: Models/Message.cs
+    startLine: 35
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public Message()
+    content.vb: Public Sub New
+  overload: Messenger.Core.Models.Message.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Models.Message.ToString
+  commentId: M:Messenger.Core.Models.Message.ToString
+  id: ToString
+  parent: Messenger.Core.Models.Message
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: Message.ToString()
+  fullName: Messenger.Core.Models.Message.ToString()
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Models/Message.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ToString
+    path: Models/Message.cs
+    startLine: 41
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Models
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString As String
+  overridden: System.Object.ToString
+  overload: Messenger.Core.Models.Message.ToString*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: Messenger.Core.Models
+  commentId: N:Messenger.Core.Models
+  name: Messenger.Core.Models
+  nameWithType: Messenger.Core.Models
+  fullName: Messenger.Core.Models
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Core.Models.Message.Id*
+  commentId: Overload:Messenger.Core.Models.Message.Id
+  name: Id
+  nameWithType: Message.Id
+  fullName: Messenger.Core.Models.Message.Id
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  name: UInt32
+  nameWithType: UInt32
+  fullName: System.UInt32
+- uid: Messenger.Core.Models.Message.SenderId*
+  commentId: Overload:Messenger.Core.Models.Message.SenderId
+  name: SenderId
+  nameWithType: Message.SenderId
+  fullName: Messenger.Core.Models.Message.SenderId
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Messenger.Core.Models.Message.Content*
+  commentId: Overload:Messenger.Core.Models.Message.Content
+  name: Content
+  nameWithType: Message.Content
+  fullName: Messenger.Core.Models.Message.Content
+- uid: Messenger.Core.Models.Message.CreationTime*
+  commentId: Overload:Messenger.Core.Models.Message.CreationTime
+  name: CreationTime
+  nameWithType: Message.CreationTime
+  fullName: Messenger.Core.Models.Message.CreationTime
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: Messenger.Core.Models.Message.RecipientId*
+  commentId: Overload:Messenger.Core.Models.Message.RecipientId
+  name: RecipientId
+  nameWithType: Message.RecipientId
+  fullName: Messenger.Core.Models.Message.RecipientId
+- uid: Messenger.Core.Models.Message.ParentMessageId*
+  commentId: Overload:Messenger.Core.Models.Message.ParentMessageId
+  name: ParentMessageId
+  nameWithType: Message.ParentMessageId
+  fullName: Messenger.Core.Models.Message.ParentMessageId
+- uid: System.Nullable{System.UInt32}
+  commentId: T:System.Nullable{System.UInt32}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<UInt32>
+  nameWithType: Nullable<UInt32>
+  fullName: System.Nullable<System.UInt32>
+  nameWithType.vb: Nullable(Of UInt32)
+  fullName.vb: System.Nullable(Of System.UInt32)
+  name.vb: Nullable(Of UInt32)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.UInt32
+    name: UInt32
+    nameWithType: UInt32
+    fullName: System.UInt32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.UInt32
+    name: UInt32
+    nameWithType: UInt32
+    fullName: System.UInt32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Models.Message.Sender*
+  commentId: Overload:Messenger.Core.Models.Message.Sender
+  name: Sender
+  nameWithType: Message.Sender
+  fullName: Messenger.Core.Models.Message.Sender
+- uid: Messenger.Core.Models.User
+  commentId: T:Messenger.Core.Models.User
+  parent: Messenger.Core.Models
+  name: User
+  nameWithType: User
+  fullName: Messenger.Core.Models.User
+- uid: Messenger.Core.Models.Message.AttachmentsBlobName*
+  commentId: Overload:Messenger.Core.Models.Message.AttachmentsBlobName
+  name: AttachmentsBlobName
+  nameWithType: Message.AttachmentsBlobName
+  fullName: Messenger.Core.Models.Message.AttachmentsBlobName
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<String>
+  nameWithType: List<String>
+  fullName: System.Collections.Generic.List<System.String>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of System.String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Messenger.Core.Models.Message.#ctor*
+  commentId: Overload:Messenger.Core.Models.Message.#ctor
+  name: Message
+  nameWithType: Message.Message
+  fullName: Messenger.Core.Models.Message.Message
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Models.Message.ToString*
+  commentId: Overload:Messenger.Core.Models.Message.ToString
+  name: ToString
+  nameWithType: Message.ToString
+  fullName: Messenger.Core.Models.Message.ToString

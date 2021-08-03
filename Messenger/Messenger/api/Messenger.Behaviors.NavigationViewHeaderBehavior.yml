@@ -1,0 +1,1623 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior
+  commentId: T:Messenger.Behaviors.NavigationViewHeaderBehavior
+  id: NavigationViewHeaderBehavior
+  parent: Messenger.Behaviors
+  children:
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderProperty
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext(Windows.UI.Xaml.Controls.Page)
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode(Windows.UI.Xaml.Controls.Page)
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate(Windows.UI.Xaml.Controls.Page)
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderContextProperty
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderModeProperty
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderTemplateProperty
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext(Windows.UI.Xaml.Controls.Page,System.Object)
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode(Windows.UI.Xaml.Controls.Page,Messenger.Behaviors.NavigationViewHeaderMode)
+  - Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate(Windows.UI.Xaml.Controls.Page,Windows.UI.Xaml.DataTemplate)
+  langs:
+  - csharp
+  - vb
+  name: NavigationViewHeaderBehavior
+  nameWithType: NavigationViewHeaderBehavior
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: NavigationViewHeaderBehavior
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 12
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: 'public class NavigationViewHeaderBehavior : Behavior<NavigationView>, IDependencyObject, IDependencyObject2, IBehavior'
+    content.vb: >-
+      Public Class NavigationViewHeaderBehavior
+          Inherits Behavior(Of NavigationView)
+          Implements IDependencyObject, IDependencyObject2, IBehavior
+  inheritance:
+  - System.Object
+  - Windows.UI.Xaml.DependencyObject
+  - Microsoft.Xaml.Interactivity.Behavior
+  - Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}
+  implements:
+  - Microsoft.Xaml.Interactivity.IBehavior
+  inheritedMembers:
+  - Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}.AssociatedObject
+  - Microsoft.Xaml.Interactivity.Behavior.Attach(Windows.UI.Xaml.DependencyObject)
+  - Microsoft.Xaml.Interactivity.Behavior.Detach
+  - Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+  - Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  - Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+  - Windows.UI.Xaml.DependencyObject.Dispatcher
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  commentId: P:Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  id: DefaultHeaderTemplate
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: DefaultHeaderTemplate
+  nameWithType: NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DefaultHeaderTemplate
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 17
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public DataTemplate DefaultHeaderTemplate { get; set; }
+    parameters: []
+    return:
+      type: Windows.UI.Xaml.DataTemplate
+    content.vb: Public Property DefaultHeaderTemplate As DataTemplate
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader
+  commentId: P:Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader
+  id: DefaultHeader
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: DefaultHeader
+  nameWithType: NavigationViewHeaderBehavior.DefaultHeader
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DefaultHeader
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 19
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public object DefaultHeader { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property DefaultHeader As Object
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderProperty
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderProperty
+  id: DefaultHeaderProperty
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: DefaultHeaderProperty
+  nameWithType: NavigationViewHeaderBehavior.DefaultHeaderProperty
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DefaultHeaderProperty
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 25
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static readonly DependencyProperty DefaultHeaderProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DefaultHeaderProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode(Windows.UI.Xaml.Controls.Page)
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode(Windows.UI.Xaml.Controls.Page)
+  id: GetHeaderMode(Windows.UI.Xaml.Controls.Page)
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: GetHeaderMode(Page)
+  nameWithType: NavigationViewHeaderBehavior.GetHeaderMode(Page)
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode(Windows.UI.Xaml.Controls.Page)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetHeaderMode
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 27
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static NavigationViewHeaderMode GetHeaderMode(Page item)
+    parameters:
+    - id: item
+      type: Windows.UI.Xaml.Controls.Page
+    return:
+      type: Messenger.Behaviors.NavigationViewHeaderMode
+    content.vb: Public Shared Function GetHeaderMode(item As Page) As NavigationViewHeaderMode
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode(Windows.UI.Xaml.Controls.Page,Messenger.Behaviors.NavigationViewHeaderMode)
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode(Windows.UI.Xaml.Controls.Page,Messenger.Behaviors.NavigationViewHeaderMode)
+  id: SetHeaderMode(Windows.UI.Xaml.Controls.Page,Messenger.Behaviors.NavigationViewHeaderMode)
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: SetHeaderMode(Page, NavigationViewHeaderMode)
+  nameWithType: NavigationViewHeaderBehavior.SetHeaderMode(Page, NavigationViewHeaderMode)
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode(Windows.UI.Xaml.Controls.Page, Messenger.Behaviors.NavigationViewHeaderMode)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SetHeaderMode
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 32
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static void SetHeaderMode(Page item, NavigationViewHeaderMode value)
+    parameters:
+    - id: item
+      type: Windows.UI.Xaml.Controls.Page
+    - id: value
+      type: Messenger.Behaviors.NavigationViewHeaderMode
+    content.vb: Public Shared Sub SetHeaderMode(item As Page, value As NavigationViewHeaderMode)
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderModeProperty
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderModeProperty
+  id: HeaderModeProperty
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: HeaderModeProperty
+  nameWithType: NavigationViewHeaderBehavior.HeaderModeProperty
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderModeProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: HeaderModeProperty
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 37
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static readonly DependencyProperty HeaderModeProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly HeaderModeProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext(Windows.UI.Xaml.Controls.Page)
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext(Windows.UI.Xaml.Controls.Page)
+  id: GetHeaderContext(Windows.UI.Xaml.Controls.Page)
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: GetHeaderContext(Page)
+  nameWithType: NavigationViewHeaderBehavior.GetHeaderContext(Page)
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext(Windows.UI.Xaml.Controls.Page)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetHeaderContext
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 40
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static object GetHeaderContext(Page item)
+    parameters:
+    - id: item
+      type: Windows.UI.Xaml.Controls.Page
+    return:
+      type: System.Object
+    content.vb: Public Shared Function GetHeaderContext(item As Page) As Object
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext(Windows.UI.Xaml.Controls.Page,System.Object)
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext(Windows.UI.Xaml.Controls.Page,System.Object)
+  id: SetHeaderContext(Windows.UI.Xaml.Controls.Page,System.Object)
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: SetHeaderContext(Page, Object)
+  nameWithType: NavigationViewHeaderBehavior.SetHeaderContext(Page, Object)
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext(Windows.UI.Xaml.Controls.Page, System.Object)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SetHeaderContext
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 45
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static void SetHeaderContext(Page item, object value)
+    parameters:
+    - id: item
+      type: Windows.UI.Xaml.Controls.Page
+    - id: value
+      type: System.Object
+    content.vb: Public Shared Sub SetHeaderContext(item As Page, value As Object)
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderContextProperty
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderContextProperty
+  id: HeaderContextProperty
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: HeaderContextProperty
+  nameWithType: NavigationViewHeaderBehavior.HeaderContextProperty
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderContextProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: HeaderContextProperty
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 50
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static readonly DependencyProperty HeaderContextProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly HeaderContextProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate(Windows.UI.Xaml.Controls.Page)
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate(Windows.UI.Xaml.Controls.Page)
+  id: GetHeaderTemplate(Windows.UI.Xaml.Controls.Page)
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: GetHeaderTemplate(Page)
+  nameWithType: NavigationViewHeaderBehavior.GetHeaderTemplate(Page)
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate(Windows.UI.Xaml.Controls.Page)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetHeaderTemplate
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 53
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static DataTemplate GetHeaderTemplate(Page item)
+    parameters:
+    - id: item
+      type: Windows.UI.Xaml.Controls.Page
+    return:
+      type: Windows.UI.Xaml.DataTemplate
+    content.vb: Public Shared Function GetHeaderTemplate(item As Page) As DataTemplate
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate(Windows.UI.Xaml.Controls.Page,Windows.UI.Xaml.DataTemplate)
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate(Windows.UI.Xaml.Controls.Page,Windows.UI.Xaml.DataTemplate)
+  id: SetHeaderTemplate(Windows.UI.Xaml.Controls.Page,Windows.UI.Xaml.DataTemplate)
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: SetHeaderTemplate(Page, DataTemplate)
+  nameWithType: NavigationViewHeaderBehavior.SetHeaderTemplate(Page, DataTemplate)
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate(Windows.UI.Xaml.Controls.Page, Windows.UI.Xaml.DataTemplate)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SetHeaderTemplate
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 58
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static void SetHeaderTemplate(Page item, DataTemplate value)
+    parameters:
+    - id: item
+      type: Windows.UI.Xaml.Controls.Page
+    - id: value
+      type: Windows.UI.Xaml.DataTemplate
+    content.vb: Public Shared Sub SetHeaderTemplate(item As Page, value As DataTemplate)
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderTemplateProperty
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderTemplateProperty
+  id: HeaderTemplateProperty
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: HeaderTemplateProperty
+  nameWithType: NavigationViewHeaderBehavior.HeaderTemplateProperty
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderTemplateProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: HeaderTemplateProperty
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 63
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public static readonly DependencyProperty HeaderTemplateProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly HeaderTemplateProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached
+  id: OnAttached
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: OnAttached()
+  nameWithType: NavigationViewHeaderBehavior.OnAttached()
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached()
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: OnAttached
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 66
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: protected override void OnAttached()
+    content.vb: Protected Overrides Sub OnAttached
+  overridden: Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}.OnAttached
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached*
+  modifiers.csharp:
+  - protected
+  - override
+  modifiers.vb:
+  - Protected
+  - Overrides
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching
+  commentId: M:Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching
+  id: OnDetaching
+  parent: Messenger.Behaviors.NavigationViewHeaderBehavior
+  langs:
+  - csharp
+  - vb
+  name: OnDetaching()
+  nameWithType: NavigationViewHeaderBehavior.OnDetaching()
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching()
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: OnDetaching
+    path: Behaviors/NavigationViewHeaderBehavior.cs
+    startLine: 73
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: protected override void OnDetaching()
+    content.vb: Protected Overrides Sub OnDetaching
+  overridden: Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+  overload: Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching*
+  modifiers.csharp:
+  - protected
+  - override
+  modifiers.vb:
+  - Protected
+  - Overrides
+references:
+- uid: Messenger.Behaviors
+  commentId: N:Messenger.Behaviors
+  name: Messenger.Behaviors
+  nameWithType: Messenger.Behaviors
+  fullName: Messenger.Behaviors
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Windows.UI.Xaml.DependencyObject
+  commentId: T:Windows.UI.Xaml.DependencyObject
+  parent: Windows.UI.Xaml
+  isExternal: true
+  name: DependencyObject
+  nameWithType: DependencyObject
+  fullName: Windows.UI.Xaml.DependencyObject
+- uid: Microsoft.Xaml.Interactivity.Behavior
+  commentId: T:Microsoft.Xaml.Interactivity.Behavior
+  parent: Microsoft.Xaml.Interactivity
+  isExternal: true
+  name: Behavior
+  nameWithType: Behavior
+  fullName: Microsoft.Xaml.Interactivity.Behavior
+- uid: Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}
+  commentId: T:Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}
+  parent: Microsoft.Xaml.Interactivity
+  definition: Microsoft.Xaml.Interactivity.Behavior`1
+  name: Behavior<NavigationView>
+  nameWithType: Behavior<NavigationView>
+  fullName: Microsoft.Xaml.Interactivity.Behavior<Microsoft.UI.Xaml.Controls.NavigationView>
+  nameWithType.vb: Behavior(Of NavigationView)
+  fullName.vb: Microsoft.Xaml.Interactivity.Behavior(Of Microsoft.UI.Xaml.Controls.NavigationView)
+  name.vb: Behavior(Of NavigationView)
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1
+    name: Behavior
+    nameWithType: Behavior
+    fullName: Microsoft.Xaml.Interactivity.Behavior
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.UI.Xaml.Controls.NavigationView
+    name: NavigationView
+    nameWithType: NavigationView
+    fullName: Microsoft.UI.Xaml.Controls.NavigationView
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1
+    name: Behavior
+    nameWithType: Behavior
+    fullName: Microsoft.Xaml.Interactivity.Behavior
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.UI.Xaml.Controls.NavigationView
+    name: NavigationView
+    nameWithType: NavigationView
+    fullName: Microsoft.UI.Xaml.Controls.NavigationView
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Xaml.Interactivity.IBehavior
+  commentId: T:Microsoft.Xaml.Interactivity.IBehavior
+  parent: Microsoft.Xaml.Interactivity
+  isExternal: true
+  name: IBehavior
+  nameWithType: IBehavior
+  fullName: Microsoft.Xaml.Interactivity.IBehavior
+- uid: Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}.AssociatedObject
+  commentId: P:Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}.AssociatedObject
+  parent: Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}
+  definition: Microsoft.Xaml.Interactivity.Behavior`1.AssociatedObject
+  name: AssociatedObject
+  nameWithType: Behavior<NavigationView>.AssociatedObject
+  fullName: Microsoft.Xaml.Interactivity.Behavior<Microsoft.UI.Xaml.Controls.NavigationView>.AssociatedObject
+  nameWithType.vb: Behavior(Of NavigationView).AssociatedObject
+  fullName.vb: Microsoft.Xaml.Interactivity.Behavior(Of Microsoft.UI.Xaml.Controls.NavigationView).AssociatedObject
+- uid: Microsoft.Xaml.Interactivity.Behavior.Attach(Windows.UI.Xaml.DependencyObject)
+  commentId: M:Microsoft.Xaml.Interactivity.Behavior.Attach(Windows.UI.Xaml.DependencyObject)
+  parent: Microsoft.Xaml.Interactivity.Behavior
+  isExternal: true
+  name: Attach(DependencyObject)
+  nameWithType: Behavior.Attach(DependencyObject)
+  fullName: Microsoft.Xaml.Interactivity.Behavior.Attach(Windows.UI.Xaml.DependencyObject)
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior.Attach(Windows.UI.Xaml.DependencyObject)
+    name: Attach
+    nameWithType: Behavior.Attach
+    fullName: Microsoft.Xaml.Interactivity.Behavior.Attach
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyObject
+    name: DependencyObject
+    nameWithType: DependencyObject
+    fullName: Windows.UI.Xaml.DependencyObject
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior.Attach(Windows.UI.Xaml.DependencyObject)
+    name: Attach
+    nameWithType: Behavior.Attach
+    fullName: Microsoft.Xaml.Interactivity.Behavior.Attach
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyObject
+    name: DependencyObject
+    nameWithType: DependencyObject
+    fullName: Windows.UI.Xaml.DependencyObject
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Xaml.Interactivity.Behavior.Detach
+  commentId: M:Microsoft.Xaml.Interactivity.Behavior.Detach
+  parent: Microsoft.Xaml.Interactivity.Behavior
+  isExternal: true
+  name: Detach()
+  nameWithType: Behavior.Detach()
+  fullName: Microsoft.Xaml.Interactivity.Behavior.Detach()
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior.Detach
+    name: Detach
+    nameWithType: Behavior.Detach
+    fullName: Microsoft.Xaml.Interactivity.Behavior.Detach
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior.Detach
+    name: Detach
+    nameWithType: Behavior.Detach
+    fullName: Microsoft.Xaml.Interactivity.Behavior.Detach
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.GetValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.GetValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.GetValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: GetValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.GetValue
+    nameWithType: DependencyObject.IDependencyObject.GetValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+    name: GetValue
+    nameWithType: DependencyObject.GetValue
+    fullName: Windows.UI.Xaml.DependencyObject.GetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+  commentId: M:Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.SetValue(DependencyProperty, Object)
+  nameWithType: DependencyObject.IDependencyObject.SetValue(DependencyProperty, Object)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty, System.Object)
+  nameWithType.vb: DependencyObject.SetValue(DependencyProperty, Object)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty, System.Object)
+  name.vb: SetValue(DependencyProperty, Object)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+    name: IDependencyObject.SetValue
+    nameWithType: DependencyObject.IDependencyObject.SetValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.SetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+    name: SetValue
+    nameWithType: DependencyObject.SetValue
+    fullName: Windows.UI.Xaml.DependencyObject.SetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.ClearValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.ClearValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.ClearValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: ClearValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.ClearValue
+    nameWithType: DependencyObject.IDependencyObject.ClearValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ClearValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+    name: ClearValue
+    nameWithType: DependencyObject.ClearValue
+    fullName: Windows.UI.Xaml.DependencyObject.ClearValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.ReadLocalValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.ReadLocalValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.ReadLocalValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: ReadLocalValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.ReadLocalValue
+    nameWithType: DependencyObject.IDependencyObject.ReadLocalValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ReadLocalValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+    name: ReadLocalValue
+    nameWithType: DependencyObject.ReadLocalValue
+    fullName: Windows.UI.Xaml.DependencyObject.ReadLocalValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.GetAnimationBaseValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.GetAnimationBaseValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.GetAnimationBaseValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: GetAnimationBaseValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.GetAnimationBaseValue
+    nameWithType: DependencyObject.IDependencyObject.GetAnimationBaseValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetAnimationBaseValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+    name: GetAnimationBaseValue
+    nameWithType: DependencyObject.GetAnimationBaseValue
+    fullName: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  commentId: M:Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject2.RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  nameWithType: DependencyObject.IDependencyObject2.RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  nameWithType.vb: DependencyObject.RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  name.vb: RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+    name: IDependencyObject2.RegisterPropertyChangedCallback
+    nameWithType: DependencyObject.IDependencyObject2.RegisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.RegisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    name: DependencyPropertyChangedCallback
+    nameWithType: DependencyPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+    name: RegisterPropertyChangedCallback
+    nameWithType: DependencyObject.RegisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    name: DependencyPropertyChangedCallback
+    nameWithType: DependencyPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+  commentId: M:Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject2.UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  nameWithType: DependencyObject.IDependencyObject2.UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, System.Int64)
+  nameWithType.vb: DependencyObject.UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, System.Int64)
+  name.vb: UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+    name: IDependencyObject2.UnregisterPropertyChangedCallback
+    nameWithType: DependencyObject.IDependencyObject2.UnregisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.UnregisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+    name: UnregisterPropertyChangedCallback
+    nameWithType: DependencyObject.UnregisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.Dispatcher
+  commentId: P:Windows.UI.Xaml.DependencyObject.Dispatcher
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.Dispatcher
+  nameWithType: DependencyObject.IDependencyObject.Dispatcher
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.Dispatcher
+  nameWithType.vb: DependencyObject.Dispatcher
+  fullName.vb: Windows.UI.Xaml.DependencyObject.Dispatcher
+  name.vb: Dispatcher
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Windows.UI.Xaml
+  commentId: N:Windows.UI.Xaml
+  isExternal: true
+  name: Windows.UI.Xaml
+  nameWithType: Windows.UI.Xaml
+  fullName: Windows.UI.Xaml
+- uid: Microsoft.Xaml.Interactivity
+  commentId: N:Microsoft.Xaml.Interactivity
+  isExternal: true
+  name: Microsoft.Xaml.Interactivity
+  nameWithType: Microsoft.Xaml.Interactivity
+  fullName: Microsoft.Xaml.Interactivity
+- uid: Microsoft.Xaml.Interactivity.Behavior`1
+  commentId: T:Microsoft.Xaml.Interactivity.Behavior`1
+  isExternal: true
+  name: Behavior<T>
+  nameWithType: Behavior<T>
+  fullName: Microsoft.Xaml.Interactivity.Behavior<T>
+  nameWithType.vb: Behavior(Of T)
+  fullName.vb: Microsoft.Xaml.Interactivity.Behavior(Of T)
+  name.vb: Behavior(Of T)
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1
+    name: Behavior
+    nameWithType: Behavior
+    fullName: Microsoft.Xaml.Interactivity.Behavior
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1
+    name: Behavior
+    nameWithType: Behavior
+    fullName: Microsoft.Xaml.Interactivity.Behavior
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Xaml.Interactivity.Behavior`1.AssociatedObject
+  commentId: P:Microsoft.Xaml.Interactivity.Behavior`1.AssociatedObject
+  isExternal: true
+  name: AssociatedObject
+  nameWithType: Behavior<T>.AssociatedObject
+  fullName: Microsoft.Xaml.Interactivity.Behavior<T>.AssociatedObject
+  nameWithType.vb: Behavior(Of T).AssociatedObject
+  fullName.vb: Microsoft.Xaml.Interactivity.Behavior(Of T).AssociatedObject
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  name: DefaultHeaderTemplate
+  nameWithType: NavigationViewHeaderBehavior.DefaultHeaderTemplate
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate
+- uid: Windows.UI.Xaml.DataTemplate
+  commentId: T:Windows.UI.Xaml.DataTemplate
+  parent: Windows.UI.Xaml
+  isExternal: true
+  name: DataTemplate
+  nameWithType: DataTemplate
+  fullName: Windows.UI.Xaml.DataTemplate
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader
+  name: DefaultHeader
+  nameWithType: NavigationViewHeaderBehavior.DefaultHeader
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader
+- uid: Windows.UI.Xaml.DependencyProperty
+  commentId: T:Windows.UI.Xaml.DependencyProperty
+  parent: Windows.UI.Xaml
+  isExternal: true
+  name: DependencyProperty
+  nameWithType: DependencyProperty
+  fullName: Windows.UI.Xaml.DependencyProperty
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode
+  name: GetHeaderMode
+  nameWithType: NavigationViewHeaderBehavior.GetHeaderMode
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode
+- uid: Windows.UI.Xaml.Controls.Page
+  commentId: T:Windows.UI.Xaml.Controls.Page
+  parent: Windows.UI.Xaml.Controls
+  isExternal: true
+  name: Page
+  nameWithType: Page
+  fullName: Windows.UI.Xaml.Controls.Page
+- uid: Messenger.Behaviors.NavigationViewHeaderMode
+  commentId: T:Messenger.Behaviors.NavigationViewHeaderMode
+  parent: Messenger.Behaviors
+  name: NavigationViewHeaderMode
+  nameWithType: NavigationViewHeaderMode
+  fullName: Messenger.Behaviors.NavigationViewHeaderMode
+- uid: Windows.UI.Xaml.Controls
+  commentId: N:Windows.UI.Xaml.Controls
+  isExternal: true
+  name: Windows.UI.Xaml.Controls
+  nameWithType: Windows.UI.Xaml.Controls
+  fullName: Windows.UI.Xaml.Controls
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode
+  name: SetHeaderMode
+  nameWithType: NavigationViewHeaderBehavior.SetHeaderMode
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext
+  name: GetHeaderContext
+  nameWithType: NavigationViewHeaderBehavior.GetHeaderContext
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext
+  name: SetHeaderContext
+  nameWithType: NavigationViewHeaderBehavior.SetHeaderContext
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate
+  name: GetHeaderTemplate
+  nameWithType: NavigationViewHeaderBehavior.GetHeaderTemplate
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate
+  name: SetHeaderTemplate
+  nameWithType: NavigationViewHeaderBehavior.SetHeaderTemplate
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate
+- uid: Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}.OnAttached
+  commentId: M:Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}.OnAttached
+  parent: Microsoft.Xaml.Interactivity.Behavior{Microsoft.UI.Xaml.Controls.NavigationView}
+  definition: Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+  name: OnAttached()
+  nameWithType: Behavior<NavigationView>.OnAttached()
+  fullName: Microsoft.Xaml.Interactivity.Behavior<Microsoft.UI.Xaml.Controls.NavigationView>.OnAttached()
+  nameWithType.vb: Behavior(Of NavigationView).OnAttached()
+  fullName.vb: Microsoft.Xaml.Interactivity.Behavior(Of Microsoft.UI.Xaml.Controls.NavigationView).OnAttached()
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+    name: OnAttached
+    nameWithType: Behavior<NavigationView>.OnAttached
+    fullName: Microsoft.Xaml.Interactivity.Behavior<Microsoft.UI.Xaml.Controls.NavigationView>.OnAttached
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+    name: OnAttached
+    nameWithType: Behavior(Of NavigationView).OnAttached
+    fullName: Microsoft.Xaml.Interactivity.Behavior(Of Microsoft.UI.Xaml.Controls.NavigationView).OnAttached
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached
+  name: OnAttached
+  nameWithType: NavigationViewHeaderBehavior.OnAttached
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached
+- uid: Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+  commentId: M:Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+  isExternal: true
+  name: OnAttached()
+  nameWithType: Behavior<T>.OnAttached()
+  fullName: Microsoft.Xaml.Interactivity.Behavior<T>.OnAttached()
+  nameWithType.vb: Behavior(Of T).OnAttached()
+  fullName.vb: Microsoft.Xaml.Interactivity.Behavior(Of T).OnAttached()
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+    name: OnAttached
+    nameWithType: Behavior<T>.OnAttached
+    fullName: Microsoft.Xaml.Interactivity.Behavior<T>.OnAttached
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior`1.OnAttached
+    name: OnAttached
+    nameWithType: Behavior(Of T).OnAttached
+    fullName: Microsoft.Xaml.Interactivity.Behavior(Of T).OnAttached
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+  commentId: M:Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+  parent: Microsoft.Xaml.Interactivity.Behavior
+  isExternal: true
+  name: OnDetaching()
+  nameWithType: Behavior.OnDetaching()
+  fullName: Microsoft.Xaml.Interactivity.Behavior.OnDetaching()
+  spec.csharp:
+  - uid: Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+    name: OnDetaching
+    nameWithType: Behavior.OnDetaching
+    fullName: Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+    name: OnDetaching
+    nameWithType: Behavior.OnDetaching
+    fullName: Microsoft.Xaml.Interactivity.Behavior.OnDetaching
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching*
+  commentId: Overload:Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching
+  name: OnDetaching
+  nameWithType: NavigationViewHeaderBehavior.OnDetaching
+  fullName: Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching

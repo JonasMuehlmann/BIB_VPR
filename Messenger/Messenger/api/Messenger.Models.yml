@@ -1,0 +1,58 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Models
+  commentId: N:Messenger.Models
+  id: Messenger.Models
+  children:
+  - Messenger.Models.DragDropCompletedData
+  - Messenger.Models.DragDropData
+  - Messenger.Models.DragDropStartingData
+  - Messenger.Models.Invitation
+  - Messenger.Models.Notification
+  - Messenger.Models.NotificationManager
+  langs:
+  - csharp
+  - vb
+  name: Messenger.Models
+  nameWithType: Messenger.Models
+  fullName: Messenger.Models
+  type: Namespace
+  assemblies:
+  - Messenger
+references:
+- uid: Messenger.Models.DragDropCompletedData
+  commentId: T:Messenger.Models.DragDropCompletedData
+  name: DragDropCompletedData
+  nameWithType: DragDropCompletedData
+  fullName: Messenger.Models.DragDropCompletedData
+- uid: Messenger.Models.DragDropData
+  commentId: T:Messenger.Models.DragDropData
+  name: DragDropData
+  nameWithType: DragDropData
+  fullName: Messenger.Models.DragDropData
+- uid: Messenger.Models.DragDropStartingData
+  commentId: T:Messenger.Models.DragDropStartingData
+  name: DragDropStartingData
+  nameWithType: DragDropStartingData
+  fullName: Messenger.Models.DragDropStartingData
+- uid: Messenger.Models.Invitation
+  commentId: T:Messenger.Models.Invitation
+  parent: Messenger.Models
+  name: Invitation
+  nameWithType: Invitation
+  fullName: Messenger.Models.Invitation
+- uid: Messenger.Models.Notification
+  commentId: T:Messenger.Models.Notification
+  name: Notification
+  nameWithType: Notification
+  fullName: Messenger.Models.Notification
+- uid: Messenger.Models.NotificationManager
+  commentId: T:Messenger.Models.NotificationManager
+  name: NotificationManager
+  nameWithType: NotificationManager
+  fullName: Messenger.Models.NotificationManager
+- uid: Messenger.Models
+  commentId: N:Messenger.Models
+  name: Messenger.Models
+  nameWithType: Messenger.Models
+  fullName: Messenger.Models

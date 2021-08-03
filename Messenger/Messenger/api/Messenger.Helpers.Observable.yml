@@ -1,0 +1,523 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Helpers.Observable
+  commentId: T:Messenger.Helpers.Observable
+  id: Observable
+  parent: Messenger.Helpers
+  children:
+  - Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  - Messenger.Helpers.Observable.PropertyChanged
+  - Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  langs:
+  - csharp
+  - vb
+  name: Observable
+  nameWithType: Observable
+  fullName: Messenger.Helpers.Observable
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/Helpers/Observable.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Observable
+    path: Helpers/Observable.cs
+    startLine: 6
+  assemblies:
+  - Messenger
+  namespace: Messenger.Helpers
+  syntax:
+    content: 'public class Observable : INotifyPropertyChanged'
+    content.vb: >-
+      Public Class Observable
+          Implements INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Messenger.ViewModels.ChatHubViewModel
+  - Messenger.ViewModels.ChatNavViewModel
+  - Messenger.ViewModels.ChatViewModel
+  - Messenger.ViewModels.LogInViewModel
+  - Messenger.ViewModels.NotificationNavViewModel
+  - Messenger.ViewModels.SchemeActivationSampleViewModel
+  - Messenger.ViewModels.SettingsViewModel
+  - Messenger.ViewModels.ShellViewModel
+  - Messenger.ViewModels.TeamManageViewModel
+  - Messenger.ViewModels.TeamNavViewModel
+  - Messenger.ViewModels.UserViewModel
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Helpers.Observable.PropertyChanged
+  commentId: E:Messenger.Helpers.Observable.PropertyChanged
+  id: PropertyChanged
+  parent: Messenger.Helpers.Observable
+  langs:
+  - csharp
+  - vb
+  name: PropertyChanged
+  nameWithType: Observable.PropertyChanged
+  fullName: Messenger.Helpers.Observable.PropertyChanged
+  type: Event
+  source:
+    remote:
+      path: Messenger/Messenger/Helpers/Observable.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: PropertyChanged
+    path: Helpers/Observable.cs
+    startLine: 8
+  assemblies:
+  - Messenger
+  namespace: Messenger.Helpers
+  syntax:
+    content: public event PropertyChangedEventHandler PropertyChanged
+    return:
+      type: System.ComponentModel.PropertyChangedEventHandler
+    content.vb: Public Event PropertyChanged As PropertyChangedEventHandler
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  commentId: M:Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  id: Set``1(``0@,``0,System.String)
+  parent: Messenger.Helpers.Observable
+  langs:
+  - csharp
+  - vb
+  name: Set<T>(ref T, T, String)
+  nameWithType: Observable.Set<T>(ref T, T, String)
+  fullName: Messenger.Helpers.Observable.Set<T>(ref T, T, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Helpers/Observable.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Set
+    path: Helpers/Observable.cs
+    startLine: 10
+  assemblies:
+  - Messenger
+  namespace: Messenger.Helpers
+  syntax:
+    content: protected void Set<T>(ref T storage, T value, string propertyName = null)
+    parameters:
+    - id: storage
+      type: '{T}'
+    - id: value
+      type: '{T}'
+    - id: propertyName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Protected Sub Set(Of T)(ByRef storage As T, value As T, propertyName As String = Nothing)
+  overload: Messenger.Helpers.Observable.Set*
+  nameWithType.vb: Observable.Set(Of T)(ByRef T, T, String)
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+  fullName.vb: Messenger.Helpers.Observable.Set(Of T)(ByRef T, T, System.String)
+  name.vb: Set(Of T)(ByRef T, T, String)
+- uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  commentId: M:Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  id: OnPropertyChanged(System.String)
+  parent: Messenger.Helpers.Observable
+  langs:
+  - csharp
+  - vb
+  name: OnPropertyChanged(String)
+  nameWithType: Observable.OnPropertyChanged(String)
+  fullName: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Helpers/Observable.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: OnPropertyChanged
+    path: Helpers/Observable.cs
+    startLine: 21
+  assemblies:
+  - Messenger
+  namespace: Messenger.Helpers
+  syntax:
+    content: protected void OnPropertyChanged(string propertyName)
+    parameters:
+    - id: propertyName
+      type: System.String
+    content.vb: Protected Sub OnPropertyChanged(propertyName As String)
+  overload: Messenger.Helpers.Observable.OnPropertyChanged*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+references:
+- uid: Messenger.Helpers
+  commentId: N:Messenger.Helpers
+  name: Messenger.Helpers
+  nameWithType: Messenger.Helpers
+  fullName: Messenger.Helpers
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+- uid: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  commentId: E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  parent: System.ComponentModel.INotifyPropertyChanged
+  isExternal: true
+  name: PropertyChanged
+  nameWithType: INotifyPropertyChanged.PropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+- uid: System.ComponentModel.PropertyChangedEventHandler
+  commentId: T:System.ComponentModel.PropertyChangedEventHandler
+  parent: System.ComponentModel
+  isExternal: true
+  name: PropertyChangedEventHandler
+  nameWithType: PropertyChangedEventHandler
+  fullName: System.ComponentModel.PropertyChangedEventHandler
+- uid: Messenger.Helpers.Observable.Set*
+  commentId: Overload:Messenger.Helpers.Observable.Set
+  name: Set
+  nameWithType: Observable.Set
+  fullName: Messenger.Helpers.Observable.Set
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Messenger.Helpers.Observable.OnPropertyChanged*
+  commentId: Overload:Messenger.Helpers.Observable.OnPropertyChanged
+  name: OnPropertyChanged
+  nameWithType: Observable.OnPropertyChanged
+  fullName: Messenger.Helpers.Observable.OnPropertyChanged

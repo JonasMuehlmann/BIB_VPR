@@ -56,7 +56,7 @@ namespace Messenger.Core.Services
                 {
                     log.AddConsole();
                 })
-                .Build();
+                .WithAutomaticReconnect().Build();
             
             /** RECEIVE: PASSIVE EVENTS TRIGGERED ONLY FROM OTHER USERS **/
             _connection.On<Message>("ReceiveMessage", (message) => ReceiveMessage?.Invoke(typeof(SignalRService), BuildArgument(message)));

@@ -1,0 +1,1143 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.ViewModels.ChatHubViewModel
+  commentId: T:Messenger.ViewModels.ChatHubViewModel
+  id: ChatHubViewModel
+  parent: Messenger.ViewModels
+  children:
+  - Messenger.ViewModels.ChatHubViewModel.#ctor
+  - Messenger.ViewModels.ChatHubViewModel.CurrentTeamId
+  - Messenger.ViewModels.ChatHubViewModel.ErrorMessage
+  - Messenger.ViewModels.ChatHubViewModel.LoadAsync
+  - Messenger.ViewModels.ChatHubViewModel.Messages
+  - Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam
+  - Messenger.ViewModels.ChatHubViewModel.SendMessageCommand
+  - Messenger.ViewModels.ChatHubViewModel.User
+  langs:
+  - csharp
+  - vb
+  name: ChatHubViewModel
+  nameWithType: ChatHubViewModel
+  fullName: Messenger.ViewModels.ChatHubViewModel
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ChatHubViewModel
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 19
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: 'public class ChatHubViewModel : Observable, INotifyPropertyChanged'
+    content.vb: >-
+      Public Class ChatHubViewModel
+          Inherits Observable
+          Implements INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Messenger.Helpers.Observable
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Messenger.Helpers.Observable.PropertyChanged
+  - Messenger.Helpers.Observable.Set``1({T}@,{T},System.String)
+  - Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.ViewModels.ChatHubViewModel.ErrorMessage
+  commentId: P:Messenger.ViewModels.ChatHubViewModel.ErrorMessage
+  id: ErrorMessage
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: ErrorMessage
+  nameWithType: ChatHubViewModel.ErrorMessage
+  fullName: Messenger.ViewModels.ChatHubViewModel.ErrorMessage
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ErrorMessage
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 39
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nError messages from SignalR operations, returns string.Empty if there is no Exception\n"
+  example: []
+  syntax:
+    content: public string ErrorMessage { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ErrorMessage As String
+  overload: Messenger.ViewModels.ChatHubViewModel.ErrorMessage*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam
+  commentId: P:Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam
+  id: MessagesByConnectedTeam
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: MessagesByConnectedTeam
+  nameWithType: ChatHubViewModel.MessagesByConnectedTeam
+  fullName: Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: MessagesByConnectedTeam
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 52
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nDictionary for connected teams and their messages\n"
+  example: []
+  syntax:
+    content: public ConcurrentDictionary<uint, ObservableCollection<Message>> MessagesByConnectedTeam { get; }
+    parameters: []
+    return:
+      type: System.Collections.Concurrent.ConcurrentDictionary{System.UInt32,System.Collections.ObjectModel.ObservableCollection{Messenger.Core.Models.Message}}
+    content.vb: Public ReadOnly Property MessagesByConnectedTeam As ConcurrentDictionary(Of UInteger, ObservableCollection(Of Message))
+  overload: Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ChatHubViewModel.Messages
+  commentId: P:Messenger.ViewModels.ChatHubViewModel.Messages
+  id: Messages
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: Messages
+  nameWithType: ChatHubViewModel.Messages
+  fullName: Messenger.ViewModels.ChatHubViewModel.Messages
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Messages
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 57
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nCollection of messages from the dictionary to be shown on UI\n"
+  example: []
+  syntax:
+    content: public ObservableCollection<Message> Messages { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.ObjectModel.ObservableCollection{Messenger.Core.Models.Message}
+    content.vb: Public Property Messages As ObservableCollection(Of Message)
+  overload: Messenger.ViewModels.ChatHubViewModel.Messages*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ChatHubViewModel.User
+  commentId: P:Messenger.ViewModels.ChatHubViewModel.User
+  id: User
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: ChatHubViewModel.User
+  fullName: Messenger.ViewModels.ChatHubViewModel.User
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: User
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 70
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nCurrently logged-in user\n"
+  example: []
+  syntax:
+    content: public UserViewModel User { get; set; }
+    parameters: []
+    return:
+      type: Messenger.ViewModels.UserViewModel
+    content.vb: Public Property User As UserViewModel
+  overload: Messenger.ViewModels.ChatHubViewModel.User*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ChatHubViewModel.CurrentTeamId
+  commentId: P:Messenger.ViewModels.ChatHubViewModel.CurrentTeamId
+  id: CurrentTeamId
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: CurrentTeamId
+  nameWithType: ChatHubViewModel.CurrentTeamId
+  fullName: Messenger.ViewModels.ChatHubViewModel.CurrentTeamId
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: CurrentTeamId
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 79
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nCurrent target team id to send messages(Message.RecipientsId)\n"
+  example: []
+  syntax:
+    content: public uint CurrentTeamId { get; set; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: Public Property CurrentTeamId As UInteger
+  overload: Messenger.ViewModels.ChatHubViewModel.CurrentTeamId*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ChatHubViewModel.SendMessageCommand
+  commentId: P:Messenger.ViewModels.ChatHubViewModel.SendMessageCommand
+  id: SendMessageCommand
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: SendMessageCommand
+  nameWithType: ChatHubViewModel.SendMessageCommand
+  fullName: Messenger.ViewModels.ChatHubViewModel.SendMessageCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SendMessageCommand
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 97
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nCommand: sends a message with the current team id\n"
+  example: []
+  syntax:
+    content: public ICommand SendMessageCommand { get; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public ReadOnly Property SendMessageCommand As ICommand
+  overload: Messenger.ViewModels.ChatHubViewModel.SendMessageCommand*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ChatHubViewModel.#ctor
+  commentId: M:Messenger.ViewModels.ChatHubViewModel.#ctor
+  id: '#ctor'
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: ChatHubViewModel()
+  nameWithType: ChatHubViewModel.ChatHubViewModel()
+  fullName: Messenger.ViewModels.ChatHubViewModel.ChatHubViewModel()
+  type: Constructor
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: .ctor
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 104
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nChatHubViewModel connects to signal-r hub and listens for messages\n"
+  example: []
+  syntax:
+    content: public ChatHubViewModel()
+    content.vb: Public Sub New
+  overload: Messenger.ViewModels.ChatHubViewModel.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ChatHubViewModel.LoadAsync
+  commentId: M:Messenger.ViewModels.ChatHubViewModel.LoadAsync
+  id: LoadAsync
+  parent: Messenger.ViewModels.ChatHubViewModel
+  langs:
+  - csharp
+  - vb
+  name: LoadAsync()
+  nameWithType: ChatHubViewModel.LoadAsync()
+  fullName: Messenger.ViewModels.ChatHubViewModel.LoadAsync()
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ChatHubViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: LoadAsync
+    path: ViewModels/ChatHubViewModel.cs
+    startLine: 122
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  summary: "\nSafely calls asynchronous methods on UI-Thread\n"
+  example: []
+  syntax:
+    content: public async void LoadAsync()
+    content.vb: Public Sub LoadAsync
+  overload: Messenger.ViewModels.ChatHubViewModel.LoadAsync*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.ViewModels
+  commentId: N:Messenger.ViewModels
+  name: Messenger.ViewModels
+  nameWithType: Messenger.ViewModels
+  fullName: Messenger.ViewModels
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Messenger.Helpers.Observable
+  commentId: T:Messenger.Helpers.Observable
+  parent: Messenger.Helpers
+  name: Observable
+  nameWithType: Observable
+  fullName: Messenger.Helpers.Observable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Messenger.Helpers.Observable.PropertyChanged
+  commentId: E:Messenger.Helpers.Observable.PropertyChanged
+  parent: Messenger.Helpers.Observable
+  name: PropertyChanged
+  nameWithType: Observable.PropertyChanged
+  fullName: Messenger.Helpers.Observable.PropertyChanged
+- uid: Messenger.Helpers.Observable.Set``1({T}@,{T},System.String)
+  commentId: M:Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  parent: Messenger.Helpers.Observable
+  definition: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  name: Set<T>(T, T, String)
+  nameWithType: Observable.Set<T>(T, T, String)
+  fullName: Messenger.Helpers.Observable.Set<T>(T, T, System.String)
+  nameWithType.vb: Observable.Set(Of T)(T, T, String)
+  fullName.vb: Messenger.Helpers.Observable.Set(Of T)(T, T, System.String)
+  name.vb: Set(Of T)(T, T, String)
+  spec.csharp:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set<T>
+    nameWithType: Observable.Set<T>
+    fullName: Messenger.Helpers.Observable.Set<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set(Of T)
+    nameWithType: Observable.Set(Of T)
+    fullName: Messenger.Helpers.Observable.Set(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  commentId: M:Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  parent: Messenger.Helpers.Observable
+  isExternal: true
+  name: OnPropertyChanged(String)
+  nameWithType: Observable.OnPropertyChanged(String)
+  fullName: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  spec.csharp:
+  - uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+    name: OnPropertyChanged
+    nameWithType: Observable.OnPropertyChanged
+    fullName: Messenger.Helpers.Observable.OnPropertyChanged
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+    name: OnPropertyChanged
+    nameWithType: Observable.OnPropertyChanged
+    fullName: Messenger.Helpers.Observable.OnPropertyChanged
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Helpers
+  commentId: N:Messenger.Helpers
+  name: Messenger.Helpers
+  nameWithType: Messenger.Helpers
+  fullName: Messenger.Helpers
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+- uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  commentId: M:Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  isExternal: true
+  name: Set<T>(T, T, String)
+  nameWithType: Observable.Set<T>(T, T, String)
+  fullName: Messenger.Helpers.Observable.Set<T>(T, T, System.String)
+  nameWithType.vb: Observable.Set(Of T)(T, T, String)
+  fullName.vb: Messenger.Helpers.Observable.Set(Of T)(T, T, System.String)
+  name.vb: Set(Of T)(T, T, String)
+  spec.csharp:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set<T>
+    nameWithType: Observable.Set<T>
+    fullName: Messenger.Helpers.Observable.Set<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set(Of T)
+    nameWithType: Observable.Set(Of T)
+    fullName: Messenger.Helpers.Observable.Set(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.ViewModels.ChatHubViewModel.ErrorMessage*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.ErrorMessage
+  name: ErrorMessage
+  nameWithType: ChatHubViewModel.ErrorMessage
+  fullName: Messenger.ViewModels.ChatHubViewModel.ErrorMessage
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam
+  name: MessagesByConnectedTeam
+  nameWithType: ChatHubViewModel.MessagesByConnectedTeam
+  fullName: Messenger.ViewModels.ChatHubViewModel.MessagesByConnectedTeam
+- uid: System.Collections.Concurrent.ConcurrentDictionary{System.UInt32,System.Collections.ObjectModel.ObservableCollection{Messenger.Core.Models.Message}}
+  commentId: T:System.Collections.Concurrent.ConcurrentDictionary{System.UInt32,System.Collections.ObjectModel.ObservableCollection{Messenger.Core.Models.Message}}
+  parent: System.Collections.Concurrent
+  definition: System.Collections.Concurrent.ConcurrentDictionary`2
+  name: ConcurrentDictionary<UInt32, ObservableCollection<Message>>
+  nameWithType: ConcurrentDictionary<UInt32, ObservableCollection<Message>>
+  fullName: System.Collections.Concurrent.ConcurrentDictionary<System.UInt32, System.Collections.ObjectModel.ObservableCollection<Messenger.Core.Models.Message>>
+  nameWithType.vb: ConcurrentDictionary(Of UInt32, ObservableCollection(Of Message))
+  fullName.vb: System.Collections.Concurrent.ConcurrentDictionary(Of System.UInt32, System.Collections.ObjectModel.ObservableCollection(Of Messenger.Core.Models.Message))
+  name.vb: ConcurrentDictionary(Of UInt32, ObservableCollection(Of Message))
+  spec.csharp:
+  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
+    name: ConcurrentDictionary
+    nameWithType: ConcurrentDictionary
+    fullName: System.Collections.Concurrent.ConcurrentDictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.UInt32
+    name: UInt32
+    nameWithType: UInt32
+    fullName: System.UInt32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    nameWithType: ObservableCollection
+    fullName: System.Collections.ObjectModel.ObservableCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.Message
+    name: Message
+    nameWithType: Message
+    fullName: Messenger.Core.Models.Message
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
+    name: ConcurrentDictionary
+    nameWithType: ConcurrentDictionary
+    fullName: System.Collections.Concurrent.ConcurrentDictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.UInt32
+    name: UInt32
+    nameWithType: UInt32
+    fullName: System.UInt32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    nameWithType: ObservableCollection
+    fullName: System.Collections.ObjectModel.ObservableCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.Message
+    name: Message
+    nameWithType: Message
+    fullName: Messenger.Core.Models.Message
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Concurrent.ConcurrentDictionary`2
+  commentId: T:System.Collections.Concurrent.ConcurrentDictionary`2
+  isExternal: true
+  name: ConcurrentDictionary<TKey, TValue>
+  nameWithType: ConcurrentDictionary<TKey, TValue>
+  fullName: System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>
+  nameWithType.vb: ConcurrentDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Concurrent.ConcurrentDictionary(Of TKey, TValue)
+  name.vb: ConcurrentDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
+    name: ConcurrentDictionary
+    nameWithType: ConcurrentDictionary
+    fullName: System.Collections.Concurrent.ConcurrentDictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
+    name: ConcurrentDictionary
+    nameWithType: ConcurrentDictionary
+    fullName: System.Collections.Concurrent.ConcurrentDictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Concurrent
+  commentId: N:System.Collections.Concurrent
+  isExternal: true
+  name: System.Collections.Concurrent
+  nameWithType: System.Collections.Concurrent
+  fullName: System.Collections.Concurrent
+- uid: Messenger.ViewModels.ChatHubViewModel.Messages*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.Messages
+  name: Messages
+  nameWithType: ChatHubViewModel.Messages
+  fullName: Messenger.ViewModels.ChatHubViewModel.Messages
+- uid: System.Collections.ObjectModel.ObservableCollection{Messenger.Core.Models.Message}
+  commentId: T:System.Collections.ObjectModel.ObservableCollection{Messenger.Core.Models.Message}
+  parent: System.Collections.ObjectModel
+  definition: System.Collections.ObjectModel.ObservableCollection`1
+  name: ObservableCollection<Message>
+  nameWithType: ObservableCollection<Message>
+  fullName: System.Collections.ObjectModel.ObservableCollection<Messenger.Core.Models.Message>
+  nameWithType.vb: ObservableCollection(Of Message)
+  fullName.vb: System.Collections.ObjectModel.ObservableCollection(Of Messenger.Core.Models.Message)
+  name.vb: ObservableCollection(Of Message)
+  spec.csharp:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    nameWithType: ObservableCollection
+    fullName: System.Collections.ObjectModel.ObservableCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.Message
+    name: Message
+    nameWithType: Message
+    fullName: Messenger.Core.Models.Message
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    nameWithType: ObservableCollection
+    fullName: System.Collections.ObjectModel.ObservableCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.Message
+    name: Message
+    nameWithType: Message
+    fullName: Messenger.Core.Models.Message
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.ObjectModel.ObservableCollection`1
+  commentId: T:System.Collections.ObjectModel.ObservableCollection`1
+  isExternal: true
+  name: ObservableCollection<T>
+  nameWithType: ObservableCollection<T>
+  fullName: System.Collections.ObjectModel.ObservableCollection<T>
+  nameWithType.vb: ObservableCollection(Of T)
+  fullName.vb: System.Collections.ObjectModel.ObservableCollection(Of T)
+  name.vb: ObservableCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    nameWithType: ObservableCollection
+    fullName: System.Collections.ObjectModel.ObservableCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    nameWithType: ObservableCollection
+    fullName: System.Collections.ObjectModel.ObservableCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.ObjectModel
+  commentId: N:System.Collections.ObjectModel
+  isExternal: true
+  name: System.Collections.ObjectModel
+  nameWithType: System.Collections.ObjectModel
+  fullName: System.Collections.ObjectModel
+- uid: Messenger.ViewModels.ChatHubViewModel.User*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.User
+  name: User
+  nameWithType: ChatHubViewModel.User
+  fullName: Messenger.ViewModels.ChatHubViewModel.User
+- uid: Messenger.ViewModels.UserViewModel
+  commentId: T:Messenger.ViewModels.UserViewModel
+  parent: Messenger.ViewModels
+  name: UserViewModel
+  nameWithType: UserViewModel
+  fullName: Messenger.ViewModels.UserViewModel
+- uid: Messenger.ViewModels.ChatHubViewModel.CurrentTeamId*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.CurrentTeamId
+  name: CurrentTeamId
+  nameWithType: ChatHubViewModel.CurrentTeamId
+  fullName: Messenger.ViewModels.ChatHubViewModel.CurrentTeamId
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  name: UInt32
+  nameWithType: UInt32
+  fullName: System.UInt32
+- uid: Messenger.ViewModels.ChatHubViewModel.SendMessageCommand*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.SendMessageCommand
+  name: SendMessageCommand
+  nameWithType: ChatHubViewModel.SendMessageCommand
+  fullName: Messenger.ViewModels.ChatHubViewModel.SendMessageCommand
+- uid: System.Windows.Input.ICommand
+  commentId: T:System.Windows.Input.ICommand
+  parent: System.Windows.Input
+  isExternal: true
+  name: ICommand
+  nameWithType: ICommand
+  fullName: System.Windows.Input.ICommand
+- uid: System.Windows.Input
+  commentId: N:System.Windows.Input
+  isExternal: true
+  name: System.Windows.Input
+  nameWithType: System.Windows.Input
+  fullName: System.Windows.Input
+- uid: Messenger.ViewModels.ChatHubViewModel.#ctor*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.#ctor
+  name: ChatHubViewModel
+  nameWithType: ChatHubViewModel.ChatHubViewModel
+  fullName: Messenger.ViewModels.ChatHubViewModel.ChatHubViewModel
+- uid: Messenger.ViewModels.ChatHubViewModel.LoadAsync*
+  commentId: Overload:Messenger.ViewModels.ChatHubViewModel.LoadAsync
+  name: LoadAsync
+  nameWithType: ChatHubViewModel.LoadAsync
+  fullName: Messenger.ViewModels.ChatHubViewModel.LoadAsync

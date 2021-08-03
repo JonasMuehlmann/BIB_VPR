@@ -1,0 +1,954 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.ViewModels.ShellViewModel
+  commentId: T:Messenger.ViewModels.ShellViewModel
+  id: ShellViewModel
+  parent: Messenger.ViewModels
+  children:
+  - Messenger.ViewModels.ShellViewModel.#ctor
+  - Messenger.ViewModels.ShellViewModel.ChatCommand
+  - Messenger.ViewModels.ShellViewModel.ChatName
+  - Messenger.ViewModels.ShellViewModel.Initialize(Windows.UI.Xaml.Controls.Frame,Windows.UI.Xaml.Controls.Frame)
+  - Messenger.ViewModels.ShellViewModel.NotificationCommand
+  - Messenger.ViewModels.ShellViewModel.OpenTeamManager
+  - Messenger.ViewModels.ShellViewModel.TeamCommand
+  - Messenger.ViewModels.ShellViewModel.User
+  - Messenger.ViewModels.ShellViewModel.UserProfileCommand
+  langs:
+  - csharp
+  - vb
+  name: ShellViewModel
+  nameWithType: ShellViewModel
+  fullName: Messenger.ViewModels.ShellViewModel
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ShellViewModel
+    path: ViewModels/ShellViewModel.cs
+    startLine: 19
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: 'public class ShellViewModel : Observable, INotifyPropertyChanged'
+    content.vb: >-
+      Public Class ShellViewModel
+          Inherits Observable
+          Implements INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Messenger.Helpers.Observable
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Messenger.Helpers.Observable.PropertyChanged
+  - Messenger.Helpers.Observable.Set``1({T}@,{T},System.String)
+  - Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.ViewModels.ShellViewModel.ChatName
+  commentId: P:Messenger.ViewModels.ShellViewModel.ChatName
+  id: ChatName
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: ChatName
+  nameWithType: ShellViewModel.ChatName
+  fullName: Messenger.ViewModels.ShellViewModel.ChatName
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ChatName
+    path: ViewModels/ShellViewModel.cs
+    startLine: 42
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public string ChatName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ChatName As String
+  overload: Messenger.ViewModels.ShellViewModel.ChatName*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ShellViewModel.UserProfileCommand
+  commentId: P:Messenger.ViewModels.ShellViewModel.UserProfileCommand
+  id: UserProfileCommand
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: UserProfileCommand
+  nameWithType: ShellViewModel.UserProfileCommand
+  fullName: Messenger.ViewModels.ShellViewModel.UserProfileCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: UserProfileCommand
+    path: ViewModels/ShellViewModel.cs
+    startLine: 50
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public ICommand UserProfileCommand { get; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public ReadOnly Property UserProfileCommand As ICommand
+  overload: Messenger.ViewModels.ShellViewModel.UserProfileCommand*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ShellViewModel.TeamCommand
+  commentId: P:Messenger.ViewModels.ShellViewModel.TeamCommand
+  id: TeamCommand
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: TeamCommand
+  nameWithType: ShellViewModel.TeamCommand
+  fullName: Messenger.ViewModels.ShellViewModel.TeamCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: TeamCommand
+    path: ViewModels/ShellViewModel.cs
+    startLine: 51
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public ICommand TeamCommand { get; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public ReadOnly Property TeamCommand As ICommand
+  overload: Messenger.ViewModels.ShellViewModel.TeamCommand*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ShellViewModel.ChatCommand
+  commentId: P:Messenger.ViewModels.ShellViewModel.ChatCommand
+  id: ChatCommand
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: ChatCommand
+  nameWithType: ShellViewModel.ChatCommand
+  fullName: Messenger.ViewModels.ShellViewModel.ChatCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ChatCommand
+    path: ViewModels/ShellViewModel.cs
+    startLine: 52
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public ICommand ChatCommand { get; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public ReadOnly Property ChatCommand As ICommand
+  overload: Messenger.ViewModels.ShellViewModel.ChatCommand*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ShellViewModel.OpenTeamManager
+  commentId: P:Messenger.ViewModels.ShellViewModel.OpenTeamManager
+  id: OpenTeamManager
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: OpenTeamManager
+  nameWithType: ShellViewModel.OpenTeamManager
+  fullName: Messenger.ViewModels.ShellViewModel.OpenTeamManager
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: OpenTeamManager
+    path: ViewModels/ShellViewModel.cs
+    startLine: 53
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public ICommand OpenTeamManager { get; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public ReadOnly Property OpenTeamManager As ICommand
+  overload: Messenger.ViewModels.ShellViewModel.OpenTeamManager*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ShellViewModel.NotificationCommand
+  commentId: P:Messenger.ViewModels.ShellViewModel.NotificationCommand
+  id: NotificationCommand
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: NotificationCommand
+  nameWithType: ShellViewModel.NotificationCommand
+  fullName: Messenger.ViewModels.ShellViewModel.NotificationCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: NotificationCommand
+    path: ViewModels/ShellViewModel.cs
+    startLine: 54
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public ICommand NotificationCommand { get; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public ReadOnly Property NotificationCommand As ICommand
+  overload: Messenger.ViewModels.ShellViewModel.NotificationCommand*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.ViewModels.ShellViewModel.User
+  commentId: P:Messenger.ViewModels.ShellViewModel.User
+  id: User
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: ShellViewModel.User
+  fullName: Messenger.ViewModels.ShellViewModel.User
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: User
+    path: ViewModels/ShellViewModel.cs
+    startLine: 56
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public UserViewModel User { get; set; }
+    parameters: []
+    return:
+      type: Messenger.ViewModels.UserViewModel
+    content.vb: Public Property User As UserViewModel
+  overload: Messenger.ViewModels.ShellViewModel.User*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ShellViewModel.#ctor
+  commentId: M:Messenger.ViewModels.ShellViewModel.#ctor
+  id: '#ctor'
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: ShellViewModel()
+  nameWithType: ShellViewModel.ShellViewModel()
+  fullName: Messenger.ViewModels.ShellViewModel.ShellViewModel()
+  type: Constructor
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: .ctor
+    path: ViewModels/ShellViewModel.cs
+    startLine: 62
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public ShellViewModel()
+    content.vb: Public Sub New
+  overload: Messenger.ViewModels.ShellViewModel.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.ViewModels.ShellViewModel.Initialize(Windows.UI.Xaml.Controls.Frame,Windows.UI.Xaml.Controls.Frame)
+  commentId: M:Messenger.ViewModels.ShellViewModel.Initialize(Windows.UI.Xaml.Controls.Frame,Windows.UI.Xaml.Controls.Frame)
+  id: Initialize(Windows.UI.Xaml.Controls.Frame,Windows.UI.Xaml.Controls.Frame)
+  parent: Messenger.ViewModels.ShellViewModel
+  langs:
+  - csharp
+  - vb
+  name: Initialize(Frame, Frame)
+  nameWithType: ShellViewModel.Initialize(Frame, Frame)
+  fullName: Messenger.ViewModels.ShellViewModel.Initialize(Windows.UI.Xaml.Controls.Frame, Windows.UI.Xaml.Controls.Frame)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/ViewModels/ShellViewModel.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Initialize
+    path: ViewModels/ShellViewModel.cs
+    startLine: 66
+  assemblies:
+  - Messenger
+  namespace: Messenger.ViewModels
+  syntax:
+    content: public void Initialize(Frame frame, Frame sideFrame)
+    parameters:
+    - id: frame
+      type: Windows.UI.Xaml.Controls.Frame
+    - id: sideFrame
+      type: Windows.UI.Xaml.Controls.Frame
+    content.vb: Public Sub Initialize(frame As Frame, sideFrame As Frame)
+  overload: Messenger.ViewModels.ShellViewModel.Initialize*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.ViewModels
+  commentId: N:Messenger.ViewModels
+  name: Messenger.ViewModels
+  nameWithType: Messenger.ViewModels
+  fullName: Messenger.ViewModels
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Messenger.Helpers.Observable
+  commentId: T:Messenger.Helpers.Observable
+  parent: Messenger.Helpers
+  name: Observable
+  nameWithType: Observable
+  fullName: Messenger.Helpers.Observable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Messenger.Helpers.Observable.PropertyChanged
+  commentId: E:Messenger.Helpers.Observable.PropertyChanged
+  parent: Messenger.Helpers.Observable
+  name: PropertyChanged
+  nameWithType: Observable.PropertyChanged
+  fullName: Messenger.Helpers.Observable.PropertyChanged
+- uid: Messenger.Helpers.Observable.Set``1({T}@,{T},System.String)
+  commentId: M:Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  parent: Messenger.Helpers.Observable
+  definition: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  name: Set<T>(T, T, String)
+  nameWithType: Observable.Set<T>(T, T, String)
+  fullName: Messenger.Helpers.Observable.Set<T>(T, T, System.String)
+  nameWithType.vb: Observable.Set(Of T)(T, T, String)
+  fullName.vb: Messenger.Helpers.Observable.Set(Of T)(T, T, System.String)
+  name.vb: Set(Of T)(T, T, String)
+  spec.csharp:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set<T>
+    nameWithType: Observable.Set<T>
+    fullName: Messenger.Helpers.Observable.Set<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set(Of T)
+    nameWithType: Observable.Set(Of T)
+    fullName: Messenger.Helpers.Observable.Set(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  commentId: M:Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  parent: Messenger.Helpers.Observable
+  isExternal: true
+  name: OnPropertyChanged(String)
+  nameWithType: Observable.OnPropertyChanged(String)
+  fullName: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+  spec.csharp:
+  - uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+    name: OnPropertyChanged
+    nameWithType: Observable.OnPropertyChanged
+    fullName: Messenger.Helpers.Observable.OnPropertyChanged
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Helpers.Observable.OnPropertyChanged(System.String)
+    name: OnPropertyChanged
+    nameWithType: Observable.OnPropertyChanged
+    fullName: Messenger.Helpers.Observable.OnPropertyChanged
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Helpers
+  commentId: N:Messenger.Helpers
+  name: Messenger.Helpers
+  nameWithType: Messenger.Helpers
+  fullName: Messenger.Helpers
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+- uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  commentId: M:Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+  isExternal: true
+  name: Set<T>(T, T, String)
+  nameWithType: Observable.Set<T>(T, T, String)
+  fullName: Messenger.Helpers.Observable.Set<T>(T, T, System.String)
+  nameWithType.vb: Observable.Set(Of T)(T, T, String)
+  fullName.vb: Messenger.Helpers.Observable.Set(Of T)(T, T, System.String)
+  name.vb: Set(Of T)(T, T, String)
+  spec.csharp:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set<T>
+    nameWithType: Observable.Set<T>
+    fullName: Messenger.Helpers.Observable.Set<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Helpers.Observable.Set``1(``0@,``0,System.String)
+    name: Set(Of T)
+    nameWithType: Observable.Set(Of T)
+    fullName: Messenger.Helpers.Observable.Set(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.ViewModels.ShellViewModel.ChatName*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.ChatName
+  name: ChatName
+  nameWithType: ShellViewModel.ChatName
+  fullName: Messenger.ViewModels.ShellViewModel.ChatName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Messenger.ViewModels.ShellViewModel.UserProfileCommand*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.UserProfileCommand
+  name: UserProfileCommand
+  nameWithType: ShellViewModel.UserProfileCommand
+  fullName: Messenger.ViewModels.ShellViewModel.UserProfileCommand
+- uid: System.Windows.Input.ICommand
+  commentId: T:System.Windows.Input.ICommand
+  parent: System.Windows.Input
+  isExternal: true
+  name: ICommand
+  nameWithType: ICommand
+  fullName: System.Windows.Input.ICommand
+- uid: System.Windows.Input
+  commentId: N:System.Windows.Input
+  isExternal: true
+  name: System.Windows.Input
+  nameWithType: System.Windows.Input
+  fullName: System.Windows.Input
+- uid: Messenger.ViewModels.ShellViewModel.TeamCommand*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.TeamCommand
+  name: TeamCommand
+  nameWithType: ShellViewModel.TeamCommand
+  fullName: Messenger.ViewModels.ShellViewModel.TeamCommand
+- uid: Messenger.ViewModels.ShellViewModel.ChatCommand*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.ChatCommand
+  name: ChatCommand
+  nameWithType: ShellViewModel.ChatCommand
+  fullName: Messenger.ViewModels.ShellViewModel.ChatCommand
+- uid: Messenger.ViewModels.ShellViewModel.OpenTeamManager*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.OpenTeamManager
+  name: OpenTeamManager
+  nameWithType: ShellViewModel.OpenTeamManager
+  fullName: Messenger.ViewModels.ShellViewModel.OpenTeamManager
+- uid: Messenger.ViewModels.ShellViewModel.NotificationCommand*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.NotificationCommand
+  name: NotificationCommand
+  nameWithType: ShellViewModel.NotificationCommand
+  fullName: Messenger.ViewModels.ShellViewModel.NotificationCommand
+- uid: Messenger.ViewModels.ShellViewModel.User*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.User
+  name: User
+  nameWithType: ShellViewModel.User
+  fullName: Messenger.ViewModels.ShellViewModel.User
+- uid: Messenger.ViewModels.UserViewModel
+  commentId: T:Messenger.ViewModels.UserViewModel
+  parent: Messenger.ViewModels
+  name: UserViewModel
+  nameWithType: UserViewModel
+  fullName: Messenger.ViewModels.UserViewModel
+- uid: Messenger.ViewModels.ShellViewModel.#ctor*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.#ctor
+  name: ShellViewModel
+  nameWithType: ShellViewModel.ShellViewModel
+  fullName: Messenger.ViewModels.ShellViewModel.ShellViewModel
+- uid: Messenger.ViewModels.ShellViewModel.Initialize*
+  commentId: Overload:Messenger.ViewModels.ShellViewModel.Initialize
+  name: Initialize
+  nameWithType: ShellViewModel.Initialize
+  fullName: Messenger.ViewModels.ShellViewModel.Initialize
+- uid: Windows.UI.Xaml.Controls.Frame
+  commentId: T:Windows.UI.Xaml.Controls.Frame
+  parent: Windows.UI.Xaml.Controls
+  isExternal: true
+  name: Frame
+  nameWithType: Frame
+  fullName: Windows.UI.Xaml.Controls.Frame
+- uid: Windows.UI.Xaml.Controls
+  commentId: N:Windows.UI.Xaml.Controls
+  isExternal: true
+  name: Windows.UI.Xaml.Controls
+  nameWithType: Windows.UI.Xaml.Controls
+  fullName: Windows.UI.Xaml.Controls

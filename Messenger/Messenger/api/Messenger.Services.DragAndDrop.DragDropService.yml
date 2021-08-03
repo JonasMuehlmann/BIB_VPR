@@ -1,0 +1,539 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Services.DragAndDrop.DragDropService
+  commentId: T:Messenger.Services.DragAndDrop.DragDropService
+  id: DragDropService
+  parent: Messenger.Services.DragAndDrop
+  children:
+  - Messenger.Services.DragAndDrop.DragDropService.GetConfiguration(Windows.UI.Xaml.DependencyObject)
+  - Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration(Windows.UI.Xaml.DependencyObject)
+  - Messenger.Services.DragAndDrop.DragDropService.SetConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.DropConfiguration)
+  - Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.VisualDropConfiguration)
+  langs:
+  - csharp
+  - vb
+  name: DragDropService
+  nameWithType: DragDropService
+  fullName: Messenger.Services.DragAndDrop.DragDropService
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DragDropService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragDropService
+    path: Services/DragAndDrop/DragDropService.cs
+    startLine: 10
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public class DragDropService
+    content.vb: Public Class DragDropService
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Services.DragAndDrop.DragDropService.SetConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.DropConfiguration)
+  commentId: M:Messenger.Services.DragAndDrop.DragDropService.SetConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.DropConfiguration)
+  id: SetConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.DropConfiguration)
+  parent: Messenger.Services.DragAndDrop.DragDropService
+  langs:
+  - csharp
+  - vb
+  name: SetConfiguration(DependencyObject, DropConfiguration)
+  nameWithType: DragDropService.SetConfiguration(DependencyObject, DropConfiguration)
+  fullName: Messenger.Services.DragAndDrop.DragDropService.SetConfiguration(Windows.UI.Xaml.DependencyObject, Messenger.Services.DragAndDrop.DropConfiguration)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DragDropService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SetConfiguration
+    path: Services/DragAndDrop/DragDropService.cs
+    startLine: 24
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static void SetConfiguration(DependencyObject dependencyObject, DropConfiguration value)
+    parameters:
+    - id: dependencyObject
+      type: Windows.UI.Xaml.DependencyObject
+    - id: value
+      type: Messenger.Services.DragAndDrop.DropConfiguration
+    content.vb: Public Shared Sub SetConfiguration(dependencyObject As DependencyObject, value As DropConfiguration)
+  overload: Messenger.Services.DragAndDrop.DragDropService.SetConfiguration*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Services.DragAndDrop.DragDropService.GetConfiguration(Windows.UI.Xaml.DependencyObject)
+  commentId: M:Messenger.Services.DragAndDrop.DragDropService.GetConfiguration(Windows.UI.Xaml.DependencyObject)
+  id: GetConfiguration(Windows.UI.Xaml.DependencyObject)
+  parent: Messenger.Services.DragAndDrop.DragDropService
+  langs:
+  - csharp
+  - vb
+  name: GetConfiguration(DependencyObject)
+  nameWithType: DragDropService.GetConfiguration(DependencyObject)
+  fullName: Messenger.Services.DragAndDrop.DragDropService.GetConfiguration(Windows.UI.Xaml.DependencyObject)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DragDropService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetConfiguration
+    path: Services/DragAndDrop/DragDropService.cs
+    startLine: 32
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static DropConfiguration GetConfiguration(DependencyObject dependencyObject)
+    parameters:
+    - id: dependencyObject
+      type: Windows.UI.Xaml.DependencyObject
+    return:
+      type: Messenger.Services.DragAndDrop.DropConfiguration
+    content.vb: Public Shared Function GetConfiguration(dependencyObject As DependencyObject) As DropConfiguration
+  overload: Messenger.Services.DragAndDrop.DragDropService.GetConfiguration*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.VisualDropConfiguration)
+  commentId: M:Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.VisualDropConfiguration)
+  id: SetVisualConfiguration(Windows.UI.Xaml.DependencyObject,Messenger.Services.DragAndDrop.VisualDropConfiguration)
+  parent: Messenger.Services.DragAndDrop.DragDropService
+  langs:
+  - csharp
+  - vb
+  name: SetVisualConfiguration(DependencyObject, VisualDropConfiguration)
+  nameWithType: DragDropService.SetVisualConfiguration(DependencyObject, VisualDropConfiguration)
+  fullName: Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration(Windows.UI.Xaml.DependencyObject, Messenger.Services.DragAndDrop.VisualDropConfiguration)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DragDropService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SetVisualConfiguration
+    path: Services/DragAndDrop/DragDropService.cs
+    startLine: 37
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static void SetVisualConfiguration(DependencyObject dependencyObject, VisualDropConfiguration value)
+    parameters:
+    - id: dependencyObject
+      type: Windows.UI.Xaml.DependencyObject
+    - id: value
+      type: Messenger.Services.DragAndDrop.VisualDropConfiguration
+    content.vb: Public Shared Sub SetVisualConfiguration(dependencyObject As DependencyObject, value As VisualDropConfiguration)
+  overload: Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration(Windows.UI.Xaml.DependencyObject)
+  commentId: M:Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration(Windows.UI.Xaml.DependencyObject)
+  id: GetVisualConfiguration(Windows.UI.Xaml.DependencyObject)
+  parent: Messenger.Services.DragAndDrop.DragDropService
+  langs:
+  - csharp
+  - vb
+  name: GetVisualConfiguration(DependencyObject)
+  nameWithType: DragDropService.GetVisualConfiguration(DependencyObject)
+  fullName: Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration(Windows.UI.Xaml.DependencyObject)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DragDropService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetVisualConfiguration
+    path: Services/DragAndDrop/DragDropService.cs
+    startLine: 45
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static VisualDropConfiguration GetVisualConfiguration(DependencyObject dependencyObject)
+    parameters:
+    - id: dependencyObject
+      type: Windows.UI.Xaml.DependencyObject
+    return:
+      type: Messenger.Services.DragAndDrop.VisualDropConfiguration
+    content.vb: Public Shared Function GetVisualConfiguration(dependencyObject As DependencyObject) As VisualDropConfiguration
+  overload: Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: Messenger.Services.DragAndDrop
+  commentId: N:Messenger.Services.DragAndDrop
+  name: Messenger.Services.DragAndDrop
+  nameWithType: Messenger.Services.DragAndDrop
+  fullName: Messenger.Services.DragAndDrop
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Services.DragAndDrop.DragDropService.SetConfiguration*
+  commentId: Overload:Messenger.Services.DragAndDrop.DragDropService.SetConfiguration
+  name: SetConfiguration
+  nameWithType: DragDropService.SetConfiguration
+  fullName: Messenger.Services.DragAndDrop.DragDropService.SetConfiguration
+- uid: Windows.UI.Xaml.DependencyObject
+  commentId: T:Windows.UI.Xaml.DependencyObject
+  parent: Windows.UI.Xaml
+  isExternal: true
+  name: DependencyObject
+  nameWithType: DependencyObject
+  fullName: Windows.UI.Xaml.DependencyObject
+- uid: Messenger.Services.DragAndDrop.DropConfiguration
+  commentId: T:Messenger.Services.DragAndDrop.DropConfiguration
+  parent: Messenger.Services.DragAndDrop
+  name: DropConfiguration
+  nameWithType: DropConfiguration
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration
+- uid: Windows.UI.Xaml
+  commentId: N:Windows.UI.Xaml
+  isExternal: true
+  name: Windows.UI.Xaml
+  nameWithType: Windows.UI.Xaml
+  fullName: Windows.UI.Xaml
+- uid: Messenger.Services.DragAndDrop.DragDropService.GetConfiguration*
+  commentId: Overload:Messenger.Services.DragAndDrop.DragDropService.GetConfiguration
+  name: GetConfiguration
+  nameWithType: DragDropService.GetConfiguration
+  fullName: Messenger.Services.DragAndDrop.DragDropService.GetConfiguration
+- uid: Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration*
+  commentId: Overload:Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration
+  name: SetVisualConfiguration
+  nameWithType: DragDropService.SetVisualConfiguration
+  fullName: Messenger.Services.DragAndDrop.DragDropService.SetVisualConfiguration
+- uid: Messenger.Services.DragAndDrop.VisualDropConfiguration
+  commentId: T:Messenger.Services.DragAndDrop.VisualDropConfiguration
+  parent: Messenger.Services.DragAndDrop
+  name: VisualDropConfiguration
+  nameWithType: VisualDropConfiguration
+  fullName: Messenger.Services.DragAndDrop.VisualDropConfiguration
+- uid: Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration*
+  commentId: Overload:Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration
+  name: GetVisualConfiguration
+  nameWithType: DragDropService.GetVisualConfiguration
+  fullName: Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration

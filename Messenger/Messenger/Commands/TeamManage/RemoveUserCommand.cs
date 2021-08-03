@@ -23,7 +23,7 @@ namespace Messenger.Commands.TeamManage
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-                && string.IsNullOrEmpty(parameter.ToString())
+                && !string.IsNullOrEmpty(parameter.ToString())
                 && App.StateProvider.SelectedTeam != null;
 
             if (!executable) return;
