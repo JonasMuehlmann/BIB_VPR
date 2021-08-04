@@ -72,7 +72,7 @@ namespace Messenger.ViewModels.Controls
             }
             else if (e.Reason == BroadcastReasons.Updated)
             {
-                MessageViewModel target = Messages.FirstOrDefault(m => m.Id == message.Id); //TODO error is here
+                MessageViewModel target = Messages.FirstOrDefault(m => m.Id == message.Id);
 
                 if (target != null)
                 {
