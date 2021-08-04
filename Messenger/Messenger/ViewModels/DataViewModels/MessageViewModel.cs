@@ -24,10 +24,12 @@ namespace Messenger.ViewModels.DataViewModels
         private MemberViewModel _sender;
         private ObservableCollection<MessageViewModel> _replies;
         private ObservableCollection<Reaction> _reactions;
+        private int _reachtionLikeCount;
+        private int _reachtionDislikeCount;
+        private int _reachtionSurprisedCount;
+        private int _reachtionAngryCount;
         private List<Attachment> _attachments;
         private bool _isMyMessage;
-        private PackIconFontAwesomeKind _mostReaction;
-        private int _mostReactionCount;
 
         #endregion
 
@@ -82,39 +84,64 @@ namespace Messenger.ViewModels.DataViewModels
         public ObservableCollection<Reaction> Reactions
         {
             get { return _reactions; }
-            set {
+            set
+            {
                 Set(ref _reactions, value);
-                PackIconFontAwesome packIconMaterial = new PackIconFontAwesome();
-                if (value.Count != 0)
+                if (value.Count > 0)
                 {
-                    var mostList = value.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key);
-                    string most = mostList.First().Symbol;
-                    MostReactionCount = mostList.Count();
-                    most = most ?? "Like";
-
-                    ReactionType react = (ReactionType)Enum.Parse(typeof(ReactionType), most);
-                    switch (react)
+                    foreach (var reaction in _reactions)
                     {
-                        case ReactionType.Like:
-                            MostReaction = PackIconFontAwesomeKind.ThumbsUpRegular;
-                            break;
-                        case ReactionType.Dislike:
-                            MostReaction = PackIconFontAwesomeKind.ThumbsDownRegular;
-                            break;
-                        case ReactionType.Surprised:
-                            MostReaction = PackIconFontAwesomeKind.SurpriseRegular;
-                            break;
-                        case ReactionType.Angry:
-                            MostReaction = PackIconFontAwesomeKind.AngryRegular;
-                            break;
-                        default:
-                            MostReaction = PackIconFontAwesomeKind.ThumbsUpRegular;
-                            break;
+                        if (reaction.Symbol == "Like")
+                        {
+                            ReachtionLikeCount += 1;
+                        }
+                        else if (reaction.Symbol == "Dislike")
+                        {
+                           ReachtionDislikeCount += 1;
+                        }
+                        else if (reaction.Symbol == "Surprised")
+                        {
+                            ReachtionSurpriseCount += 1;
+                        }
+                        else if (reaction.Symbol == "Angry")
+                        {
+                            ReachtionAngryCount += 1;
+                        }
                     }
                 }
-                else {
-                    MostReaction = PackIconFontAwesomeKind.ThumbsUpRegular;
-                }
+            }
+        }
+
+        public int ReachtionLikeCount
+        {
+            get { return _reachtionLikeCount; }
+            set
+            {
+                Set(ref _reachtionLikeCount, value);
+            }
+        }
+        public int ReachtionDislikeCount
+        {
+            get { return _reachtionDislikeCount; }
+            set
+            {
+                Set(ref _reachtionDislikeCount, value);
+            }
+        }
+        public int ReachtionSurpriseCount
+        {
+            get { return _reachtionSurprisedCount; }
+            set
+            {
+                Set(ref _reachtionSurprisedCount, value);
+            }
+        }
+        public int ReachtionAngryCount
+        {
+            get { return _reachtionAngryCount; }
+            set
+            {
+                Set(ref _reachtionAngryCount, value);
             }
         }
 
@@ -140,18 +167,6 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _isMyMessage; }
             set { Set(ref _isMyMessage, value); }
-        }
-
-        public PackIconFontAwesomeKind MostReaction
-        {
-            get { return _mostReaction; }
-            set { Set(ref _mostReaction, value); }
-        }
-
-        public int MostReactionCount
-        {
-            get { return _mostReactionCount; }
-            set { Set(ref _mostReactionCount, value); }
         }
 
         public ReactionType MyReaction

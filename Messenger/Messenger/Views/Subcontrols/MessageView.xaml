@@ -197,29 +197,90 @@
                                     />
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel
-                            Grid.Column="2"
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <StackPanel
                             Orientation="Horizontal">
-                            <TextBlock
+                                <TextBlock
                                 VerticalAlignment="Center"
                                 Margin="5 0">
                                 <Run
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
                                     Text="{Binding
-                                        MostReactionCount,
+                                        ReachtionLikeCount,
                                         Mode=OneWay}"
                                     />
-                            </TextBlock>
-                            <Viewbox
+                                </TextBlock>
+                                <Viewbox
                                 Height="15">
-                                <icons:PackIconFontAwesome
-                                    Kind="{Binding
-                                        MostReaction,
-                                        Mode=OneWay}"
+                                    <icons:PackIconFontAwesome
+                                    Kind="ThumbsUpRegular"
                                     Foreground="{ThemeResource SystemAccentColor}">
-                                </icons:PackIconFontAwesome>
-                            </Viewbox>
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="5 0">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding
+                                        ReachtionDislikeCount,
+                                        Mode=OneWay}"
+                                    />
+                                </TextBlock>
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="ThumbsDownRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="5 0">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding
+                                        ReachtionSurpriseCount,
+                                        Mode=OneWay}"
+                                    />
+                                </TextBlock>
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="SurpriseRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                            </StackPanel><StackPanel
+                                Orientation="Horizontal">
+                                <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="5 0">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding
+                                        ReachtionAngryCount,
+                                        Mode=OneWay}"
+                                    />
+                                </TextBlock>
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="AngryRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                     <!-- MESSAGE CONTENT -->
@@ -352,7 +413,7 @@
                                                     />
                                 </AppBarButton.Icon>
                             </AppBarButton>
-                                <!-- ADD OR UPDATE REACTION -->
+                            <!-- ADD OR UPDATE REACTION -->
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
                                
@@ -381,7 +442,7 @@
                                                     />
                                             </AppBarToggleButton.Icon>
                                         </AppBarToggleButton>
-                                        
+
                                         <AppBarToggleButton
                                             x:Name="DislikeButton"
                                             Style="{StaticResource ReactionButtonStyle}"
