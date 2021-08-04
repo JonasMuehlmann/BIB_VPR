@@ -176,6 +176,7 @@
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
+    <Compile Include="Helpers\Converters\CountToVisibilityConverter.cs" />
     <Compile Include="ViewModels\Controls\InboxControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\UserSearchPanelViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxes\CreateChatDialogViewModel.cs" />
