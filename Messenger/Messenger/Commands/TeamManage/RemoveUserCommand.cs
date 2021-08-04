@@ -54,7 +54,7 @@ namespace Messenger.Commands.TeamManage
                 if (isSuccess)
                 {
                     await ResultConfirmationDialog
-                        .Set(true, $"Invited user \"{user.DisplayName}\" to the team")
+                        .Set(true, $"Removed \"{user.DisplayName}\" from the team")
                         .ShowAsync();
                 }
             }
