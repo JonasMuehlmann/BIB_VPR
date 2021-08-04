@@ -23,7 +23,7 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
@@ -41,7 +41,7 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
@@ -68,7 +68,7 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
 
                 Assert.IsNotNull(teamId);
 
@@ -97,7 +97,7 @@ namespace Messenger.Tests.MSTest
 
             }).GetAwaiter().GetResult();
         }
-      
+
         [TestMethod]
         public void PinMessage_Test()
         {
@@ -106,7 +106,7 @@ namespace Messenger.Tests.MSTest
            Task.Run(async () =>
            {
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"});
-                var teamId = await TeamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(userId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
                 var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
@@ -135,7 +135,7 @@ namespace Messenger.Tests.MSTest
            Task.Run(async () =>
            {
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"});
-                var teamId = await TeamService.CreateTeam(testName + "Team");
+                var teamId = await TeamService.CreateTeam(userId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
                 var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);

@@ -48,8 +48,8 @@ namespace Messenger.Core.Services
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
-            var success1 = await AddMember(myUserId,    teamID.Value);
-            var success2 = await AddMember(otherUserId, teamID.Value);
+            var success1 = await SendInvitation(myUserId,    teamID.Value);
+            var success2 = await SendInvitation(otherUserId, teamID.Value);
 
             if (!(success1 && success2))
             {
@@ -140,9 +140,7 @@ namespace Messenger.Core.Services
 
             foreach (var permission in Enum.GetValues(typeof(Permissions)).Cast<Permissions>())
             {
-                uint? teamRoleId = await TeamService.GrantPermission(chatId.Value, "admin", permission);
-
-                grantedAllPermissions &= teamRoleId != null;
+                grantedAllPermissions &= await TeamService.GrantPermission(chatId.Value, "admin", permission);
             }
 
             uint? channelId = await ChannelService.CreateChannel("main", chatId.Value);

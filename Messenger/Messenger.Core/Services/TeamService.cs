@@ -20,9 +20,9 @@ namespace Messenger.Core.Services
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
-        public static async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
+        private static async Task<uint?> CreateTeamImpl(string teamName, string teamDescription = "")
         {
-            LogContext.PushProperty("Method",        "CreateTeam");
+            LogContext.PushProperty("Method",        "CreateTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}"
@@ -50,7 +50,7 @@ namespace Messenger.Core.Services
                                                              Convert.ToUInt32
                                                             );
 
-            LogContext.PushProperty("Method",        "CreateTeam");
+            LogContext.PushProperty("Method",        "CreateImplTeam");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             var createEmptyRoleQuery = $@"
@@ -64,7 +64,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
-            LogContext.PushProperty("Method",        "CreateTeam");
+            LogContext.PushProperty("Method",        "CreateTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             return result;
@@ -76,9 +76,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        public static async Task<bool> DeleteTeam(uint teamId)
+        private static async Task<bool> DeleteTeamImpl(uint teamId)
         {
-            LogContext.PushProperty("Method",        "DeleteTeam");
+            LogContext.PushProperty("Method",        "DeleteTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamId={teamId}");
@@ -109,9 +109,9 @@ namespace Messenger.Core.Services
         /// <param name="teamDescription"></param>
         /// <param name="teamId"></param>
         /// <returns></returns>
-        public static async Task<bool> UpdateTeam(string teamName, string teamDescription, uint teamId)
+        private static async Task<bool> UpdateTeamImpl(string teamName, string teamDescription, uint teamId)
         {
-            LogContext.PushProperty("Method",        "UpdateTeam");
+            LogContext.PushProperty("Method",        "UpdateTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamName={teamName}, teamDescription={teamDescription}, teamId={teamId}"
@@ -137,9 +137,9 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team which's should be changed</param>
         /// <param name="teamName">New name of the team</param>
         /// <returns>True, if the teams name was changed, false otherwise</returns>
-        public static async Task<bool> ChangeTeamName(uint teamId, string teamName)
+        private static async Task<bool> ChangeTeamNameImpl(uint teamId, string teamName)
         {
-            LogContext.PushProperty("Method",        "ChangeTeamName");
+            LogContext.PushProperty("Method",        "ChangeTeamNameImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamId={teamId}, teamName={teamName}");
@@ -169,9 +169,9 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team which's should be changed</param>
         /// <param name="description">New description of the team</param>
         /// <returns>True, if the teams name was changed, false otherwise</returns>
-        public static async Task<bool> ChangeTeamDescription(uint teamId, string description)
+        private static async Task<bool> ChangeTeamDescriptionImpl(uint teamId, string description)
         {
-            LogContext.PushProperty("Method",        "ChangeTeamDescription");
+            LogContext.PushProperty("Method",        "ChangeTeamDescriptionImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamId={teamId}, description={description}");
@@ -272,9 +272,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to add to the specified team</param>
         /// <param name="teamId">The id of the team to add the specified user to</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
-        public static async Task<bool> AddMember(string userId, uint teamId)
+        private static async Task<bool> AddMemberImpl(string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "AddMember");
+            LogContext.PushProperty("Method",        "AddMemberImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
@@ -340,9 +340,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to remove from the specified team</param>
         /// <param name="teamId">The id of the team to remove the specified user from</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
-        public static async Task<bool> RemoveMember(string userId, uint teamId)
+        private static async Task<bool> RemoveMemberImpl(string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "RemoveMember");
+            LogContext.PushProperty("Method",        "RemoveMemberImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
@@ -451,10 +451,10 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <param name="colorCode">Hex code of the color</param>
         /// <returns>Id of the added team role</returns>
-        public static async Task<uint?> AddRole(string role, uint teamId, string colorCode)
+        private static async Task<uint?> AddRoleImpl(string role, uint teamId, string colorCode)
         {
             // TODO: Prevent adding duplicate roles
-            LogContext.PushProperty("Method",        "AddRole");
+            LogContext.PushProperty("Method",        "AddRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
@@ -472,10 +472,10 @@ namespace Messenger.Core.Services
         }
 
 
-        public static async Task<bool> UpdateRole(uint roleId, string role, string colorCode)
+        private static async Task<bool> UpdateRoleImpl(uint roleId, string role, string colorCode)
         {
             // TODO: Prevent adding duplicate roles
-            LogContext.PushProperty("Method",        "UpdateRole");
+            LogContext.PushProperty("Method",        "UpdateRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters roleId={roleId}, role={role}, colorCode={colorCode}");
 
@@ -498,10 +498,10 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<uint?> RemoveRole(string role, uint teamId)
+        private static async Task<uint?> RemoveRoleImpl(string role, uint teamId)
         {
             // TODO: Prevent adding duplicate roles
-            LogContext.PushProperty("Method",        "RemoveRole");
+            LogContext.PushProperty("Method",        "RemoveRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
@@ -552,6 +552,42 @@ namespace Messenger.Core.Services
             return rows.Select(Mapper.TeamRoleFromDataRow).First();
         }
 
+        /// <summary>
+        /// Build a role object from a specified role name and the team it belongs to
+        /// </summary>
+        /// <param name="teamId">The id of the team the role belongs to</param>
+        /// <param name="role">The name of the role</param>
+        /// <returns>The built role object on success, null otherwise</returns>
+        public static async Task<TeamRole> GetRole(uint teamId, string role)
+        {
+            // TODO: Prevent adding duplicate roles
+            LogContext.PushProperty("Method",        "GetRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}");
+
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Team_roles
+                                WHERE
+                                    TeamId={teamId}
+                                    AND
+                                    Role = '{role}';
+                ";
+
+            var rows = await SqlHelpers.GetRows("Team_roles", query);
+
+            if (rows.Count() == 0)
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
+
+            return rows.Select(Mapper.TeamRoleFromDataRow).First();
+        }
 
         /// <summary>
         /// Assign a team's member a role
@@ -560,9 +596,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to assign the role to</param>
         /// <param name="teamId">The team to assign a role to a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> AssignRole(string role, string userId, uint teamId)
+        private static async Task<bool> AssignRoleImpl(string role, string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "AssignRole");
+            LogContext.PushProperty("Method",        "AssignRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
@@ -570,7 +606,7 @@ namespace Messenger.Core.Services
             var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
             var Team_rolesId      = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
-            LogContext.PushProperty("Method",        "AssignRole");
+            LogContext.PushProperty("Method",        "AssignRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             if (Team_rolesId == 0)
@@ -602,16 +638,16 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to unassign the role from</param>
         /// <param name="teamId">The team to unassign a role from a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> UnAssignRole(string role, string userId, uint teamId)
+        private static async Task<bool> UnAssignRoleImpl(string role, string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "UnassignRole");
+            LogContext.PushProperty("Method",        "UnassignRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
             var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
             var Team_rolesId      = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
 
-            LogContext.PushProperty("Method",        "UnassignRole");
+            LogContext.PushProperty("Method",        "UnassignRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             if (Team_rolesId == 1)
@@ -732,9 +768,9 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to grant a permission</param>
         /// <param name="permission">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public static async Task<uint?> GrantPermission(uint teamId, string role, Permissions permission)
+        private static async Task<bool> GrantPermissionImpl(uint teamId, string role, Permissions permission)
         {
-            LogContext.PushProperty("Method",        "GrantPermissions");
+            LogContext.PushProperty("Method",        "GrantPermissionsImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}"
@@ -745,7 +781,7 @@ namespace Messenger.Core.Services
 
             var teamRoleId = await SqlHelpers.ExecuteScalarAsync(teamRoleIdQuery, Convert.ToUInt32);
 
-            LogContext.PushProperty("Method",        "GrantPermissions");
+            LogContext.PushProperty("Method",        "GrantPermissionsImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             if (teamRoleId == 1)
@@ -754,7 +790,7 @@ namespace Messenger.Core.Services
 
                 logger.Information("Return value: false");
 
-                return null;
+                return false;
             }
 
             var permissionsIdQuery = $@"
@@ -767,7 +803,7 @@ namespace Messenger.Core.Services
 
             var permissionsId = await SqlHelpers.ExecuteScalarAsync(permissionsIdQuery, Convert.ToUInt32);
 
-            LogContext.PushProperty("Method",        "GrantPermissions");
+            LogContext.PushProperty("Method",        "GrantPermissionsImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             if (permissionsId == 0)
@@ -776,7 +812,7 @@ namespace Messenger.Core.Services
 
                 logger.Information("Return value: false");
 
-                return null;
+                return false;
             }
 
             string query = $@"
@@ -786,12 +822,8 @@ namespace Messenger.Core.Services
 
             bool isSuccess = await SqlHelpers.NonQueryAsync(query);
 
-            if (!isSuccess)
-            {
-                return null;
-            }
+            return isSuccess;
 
-            return teamRoleId;
         }
 
 
@@ -802,9 +834,9 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to revoke a permission from</param>
         /// <param name="permission">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public static async Task<uint?> RevokePermission(uint teamId, string role, Permissions permission)
+        private static async Task<uint?> RevokePermissionImpl(uint teamId, string role, Permissions permission)
         {
-            LogContext.PushProperty("Method",        "RevokePermission");
+            LogContext.PushProperty("Method",        "RevokePermissionImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}"
@@ -814,7 +846,7 @@ namespace Messenger.Core.Services
 
             var teamRoleId = await SqlHelpers.ExecuteScalarAsync(teamRoleIdQuery, Convert.ToUInt32);
 
-            LogContext.PushProperty("Method",        "RevokePermission");
+            LogContext.PushProperty("Method",        "RevokePermissionImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             if (teamRoleId == 1)
@@ -836,7 +868,7 @@ namespace Messenger.Core.Services
 
             var permissionId = await SqlHelpers.ExecuteScalarAsync(permissionIdQuery, Convert.ToUInt32);
 
-            LogContext.PushProperty("Method",        "RevokePermission");
+            LogContext.PushProperty("Method",        "RevokePermissionImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
 
             if (permissionId == 0)
@@ -983,13 +1015,13 @@ namespace Messenger.Core.Services
         public static async Task<uint?> CreateTeam(string creatorId, string teamName, string teamDescription = "")
         {
             LogContext.PushProperty("Method",        "CreateTeam");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters creatorId={creatorId}, teamName={teamName}, teamDescription={teamDescription}"
                               );
 
             // Create team and save to database
-            uint? teamId = await TeamService.CreateTeam(teamName, teamDescription);
+            uint? teamId = await CreateTeamImpl(teamName, teamDescription);
 
             if (teamId == null)
             {
@@ -1001,18 +1033,16 @@ namespace Messenger.Core.Services
 
             // Create membership for the creator and save to database, also make him the
             // admin
-            await TeamService.AddMember(creatorId, (uint) teamId);
-            await TeamService.AddRole("admin", (uint) teamId, "CD5C5C");
-            await TeamService.AssignRole("admin", creatorId, (uint) teamId);
+            await AddMemberImpl(creatorId, (uint) teamId);
+            await AddRole("admin", (uint) teamId, "CD5C5C");
+            await AssignRole("admin", creatorId, (uint) teamId);
 
             // Grant admin all permissions
             bool grantedAllPermissions = true;
 
             foreach (var permission in Enum.GetValues(typeof(Permissions)).Cast<Permissions>())
             {
-                uint? teamRoleId = await TeamService.GrantPermission(teamId.Value, "admin", permission);
-
-                grantedAllPermissions &= teamRoleId != null;
+                grantedAllPermissions &= await GrantPermission(teamId.Value, "admin", permission);
             }
 
             // Create main channel
@@ -1028,7 +1058,7 @@ namespace Messenger.Core.Services
                 return null;
             }
 
-            Team team = await TeamService.GetTeam((uint) teamId);
+            Team team = await GetTeam((uint) teamId);
 
             if (team == null)
             {
@@ -1058,15 +1088,15 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team to rename</param>
         /// <param name="teamName">The new team name</param>
         /// <returns>True if the team was successfully renamed, false otherwise</returns>
-        public static async Task<bool> UpdateTeamName(string teamName, uint teamId)
+        public static async Task<bool> ChangeTeamName(string teamName, uint teamId)
         {
             LogContext.PushProperty("Method",        "ChangeTeamName");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters teamName={teamName}, teamId={teamId}");
 
-            var result = await TeamService.ChangeTeamName(teamId, teamName);
+            var result = await ChangeTeamNameImpl(teamId, teamName);
 
-            var team = await TeamService.GetTeam(teamId);
+            var team = await GetTeam(teamId);
 
             await SignalRService.UpdateTeam(team);
 
@@ -1084,13 +1114,13 @@ namespace Messenger.Core.Services
         public static async Task<bool> DeleteTeam(uint teamId)
         {
             LogContext.PushProperty("Method",        "DeleteTeam");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            Team team = await TeamService.GetTeam(teamId);
+            Team team = await GetTeam(teamId);
 
             var didDeleteChannels           = await ChannelService.RemoveAllChannels(teamId);
-            var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
+            var didDeleteTeamAndMemberships = await DeleteTeamImpl(teamId);
 
             var result = didDeleteTeamAndMemberships && didDeleteChannels;
 
@@ -1108,15 +1138,15 @@ namespace Messenger.Core.Services
         /// <param name="teamDescription">New description of the team</param>
         /// <param name="teamId">Id of the team to rename</param>
         /// <returns>True if the team's description was successfully changed, false otherwise</returns>
-        public static async Task<bool> UpdateTeamDescription(string teamDescription, uint teamId)
+        public static async Task<bool> ChangeTeamDescription(string teamDescription, uint teamId)
         {
             LogContext.PushProperty("Method",        "ChangeTeamDescription");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters teamDescription={teamDescription}, teamId={teamId}");
 
-            var result = await TeamService.ChangeTeamDescription(teamId, teamDescription);
+            var result = await ChangeTeamDescriptionImpl(teamId, teamDescription);
 
-            var team = await TeamService.GetTeam(teamId);
+            var team = await GetTeam(teamId);
 
             await SignalRService.UpdateTeam(team);
 
@@ -1135,11 +1165,11 @@ namespace Messenger.Core.Services
         public static async Task<bool> SendInvitation(string userId, uint teamId)
         {
             LogContext.PushProperty("Method",        "InviteUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             User user = await UserService.GetUser(userId);
-            Team team = await TeamService.GetTeam(teamId);
+            Team team = await GetTeam(teamId);
 
             if (user == null
              || team == null)
@@ -1151,7 +1181,7 @@ namespace Messenger.Core.Services
             }
 
             // Create membership for the user and save to database
-            bool isSuccess = await TeamService.AddMember(userId, teamId);
+            bool isSuccess = await AddMemberImpl(userId, teamId);
 
             if (!isSuccess)
             {
@@ -1178,12 +1208,12 @@ namespace Messenger.Core.Services
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
         public static async Task<bool> RemoveMember(string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "RemoveUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "RemoveMember");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters userId={userId}, teamId={teamId}");
 
             User user = await UserService.GetUser(userId);
-            Team team = await TeamService.GetTeam(teamId);
+            Team team = await GetTeam(teamId);
 
             if (user == null
              || team == null)
@@ -1195,7 +1225,7 @@ namespace Messenger.Core.Services
             }
 
             // Create membership for the user and save to database
-            await TeamService.RemoveMember(userId, teamId);
+            await RemoveMemberImpl(userId, teamId);
 
             await SignalRService.RemoveMember(user, team);
 
@@ -1212,14 +1242,14 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <param name="colorCode">Hex code of the color</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> CreateTeamRole(string role, uint teamId, string colorCode)
+        public static async Task<bool> AddRole(string role, uint teamId, string colorCode)
         {
-            LogContext.PushProperty("Method",        "AddRoleToTeam");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "AddRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            uint?    roleId   = await TeamService.AddRole(role, teamId, colorCode);
-            TeamRole teamRole = await TeamService.GetRole((uint) roleId);
+            uint?    roleId   = await AddRoleImpl(role, teamId, colorCode);
+            TeamRole teamRole = await GetRole((uint) roleId);
 
             if (teamRole == null)
             {
@@ -1234,14 +1264,14 @@ namespace Messenger.Core.Services
         }
 
 
-        public static async Task<bool> UpdateTeamRole(uint roleId, string role, string colorCode)
+        public static async Task<bool> UpdateRole(uint roleId, string role, string colorCode)
         {
-            LogContext.PushProperty("Method",        "AddRoleToTeam");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "UpdateRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters roleId={roleId}, role={role}, colorCode={colorCode}");
 
-            bool     isSuccess = await TeamService.UpdateRole(roleId, role, colorCode);
-            TeamRole teamRole  = await TeamService.GetRole(roleId);
+            bool     isSuccess = await UpdateRoleImpl(roleId, role, colorCode);
+            TeamRole teamRole  = await GetRole(roleId);
 
             if (!isSuccess || teamRole == null)
             {
@@ -1262,14 +1292,14 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> DeleteTeamRole(string role, uint teamId)
+        public static async Task<bool> RemoveRole(string role, uint teamId)
         {
-            LogContext.PushProperty("Method",        "RemoveRoleToTeam");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "RemoveRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, teamId={teamId}");
 
-            uint?    roleId   = await TeamService.RemoveRole(role, teamId);
-            TeamRole teamRole = await TeamService.GetRole((uint) roleId);
+            uint?    roleId   = await RemoveRoleImpl(role, teamId);
+            TeamRole teamRole = await GetRole((uint) roleId);
 
             if (teamRole == null)
             {
@@ -1278,9 +1308,9 @@ namespace Messenger.Core.Services
 
             bool isSuccess = true;
 
-            foreach (var user in await TeamService.GetUsersWithRole(teamId, role))
+            foreach (var user in await GetUsersWithRole(teamId, role))
             {
-                isSuccess &= await TeamService.UnAssignRole(role, user.Id, teamId);
+                isSuccess &= await UnAssignRole(role, user.Id, teamId);
             }
 
             if (!isSuccess)
@@ -1303,14 +1333,14 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to assign the role to</param>
         /// <param name="teamId">The team to assign a role to a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> AssignUserRole(string role, string userId, uint teamId)
+        public static async Task<bool> AssignRole(string role, string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "AssignUserRole");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "AssignRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
             User user = await UserService.GetUser(userId);
-            Team team = await TeamService.GetTeam(teamId);
+            Team team = await GetTeam(teamId);
 
             if (user == null
              || team == null)
@@ -1318,7 +1348,7 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            bool isSuccess = await TeamService.AssignRole(role, userId, teamId);
+            bool isSuccess = await AssignRoleImpl(role, userId, teamId);
 
             if (!isSuccess)
             {
@@ -1340,14 +1370,14 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to unassign the role from</param>
         /// <param name="teamId">The team to unassign a role from a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> UnassignUserRole(string role, string userId, uint teamId)
+        public static async Task<bool> UnAssignRole(string role, string userId, uint teamId)
         {
-            LogContext.PushProperty("Method",        "UnAssignUserRole");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "UnAssignRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters role={role}, userId={userId}, teamId={teamId}");
 
             User user = await UserService.GetUser(userId);
-            Team team = await TeamService.GetTeam(teamId);
+            Team team = await GetTeam(teamId);
 
             if (user == null
              || team == null)
@@ -1355,7 +1385,7 @@ namespace Messenger.Core.Services
                 return false;
             }
 
-            bool isSuccess = await TeamService.UnAssignRole(role, userId, teamId);
+            bool isSuccess = await UnAssignRoleImpl(role, userId, teamId);
 
             if (!isSuccess)
             {
@@ -1379,19 +1409,19 @@ namespace Messenger.Core.Services
         public static async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method",        "GrantPermission");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}"
                               );
 
-            uint? roleId = await TeamService.GrantPermission(teamId, role, permission);
+            bool didGrantPermission  = await GrantPermissionImpl(teamId, role, permission);
 
-            if (roleId == null)
+            if (!didGrantPermission)
             {
                 return false;
             }
 
-            TeamRole teamRole = await TeamService.GetRole((uint) roleId);
+            TeamRole teamRole = await GetRole(teamId, role);
 
             await SignalRService.AddOrUpdateTeamRole(teamRole);
 
@@ -1411,19 +1441,19 @@ namespace Messenger.Core.Services
         public static async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method",        "RevokePermission");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "TeamService");
 
             logger.Information($"Function called with parameters role={role}, teamId={teamId}, permission={permission}"
                               );
 
-            uint? roleId = await TeamService.RevokePermission(teamId, role, permission);
+            uint? roleId = await RevokePermissionImpl(teamId, role, permission);
 
             if (roleId == null)
             {
                 return false;
             }
 
-            TeamRole teamRole = await TeamService.GetRole((uint) roleId);
+            TeamRole teamRole = await GetRole((uint) roleId);
 
             if (teamRole == null)
             {
@@ -1436,7 +1466,7 @@ namespace Messenger.Core.Services
 
             return true;
         }
-        
+
         #endregion SignalREnabled
     }
 }

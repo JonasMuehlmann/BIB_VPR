@@ -25,11 +25,11 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
+
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
@@ -50,11 +50,11 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
+
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
@@ -78,11 +78,11 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
+
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
@@ -108,11 +108,11 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
+
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
@@ -138,11 +138,12 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
+
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                Assert.IsNotNull(teamId);
+
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
@@ -168,12 +169,11 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                Assert.IsNotNull(teamId);
                 uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
@@ -221,22 +221,25 @@ namespace Messenger.Tests.MSTest
 
                 var userMatchString = $"{testName}1#000001,{testName}1#000002,The{testName}2#000001,Another{testName}#000001,ThisIsA{testName}#000001,A{testName}ThisBe#000001,YetAnother{testName}#000001";
 
-                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? teamIdWanted = await TeamService.CreateTeam(userId, testName + "TeamWanted");
                 Assert.IsNotNull(teamIdWanted);
 
                 foreach (var user in usersWantedTeam)
                 {
                     Assert.IsNotNull(await UserService.GetOrCreateApplicationUser(user));
-                    Assert.IsTrue(await TeamService.AddMember(user.Id, teamIdWanted.Value));
+                    Assert.IsTrue(await TeamService.SendInvitation(user.Id, teamIdWanted.Value));
                 }
 
-                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                uint? teamIdOther = await TeamService.CreateTeam(userId, testName + "TeamOther");
                 Assert.IsNotNull(teamIdOther);
 
                 foreach (var user in usersOtherTeam)
                 {
                     Assert.IsNotNull(await UserService.GetOrCreateApplicationUser(user));
-                    Assert.IsTrue(await TeamService.AddMember(user.Id, teamIdOther.Value));
+                    Assert.IsTrue(await TeamService.SendInvitation(user.Id, teamIdOther.Value));
                 }
 
                 var matchedMentionables = await MentionService.SearchMentionable($"u:{testName}", teamIdWanted.Value);
@@ -254,10 +257,13 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? teamIdWanted = await TeamService.CreateTeam(userId, testName + "TeamWanted");
                 Assert.IsNotNull(teamIdWanted);
 
-                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                uint? teamIdOther = await TeamService.CreateTeam(userId, testName + "TeamOther");
                 Assert.IsNotNull(teamIdOther);
 
                 List<string> rolesWantedTeam = new List<string>{
@@ -308,10 +314,13 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
+                Assert.IsNotNull(userId);
+
+                uint? teamIdWanted = await TeamService.CreateTeam(userId, testName + "TeamWanted");
                 Assert.IsNotNull(teamIdWanted);
 
-                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                uint? teamIdOther = await TeamService.CreateTeam(userId, testName + "TeamOther");
                 Assert.IsNotNull(teamIdOther);
 
                 List<string> channelWantedTeam = new List<string>{
@@ -365,13 +374,13 @@ namespace Messenger.Tests.MSTest
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "UserId" ,DisplayName = testName + "UserName"})).Id;
                 Assert.IsNotNull(userId);
 
-                uint? teamIdWanted = await TeamService.CreateTeam(testName + "TeamWanted");
+                uint? teamIdWanted = await TeamService.CreateTeam(userId, testName + "TeamWanted");
                 Assert.IsNotNull(teamIdWanted);
 
                 uint? channelIdWanted = await ChannelService.CreateChannel(testName + "ChannelWanted", teamIdWanted.Value);
                 Assert.IsNotNull(channelIdWanted);
 
-                uint? teamIdOther = await TeamService.CreateTeam(testName + "TeamOther");
+                uint? teamIdOther = await TeamService.CreateTeam(userId, testName + "TeamOther");
                 Assert.IsNotNull(teamIdOther);
 
                 uint? channelIdOther = await ChannelService.CreateChannel(testName + "ChannelWanted", teamIdWanted.Value);

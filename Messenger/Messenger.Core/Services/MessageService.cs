@@ -21,7 +21,7 @@ namespace Messenger.Core.Services
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
         ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        public static async Task<uint?> CreateMessage(
+        private static async Task<uint?> CreateMessageImpl(
             uint                recipientsId,
             string              senderId,
             string              message,
@@ -29,7 +29,7 @@ namespace Messenger.Core.Services
             IEnumerable<string> attachmentBlobNames = null
         )
         {
-            LogContext.PushProperty("Method",        "CreateMessage");
+            LogContext.PushProperty("Method",        "CreateMessageImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
 
             logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}"
@@ -145,7 +145,7 @@ namespace Messenger.Core.Services
         public static async Task<Message> GetMessage(uint messageId)
         {
             LogContext.PushProperty("Method",        "GetMessage");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
 
@@ -176,9 +176,9 @@ namespace Messenger.Core.Services
         /// <param name="messageId">The id of the message to edit</param>
         /// <param name="newContent">The new content of the message</param>
         /// <returns>True if the message got edited successfully, false otherwise</returns>
-        public static async Task<bool> EditMessage(uint messageId, string newContent)
+        private static async Task<bool> EditMessageImpl(uint messageId, string newContent)
         {
-            LogContext.PushProperty("Method",        "EditMessage");
+            LogContext.PushProperty("Method",        "EditMessageImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
@@ -199,9 +199,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
-        public static async Task<bool> DeleteMessage(uint messageId)
+        private static async Task<bool> DeleteMessageImpl(uint messageId)
         {
-            LogContext.PushProperty("Method",        "DeleteMessage");
+            LogContext.PushProperty("Method",        "DeleteMessageImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
@@ -252,9 +252,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns>The id of the created reaction</returns>
-        public static async Task<uint> AddReaction(uint messageId, string userId, string reaction)
+        private static async Task<uint> AddReactionImpl(uint messageId, string userId, string reaction)
         {
-            LogContext.PushProperty("Method",        "AddReaction");
+            LogContext.PushProperty("Method",        "AddReactionImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
 
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
@@ -282,9 +282,9 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public static async Task<bool> RemoveReaction(uint messageId, string userId, string reaction)
+        private static async Task<bool> RemoveReactionImpl(uint messageId, string userId, string reaction)
         {
-            LogContext.PushProperty("Method",        "RemoveReaction");
+            LogContext.PushProperty("Method",        "RemoveReactionImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
 
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
@@ -376,16 +376,16 @@ namespace Messenger.Core.Services
 
         #region SignalREnabled
 
-        
+
         /// <summary>
         /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
         /// <param name="message">A complete message object to send</param>
         /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public static async Task<bool> SendMessage(Message message, uint teamId)
+        public static async Task<bool> CreateMessage(Message message, uint teamId)
         {
-            LogContext.PushProperty("Method",        "SendMessage");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "CreateMessage");
+            LogContext.PushProperty("SourceContext", "MessageService");
 
             logger.Information($"Function called with parameter message={message}");
 
@@ -411,7 +411,7 @@ namespace Messenger.Core.Services
                               );
 
             // Save to database
-            uint? id = await MessageService.CreateMessage(message.RecipientId,
+            uint? id = await CreateMessageImpl(message.RecipientId,
                                                           message.SenderId,
                                                           message.Content,
                                                           message.ParentMessageId,
@@ -442,14 +442,14 @@ namespace Messenger.Core.Services
         public static async Task<bool> DeleteMessage(uint messageId, uint teamId)
         {
             LogContext.PushProperty("Method",        "DeleteMessage");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            var result = await MessageService.DeleteMessage(messageId);
+            var result = await DeleteMessageImpl(messageId);
 
-            var message = await MessageService.GetMessage(messageId);
+            var message = await GetMessage(messageId);
 
-            var blobFileNames = await MessageService.GetBlobFileNamesOfAttachments(messageId);
+            var blobFileNames = await GetBlobFileNamesOfAttachments(messageId);
 
             if (blobFileNames          != null
              && blobFileNames?.Count() > 0)
@@ -474,15 +474,15 @@ namespace Messenger.Core.Services
         /// <param name="messageId">Id of the message to edit</param>
         /// <param name="newContent">New content of the message</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public static async Task<bool> UpdateMessage(uint messageId, string newContent, uint teamId)
+        public static async Task<bool> EditMessage(uint messageId, string newContent, uint teamId)
         {
-            LogContext.PushProperty("Method",        "UpdateMessage");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("Method",        "EditMessage");
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}, newContent={newContent}");
 
-            var result = await MessageService.EditMessage(messageId, newContent);
+            var result = await EditMessageImpl(messageId, newContent);
 
-            var message = await MessageService.GetMessage(messageId);
+            var message = await GetMessage(messageId);
 
             await SignalRService.UpdateMessage(message, teamId);
 
@@ -491,21 +491,6 @@ namespace Messenger.Core.Services
             return result;
         }
 
-
-        public static async Task<IEnumerable<Reaction>> GetReactions(uint messageId)
-        {
-            LogContext.PushProperty("Method",        "GetReactions");
-            LogContext.PushProperty("SourceContext", "MessengerService");
-            logger.Information($"Function called with parameters messageId={messageId}");
-
-            var result = await MessageService.RetrieveReactions(messageId);
-
-            logger.Information($"Return value: {result}");
-
-            return result;
-        }
-
-
         /// <summary>
         ///	Add a reaction to a message and notify other clients
         /// </summary>
@@ -513,7 +498,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns></returns>
-        public static async Task<Reaction> CreateMessageReaction(
+        public static async Task<Reaction> AddReaction(
             uint   messageId,
             string userId,
             uint   teamId,
@@ -521,12 +506,12 @@ namespace Messenger.Core.Services
         )
         {
             LogContext.PushProperty("Method",        "AddReaction");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "MessageService");
 
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
                               );
 
-            var message = await MessageService.GetMessage(messageId);
+            var message = await GetMessage(messageId);
 
             if (message == null)
             {
@@ -535,9 +520,9 @@ namespace Messenger.Core.Services
                 return null;
             }
 
-            uint reactionId = await MessageService.AddReaction(messageId, userId, reaction);
+            uint reactionId = await AddReactionImpl(messageId, userId, reaction);
 
-            Reaction result = (await MessageService.RetrieveReactions(messageId))
+            Reaction result = (await RetrieveReactions(messageId))
                .Single(r => r.Id == reactionId);
 
             await SignalRService.UpdateMessageReactions(message, teamId);
@@ -555,7 +540,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public static async Task<Reaction> DeleteMessageReaction(
+        public static async Task<Reaction> RemoveReaction(
             uint   messageId,
             string userId,
             uint   teamId,
@@ -563,14 +548,14 @@ namespace Messenger.Core.Services
         )
         {
             LogContext.PushProperty("Method",        "RemoveReaction");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "MessageService");
 
             logger.Information($"Function called with parameters messageId={messageId}, userId={userId}, reaction={reaction}"
                               );
 
-            Message message = await MessageService.GetMessage(messageId);
+            Message message = await GetMessage(messageId);
 
-            Reaction userReaction = (await MessageService.RetrieveReactions(messageId))
+            Reaction userReaction = (await RetrieveReactions(messageId))
                .Single(r => r.UserId == userId);
 
             if (message      == null
@@ -581,7 +566,7 @@ namespace Messenger.Core.Services
                 return null;
             }
 
-            bool isSuccess = await MessageService.RemoveReaction(message.Id, userId, reaction);
+            bool isSuccess = await RemoveReactionImpl(message.Id, userId, reaction);
 
             if (isSuccess)
             {
@@ -603,7 +588,7 @@ namespace Messenger.Core.Services
         private static bool ValidateMessage(Message message)
         {
             LogContext.PushProperty("Method",        "ValidateMessage");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters message={message}");
 
             // Sender / Recipient Id

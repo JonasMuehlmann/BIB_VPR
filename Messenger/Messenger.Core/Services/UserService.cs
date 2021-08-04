@@ -25,7 +25,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> Update(string userId, string columnToChange, string newVal)
         {
             LogContext.PushProperty("Method",        "Update");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}, columnToChange={columnToChange}, newVal={newVal}"
                               );
@@ -64,7 +64,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> UpdateUsername(string userId, string newUsername)
         {
             LogContext.PushProperty("Method",        "UpdateUsername");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}, newUsername={newUsername}");
 
@@ -107,7 +107,7 @@ namespace Messenger.Core.Services
         private static async Task<bool> UpdateUserMailImpl(string userId, string newMail)
         {
             LogContext.PushProperty("Method",        "UpdateUserMailImpl");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}, newMail={newMail}");
 
@@ -133,7 +133,7 @@ namespace Messenger.Core.Services
         private static async Task<bool> UpdateUserPhotoImpl(string userId, string newPhoto)
         {
             LogContext.PushProperty("Method",        "UpdateUserMailImpl");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}, newPhoto={newPhoto}");
 
@@ -159,7 +159,7 @@ namespace Messenger.Core.Services
         private static async Task<bool> UpdateUserBioImpl(string userId, string newBio)
         {
             LogContext.PushProperty("Method",        "UpdateUserMailImpl");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
@@ -184,7 +184,7 @@ namespace Messenger.Core.Services
         public static async Task<User> GetOrCreateApplicationUser(User userdata)
         {
             LogContext.PushProperty("Method",        "GetOrCreateApplicationUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameter userdata={userdata}");
 
@@ -219,7 +219,7 @@ namespace Messenger.Core.Services
             uint? newNameId = await DetermineNewNameId(displayName, GetDefaultConnection());
 
             LogContext.PushProperty("Method",        "GetOrCreateApplicationUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"newNameId has been determined as {newNameId}");
 
@@ -283,7 +283,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> DeleteUser(string userId)
         {
             LogContext.PushProperty("Method",        "DeleteUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -307,7 +307,7 @@ namespace Messenger.Core.Services
         public static async Task<User> GetUser(string userId)
         {
             LogContext.PushProperty("Method",        "GetUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userId={userId}");
 
@@ -340,7 +340,7 @@ namespace Messenger.Core.Services
         public static async Task<User> GetUser(string userName, uint nameId)
         {
             LogContext.PushProperty("Method",        "GetUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userName={userName}, nameId={nameId}");
 
@@ -370,7 +370,7 @@ namespace Messenger.Core.Services
         public static async Task<IList<string>> SearchUser(string userName)
         {
             LogContext.PushProperty("Method",        "SearchUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters userName={userName}");
 
@@ -387,7 +387,7 @@ namespace Messenger.Core.Services
             var rows = await SqlHelpers.GetRows("Users", selectQuery);
 
             LogContext.PushProperty("Method",        "SearchUser");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Retrieved {rows.Count()} rows");
 
@@ -404,7 +404,7 @@ namespace Messenger.Core.Services
         private static async Task<uint?> DetermineNewNameId(string username, SqlConnection connection)
         {
             LogContext.PushProperty("Method",        "DetermineNewNameId");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
 
             logger.Information($"Function called with parameters username={username},connection={connection}");
 
@@ -431,7 +431,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> UpdateUserEmail(string userId, string newEmail)
         {
             LogContext.PushProperty("Method",        "UpdateUserEmail");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
             logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
 
             var result = await UserService.UpdateUserMailImpl(userId, newEmail);
@@ -455,7 +455,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> UpdateUserBio(string userId, string newBio)
         {
             LogContext.PushProperty("Method",        "UpdateUserBio");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
             logger.Information($"Function called with parameters userId={userId}, newBio={newBio}");
 
             var result = await UserService.UpdateUserBioImpl(userId, newBio);
@@ -478,7 +478,7 @@ namespace Messenger.Core.Services
         public static async Task<bool> UpdateUserPhoto(string userId, string newPhotoURL)
         {
             LogContext.PushProperty("Method",        "UpdateUserPhoto");
-            LogContext.PushProperty("SourceContext", "MessengerService");
+            LogContext.PushProperty("SourceContext", "UserService");
             logger.Information($"Function called with parameters userId={userId}, newPhotoURL={newPhotoURL}");
 
             var result = await UserService.UpdateUserPhotoImpl(userId, newPhotoURL);
