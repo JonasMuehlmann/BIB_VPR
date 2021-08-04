@@ -1,8 +1,10 @@
-﻿using Messenger.Core.Models;
+﻿using MahApps.Metro.IconPacks;
+using Messenger.Core.Models;
 using Messenger.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -22,6 +24,10 @@ namespace Messenger.ViewModels.DataViewModels
         private MemberViewModel _sender;
         private ObservableCollection<MessageViewModel> _replies;
         private ObservableCollection<Reaction> _reactions;
+        private int _reachtionLikeCount;
+        private int _reachtionDislikeCount;
+        private int _reachtionSurprisedCount;
+        private int _reachtionAngryCount;
         private List<Attachment> _attachments;
         private bool _isMyMessage;
 
@@ -78,7 +84,65 @@ namespace Messenger.ViewModels.DataViewModels
         public ObservableCollection<Reaction> Reactions
         {
             get { return _reactions; }
-            set { Set(ref _reactions, value); }
+            set
+            {
+                Set(ref _reactions, value);
+                if (value.Count > 0)
+                {
+                    foreach (var reaction in _reactions)
+                    {
+                        if (reaction.Symbol == "Like")
+                        {
+                            ReachtionLikeCount += 1;
+                        }
+                        else if (reaction.Symbol == "Dislike")
+                        {
+                           ReachtionDislikeCount += 1;
+                        }
+                        else if (reaction.Symbol == "Surprised")
+                        {
+                            ReachtionSurpriseCount += 1;
+                        }
+                        else if (reaction.Symbol == "Angry")
+                        {
+                            ReachtionAngryCount += 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public int ReachtionLikeCount
+        {
+            get { return _reachtionLikeCount; }
+            set
+            {
+                Set(ref _reachtionLikeCount, value);
+            }
+        }
+        public int ReachtionDislikeCount
+        {
+            get { return _reachtionDislikeCount; }
+            set
+            {
+                Set(ref _reachtionDislikeCount, value);
+            }
+        }
+        public int ReachtionSurpriseCount
+        {
+            get { return _reachtionSurprisedCount; }
+            set
+            {
+                Set(ref _reachtionSurprisedCount, value);
+            }
+        }
+        public int ReachtionAngryCount
+        {
+            get { return _reachtionAngryCount; }
+            set
+            {
+                Set(ref _reachtionAngryCount, value);
+            }
         }
 
         public List<Attachment> Attachments

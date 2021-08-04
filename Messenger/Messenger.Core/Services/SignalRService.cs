@@ -56,8 +56,10 @@ namespace Messenger.Core.Services
                 {
                     log.AddConsole();
                 })
+                .WithAutomaticReconnect(new[] { TimeSpan.Zero, TimeSpan.Zero, TimeSpan.FromSeconds(10) })
                 .Build();
-            
+
+
             /** RECEIVE: PASSIVE EVENTS TRIGGERED ONLY FROM OTHER USERS **/
             _connection.On<Message>("ReceiveMessage", (message) => ReceiveMessage?.Invoke(typeof(SignalRService), BuildArgument(message)));
             _connection.On<Team>("ReceiveInvitation", (team) => ReceiveInvitation?.Invoke(typeof(SignalRService), BuildArgument(team)));
@@ -117,13 +119,14 @@ namespace Messenger.Core.Services
             }
         }
 
+
         /// <summary>
         /// Closes the connection with the hub
         /// </summary>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task CloseConnection()
         {
-            LogContext.PushProperty("Method","Close");
+            LogContext.PushProperty("Method", "Close");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called");
@@ -136,7 +139,7 @@ namespace Messenger.Core.Services
             }
             catch (Exception e)
             {
-                logger.Information(e,"Returning");
+                logger.Information(e, "Returning");
             }
         }
 
@@ -194,7 +197,7 @@ namespace Messenger.Core.Services
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task SendMessage(Message message, uint teamId)
         {
-            LogContext.PushProperty("Method","SendMessage");
+            LogContext.PushProperty("Method", "SendMessage");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}");
@@ -240,8 +243,13 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameter message={message}");
 
-            await _connection.SendAsync("UpdateMessageReactions", message, teamId.ToString());
-
+            try
+            {
+                await _connection.SendAsync("UpdateMessageReactions", message, teamId.ToString());
+            }
+            catch (Exception e) {
+                logger.Information($"Send error={e.Message}");
+            }
             logger.Information($"Updated reactions in message #{message.Id} from the channel #{message.RecipientId}");
         }
 
@@ -433,7 +441,7 @@ namespace Messenger.Core.Services
 
         private async Task Reconnect(Exception e)
         {
-            LogContext.PushProperty("Method","Reconnect");
+            LogContext.PushProperty("Method", "Reconnect");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called");
@@ -447,7 +455,7 @@ namespace Messenger.Core.Services
 
         private async Task<HubConnection> CreateHubConnection()
         {
-            LogContext.PushProperty("Method","CreateHubConnection");
+            LogContext.PushProperty("Method", "CreateHubConnection");
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called");
