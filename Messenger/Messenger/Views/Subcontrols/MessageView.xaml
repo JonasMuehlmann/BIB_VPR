@@ -207,7 +207,7 @@
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
                                     Text="{Binding
-                                        Reactions.Count,
+                                        MostReactionCount,
                                         Mode=OneWay}"
                                     />
                             </TextBlock>

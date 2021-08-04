@@ -27,6 +27,7 @@ namespace Messenger.ViewModels.DataViewModels
         private List<Attachment> _attachments;
         private bool _isMyMessage;
         private PackIconFontAwesomeKind _mostReaction;
+        private int _mostReactionCount;
 
         #endregion
 
@@ -86,7 +87,9 @@ namespace Messenger.ViewModels.DataViewModels
                 PackIconFontAwesome packIconMaterial = new PackIconFontAwesome();
                 if (value.Count != 0)
                 {
-                    string most = value.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First().Symbol;
+                    var mostList = value.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key);
+                    string most = mostList.First().Symbol;
+                    MostReactionCount = mostList.Count();
                     most = most ?? "Like";
 
                     ReactionType react = (ReactionType)Enum.Parse(typeof(ReactionType), most);
@@ -143,6 +146,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _mostReaction; }
             set { Set(ref _mostReaction, value); }
+        }
+
+        public int MostReactionCount
+        {
+            get { return _mostReactionCount; }
+            set { Set(ref _mostReactionCount, value); }
         }
 
         public ReactionType MyReaction
