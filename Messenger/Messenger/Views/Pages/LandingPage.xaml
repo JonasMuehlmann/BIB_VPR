@@ -13,7 +13,7 @@
         <Button Background="Transparent"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="50"
+                Margin="50, 70"
                 Command="{x:Bind OpenSettingCommand}">
             <StackPanel Orientation="Horizontal" Spacing="5">
                 <SymbolIcon Symbol="Setting"/>
