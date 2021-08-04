@@ -15,6 +15,7 @@
     d:DesignWidth="600">
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <converters:CountToVisibilityConverter x:Key="CountToVisConverter" />
         <converters:BooleanToGlyphConverter x:Key="BoolToGlyphConverter" />
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
@@ -95,7 +96,7 @@
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
         <Style x:Key="ReactionButtonStyle" TargetType="AppBarToggleButton" BasedOn="{StaticResource ReactionButtonStyle}">
-            
+
         </Style>
         <!--#endregion-->
     </UserControl.Resources>
@@ -197,27 +198,103 @@
                                     />
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel
-                            Grid.Column="2"
-                            Orientation="Horizontal">
-                            <TextBlock
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <StackPanel
+                            Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionLikeCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="ThumbsUpRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                                <TextBlock
                                 VerticalAlignment="Center"
-                                Margin="5 0">
+                                Margin="2 0 10 0">
                                 <Run
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
                                     Text="{Binding
-                                        Reactions.Count,
+                                        ReachtionLikeCount,
                                         Mode=OneWay}"
                                     />
-                            </TextBlock>
-                            <Viewbox
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionDislikeCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
+                                <Viewbox
                                 Height="15">
-                                <SymbolIcon
-                                    Symbol="Like"
+                                    <icons:PackIconFontAwesome
+                                    Kind="ThumbsDownRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                                <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="2 0 10 0">
+                                <Run
+                                    FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding
+                                        ReachtionDislikeCount,
+                                        Mode=OneWay}"
                                     />
-                            </Viewbox>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionSurpriseCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="SurpriseRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                                <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="2 0 10 0">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding
+                                        ReachtionSurpriseCount,
+                                        Mode=OneWay}"
+                                    />
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionAngryCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="AngryRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
+                                <TextBlock
+                                VerticalAlignment="Center"
+                                Margin="2 0 10 0">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Text="{Binding
+                                        ReachtionAngryCount,
+                                        Mode=OneWay}"
+                                    />
+                                </TextBlock>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                     <!-- MESSAGE CONTENT -->
@@ -338,19 +415,29 @@
                             <!-- REPLY TO COMMAND -->
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
-                                Icon="MailReply"
                                 Label="Reply"
                                 Command="{x:Bind ReplyToCommand}"
                                 CommandParameter="{x:Bind
                                     Message,
                                     Mode=OneWay}"
-                                />
+                                >
+                                <AppBarButton.Icon>
+                                    <icons:PathIconFontAwesome
+                                                    Kind="ReplySolid"
+                                                    />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
                             <!-- ADD OR UPDATE REACTION -->
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
-                                Icon="Like"
+                               
                                 Label="React"
                                 Tapped="AppBarButton_Tapped">
+                                <AppBarButton.Icon>
+                                    <icons:PathIconFontAwesome
+                                                    Kind="ThumbsUpRegular"
+                                                    />
+                                </AppBarButton.Icon>
                                 <FlyoutBase.AttachedFlyout>
                                     <CommandBarFlyout
                                         Placement="TopEdgeAlignedLeft">
@@ -358,24 +445,33 @@
                                             x:Name="LikeButton"
                                             Style="{StaticResource ReactionButtonStyle}"
                                             Content="Like"
-                                            Icon="Like"
                                             Tapped="LikeButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Message.MyReaction,
                                                 Converter={StaticResource ReactionToBooleanConverter},
-                                                ConverterParameter='Like'}"
-                                            />
+                                                ConverterParameter='Like'}">
+                                            <AppBarToggleButton.Icon>
+                                                <icons:PathIconFontAwesome
+                                                    Kind="ThumbsUpRegular"
+                                                    />
+                                            </AppBarToggleButton.Icon>
+                                        </AppBarToggleButton>
+
                                         <AppBarToggleButton
                                             x:Name="DislikeButton"
                                             Style="{StaticResource ReactionButtonStyle}"
                                             Content="Dislike"
-                                            Icon="Dislike"
                                             Tapped="DislikeButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Message.MyReaction,
                                                 Converter={StaticResource ReactionToBooleanConverter},
-                                                ConverterParameter='Dislike'}"
-                                            />
+                                                ConverterParameter='Dislike'}">
+                                            <AppBarToggleButton.Icon>
+                                                <icons:PathIconFontAwesome
+                                                    Kind="ThumbsDownRegular"
+                                                    />
+                                            </AppBarToggleButton.Icon>
+                                        </AppBarToggleButton>
                                         <AppBarToggleButton
                                             x:Name="SurprisedButton"
                                             Style="{StaticResource ReactionButtonStyle}"
