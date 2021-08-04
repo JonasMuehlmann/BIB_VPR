@@ -109,6 +109,7 @@ namespace Messenger.Core.Services
         }
 
 
+        #region SignalREnabled
         public static async Task<uint?> StartChat(string userId, string targetUserId)
         {
             LogContext.PushProperty("Method",        "StartChat");
@@ -173,5 +174,7 @@ namespace Messenger.Core.Services
 
             return chatId;
         }
+
+        #endregion SignalREnabled
     }
 }
