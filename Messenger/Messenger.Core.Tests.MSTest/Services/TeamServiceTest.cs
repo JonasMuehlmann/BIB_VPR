@@ -39,6 +39,8 @@ namespace Messenger.Tests.MSTest
         [TestMethod]
         public void CreateTeamEmptyName_Test()
         {
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
             Task.Run(async () =>
             {
                 string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;

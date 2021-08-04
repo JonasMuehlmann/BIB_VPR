@@ -518,7 +518,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns></returns>
-        public static async Task<Reaction> AddReaction(
+        public static async Task<uint?> AddReaction(
             uint   messageId,
             string userId,
             string reaction
@@ -541,7 +541,7 @@ namespace Messenger.Core.Services
 
             uint reactionId = await AddReactionImpl(messageId, userId, reaction);
 
-            Reaction result = (await RetrieveReactions(messageId))
+            var result = (await RetrieveReactions(messageId))
                .Single(r => r.Id == reactionId);
 
             var teamId = (await ChannelService.GetChannel(message.RecipientId)).TeamId;
@@ -549,7 +549,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Return value: {result}");
 
-            return result;
+            return result.Id;
         }
 
 
@@ -560,7 +560,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        public static async Task<Reaction> RemoveReaction(
+        public static async Task<bool> RemoveReaction(
             uint   messageId,
             string userId,
             string reaction
@@ -582,7 +582,7 @@ namespace Messenger.Core.Services
             {
                 logger.Information($"Could not retrieve the message from the database");
 
-                return null;
+                return false;
             }
 
             bool isSuccess = await RemoveReactionImpl(message.Id, userId, reaction);
@@ -596,7 +596,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Return value: {userReaction}");
 
-            return userReaction;
+            return isSuccess;
         }
 
         #endregion SignalREnabled

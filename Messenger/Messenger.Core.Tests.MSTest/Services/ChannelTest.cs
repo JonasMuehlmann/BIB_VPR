@@ -23,6 +23,7 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
                 uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
 
                 Assert.IsNotNull(teamId);
@@ -41,6 +42,7 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
                 uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
 
                 Assert.IsNotNull(teamId);
@@ -68,6 +70,7 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
                 uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
 
                 Assert.IsNotNull(teamId);
@@ -105,6 +108,7 @@ namespace Messenger.Tests.MSTest
 
            Task.Run(async () =>
            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"});
                 var teamId = await TeamService.CreateTeam(userId, testName + "Team");
                 Assert.IsNotNull(teamId);
@@ -134,6 +138,7 @@ namespace Messenger.Tests.MSTest
 
            Task.Run(async () =>
            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"})).Id;
                 var _ = await UserService.GetOrCreateApplicationUser(new User(){Id=testName + "User"});
                 var teamId = await TeamService.CreateTeam(userId, testName + "Team");
                 Assert.IsNotNull(teamId);

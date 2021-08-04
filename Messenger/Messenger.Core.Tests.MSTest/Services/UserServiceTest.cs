@@ -250,7 +250,7 @@ namespace Messenger.Tests.MSTest
                 string oldEmail = user.Mail;
                 Assert.AreEqual(oldEmail, testName + "Mail");
 
-                var success = await UserService.UpdateUserMail(userId, oldEmail + "New");
+                var success = await UserService.UpdateUserEmail(userId, oldEmail + "New");
                 Assert.IsTrue(success);
 
                 user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});

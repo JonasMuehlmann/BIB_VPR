@@ -258,7 +258,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">Id of the channel to delete</param>
         /// <returns>An awaitable task</returns>
-        public static async Task<bool> DeleteChannel(uint channelId)
+        public static async Task<bool> RemoveChannel(uint channelId)
         {
             LogContext.PushProperty("Method",        "RemoveChannel");
             LogContext.PushProperty("SourceContext", "MessengerService");
@@ -280,7 +280,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">Id of the team to remove channels from</param>
         /// <returns>An awaitable task</returns>
-        public static async Task<bool> DeleteAllChannels(uint teamId)
+        public static async Task<bool> RemoveAllChannels(uint teamId)
         {
             LogContext.PushProperty("Method",        "RemoveAllChannels");
             LogContext.PushProperty("SourceContext", "MessengerService");

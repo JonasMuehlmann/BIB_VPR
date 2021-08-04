@@ -30,7 +30,7 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(senderId);
                 Assert.AreNotEqual("",senderId);
 
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(receiverId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
@@ -78,7 +78,7 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(senderId);
                 Assert.AreNotEqual("",senderId);
 
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(receiverId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
@@ -121,7 +121,7 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull( userId);
                 Assert.AreNotEqual("", userId);
 
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
@@ -154,7 +154,7 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull( userId);
                 Assert.AreNotEqual("", userId);
 
-                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
                 uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
