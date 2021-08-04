@@ -10,7 +10,7 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
-    public class ChannelService: AzureServiceBase
+    public class ChannelService: SignalREnabledAzureServiceBase
     {
         /// <summary>
         /// Creates a Channel with the given name inside the specified team
@@ -18,9 +18,9 @@ namespace Messenger.Core.Services
         /// <param name="channelName">Name of the channel</param>
         /// <param name="teamId">Id of the team to create the channel in</param>
         /// <returns>The id of the created channel if it was created successfully, null otherwise</returns>
-        public static async Task<uint?> CreateChannel(string channelName, uint teamId)
+        private static async Task<uint?> CreateChannelImpl(string channelName, uint teamId)
         {
-            LogContext.PushProperty("Method","CreateChannel");
+            LogContext.PushProperty("Method",        "CreateChannelImpl");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
@@ -38,14 +38,15 @@ namespace Messenger.Core.Services
             return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
         }
 
+
         /// <summary>
         /// Deletes a channel with a given channelId
         /// </summary>
         /// <param name="channelId">The id of the channel to delete</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        public static async Task<bool> RemoveChannel(uint channelId)
+        private static async Task<bool> RemoveChannelImpl(uint channelId)
         {
-            LogContext.PushProperty("Method","RemoveChannel");
+            LogContext.PushProperty("Method",        "RemoveChannelImpl");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelId={channelId}");
@@ -58,14 +59,16 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.NonQueryAsync(query);
         }
+
+
         /// <summary>
         /// Deletes all channel from a specified team
         /// </summary>
         /// <param name="teamId">The id of the team to clear the channels from</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        public static async Task<bool> RemoveAllChannels(uint teamId)
+        private static async Task<bool> RemoveAllChannelsImpl(uint teamId)
         {
-            LogContext.PushProperty("Method","RemoveAllChannels");
+            LogContext.PushProperty("Method",        "RemoveAllChannelsImpl");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters teamId={teamId}");
@@ -79,13 +82,14 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         /// <summary>
         /// Rename a specified channel
         /// </summary>
         /// <param name="channelName">the new name of the channel></param>
         /// <param name="channelId">the id of the channel to rename</param>
         /// <returns>True, if the channel got renamed successfully, false otherwise</returns>
-        public static async Task<bool> RenameChannel(string channelName, uint channelId)
+        public static async Task<bool> RenameChannelImpl(string channelName, uint channelId)
         {
             string query = $@"
                                 UPDATE
@@ -97,6 +101,8 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.NonQueryAsync(query);
         }
+
+
         /// <summary>
         /// Construct a Channel object from data that belongs to the channel identified by channelId.
         /// </summary>
@@ -104,7 +110,7 @@ namespace Messenger.Core.Services
         /// <returns></returns>
         public static async Task<Channel> GetChannel(uint channelId)
         {
-            LogContext.PushProperty("Method","GetChannel");
+            LogContext.PushProperty("Method",        "GetChannel");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelId={channelId}");
@@ -131,6 +137,7 @@ namespace Messenger.Core.Services
             return rows.Select(Mapper.ChannelFromDataRow).First();
         }
 
+
         /// <summary>
         /// Pin a specified message in the specified channel
         /// </summary>
@@ -139,7 +146,7 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false on failure</returns>
         public static async Task<bool> PinMessage(uint messageId, uint channelId)
         {
-            LogContext.PushProperty("Method","PinMessage");
+            LogContext.PushProperty("Method",        "PinMessage");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
@@ -156,6 +163,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         /// <summary>
         /// Unpin a specified message in the specified channel
         /// </summary>
@@ -164,7 +172,7 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false on failure</returns>
         public static async Task<bool> UnPinMessage(uint messageId, uint channelId)
         {
-            LogContext.PushProperty("Method","UnpinMessage");
+            LogContext.PushProperty("Method",        "UnpinMessage");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
@@ -181,6 +189,7 @@ namespace Messenger.Core.Services
             return await SqlHelpers.NonQueryAsync(query);
         }
 
+
         /// <summary>
         /// Retrieve the pinned messages of a channel
         /// </summary>
@@ -188,7 +197,7 @@ namespace Messenger.Core.Services
         /// <returns>An enumerable of message objects representing the pinned messages</returns>
         public static async Task<IEnumerable<Message>> RetrievePinnedMessages(uint channelId)
         {
-            LogContext.PushProperty("Method","RetrievePinnedMessages");
+            LogContext.PushProperty("Method",        "RetrievePinnedMessages");
             LogContext.PushProperty("SourceContext", "ChannelService");
 
             logger.Information($"Function called with parameters channelId={channelId}");
@@ -208,5 +217,112 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
+
+
+        #region SignalREnabled
+
+        /// <summary>
+        /// Add a channel to a specified team
+        /// </summary>
+        /// <param name="teamId">Id of the team to add the channel to</param>
+        /// <param name="channelName">Name of the newly created channel</param>
+        /// <returns>True if the channel was successfully created, false otherwise</returns>
+        public static async Task<uint?> CreateChannel(string channelName, uint teamId)
+        {
+            LogContext.PushProperty("Method",        "CreateChannel");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters channelName={channelName}, teamId={teamId}");
+
+            var channelId = await CreateChannelImpl(channelName, teamId);
+
+            if (channelId == null)
+            {
+                logger.Information($"could not create the channel");
+                logger.Information($"Return value: false");
+
+                return null;
+            }
+
+            var channel = await ChannelService.GetChannel(channelId.Value);
+
+            await SignalRService.CreateChannel(channel);
+
+            logger.Information($"Return value: true");
+
+            return channelId;
+        }
+
+
+        /// <summary>
+        /// Remove a specified channel from it's team
+        /// </summary>
+        /// <param name="channelId">Id of the channel to delete</param>
+        /// <returns>An awaitable task</returns>
+        public static async Task<bool> DeleteChannel(uint channelId)
+        {
+            LogContext.PushProperty("Method",        "RemoveChannel");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters channelId={channelId}");
+
+            var result = await RemoveChannelImpl(channelId);
+
+            var channel = await GetChannel(channelId);
+
+            await SignalRService.DeleteChannel(channel);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Remove all channels from a team
+        /// </summary>
+        /// <param name="teamId">Id of the team to remove channels from</param>
+        /// <returns>An awaitable task</returns>
+        public static async Task<bool> DeleteAllChannels(uint teamId)
+        {
+            LogContext.PushProperty("Method",        "RemoveAllChannels");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters teamId={teamId}");
+
+            var result = await RemoveAllChannelsImpl(teamId);
+
+            var channels = await TeamService.GetAllChannelsByTeamId(teamId);
+
+            foreach (var channel in channels)
+            {
+                await SignalRService.DeleteChannel(channel);
+            }
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Rename A channel and notify other clients
+        /// </summary>
+        /// <param name="channelId">Id of the channel to rename</param>
+        /// <param name="channelName">The new name of the channel</param>
+        /// <returns>True if the channel was successfully renamed, false otherwise</returns>
+        public static async Task<bool> RenameChannel(string channelName, uint channelId)
+        {
+            LogContext.PushProperty("Method",        "RenameChannel");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters channelName={channelName}, channelId={channelId}");
+
+            var result = await RenameChannelImpl(channelName, channelId);
+
+            var channel = await GetChannel(channelId);
+
+            await SignalRService.UpdateChannel(channel);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+        #endregion SignalREnabled
     }
 }

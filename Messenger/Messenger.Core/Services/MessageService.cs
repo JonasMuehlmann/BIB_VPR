@@ -380,57 +380,74 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub
         /// </summary>
-        /// <param name="message">A complete message object to send</param>
-        /// <returns>true on success, false on invalid message (error will be handled in each service)</returns>
-        public static async Task<bool> CreateMessage(Message message, uint teamId)
+         ///<param name="recipientsId">The id of the recipient of this message</param>
+        ///<param name="senderId">The id of the message's sender</param>
+        ///<param name="message">The content of the message</param>
+        ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
+        ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
+        /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
+        public static async Task<uint?> CreateMessage(
+            uint                recipientsId,
+            string              senderId,
+            string              message,
+            uint?               parentMessageId     = null,
+            IEnumerable<string> attachmentBlobNames = null
+        )
         {
             LogContext.PushProperty("Method",        "CreateMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
 
-            logger.Information($"Function called with parameter message={message}");
+            logger.Information($"Function called with parameters recipientsId={recipientsId}, senderId={senderId}, parentMessageId={parentMessageId}, attachmentBlobNames={attachmentBlobNames}, message={message}");
 
+            var message_ = new Message(){
+                SenderId = senderId,
+                Content = message,
+                ParentMessageId = parentMessageId,
+                AttachmentsBlobName = attachmentBlobNames.ToList()
+            };
             // Check the validity of the message
-            if (!ValidateMessage(message))
+            if (!ValidateMessage(message_))
             {
                 logger.Information($"message object has been determined invalid");
                 logger.Information($"Return value: false");
 
-                return false;
+                return null;
             }
 
             // Upload attachments
-            if (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count > 0)
+            if (attachmentBlobNames != null && Enumerable.Count(attachmentBlobNames) > 0)
             {
-                foreach (var attachment in message.AttachmentsBlobName)
+                foreach (var attachment in attachmentBlobNames)
                 {
                     await FileSharingService.Upload(attachment);
                 }
             }
 
-            logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}"
+            logger.Information($"added the following attachments to the message: {string.Join(",",attachmentBlobNames)}"
                               );
 
             // Save to database
-            uint? id = await CreateMessageImpl(message.RecipientId,
-                                                          message.SenderId,
-                                                          message.Content,
-                                                          message.ParentMessageId,
-                                                          message.AttachmentsBlobName
+            uint? id = await CreateMessageImpl(recipientsId,
+                                                          senderId,
+                                                          message,
+                                                          parentMessageId,
+                                                          attachmentBlobNames
                                                          );
 
             if (id == null)
             {
-                return false;
+                return null;
             }
 
-            message.Id = (uint) id;
+            message_.Id = (uint) id;
 
-            await SignalRService.SendMessage(message, teamId);
+            var teamId = (await ChannelService.GetChannel(recipientsId)).TeamId;
+            await SignalRService.SendMessage(message_, teamId);
 
             logger.Information($"Broadcasts the following message to the hub: {message}");
             logger.Information($"Return value: true");
 
-            return true;
+            return id;
         }
 
 
@@ -439,7 +456,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public static async Task<bool> DeleteMessage(uint messageId, uint teamId)
+        public static async Task<bool> DeleteMessage(uint messageId)
         {
             LogContext.PushProperty("Method",        "DeleteMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
@@ -460,6 +477,8 @@ namespace Messenger.Core.Services
                 }
             }
 
+            var teamId = (await ChannelService.GetChannel(message.RecipientId)).TeamId;
+
             await SignalRService.DeleteMessage(message, teamId);
 
             logger.Information($"Return value: {result}");
@@ -474,7 +493,7 @@ namespace Messenger.Core.Services
         /// <param name="messageId">Id of the message to edit</param>
         /// <param name="newContent">New content of the message</param>
         /// <returns>True if the channel was successfully renamed, false otherwise</returns>
-        public static async Task<bool> EditMessage(uint messageId, string newContent, uint teamId)
+        public static async Task<bool> EditMessage(uint messageId, string newContent)
         {
             LogContext.PushProperty("Method",        "EditMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
@@ -483,6 +502,7 @@ namespace Messenger.Core.Services
             var result = await EditMessageImpl(messageId, newContent);
 
             var message = await GetMessage(messageId);
+            var teamId = (await ChannelService.GetChannel(message.RecipientId)).TeamId;
 
             await SignalRService.UpdateMessage(message, teamId);
 
@@ -501,7 +521,6 @@ namespace Messenger.Core.Services
         public static async Task<Reaction> AddReaction(
             uint   messageId,
             string userId,
-            uint   teamId,
             string reaction
         )
         {
@@ -525,6 +544,7 @@ namespace Messenger.Core.Services
             Reaction result = (await RetrieveReactions(messageId))
                .Single(r => r.Id == reactionId);
 
+            var teamId = (await ChannelService.GetChannel(message.RecipientId)).TeamId;
             await SignalRService.UpdateMessageReactions(message, teamId);
 
             logger.Information($"Return value: {result}");
@@ -543,7 +563,6 @@ namespace Messenger.Core.Services
         public static async Task<Reaction> RemoveReaction(
             uint   messageId,
             string userId,
-            uint   teamId,
             string reaction
         )
         {
@@ -567,6 +586,8 @@ namespace Messenger.Core.Services
             }
 
             bool isSuccess = await RemoveReactionImpl(message.Id, userId, reaction);
+
+            var teamId = (await ChannelService.GetChannel(message.RecipientId)).TeamId;
 
             if (isSuccess)
             {
