@@ -551,7 +551,7 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user);
+            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user.Id);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
