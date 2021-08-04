@@ -74,8 +74,7 @@ namespace Messenger.Helpers.MessageHelpers
 
                 /* MARK MY REACTION IF EXISTS */
                 Reaction myReaction = viewModel.Reactions
-                    .Where(r => r.UserId == App.StateProvider.CurrentUser.Id)
-                    .SingleOrDefault();
+                    .Where(r => r.UserId == App.StateProvider.CurrentUser.Id).FirstOrDefault();
 
                 if (myReaction != null)
                 {

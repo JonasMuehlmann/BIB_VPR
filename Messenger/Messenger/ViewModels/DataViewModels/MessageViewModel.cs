@@ -1,8 +1,10 @@
-﻿using Messenger.Core.Models;
+﻿using MahApps.Metro.IconPacks;
+using Messenger.Core.Models;
 using Messenger.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -24,6 +26,7 @@ namespace Messenger.ViewModels.DataViewModels
         private ObservableCollection<Reaction> _reactions;
         private List<Attachment> _attachments;
         private bool _isMyMessage;
+        private PackIconFontAwesomeKind _mostReaction;
 
         #endregion
 
@@ -78,7 +81,38 @@ namespace Messenger.ViewModels.DataViewModels
         public ObservableCollection<Reaction> Reactions
         {
             get { return _reactions; }
-            set { Set(ref _reactions, value); }
+            set {
+                Set(ref _reactions, value);
+                PackIconFontAwesome packIconMaterial = new PackIconFontAwesome();
+                if (value.Count != 0)
+                {
+                    string most = value.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First().Symbol;
+                    most = most ?? "Like";
+
+                    ReactionType react = (ReactionType)Enum.Parse(typeof(ReactionType), most);
+                    switch (react)
+                    {
+                        case ReactionType.Like:
+                            MostReaction = PackIconFontAwesomeKind.ThumbsUpRegular;
+                            break;
+                        case ReactionType.Dislike:
+                            MostReaction = PackIconFontAwesomeKind.ThumbsDownRegular;
+                            break;
+                        case ReactionType.Surprised:
+                            MostReaction = PackIconFontAwesomeKind.SurpriseRegular;
+                            break;
+                        case ReactionType.Angry:
+                            MostReaction = PackIconFontAwesomeKind.AngryRegular;
+                            break;
+                        default:
+                            MostReaction = PackIconFontAwesomeKind.ThumbsUpRegular;
+                            break;
+                    }
+                }
+                else {
+                    MostReaction = PackIconFontAwesomeKind.ThumbsUpRegular;
+                }
+            }
         }
 
         public List<Attachment> Attachments
@@ -103,6 +137,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _isMyMessage; }
             set { Set(ref _isMyMessage, value); }
+        }
+
+        public PackIconFontAwesomeKind MostReaction
+        {
+            get { return _mostReaction; }
+            set { Set(ref _mostReaction, value); }
         }
 
         public ReactionType MyReaction

@@ -95,7 +95,7 @@
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
         <Style x:Key="ReactionButtonStyle" TargetType="AppBarToggleButton" BasedOn="{StaticResource ReactionButtonStyle}">
-            
+
         </Style>
         <!--#endregion-->
     </UserControl.Resources>
@@ -213,10 +213,12 @@
                             </TextBlock>
                             <Viewbox
                                 Height="15">
-                                <SymbolIcon
-                                    Symbol="Like"
-                                    Foreground="{ThemeResource SystemAccentColor}"
-                                    />
+                                <icons:PackIconFontAwesome
+                                    Kind="{Binding
+                                        MostReaction,
+                                        Mode=OneWay}"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                </icons:PackIconFontAwesome>
                             </Viewbox>
                         </StackPanel>
                     </Grid>
@@ -338,19 +340,29 @@
                             <!-- REPLY TO COMMAND -->
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
-                                Icon="MailReply"
                                 Label="Reply"
                                 Command="{x:Bind ReplyToCommand}"
                                 CommandParameter="{x:Bind
                                     Message,
                                     Mode=OneWay}"
-                                />
-                            <!-- ADD OR UPDATE REACTION -->
+                                >
+                                <AppBarButton.Icon>
+                                    <icons:PathIconFontAwesome
+                                                    Kind="ReplySolid"
+                                                    />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                                <!-- ADD OR UPDATE REACTION -->
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
-                                Icon="Like"
+                               
                                 Label="React"
                                 Tapped="AppBarButton_Tapped">
+                                <AppBarButton.Icon>
+                                    <icons:PathIconFontAwesome
+                                                    Kind="ThumbsUpRegular"
+                                                    />
+                                </AppBarButton.Icon>
                                 <FlyoutBase.AttachedFlyout>
                                     <CommandBarFlyout
                                         Placement="TopEdgeAlignedLeft">
@@ -358,24 +370,33 @@
                                             x:Name="LikeButton"
                                             Style="{StaticResource ReactionButtonStyle}"
                                             Content="Like"
-                                            Icon="Like"
                                             Tapped="LikeButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Message.MyReaction,
                                                 Converter={StaticResource ReactionToBooleanConverter},
-                                                ConverterParameter='Like'}"
-                                            />
+                                                ConverterParameter='Like'}">
+                                            <AppBarToggleButton.Icon>
+                                                <icons:PathIconFontAwesome
+                                                    Kind="ThumbsUpRegular"
+                                                    />
+                                            </AppBarToggleButton.Icon>
+                                        </AppBarToggleButton>
+                                        
                                         <AppBarToggleButton
                                             x:Name="DislikeButton"
                                             Style="{StaticResource ReactionButtonStyle}"
                                             Content="Dislike"
-                                            Icon="Dislike"
                                             Tapped="DislikeButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Message.MyReaction,
                                                 Converter={StaticResource ReactionToBooleanConverter},
-                                                ConverterParameter='Dislike'}"
-                                            />
+                                                ConverterParameter='Dislike'}">
+                                            <AppBarToggleButton.Icon>
+                                                <icons:PathIconFontAwesome
+                                                    Kind="ThumbsDownRegular"
+                                                    />
+                                            </AppBarToggleButton.Icon>
+                                        </AppBarToggleButton>
                                         <AppBarToggleButton
                                             x:Name="SurprisedButton"
                                             Style="{StaticResource ReactionButtonStyle}"
