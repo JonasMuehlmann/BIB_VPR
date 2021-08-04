@@ -15,6 +15,7 @@
     d:DesignWidth="600">
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <converters:CountToVisibilityConverter x:Key="CountToVisConverter" />
         <converters:BooleanToGlyphConverter x:Key="BoolToGlyphConverter" />
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
@@ -199,10 +200,20 @@
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <StackPanel
-                            Orientation="Horizontal">
+                            Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionLikeCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
+                                <Viewbox
+                                Height="15">
+                                    <icons:PackIconFontAwesome
+                                    Kind="ThumbsUpRegular"
+                                    Foreground="{ThemeResource SystemAccentColor}">
+                                    </icons:PackIconFontAwesome>
+                                </Viewbox>
                                 <TextBlock
                                 VerticalAlignment="Center"
-                                Margin="5 0">
+                                Margin="2 0 10 0">
                                 <Run
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
@@ -211,19 +222,22 @@
                                         Mode=OneWay}"
                                     />
                                 </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionDislikeCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
                                 <Viewbox
                                 Height="15">
                                     <icons:PackIconFontAwesome
-                                    Kind="ThumbsUpRegular"
+                                    Kind="ThumbsDownRegular"
                                     Foreground="{ThemeResource SystemAccentColor}">
                                     </icons:PackIconFontAwesome>
                                 </Viewbox>
-                            </StackPanel>
-                            <StackPanel
-                                Orientation="Horizontal">
                                 <TextBlock
                                 VerticalAlignment="Center"
-                                Margin="5 0">
+                                Margin="2 0 10 0">
                                 <Run
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
@@ -232,19 +246,22 @@
                                         Mode=OneWay}"
                                     />
                                 </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionSurpriseCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
                                 <Viewbox
                                 Height="15">
                                     <icons:PackIconFontAwesome
-                                    Kind="ThumbsDownRegular"
+                                    Kind="SurpriseRegular"
                                     Foreground="{ThemeResource SystemAccentColor}">
                                     </icons:PackIconFontAwesome>
                                 </Viewbox>
-                            </StackPanel>
-                            <StackPanel
-                                Orientation="Horizontal">
                                 <TextBlock
                                 VerticalAlignment="Center"
-                                Margin="5 0">
+                                Margin="2 0 10 0">
                                 <Run
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
@@ -253,18 +270,22 @@
                                         Mode=OneWay}"
                                     />
                                 </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Horizontal" Visibility="{Binding
+                                        ReachtionAngryCount,
+                                        Converter={StaticResource CountToVisConverter},
+                                        ConverterParameter=''}">
                                 <Viewbox
                                 Height="15">
                                     <icons:PackIconFontAwesome
-                                    Kind="SurpriseRegular"
+                                    Kind="AngryRegular"
                                     Foreground="{ThemeResource SystemAccentColor}">
                                     </icons:PackIconFontAwesome>
                                 </Viewbox>
-                            </StackPanel><StackPanel
-                                Orientation="Horizontal">
                                 <TextBlock
                                 VerticalAlignment="Center"
-                                Margin="5 0">
+                                Margin="2 0 10 0">
                                 <Run
                                     FontSize="12"
                                     Foreground="{ThemeResource SystemAccentColor}"
@@ -273,13 +294,6 @@
                                         Mode=OneWay}"
                                     />
                                 </TextBlock>
-                                <Viewbox
-                                Height="15">
-                                    <icons:PackIconFontAwesome
-                                    Kind="AngryRegular"
-                                    Foreground="{ThemeResource SystemAccentColor}">
-                                    </icons:PackIconFontAwesome>
-                                </Viewbox>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
