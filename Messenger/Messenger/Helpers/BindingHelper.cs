@@ -1,12 +1,16 @@
 ﻿using Messenger.ViewModels.DataViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Defines "Attached Properties", mainly used to conditionally set styles on XAML
+    /// </summary>
     public class BindingHelper
     {
+        #region My Message Horizontal Alignment
+
         public static bool GetHorizontalAlignBindingPath(DependencyObject obj)
         {
             return (bool)obj.GetValue(HorizontalAlignBindingPathProperty);
@@ -17,7 +21,6 @@ namespace Messenger.Helpers
             obj.SetValue(HorizontalAlignBindingPathProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for HorizontalAlignBindingPath.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HorizontalAlignBindingPathProperty =
             DependencyProperty.RegisterAttached("HorizontalAlignBindingPath", typeof(bool), typeof(BindingHelper), new PropertyMetadata(null, HorizontalAlignBindingPathPropertyChanged));
 
@@ -35,5 +38,7 @@ namespace Messenger.Helpers
                 element.HorizontalContentAlignment = HorizontalAlignment.Left;
             }
         }
+
+        #endregion
     }
 }
