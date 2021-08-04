@@ -10,7 +10,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel
+        <Button Background="Transparent"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="50"
+                Command="{x:Bind OpenSettingCommand}">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Setting"/>
+                <TextBlock Text="Settings" FontWeight="SemiBold"/>
+            </StackPanel>    
+        </Button>
+            <StackPanel
             Opacity=".5"
             Spacing="25"
             HorizontalAlignment="Center"
