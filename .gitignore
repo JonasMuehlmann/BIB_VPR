@@ -8,7 +8,11 @@ AzureServiceBase.cs.example
 
 html/
 latex/
-
+#DoxFX
+Messenger.Core/_site
+Messenger.Core/api
+Messenger/_site
+Messenger/api
 # IDE configs
 .lvimrc
 .idea/
