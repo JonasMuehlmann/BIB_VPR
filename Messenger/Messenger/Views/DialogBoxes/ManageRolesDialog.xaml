@@ -478,7 +478,7 @@
                 
                 <!-- PERMISSIONS LIST -->
                 <ScrollViewer
-                    MaxHeight="275"
+                    MaxHeight="60"
                     Visibility="{x:Bind
                         ViewModel.PendingChange.Permissions,
                         Converter={StaticResource NullToVisibilityConverter}}">
