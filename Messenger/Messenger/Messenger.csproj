@@ -217,7 +217,7 @@
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
-    <Compile Include="Helpers\ColorHelper.cs" />
+    <Compile Include="Helpers\ColorExtensions.cs" />
     <Compile Include="Helpers\Converters\BooleanToAlignmentConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
