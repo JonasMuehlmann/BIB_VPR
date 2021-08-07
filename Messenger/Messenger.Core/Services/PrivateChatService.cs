@@ -48,8 +48,8 @@ namespace Messenger.Core.Services
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
 
-            var success1 = await SendInvitation(myUserId,    teamID.Value);
-            var success2 = await SendInvitation(otherUserId, teamID.Value);
+            var success1 = await AddMemberImpl(myUserId,    teamID.Value);
+            var success2 = await AddMemberImpl(otherUserId, teamID.Value);
 
             if (!(success1 && success2))
             {

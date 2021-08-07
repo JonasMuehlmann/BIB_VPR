@@ -30,13 +30,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(senderId);
                 Assert.AreNotEqual("",senderId);
 
-                uint? teamId = await TeamService.CreateTeam(receiverId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(receiverId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, senderId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessageImpl(channelId.Value, senderId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 var notificationMessage = new JObject
@@ -78,13 +78,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(senderId);
                 Assert.AreNotEqual("",senderId);
 
-                uint? teamId = await TeamService.CreateTeam(receiverId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(receiverId, testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, senderId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessageImpl(channelId.Value, senderId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 var notificationMessage = new JObject
@@ -121,13 +121,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull( userId);
                 Assert.AreNotEqual("", userId);
 
-                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                var messageId = (await MessageService.CreateMessageImpl(channelId.Value, userId, testName + "Message"));
                 Assert.IsNotNull(messageId);
 
                 var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
@@ -154,13 +154,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull( userId);
                 Assert.AreNotEqual("", userId);
 
-                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Chanel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                var messageId = (await MessageService.CreateMessageImpl(channelId.Value, userId, testName + "Message"));
                 Assert.IsNotNull(messageId);
 
                 var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);

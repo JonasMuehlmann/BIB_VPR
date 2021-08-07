@@ -222,7 +222,7 @@ namespace Messenger.Tests.MSTest
                 string oldBio = user.Bio;
                 Assert.AreEqual(oldBio, testName + "Bio");
 
-                var success = await UserService.UpdateUserBio(userId, oldBio + "New");
+                var success = await UserService.UpdateUserBioImpl(userId, oldBio + "New");
                 Assert.IsTrue(success);
 
                 user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});
@@ -250,7 +250,7 @@ namespace Messenger.Tests.MSTest
                 string oldEmail = user.Mail;
                 Assert.AreEqual(oldEmail, testName + "Mail");
 
-                var success = await UserService.UpdateUserEmail(userId, oldEmail + "New");
+                var success = await UserService.UpdateUserMailImpl(userId, oldEmail + "New");
                 Assert.IsTrue(success);
 
                 user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});
@@ -278,7 +278,7 @@ namespace Messenger.Tests.MSTest
                 string oldEmail = user.Photo;
                 Assert.AreEqual(oldEmail, testName + "Photo");
 
-                var success = await UserService.UpdateUserPhoto(userId, oldEmail + "New");
+                var success = await UserService.UpdateUserPhotoImpl(userId, oldEmail + "New");
                 Assert.IsTrue(success);
 
                 user = await UserService.GetOrCreateApplicationUser(new User(){Id = userId});

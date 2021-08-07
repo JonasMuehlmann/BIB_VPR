@@ -23,13 +23,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(userId);
                 Assert.AreNotEqual("",userId);
 
-                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessageImpl(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 var notificationMessageBuilt = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
@@ -61,13 +61,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(userId);
                 Assert.AreNotEqual("",userId);
 
-                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessageImpl(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 var notificationMessageBuilt = await NotificationMessageBuilder.MakeMessageInSubscribedTeamNotificationMessage(messageId.Value);
@@ -107,10 +107,10 @@ namespace Messenger.Tests.MSTest
                 uint? teamId = await PrivateChatService.CreatePrivateChat(userId1, userId2);
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId1, testName + "Message");
+                uint? messageId = await MessageService.CreateMessageImpl(channelId.Value, userId1, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 var notificationMessageBuilt = await NotificationMessageBuilder.MakeMessageInPrivateChatNotificationMessage(messageId.Value);
@@ -140,13 +140,13 @@ namespace Messenger.Tests.MSTest
                 Assert.IsNotNull(userId);
                 Assert.AreNotEqual("",userId);
 
-                uint? teamId = await TeamService.CreateTeam(userId, testName + "Team");
+                uint? teamId = await TeamService.CreateTeamImpl(testName + "Team");
                 Assert.IsNotNull(teamId);
 
-                uint? channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
+                uint? channelId = await ChannelService.CreateChannelImpl(testName + "Channel", teamId.Value);
                 Assert.IsNotNull(channelId);
 
-                uint? messageId = await MessageService.CreateMessage(channelId.Value, userId, testName + "Message");
+                uint? messageId = await MessageService.CreateMessageImpl(channelId.Value, userId, testName + "Message");
                 Assert.IsNotNull(messageId);
 
                 var notificationMessageBuilt = await NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage(teamId.Value);
