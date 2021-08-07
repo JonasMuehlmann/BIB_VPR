@@ -18,7 +18,7 @@ namespace Messenger.Core.Services
         /// <param name="channelName">Name of the channel</param>
         /// <param name="teamId">Id of the team to create the channel in</param>
         /// <returns>The id of the created channel if it was created successfully, null otherwise</returns>
-        private static async Task<uint?> CreateChannelImpl(string channelName, uint teamId)
+        public static async Task<uint?> CreateChannelImpl(string channelName, uint teamId)
         {
             LogContext.PushProperty("Method",        "CreateChannelImpl");
             LogContext.PushProperty("SourceContext", "ChannelService");
@@ -44,7 +44,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="channelId">The id of the channel to delete</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        private static async Task<bool> RemoveChannelImpl(uint channelId)
+        public static async Task<bool> RemoveChannelImpl(uint channelId)
         {
             LogContext.PushProperty("Method",        "RemoveChannelImpl");
             LogContext.PushProperty("SourceContext", "ChannelService");
@@ -66,7 +66,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to clear the channels from</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        private static async Task<bool> RemoveAllChannelsImpl(uint teamId)
+        public static async Task<bool> RemoveAllChannelsImpl(uint teamId)
         {
             LogContext.PushProperty("Method",        "RemoveAllChannelsImpl");
             LogContext.PushProperty("SourceContext", "ChannelService");
