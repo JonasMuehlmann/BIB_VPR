@@ -100,24 +100,27 @@ namespace Messenger.Core.Services
         /// The id of the sender of notifications to be muted
         /// </param>
         /// <returns>The id of the Notification mute on success, null otherwise</returns>
-        public static async Task<uint?> AddMute(NotificationType notificationType, NotificationSource notificationSourceType, string notificationSourceValue, string userId, string senderId = null)
+        public static async Task<uint?> AddMute(NotificationType? notificationType, NotificationSource? notificationSourceType, string notificationSourceValue, string userId, string senderId = null)
         {
             LogContext.PushProperty("Method","AddMute");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters notificationType={notificationType.ToString()}, notificationSourceType={notificationSourceType.ToString()}, notificationSourceValue={notificationSourceValue}, userId={userId}");
 
-            senderId = senderId is null ? "NULL" : $"'{senderId}'";
+            var senderIdQueryFragment                = senderId                is null ? "NULL" : $"'{senderId}'";
+            var notificationTypeQueryFragment        = notificationType        is null ? "NULL" : $"'{notificationType}'";
+            var notificationSourceTypeQueryFragment  = notificationSourceType  is null ? "NULL" : $"'{notificationSourceType}'";
+            var notificationSourceValueQueryFragment = notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
 
             string query = $@"
                                 INSERT INTO
                                     NotificationMutes
                                 VALUES(
-                                        '{notificationType.ToString()}',
-                                        '{notificationSourceType.ToString()}',
-                                        '{notificationSourceValue.ToString()}',
+                                         {notificationTypeQueryFragment.ToString()},
+                                         {notificationSourceTypeQueryFragment.ToString()},
+                                         {notificationSourceValueQueryFragment.ToString()},
                                         '{userId}',
-                                         {senderId}
+                                         {senderIdQueryFragment}
                                       );
 
                                 SELECT SCOPE_IDENTITY();
