@@ -104,7 +104,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose email will be updated</param>
         /// <param name="newMail">The new email to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        private static async Task<bool> UpdateUserMailImpl(string userId, string newMail)
+        public static async Task<bool> UpdateUserMailImpl(string userId, string newMail)
         {
             LogContext.PushProperty("Method",        "UpdateUserMailImpl");
             LogContext.PushProperty("SourceContext", "UserService");
@@ -130,7 +130,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose photo will be updated</param>
         /// <param name="newPhoto">The new photo to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        private static async Task<bool> UpdateUserPhotoImpl(string userId, string newPhoto)
+        public static async Task<bool> UpdateUserPhotoImpl(string userId, string newPhoto)
         {
             LogContext.PushProperty("Method",        "UpdateUserMailImpl");
             LogContext.PushProperty("SourceContext", "UserService");
@@ -156,7 +156,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user, whose  bio will be updated</param>
         /// <param name="newBio">The new  bio to set</param>
         /// <returns>True if no exceptions occured while executing the query, false otherwise</returns>
-        private static async Task<bool> UpdateUserBioImpl(string userId, string newBio)
+        public static async Task<bool> UpdateUserBioImpl(string userId, string newBio)
         {
             LogContext.PushProperty("Method",        "UpdateUserMailImpl");
             LogContext.PushProperty("SourceContext", "UserService");

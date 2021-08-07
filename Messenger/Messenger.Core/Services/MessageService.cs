@@ -21,7 +21,7 @@ namespace Messenger.Core.Services
         ///<param name="parentMessageId">The optional id of a message this one is a reply to</param>
         ///<param name="attachmentBlobNames">Enumerable of blob names of uploaded attachments</param>
         /// <returns>The id of the created message if it was created successfully, null otherwise</returns>
-        private static async Task<uint?> CreateMessageImpl(
+        public static async Task<uint?> CreateMessageImpl(
             uint                recipientsId,
             string              senderId,
             string              message,
@@ -176,7 +176,7 @@ namespace Messenger.Core.Services
         /// <param name="messageId">The id of the message to edit</param>
         /// <param name="newContent">The new content of the message</param>
         /// <returns>True if the message got edited successfully, false otherwise</returns>
-        private static async Task<bool> EditMessageImpl(uint messageId, string newContent)
+        public static async Task<bool> EditMessageImpl(uint messageId, string newContent)
         {
             LogContext.PushProperty("Method",        "EditMessageImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
@@ -199,7 +199,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="messageId">The id of the message to delete</param>
         /// <returns>True if the message got deleted successfully, false otherwise</returns>
-        private static async Task<bool> DeleteMessageImpl(uint messageId)
+        public static async Task<bool> DeleteMessageImpl(uint messageId)
         {
             LogContext.PushProperty("Method",        "DeleteMessageImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
@@ -252,7 +252,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user making the reaction</param>
         /// <param name="reaction">The reaction to add to the message</param>
         /// <returns>The id of the created reaction</returns>
-        private static async Task<uint> AddReactionImpl(uint messageId, string userId, string reaction)
+        public static async Task<uint> AddReactionImpl(uint messageId, string userId, string reaction)
         {
             LogContext.PushProperty("Method",        "AddReactionImpl");
             LogContext.PushProperty("SourceContext", "MessageService");
@@ -282,7 +282,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user whose reaction to remove</param>
         /// <param name="reaction">The reaction to remove from the message</param>
         /// <returns>Whetever or not to the reaction was successfully removed</returns>
-        private static async Task<bool> RemoveReactionImpl(uint messageId, string userId, string reaction)
+        public static async Task<bool> RemoveReactionImpl(uint messageId, string userId, string reaction)
         {
             LogContext.PushProperty("Method",        "RemoveReactionImpl");
             LogContext.PushProperty("SourceContext", "MessageService");

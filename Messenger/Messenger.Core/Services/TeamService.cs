@@ -20,7 +20,7 @@ namespace Messenger.Core.Services
         /// <param name="teamName">Name of the team</param>
         /// <param name="teamDescription">Description of the team</param>
         /// <returns>The id of the created team if it was created successfully, null otherwise</returns>
-        private static async Task<uint?> CreateTeamImpl(string teamName, string teamDescription = "")
+        public static async Task<uint?> CreateTeamImpl(string teamName, string teamDescription = "")
         {
             LogContext.PushProperty("Method",        "CreateTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -76,7 +76,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</returns>
-        private static async Task<bool> DeleteTeamImpl(uint teamId)
+        public static async Task<bool> DeleteTeamImpl(uint teamId)
         {
             LogContext.PushProperty("Method",        "DeleteTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -109,7 +109,7 @@ namespace Messenger.Core.Services
         /// <param name="teamDescription"></param>
         /// <param name="teamId"></param>
         /// <returns></returns>
-        private static async Task<bool> UpdateTeamImpl(string teamName, string teamDescription, uint teamId)
+        public static async Task<bool> UpdateTeamImpl(string teamName, string teamDescription, uint teamId)
         {
             LogContext.PushProperty("Method",        "UpdateTeamImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -137,7 +137,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team which's should be changed</param>
         /// <param name="teamName">New name of the team</param>
         /// <returns>True, if the teams name was changed, false otherwise</returns>
-        private static async Task<bool> ChangeTeamNameImpl(uint teamId, string teamName)
+        public static async Task<bool> ChangeTeamNameImpl(uint teamId, string teamName)
         {
             LogContext.PushProperty("Method",        "ChangeTeamNameImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -169,7 +169,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">Id of the team which's should be changed</param>
         /// <param name="description">New description of the team</param>
         /// <returns>True, if the teams name was changed, false otherwise</returns>
-        private static async Task<bool> ChangeTeamDescriptionImpl(uint teamId, string description)
+        public static async Task<bool> ChangeTeamDescriptionImpl(uint teamId, string description)
         {
             LogContext.PushProperty("Method",        "ChangeTeamDescriptionImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -272,7 +272,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to add to the specified team</param>
         /// <param name="teamId">The id of the team to add the specified user to</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
-        private static async Task<bool> AddMemberImpl(string userId, uint teamId)
+        public static async Task<bool> AddMemberImpl(string userId, uint teamId)
         {
             LogContext.PushProperty("Method",        "AddMemberImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -340,7 +340,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to remove from the specified team</param>
         /// <param name="teamId">The id of the team to remove the specified user from</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
-        private static async Task<bool> RemoveMemberImpl(string userId, uint teamId)
+        public static async Task<bool> RemoveMemberImpl(string userId, uint teamId)
         {
             LogContext.PushProperty("Method",        "RemoveMemberImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -451,7 +451,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to add the role to</param>
         /// <param name="colorCode">Hex code of the color</param>
         /// <returns>Id of the added team role</returns>
-        private static async Task<uint?> AddRoleImpl(string role, uint teamId, string colorCode)
+        public static async Task<uint?> AddRoleImpl(string role, uint teamId, string colorCode)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method",        "AddRoleImpl");
@@ -472,7 +472,7 @@ namespace Messenger.Core.Services
         }
 
 
-        private static async Task<bool> UpdateRoleImpl(uint roleId, string role, string colorCode)
+        public static async Task<bool> UpdateRoleImpl(uint roleId, string role, string colorCode)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method",        "UpdateRoleImpl");
@@ -498,7 +498,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
         /// <returns>True if successful, false otherwise</returns>
-        private static async Task<bool> RemoveRoleImpl(string role, uint teamId)
+        public static async Task<bool> RemoveRoleImpl(string role, uint teamId)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method",        "RemoveRoleImpl");
@@ -596,7 +596,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to assign the role to</param>
         /// <param name="teamId">The team to assign a role to a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        private static async Task<bool> AssignRoleImpl(string role, string userId, uint teamId)
+        public static async Task<bool> AssignRoleImpl(string role, string userId, uint teamId)
         {
             LogContext.PushProperty("Method",        "AssignRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -638,7 +638,7 @@ namespace Messenger.Core.Services
         /// <param name="userId">The id of the user to unassign the role from</param>
         /// <param name="teamId">The team to unassign a role from a member in</param>
         /// <returns>True if successful, false otherwise</returns>
-        private static async Task<bool> UnAssignRoleImpl(string role, string userId, uint teamId)
+        public static async Task<bool> UnAssignRoleImpl(string role, string userId, uint teamId)
         {
             LogContext.PushProperty("Method",        "UnassignRoleImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -768,7 +768,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to grant a permission</param>
         /// <param name="permission">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        private static async Task<bool> GrantPermissionImpl(uint teamId, string role, Permissions permission)
+        public static async Task<bool> GrantPermissionImpl(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method",        "GrantPermissionsImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -834,7 +834,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to revoke a permission from</param>
         /// <param name="permission">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        private static async Task<bool> RevokePermissionImpl(uint teamId, string role, Permissions permission)
+        public static async Task<bool> RevokePermissionImpl(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method",        "RevokePermissionImpl");
             LogContext.PushProperty("SourceContext", "TeamService");
