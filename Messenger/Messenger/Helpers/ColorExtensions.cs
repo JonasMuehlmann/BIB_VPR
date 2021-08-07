@@ -3,7 +3,10 @@ using Windows.UI;
 
 namespace Messenger.Helpers
 {
-    public static class ColorHelper
+    /// <summary>
+    /// Extensions: converts/converts back 'Color' class to hex code(string)
+    /// </summary>
+    public static class ColorExtensions
     {
         public static Color ToColor(this string value)
         {
