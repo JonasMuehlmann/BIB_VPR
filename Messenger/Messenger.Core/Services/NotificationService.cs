@@ -190,8 +190,8 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters message={message}, userId={userId}");
 
-            NotificationType notificationType         = message["notificationType"].ToObject<NotificationType>();
-            NotificationSource notificationSourceType = message["notificationSource"].ToObject<NotificationSource>();
+            NotificationType? notificationType         = message["notificationType"].ToObject<NotificationType>();
+            NotificationSource? notificationSourceType = message["notificationSource"].ToObject<NotificationSource>();
 
             string notificationSourceValue = null;
             string senderId = null;
@@ -237,27 +237,24 @@ namespace Messenger.Core.Services
                     break;
             }
 
-            var senderIdQueryFragment = senderId is null ? "NULL" : $"'{senderId}'";
-            var notificationSourceValueQueryFragment = notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
+            var targetUsersMutes = await GetUsersMutes(userId);
 
-            var query = $@"
-                            SELECT
-                                COUNT(*)
-                            FROM
-                                NotificationMutes
-                            WHERE
-                                NotificationType = '{notificationType}'
-                                AND
-                                NotificationSourceType = '{notificationSourceType}'
-                                AND
-                                NotificationSourceValue = '{notificationSourceValue}'
-                                AND
-                                UserId = '{userId}'
-                                AND
-                                SenderId = {senderIdQueryFragment};
-                ";
+            foreach (var curMute in targetUsersMutes)
+            {
+                var  isMuted = true;
 
-            return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
+                isMuted &= curMute.NotificationType        == null || curMute.NotificationType        == notificationType;
+                isMuted &= curMute.NotificationSourceType  == null || curMute.NotificationSourceType  == notificationSourceType;
+                isMuted &= curMute.NotificationSourceValue == null || curMute.NotificationSourceValue == notificationSourceValue;
+                isMuted &= curMute.SenderId                == null || curMute.SenderId                == senderId;
+
+                if (isMuted)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
