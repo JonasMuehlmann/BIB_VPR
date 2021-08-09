@@ -91,7 +91,8 @@
             <Button
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Background="Transparent">
+                Background="Transparent"
+                Tapped="RemoveReply_Tapped">
                 <Viewbox
                     Height="15"
                     Opacity=".55">

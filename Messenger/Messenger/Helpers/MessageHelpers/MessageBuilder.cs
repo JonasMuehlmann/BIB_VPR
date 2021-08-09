@@ -110,6 +110,7 @@ namespace Messenger.Helpers.MessageHelpers
 
                 foreach (var reply in replies) {
                     MessageViewModel withSender = await WithSender(Map(reply));
+                    withSender = await withSender.WithReactions();
                     replyViewModels.Add(withSender);
                 }
                 SortReplies(replyViewModels);

@@ -28,7 +28,7 @@ namespace Messenger.Commands.TeamManage
         public void Execute(object parameter)
         {
             bool executable = parameter != null
-                && parameter is ChannelViewModel; 
+                && parameter is ChannelViewModel;
 
             if (!executable) return;
 
