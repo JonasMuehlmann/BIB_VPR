@@ -150,5 +150,10 @@ namespace Messenger.Views.Subcontrols
         }
 
         #endregion
+
+        private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DeleteMessageCommand.Execute(Message);
+        }
     }
 }

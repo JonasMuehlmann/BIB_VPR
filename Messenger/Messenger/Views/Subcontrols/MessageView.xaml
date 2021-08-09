@@ -517,6 +517,7 @@
                                     x:Name="DeleteButton"
                                     Icon="Delete"
                                     Label="Delete"
+                                    Tapped="DeleteButton_Tapped"
                                     Command="{x:Bind
                                         DeleteMessageCommand}"
                                     CommandParameter="{x:Bind
