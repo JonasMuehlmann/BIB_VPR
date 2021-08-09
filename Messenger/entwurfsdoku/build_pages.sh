@@ -2,16 +2,17 @@
 
 class_mappings=$(./get_classes.sh)
 
+# Split array on \n instead of space
 IFS=$'\n'
 
-# TODO: Parallelize
 for mapping in ${class_mappings}; do
+    # Start command in subshell and put it in background
     (
         file_name="pages/${mapping% *}.md"
         touch "${file_name}"
 
         echo '#Benutzte Pakete' >"${file_name}"
-        # drop using and semicolon at end
+        # drop 'using' and semicolon at end
         grep -E '^using .*;' "${mapping#* }" | choose 1 | choose -c :-2 >>"${file_name}"
 
         echo '#Importschnittstellen' >>"${file_name}"
@@ -22,4 +23,5 @@ for mapping in ${class_mappings}; do
     ) &
 done
 
+# Wait for all background tasks
 wait
