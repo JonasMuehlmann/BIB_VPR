@@ -15,5 +15,8 @@ Messenger.ViewModels.DataViewModels
 Messenger.Views.Pages
 Windows.UI.Xaml.Controls
 Windows.UI.Xaml.Input
+#Importschnittstellen
+string.Split(char, System.StringSplitOptions)
+System.Convert.ToUInt32(string?)
 #Exportschnittstellen
 public TeamManageViewModel()

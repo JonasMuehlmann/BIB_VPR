@@ -7,6 +7,14 @@ System.Data.SqlClient
 System.Linq
 System.Threading.Tasks
 Serilog.Context
+#Importschnittstellen
+Messenger.Core.Helpers.SqlHelpers.ExecuteScalarAsync<T>(string, System.Func<object, T>)
+Messenger.Core.Helpers.SqlHelpers.GetRows(string, string)
+Messenger.Core.Helpers.SqlHelpers.MapToList<T>(System.Func<System.Data.DataRow, T>, string, string)
+Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(string)
+Messenger.Core.Services.AzureServiceBase.GetDefaultConnection()
+Serilog.Context.LogContext.PushProperty(string, object, bool)
+Serilog.ILogger.Information(string)
 #Exportschnittstellen
 public static async Task<uint?> CreateChannel(string channelName, uint teamId)
 public static async Task<Channel> GetChannel(uint channelId)

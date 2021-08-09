@@ -7,6 +7,8 @@ System.Linq
 System.Windows.Input
 Messenger.Commands.TeamManage
 Messenger.Models
+#Importschnittstellen
+System.Enum.GetValues(System.Type)
 #Exportschnittstellen
 public void FilterGrantablePermissions()
 public ManageRolesDialogViewModel()

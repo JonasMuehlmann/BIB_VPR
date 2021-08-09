@@ -6,6 +6,15 @@ System.Collections.Generic
 System.Collections.ObjectModel
 System.Linq
 System.Threading.Tasks
+#Importschnittstellen
+Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateChannel(Messenger.Core.Models.Channel)
+Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateMember(uint, Messenger.Core.Models.User)
+Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam(Messenger.Core.Models.Team)
+Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam(System.Collections.Generic.IEnumerable<Messenger.Core.Models.Team>)
+Messenger.Helpers.TeamHelpers.TeamManager.LoadTeamsFromDatabase(UserViewModel)
+System.Collections.Generic.ICollection<ChannelViewModel>.Add(ChannelViewModel)
+System.Collections.Generic.List<MemberViewModel>.Add(MemberViewModel)
+System.Collections.Generic.List<TeamViewModel>.Add(TeamViewModel)
 #Exportschnittstellen
 public ChannelViewModel AddOrUpdateChannel(Channel channelData)
 public IList<ChannelViewModel> AddOrUpdateChannel(IEnumerable<Channel> channelData)

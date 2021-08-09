@@ -5,6 +5,9 @@ Messenger.Views.DialogBoxes
 Serilog
 System
 System.Windows.Input
+#Importschnittstellen
+Messenger.Core.Services.MessengerService.DeleteMessage(uint, uint)
+Serilog.ILogger.Information(string)
 #Exportschnittstellen
 public bool CanExecute(object parameter)
 public DeleteMessageCommand()

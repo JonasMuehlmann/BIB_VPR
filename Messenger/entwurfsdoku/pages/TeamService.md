@@ -6,6 +6,16 @@ System.Data.SqlClient
 System.Linq
 System.Threading.Tasks
 Serilog.Context
+#Importschnittstellen
+Messenger.Core.Helpers.Mapper.EnumFromDataRow<Messenger.Core.Models.Permissions>(System.Data.DataRow, string)
+Messenger.Core.Helpers.SqlHelpers.ExecuteScalarAsync<T>(string, System.Func<object, T>)
+Messenger.Core.Helpers.SqlHelpers.GetRows(string, string)
+Messenger.Core.Helpers.SqlHelpers.MapToList<T>(System.Func<System.Data.DataRow, T>, string, string)
+Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(string)
+Messenger.Core.Services.AzureServiceBase.GetDefaultConnection()
+Serilog.Context.LogContext.PushProperty(string, object, bool)
+Serilog.ILogger.Information(string)
+System.Enum.GetName(System.Type, object)
 #Exportschnittstellen
 public static async Task<bool> AddMember(string userId, uint teamId)
 public static async Task<uint?> AddRole(string role, uint teamId, string colorCode)

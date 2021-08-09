@@ -7,6 +7,13 @@ System.Collections.Generic
 System.Collections.ObjectModel
 System.Linq
 System.Threading.Tasks
+#Importschnittstellen
+Messenger.Helpers.MessageHelpers.MessageManager.AddOrUpdateMessage(Messenger.Core.Models.Message)
+Messenger.Helpers.MessageHelpers.MessageManager.AddOrUpdateMessage(System.Collections.Generic.IEnumerable<Messenger.Core.Models.Message>)
+Messenger.Helpers.MessageHelpers.MessageManager.AddOrUpdateToDictionary(MessageViewModel)
+Messenger.Helpers.MessageHelpers.MessageManager.CreateEntry(TeamViewModel)
+System.Collections.Generic.List<MessageViewModel>.Add(MessageViewModel)
+System.EventHandler<ManagerEventArgs>.Invoke(object?, ManagerEventArgs)
 #Exportschnittstellen
 public async Task<MessageViewModel> AddOrUpdateMessage(Message messageData)
 public async Task<IList<MessageViewModel>> AddOrUpdateMessage(IEnumerable<Message> messageData)

@@ -8,6 +8,9 @@ Serilog
 Serilog.Context
 Newtonsoft.Json
 Newtonsoft.Json.Linq
+#Importschnittstellen
+Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue<T>(object, System.Func<object, T>)
+System.Enum.Parse(System.Type, string)
 #Exportschnittstellen
 public static Channel ChannelFromDataRow(DataRow row)
 public static Membership MembershipFromDataRow(DataRow row)

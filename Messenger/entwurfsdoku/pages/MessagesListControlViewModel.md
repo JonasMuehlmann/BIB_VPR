@@ -7,6 +7,8 @@ System.Collections.Generic
 System.Collections.ObjectModel
 System.Linq
 System.Windows.Input
+#Importschnittstellen
+Messenger.ViewModels.Controls.MessagesListControlViewModel.Initialize()
 #Exportschnittstellen
 public MessagesListControlViewModel(ChatViewModel parentViewModel)
 public void OnMessageUpdated(object sender, BroadcastArgs e)

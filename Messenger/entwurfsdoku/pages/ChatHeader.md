@@ -6,5 +6,6 @@ Messenger.Views.Pages
 System.Windows.Input
 Windows.UI.Xaml
 Windows.UI.Xaml.Controls
+#Importschnittstellen
 #Exportschnittstellen
 public ChatHeader()

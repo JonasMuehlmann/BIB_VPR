@@ -9,6 +9,20 @@ System.Collections.Generic
 System.Collections.ObjectModel
 System.Linq
 System.Threading.Tasks
+#Importschnittstellen
+MessageViewModel.WithReactions()
+MessageViewModel.WithSender()
+Messenger.Core.Services.ChannelService.GetChannel(uint)
+Messenger.Core.Services.MessengerService.GetMessages(uint)
+Messenger.Core.Services.MessengerService.GetReactions(uint)
+Messenger.Core.Services.UserService.GetUser(string)
+Messenger.Helpers.MessageHelpers.MessageBuilder.Build(Messenger.Core.Models.Message)
+Messenger.Helpers.MessageHelpers.MessageBuilder.Map(Messenger.Core.Models.Message)
+Messenger.Helpers.MessageHelpers.MessageBuilder.Map(Messenger.Core.Models.User)
+System.Array.GetLength(int)
+System.Collections.Generic.List<Attachment>.Add(Attachment)
+System.Collections.Generic.List<MessageViewModel>.Add(MessageViewModel)
+System.Enum.Parse(System.Type, string)
 #Exportschnittstellen
 public static async Task<MessageViewModel> Build(this Message message)
 public static async Task<IEnumerable<MessageViewModel>> Build(this IEnumerable<Message> messages)

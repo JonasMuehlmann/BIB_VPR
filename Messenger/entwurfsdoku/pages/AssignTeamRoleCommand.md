@@ -6,6 +6,8 @@ Messenger.ViewModels.DialogBoxes
 Messenger.Views.DialogBoxes
 System
 System.Windows.Input
+#Importschnittstellen
+Messenger.Core.Services.MessengerService.AssignUserRole(string, string, uint)
 #Exportschnittstellen
 public AssignTeamRoleCommand(ManageMemberRolesDialogViewModel vm)
 public bool CanExecute(object parameter)

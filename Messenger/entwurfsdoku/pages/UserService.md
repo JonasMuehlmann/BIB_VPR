@@ -8,6 +8,22 @@ System.Data
 System.Linq
 Serilog.Context
 System.Collections.Generic
+#Importschnittstellen
+Messenger.Core.Helpers.Mapper.UserFromMSGraph(Messenger.Core.Models.User)
+Messenger.Core.Helpers.SqlHelpers.ExecuteScalarAsync<T>(string, System.Func<object, T>)
+Messenger.Core.Helpers.SqlHelpers.GetColumnType(string, string)
+Messenger.Core.Helpers.SqlHelpers.GetRows(string, string)
+Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(string)
+Messenger.Core.Services.AzureServiceBase.GetDefaultConnection()
+Messenger.Core.Services.FileSharingService.UploadFromBase64(string, string)
+Messenger.Core.Services.UserService.DetermineNewNameId(string, SqlConnection)
+Messenger.Core.Services.UserService.UpdateUsername(string, string)
+Serilog.Context.LogContext.PushProperty(string, object, bool)
+Serilog.ILogger.Information(string)
+string.Split(char, System.StringSplitOptions)
+string.Trim()
+System.Convert.ToString(object?)
+System.Convert.ToUInt32(object?)
 #Exportschnittstellen
 public static async Task<bool> DeleteUser(string userId)
 public static async Task<User> GetOrCreateApplicationUser(User userdata)

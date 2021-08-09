@@ -3,6 +3,11 @@ Windows.ApplicationModel.DataTransfer
 Windows.UI.Xaml
 Windows.UI.Xaml.Controls
 Windows.UI.Xaml.Media.Imaging
+#Importschnittstellen
+Messenger.Services.DragAndDrop.DragDropService.ConfigureListView(ListViewBase, ListViewDropConfiguration)
+Messenger.Services.DragAndDrop.DragDropService.ConfigureUIElement(UIElement, DropConfiguration)
+Messenger.Services.DragAndDrop.DragDropService.GetConfiguration(DependencyObject)
+Messenger.Services.DragAndDrop.DragDropService.GetVisualConfiguration(DependencyObject)
 #Exportschnittstellen
 public static DropConfiguration GetConfiguration(DependencyObject dependencyObject)
 public static VisualDropConfiguration GetVisualConfiguration(DependencyObject dependencyObject)

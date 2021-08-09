@@ -4,6 +4,11 @@ System.Threading.Tasks
 Newtonsoft.Json.Linq
 Messenger.Core.Models
 Messenger.Core.Services
+#Importschnittstellen
+Messenger.Core.Helpers.SqlHelpers.ExecuteScalarAsync<T>(string, System.Func<object, T>)
+Messenger.Core.Services.MentionService.ResolveMentions(string)
+object.ToString()
+uint.ToString()
 #Exportschnittstellen
 public static async Task<JObject> MakeInvitedToTeamNotificationMessage(uint teamId)
 public static async Task<JObject> MakeMessageInPrivateChatNotificationMessage(uint messageId)

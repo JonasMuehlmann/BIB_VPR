@@ -4,6 +4,14 @@ System.Threading.Tasks
 Messenger.Core.Helpers
 Windows.Storage
 Windows.Storage.Streams
+#Importschnittstellen
+ApplicationDataContainer.SaveString(string, string)
+Messenger.Core.Helpers.Json.StringifyAsync(object)
+Messenger.Core.Helpers.Json.ToObjectAsync<T>(string)
+Messenger.Helpers.SettingsStorageExtensions.GetFileName(string)
+string.Concat(string?, string?)
+string.IsNullOrEmpty(string?)
+System.IO.Path.Combine(string, string)
 #Exportschnittstellen
 public static bool IsRoamingStorageAvailable(this ApplicationData appData)
 public static async Task<T> ReadAsync<T>(this StorageFolder folder, string name)

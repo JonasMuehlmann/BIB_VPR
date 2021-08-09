@@ -4,6 +4,9 @@ Microsoft.AspNetCore.SignalR
 System
 System.Collections.Generic
 System.Threading.Tasks
+#Importschnittstellen
+Messenger.SignalR.ChatHub.AddMember(Messenger.Core.Models.User, Messenger.Core.Models.Team)
+uint.ToString()
 #Exportschnittstellen
 public async Task AddMember(User user, Team team)
 public async Task AddOrUpdateTeamRole(TeamRole role)

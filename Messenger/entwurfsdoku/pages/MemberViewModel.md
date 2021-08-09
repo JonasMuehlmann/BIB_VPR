@@ -7,6 +7,7 @@ System.Collections.ObjectModel
 System.Linq
 System.Text
 System.Threading.Tasks
+#Importschnittstellen
 #Exportschnittstellen
 public MemberViewModel()
 public MemberViewModel(MemberViewModel data)

@@ -8,6 +8,8 @@ Messenger.Helpers
 Messenger.Models
 Messenger.Services
 Messenger.ViewModels.DataViewModels
+#Importschnittstellen
+Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()
 #Exportschnittstellen
 public ChatNavViewModel()
 public void OnChatUpdated(object sender, BroadcastArgs e)

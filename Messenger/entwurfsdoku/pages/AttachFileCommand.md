@@ -8,6 +8,8 @@ System.Linq
 System.Windows.Input
 Windows.Storage
 Windows.Storage.Pickers
+#Importschnittstellen
+Serilog.ILogger.Information(string)
 #Exportschnittstellen
 public AttachFileCommand(ChatViewModel viewModel)
 public bool CanExecute(object parameter)

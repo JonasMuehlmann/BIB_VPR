@@ -7,6 +7,8 @@ Messenger.Views.Pages
 Serilog
 System
 System.Windows.Input
+#Importschnittstellen
+Serilog.ILogger.Information(string)
 #Exportschnittstellen
 public bool CanExecute(object parameter)
 public ChannelSwitchCommand()

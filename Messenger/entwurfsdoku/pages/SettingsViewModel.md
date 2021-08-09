@@ -11,6 +11,11 @@ Messenger.ViewModels.DataViewModels
 Messenger.Views
 Windows.ApplicationModel
 Windows.UI.Xaml
+#Importschnittstellen
+Messenger.Core.Services.IdentityService.LogoutAsync()
+Messenger.ViewModels.Pages.SettingsViewModel.GetVersionDescription()
+Messenger.ViewModels.Pages.SettingsViewModel.InitializeAsync()
+Messenger.ViewModels.Pages.SettingsViewModel.UnregisterEvents()
 #Exportschnittstellen
 public async void InitializeAsync()
 public SettingsViewModel()

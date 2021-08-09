@@ -5,6 +5,11 @@ System.Net.NetworkInformation
 System.Threading.Tasks
 Messenger.Core.Helpers
 Microsoft.Identity.Client
+#Importschnittstellen
+Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync(string[])
+Messenger.Core.Services.IdentityService.GetAccessTokenAsync(string[])
+Messenger.Core.Services.IdentityService.IsAuthorized()
+System.EventHandler.Invoke(object?, System.EventArgs)
 #Exportschnittstellen
 public async Task<bool> AcquireTokenSilentAsync() => await AcquireTokenSilentAsync(_graphScopes);
 public async Task<string> GetAccessTokenAsync(string[] scopes)
