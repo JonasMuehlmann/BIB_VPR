@@ -1,0 +1,13 @@
+#Benutzte Pakete
+System.Linq
+System.Threading.Tasks
+Messenger.Core.Models
+Messenger.Core.Helpers
+Messenger.Core.Services
+Microsoft.VisualStudio.TestTools.UnitTesting
+Newtonsoft.Json.Linq
+#Exportschnittstellen
+public void MakeInvitedToTeamNotificationMessage_Test()
+public void MakeMessageInPrivateChatNotificationMessage_Test()
+public void MakeMessageInSubscribedChannelNotificationMessage_Test()
+public void MakeMessageInSubscribedTeamNotificationMessage_Test()

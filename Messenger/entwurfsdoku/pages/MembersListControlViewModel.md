@@ -1,0 +1,11 @@
+#Benutzte Pakete
+Messenger.Commands.TeamManage
+Messenger.Helpers
+Messenger.ViewModels.DataViewModels
+Messenger.ViewModels.Pages
+Messenger.Views.DialogBoxes
+System
+System.Collections.ObjectModel
+System.Windows.Input
+#Exportschnittstellen
+public MembersListControlViewModel(TeamManageViewModel parentViewModel)
