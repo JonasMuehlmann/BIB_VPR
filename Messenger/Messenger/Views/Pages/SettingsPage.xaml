@@ -55,7 +55,7 @@
                         Height="16">
                         <SymbolIcon
                             Symbol="Back"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             />
                     </Viewbox>
                     <TextBlock
@@ -156,7 +156,7 @@
                     CornerRadius="3" 
                     Tapped="EditButton_Tapped"
                     Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
-                    Foreground="{ThemeResource SystemAccentColor}">
+                    Foreground="{ThemeResource PrimaryAccent_A}">
                         <StackPanel 
                         Orientation="Horizontal" 
                         VerticalAlignment="Center" 
@@ -209,7 +209,7 @@
                             Style="{StaticResource ActionButtonStyle}" 
                             Icon="Accept" 
                             Label="Accept" 
-                            Foreground="{ThemeResource SystemAccentColor}" 
+                            Foreground="{ThemeResource PrimaryAccent_A}" 
                             Tapped="EditAcceptButton_Tapped"
                             />
                             <AppBarButton 
@@ -217,7 +217,7 @@
                             Name="EditCancelButton" 
                             Icon="Cancel" 
                             Label="Cancel" 
-                            Foreground="{ThemeResource SystemAccentColorDark1}" 
+                            Foreground="IndianRed" 
                             Tapped="EditCancelButton_Tapped" 
                             />
                         </CommandBar>
@@ -238,7 +238,7 @@
                         Height="32">
                             <icons:PackIconFontAwesome 
                             Kind="QuestionCircleRegular" 
-                            Foreground="{ThemeResource SystemAccentColor}" 
+                            Foreground="{ThemeResource PrimaryAccent_A}" 
                             />
                         </Viewbox>
                         <TextBlock 
@@ -246,7 +246,7 @@
                         Opacity=".75" 
                         />
                         <Button 
-                        Background="{ThemeResource SystemAccentColor}" 
+                        Background="{ThemeResource PrimaryAccent_A}" 
                         Foreground="{ThemeResource SystemChromeWhiteColor}" 
                         FontWeight="SemiBold" 
                         HorizontalAlignment="Center" 
@@ -295,31 +295,51 @@
                                 x:Name="ThemeFlyout">
                                     <Flyout.FlyoutPresenterStyle>
                                         <Style TargetType="FlyoutPresenter">
-                                            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
+                                            <Setter Property="Background" Value="{ThemeResource Elevation_2}" />
                                             <Setter Property="CornerRadius" Value="3" />
                                         </Style>
                                     </Flyout.FlyoutPresenterStyle>
                                     <GridView 
-                                    x:Name="ThemeGridView" 
-                                    SelectionChanged="GridView_SelectionChanged" 
-                                    SingleSelectionFollowsFocus="False" 
-                                    SelectionMode="Single" 
-                                    Padding="0">
+                                        x:Name="ThemeGridView" 
+                                        SelectionChanged="GridView_SelectionChanged" 
+                                        SingleSelectionFollowsFocus="False" 
+                                        SelectionMode="Single"
+                                        Padding="0">
                                         <GridViewItem 
-                                        Tag="Light">
-                                            <Rectangle 
-                                            Fill="WhiteSmoke" 
-                                            Width="30" 
-                                            Height="30" 
-                                            />
+                                            Tag="Light">
+                                            <Grid>
+                                                <Rectangle 
+                                                    Fill="WhiteSmoke" 
+                                                    Width="45" 
+                                                    Height="45" 
+                                                    />
+                                                <TextBlock
+                                                    Text="Light"
+                                                    FontSize="12"
+                                                    FontWeight="ExtraBold"
+                                                    TextAlignment="Center"
+                                                    Foreground="Black"
+                                                    VerticalAlignment="Center"
+                                                    />
+                                            </Grid>
                                         </GridViewItem>
                                         <GridViewItem 
-                                        Tag="Dark">
-                                            <Rectangle 
-                                            Fill="#303030" 
-                                            Width="30" 
-                                            Height="30" 
-                                            />
+                                            Tag="Dark">
+                                            <Grid>
+                                                <Rectangle 
+                                                    Fill="Black" 
+                                                    Width="45" 
+                                                    Height="45"
+                                                    />
+                                                <TextBlock
+                                                    Text="Dark"
+                                                    Foreground="White"
+                                                    FontSize="12"
+                                                    FontWeight="ExtraBold"
+                                                    TextAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    />
+                                            </Grid>
                                         </GridViewItem>
                                         <GridView.ItemContainerStyle>
                                             <Style TargetType="GridViewItem">

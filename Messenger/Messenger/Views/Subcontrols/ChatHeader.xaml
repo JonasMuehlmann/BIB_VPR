@@ -99,7 +99,7 @@
                 Padding="6">
                 <icons:PackIconFontAwesome
                     Kind="UsersSolid"
-                    Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
+                    Foreground="WhiteSmoke"
                     />
             </Border>
         </Viewbox>

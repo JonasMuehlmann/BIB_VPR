@@ -34,12 +34,13 @@
                             Padding="6">
                             <icons:PackIconFontAwesome
                                 Kind="UsersSolid"
-                                Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
+                                Foreground="whitesmoke"
                                 />
                         </Border>
                     </Viewbox>
                     <TextBlock
                         VerticalAlignment="Center"
+                        FontWeight="SemiBold"
                         Text="{Binding TeamName}"
                         />
                 </StackPanel>

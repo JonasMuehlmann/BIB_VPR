@@ -36,12 +36,13 @@
                                 Padding="6">
                                 <icons:PackIconFontAwesome
                                     Kind="UsersSolid"
-                                    Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
+                                    Foreground="WhiteSmoke"
                                     />
                             </Border>
                         </Viewbox>
                         <StackPanel>
                             <TextBlock
+                                FontWeight="SemiBold"
                                 Text="{Binding Partner.Name, Mode=OneWay}"/>
                             <TextBlock
                                 Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
