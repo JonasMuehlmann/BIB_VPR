@@ -21,6 +21,7 @@
                     <SolidColorBrush x:Key="Elevation_1" Color="#212121" />
                     <SolidColorBrush x:Key="Elevation_2" Color="#313131" />
                     <SolidColorBrush x:Key="PrimaryAccent_A" Color="#00897B" />
+                    <SolidColorBrush x:Key="PrimaryAccent_A_Muted" Color="#00897B" Opacity="0.75" />
                     <SolidColorBrush x:Key="PrimaryAccent_B" Color="#303F9F" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
