@@ -294,7 +294,7 @@
                             <TextBlock
                                 Text="Edit"
                                 FontWeight="SemiBold"
-                                Foreground="{ThemeResource SystemAccentColor}"
+                                Foreground="{ThemeResource }"
                                 />
                         </StackPanel>
                     </Button>

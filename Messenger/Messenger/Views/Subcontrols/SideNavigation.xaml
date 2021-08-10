@@ -66,7 +66,7 @@
                     <icons:PackIconFontAwesome
                         x:Name="TeamIcon"
                         Kind="UsersSolid"
-                        Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                        Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                 </Viewbox>
                 <TextBlock
@@ -96,12 +96,12 @@
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=TeamIcon}"
                         PropertyName="Foreground"
-                        Value="{ThemeResource AppBarItemForegroundThemeBrush}"
+                        Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=TeamText}"
                         PropertyName="Foreground"
-                        Value="{ThemeResource AppBarItemForegroundThemeBrush}"
+                        Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -121,7 +121,7 @@
                     <icons:PackIconFontAwesome
                         x:Name="ChatsIcon"
                         Kind="CommentsSolid"
-                        Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                        Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                 </Viewbox>
                 <TextBlock
@@ -151,12 +151,12 @@
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=ChatsIcon}"
                         PropertyName="Foreground"
-                        Value="{ThemeResource AppBarItemForegroundThemeBrush}"
+                        Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                     <ic:ChangePropertyAction
                         TargetObject="{Binding ElementName=ChatsText}"
                         PropertyName="Foreground"
-                        Value="{ThemeResource AppBarItemForegroundThemeBrush}"
+                        Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -176,7 +176,7 @@
                     <icons:PackIconFontAwesome
                         x:Name="NotificationsIcon"
                         Kind="BellSolid"
-                        Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                        Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
                         />
                 </Viewbox>
                 <TextBlock
@@ -206,12 +206,12 @@
                     <ic:ChangePropertyAction
                             TargetObject="{Binding ElementName=NotificationsIcon}"
                             PropertyName="Foreground"
-                            Value="{ThemeResource AppBarItemForegroundThemeBrush}"
+                            Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"
                             />
                     <ic:ChangePropertyAction
                             TargetObject="{Binding ElementName=NotificationsText}"
                             PropertyName="Foreground"
-                            Value="{ThemeResource AppBarItemForegroundThemeBrush}"
+                            Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"
                             />
                 </ic:DataTriggerBehavior>
             </i:Interaction.Behaviors>
