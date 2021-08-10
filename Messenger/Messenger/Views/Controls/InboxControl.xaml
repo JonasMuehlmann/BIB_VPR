@@ -7,10 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:converters="using:Messenger.Helpers.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
+        <converters:DateToStringConverter x:Key="DateToStringConverter" />
         <Style x:Key="InboxListView" TargetType="ListView">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="ItemTemplate">
@@ -18,9 +20,10 @@
                     <!-- NOTIFICATION STYLE -->
                     <DataTemplate
                         x:DataType="models:Notification">
-                        <Grid>
+                        <Grid
+                            Padding="20">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -36,10 +39,12 @@
                                 FontWeight="Bold"
                                 />
                             <TextBlock
-                                Text="{Binding WhenSent}"
+                                Text="{Binding
+                                    WhenSent,
+                                    Converter={StaticResource DateToStringConverter}}"
                                 Grid.Row="0"
+                                TextTrimming="CharacterEllipsis"
                                 Grid.Column="1"
-                                HorizontalAlignment="Right"
                                 />
                             <TextBlock
                                 Text="{Binding KindOfMessage}"
