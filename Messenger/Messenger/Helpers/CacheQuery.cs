@@ -1,6 +1,7 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,15 @@ namespace Messenger.Helpers
         public static IReadOnlyCollection<PrivateChatViewModel> GetMyChats() => App.StateProvider.TeamManager.MyChats;
 
         public static bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages) => App.StateProvider.MessageManager.TryGetMessages(channelId, out messages);
+
+        public static async Task Reload()
+        {
+            await App.StateProvider
+                .TeamManager
+                .LoadTeamsFromDatabase(App.StateProvider.CurrentUser);
+
+            App.EventProvider.Broadcast(BroadcastOptions.TeamsLoaded);
+        }
 
         /// <summary>
         /// Gets given model from the cache,
