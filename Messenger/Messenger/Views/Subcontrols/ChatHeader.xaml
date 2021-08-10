@@ -68,7 +68,7 @@
                     <TextBlock
                         FontWeight="SemiBold"
                         FontSize="12"
-                        Foreground="{ThemeResource SystemAccentColor}">
+                        Foreground="{ThemeResource PrimaryAccent_A}">
                         <Run
                             Text="{x:Bind
                                 CurrentUser.Name,
@@ -93,7 +93,7 @@
             Width="48"
             Height="48">
             <Border
-                Background="{ThemeResource SystemAccentColor}"
+                Background="{ThemeResource PrimaryAccent_A}"
                 CornerRadius="50"
                 Padding="6">
                 <icons:PackIconFontAwesome
@@ -151,7 +151,7 @@
                         Height="24">
                         <icons:PackIconFontAwesome
                             Kind="EditRegular"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             />
                     </Viewbox>
                 </StackPanel>
@@ -186,7 +186,7 @@
                         Placement="BottomEdgeAlignedRight">
                         <MenuFlyout.MenuFlyoutPresenterStyle>
                             <Style TargetType="MenuFlyoutPresenter">
-                                <Setter Property="Background" Value="{ThemeResource SystemAccentColorLight1}" />
+                                <Setter Property="Background" Value="{ThemeResource Elevation_2}" />
                             </Style>
                         </MenuFlyout.MenuFlyoutPresenterStyle>
                         <MenuFlyoutItem
