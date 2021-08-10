@@ -7,7 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources  xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="/Styles/_Colors.xaml" />
                 <ResourceDictionary Source="/Styles/_FontSizes.xaml" />
                 <ResourceDictionary Source="/Styles/_Thickness.xaml" />
@@ -17,23 +17,18 @@
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="SystemAccentColor" Color="#00897B" />
-                    <SolidColorBrush x:Key="SystemAccentColorDark1" Color="#BDBDBD" Opacity=".75" />
-                    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#121212" />
-                    <SolidColorBrush x:Key="AppBarItemBackgroundThemeBrush" Color="#212121" />
-                    <SolidColorBrush x:Key="SystemAccentColorLight1" Color="#313131" />
-                    <SolidColorBrush x:Key="SystemAccentColorLight2" Color="#414141" />
-                    <SolidColorBrush x:Key="HyperlinkButtonBackgroundThemeBrush" Color="#303F9F" />
-                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#00897B" />
-                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#00897B"/>
+                    <SolidColorBrush x:Key="Elevation_0" Color="#121212" />
+                    <SolidColorBrush x:Key="Elevation_1" Color="#212121" />
+                    <SolidColorBrush x:Key="Elevation_2" Color="#313131" />
+                    <SolidColorBrush x:Key="PrimaryAccent_A" Color="#00897B" />
+                    <SolidColorBrush x:Key="PrimaryAccent_B" Color="#303F9F" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="SystemAccentColor" Color="#00897B" />
-                    <SolidColorBrush x:Key="SystemAccentColorDark1" Color="#212121" Opacity=".75" />
-                    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#EFEFEF" />
-                    <SolidColorBrush x:Key="AppBarItemBackgroundThemeBrush" Color="#F9F9F9" />
-                    <SolidColorBrush x:Key="HyperlinkButtonBackgroundThemeBrush" Color="#303F9F" />
-                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#00897B" />
+                    <SolidColorBrush x:Key="Elevation_0" Color="#F9F9F9" />
+                    <SolidColorBrush x:Key="Elevation_1" Color="#EFEFEF" />
+                    <SolidColorBrush x:Key="Elevation_2" Color="#E1E1E1" />
+                    <SolidColorBrush x:Key="PrimaryAccent_A" Color="#00897B" />
+                    <SolidColorBrush x:Key="PrimaryAccent_B" Color="#303F9F" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
