@@ -12,7 +12,7 @@
     xmlns:subcontrols="using:Messenger.Views.Subcontrols"
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:converters="using:Messenger.Helpers.Converters"
-    Style="{StaticResource PageStyle}"
+    Background="{ThemeResource Elevation_0}"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
@@ -31,7 +31,7 @@
                             Width="32"
                             Height="32">
                             <Border
-                                Background="{ThemeResource SystemAccentColor}"
+                                Background="{ThemeResource PrimaryAccent_A}"
                                 CornerRadius="50"
                                 Padding="6">
                                 <icons:PackIconFontAwesome
@@ -95,21 +95,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid
-            Padding="32 25 20 25"
-            BorderThickness="0 0 0 1"
-            BorderBrush="{ThemeResource SystemAccentColorLight1}"
+            Padding="32 10 20 25"
             HorizontalAlignment="Stretch">
-            <StackPanel
-                Spacing="10"
-                Orientation="Horizontal">
+            <StackPanel>
                 <TextBlock
                     Text="Chats"
-                    FontSize="20"
+                    FontSize="24"
+                    FontWeight="SemiBold"
                     />
                 <TextBlock
+                    Foreground="{ThemeResource PrimaryAccent_A}"
                     VerticalAlignment="Center"
-                    Foreground="{ThemeResource SystemAccentColor}"
-                    FontSize="12">
+                    FontWeight="SemiBold"
+                    FontSize="14">
                     <Run
                         Text="{x:Bind ViewModel.Chats.Count, Mode=OneWay}"
                         />
@@ -123,17 +121,24 @@
                 x:Name="newChat"
                 Style="{StaticResource NewChatButtonStyle}"
                 Command="{x:Bind ViewModel.StartChatCommand}">
-                <Viewbox
-                    Height="18"
-                    Width="18">
-                    <StackPanel
-                        Orientation="Horizontal">
+                <StackPanel
+                    Spacing="5"
+                    Orientation="Horizontal">
+                    <Viewbox
+                        Height="20"
+                        Width="20">
                         <icons:PackIconFontAwesome
                             Kind="CommentMedicalSolid"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             />
-                    </StackPanel>
-                </Viewbox>
+                    </Viewbox>
+                    <TextBlock
+                        Text="Start"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource PrimaryAccent_A}"
+                        />
+                </StackPanel>
             </Button>
         </Grid>
 
@@ -150,8 +155,7 @@
         <!-- CHATS LIST -->
         <ScrollViewer
             Grid.Row="1">
-            <StackPanel
-                Margin="0 0 0 20">
+            <StackPanel>
                 <my:TreeView
                     x:Name="treeView"
                     Style="{StaticResource TeamTreeViewStyle}"

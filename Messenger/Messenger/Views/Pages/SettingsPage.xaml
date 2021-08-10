@@ -7,9 +7,8 @@
     xmlns:converters="using:Messenger.Helpers.Converters" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:icons="using:MahApps.Metro.IconPacks" 
-    Style="{StaticResource PageStyle}"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:xaml="using:Windows.UI.Xaml" 
+    xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
@@ -35,7 +34,7 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch">
         <Grid
-            Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+            Background="{ThemeResource Elevation_1}"
             Padding="25">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -46,7 +45,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Command="{x:Bind ViewModel.NavigateBackCommand}"
-                Margin="0 0 0 25"
+                Margin="0 25 0 25"
                 Background="Transparent">
                 <StackPanel
                     Spacing="10"
@@ -68,7 +67,7 @@
             </Button>
             <StackPanel 
                 x:Name="ContentArea"
-                Padding="25"
+                Padding="50 25"
                 Grid.Row="1">
                 <TextBlock 
                     Text="Settings" 
@@ -80,16 +79,16 @@
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Center">
                     <TextBlock 
-                    Text="Logged in as" 
-                    Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        Text="Logged in as" 
+                        Style="{ThemeResource SubtitleTextBlockStyle}" />
                     <Button 
-                    HorizontalAlignment="Right" 
-                    Content="Log out" 
-                    Padding="25 7" 
-                    Command="{x:Bind ViewModel.LogoutCommand}" 
-                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
-                    Foreground="IndianRed" 
-                    />
+                        HorizontalAlignment="Right" 
+                        Content="Log out" 
+                        Padding="25 7" 
+                        Command="{x:Bind ViewModel.LogoutCommand}" 
+                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
+                        Foreground="IndianRed" 
+                        />
                 </Grid>
 
                 <StackPanel 
@@ -121,28 +120,27 @@
                             </TextBlock>
 
                             <TextBlock 
-                            Text="{Binding ViewModel.User.Mail, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            FontSize="14" 
-                            MinWidth="100" 
-                            Opacity=".75" 
-                            />
+                                Text="{Binding ViewModel.User.Mail, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                FontSize="14" 
+                                MinWidth="100" 
+                                Opacity=".75" 
+                                />
+                            <TextBox 
+                                x:Name="UserNametbx" 
+                                Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" 
+                                Visibility="Collapsed" 
+                                KeyDown="UserNametbx_KeyDown" 
+                                />
                         </StackPanel>
-                        <TextBox 
-                        x:Name="UserNametbx" 
-                        MinWidth="200" 
-                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" 
-                        Visibility="Collapsed" 
-                        KeyDown="UserNametbx_KeyDown" 
-                        />
                         <Button 
-                        FontFamily="Segoe MDL2 Assets" 
-                        FontSize="14" 
-                        Content="&#xE70F;" 
-                        Background="Transparent" 
-                        VerticalAlignment="Top" 
-                        BorderBrush="Transparent" 
-                        Click="EditButton_Click" 
-                        />
+                            FontFamily="Segoe MDL2 Assets" 
+                            FontSize="14" 
+                            Content="&#xE70F;" 
+                            Background="Transparent" 
+                            VerticalAlignment="Top" 
+                            BorderBrush="Transparent" 
+                            Click="EditButton_Click" 
+                            />
                     </StackPanel>
                 </StackPanel>
                 <Grid 
