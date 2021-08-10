@@ -12,6 +12,7 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid
         RowSpacing="10"
@@ -190,6 +191,11 @@
                             </Style>
                         </MenuFlyout.MenuFlyoutPresenterStyle>
                         <MenuFlyoutItem
+                            Visibility="{x:Bind
+                                CurrentTeam.IsPrivateChat,
+                                Mode=OneWay,
+                                Converter={StaticResource BooleanToVisibilityConverter},
+                                ConverterParameter='invert'}"
                             Width="150"
                             Icon="Contact"
                             Text="Team Manage"
