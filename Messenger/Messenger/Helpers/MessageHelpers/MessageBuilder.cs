@@ -113,7 +113,7 @@ namespace Messenger.Helpers.MessageHelpers
                     withSender = await withSender.WithReactions();
                     replyViewModels.Add(withSender);
                 }
-                replyViewModels = SortReplies(replyViewModels).ToList();
+                //replyViewModels = SortReplies(replyViewModels).ToList();
 
                 viewModel.Replies = new ObservableCollection<MessageViewModel>(replyViewModels);
             }
