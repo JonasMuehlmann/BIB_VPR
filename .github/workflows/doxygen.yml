@@ -9,4 +9,4 @@ jobs:
     - name: Doxygen
       uses: mattnotmitt/doxygen-action@v1.3.1
       with:
-        doxyfile-path: 'messenger.doxygen'
+        doxyfile-path: './messenger.doxygen'
