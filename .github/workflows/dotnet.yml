@@ -6,9 +6,12 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
+    env:
+      BIB_VPR_DEBUG: true
+      BIB_VPR_CON_STRING_PROD: ${{ secrets.BIB_VPR_CON_STRING_PROD }}
+      BIB_VPR_CON_STRING_TEST: ${{ secrets.BIB_VPR_CON_STRING_TEST }}
+    
     defaults:
         run:
             working-directory: Messenger/Messenger.Core.Tests.MSTest

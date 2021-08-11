@@ -1,64 +1,27 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.Core.Models;
-using Messenger.Services;
-using Messenger.ViewModels;
+using Messenger.Core.Services;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
-using Serilog.Context;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
-namespace Messenger.Commands.PrivateChat
+namespace Messenger.Commands.TeamManage
 {
     public class StartChatCommand : ICommand
     {
-        private readonly ChatHubService _hub;
-        private readonly ChatNavViewModel _viewModel;
-
         private ILogger _logger => GlobalLogger.Instance;
-        private CreateChatDialog _dialog;
 
         public event EventHandler CanExecuteChanged;
 
-        public StartChatCommand(ChatNavViewModel viewModel, ChatHubService hub)
+        public StartChatCommand()
         {
-            _viewModel = viewModel;
-            _hub = hub;
-            _dialog = new CreateChatDialog()
-            {
-                OnSearch = SearchUsers,
-                GetSelectedUser = GetUserWithName
-            };
-        }
-
-        /// <summary>
-        /// Returns the search result from the database
-        /// </summary>
-        /// <param name="username">DisplayName of the user to search for</param>
-        /// <returns>List of search result strings</returns>
-        private async Task<IList<string>> SearchUsers(string username)
-        {
-            var userStrings = await _hub.SearchUser(username);
-
-            return userStrings;
-        }
-
-        private async Task<User> GetUserWithName(string username, uint nameId)
-        {
-            var user = await _hub.GetUserWithNameId(username, nameId);
-
-            return user;
         }
 
         public bool CanExecute(object parameter)
         {
-            bool canExecute = _viewModel != null;
-
-            return canExecute;
+            return true;
         }
 
         /// <summary>
@@ -66,54 +29,20 @@ namespace Messenger.Commands.PrivateChat
         /// </summary>
         public async void Execute(object parameter)
         {
-            LogContext.PushProperty("Method", "Execute");
-            LogContext.PushProperty("SourceContext", GetType().Name);
-
             try
             {
-                if (_hub.CurrentUser == null)
+                CreateChatDialog dialog = new CreateChatDialog();
+
+                if (await dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    return;
-                }
+                    UserViewModel currentUser = App.StateProvider.CurrentUser;
 
-                _dialog.CurrentUser = _hub.CurrentUser;
+                    uint? chatId = await MessengerService.StartChat(currentUser.Id, dialog.ViewModel.SelectedUser.Id);
 
-                if (await _dialog.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    var userdata = _dialog.SelectedUser;
-
-                    if (userdata == null)
-                    {
-                        return;
-                    }
-
-                    if (_viewModel.Chats
-                        .Where(chat => chat.Partner.Id == userdata.Id)
-                        .Count() > 0)
-                    {
-                        _logger.Information($"Cannot start a second private chat with the same user.");
-
-                        await ResultConfirmationDialog
-                            .Set(false, $"You have already started a chat with {userdata.DisplayName}.")
-                            .ShowAsync();
-
-                        return;
-                    }
-
-                    _logger.Information($"Requesting to start a new private chat with {userdata.DisplayName}");
-
-                    bool isSuccess = await _hub.StartChat(userdata.Id);
-
-                    if (isSuccess)
+                    if (chatId != null)
                     {
                         await ResultConfirmationDialog
-                                .Set(true, $"You have started a new chat with {userdata.DisplayName}.")
-                                .ShowAsync();
-                    }
-                    else
-                    {
-                        await ResultConfirmationDialog
-                                .Set(false, $"We could not create a new chat with {userdata.DisplayName}.")
+                                .Set(true, $"You have started a new chat with {dialog.ViewModel.SelectedUser.DisplayName}.")
                                 .ShowAsync();
                     }
                 }

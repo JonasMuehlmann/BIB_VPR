@@ -1,5 +1,5 @@
 ﻿using Messenger.Core.Models;
-
+using Messenger.ViewModels.DataViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,9 +25,9 @@ namespace Messenger.TemplateSelectors
         {
             switch (item)
             {
-                case Team team:
+                case TeamViewModel team:
                     return TeamTemplate;
-                case TeamChannel teamChannel:
+                case ChannelViewModel teamChannel:
                     return TeamChannelTemplate;
             }
 

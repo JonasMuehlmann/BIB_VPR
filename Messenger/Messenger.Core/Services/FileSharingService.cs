@@ -15,18 +15,18 @@ namespace Messenger.Core.Services
 
 
         private const string containerName = "attachments";
-        public readonly string localFileCachePath = Path.Combine(Path.GetTempPath(), "BIB_VPR" + Path.DirectorySeparatorChar);
+        public static readonly string localFileCachePath = Path.Combine(Path.GetTempPath(), "BIB_VPR" + Path.DirectorySeparatorChar);
 
-        public ILogger logger => GlobalLogger.Instance;
+        public static ILogger logger => GlobalLogger.Instance;
 
         /// <summary>
         /// Connect to our blob container
         /// </summary>
         /// <returns>BlobContainerClient object with established connection</returns>
-        private BlobContainerClient ConnectToContainer()
+        private static BlobContainerClient ConnectToContainer()
         {
             LogContext.PushProperty("Method","ConnectToContainer");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called");
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobServiceConnectionString);
@@ -39,10 +39,10 @@ namespace Messenger.Core.Services
         /// <param name="blobFileName">A blob file to download</param>
         /// <param name="destinationDirectory">Where to save the file, defaults to the local application cache</param>
         /// <returns>True on success, false otherwise</returns>
-        public async Task<bool> Download(string blobFileName, string destinationDirectory = "")
+        public static async Task<bool> Download(string blobFileName, string destinationDirectory = "")
         {
             LogContext.PushProperty("Method","Download");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters  blobFileName={blobFileName}, destinationDirectory={destinationDirectory}");
 
             try
@@ -87,10 +87,10 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="filePath">A path to a file to upload</param>
         /// <returns>The name of the blob file on success, null otherwise</returns>
-        public async Task<string> Upload(string filePath)
+        public static async Task<string> Upload(string filePath)
         {
             LogContext.PushProperty("Method","Upload");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters filePath={filePath}");
 
             // Adding GUID for deduplication
@@ -124,14 +124,58 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
+        /// Upload a base64 encoded file to the blob storage
+        /// </summary>
+        /// <param name="data">The base64 encoded data to upload</param>
+        /// <param name="fileName">The name and extension to use for saving</param>
+        /// <returns>The name of the blob file on success, null otherwise</returns>
+        public static async Task<string> UploadFromBase64(string data, string fileName)
+        {
+            LogContext.PushProperty("Method","UploadFromBase64");
+            LogContext.PushProperty("SourceContext", "FileSharingService");
+            logger.Information($"Function called with parameters data={data.Substring(0, 20)}, fileName={fileName}");
+
+            // Adding GUID for deduplication
+            string blobFileName = Path.GetFileNameWithoutExtension(fileName)
+                                + Path.GetExtension(fileName)
+                                + "." + Guid.NewGuid().ToString();
+
+            logger.Information($"set blobFileName to {blobFileName} from fileName={fileName}");
+
+            try
+            {
+                var containerClient = ConnectToContainer();
+
+                BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
+
+                var bytes = Convert.FromBase64String(data);
+
+                // Read and upload file
+                using (MemoryStream memoryStream = new MemoryStream(bytes))
+                {
+                    await blobClient.UploadAsync(memoryStream, true);
+
+                    return blobFileName;
+                }
+            }
+            // TODO:Find better exception(s) to catch
+            catch(Exception e)
+            {
+                logger.Information(e, $"Return value: null");
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Delete a blob file
         /// </summary>
         /// <param name="blobFileName">A blob file name to delete</param>
         /// <returns>true if successfully deleted, false otherwise</returns>
-        public async Task<bool> Delete(string blobFileName)
+        public static async Task<bool> Delete(string blobFileName)
         {
             LogContext.PushProperty("Method","Delete");
-            LogContext.PushProperty("SourceContext", this.GetType().Name);
+            LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters blobFileName={blobFileName}");
 
 

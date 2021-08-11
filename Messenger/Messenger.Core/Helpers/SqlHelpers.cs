@@ -45,10 +45,6 @@ namespace Messenger.Core.Helpers
 
                     return false;
                 }
-                finally
-                {
-                    connection.Close();
-                }
             }
         }
 
@@ -90,10 +86,6 @@ namespace Messenger.Core.Helpers
                     logger.Information(e, $"Return value: {default(T)}");
 
                     return default(T);
-                }
-                finally
-                {
-                    connection.Close();
                 }
             }
         }
@@ -176,11 +168,11 @@ namespace Messenger.Core.Helpers
         /// <param name="mapper">Mapper function for the target type</param>
         /// <param name="query">The query that returns the list</param>
         /// <returns>A list of converted table values</returns>
-        public static async Task<IList<T>> MapToList<T> (Func<DataRow, T> mapper, string query)
+        public static async Task<IList<T>> MapToList<T> (Func<DataRow, T> mapper, string query, string tableName="")
         {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
-            logger.Information($"Function called with parameters mapper={mapper.Method.Name}");
+            logger.Information($"Function called with parameters mapper={mapper.Method.Name}, tableName={tableName}");
 
             using (SqlConnection connection = GetDefaultConnection())
             {
@@ -188,17 +180,19 @@ namespace Messenger.Core.Helpers
                 {
                     await connection.OpenAsync();
 
-                    var tableName = typeof(T).Name + 's';
+                    var tableName_ = tableName == "" ? typeof(T).Name + 's': tableName;
 
-                    logger.Information($"tableName has been determined as {tableName}");
+                    logger.Information($"tableName_ has been determined as {tableName_}");
+
+                    logger.Information($"Running the following query: {query}");
 
                     var adapter = new SqlDataAdapter(query, connection);
                     var dataSet = new DataSet();
-                    adapter.Fill(dataSet, tableName);
+                    adapter.Fill(dataSet, tableName_);
 
                     logger.Information($"The query produced {dataSet.Tables.Count} row(s)");
 
-                    return dataSet.Tables[tableName].Rows
+                    return dataSet.Tables[tableName_].Rows
                                 .Cast<DataRow>()
                                 .Select(mapper)
                                 .ToList();
@@ -222,7 +216,7 @@ namespace Messenger.Core.Helpers
         /// <param name="columnName">The name of the column to retrieve data from, defaults to null</param>
         /// <returns>A list of converted table values</returns>
         public static async Task<IList<T>> MapToList<T> (Func<DataRow, string, T> mapper, string query, string tableName, string columnName)
-       {
+        {
             LogContext.PushProperty("Method","MapToList");
             LogContext.PushProperty("SourceContext", "SqlHelpers");
             logger.Information($"Function called with parameters mapper={mapper.Method.Name}, tableName={tableName}, columnName={columnName}");
@@ -261,11 +255,10 @@ namespace Messenger.Core.Helpers
         /// <summary>
         /// Convert a value that can be DBNull using a specified converter
         /// </summary>
-        /// <typeparam name="T">A type to convert value to</typeparam>
         /// <param name="value">A value to convert to T</param>
         /// <param name="converter">A converter function to use for converting value</param>
-        /// <returns>null or the wanted type T</returns>
-        public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter) where T: IConvertible
+        /// <returns>a value of dynamic type(T or null)</returns>
+        public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter)
         {
             LogContext.PushProperty("Method","TryConvertDbValue");
             LogContext.PushProperty("SourceContext", "SqlHelpers");

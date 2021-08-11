@@ -1,2 +1,4 @@
-# So I don't forget the correct syntax for setting the define :D
-dotnet build /p:DefineConstants=BIB_VPR_DEBUG && dotnet test
+source ../../.con_strings.rc
+
+export BIB_VPR_DEBUG=true
+dotnet build && dotnet test

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messenger.Views.Pages;
+using System;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +14,7 @@ namespace Messenger.Services
 
         public static event NavigationFailedEventHandler NavigationFailed;
 
+        private static Frame _contentFrame;
         private static Frame _frame;
         private static object _lastParamUsed;
 
@@ -37,15 +39,21 @@ namespace Messenger.Services
             }
         }
 
-        public static bool CanGoBack => Frame.CanGoBack;
+        public static Frame ContentFrame
+        {
+            get { return _contentFrame; }
+            set { _contentFrame = value; }
+        }
 
-        public static bool CanGoForward => Frame.CanGoForward;
+        public static bool CanGoBack => ContentFrame.CanGoBack;
+
+        public static bool CanGoForward => ContentFrame.CanGoForward;
 
         public static bool GoBack()
         {
             if (CanGoBack)
             {
-                Frame.GoBack();
+                ContentFrame.GoBack();
                 return true;
             }
 
@@ -70,6 +78,11 @@ namespace Messenger.Services
                     _lastParamUsed = parameter;
                 }
 
+                if (pageType == typeof(TeamNavPage) || pageType == typeof(ChatNavPage))
+                {
+                    Open<LandingPage>();
+                }
+
                 return navigationResult;
             }
             else
@@ -81,6 +94,30 @@ namespace Messenger.Services
         public static bool Navigate<T>(object parameter = null, NavigationTransitionInfo infoOverride = null)
             where T : Page
             => Navigate(typeof(T), parameter, infoOverride);
+
+        public static bool Open<T>(object parameter = null) where T : Page
+        {
+            Type pageType = typeof(T);
+
+            if (pageType == null || !pageType.IsSubclassOf(typeof(Page)))
+            {
+                return false;
+            }
+
+            Type currentPage = Frame.Content?.GetType();
+            if (currentPage == typeof(SettingsPage)
+                    && currentPage == pageType)
+            {
+                return ContentFrame.Navigate(typeof(ChatPage), parameter);
+            }
+            else if (currentPage == typeof(TeamManagePage)
+                    && currentPage == pageType)
+            {
+                return ContentFrame.Navigate(typeof(ChatPage), parameter);
+            }
+
+            return ContentFrame.Navigate(typeof(T), parameter);
+        }
 
         private static void RegisterFrameEvents()
         {

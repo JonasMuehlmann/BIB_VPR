@@ -1,0 +1,43 @@
+﻿<UserControl
+    x:Class="Messenger.Views.Subcontrols.OnLoading"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Messenger.Views.Subcontrols"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style x:Key="RingStyle" TargetType="ProgressRing">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Foreground" Value="{ThemeResource PrimaryAccent_A}" />
+            <Setter Property="Margin" Value="0 0 0 7" />
+        </Style>
+        <Style x:Key="LoadingText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextBoxButtonForegroundThemeBrush}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <controls:Loading
+            IsLoading="{x:Bind IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel
+                Padding="12">
+                <ProgressRing
+                    Style="{StaticResource RingStyle}"
+                    IsActive="{x:Bind IsBusy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    />
+                <TextBlock
+                    Text="{x:Bind LoadingText}"
+                    Foreground="{StaticResource TextBoxButtonForegroundThemeBrush}"
+                    FontSize="12"
+                    VerticalAlignment="Center"
+                    />
+            </StackPanel>
+        </controls:Loading>
+    </Grid>
+</UserControl>
