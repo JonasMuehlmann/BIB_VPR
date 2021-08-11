@@ -9,5 +9,5 @@ jobs:
     - name: Doxygen
       uses: mattnotmitt/doxygen-action@v1.3.1
       with:
-        working-directory: 'Messenger/'
-        doxyfile-path: 'Messenger/messenger.doxygen'
+        working-directory: './Messenger/'
+        doxyfile-path: './Messenger/messenger.doxygen'
