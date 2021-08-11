@@ -1,4 +1,5 @@
 ﻿using Messenger.Commands.Messenger;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System.Windows.Input;
 using Windows.UI.Xaml;
@@ -43,6 +44,41 @@ namespace Messenger.Views.Subcontrols
         private void Delete_Tapped(object sender, TappedRoutedEventArgs e)
         {
             DeleteReplyCommand.Execute(Reply);
+        }
+
+        private void LikeButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Like,
+                Message = Reply
+            });
+        }
+        private void DislikeButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Dislike,
+                Message = Reply
+            });
+        }
+
+        private void SurprisedButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Surprised,
+                Message = Reply
+            });
+        }
+
+        private void AngryButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleReactionCommand.Execute(new ToggleReactionArg()
+            {
+                Type = ReactionType.Angry,
+                Message = Reply
+            });
         }
     }
 }

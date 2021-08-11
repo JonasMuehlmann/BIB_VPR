@@ -5,11 +5,8 @@ using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Services.Providers
 {

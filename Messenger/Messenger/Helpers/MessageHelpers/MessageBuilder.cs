@@ -30,6 +30,7 @@ namespace Messenger.Helpers.MessageHelpers
         public static async Task<MessageViewModel> Build(this Message message)
         {
             MessageViewModel withReactions = await Map(message).WithReactions();
+            withReactions = await withReactions.WithReplies();
 
             if (withReactions.Sender == null)
             {
@@ -87,6 +88,38 @@ namespace Messenger.Helpers.MessageHelpers
             else
             {
                 viewModel.Reactions = new ObservableCollection<Reaction>();
+            }
+
+            return viewModel;
+        }
+
+
+        /// <summary>
+        /// Loads replies for the given view model
+        /// </summary>
+        /// <param name="viewModel">MessageViewModel to load replies for</param>
+        /// <returns>MessageViewModel with the list of replies</returns>
+        public static async Task<MessageViewModel> WithReplies(this MessageViewModel viewModel)
+        {
+            /* LOAD REACTIONS */
+            IEnumerable<Message> replies = await MessageService.RetrieveReplies((uint)viewModel.Id);
+
+            if (replies != null && replies.Count() > 0)
+            {
+                List<MessageViewModel> replyViewModels = new List<MessageViewModel>();
+
+                foreach (var reply in replies) {
+                    MessageViewModel withSender = await WithSender(Map(reply));
+                    withSender = await withSender.WithReactions();
+                    replyViewModels.Add(withSender);
+                }
+                //replyViewModels = SortReplies(replyViewModels).ToList();
+
+                viewModel.Replies = new ObservableCollection<MessageViewModel>(replyViewModels);
+            }
+            else
+            {
+                viewModel.Replies = new ObservableCollection<MessageViewModel>();
             }
 
             return viewModel;
