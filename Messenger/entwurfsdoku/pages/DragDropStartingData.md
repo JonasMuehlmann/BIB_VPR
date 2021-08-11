@@ -1,4 +1,0 @@
-#Benutzte Pakete
-Windows.ApplicationModel.DataTransfer
-#Importschnittstellen
-#Exportschnittstellen
