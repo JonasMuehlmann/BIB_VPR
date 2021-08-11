@@ -36,5 +36,11 @@ namespace Messenger.Views.Controls
                     break;
             }
         }
+
+        private void RemoveReply_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.ParentViewModel.ReplyMessage = null;
+            ViewModel.ParentViewModel.MessageToSend.ParentMessageId = null;
+        }
     }
 }

@@ -68,7 +68,10 @@ namespace Messenger.ViewModels.Controls
 
             if (e.Reason == BroadcastReasons.Created)
             {
-                Messages.Add(message);
+                if (!message.IsReply)
+                {
+                    Messages.Add(message);
+                }
             }
             else if (e.Reason == BroadcastReasons.Updated)
             {

@@ -414,6 +414,7 @@
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
                                 Label="Reply"
+                                Tapped="ReplyButton_Tapped"
                                 Command="{x:Bind ReplyToCommand}"
                                 CommandParameter="{x:Bind
                                     Message,
@@ -428,13 +429,12 @@
                             <!-- ADD OR UPDATE REACTION -->
                             <AppBarButton
                                 Style="{StaticResource ActionButtonStyle}"
-                               
                                 Label="React"
                                 Tapped="AppBarButton_Tapped">
                                 <AppBarButton.Icon>
                                     <icons:PathIconFontAwesome
-                                                    Kind="ThumbsUpRegular"
-                                                    />
+                                        Kind="ThumbsUpRegular"
+                                    />
                                 </AppBarButton.Icon>
                                 <FlyoutBase.AttachedFlyout>
                                     <CommandBarFlyout
