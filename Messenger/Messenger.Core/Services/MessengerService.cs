@@ -405,15 +405,9 @@ namespace Messenger.Core.Services
 
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={teamId.Value}");
 
-<<<<<<< Updated upstream
-
 
             await SignalRService.JoinTeam(creatorId, team.Id.ToString());
             await SignalRService.CreateTeam(team);
-=======
-            await SignalRService.CreateTeam(team);
-            await SignalRService.JoinTeam(creatorId, team.Id.ToString());
->>>>>>> Stashed changes
 
             logger.Information($"Joined the hub of the team identified by {teamId}");
 
