@@ -1,0 +1,1291 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Services.TeamService
+  commentId: T:Messenger.Core.Services.TeamService
+  id: TeamService
+  parent: Messenger.Core.Services
+  children:
+  - Messenger.Core.Services.TeamService.AddMember(System.String,System.UInt32)
+  - Messenger.Core.Services.TeamService.CreateTeam(System.String,System.String)
+  - Messenger.Core.Services.TeamService.DeleteTeam(System.UInt32)
+  - Messenger.Core.Services.TeamService.GetAllMembers(System.UInt32)
+  - Messenger.Core.Services.TeamService.GetAllMembershipByUserId(System.String)
+  - Messenger.Core.Services.TeamService.GetAllTeams
+  - Messenger.Core.Services.TeamService.GetAllTeamsByUserId(System.String)
+  - Messenger.Core.Services.TeamService.GetTeam(System.UInt32)
+  - Messenger.Core.Services.TeamService.RemoveMember(System.String,System.UInt32)
+  langs:
+  - csharp
+  - vb
+  name: TeamService
+  nameWithType: TeamService
+  fullName: Messenger.Core.Services.TeamService
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: TeamService
+    path: Services/TeamService.cs
+    startLine: 13
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: 'public class TeamService : AzureServiceBase'
+    content.vb: >-
+      Public Class TeamService
+          Inherits AzureServiceBase
+  inheritance:
+  - System.Object
+  - Messenger.Core.Services.AzureServiceBase
+  derivedClasses:
+  - Messenger.Core.Services.PrivateChatService
+  inheritedMembers:
+  - Messenger.Core.Services.AzureServiceBase.logger
+  - Messenger.Core.Services.AzureServiceBase.GetConnection
+  - Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  - Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Core.Services.TeamService.CreateTeam(System.String,System.String)
+  commentId: M:Messenger.Core.Services.TeamService.CreateTeam(System.String,System.String)
+  id: CreateTeam(System.String,System.String)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: CreateTeam(String, String)
+  nameWithType: TeamService.CreateTeam(String, String)
+  fullName: Messenger.Core.Services.TeamService.CreateTeam(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: CreateTeam
+    path: Services/TeamService.cs
+    startLine: 23
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nCreates a team with the given name and description and retrieve the new team&apos;s id.\n"
+  example: []
+  syntax:
+    content: public async Task<uint?> CreateTeam(string teamName, string teamDescription = "")
+    parameters:
+    - id: teamName
+      type: System.String
+      description: Name of the team
+    - id: teamDescription
+      type: System.String
+      description: Description of the team
+    return:
+      type: System.Threading.Tasks.Task{System.Nullable{System.UInt32}}
+      description: The id of the created team if it was created successfully, null otherwise
+    content.vb: Public Function CreateTeam(teamName As String, teamDescription As String = "") As Task(Of UInteger?)
+  overload: Messenger.Core.Services.TeamService.CreateTeam*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.DeleteTeam(System.UInt32)
+  commentId: M:Messenger.Core.Services.TeamService.DeleteTeam(System.UInt32)
+  id: DeleteTeam(System.UInt32)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: DeleteTeam(UInt32)
+  nameWithType: TeamService.DeleteTeam(UInt32)
+  fullName: Messenger.Core.Services.TeamService.DeleteTeam(System.UInt32)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DeleteTeam
+    path: Services/TeamService.cs
+    startLine: 73
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nDeletes a team with a given team id.\n"
+  example: []
+  syntax:
+    content: public async Task<bool> DeleteTeam(uint teamId)
+    parameters:
+    - id: teamId
+      type: System.UInt32
+      description: The id of the team to delete
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query and it affected at leasat one query, false otherwise
+    content.vb: Public Function DeleteTeam(teamId As UInteger) As Task(Of Boolean)
+  overload: Messenger.Core.Services.TeamService.DeleteTeam*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.GetAllTeams
+  commentId: M:Messenger.Core.Services.TeamService.GetAllTeams
+  id: GetAllTeams
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: GetAllTeams()
+  nameWithType: TeamService.GetAllTeams()
+  fullName: Messenger.Core.Services.TeamService.GetAllTeams()
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetAllTeams
+    path: Services/TeamService.cs
+    startLine: 85
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nGets the list of all existing teams.\n"
+  example: []
+  syntax:
+    content: public async Task<IEnumerable<Team>> GetAllTeams()
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.Team}}
+      description: An enumerable of Team objects
+    content.vb: Public Function GetAllTeams As Task(Of IEnumerable(Of Team))
+  overload: Messenger.Core.Services.TeamService.GetAllTeams*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.GetTeam(System.UInt32)
+  commentId: M:Messenger.Core.Services.TeamService.GetTeam(System.UInt32)
+  id: GetTeam(System.UInt32)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: GetTeam(UInt32)
+  nameWithType: TeamService.GetTeam(UInt32)
+  fullName: Messenger.Core.Services.TeamService.GetTeam(System.UInt32)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetTeam
+    path: Services/TeamService.cs
+    startLine: 124
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nGets the team with the given team id\n"
+  example: []
+  syntax:
+    content: public async Task<Team> GetTeam(uint teamId)
+    parameters:
+    - id: teamId
+      type: System.UInt32
+      description: Id of the team to retrieve
+    return:
+      type: System.Threading.Tasks.Task{Messenger.Core.Models.Team}
+      description: A complete Team object
+    content.vb: Public Function GetTeam(teamId As UInteger) As Task(Of Team)
+  overload: Messenger.Core.Services.TeamService.GetTeam*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.GetAllTeamsByUserId(System.String)
+  commentId: M:Messenger.Core.Services.TeamService.GetAllTeamsByUserId(System.String)
+  id: GetAllTeamsByUserId(System.String)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: GetAllTeamsByUserId(String)
+  nameWithType: TeamService.GetAllTeamsByUserId(String)
+  fullName: Messenger.Core.Services.TeamService.GetAllTeamsByUserId(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetAllTeamsByUserId
+    path: Services/TeamService.cs
+    startLine: 167
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nGets the list of teams the user has a membership of.\n"
+  example: []
+  syntax:
+    content: public async Task<IEnumerable<Team>> GetAllTeamsByUserId(string userId)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user whose teams to list
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.Team}}
+      description: An enumerable of Team objects
+    content.vb: Public Function GetAllTeamsByUserId(userId As String) As Task(Of IEnumerable(Of Team))
+  overload: Messenger.Core.Services.TeamService.GetAllTeamsByUserId*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.AddMember(System.String,System.UInt32)
+  commentId: M:Messenger.Core.Services.TeamService.AddMember(System.String,System.UInt32)
+  id: AddMember(System.String,System.UInt32)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: AddMember(String, UInt32)
+  nameWithType: TeamService.AddMember(String, UInt32)
+  fullName: Messenger.Core.Services.TeamService.AddMember(System.String, System.UInt32)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: AddMember
+    path: Services/TeamService.cs
+    startLine: 211
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nAdds a new member to the team\n"
+  example: []
+  syntax:
+    content: public async Task<bool> AddMember(string userId, uint teamId)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user to add to the specified team
+    - id: teamId
+      type: System.UInt32
+      description: The id of the team to add the specified user to
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query and it affected at least one entry, false otherwise
+    content.vb: Public Function AddMember(userId As String, teamId As UInteger) As Task(Of Boolean)
+  overload: Messenger.Core.Services.TeamService.AddMember*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.RemoveMember(System.String,System.UInt32)
+  commentId: M:Messenger.Core.Services.TeamService.RemoveMember(System.String,System.UInt32)
+  id: RemoveMember(System.String,System.UInt32)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: RemoveMember(String, UInt32)
+  nameWithType: TeamService.RemoveMember(String, UInt32)
+  fullName: Messenger.Core.Services.TeamService.RemoveMember(System.String, System.UInt32)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: RemoveMember
+    path: Services/TeamService.cs
+    startLine: 235
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nRemoves a member from the team\n"
+  example: []
+  syntax:
+    content: public async Task<bool> RemoveMember(string userId, uint teamId)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user to remove from the specified team
+    - id: teamId
+      type: System.UInt32
+      description: The id of the team to remove the specified user from
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query and it affected at least one entry, false otherwise
+    content.vb: Public Function RemoveMember(userId As String, teamId As UInteger) As Task(Of Boolean)
+  overload: Messenger.Core.Services.TeamService.RemoveMember*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.GetAllMembershipByUserId(System.String)
+  commentId: M:Messenger.Core.Services.TeamService.GetAllMembershipByUserId(System.String)
+  id: GetAllMembershipByUserId(System.String)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: GetAllMembershipByUserId(String)
+  nameWithType: TeamService.GetAllMembershipByUserId(String)
+  fullName: Messenger.Core.Services.TeamService.GetAllMembershipByUserId(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetAllMembershipByUserId
+    path: Services/TeamService.cs
+    startLine: 257
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nGets all memberships of a user\n"
+  example: []
+  syntax:
+    content: public async Task<IList<Membership>> GetAllMembershipByUserId(string userId)
+    parameters:
+    - id: userId
+      type: System.String
+      description: User id for the current user
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IList{Messenger.Core.Models.Membership}}
+      description: A list of membership objects
+    content.vb: Public Function GetAllMembershipByUserId(userId As String) As Task(Of IList(Of Membership))
+  overload: Messenger.Core.Services.TeamService.GetAllMembershipByUserId*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.TeamService.GetAllMembers(System.UInt32)
+  commentId: M:Messenger.Core.Services.TeamService.GetAllMembers(System.UInt32)
+  id: GetAllMembers(System.UInt32)
+  parent: Messenger.Core.Services.TeamService
+  langs:
+  - csharp
+  - vb
+  name: GetAllMembers(UInt32)
+  nameWithType: TeamService.GetAllMembers(UInt32)
+  fullName: Messenger.Core.Services.TeamService.GetAllMembers(System.UInt32)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/TeamService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetAllMembers
+    path: Services/TeamService.cs
+    startLine: 294
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nRetrieve all user who are members of the specified team\n"
+  example: []
+  syntax:
+    content: public async Task<IEnumerable<User>> GetAllMembers(uint teamId)
+    parameters:
+    - id: teamId
+      type: System.UInt32
+      description: The id of a team to retrieve users from
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.User}}
+      description: Enumerable of User objects representing the teams members
+    content.vb: Public Function GetAllMembers(teamId As UInteger) As Task(Of IEnumerable(Of User))
+  overload: Messenger.Core.Services.TeamService.GetAllMembers*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.Core.Services
+  commentId: N:Messenger.Core.Services
+  name: Messenger.Core.Services
+  nameWithType: Messenger.Core.Services
+  fullName: Messenger.Core.Services
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Messenger.Core.Services.AzureServiceBase
+  commentId: T:Messenger.Core.Services.AzureServiceBase
+  parent: Messenger.Core.Services
+  name: AzureServiceBase
+  nameWithType: AzureServiceBase
+  fullName: Messenger.Core.Services.AzureServiceBase
+- uid: Messenger.Core.Services.AzureServiceBase.logger
+  commentId: P:Messenger.Core.Services.AzureServiceBase.logger
+  parent: Messenger.Core.Services.AzureServiceBase
+  name: logger
+  nameWithType: AzureServiceBase.logger
+  fullName: Messenger.Core.Services.AzureServiceBase.logger
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+  commentId: M:Messenger.Core.Services.AzureServiceBase.GetConnection
+  parent: Messenger.Core.Services.AzureServiceBase
+  name: GetConnection()
+  nameWithType: AzureServiceBase.GetConnection()
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection()
+  spec.csharp:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  commentId: M:Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  parent: Messenger.Core.Services.AzureServiceBase
+  isExternal: true
+  name: GetConnection(String)
+  nameWithType: AzureServiceBase.GetConnection(String)
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  spec.csharp:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  commentId: M:Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  parent: Messenger.Core.Services.AzureServiceBase
+  isExternal: true
+  name: SetTestMode(String)
+  nameWithType: AzureServiceBase.SetTestMode(String)
+  fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  spec.csharp:
+  - uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+    name: SetTestMode
+    nameWithType: AzureServiceBase.SetTestMode
+    fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+    name: SetTestMode
+    nameWithType: AzureServiceBase.SetTestMode
+    fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Core.Services.TeamService.CreateTeam*
+  commentId: Overload:Messenger.Core.Services.TeamService.CreateTeam
+  name: CreateTeam
+  nameWithType: TeamService.CreateTeam
+  fullName: Messenger.Core.Services.TeamService.CreateTeam
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Threading.Tasks.Task{System.Nullable{System.UInt32}}
+  commentId: T:System.Threading.Tasks.Task{System.Nullable{System.UInt32}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Nullable<UInt32>>
+  nameWithType: Task<Nullable<UInt32>>
+  fullName: System.Threading.Tasks.Task<System.Nullable<System.UInt32>>
+  nameWithType.vb: Task(Of Nullable(Of UInt32))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Nullable(Of System.UInt32))
+  name.vb: Task(Of Nullable(Of UInt32))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.UInt32
+    name: UInt32
+    nameWithType: UInt32
+    fullName: System.UInt32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.UInt32
+    name: UInt32
+    nameWithType: UInt32
+    fullName: System.UInt32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Messenger.Core.Services.TeamService.DeleteTeam*
+  commentId: Overload:Messenger.Core.Services.TeamService.DeleteTeam
+  name: DeleteTeam
+  nameWithType: TeamService.DeleteTeam
+  fullName: Messenger.Core.Services.TeamService.DeleteTeam
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  name: UInt32
+  nameWithType: UInt32
+  fullName: System.UInt32
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.TeamService.GetAllTeams*
+  commentId: Overload:Messenger.Core.Services.TeamService.GetAllTeams
+  name: GetAllTeams
+  nameWithType: TeamService.GetAllTeams
+  fullName: Messenger.Core.Services.TeamService.GetAllTeams
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.Team}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.Team}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<IEnumerable<Team>>
+  nameWithType: Task<IEnumerable<Team>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Messenger.Core.Models.Team>>
+  nameWithType.vb: Task(Of IEnumerable(Of Team))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.IEnumerable(Of Messenger.Core.Models.Team))
+  name.vb: Task(Of IEnumerable(Of Team))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.Team
+    name: Team
+    nameWithType: Team
+    fullName: Messenger.Core.Models.Team
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.Team
+    name: Team
+    nameWithType: Team
+    fullName: Messenger.Core.Models.Team
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.TeamService.GetTeam*
+  commentId: Overload:Messenger.Core.Services.TeamService.GetTeam
+  name: GetTeam
+  nameWithType: TeamService.GetTeam
+  fullName: Messenger.Core.Services.TeamService.GetTeam
+- uid: System.Threading.Tasks.Task{Messenger.Core.Models.Team}
+  commentId: T:System.Threading.Tasks.Task{Messenger.Core.Models.Team}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Team>
+  nameWithType: Task<Team>
+  fullName: System.Threading.Tasks.Task<Messenger.Core.Models.Team>
+  nameWithType.vb: Task(Of Team)
+  fullName.vb: System.Threading.Tasks.Task(Of Messenger.Core.Models.Team)
+  name.vb: Task(Of Team)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.Team
+    name: Team
+    nameWithType: Team
+    fullName: Messenger.Core.Models.Team
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.Team
+    name: Team
+    nameWithType: Team
+    fullName: Messenger.Core.Models.Team
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.TeamService.GetAllTeamsByUserId*
+  commentId: Overload:Messenger.Core.Services.TeamService.GetAllTeamsByUserId
+  name: GetAllTeamsByUserId
+  nameWithType: TeamService.GetAllTeamsByUserId
+  fullName: Messenger.Core.Services.TeamService.GetAllTeamsByUserId
+- uid: Messenger.Core.Services.TeamService.AddMember*
+  commentId: Overload:Messenger.Core.Services.TeamService.AddMember
+  name: AddMember
+  nameWithType: TeamService.AddMember
+  fullName: Messenger.Core.Services.TeamService.AddMember
+- uid: Messenger.Core.Services.TeamService.RemoveMember*
+  commentId: Overload:Messenger.Core.Services.TeamService.RemoveMember
+  name: RemoveMember
+  nameWithType: TeamService.RemoveMember
+  fullName: Messenger.Core.Services.TeamService.RemoveMember
+- uid: Messenger.Core.Services.TeamService.GetAllMembershipByUserId*
+  commentId: Overload:Messenger.Core.Services.TeamService.GetAllMembershipByUserId
+  name: GetAllMembershipByUserId
+  nameWithType: TeamService.GetAllMembershipByUserId
+  fullName: Messenger.Core.Services.TeamService.GetAllMembershipByUserId
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.IList{Messenger.Core.Models.Membership}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.IList{Messenger.Core.Models.Membership}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<IList<Membership>>
+  nameWithType: Task<IList<Membership>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.IList<Messenger.Core.Models.Membership>>
+  nameWithType.vb: Task(Of IList(Of Membership))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.IList(Of Messenger.Core.Models.Membership))
+  name.vb: Task(Of IList(Of Membership))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.Membership
+    name: Membership
+    nameWithType: Membership
+    fullName: Messenger.Core.Models.Membership
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.Membership
+    name: Membership
+    nameWithType: Membership
+    fullName: Messenger.Core.Models.Membership
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.TeamService.GetAllMembers*
+  commentId: Overload:Messenger.Core.Services.TeamService.GetAllMembers
+  name: GetAllMembers
+  nameWithType: TeamService.GetAllMembers
+  fullName: Messenger.Core.Services.TeamService.GetAllMembers
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.User}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{Messenger.Core.Models.User}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<IEnumerable<User>>
+  nameWithType: Task<IEnumerable<User>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Messenger.Core.Models.User>>
+  nameWithType.vb: Task(Of IEnumerable(Of User))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.IEnumerable(Of Messenger.Core.Models.User))
+  name.vb: Task(Of IEnumerable(Of User))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.User
+    name: User
+    nameWithType: User
+    fullName: Messenger.Core.Models.User
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.User
+    name: User
+    nameWithType: User
+    fullName: Messenger.Core.Models.User
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )

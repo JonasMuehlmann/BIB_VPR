@@ -1,0 +1,95 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Helpers
+  commentId: N:Messenger.Core.Helpers
+  id: Messenger.Core.Helpers
+  children:
+  - Messenger.Core.Helpers.GlobalLogger
+  - Messenger.Core.Helpers.Json
+  - Messenger.Core.Helpers.LoginResultType
+  - Messenger.Core.Helpers.Mapper
+  - Messenger.Core.Helpers.Singleton`1
+  - Messenger.Core.Helpers.SqlHelpers
+  - Messenger.Core.Helpers.StreamExtensions
+  langs:
+  - csharp
+  - vb
+  name: Messenger.Core.Helpers
+  nameWithType: Messenger.Core.Helpers
+  fullName: Messenger.Core.Helpers
+  type: Namespace
+  assemblies:
+  - Messenger.Core
+references:
+- uid: Messenger.Core.Helpers.GlobalLogger
+  commentId: T:Messenger.Core.Helpers.GlobalLogger
+  name: GlobalLogger
+  nameWithType: GlobalLogger
+  fullName: Messenger.Core.Helpers.GlobalLogger
+- uid: Messenger.Core.Helpers.Json
+  commentId: T:Messenger.Core.Helpers.Json
+  name: Json
+  nameWithType: Json
+  fullName: Messenger.Core.Helpers.Json
+- uid: Messenger.Core.Helpers.LoginResultType
+  commentId: T:Messenger.Core.Helpers.LoginResultType
+  parent: Messenger.Core.Helpers
+  name: LoginResultType
+  nameWithType: LoginResultType
+  fullName: Messenger.Core.Helpers.LoginResultType
+- uid: Messenger.Core.Helpers.Mapper
+  commentId: T:Messenger.Core.Helpers.Mapper
+  name: Mapper
+  nameWithType: Mapper
+  fullName: Messenger.Core.Helpers.Mapper
+- uid: Messenger.Core.Helpers.Singleton`1
+  commentId: T:Messenger.Core.Helpers.Singleton`1
+  name: Singleton<T>
+  nameWithType: Singleton<T>
+  fullName: Messenger.Core.Helpers.Singleton<T>
+  nameWithType.vb: Singleton(Of T)
+  fullName.vb: Messenger.Core.Helpers.Singleton(Of T)
+  name.vb: Singleton(Of T)
+  spec.csharp:
+  - uid: Messenger.Core.Helpers.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Messenger.Core.Helpers.Singleton
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Messenger.Core.Helpers.Singleton`1
+    name: Singleton
+    nameWithType: Singleton
+    fullName: Messenger.Core.Helpers.Singleton
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Helpers.SqlHelpers
+  commentId: T:Messenger.Core.Helpers.SqlHelpers
+  name: SqlHelpers
+  nameWithType: SqlHelpers
+  fullName: Messenger.Core.Helpers.SqlHelpers
+- uid: Messenger.Core.Helpers.StreamExtensions
+  commentId: T:Messenger.Core.Helpers.StreamExtensions
+  name: StreamExtensions
+  nameWithType: StreamExtensions
+  fullName: Messenger.Core.Helpers.StreamExtensions
+- uid: Messenger.Core.Helpers
+  commentId: N:Messenger.Core.Helpers
+  name: Messenger.Core.Helpers
+  nameWithType: Messenger.Core.Helpers
+  fullName: Messenger.Core.Helpers

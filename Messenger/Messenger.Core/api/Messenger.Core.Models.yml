@@ -1,0 +1,55 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Models
+  commentId: N:Messenger.Core.Models
+  id: Messenger.Core.Models
+  children:
+  - Messenger.Core.Models.Membership
+  - Messenger.Core.Models.Message
+  - Messenger.Core.Models.Team
+  - Messenger.Core.Models.TeamChannel
+  - Messenger.Core.Models.User
+  langs:
+  - csharp
+  - vb
+  name: Messenger.Core.Models
+  nameWithType: Messenger.Core.Models
+  fullName: Messenger.Core.Models
+  type: Namespace
+  assemblies:
+  - Messenger.Core
+references:
+- uid: Messenger.Core.Models.Membership
+  commentId: T:Messenger.Core.Models.Membership
+  parent: Messenger.Core.Models
+  name: Membership
+  nameWithType: Membership
+  fullName: Messenger.Core.Models.Membership
+- uid: Messenger.Core.Models.Message
+  commentId: T:Messenger.Core.Models.Message
+  parent: Messenger.Core.Models
+  name: Message
+  nameWithType: Message
+  fullName: Messenger.Core.Models.Message
+- uid: Messenger.Core.Models.Team
+  commentId: T:Messenger.Core.Models.Team
+  parent: Messenger.Core.Models
+  name: Team
+  nameWithType: Team
+  fullName: Messenger.Core.Models.Team
+- uid: Messenger.Core.Models.TeamChannel
+  commentId: T:Messenger.Core.Models.TeamChannel
+  name: TeamChannel
+  nameWithType: TeamChannel
+  fullName: Messenger.Core.Models.TeamChannel
+- uid: Messenger.Core.Models.User
+  commentId: T:Messenger.Core.Models.User
+  parent: Messenger.Core.Models
+  name: User
+  nameWithType: User
+  fullName: Messenger.Core.Models.User
+- uid: Messenger.Core.Models
+  commentId: N:Messenger.Core.Models
+  name: Messenger.Core.Models
+  nameWithType: Messenger.Core.Models
+  fullName: Messenger.Core.Models

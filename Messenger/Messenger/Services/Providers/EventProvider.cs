@@ -271,7 +271,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     chatViewModel);
             }
             else
@@ -280,7 +280,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     teamViewModel);
             }
         }
@@ -370,7 +370,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Deleted,
                     teamViewModel);
             }
         }

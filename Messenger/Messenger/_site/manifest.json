@@ -1,0 +1,906 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/charl/Documents/bib/VPR/BIB_VPR/Messenger/Messenger",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Activation.SchemeActivationConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Activation.SchemeActivationConfig.html",
+          "hash": "CxfK3gPNwkgKC7s03PMXK1QorCDV04I6FxY0s8Iy+pU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Activation.SchemeActivationData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Activation.SchemeActivationData.html",
+          "hash": "MUMEiVWW7SRcByHbkqgILrB//zH4qomx+TmOR0K8nrw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Activation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Activation.html",
+          "hash": "6lSOaJQ5+sk0BsswP4OAi+DYtfj5i6mjCckwFZfgyps="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.App.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.App.html",
+          "hash": "9SKpM2fOLsN9wTJqvafGQCfngmlG4Uz2wJyEJclPZyM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Behaviors.NavigationViewHeaderBehavior.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Behaviors.NavigationViewHeaderBehavior.html",
+          "hash": "cG8Zr0R/nE9RjyBna1Hte2Uf4GujAe0BKlR6qZ20yYI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Behaviors.NavigationViewHeaderMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Behaviors.NavigationViewHeaderMode.html",
+          "hash": "ePUxsCnBfI3RSihnLw1L85PCpGiAahrKuu+A7WyeImI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Behaviors.TreeViewCollapseBehavior.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Behaviors.TreeViewCollapseBehavior.html",
+          "hash": "XJLfVsU4PRFZmZLDq5ZkJ6zCmSwpyhs03VPtVvCSZeQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Behaviors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Behaviors.html",
+          "hash": "6gSiG6mBQxcUYvKu+s3pG+sVgIT8JvdJJQ6TvqXQUsk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Commands.Messenger.SendMessageCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Commands.Messenger.SendMessageCommand.html",
+          "hash": "pSkfIsmdhnhbKiMVkoSkBN3SaQ5nhv7MItih6YacikY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Commands.Messenger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Commands.Messenger.html",
+          "hash": "Jyht0SMxUxmx4s5GLszYl8R6Eqn6heWa7bOsmLw/SO8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.EnumToBooleanConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.EnumToBooleanConverter.html",
+          "hash": "tsdl0P/7Nn4eyd8+lsPXHef8HguXzYDalU+LPvvYTo4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.ImageHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.ImageHelper.html",
+          "hash": "UXifSfYI+HXTorZ7aQvrbSD7d5ef+yw3V8IFLsON2Pk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.NavHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.NavHelper.html",
+          "hash": "GAD3sriLnGVF0AmcojnYp8QFh1Qs+12VofOCCd0LruU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.Observable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.Observable.html",
+          "hash": "+DGfHee/MuLPFxGOoQmqLjK5oltR65AfJWKF4BeuguE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.RelayCommand-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.RelayCommand-1.html",
+          "hash": "S9CfGWDiy6M2yWadMoKOFbrRpv8ZYGAI2OAEBDGbGT0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.RelayCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.RelayCommand.html",
+          "hash": "eLchkA7J9I/berNrsZZVZNkNy9TkZpMrANGbOMZxYuo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.SettingsStorageExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.SettingsStorageExtensions.html",
+          "hash": "w/xKuXN04KEMeHiRj5SYhQw4wE/7exRQGrP950nCLIY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Helpers.html",
+          "hash": "pydIz0LhmchGK6Z1yTFVZSaueaPu4Bt+L1/hr8TCfvU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.DragDropCompletedData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.DragDropCompletedData.html",
+          "hash": "lmhwLAW3uMyWY1wWC7v7orp46HJt07cASww5YmoKAWQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.DragDropData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.DragDropData.html",
+          "hash": "PNCx6WTVe4ue1eJgZ3VVx6PtOV9XgdJeNDNaqABEEN0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.DragDropStartingData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.DragDropStartingData.html",
+          "hash": "PGPojGYUEmfXshqLWu9Tjx3J8fDWq1pgmvtwdlXvz+4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.Invitation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.Invitation.html",
+          "hash": "eIAVKS6YNblJ5QS74HHskRl/v+wAZj6h4IycRi+dW+A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.Notification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.Notification.html",
+          "hash": "O48MHK2ab9ZTgE7oG+VVTYq2jBT+xFzf7/pPgJ3E42U="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.NotificationManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.NotificationManager.html",
+          "hash": "54dPnIZfHr8oPaVhrrXKgZUs28RuRMbHNByHdSlRlcE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Models.html",
+          "hash": "RZnolL+UKtcoG12M8SSbgp1gdi6P1FdkGegCilhyD6U="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Program.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Program.html",
+          "hash": "sd8g3iV5CIhUxjpYQGx9Ku/HIKket1gm3TXdqf33wYw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.ChatHubService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.ChatHubService.html",
+          "hash": "dIpxbb1oOK5OzN/dFMZTERmHCPOgpmk3qvwJJc9Juzg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.DragAndDrop.DragDropService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.DragAndDrop.DragDropService.html",
+          "hash": "5tJl6wnt+OiODs1xkD7GZ5Y/Mzj7w6KULO0aCwpjipU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.DragAndDrop.DropConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.DragAndDrop.DropConfiguration.html",
+          "hash": "ddr1IX6NZenjC4jZBZkzBn6c8ilY4ePW8fo5JkRcd0k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.DragAndDrop.ListViewDropConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.DragAndDrop.ListViewDropConfiguration.html",
+          "hash": "ZgT1WgsioGpXY4HiMprVTsM0GHyrihZSUARfXbu34nw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.DragAndDrop.VisualDropConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.DragAndDrop.VisualDropConfiguration.html",
+          "hash": "UzNWHUO3Xq5KQ8AMPSYDqwWirNwnEgmOJZzgK63Dcns="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.DragAndDrop.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.DragAndDrop.html",
+          "hash": "6f4JVSjSNGGIBDvdoJ+hf+TAFhx54dA41EZuJDhhQ1k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.FirstRunDisplayService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.FirstRunDisplayService.html",
+          "hash": "yG7QDCuxItnEtRwzjGMvL/OA91kiSQ47hSMycW7UbUc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.NavigationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.NavigationService.html",
+          "hash": "l75fW7pxBWTeLQdfw/lL3MzPbBfGHU3zhBWuyTtG6dY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.ThemeSelectorService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.ThemeSelectorService.html",
+          "hash": "il0LEKPko28WxWKc0WqU+9V35Y/zSnLTfFIOwCnKWJY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.UserActivityData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.UserActivityData.html",
+          "hash": "mYuGkAnH3pkmbM2w9Uuul00F3wNb6E4YBKQM1eiAfqw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.UserActivityService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.UserActivityService.html",
+          "hash": "wXIdePniLvr5QJto44s12M3i+glyr8jD/IHLufVyocU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.UserDataService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.UserDataService.html",
+          "hash": "L5eH8WJvlVBgkQkg8kMb8NFaPNkgoHgUEsqwVWM4W68="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Services.html",
+          "hash": "s2ynm0HDYAtUa+9WxtSPsRqjACzWqZEz2IS97lfg44A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.TemplateSelectors.TeamDataTemplateSelector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.TemplateSelectors.TeamDataTemplateSelector.html",
+          "hash": "lvOuIJo29oBqTKNX0c44NbI11TW0K8Wo3JQLA0jTweI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.TemplateSelectors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.TemplateSelectors.html",
+          "hash": "RI532RxiBGNcVPSk4t/F2sKMb8StNxcP/4cYMsVEAGQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.ChatHubViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.ChatHubViewModel.html",
+          "hash": "USg5xdZ5GrkiJ4pglI2L8Hh7XXczWuB/yCMb6/aQxvE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.ChatNavViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.ChatNavViewModel.html",
+          "hash": "9dI/MTTE5oZ6elZzQP0Y+HTYVT5MjtualTeWggvLZd8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.ChatViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.ChatViewModel.html",
+          "hash": "7N8NBS1V4EdL+te9lQpUaj6wgIbv6C+B9RJO+35TsnM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.LogInViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.LogInViewModel.html",
+          "hash": "H2XXSZVjzNvdOBDqU5NIGSu+c6cXv5e4rc7XkpDvVfw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.NotificationNavViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.NotificationNavViewModel.html",
+          "hash": "M0Y8X2WVUg9yk76tQLwlKWDBK9vPIr+rC16A/L+SxKk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.SchemeActivationSampleViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.SchemeActivationSampleViewModel.html",
+          "hash": "dSxFOj7o8QooZSLvVw5Y+Ao5GedFaOLbtUJ1hcMiy2s="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.SettingsViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.SettingsViewModel.html",
+          "hash": "QkSzE7Oqahpavdxd8oT65NkT8qC6cFAORlWBDKmevbk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.ShellViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.ShellViewModel.html",
+          "hash": "ljOOUsXfg8XDJ56LTSqCOvJFctOReGOFm7JPtzsSn/s="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.TeamManageViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.TeamManageViewModel.html",
+          "hash": "0Z1rHCOmwcekK+D6Ji1ahH+s+Ezb2Z0DcztStPtrHVk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.TeamNavViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.TeamNavViewModel.html",
+          "hash": "vN+HQL6Txu22hFjpBkSi5Td5gpT14tekb3pSmz9xdw4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.UserViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.UserViewModel.html",
+          "hash": "djGVUeyg4L2JMsg0QdcR3VvLws13S09/5z7Y6vWleTE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.ViewModels.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.ViewModels.html",
+          "hash": "wV1kU9+hRUE8k4hKPB7aeDOCvCD4fuptnlOIsHZ5qk0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.ChatNavPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.ChatNavPage.html",
+          "hash": "z+VH4yq5oeH+6+4BWPDnzS2dLWFk+ugxL9BDullRN9Q="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.ChatPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.ChatPage.html",
+          "hash": "7kse9ZP5OYa0D8VC8wve2bxQCfdH9S3Rkcl//k0/KQA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.FirstRunDialog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.FirstRunDialog.html",
+          "hash": "qTM+cr0eSLpm8M8LRTkGaCWyooaArMF8ue7EVNXYSeM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.LogInPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.LogInPage.html",
+          "hash": "X7tmjQbnfUSoIbgNHbTuIkWtZJVQkBeapz3nYZjsL8M="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.NotificationNavPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.NotificationNavPage.html",
+          "hash": "UWkHs2xxJ+6BOnc5SjPl43tyrPjL27PK3i/pxO1ONZk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.SchemeActivationSamplePage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.SchemeActivationSamplePage.html",
+          "hash": "R2iMOHoR5XRR+Sg3CB9PHHDeFhUz2UwqUqEBOXlThN4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.SettingsPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.SettingsPage.html",
+          "hash": "Z52qRdBFcDTqgsz6VCTLNPUHvuHv0Tuk+RkRda8zm2c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.ShellPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.ShellPage.html",
+          "hash": "aDWRq8HCmuGwFTuu9bfaucZw14/6DivZ9SXLnpY7INc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.TeamManagePage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.TeamManagePage.html",
+          "hash": "S/Uhjr9EzB0SEddaKMub3Bf921b128NHvxHnPzqKItA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.TeamNavPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.TeamNavPage.html",
+          "hash": "TME/2E27o67I4nxoDp+awtmnMZyeXh/pAwszgsf0iBM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.Views.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.Views.html",
+          "hash": "rBTpy9qWI6WduZsHg2jTS4fmGtpusO+fS3nO4DSVqow="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Messenger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Messenger.html",
+          "hash": "mtC5ajwGOqCu/FgqOlX/JageB7Rp50rK39SpeEF371w="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "9LN+o+2+1MXh5a6TGWvsN3pTUiBKsCPgU/xi8msKUBI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "0eANCnAdI2lqYf+4CEtBgfJqO28VAd3ZHrGI+Zjd31U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "WXp08ADXsKccY4zNvh6CJkRGIJzpLz8slpOj/B9vAN0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "BlPxk5mtl2kgfcZUgkEguqiSAR/EUyUTT4EdebwkQvs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "xsDwcpEU70sE9ntkNOW0eWE3oPjGAj6fW2DPBH3LpE8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "WSuRrYiGwKKMbtdG9z8W9fXmLoCyTnGg9AxbPKLXm2Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 65,
+          "skipped_file_count": 65
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

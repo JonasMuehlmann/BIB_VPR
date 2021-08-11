@@ -1,0 +1,1670 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Services.DragAndDrop.DropConfiguration
+  commentId: T:Messenger.Services.DragAndDrop.DropConfiguration
+  id: DropConfiguration
+  parent: Messenger.Services.DragAndDrop
+  children:
+  - Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand
+  - Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommandProperty
+  - Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync(Windows.ApplicationModel.DataTransfer.DataPackageView)
+  langs:
+  - csharp
+  - vb
+  name: DropConfiguration
+  nameWithType: DropConfiguration
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropConfiguration
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 12
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: 'public class DropConfiguration : DependencyObject, IDependencyObject, IDependencyObject2'
+    content.vb: >-
+      Public Class DropConfiguration
+          Inherits DependencyObject
+          Implements IDependencyObject, IDependencyObject2
+  inheritance:
+  - System.Object
+  - Windows.UI.Xaml.DependencyObject
+  derivedClasses:
+  - Messenger.Services.DragAndDrop.ListViewDropConfiguration
+  inheritedMembers:
+  - Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+  - Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  - Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  - Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+  - Windows.UI.Xaml.DependencyObject.Dispatcher
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommandProperty
+  id: DropBitmapCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropBitmapCommandProperty
+  nameWithType: DropConfiguration.DropBitmapCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropBitmapCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 14
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropBitmapCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropBitmapCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommandProperty
+  id: DropHtmlCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropHtmlCommandProperty
+  nameWithType: DropConfiguration.DropHtmlCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropHtmlCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 17
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropHtmlCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropHtmlCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommandProperty
+  id: DropRtfCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropRtfCommandProperty
+  nameWithType: DropConfiguration.DropRtfCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropRtfCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 20
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropRtfCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropRtfCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommandProperty
+  id: DropStorageItemsCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropStorageItemsCommandProperty
+  nameWithType: DropConfiguration.DropStorageItemsCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropStorageItemsCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 23
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropStorageItemsCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropStorageItemsCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommandProperty
+  id: DropTextCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropTextCommandProperty
+  nameWithType: DropConfiguration.DropTextCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropTextCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 26
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropTextCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropTextCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommandProperty
+  id: DropApplicationLinkCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropApplicationLinkCommandProperty
+  nameWithType: DropConfiguration.DropApplicationLinkCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropApplicationLinkCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 29
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropApplicationLinkCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropApplicationLinkCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommandProperty
+  id: DropWebLinkCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropWebLinkCommandProperty
+  nameWithType: DropConfiguration.DropWebLinkCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropWebLinkCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 32
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropWebLinkCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropWebLinkCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommandProperty
+  id: DropDataViewCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropDataViewCommandProperty
+  nameWithType: DropConfiguration.DropDataViewCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropDataViewCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 35
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DropDataViewCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DropDataViewCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommandProperty
+  id: DragEnterCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DragEnterCommandProperty
+  nameWithType: DropConfiguration.DragEnterCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragEnterCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 38
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DragEnterCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DragEnterCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommandProperty
+  id: DragOverCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DragOverCommandProperty
+  nameWithType: DropConfiguration.DragOverCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragOverCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 41
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DragOverCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DragOverCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommandProperty
+  commentId: F:Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommandProperty
+  id: DragLeaveCommandProperty
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DragLeaveCommandProperty
+  nameWithType: DropConfiguration.DragLeaveCommandProperty
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommandProperty
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragLeaveCommandProperty
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 44
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public static readonly DependencyProperty DragLeaveCommandProperty
+    return:
+      type: Windows.UI.Xaml.DependencyProperty
+    content.vb: Public Shared ReadOnly DragLeaveCommandProperty As DependencyProperty
+  modifiers.csharp:
+  - public
+  - static
+  - readonly
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand
+  id: DropBitmapCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropBitmapCommand
+  nameWithType: DropConfiguration.DropBitmapCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropBitmapCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 47
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropBitmapCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropBitmapCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand
+  id: DropHtmlCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropHtmlCommand
+  nameWithType: DropConfiguration.DropHtmlCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropHtmlCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 53
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropHtmlCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropHtmlCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand
+  id: DropRtfCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropRtfCommand
+  nameWithType: DropConfiguration.DropRtfCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropRtfCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 59
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropRtfCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropRtfCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand
+  id: DropStorageItemsCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropStorageItemsCommand
+  nameWithType: DropConfiguration.DropStorageItemsCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropStorageItemsCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 65
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropStorageItemsCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropStorageItemsCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand
+  id: DropTextCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropTextCommand
+  nameWithType: DropConfiguration.DropTextCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropTextCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 71
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropTextCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropTextCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand
+  id: DropApplicationLinkCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropApplicationLinkCommand
+  nameWithType: DropConfiguration.DropApplicationLinkCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropApplicationLinkCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 77
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropApplicationLinkCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropApplicationLinkCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand
+  id: DropWebLinkCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropWebLinkCommand
+  nameWithType: DropConfiguration.DropWebLinkCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropWebLinkCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 83
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropWebLinkCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropWebLinkCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand
+  id: DropDataViewCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DropDataViewCommand
+  nameWithType: DropConfiguration.DropDataViewCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DropDataViewCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 89
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DropDataViewCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DropDataViewCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand
+  id: DragEnterCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DragEnterCommand
+  nameWithType: DropConfiguration.DragEnterCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragEnterCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 95
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DragEnterCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DragEnterCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand
+  id: DragOverCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DragOverCommand
+  nameWithType: DropConfiguration.DragOverCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragOverCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 101
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DragOverCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DragOverCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand
+  commentId: P:Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand
+  id: DragLeaveCommand
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: DragLeaveCommand
+  nameWithType: DropConfiguration.DragLeaveCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DragLeaveCommand
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 107
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public ICommand DragLeaveCommand { get; set; }
+    parameters: []
+    return:
+      type: System.Windows.Input.ICommand
+    content.vb: Public Property DragLeaveCommand As ICommand
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync(Windows.ApplicationModel.DataTransfer.DataPackageView)
+  commentId: M:Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync(Windows.ApplicationModel.DataTransfer.DataPackageView)
+  id: ProcessComandsAsync(Windows.ApplicationModel.DataTransfer.DataPackageView)
+  parent: Messenger.Services.DragAndDrop.DropConfiguration
+  langs:
+  - csharp
+  - vb
+  name: ProcessComandsAsync(DataPackageView)
+  nameWithType: DropConfiguration.ProcessComandsAsync(DataPackageView)
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync(Windows.ApplicationModel.DataTransfer.DataPackageView)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: ProcessComandsAsync
+    path: Services/DragAndDrop/DropConfiguration.cs
+    startLine: 113
+  assemblies:
+  - Messenger
+  namespace: Messenger.Services.DragAndDrop
+  syntax:
+    content: public async Task ProcessComandsAsync(DataPackageView dataview)
+    parameters:
+    - id: dataview
+      type: Windows.ApplicationModel.DataTransfer.DataPackageView
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function ProcessComandsAsync(dataview As DataPackageView) As Task
+  overload: Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.Services.DragAndDrop
+  commentId: N:Messenger.Services.DragAndDrop
+  name: Messenger.Services.DragAndDrop
+  nameWithType: Messenger.Services.DragAndDrop
+  fullName: Messenger.Services.DragAndDrop
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Windows.UI.Xaml.DependencyObject
+  commentId: T:Windows.UI.Xaml.DependencyObject
+  parent: Windows.UI.Xaml
+  isExternal: true
+  name: DependencyObject
+  nameWithType: DependencyObject
+  fullName: Windows.UI.Xaml.DependencyObject
+- uid: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.GetValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.GetValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.GetValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: GetValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.GetValue
+    nameWithType: DependencyObject.IDependencyObject.GetValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.GetValue(Windows.UI.Xaml.DependencyProperty)
+    name: GetValue
+    nameWithType: DependencyObject.GetValue
+    fullName: Windows.UI.Xaml.DependencyObject.GetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+  commentId: M:Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.SetValue(DependencyProperty, Object)
+  nameWithType: DependencyObject.IDependencyObject.SetValue(DependencyProperty, Object)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty, System.Object)
+  nameWithType.vb: DependencyObject.SetValue(DependencyProperty, Object)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty, System.Object)
+  name.vb: SetValue(DependencyProperty, Object)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+    name: IDependencyObject.SetValue
+    nameWithType: DependencyObject.IDependencyObject.SetValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.SetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.SetValue(Windows.UI.Xaml.DependencyProperty,System.Object)
+    name: SetValue
+    nameWithType: DependencyObject.SetValue
+    fullName: Windows.UI.Xaml.DependencyObject.SetValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.ClearValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.ClearValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.ClearValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: ClearValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.ClearValue
+    nameWithType: DependencyObject.IDependencyObject.ClearValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ClearValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.ClearValue(Windows.UI.Xaml.DependencyProperty)
+    name: ClearValue
+    nameWithType: DependencyObject.ClearValue
+    fullName: Windows.UI.Xaml.DependencyObject.ClearValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.ReadLocalValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.ReadLocalValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.ReadLocalValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: ReadLocalValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.ReadLocalValue
+    nameWithType: DependencyObject.IDependencyObject.ReadLocalValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.ReadLocalValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.ReadLocalValue(Windows.UI.Xaml.DependencyProperty)
+    name: ReadLocalValue
+    nameWithType: DependencyObject.ReadLocalValue
+    fullName: Windows.UI.Xaml.DependencyObject.ReadLocalValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  commentId: M:Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.GetAnimationBaseValue(DependencyProperty)
+  nameWithType: DependencyObject.IDependencyObject.GetAnimationBaseValue(DependencyProperty)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  nameWithType.vb: DependencyObject.GetAnimationBaseValue(DependencyProperty)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+  name.vb: GetAnimationBaseValue(DependencyProperty)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+    name: IDependencyObject.GetAnimationBaseValue
+    nameWithType: DependencyObject.IDependencyObject.GetAnimationBaseValue
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.GetAnimationBaseValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue(Windows.UI.Xaml.DependencyProperty)
+    name: GetAnimationBaseValue
+    nameWithType: DependencyObject.GetAnimationBaseValue
+    fullName: Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  commentId: M:Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject2.RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  nameWithType: DependencyObject.IDependencyObject2.RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  nameWithType.vb: DependencyObject.RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, Windows.UI.Xaml.DependencyPropertyChangedCallback)
+  name.vb: RegisterPropertyChangedCallback(DependencyProperty, DependencyPropertyChangedCallback)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+    name: IDependencyObject2.RegisterPropertyChangedCallback
+    nameWithType: DependencyObject.IDependencyObject2.RegisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.RegisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    name: DependencyPropertyChangedCallback
+    nameWithType: DependencyPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,Windows.UI.Xaml.DependencyPropertyChangedCallback)
+    name: RegisterPropertyChangedCallback
+    nameWithType: DependencyObject.RegisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    name: DependencyPropertyChangedCallback
+    nameWithType: DependencyPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyPropertyChangedCallback
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+  commentId: M:Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject2.UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  nameWithType: DependencyObject.IDependencyObject2.UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, System.Int64)
+  nameWithType.vb: DependencyObject.UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  fullName.vb: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty, System.Int64)
+  name.vb: UnregisterPropertyChangedCallback(DependencyProperty, Int64)
+  spec.csharp:
+  - uid: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+    name: IDependencyObject2.UnregisterPropertyChangedCallback
+    nameWithType: DependencyObject.IDependencyObject2.UnregisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject2.UnregisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback(Windows.UI.Xaml.DependencyProperty,System.Int64)
+    name: UnregisterPropertyChangedCallback
+    nameWithType: DependencyObject.UnregisterPropertyChangedCallback
+    fullName: Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Windows.UI.Xaml.DependencyProperty
+    name: DependencyProperty
+    nameWithType: DependencyProperty
+    fullName: Windows.UI.Xaml.DependencyProperty
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Windows.UI.Xaml.DependencyObject.Dispatcher
+  commentId: P:Windows.UI.Xaml.DependencyObject.Dispatcher
+  parent: Windows.UI.Xaml.DependencyObject
+  isExternal: true
+  name: IDependencyObject.Dispatcher
+  nameWithType: DependencyObject.IDependencyObject.Dispatcher
+  fullName: Windows.UI.Xaml.DependencyObject.Windows.UI.Xaml.IDependencyObject.Dispatcher
+  nameWithType.vb: DependencyObject.Dispatcher
+  fullName.vb: Windows.UI.Xaml.DependencyObject.Dispatcher
+  name.vb: Dispatcher
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Windows.UI.Xaml
+  commentId: N:Windows.UI.Xaml
+  isExternal: true
+  name: Windows.UI.Xaml
+  nameWithType: Windows.UI.Xaml
+  fullName: Windows.UI.Xaml
+- uid: Windows.UI.Xaml.DependencyProperty
+  commentId: T:Windows.UI.Xaml.DependencyProperty
+  parent: Windows.UI.Xaml
+  isExternal: true
+  name: DependencyProperty
+  nameWithType: DependencyProperty
+  fullName: Windows.UI.Xaml.DependencyProperty
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand
+  name: DropBitmapCommand
+  nameWithType: DropConfiguration.DropBitmapCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand
+- uid: System.Windows.Input.ICommand
+  commentId: T:System.Windows.Input.ICommand
+  parent: System.Windows.Input
+  isExternal: true
+  name: ICommand
+  nameWithType: ICommand
+  fullName: System.Windows.Input.ICommand
+- uid: System.Windows.Input
+  commentId: N:System.Windows.Input
+  isExternal: true
+  name: System.Windows.Input
+  nameWithType: System.Windows.Input
+  fullName: System.Windows.Input
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand
+  name: DropHtmlCommand
+  nameWithType: DropConfiguration.DropHtmlCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand
+  name: DropRtfCommand
+  nameWithType: DropConfiguration.DropRtfCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand
+  name: DropStorageItemsCommand
+  nameWithType: DropConfiguration.DropStorageItemsCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand
+  name: DropTextCommand
+  nameWithType: DropConfiguration.DropTextCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand
+  name: DropApplicationLinkCommand
+  nameWithType: DropConfiguration.DropApplicationLinkCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand
+  name: DropWebLinkCommand
+  nameWithType: DropConfiguration.DropWebLinkCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand
+  name: DropDataViewCommand
+  nameWithType: DropConfiguration.DropDataViewCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand
+  name: DragEnterCommand
+  nameWithType: DropConfiguration.DragEnterCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand
+  name: DragOverCommand
+  nameWithType: DropConfiguration.DragOverCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand
+  name: DragLeaveCommand
+  nameWithType: DropConfiguration.DragLeaveCommand
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand
+- uid: Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync*
+  commentId: Overload:Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync
+  name: ProcessComandsAsync
+  nameWithType: DropConfiguration.ProcessComandsAsync
+  fullName: Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync
+- uid: Windows.ApplicationModel.DataTransfer.DataPackageView
+  commentId: T:Windows.ApplicationModel.DataTransfer.DataPackageView
+  parent: Windows.ApplicationModel.DataTransfer
+  isExternal: true
+  name: DataPackageView
+  nameWithType: DataPackageView
+  fullName: Windows.ApplicationModel.DataTransfer.DataPackageView
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: Windows.ApplicationModel.DataTransfer
+  commentId: N:Windows.ApplicationModel.DataTransfer
+  isExternal: true
+  name: Windows.ApplicationModel.DataTransfer
+  nameWithType: Windows.ApplicationModel.DataTransfer
+  fullName: Windows.ApplicationModel.DataTransfer
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

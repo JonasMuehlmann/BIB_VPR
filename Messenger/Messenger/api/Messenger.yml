@@ -1,0 +1,28 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger
+  commentId: N:Messenger
+  id: Messenger
+  children:
+  - Messenger.App
+  - Messenger.Program
+  langs:
+  - csharp
+  - vb
+  name: Messenger
+  nameWithType: Messenger
+  fullName: Messenger
+  type: Namespace
+  assemblies:
+  - Messenger
+references:
+- uid: Messenger.App
+  commentId: T:Messenger.App
+  name: App
+  nameWithType: App
+  fullName: Messenger.App
+- uid: Messenger.Program
+  commentId: T:Messenger.Program
+  name: Program
+  nameWithType: Program
+  fullName: Messenger.Program

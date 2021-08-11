@@ -1,0 +1,145 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Behaviors.NavigationViewHeaderMode
+  commentId: T:Messenger.Behaviors.NavigationViewHeaderMode
+  id: NavigationViewHeaderMode
+  parent: Messenger.Behaviors
+  children:
+  - Messenger.Behaviors.NavigationViewHeaderMode.Always
+  - Messenger.Behaviors.NavigationViewHeaderMode.Minimal
+  - Messenger.Behaviors.NavigationViewHeaderMode.Never
+  langs:
+  - csharp
+  - vb
+  name: NavigationViewHeaderMode
+  nameWithType: NavigationViewHeaderMode
+  fullName: Messenger.Behaviors.NavigationViewHeaderMode
+  type: Enum
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderMode.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: NavigationViewHeaderMode
+    path: Behaviors/NavigationViewHeaderMode.cs
+    startLine: 2
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: public enum NavigationViewHeaderMode
+    content.vb: Public Enum NavigationViewHeaderMode
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: Messenger.Behaviors.NavigationViewHeaderMode.Always
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderMode.Always
+  id: Always
+  parent: Messenger.Behaviors.NavigationViewHeaderMode
+  langs:
+  - csharp
+  - vb
+  name: Always
+  nameWithType: NavigationViewHeaderMode.Always
+  fullName: Messenger.Behaviors.NavigationViewHeaderMode.Always
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderMode.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Always
+    path: Behaviors/NavigationViewHeaderMode.cs
+    startLine: 4
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: Always = 0
+    return:
+      type: Messenger.Behaviors.NavigationViewHeaderMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Messenger.Behaviors.NavigationViewHeaderMode.Never
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderMode.Never
+  id: Never
+  parent: Messenger.Behaviors.NavigationViewHeaderMode
+  langs:
+  - csharp
+  - vb
+  name: Never
+  nameWithType: NavigationViewHeaderMode.Never
+  fullName: Messenger.Behaviors.NavigationViewHeaderMode.Never
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderMode.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Never
+    path: Behaviors/NavigationViewHeaderMode.cs
+    startLine: 5
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: Never = 1
+    return:
+      type: Messenger.Behaviors.NavigationViewHeaderMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Messenger.Behaviors.NavigationViewHeaderMode.Minimal
+  commentId: F:Messenger.Behaviors.NavigationViewHeaderMode.Minimal
+  id: Minimal
+  parent: Messenger.Behaviors.NavigationViewHeaderMode
+  langs:
+  - csharp
+  - vb
+  name: Minimal
+  nameWithType: NavigationViewHeaderMode.Minimal
+  fullName: Messenger.Behaviors.NavigationViewHeaderMode.Minimal
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger/Behaviors/NavigationViewHeaderMode.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Minimal
+    path: Behaviors/NavigationViewHeaderMode.cs
+    startLine: 6
+  assemblies:
+  - Messenger
+  namespace: Messenger.Behaviors
+  syntax:
+    content: Minimal = 2
+    return:
+      type: Messenger.Behaviors.NavigationViewHeaderMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: Messenger.Behaviors
+  commentId: N:Messenger.Behaviors
+  name: Messenger.Behaviors
+  nameWithType: Messenger.Behaviors
+  fullName: Messenger.Behaviors
+- uid: Messenger.Behaviors.NavigationViewHeaderMode
+  commentId: T:Messenger.Behaviors.NavigationViewHeaderMode
+  parent: Messenger.Behaviors
+  name: NavigationViewHeaderMode
+  nameWithType: NavigationViewHeaderMode
+  fullName: Messenger.Behaviors.NavigationViewHeaderMode

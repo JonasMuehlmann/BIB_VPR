@@ -1,0 +1,34 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Activation
+  commentId: N:Messenger.Activation
+  id: Messenger.Activation
+  children:
+  - Messenger.Activation.SchemeActivationConfig
+  - Messenger.Activation.SchemeActivationData
+  langs:
+  - csharp
+  - vb
+  name: Messenger.Activation
+  nameWithType: Messenger.Activation
+  fullName: Messenger.Activation
+  type: Namespace
+  assemblies:
+  - Messenger
+references:
+- uid: Messenger.Activation.SchemeActivationConfig
+  commentId: T:Messenger.Activation.SchemeActivationConfig
+  name: SchemeActivationConfig
+  nameWithType: SchemeActivationConfig
+  fullName: Messenger.Activation.SchemeActivationConfig
+- uid: Messenger.Activation.SchemeActivationData
+  commentId: T:Messenger.Activation.SchemeActivationData
+  parent: Messenger.Activation
+  name: SchemeActivationData
+  nameWithType: SchemeActivationData
+  fullName: Messenger.Activation.SchemeActivationData
+- uid: Messenger.Activation
+  commentId: N:Messenger.Activation
+  name: Messenger.Activation
+  nameWithType: Messenger.Activation
+  fullName: Messenger.Activation

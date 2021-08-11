@@ -1,0 +1,1001 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Services.UserService
+  commentId: T:Messenger.Core.Services.UserService
+  id: UserService
+  parent: Messenger.Core.Services
+  children:
+  - Messenger.Core.Services.UserService.DeleteUser(System.String)
+  - Messenger.Core.Services.UserService.GetOrCreateApplicationUser(Messenger.Core.Models.User)
+  - Messenger.Core.Services.UserService.GetUser(System.String)
+  - Messenger.Core.Services.UserService.Update(System.String,System.String,System.String)
+  - Messenger.Core.Services.UserService.UpdateUserBio(System.String,System.String)
+  - Messenger.Core.Services.UserService.UpdateUserMail(System.String,System.String)
+  - Messenger.Core.Services.UserService.UpdateUsername(System.String,System.String)
+  - Messenger.Core.Services.UserService.UpdateUserPhoto(System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: UserService
+  nameWithType: UserService
+  fullName: Messenger.Core.Services.UserService
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: UserService
+    path: Services/UserService.cs
+    startLine: 12
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: 'public class UserService : AzureServiceBase'
+    content.vb: >-
+      Public Class UserService
+          Inherits AzureServiceBase
+  inheritance:
+  - System.Object
+  - Messenger.Core.Services.AzureServiceBase
+  inheritedMembers:
+  - Messenger.Core.Services.AzureServiceBase.logger
+  - Messenger.Core.Services.AzureServiceBase.GetConnection
+  - Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  - Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Core.Services.UserService.Update(System.String,System.String,System.String)
+  commentId: M:Messenger.Core.Services.UserService.Update(System.String,System.String,System.String)
+  id: Update(System.String,System.String,System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: Update(String, String, String)
+  nameWithType: UserService.Update(String, String, String)
+  fullName: Messenger.Core.Services.UserService.Update(System.String, System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Update
+    path: Services/UserService.cs
+    startLine: 21
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nUpdate a specified column for a specified user.\n"
+  example: []
+  syntax:
+    content: public async Task<bool> Update(string userId, string columnToChange, string newVal)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user, whose data will be updated
+    - id: columnToChange
+      type: System.String
+      description: The column to update for the user
+    - id: newVal
+      type: System.String
+      description: The new value for the specifed column for the specified user
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query and it affected at least one entry, false otherwise
+    content.vb: Public Function Update(userId As String, columnToChange As String, newVal As String) As Task(Of Boolean)
+  overload: Messenger.Core.Services.UserService.Update*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.UpdateUsername(System.String,System.String)
+  commentId: M:Messenger.Core.Services.UserService.UpdateUsername(System.String,System.String)
+  id: UpdateUsername(System.String,System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: UpdateUsername(String, String)
+  nameWithType: UserService.UpdateUsername(String, String)
+  fullName: Messenger.Core.Services.UserService.UpdateUsername(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: UpdateUsername
+    path: Services/UserService.cs
+    startLine: 62
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nUpdate a specified users name\n"
+  example: []
+  syntax:
+    content: public async Task<bool> UpdateUsername(string userId, string newUsername)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user, whose name will be updated
+    - id: newUsername
+      type: System.String
+      description: The new username to set
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query, false otherwise
+    content.vb: Public Function UpdateUsername(userId As String, newUsername As String) As Task(Of Boolean)
+  overload: Messenger.Core.Services.UserService.UpdateUsername*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.UpdateUserMail(System.String,System.String)
+  commentId: M:Messenger.Core.Services.UserService.UpdateUserMail(System.String,System.String)
+  id: UpdateUserMail(System.String,System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: UpdateUserMail(String, String)
+  nameWithType: UserService.UpdateUserMail(String, String)
+  fullName: Messenger.Core.Services.UserService.UpdateUserMail(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: UpdateUserMail
+    path: Services/UserService.cs
+    startLine: 103
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nUpdate a specified users email\n"
+  example: []
+  syntax:
+    content: public async Task<bool> UpdateUserMail(string userId, string newMail)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user, whose email will be updated
+    - id: newMail
+      type: System.String
+      description: The new email to set
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query, false otherwise
+    content.vb: Public Function UpdateUserMail(userId As String, newMail As String) As Task(Of Boolean)
+  overload: Messenger.Core.Services.UserService.UpdateUserMail*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.UpdateUserPhoto(System.String,System.String)
+  commentId: M:Messenger.Core.Services.UserService.UpdateUserPhoto(System.String,System.String)
+  id: UpdateUserPhoto(System.String,System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: UpdateUserPhoto(String, String)
+  nameWithType: UserService.UpdateUserPhoto(String, String)
+  fullName: Messenger.Core.Services.UserService.UpdateUserPhoto(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: UpdateUserPhoto
+    path: Services/UserService.cs
+    startLine: 133
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nUpdate a specified users photo\n"
+  example: []
+  syntax:
+    content: public async Task<bool> UpdateUserPhoto(string userId, string newPhoto)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user, whose photo will be updated
+    - id: newPhoto
+      type: System.String
+      description: The new photo to set
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query, false otherwise
+    content.vb: Public Function UpdateUserPhoto(userId As String, newPhoto As String) As Task(Of Boolean)
+  overload: Messenger.Core.Services.UserService.UpdateUserPhoto*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.UpdateUserBio(System.String,System.String)
+  commentId: M:Messenger.Core.Services.UserService.UpdateUserBio(System.String,System.String)
+  id: UpdateUserBio(System.String,System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: UpdateUserBio(String, String)
+  nameWithType: UserService.UpdateUserBio(String, String)
+  fullName: Messenger.Core.Services.UserService.UpdateUserBio(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: UpdateUserBio
+    path: Services/UserService.cs
+    startLine: 164
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nUpdate a specified users bio\n"
+  example: []
+  syntax:
+    content: public async Task<bool> UpdateUserBio(string userId, string newBio)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user, whose  biowill be updated
+    - id: newBio
+      type: System.String
+      description: The new  bioto set
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query, false otherwise
+    content.vb: Public Function UpdateUserBio(userId As String, newBio As String) As Task(Of Boolean)
+  overload: Messenger.Core.Services.UserService.UpdateUserBio*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.GetOrCreateApplicationUser(Messenger.Core.Models.User)
+  commentId: M:Messenger.Core.Services.UserService.GetOrCreateApplicationUser(Messenger.Core.Models.User)
+  id: GetOrCreateApplicationUser(Messenger.Core.Models.User)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: GetOrCreateApplicationUser(User)
+  nameWithType: UserService.GetOrCreateApplicationUser(User)
+  fullName: Messenger.Core.Services.UserService.GetOrCreateApplicationUser(Messenger.Core.Models.User)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetOrCreateApplicationUser
+    path: Services/UserService.cs
+    startLine: 193
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nCreate or retrieve an application user from a specified user object holding a GraphService Id.\n"
+  example: []
+  syntax:
+    content: public async Task<User> GetOrCreateApplicationUser(User userdata)
+    parameters:
+    - id: userdata
+      type: Messenger.Core.Models.User
+      description: A user object holding a GraphService id which will be used to retrieve or create a user
+    return:
+      type: System.Threading.Tasks.Task{Messenger.Core.Models.User}
+      description: The existing or newly created User object
+    content.vb: Public Function GetOrCreateApplicationUser(userdata As User) As Task(Of User)
+  overload: Messenger.Core.Services.UserService.GetOrCreateApplicationUser*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.DeleteUser(System.String)
+  commentId: M:Messenger.Core.Services.UserService.DeleteUser(System.String)
+  id: DeleteUser(System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: DeleteUser(String)
+  nameWithType: UserService.DeleteUser(String)
+  fullName: Messenger.Core.Services.UserService.DeleteUser(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: DeleteUser
+    path: Services/UserService.cs
+    startLine: 277
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nDelete the user with the specified userId.\n"
+  example: []
+  syntax:
+    content: public async Task<bool> DeleteUser(string userId)
+    parameters:
+    - id: userId
+      type: System.String
+      description: The id of the user, whose data will be updated
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query, false otherwise
+    content.vb: Public Function DeleteUser(userId As String) As Task(Of Boolean)
+  overload: Messenger.Core.Services.UserService.DeleteUser*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.UserService.GetUser(System.String)
+  commentId: M:Messenger.Core.Services.UserService.GetUser(System.String)
+  id: GetUser(System.String)
+  parent: Messenger.Core.Services.UserService
+  langs:
+  - csharp
+  - vb
+  name: GetUser(String)
+  nameWithType: UserService.GetUser(String)
+  fullName: Messenger.Core.Services.UserService.GetUser(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/UserService.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetUser
+    path: Services/UserService.cs
+    startLine: 303
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  summary: "\nConstruct a User object from data that belongs to the user identified by userId.\n"
+  example: []
+  syntax:
+    content: public async Task<User> GetUser(string userId)
+    parameters:
+    - id: userId
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{Messenger.Core.Models.User}
+      description: ''
+    content.vb: Public Function GetUser(userId As String) As Task(Of User)
+  overload: Messenger.Core.Services.UserService.GetUser*
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.Core.Services
+  commentId: N:Messenger.Core.Services
+  name: Messenger.Core.Services
+  nameWithType: Messenger.Core.Services
+  fullName: Messenger.Core.Services
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Messenger.Core.Services.AzureServiceBase
+  commentId: T:Messenger.Core.Services.AzureServiceBase
+  parent: Messenger.Core.Services
+  name: AzureServiceBase
+  nameWithType: AzureServiceBase
+  fullName: Messenger.Core.Services.AzureServiceBase
+- uid: Messenger.Core.Services.AzureServiceBase.logger
+  commentId: P:Messenger.Core.Services.AzureServiceBase.logger
+  parent: Messenger.Core.Services.AzureServiceBase
+  name: logger
+  nameWithType: AzureServiceBase.logger
+  fullName: Messenger.Core.Services.AzureServiceBase.logger
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+  commentId: M:Messenger.Core.Services.AzureServiceBase.GetConnection
+  parent: Messenger.Core.Services.AzureServiceBase
+  name: GetConnection()
+  nameWithType: AzureServiceBase.GetConnection()
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection()
+  spec.csharp:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  commentId: M:Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  parent: Messenger.Core.Services.AzureServiceBase
+  isExternal: true
+  name: GetConnection(String)
+  nameWithType: AzureServiceBase.GetConnection(String)
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  spec.csharp:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+    name: GetConnection
+    nameWithType: AzureServiceBase.GetConnection
+    fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  commentId: M:Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  parent: Messenger.Core.Services.AzureServiceBase
+  isExternal: true
+  name: SetTestMode(String)
+  nameWithType: AzureServiceBase.SetTestMode(String)
+  fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  spec.csharp:
+  - uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+    name: SetTestMode
+    nameWithType: AzureServiceBase.SetTestMode
+    fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+    name: SetTestMode
+    nameWithType: AzureServiceBase.SetTestMode
+    fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Core.Services.UserService.Update*
+  commentId: Overload:Messenger.Core.Services.UserService.Update
+  name: Update
+  nameWithType: UserService.Update
+  fullName: Messenger.Core.Services.UserService.Update
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Messenger.Core.Services.UserService.UpdateUsername*
+  commentId: Overload:Messenger.Core.Services.UserService.UpdateUsername
+  name: UpdateUsername
+  nameWithType: UserService.UpdateUsername
+  fullName: Messenger.Core.Services.UserService.UpdateUsername
+- uid: Messenger.Core.Services.UserService.UpdateUserMail*
+  commentId: Overload:Messenger.Core.Services.UserService.UpdateUserMail
+  name: UpdateUserMail
+  nameWithType: UserService.UpdateUserMail
+  fullName: Messenger.Core.Services.UserService.UpdateUserMail
+- uid: Messenger.Core.Services.UserService.UpdateUserPhoto*
+  commentId: Overload:Messenger.Core.Services.UserService.UpdateUserPhoto
+  name: UpdateUserPhoto
+  nameWithType: UserService.UpdateUserPhoto
+  fullName: Messenger.Core.Services.UserService.UpdateUserPhoto
+- uid: Messenger.Core.Services.UserService.UpdateUserBio*
+  commentId: Overload:Messenger.Core.Services.UserService.UpdateUserBio
+  name: UpdateUserBio
+  nameWithType: UserService.UpdateUserBio
+  fullName: Messenger.Core.Services.UserService.UpdateUserBio
+- uid: Messenger.Core.Services.UserService.GetOrCreateApplicationUser*
+  commentId: Overload:Messenger.Core.Services.UserService.GetOrCreateApplicationUser
+  name: GetOrCreateApplicationUser
+  nameWithType: UserService.GetOrCreateApplicationUser
+  fullName: Messenger.Core.Services.UserService.GetOrCreateApplicationUser
+- uid: Messenger.Core.Models.User
+  commentId: T:Messenger.Core.Models.User
+  parent: Messenger.Core.Models
+  name: User
+  nameWithType: User
+  fullName: Messenger.Core.Models.User
+- uid: System.Threading.Tasks.Task{Messenger.Core.Models.User}
+  commentId: T:System.Threading.Tasks.Task{Messenger.Core.Models.User}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<User>
+  nameWithType: Task<User>
+  fullName: System.Threading.Tasks.Task<Messenger.Core.Models.User>
+  nameWithType.vb: Task(Of User)
+  fullName.vb: System.Threading.Tasks.Task(Of Messenger.Core.Models.User)
+  name.vb: Task(Of User)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Messenger.Core.Models.User
+    name: User
+    nameWithType: User
+    fullName: Messenger.Core.Models.User
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Messenger.Core.Models.User
+    name: User
+    nameWithType: User
+    fullName: Messenger.Core.Models.User
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Models
+  commentId: N:Messenger.Core.Models
+  name: Messenger.Core.Models
+  nameWithType: Messenger.Core.Models
+  fullName: Messenger.Core.Models
+- uid: Messenger.Core.Services.UserService.DeleteUser*
+  commentId: Overload:Messenger.Core.Services.UserService.DeleteUser
+  name: DeleteUser
+  nameWithType: UserService.DeleteUser
+  fullName: Messenger.Core.Services.UserService.DeleteUser
+- uid: Messenger.Core.Services.UserService.GetUser*
+  commentId: Overload:Messenger.Core.Services.UserService.GetUser
+  name: GetUser
+  nameWithType: UserService.GetUser
+  fullName: Messenger.Core.Services.UserService.GetUser

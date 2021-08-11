@@ -1,0 +1,538 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Services.AzureServiceBase
+  commentId: T:Messenger.Core.Services.AzureServiceBase
+  id: AzureServiceBase
+  parent: Messenger.Core.Services
+  children:
+  - Messenger.Core.Services.AzureServiceBase.GetConnection
+  - Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  - Messenger.Core.Services.AzureServiceBase.logger
+  - Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  langs:
+  - csharp
+  - vb
+  name: AzureServiceBase
+  nameWithType: AzureServiceBase
+  fullName: Messenger.Core.Services.AzureServiceBase
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/AzureServiceBase.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: AzureServiceBase
+    path: Services/AzureServiceBase.cs
+    startLine: 10
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: public abstract class AzureServiceBase
+    content.vb: Public MustInherit Class AzureServiceBase
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Messenger.Core.Services.AzureTestDataService
+  - Messenger.Core.Services.MessageService
+  - Messenger.Core.Services.TeamService
+  - Messenger.Core.Services.UserService
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - abstract
+  - class
+  modifiers.vb:
+  - Public
+  - MustInherit
+  - Class
+- uid: Messenger.Core.Services.AzureServiceBase.logger
+  commentId: P:Messenger.Core.Services.AzureServiceBase.logger
+  id: logger
+  parent: Messenger.Core.Services.AzureServiceBase
+  langs:
+  - csharp
+  - vb
+  name: logger
+  nameWithType: AzureServiceBase.logger
+  fullName: Messenger.Core.Services.AzureServiceBase.logger
+  type: Property
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/AzureServiceBase.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: logger
+    path: Services/AzureServiceBase.cs
+    startLine: 20
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: public ILogger logger { get; }
+    parameters: []
+    return:
+      type: Serilog.ILogger
+    content.vb: Public ReadOnly Property logger As ILogger
+  overload: Messenger.Core.Services.AzureServiceBase.logger*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection
+  commentId: M:Messenger.Core.Services.AzureServiceBase.GetConnection
+  id: GetConnection
+  parent: Messenger.Core.Services.AzureServiceBase
+  langs:
+  - csharp
+  - vb
+  name: GetConnection()
+  nameWithType: AzureServiceBase.GetConnection()
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection()
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/AzureServiceBase.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetConnection
+    path: Services/AzureServiceBase.cs
+    startLine: 23
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: public SqlConnection GetConnection()
+    return:
+      type: System.Data.SqlClient.SqlConnection
+    content.vb: Public Function GetConnection As SqlConnection
+  overload: Messenger.Core.Services.AzureServiceBase.GetConnection*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  commentId: M:Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  id: GetConnection(System.String)
+  parent: Messenger.Core.Services.AzureServiceBase
+  langs:
+  - csharp
+  - vb
+  name: GetConnection(String)
+  nameWithType: AzureServiceBase.GetConnection(String)
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/AzureServiceBase.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetConnection
+    path: Services/AzureServiceBase.cs
+    startLine: 25
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: public static SqlConnection GetConnection(string connectionString)
+    parameters:
+    - id: connectionString
+      type: System.String
+    return:
+      type: System.Data.SqlClient.SqlConnection
+    content.vb: Public Shared Function GetConnection(connectionString As String) As SqlConnection
+  overload: Messenger.Core.Services.AzureServiceBase.GetConnection*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  commentId: M:Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  id: SetTestMode(System.String)
+  parent: Messenger.Core.Services.AzureServiceBase
+  langs:
+  - csharp
+  - vb
+  name: SetTestMode(String)
+  nameWithType: AzureServiceBase.SetTestMode(String)
+  fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode(System.String)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Services/AzureServiceBase.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SetTestMode
+    path: Services/AzureServiceBase.cs
+    startLine: 27
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Services
+  syntax:
+    content: public void SetTestMode(string connectionString)
+    parameters:
+    - id: connectionString
+      type: System.String
+    content.vb: Public Sub SetTestMode(connectionString As String)
+  overload: Messenger.Core.Services.AzureServiceBase.SetTestMode*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.Core.Services
+  commentId: N:Messenger.Core.Services
+  name: Messenger.Core.Services
+  nameWithType: Messenger.Core.Services
+  fullName: Messenger.Core.Services
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Messenger.Core.Services.AzureServiceBase.logger*
+  commentId: Overload:Messenger.Core.Services.AzureServiceBase.logger
+  name: logger
+  nameWithType: AzureServiceBase.logger
+  fullName: Messenger.Core.Services.AzureServiceBase.logger
+- uid: Serilog.ILogger
+  commentId: T:Serilog.ILogger
+  parent: Serilog
+  isExternal: true
+  name: ILogger
+  nameWithType: ILogger
+  fullName: Serilog.ILogger
+- uid: Serilog
+  commentId: N:Serilog
+  isExternal: true
+  name: Serilog
+  nameWithType: Serilog
+  fullName: Serilog
+- uid: Messenger.Core.Services.AzureServiceBase.GetConnection*
+  commentId: Overload:Messenger.Core.Services.AzureServiceBase.GetConnection
+  name: GetConnection
+  nameWithType: AzureServiceBase.GetConnection
+  fullName: Messenger.Core.Services.AzureServiceBase.GetConnection
+- uid: System.Data.SqlClient.SqlConnection
+  commentId: T:System.Data.SqlClient.SqlConnection
+  parent: System.Data.SqlClient
+  isExternal: true
+  name: SqlConnection
+  nameWithType: SqlConnection
+  fullName: System.Data.SqlClient.SqlConnection
+- uid: System.Data.SqlClient
+  commentId: N:System.Data.SqlClient
+  isExternal: true
+  name: System.Data.SqlClient
+  nameWithType: System.Data.SqlClient
+  fullName: System.Data.SqlClient
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Messenger.Core.Services.AzureServiceBase.SetTestMode*
+  commentId: Overload:Messenger.Core.Services.AzureServiceBase.SetTestMode
+  name: SetTestMode
+  nameWithType: AzureServiceBase.SetTestMode
+  fullName: Messenger.Core.Services.AzureServiceBase.SetTestMode

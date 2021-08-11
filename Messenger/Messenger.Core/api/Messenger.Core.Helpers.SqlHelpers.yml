@@ -1,0 +1,1098 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Core.Helpers.SqlHelpers
+  commentId: T:Messenger.Core.Helpers.SqlHelpers
+  id: SqlHelpers
+  parent: Messenger.Core.Helpers
+  children:
+  - Messenger.Core.Helpers.SqlHelpers.GetColumnType(System.String,System.String,System.Data.SqlClient.SqlConnection)
+  - Messenger.Core.Helpers.SqlHelpers.GetRows(System.String,System.Data.SqlClient.SqlDataAdapter)
+  - Messenger.Core.Helpers.SqlHelpers.logger
+  - Messenger.Core.Helpers.SqlHelpers.MapToList``1(System.Func{System.Data.DataRow,``0},System.Data.SqlClient.SqlDataAdapter)
+  - Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(System.String,System.Data.SqlClient.SqlConnection)
+  - Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue``1(System.Object,System.Func{System.Object,``0})
+  langs:
+  - csharp
+  - vb
+  name: SqlHelpers
+  nameWithType: SqlHelpers
+  fullName: Messenger.Core.Helpers.SqlHelpers
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SqlHelpers
+    path: Helpers/SqlHelpers.cs
+    startLine: 13
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  syntax:
+    content: public class SqlHelpers
+    content.vb: Public Class SqlHelpers
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Core.Helpers.SqlHelpers.logger
+  commentId: F:Messenger.Core.Helpers.SqlHelpers.logger
+  id: logger
+  parent: Messenger.Core.Helpers.SqlHelpers
+  langs:
+  - csharp
+  - vb
+  name: logger
+  nameWithType: SqlHelpers.logger
+  fullName: Messenger.Core.Helpers.SqlHelpers.logger
+  type: Field
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: logger
+    path: Helpers/SqlHelpers.cs
+    startLine: 15
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  syntax:
+    content: public static ILogger logger
+    return:
+      type: Serilog.ILogger
+    content.vb: Public Shared logger As ILogger
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(System.String,System.Data.SqlClient.SqlConnection)
+  commentId: M:Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(System.String,System.Data.SqlClient.SqlConnection)
+  id: NonQueryAsync(System.String,System.Data.SqlClient.SqlConnection)
+  parent: Messenger.Core.Helpers.SqlHelpers
+  langs:
+  - csharp
+  - vb
+  name: NonQueryAsync(String, SqlConnection)
+  nameWithType: SqlHelpers.NonQueryAsync(String, SqlConnection)
+  fullName: Messenger.Core.Helpers.SqlHelpers.NonQueryAsync(System.String, System.Data.SqlClient.SqlConnection)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: NonQueryAsync
+    path: Helpers/SqlHelpers.cs
+    startLine: 26
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  summary: "\nRun the specified query on the specified connection.\n"
+  example: []
+  syntax:
+    content: public static async Task<bool> NonQueryAsync(string query, SqlConnection connection)
+    parameters:
+    - id: query
+      type: System.String
+      description: A query to run
+    - id: connection
+      type: System.Data.SqlClient.SqlConnection
+      description: An sql connection to run the query on
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if no exceptions occured while executing the query and it affected at least one entry, false otherwise
+    content.vb: Public Shared Function NonQueryAsync(query As String, connection As SqlConnection) As Task(Of Boolean)
+  overload: Messenger.Core.Helpers.SqlHelpers.NonQueryAsync*
+  modifiers.csharp:
+  - public
+  - static
+  - async
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Core.Helpers.SqlHelpers.GetColumnType(System.String,System.String,System.Data.SqlClient.SqlConnection)
+  commentId: M:Messenger.Core.Helpers.SqlHelpers.GetColumnType(System.String,System.String,System.Data.SqlClient.SqlConnection)
+  id: GetColumnType(System.String,System.String,System.Data.SqlClient.SqlConnection)
+  parent: Messenger.Core.Helpers.SqlHelpers
+  langs:
+  - csharp
+  - vb
+  name: GetColumnType(String, String, SqlConnection)
+  nameWithType: SqlHelpers.GetColumnType(String, String, SqlConnection)
+  fullName: Messenger.Core.Helpers.SqlHelpers.GetColumnType(System.String, System.String, System.Data.SqlClient.SqlConnection)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetColumnType
+    path: Helpers/SqlHelpers.cs
+    startLine: 66
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  summary: "\nReturn a string representing the SQL datatype of the specified column in the specified table.\n"
+  example: []
+  syntax:
+    content: public static string GetColumnType(string tableName, string columnName, SqlConnection connection)
+    parameters:
+    - id: tableName
+      type: System.String
+      description: A table to check a columns type of
+    - id: columnName
+      type: System.String
+      description: A column to check the type of
+    - id: connection
+      type: System.Data.SqlClient.SqlConnection
+      description: An sql connection to run the query on
+    return:
+      type: System.String
+      description: Null if the specifid column does not exist in the table, it&apos;s type name otherwise
+    content.vb: Public Shared Function GetColumnType(tableName As String, columnName As String, connection As SqlConnection) As String
+  overload: Messenger.Core.Helpers.SqlHelpers.GetColumnType*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Core.Helpers.SqlHelpers.GetRows(System.String,System.Data.SqlClient.SqlDataAdapter)
+  commentId: M:Messenger.Core.Helpers.SqlHelpers.GetRows(System.String,System.Data.SqlClient.SqlDataAdapter)
+  id: GetRows(System.String,System.Data.SqlClient.SqlDataAdapter)
+  parent: Messenger.Core.Helpers.SqlHelpers
+  langs:
+  - csharp
+  - vb
+  name: GetRows(String, SqlDataAdapter)
+  nameWithType: SqlHelpers.GetRows(String, SqlDataAdapter)
+  fullName: Messenger.Core.Helpers.SqlHelpers.GetRows(System.String, System.Data.SqlClient.SqlDataAdapter)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: GetRows
+    path: Helpers/SqlHelpers.cs
+    startLine: 103
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  summary: "\nReturn an enumerable of data rows\n"
+  example: []
+  syntax:
+    content: public static IEnumerable<DataRow> GetRows(string tableName, SqlDataAdapter adapter)
+    parameters:
+    - id: tableName
+      type: System.String
+      description: Name of the table to read from
+    - id: adapter
+      type: System.Data.SqlClient.SqlDataAdapter
+      description: Instance of adapter with an opened connection
+    return:
+      type: System.Collections.Generic.IEnumerable{System.Data.DataRow}
+      description: An enumerable of data rows
+    content.vb: Public Shared Function GetRows(tableName As String, adapter As SqlDataAdapter) As IEnumerable(Of DataRow)
+  overload: Messenger.Core.Helpers.SqlHelpers.GetRows*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Messenger.Core.Helpers.SqlHelpers.MapToList``1(System.Func{System.Data.DataRow,``0},System.Data.SqlClient.SqlDataAdapter)
+  commentId: M:Messenger.Core.Helpers.SqlHelpers.MapToList``1(System.Func{System.Data.DataRow,``0},System.Data.SqlClient.SqlDataAdapter)
+  id: MapToList``1(System.Func{System.Data.DataRow,``0},System.Data.SqlClient.SqlDataAdapter)
+  parent: Messenger.Core.Helpers.SqlHelpers
+  langs:
+  - csharp
+  - vb
+  name: MapToList<T>(Func<DataRow, T>, SqlDataAdapter)
+  nameWithType: SqlHelpers.MapToList<T>(Func<DataRow, T>, SqlDataAdapter)
+  fullName: Messenger.Core.Helpers.SqlHelpers.MapToList<T>(System.Func<System.Data.DataRow, T>, System.Data.SqlClient.SqlDataAdapter)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: MapToList
+    path: Helpers/SqlHelpers.cs
+    startLine: 126
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  summary: "\nMaps to a list of target type instances\n"
+  example: []
+  syntax:
+    content: public static IList<T> MapToList<T>(Func<DataRow, T> mapper, SqlDataAdapter adapter)
+    parameters:
+    - id: mapper
+      type: System.Func{System.Data.DataRow,{T}}
+      description: Mapper function for the target type
+    - id: adapter
+      type: System.Data.SqlClient.SqlDataAdapter
+      description: Instance of adapter with an opened connection
+    typeParameters:
+    - id: T
+      description: The type to map to
+    return:
+      type: System.Collections.Generic.IList{{T}}
+      description: ''
+    content.vb: Public Shared Function MapToList(Of T)(mapper As Func(Of DataRow, T), adapter As SqlDataAdapter) As IList(Of T)
+  overload: Messenger.Core.Helpers.SqlHelpers.MapToList*
+  nameWithType.vb: SqlHelpers.MapToList(Of T)(Func(Of DataRow, T), SqlDataAdapter)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Messenger.Core.Helpers.SqlHelpers.MapToList(Of T)(System.Func(Of System.Data.DataRow, T), System.Data.SqlClient.SqlDataAdapter)
+  name.vb: MapToList(Of T)(Func(Of DataRow, T), SqlDataAdapter)
+- uid: Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue``1(System.Object,System.Func{System.Object,``0})
+  commentId: M:Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue``1(System.Object,System.Func{System.Object,``0})
+  id: TryConvertDbValue``1(System.Object,System.Func{System.Object,``0})
+  parent: Messenger.Core.Helpers.SqlHelpers
+  langs:
+  - csharp
+  - vb
+  name: TryConvertDbValue<T>(Object, Func<Object, T>)
+  nameWithType: SqlHelpers.TryConvertDbValue<T>(Object, Func<Object, T>)
+  fullName: Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue<T>(System.Object, System.Func<System.Object, T>)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger.Core/Helpers/SqlHelpers.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: TryConvertDbValue
+    path: Helpers/SqlHelpers.cs
+    startLine: 156
+  assemblies:
+  - Messenger.Core
+  namespace: Messenger.Core.Helpers
+  syntax:
+    content: >-
+      public static dynamic TryConvertDbValue<T>(object value, Func<object, T> converter)
+          where T : IConvertible
+    parameters:
+    - id: value
+      type: System.Object
+    - id: converter
+      type: System.Func{System.Object,{T}}
+    typeParameters:
+    - id: T
+    return:
+      type: System.Object
+    content.vb: Public Shared Function TryConvertDbValue(Of T As IConvertible)(value As Object, converter As Func(Of Object, T)) As Object
+  overload: Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue*
+  nameWithType.vb: SqlHelpers.TryConvertDbValue(Of T)(Object, Func(Of Object, T))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue(Of T)(System.Object, System.Func(Of System.Object, T))
+  name.vb: TryConvertDbValue(Of T)(Object, Func(Of Object, T))
+references:
+- uid: Messenger.Core.Helpers
+  commentId: N:Messenger.Core.Helpers
+  name: Messenger.Core.Helpers
+  nameWithType: Messenger.Core.Helpers
+  fullName: Messenger.Core.Helpers
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Serilog.ILogger
+  commentId: T:Serilog.ILogger
+  parent: Serilog
+  isExternal: true
+  name: ILogger
+  nameWithType: ILogger
+  fullName: Serilog.ILogger
+- uid: Serilog
+  commentId: N:Serilog
+  isExternal: true
+  name: Serilog
+  nameWithType: Serilog
+  fullName: Serilog
+- uid: Messenger.Core.Helpers.SqlHelpers.NonQueryAsync*
+  commentId: Overload:Messenger.Core.Helpers.SqlHelpers.NonQueryAsync
+  name: NonQueryAsync
+  nameWithType: SqlHelpers.NonQueryAsync
+  fullName: Messenger.Core.Helpers.SqlHelpers.NonQueryAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Data.SqlClient.SqlConnection
+  commentId: T:System.Data.SqlClient.SqlConnection
+  parent: System.Data.SqlClient
+  isExternal: true
+  name: SqlConnection
+  nameWithType: SqlConnection
+  fullName: System.Data.SqlClient.SqlConnection
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Data.SqlClient
+  commentId: N:System.Data.SqlClient
+  isExternal: true
+  name: System.Data.SqlClient
+  nameWithType: System.Data.SqlClient
+  fullName: System.Data.SqlClient
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Messenger.Core.Helpers.SqlHelpers.GetColumnType*
+  commentId: Overload:Messenger.Core.Helpers.SqlHelpers.GetColumnType
+  name: GetColumnType
+  nameWithType: SqlHelpers.GetColumnType
+  fullName: Messenger.Core.Helpers.SqlHelpers.GetColumnType
+- uid: Messenger.Core.Helpers.SqlHelpers.GetRows*
+  commentId: Overload:Messenger.Core.Helpers.SqlHelpers.GetRows
+  name: GetRows
+  nameWithType: SqlHelpers.GetRows
+  fullName: Messenger.Core.Helpers.SqlHelpers.GetRows
+- uid: System.Data.SqlClient.SqlDataAdapter
+  commentId: T:System.Data.SqlClient.SqlDataAdapter
+  parent: System.Data.SqlClient
+  isExternal: true
+  name: SqlDataAdapter
+  nameWithType: SqlDataAdapter
+  fullName: System.Data.SqlClient.SqlDataAdapter
+- uid: System.Collections.Generic.IEnumerable{System.Data.DataRow}
+  commentId: T:System.Collections.Generic.IEnumerable{System.Data.DataRow}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<DataRow>
+  nameWithType: IEnumerable<DataRow>
+  fullName: System.Collections.Generic.IEnumerable<System.Data.DataRow>
+  nameWithType.vb: IEnumerable(Of DataRow)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of System.Data.DataRow)
+  name.vb: IEnumerable(Of DataRow)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Data.DataRow
+    name: DataRow
+    nameWithType: DataRow
+    fullName: System.Data.DataRow
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Data.DataRow
+    name: DataRow
+    nameWithType: DataRow
+    fullName: System.Data.DataRow
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Messenger.Core.Helpers.SqlHelpers.MapToList*
+  commentId: Overload:Messenger.Core.Helpers.SqlHelpers.MapToList
+  name: MapToList
+  nameWithType: SqlHelpers.MapToList
+  fullName: Messenger.Core.Helpers.SqlHelpers.MapToList
+- uid: System.Func{System.Data.DataRow,{T}}
+  commentId: T:System.Func{System.Data.DataRow,``0}
+  parent: System
+  definition: System.Func`2
+  name: Func<DataRow, T>
+  nameWithType: Func<DataRow, T>
+  fullName: System.Func<System.Data.DataRow, T>
+  nameWithType.vb: Func(Of DataRow, T)
+  fullName.vb: System.Func(Of System.Data.DataRow, T)
+  name.vb: Func(Of DataRow, T)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Data.DataRow
+    name: DataRow
+    nameWithType: DataRow
+    fullName: System.Data.DataRow
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Data.DataRow
+    name: DataRow
+    nameWithType: DataRow
+    fullName: System.Data.DataRow
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList{{T}}
+  commentId: T:System.Collections.Generic.IList{``0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1
+  commentId: T:System.Collections.Generic.IList`1
+  isExternal: true
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue*
+  commentId: Overload:Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue
+  name: TryConvertDbValue
+  nameWithType: SqlHelpers.TryConvertDbValue
+  fullName: Messenger.Core.Helpers.SqlHelpers.TryConvertDbValue
+- uid: System.Func{System.Object,{T}}
+  commentId: T:System.Func{System.Object,``0}
+  parent: System
+  definition: System.Func`2
+  name: Func<Object, T>
+  nameWithType: Func<Object, T>
+  fullName: System.Func<System.Object, T>
+  nameWithType.vb: Func(Of Object, T)
+  fullName.vb: System.Func(Of System.Object, T)
+  name.vb: Func(Of Object, T)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )

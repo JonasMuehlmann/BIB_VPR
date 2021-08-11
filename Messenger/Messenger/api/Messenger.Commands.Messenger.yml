@@ -1,0 +1,22 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Commands.Messenger
+  commentId: N:Messenger.Commands.Messenger
+  id: Messenger.Commands.Messenger
+  children:
+  - Messenger.Commands.Messenger.SendMessageCommand
+  langs:
+  - csharp
+  - vb
+  name: Messenger.Commands.Messenger
+  nameWithType: Messenger.Commands.Messenger
+  fullName: Messenger.Commands.Messenger
+  type: Namespace
+  assemblies:
+  - Messenger
+references:
+- uid: Messenger.Commands.Messenger.SendMessageCommand
+  commentId: T:Messenger.Commands.Messenger.SendMessageCommand
+  name: SendMessageCommand
+  nameWithType: SendMessageCommand
+  fullName: Messenger.Commands.Messenger.SendMessageCommand

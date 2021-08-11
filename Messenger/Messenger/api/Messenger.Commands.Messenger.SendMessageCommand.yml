@@ -1,0 +1,647 @@
+### YamlMime:ManagedReference
+items:
+- uid: Messenger.Commands.Messenger.SendMessageCommand
+  commentId: T:Messenger.Commands.Messenger.SendMessageCommand
+  id: SendMessageCommand
+  parent: Messenger.Commands.Messenger
+  children:
+  - Messenger.Commands.Messenger.SendMessageCommand.#ctor(Messenger.ViewModels.ChatHubViewModel,Messenger.Core.Services.MessengerService)
+  - Messenger.Commands.Messenger.SendMessageCommand.CanExecute(System.Object)
+  - Messenger.Commands.Messenger.SendMessageCommand.CanExecuteChanged
+  - Messenger.Commands.Messenger.SendMessageCommand.Execute(System.Object)
+  langs:
+  - csharp
+  - vb
+  name: SendMessageCommand
+  nameWithType: SendMessageCommand
+  fullName: Messenger.Commands.Messenger.SendMessageCommand
+  type: Class
+  source:
+    remote:
+      path: Messenger/Messenger/Commands/Messenger/SendMessageCommand.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: SendMessageCommand
+    path: Commands/Messenger/SendMessageCommand.cs
+    startLine: 8
+  assemblies:
+  - Messenger
+  namespace: Messenger.Commands.Messenger
+  syntax:
+    content: 'public class SendMessageCommand : ICommand'
+    content.vb: >-
+      Public Class SendMessageCommand
+          Implements ICommand
+  inheritance:
+  - System.Object
+  implements:
+  - System.Windows.Input.ICommand
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Messenger.Commands.Messenger.SendMessageCommand.#ctor(Messenger.ViewModels.ChatHubViewModel,Messenger.Core.Services.MessengerService)
+  commentId: M:Messenger.Commands.Messenger.SendMessageCommand.#ctor(Messenger.ViewModels.ChatHubViewModel,Messenger.Core.Services.MessengerService)
+  id: '#ctor(Messenger.ViewModels.ChatHubViewModel,Messenger.Core.Services.MessengerService)'
+  parent: Messenger.Commands.Messenger.SendMessageCommand
+  langs:
+  - csharp
+  - vb
+  name: SendMessageCommand(ChatHubViewModel, MessengerService)
+  nameWithType: SendMessageCommand.SendMessageCommand(ChatHubViewModel, MessengerService)
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.SendMessageCommand(Messenger.ViewModels.ChatHubViewModel, Messenger.Core.Services.MessengerService)
+  type: Constructor
+  source:
+    remote:
+      path: Messenger/Messenger/Commands/Messenger/SendMessageCommand.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: .ctor
+    path: Commands/Messenger/SendMessageCommand.cs
+    startLine: 13
+  assemblies:
+  - Messenger
+  namespace: Messenger.Commands.Messenger
+  syntax:
+    content: public SendMessageCommand(ChatHubViewModel viewModel, MessengerService messengerService)
+    parameters:
+    - id: viewModel
+      type: Messenger.ViewModels.ChatHubViewModel
+    - id: messengerService
+      type: Messenger.Core.Services.MessengerService
+    content.vb: Public Sub New(viewModel As ChatHubViewModel, messengerService As MessengerService)
+  overload: Messenger.Commands.Messenger.SendMessageCommand.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.Commands.Messenger.SendMessageCommand.CanExecuteChanged
+  commentId: E:Messenger.Commands.Messenger.SendMessageCommand.CanExecuteChanged
+  id: CanExecuteChanged
+  parent: Messenger.Commands.Messenger.SendMessageCommand
+  langs:
+  - csharp
+  - vb
+  name: CanExecuteChanged
+  nameWithType: SendMessageCommand.CanExecuteChanged
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.CanExecuteChanged
+  type: Event
+  source:
+    remote:
+      path: Messenger/Messenger/Commands/Messenger/SendMessageCommand.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: CanExecuteChanged
+    path: Commands/Messenger/SendMessageCommand.cs
+    startLine: 19
+  assemblies:
+  - Messenger
+  namespace: Messenger.Commands.Messenger
+  syntax:
+    content: public event EventHandler CanExecuteChanged
+    return:
+      type: System.EventHandler
+    content.vb: Public Event CanExecuteChanged As EventHandler
+  implements:
+  - System.Windows.Input.ICommand.CanExecuteChanged
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.Commands.Messenger.SendMessageCommand.CanExecute(System.Object)
+  commentId: M:Messenger.Commands.Messenger.SendMessageCommand.CanExecute(System.Object)
+  id: CanExecute(System.Object)
+  parent: Messenger.Commands.Messenger.SendMessageCommand
+  langs:
+  - csharp
+  - vb
+  name: CanExecute(Object)
+  nameWithType: SendMessageCommand.CanExecute(Object)
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.CanExecute(System.Object)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Commands/Messenger/SendMessageCommand.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: CanExecute
+    path: Commands/Messenger/SendMessageCommand.cs
+    startLine: 21
+  assemblies:
+  - Messenger
+  namespace: Messenger.Commands.Messenger
+  syntax:
+    content: public bool CanExecute(object parameter)
+    parameters:
+    - id: parameter
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Function CanExecute(parameter As Object) As Boolean
+  overload: Messenger.Commands.Messenger.SendMessageCommand.CanExecute*
+  implements:
+  - System.Windows.Input.ICommand.CanExecute(System.Object)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Messenger.Commands.Messenger.SendMessageCommand.Execute(System.Object)
+  commentId: M:Messenger.Commands.Messenger.SendMessageCommand.Execute(System.Object)
+  id: Execute(System.Object)
+  parent: Messenger.Commands.Messenger.SendMessageCommand
+  langs:
+  - csharp
+  - vb
+  name: Execute(Object)
+  nameWithType: SendMessageCommand.Execute(Object)
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.Execute(System.Object)
+  type: Method
+  source:
+    remote:
+      path: Messenger/Messenger/Commands/Messenger/SendMessageCommand.cs
+      branch: unstable
+      repo: https://github.com/JonasMuehlmann/BIB_VPR.git
+    id: Execute
+    path: Commands/Messenger/SendMessageCommand.cs
+    startLine: 30
+  assemblies:
+  - Messenger
+  namespace: Messenger.Commands.Messenger
+  summary: "\nSends a new message to the hub and saves it to database\n"
+  example: []
+  syntax:
+    content: public async void Execute(object parameter)
+    parameters:
+    - id: parameter
+      type: System.Object
+      description: Content of a message
+    content.vb: Public Sub Execute(parameter As Object)
+  overload: Messenger.Commands.Messenger.SendMessageCommand.Execute*
+  implements:
+  - System.Windows.Input.ICommand.Execute(System.Object)
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+references:
+- uid: Messenger.Commands.Messenger
+  commentId: N:Messenger.Commands.Messenger
+  name: Messenger.Commands.Messenger
+  nameWithType: Messenger.Commands.Messenger
+  fullName: Messenger.Commands.Messenger
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Windows.Input.ICommand
+  commentId: T:System.Windows.Input.ICommand
+  parent: System.Windows.Input
+  isExternal: true
+  name: ICommand
+  nameWithType: ICommand
+  fullName: System.Windows.Input.ICommand
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Windows.Input
+  commentId: N:System.Windows.Input
+  isExternal: true
+  name: System.Windows.Input
+  nameWithType: System.Windows.Input
+  fullName: System.Windows.Input
+- uid: Messenger.Commands.Messenger.SendMessageCommand.#ctor*
+  commentId: Overload:Messenger.Commands.Messenger.SendMessageCommand.#ctor
+  name: SendMessageCommand
+  nameWithType: SendMessageCommand.SendMessageCommand
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.SendMessageCommand
+- uid: Messenger.ViewModels.ChatHubViewModel
+  commentId: T:Messenger.ViewModels.ChatHubViewModel
+  parent: Messenger.ViewModels
+  name: ChatHubViewModel
+  nameWithType: ChatHubViewModel
+  fullName: Messenger.ViewModels.ChatHubViewModel
+- uid: Messenger.Core.Services.MessengerService
+  commentId: T:Messenger.Core.Services.MessengerService
+  parent: Messenger.Core.Services
+  name: MessengerService
+  nameWithType: MessengerService
+  fullName: Messenger.Core.Services.MessengerService
+- uid: Messenger.ViewModels
+  commentId: N:Messenger.ViewModels
+  name: Messenger.ViewModels
+  nameWithType: Messenger.ViewModels
+  fullName: Messenger.ViewModels
+- uid: Messenger.Core.Services
+  commentId: N:Messenger.Core.Services
+  name: Messenger.Core.Services
+  nameWithType: Messenger.Core.Services
+  fullName: Messenger.Core.Services
+- uid: System.Windows.Input.ICommand.CanExecuteChanged
+  commentId: E:System.Windows.Input.ICommand.CanExecuteChanged
+  parent: System.Windows.Input.ICommand
+  isExternal: true
+  name: CanExecuteChanged
+  nameWithType: ICommand.CanExecuteChanged
+  fullName: System.Windows.Input.ICommand.CanExecuteChanged
+- uid: System.EventHandler
+  commentId: T:System.EventHandler
+  parent: System
+  isExternal: true
+  name: EventHandler
+  nameWithType: EventHandler
+  fullName: System.EventHandler
+- uid: Messenger.Commands.Messenger.SendMessageCommand.CanExecute*
+  commentId: Overload:Messenger.Commands.Messenger.SendMessageCommand.CanExecute
+  name: CanExecute
+  nameWithType: SendMessageCommand.CanExecute
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.CanExecute
+- uid: System.Windows.Input.ICommand.CanExecute(System.Object)
+  commentId: M:System.Windows.Input.ICommand.CanExecute(System.Object)
+  parent: System.Windows.Input.ICommand
+  isExternal: true
+  name: CanExecute(Object)
+  nameWithType: ICommand.CanExecute(Object)
+  fullName: System.Windows.Input.ICommand.CanExecute(System.Object)
+  spec.csharp:
+  - uid: System.Windows.Input.ICommand.CanExecute(System.Object)
+    name: CanExecute
+    nameWithType: ICommand.CanExecute
+    fullName: System.Windows.Input.ICommand.CanExecute
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Windows.Input.ICommand.CanExecute(System.Object)
+    name: CanExecute
+    nameWithType: ICommand.CanExecute
+    fullName: System.Windows.Input.ICommand.CanExecute
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Messenger.Commands.Messenger.SendMessageCommand.Execute*
+  commentId: Overload:Messenger.Commands.Messenger.SendMessageCommand.Execute
+  name: Execute
+  nameWithType: SendMessageCommand.Execute
+  fullName: Messenger.Commands.Messenger.SendMessageCommand.Execute
+- uid: System.Windows.Input.ICommand.Execute(System.Object)
+  commentId: M:System.Windows.Input.ICommand.Execute(System.Object)
+  parent: System.Windows.Input.ICommand
+  isExternal: true
+  name: Execute(Object)
+  nameWithType: ICommand.Execute(Object)
+  fullName: System.Windows.Input.ICommand.Execute(System.Object)
+  spec.csharp:
+  - uid: System.Windows.Input.ICommand.Execute(System.Object)
+    name: Execute
+    nameWithType: ICommand.Execute
+    fullName: System.Windows.Input.ICommand.Execute
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Windows.Input.ICommand.Execute(System.Object)
+    name: Execute
+    nameWithType: ICommand.Execute
+    fullName: System.Windows.Input.ICommand.Execute
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
