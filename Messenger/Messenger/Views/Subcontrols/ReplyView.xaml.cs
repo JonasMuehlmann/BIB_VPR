@@ -22,6 +22,9 @@ namespace Messenger.Views.Subcontrols
 
         public ICommand ToggleReactionCommand { get => new ToggleReactionCommand(); }
 
+        public ICommand DeleteReplyCommand { get => new DeleteMessageCommand(); }
+
+
         public ReplyView()
         {
             InitializeComponent();

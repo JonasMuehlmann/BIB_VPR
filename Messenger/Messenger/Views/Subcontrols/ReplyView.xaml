@@ -283,6 +283,11 @@
                                 <AppBarButton
                                     Icon="Delete"
                                     Label="Delete"
+                                    Command="{x:Bind
+                                        DeleteReplyCommand}"
+                                    CommandParameter="{x:Bind
+                                        Reply,
+                                        Mode=OneWay}"
                                     />
                             </CommandBar.SecondaryCommands>
                         </CommandBar>
