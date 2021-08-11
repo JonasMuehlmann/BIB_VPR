@@ -509,7 +509,7 @@ namespace Messenger.Services.Providers
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
                 BroadcastOptions.TeamUpdated,
-                BroadcastReasons.Created,
+                BroadcastReasons.Updated,
                 teamViewModel);
         }
 
