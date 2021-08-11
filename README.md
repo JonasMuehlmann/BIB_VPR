@@ -3,6 +3,8 @@
 A group messaging service inspired by Discord and Microsoft Teams.
 Allows users to authenticate with their microsoft account
 
+Docs at ttps://jonasmuehlmann.github.io/BIB_VPR/
+
 # Used technologies
 - .Net(Core, Framework, ASP)
 - Azure SignalR
