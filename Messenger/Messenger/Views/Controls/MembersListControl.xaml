@@ -16,7 +16,7 @@
         <Grid
             Margin="0 5 5 0"
             Padding="2 0 5 20"
-            BorderBrush="{ThemeResource SystemAccentColorLight1}"
+            BorderBrush="{ThemeResource Elevation_2}"
             BorderThickness="0 0 0 1">
             <TextBlock
                 Text="Members"
@@ -31,7 +31,7 @@
                 Background="Transparent"
                 Padding="10 5 10 5"
                 Margin="0"
-                Foreground="{ThemeResource SystemAccentColor}">
+                Foreground="{ThemeResource PrimaryAccent_A}">
                 <StackPanel
                     Spacing="5"
                     Orientation="Horizontal">

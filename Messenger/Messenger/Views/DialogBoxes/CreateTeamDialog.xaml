@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Create Team"
+    Background="{ThemeResource Elevation_1}"
     PrimaryButtonText="Create"
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
@@ -16,7 +17,8 @@
             <Grid
                 HorizontalAlignment="Stretch">
                 <TextBlock
-                    Style="{ThemeResource PageTitleStyle}"
+                    FontSize="24"
+                    FontWeight="SemiBold"
                     Text="{Binding}"
                     />
             </Grid>
@@ -24,7 +26,7 @@
     </ContentDialog.TitleTemplate>
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
+            <Setter Property="Background" Value="{ThemeResource PrimaryAccent_A}" />
             <Setter Property="Foreground" Value="WhiteSmoke" />
         </Style>
     </ContentDialog.PrimaryButtonStyle>

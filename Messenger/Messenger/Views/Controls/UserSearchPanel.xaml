@@ -54,6 +54,8 @@
         </Grid>
         <Grid
             x:Name="InfoPanel"
+            MinHeight="300"
+            ColumnSpacing="10"
             Visibility="{x:Bind
                 ViewModel.SelectedUser,
                 Mode=OneWay,
@@ -61,7 +63,7 @@
             DataContext="{x:Bind
                 ViewModel.SelectedUser,   
                 Mode=OneWay}"
-            Padding="15 25 15 0">
+            Padding="15 30 15 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -70,14 +72,13 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Ellipse
-                Fill="LightGray"
-                Grid.Row="0"
-                Grid.Column="0"
-                Width="40"
-                Height="40"
-                Margin="0 0 20 0"
-                />
+            <Viewbox
+                Width="32"
+                Height="32">
+                <icons:PackIconFontAwesome
+                    Kind="UserCircleSolid"
+                    />
+            </Viewbox>
             <StackPanel
                 x:Name="HeaderPanel"
                 Grid.Row="0"
@@ -90,27 +91,25 @@
                         />
                     <Run
                         Text="#"
-                        Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
+                        Foreground="{StaticResource PrimaryAccent_A}"
                         />
                     <Run
                         Text="{Binding NameId}"
-                        Foreground="{StaticResource SystemAccentColor}"
+                        Foreground="{StaticResource PrimaryAccent_A}"
                         />
                 </TextBlock>
-                <TextBlock
-                    Text="{Binding Mail}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    />
             </StackPanel>
             <StackPanel
                 x:Name="ExtraInfo"
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Spacing="5"
-                Padding="15 20 15 15">
+                Spacing="10"
+                Padding="0 20 0 15">
                 <TextBlock
-                    Text="Bio"
+                    Text="Email"
+                    FontSize="16"
+                    FontWeight="SemiBold"
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     />
                 <TextBlock
@@ -118,10 +117,21 @@
                     TextWrapping="WrapWholeWords"
                     MaxWidth="225">
                     <Run
-                        Text="Hello! My name is"
+                        Text="{Binding Mail}"
                         />
+                </TextBlock>
+                <TextBlock
+                    Text="Bio"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Style="{StaticResource DetailBodyBaseMediumStyle}"
+                    />
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    TextWrapping="WrapWholeWords"
+                    MaxWidth="225">
                     <Run
-                        Text="{Binding DisplayName}"
+                        Text="{Binding Bio}"
                         />
                 </TextBlock>
             </StackPanel>

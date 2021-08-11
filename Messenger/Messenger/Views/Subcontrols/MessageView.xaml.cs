@@ -64,6 +64,13 @@ namespace Messenger.Views.Subcontrols
             InitializeComponent();
         }
 
+        #region Reply
+        private void ReplyButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ReplyToCommand.Execute(Message);
+        }
+        #endregion
+
         #region Reactions
 
         private void AppBarButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -150,5 +157,10 @@ namespace Messenger.Views.Subcontrols
         }
 
         #endregion
+
+        private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DeleteMessageCommand.Execute(Message);
+        }
     }
 }
