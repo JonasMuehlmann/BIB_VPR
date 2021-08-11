@@ -77,6 +77,7 @@ namespace Messenger.Services.Providers
             SignalRService.MemberUpdated += OnMemberUpdated;
             SignalRService.MemberRemoved += OnMemberRemoved;
             SignalRService.UserUpdated += OnUserUpdated;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
         }
 
         /// <summary>
