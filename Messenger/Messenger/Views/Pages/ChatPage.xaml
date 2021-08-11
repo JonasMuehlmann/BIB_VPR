@@ -20,7 +20,7 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch">
             <Grid
-                Background="{ThemeResource AppBarItemBackgroundThemeBrush}">
+                Background="{ThemeResource Elevation_1}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>

@@ -58,6 +58,11 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _teamRoles, value); }
         }
 
+        public bool IsPrivateChat
+        {
+            get => GetType() == typeof(PrivateChatViewModel);
+        }
+
         public TeamViewModel()
         {
 
