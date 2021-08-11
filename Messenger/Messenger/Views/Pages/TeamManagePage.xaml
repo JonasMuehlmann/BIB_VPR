@@ -18,7 +18,7 @@
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="CornerRadius" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource PrimaryAccent_A}"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="AddUserBorderStyle" TargetType="Border">
@@ -26,7 +26,7 @@
             <Setter Property="Margin" Value="10 30 0 0" />
             <Setter Property="CornerRadius" Value="3" />
             <Setter Property="Visibility" Value="Visible" />
-            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource PrimaryAccent_A}" />
             <Setter Property="BorderThickness" Value="1" />
         </Style>
         <Style x:Key="SearchFieldStyle" TargetType="TextBox">
@@ -34,7 +34,7 @@
             <Setter Property="Margin" Value="-1" />
             <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
             <Setter Property="Background" Value="{ThemeResource SystemAltLowColor}" />
-            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource PrimaryAccent_A}" />
         </Style>
         <Style x:Key="MembersViewItemContainerStyle" TargetType="ListViewItem">
             <Setter Property="Template">
@@ -50,7 +50,7 @@
         <Style x:Key="ItemContainerBorderStyle" TargetType="Border">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColorLight3}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource PrimaryAccent_A}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="3" />
             <Setter Property="MinWidth" Value="250" />
@@ -77,7 +77,7 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch">
             <Grid
-                Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+                Background="{ThemeResource Elevation_1}"
                 Padding="25">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -91,7 +91,7 @@
                 <!-- BACK BUTTON -->
                 <Button
                     Command="{x:Bind ViewModel.NavigateBackCommand}"
-                    Margin="0 0 0 50"
+                    Margin="0 25 0 50"
                     Background="Transparent">
                     <StackPanel
                         Spacing="10"
@@ -101,7 +101,7 @@
                             Height="16">
                             <SymbolIcon
                                 Symbol="Back"
-                                Foreground="{ThemeResource SystemAccentColor}"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
                                 />
                         </Viewbox>
                         <TextBlock
@@ -130,7 +130,7 @@
                     <StackPanel
                         Margin="0 5 5 25"
                         Padding="2 0 0 20"
-                        BorderBrush="{ThemeResource SystemAccentColorLight1}"
+                        BorderBrush="{ThemeResource Elevation_2}"
                         BorderThickness="0 0 0 1">
                         <TextBlock
                             Text="Invite Member"

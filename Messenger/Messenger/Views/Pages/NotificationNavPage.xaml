@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Messenger.Models"
     xmlns:controls="using:Messenger.Views.Controls"
-    Style="{StaticResource PageStyle}"
+    Background="{ThemeResource Elevation_0}"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="ActionButton" TargetType="Button">

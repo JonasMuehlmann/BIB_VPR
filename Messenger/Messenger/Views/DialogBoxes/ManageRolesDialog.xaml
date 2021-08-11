@@ -11,7 +11,7 @@
     xmlns:core="using:Messenger.Core.Models"
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+    Background="{ThemeResource Elevation_1}"
     CornerRadius="3"
     mc:Ignorable="d">
     <ContentDialog.PrimaryButtonStyle>
@@ -107,7 +107,7 @@
                         Grid.Column="1"
                         Content="Add"
                         FontWeight="SemiBold"
-                        Background="{ThemeResource SystemAccentColor}"
+                        Background="{ThemeResource PrimaryAccent_A}"
                         Command="{x:Bind ViewModel.CreateTeamRoleCommand}"
                         CommandParameter="{Binding ElementName=NewRoleTextBox, Path=Text, Mode=OneWay}"
                         />
@@ -201,12 +201,12 @@
                     Height="24">
                     <icons:PackIconFontAwesome
                         Kind="HandPointerSolid"
-                        Foreground="{ThemeResource SystemAccentColorDark1}"
+                        Foreground="{ThemeResource PrimaryAccent_A}"
                         />
                 </Viewbox>
                 <TextBlock
                     Text="Select a role from the list"
-                    Foreground="{ThemeResource SystemAccentColorDark1}"
+                    Foreground="{ThemeResource PrimaryAccent_A_Muted}"
                     />
             </StackPanel>
         </Grid>
@@ -288,13 +288,13 @@
                                 Height="18">
                                 <icons:PackIconFontAwesome
                                     Kind="EditSolid"
-                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Foreground="{ThemeResource PrimaryAccent_A}"
                                     />
                             </Viewbox>
                             <TextBlock
                                 Text="Edit"
                                 FontWeight="SemiBold"
-                                Foreground="{ThemeResource SystemAccentColor}"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
                                 />
                         </StackPanel>
                     </Button>
@@ -318,7 +318,7 @@
                                 Height="16">
                                 <icons:PackIconFontAwesome
                                     Kind="CheckSolid"
-                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Foreground="{ThemeResource PrimaryAccent_A}"
                                     />
                             </Viewbox>
                         </Button>
@@ -387,7 +387,7 @@
                         Margin="10 0">
                         <TextBlock
                             FontWeight="SemiBold"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             VerticalAlignment="Center"
                             Text="{x:Bind
                                 ViewModel.PendingChange.Color,
@@ -410,13 +410,13 @@
                                 Height="18">
                                 <icons:PackIconFontAwesome
                                     Kind="PaletteSolid"
-                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Foreground="{ThemeResource PrimaryAccent_A}"
                                     />
                             </Viewbox>
                             <TextBlock
                                 Text="Edit"
                                 FontWeight="SemiBold"
-                                Foreground="{ThemeResource SystemAccentColor}"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
                                 />
                         </StackPanel>
                     </Button>
@@ -436,12 +436,12 @@
                         Height="24">
                         <icons:PackIconFontAwesome
                             Kind="UserShieldSolid"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             />
                     </Viewbox>
                     <TextBlock
                         Text="This role has all permissions!"
-                        Foreground="{ThemeResource SystemAccentColorDark1}"
+                        Foreground="{ThemeResource PrimaryAccent_A_Muted}"
                         />
                 </StackPanel>
                 
@@ -579,7 +579,7 @@
                     Content="Save"
                     FontWeight="SemiBold"
                     Foreground="White"
-                    Background="{ThemeResource SystemAccentColor}"
+                    Background="{ThemeResource PrimaryAccent_A}"
                     Visibility="{x:Bind ViewModel.HasChanged, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
                     />
             </StackPanel>

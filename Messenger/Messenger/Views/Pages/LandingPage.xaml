@@ -7,7 +7,7 @@
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource Elevation_0}">
 
     <Grid>
         <Button Background="Transparent"
@@ -16,8 +16,15 @@
                 Margin="50, 70"
                 Command="{x:Bind OpenSettingCommand}">
             <StackPanel Orientation="Horizontal" Spacing="5">
-                <SymbolIcon Symbol="Setting"/>
-                <TextBlock Text="Settings" FontWeight="SemiBold"/>
+                <SymbolIcon
+                    Symbol="Setting"
+                    Foreground="{ThemeResource PrimaryAccent_A_Muted}"
+                    />
+                <TextBlock
+                    Text="Settings"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource PrimaryAccent_A_Muted}"
+                    />
             </StackPanel>    
         </Button>
             <StackPanel
@@ -29,7 +36,7 @@
                 Width="45">
                 <SymbolIcon
                     Symbol="OtherUser"
-                    Foreground="{ThemeResource SystemAccentColor}"
+                    Foreground="{ThemeResource PrimaryAccent_A}"
                     />
             </Viewbox>
             <TextBlock
@@ -50,14 +57,14 @@
                         Text="Messenger can be installed on any device with"
                         />
                     <Run
-                        Foreground="{ThemeResource SystemAccentColor}"
+                        Foreground="{ThemeResource PrimaryAccent_A}"
                         Text="Windows 10"
                         />
                 </TextBlock>
                 <Viewbox
                     Width="12">
                     <icons:PackIconFontAwesome
-                        Foreground="{ThemeResource SystemAccentColor}"
+                        Foreground="{ThemeResource PrimaryAccent_A}"
                         Kind="WindowsBrands"
                         />
                 </Viewbox>
