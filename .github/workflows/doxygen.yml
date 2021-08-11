@@ -1,0 +1,13 @@
+name: Doxygen
+on:
+  push:
+    branches: [ main ]
+jobs:
+  Doxygen:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Doxygen
+      uses: mattnotmitt/doxygen-action@v1.3.1
+      with:
+        working-directory: Messenger
+        doxyfile-path: messenger.doxygen
