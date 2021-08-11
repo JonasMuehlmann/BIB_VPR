@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['reaction_189',['Reaction',['../classMessenger_1_1Core_1_1Models_1_1Reaction.html',1,'Messenger::Core::Models']]],
+  ['reactionfromdatarow_190',['ReactionFromDataRow',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a87b87b7d987aa865d926502bbd77486d',1,'Messenger::Core::Helpers::Mapper']]],
+  ['reactiontypetobooleanconverter_191',['ReactionTypeToBooleanConverter',['../classMessenger_1_1Helpers_1_1ReactionTypeToBooleanConverter.html',1,'Messenger::Helpers']]],
+  ['recipientid_192',['RecipientId',['../classMessenger_1_1Core_1_1Models_1_1Message.html#ae07b2c690ab85f6e2e6596ef99c24331',1,'Messenger::Core::Models::Message']]],
+  ['register_193',['Register',['../classMessenger_1_1SignalR_1_1ChatHub.html#ade20eb6be5f2d54ffdd4c0215860454a',1,'Messenger::SignalR::ChatHub']]],
+  ['registerlistenerformessages_194',['RegisterListenerForMessages',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a279d2ae82fe19899669f3b6d44e05d58',1,'Messenger::Core::Services::MessengerService']]],
+  ['relaycommand_195',['RelayCommand',['../classMessenger_1_1Helpers_1_1RelayCommand.html',1,'Messenger::Helpers']]],
+  ['remove_196',['Remove',['../classMessenger_1_1Helpers_1_1MessageManager.html#ad0681bd528515c6e3897a354a5a3c214',1,'Messenger.Helpers.MessageManager.Remove()'],['../classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#a930e88414753434f576c00f199d36a34',1,'Messenger.SignalR.Models.ConnectionMapping.Remove()']]],
+  ['removeallchannels_197',['RemoveAllChannels',['../classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a0f10eb2055c07b1cb10d3ce3653b2130',1,'Messenger::Core::Services::ChannelService']]],
+  ['removechannel_198',['RemoveChannel',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a16a40897b2745a9d5e9635ab905a49b8',1,'Messenger.Core.Services.MessengerService.RemoveChannel()'],['../classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a384e2db5887c5dcedbf123342ae2c881',1,'Messenger.Core.Services.ChannelService.RemoveChannel()'],['../classMessenger_1_1Services_1_1ChatHubService.html#a6c2eacc1623aee8ce11e0ae43472791d',1,'Messenger.Services.ChatHubService.RemoveChannel()']]],
+  ['removemember_199',['RemoveMember',['../classMessenger_1_1Core_1_1Services_1_1TeamService.html#a19c94e4d0833b3713482f344c5d98fec',1,'Messenger::Core::Services::TeamService']]],
+  ['removereaction_200',['RemoveReaction',['../classMessenger_1_1Core_1_1Services_1_1MessageService.html#a92c6cd5d25343849ca12038d5ae67860',1,'Messenger.Core.Services.MessageService.RemoveReaction()'],['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a526f0afa6954e7b13cf91c23149243ea',1,'Messenger.Core.Services.MessengerService.RemoveReaction()']]],
+  ['removerole_201',['RemoveRole',['../classMessenger_1_1Core_1_1Services_1_1TeamService.html#a564b23892228a9393fc9e4fcc60fb7d2',1,'Messenger::Core::Services::TeamService']]],
+  ['removeteamrole_202',['RemoveTeamRole',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ab2917b4a5195544f4f69af6694368bef',1,'Messenger::Core::Services::MessengerService']]],
+  ['removeuser_203',['RemoveUser',['../classMessenger_1_1Services_1_1ChatHubService.html#a14d26fb6144c30057104328807b8c2dd',1,'Messenger.Services.ChatHubService.RemoveUser()'],['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ae5c24b3346d1fb8e0f81b9c8383cbf47',1,'Messenger.Core.Services.MessengerService.RemoveUser()']]],
+  ['renamechannel_204',['RenameChannel',['../classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a850a1ce338b5dc2e9dfd71a578a7a1d0',1,'Messenger.Core.Services.ChannelService.RenameChannel()'],['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa5e022419ec275539459420f0f144619',1,'Messenger.Core.Services.MessengerService.RenameChannel()']]],
+  ['replycontrol_205',['ReplyControl',['../classMessenger_1_1Controls_1_1ChatControls_1_1ReplyControl.html',1,'Messenger::Controls::ChatControls']]],
+  ['replymessage_206',['ReplyMessage',['../classMessenger_1_1ViewModels_1_1ChatViewModel.html#af0f60b0d22240cf440b1c176ff7df499',1,'Messenger::ViewModels::ChatViewModel']]],
+  ['replytocommand_207',['ReplyToCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1ReplyToCommand.html',1,'Messenger.Commands.Messenger.ReplyToCommand'],['../classMessenger_1_1ViewModels_1_1ChatViewModel.html#ab6a06673f02475e305983aa5c7367d3d',1,'Messenger.ViewModels.ChatViewModel.ReplyToCommand()']]],
+  ['resultconfirmationdialog_208',['ResultConfirmationDialog',['../classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html',1,'Messenger::Views::DialogBoxes']]],
+  ['retrievemessages_209',['RetrieveMessages',['../classMessenger_1_1Core_1_1Services_1_1MessageService.html#af04546bd31c5ce91f3cbad2cb9ebe5f5',1,'Messenger::Core::Services::MessageService']]],
+  ['retrievereactions_210',['RetrieveReactions',['../classMessenger_1_1Core_1_1Services_1_1MessageService.html#a7091ab4d20a2f23602a4710020dff3b7',1,'Messenger::Core::Services::MessageService']]],
+  ['revokepermission_211',['RevokePermission',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ae875b229f117e0c0ee800b5596302b41',1,'Messenger.Core.Services.MessengerService.RevokePermission()'],['../classMessenger_1_1Core_1_1Services_1_1TeamService.html#a5f28479673fcc9348859219f42fae3ff',1,'Messenger.Core.Services.TeamService.RevokePermission()']]],
+  ['run_212',['Run',['../classMessenger_1_1ConsoleMessenger_1_1MessengerApp.html#a24d2b09f1a8f3b76e3e7daec9f1479c1',1,'Messenger::ConsoleMessenger::MessengerApp']]],
+  ['runner_213',['Runner',['../classMessenger_1_1ConsoleMessenger_1_1Runner.html',1,'Messenger::ConsoleMessenger']]]
+];
