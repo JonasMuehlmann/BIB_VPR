@@ -516,11 +516,6 @@
                                     Icon="Delete"
                                     Label="Delete"
                                     Tapped="DeleteButton_Tapped"
-                                    Command="{x:Bind
-                                        DeleteMessageCommand}"
-                                    CommandParameter="{x:Bind
-                                        Message,
-                                        Mode=OneWay}"
                                     />
                             </CommandBar.SecondaryCommands>
                         </CommandBar>
