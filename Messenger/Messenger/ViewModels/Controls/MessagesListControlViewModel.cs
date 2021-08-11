@@ -83,12 +83,29 @@ namespace Messenger.ViewModels.Controls
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                MessageViewModel target = Messages.Single(m => m.Id == message.Id);
-
-                if (target != null)
+                if (!message.IsReply )
                 {
-                    Messages.Remove(target);
+                    MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+
+                    if (target != null)
+                    {
+                        Messages.Remove(target);
+                    }
                 }
+                //else
+                //{
+                //    MessageViewModel target = Messages.Single(m => m.Id == message.ParentMessageId);
+
+
+                //    if ( target != null)
+                //    {
+                //        MessageViewModel targetReply = target.Replies.Single(m => m.Id == message.Id);
+                //        if (targetReply != null)
+                //        {
+                //            target.Replies.Remove(targetReply);
+                //        }
+                //    }
+                //}
             }
         }
 

@@ -21,6 +21,15 @@ namespace Messenger.Views.Subcontrols
 
         public ICommand ToggleReactionCommand { get => new ToggleReactionCommand(); }
 
+        public ICommand DeleteReplyCommand { get => new DeleteMessageCommand(); }
+        //{
+        //    get { return (ICommand)GetValue(DeleteReplyCommandProperty); }
+        //    set { SetValue(DeleteReplyCommandProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty DeleteReplyCommandProperty =
+        //    DependencyProperty.Register("DeleteReplyCommand", typeof(ICommand), typeof(ReplyView), new PropertyMetadata(null));
+
         public ReplyView()
         {
             InitializeComponent();
@@ -29,6 +38,11 @@ namespace Messenger.Views.Subcontrols
         private void AppBarButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void Delete_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DeleteReplyCommand.Execute(Reply);
         }
     }
 }
