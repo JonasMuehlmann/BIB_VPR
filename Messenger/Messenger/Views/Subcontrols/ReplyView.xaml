@@ -283,7 +283,6 @@
                                 <AppBarButton
                                     Icon="Delete"
                                     Label="Delete"
-                                    Tapped="Delete_Tapped"
                                     Command="{x:Bind
                                         DeleteReplyCommand}"
                                     CommandParameter="{x:Bind

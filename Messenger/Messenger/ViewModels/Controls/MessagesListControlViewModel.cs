@@ -95,20 +95,6 @@ namespace Messenger.ViewModels.Controls
                         Messages.Remove(target);
                     }
                 }
-                //else
-                //{
-                //    MessageViewModel target = Messages.Single(m => m.Id == message.ParentMessageId);
-
-
-                //    if ( target != null)
-                //    {
-                //        MessageViewModel targetReply = target.Replies.Single(m => m.Id == message.Id);
-                //        if (targetReply != null)
-                //        {
-                //            target.Replies.Remove(targetReply);
-                //        }
-                //    }
-                //}
             }
         }
 
