@@ -3,6 +3,7 @@
 
 # ignore because it contains secrets
 .con_strings.rc
+AzureServiceBase.cs
 #doxygen output
 
 html/
