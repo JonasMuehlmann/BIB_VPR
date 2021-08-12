@@ -170,7 +170,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            var result = await MessageService.DeleteMessage(messageId);
+            var result = true;
 
             var message = await MessageService.GetMessage(messageId);
 
@@ -186,6 +186,8 @@ namespace Messenger.Core.Services
             }
 
             await SignalRService.DeleteMessage(message, teamId);
+
+            result &= await MessageService.DeleteMessage(messageId);
 
             logger.Information($"Return value: {result}");
 

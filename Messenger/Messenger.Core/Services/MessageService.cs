@@ -192,6 +192,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
+            var replies = await RetrieveReplies(messageId);
+
+            foreach (var reply in replies)
+            {
+                await DeleteMessage(reply.Id);
+            }
+
             string query = $@"
                                 DELETE FROM
                                     Messages

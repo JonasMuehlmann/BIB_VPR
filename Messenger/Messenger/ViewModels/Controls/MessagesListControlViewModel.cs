@@ -68,7 +68,10 @@ namespace Messenger.ViewModels.Controls
 
             if (e.Reason == BroadcastReasons.Created)
             {
-                Messages.Add(message);
+                if (!message.IsReply)
+                {
+                    Messages.Add(message);
+                }
             }
             else if (e.Reason == BroadcastReasons.Updated)
             {
@@ -83,11 +86,14 @@ namespace Messenger.ViewModels.Controls
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                MessageViewModel target = Messages.Single(m => m.Id == message.Id);
-
-                if (target != null)
+                if (!message.IsReply )
                 {
-                    Messages.Remove(target);
+                    MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+
+                    if (target != null)
+                    {
+                        Messages.Remove(target);
+                    }
                 }
             }
         }

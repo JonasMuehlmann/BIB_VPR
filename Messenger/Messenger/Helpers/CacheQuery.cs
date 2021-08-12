@@ -189,7 +189,7 @@ namespace Messenger.Helpers
             }
             else if (IsTypeOf<MemberViewModel>(type))
             {
-                target = teamManager.RemoveMember((uint)parameters[0], (string)((User)parameters[1]).Id);
+                target = teamManager.RemoveMember((uint)parameters[0], (string)parameters[1]);
             }
 
             return target;
