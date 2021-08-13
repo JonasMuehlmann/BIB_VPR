@@ -4,12 +4,13 @@
 Messenger/entwurfsdoku/pages/*
 class_mapping.txt
 # ignore because it contains secrets
+.con_strings.rc
 AzureServiceBase.cs
-AzureServiceBase.cs.example
 #doxygen output
 
 html/
 latex/
+rtf/
 #DoxFX
 Messenger.Core/_site
 Messenger.Core/api
