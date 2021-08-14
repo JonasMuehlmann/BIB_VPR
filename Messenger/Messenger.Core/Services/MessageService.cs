@@ -195,17 +195,23 @@ namespace Messenger.Core.Services
             // Delete replies to prevent errors
             var replies = await RetrieveReplies(messageId);
 
-            foreach (var reply in replies)
+            if (replies != null)
             {
-                await DeleteMessage(reply.Id);
+                foreach (var reply in replies)
+                {
+                    await DeleteMessage(reply.Id);
+                }
             }
 
             // Delete reactions to prevent errors
             var reactions = await RetrieveReactions(messageId);
 
-            foreach (var reaction in reactions)
+            if (reactions != null)
             {
-                await RemoveReaction(messageId, reaction.UserId, reaction.Symbol);
+                foreach (var reaction in reactions)
+                {
+                    await RemoveReaction(messageId, reaction.UserId, reaction.Symbol);
+                }
             }
 
             // Delete actual message
