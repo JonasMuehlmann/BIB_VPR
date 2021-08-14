@@ -1,4 +1,5 @@
-﻿using Messenger.Commands.Messenger;
+using Messenger.Commands.Messenger;
+using Messenger.Commands.TeamManage;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
@@ -39,22 +40,27 @@ namespace Messenger.ViewModels.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Initializes the view model with messages list
+        /// </summary>
         private void Initialize()
         {
             Messages = new ObservableCollection<MessageViewModel>();
 
-            /** LOAD FROM CACHE **/
             if (App.StateProvider != null)
             {
                 LoadFromCache();
             }
         }
 
+        /// <summary>
+        /// Loads the messages from the cache
+        /// </summary>
         private void LoadFromCache()
         {
             if (CacheQuery.TryGetMessages(
-                    ParentViewModel.SelectedChannel.ChannelId,
-                    out ObservableCollection<MessageViewModel> messages))
+                        App.StateProvider.SelectedChannel.ChannelId,
+                        out ObservableCollection<MessageViewModel> messages))
             {
                 Messages.Clear();
 
@@ -64,6 +70,8 @@ namespace Messenger.ViewModels.Controls
                 }
             }
         }
+
+        #region Events
 
         public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
@@ -117,5 +125,7 @@ namespace Messenger.ViewModels.Controls
                 }
             }
         }
+
+        #endregion
     }
 }

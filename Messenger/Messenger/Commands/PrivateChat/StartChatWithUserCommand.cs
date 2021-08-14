@@ -8,17 +8,16 @@ using Messenger.Views.Pages;
 using Serilog;
 using System;
 using System.Windows.Input;
-using Windows.UI.Xaml.Controls;
 
 namespace Messenger.Commands.TeamManage
 {
-    public class StartChatCommand : ICommand
+    public class StartChatWithUserCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;
 
         public event EventHandler CanExecuteChanged;
 
-        public StartChatCommand()
+        public StartChatWithUserCommand()
         {
         }
 
@@ -32,37 +31,41 @@ namespace Messenger.Commands.TeamManage
         /// </summary>
         public async void Execute(object parameter)
         {
+            bool executable = parameter != null
+                && parameter is MemberViewModel;
+
+            if (!executable)
+            {
+                return;
+            }
+
             try
             {
-                CreateChatDialog dialog = new CreateChatDialog();
+                MemberViewModel selectedMember = parameter as MemberViewModel;
+                UserViewModel currentUser = App.StateProvider.CurrentUser;
 
-                if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
                 {
-                    UserViewModel currentUser = App.StateProvider.CurrentUser;
-
-                    foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
+                    if (chat.Partner.Id == selectedMember.Id)
                     {
-                        if (chat.Partner.Id == dialog.ViewModel.SelectedUser.Id)
-                        {
-                            SwitchToChatPage(chat);
-                            return;
-                        }
+                        SwitchToChatPage(chat);
+                        return;
                     }
+                }
 
-                    uint? chatId = await MessengerService.StartChat(currentUser.Id, dialog.ViewModel.SelectedUser.Id);
+                uint? chatId = await MessengerService.StartChat(currentUser.Id, selectedMember.Id);
 
-                    if (chatId != null)
+                if (chatId != null)
+                {
+                    await ResultConfirmationDialog
+                            .Set(true, $"You have started a new chat with {selectedMember.Name}.")
+                            .ShowAsync();
+
+                    PrivateChatViewModel chat = CacheQuery.Get<PrivateChatViewModel>(chatId);
+
+                    if (chat != null)
                     {
-                        await ResultConfirmationDialog
-                                .Set(true, $"You have started a new chat with {dialog.ViewModel.SelectedUser.DisplayName}.")
-                                .ShowAsync();
-
-                        PrivateChatViewModel chat = CacheQuery.Get<PrivateChatViewModel>(chatId);
-
-                        if (chat != null)
-                        {
-                            SwitchToChatPage(chat);
-                        }
+                        SwitchToChatPage(chat);
                     }
                 }
             }

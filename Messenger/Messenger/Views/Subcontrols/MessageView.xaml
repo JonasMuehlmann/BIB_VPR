@@ -130,6 +130,7 @@
                             <Flyout.FlyoutPresenterStyle>
                                 <Style TargetType="FlyoutPresenter">
                                     <Setter Property="CornerRadius" Value="5" />
+                                    <Setter Property="Background" Value="{ThemeResource Elevation_2}" />
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
                             <local:UserProfileFlyout
