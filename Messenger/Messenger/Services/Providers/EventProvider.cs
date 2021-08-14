@@ -78,6 +78,7 @@ namespace Messenger.Services.Providers
             SignalRService.MemberUpdated += OnMemberUpdated;
             SignalRService.MemberRemoved += OnMemberRemoved;
             SignalRService.UserUpdated += OnUserUpdated;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
         }
 
         /// <summary>
@@ -269,7 +270,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     chatViewModel);
             }
             else
@@ -278,7 +279,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     teamViewModel);
             }
         }
@@ -376,7 +377,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Deleted,
                     teamViewModel);
             }
         }
@@ -527,7 +528,7 @@ namespace Messenger.Services.Providers
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
                 BroadcastOptions.TeamUpdated,
-                BroadcastReasons.Created,
+                BroadcastReasons.Updated,
                 teamViewModel);
         }
 
