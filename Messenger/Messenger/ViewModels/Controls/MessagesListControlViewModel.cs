@@ -1,4 +1,4 @@
-﻿using Messenger.Commands.Messenger;
+using Messenger.Commands.Messenger;
 using Messenger.Commands.TeamManage;
 using Messenger.Helpers;
 using Messenger.Models;
