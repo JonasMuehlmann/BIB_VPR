@@ -59,7 +59,7 @@ namespace Messenger.ViewModels.Controls
         private void LoadFromCache()
         {
             if (CacheQuery.TryGetMessages(
-                        ParentViewModel.SelectedChannel.ChannelId,
+                        App.StateProvider.SelectedChannel.ChannelId,
                         out ObservableCollection<MessageViewModel> messages))
             {
                 Messages.Clear();
