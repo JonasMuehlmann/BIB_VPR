@@ -62,6 +62,7 @@ namespace Messenger.Services.Providers
         private void SubscribeEvents()
         {
             SignalRService.ReceiveMessage += OnReceiveMessage;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
             SignalRService.MessageUpdated += OnMessageUpdated;
             SignalRService.MessageDeleted += OnMessageDeleted;
             SignalRService.MessageReactionsUpdated += OnMessageReactionsUpdated;
