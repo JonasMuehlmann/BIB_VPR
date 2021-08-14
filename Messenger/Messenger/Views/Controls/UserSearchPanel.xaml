@@ -1,0 +1,140 @@
+﻿<UserControl
+    x:Class="Messenger.Views.Controls.UserSearchPanel"
+    x:Name="userSearchPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Messenger.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Messenger.Helpers.Converters"
+    xmlns:icons="using:MahApps.Metro.IconPacks"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
+    <StackPanel>
+        <AutoSuggestBox
+            Name="SearchUserBox"
+            PlaceholderText="Search user..."
+            QueryIcon="Find"
+            TextChanged="SearchUserBox_TextChanged"
+            SuggestionChosen="SearchUserBox_SuggestionChosen"
+            ItemsSource="{x:Bind
+                ViewModel.SearchResults,
+                Mode=OneWay}"
+            />
+        <Grid
+            x:Name="PlaceholderPanel"
+            Visibility="{x:Bind
+                ViewModel.SelectedUser,
+                Mode=OneWay,
+                Converter={StaticResource NullToVisibilityConverter},
+                ConverterParameter='invert'}"
+            MinHeight="300">
+            <StackPanel
+                Opacity=".35"
+                Spacing="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Viewbox
+                    Width="36"
+                    Height="36">
+                    <icons:PackIconFontAwesome
+                        Kind="CatSolid"
+                        />
+                </Viewbox>
+                <TextBlock
+                    FontWeight="SemiBold"
+                    FontSize="16"
+                    Text="Find user to invite"
+                    />
+            </StackPanel>
+        </Grid>
+        <Grid
+            x:Name="InfoPanel"
+            MinHeight="300"
+            ColumnSpacing="10"
+            Visibility="{x:Bind
+                ViewModel.SelectedUser,
+                Mode=OneWay,
+                Converter={StaticResource NullToVisibilityConverter}}"
+            DataContext="{x:Bind
+                ViewModel.SelectedUser,   
+                Mode=OneWay}"
+            Padding="15 30 15 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Viewbox
+                Width="32"
+                Height="32">
+                <icons:PackIconFontAwesome
+                    Kind="UserCircleSolid"
+                    />
+            </Viewbox>
+            <StackPanel
+                x:Name="HeaderPanel"
+                Grid.Row="0"
+                Grid.Column="1"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Style="{StaticResource FlyoutPickerTitleTextBlockStyle}">
+                    <Run
+                        Text="{Binding DisplayName}"
+                        />
+                    <Run
+                        Text="#"
+                        Foreground="{StaticResource PrimaryAccent_A}"
+                        />
+                    <Run
+                        Text="{Binding NameId}"
+                        Foreground="{StaticResource PrimaryAccent_A}"
+                        />
+                </TextBlock>
+            </StackPanel>
+            <StackPanel
+                x:Name="ExtraInfo"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Spacing="10"
+                Padding="0 20 0 15">
+                <TextBlock
+                    Text="Email"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Style="{StaticResource DetailBodyBaseMediumStyle}"
+                    />
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    TextWrapping="WrapWholeWords"
+                    MaxWidth="225">
+                    <Run
+                        Text="{Binding Mail}"
+                        />
+                </TextBlock>
+                <TextBlock
+                    Text="Bio"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Style="{StaticResource DetailBodyBaseMediumStyle}"
+                    />
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    TextWrapping="WrapWholeWords"
+                    MaxWidth="225">
+                    <Run
+                        Text="{Binding Bio}"
+                        />
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

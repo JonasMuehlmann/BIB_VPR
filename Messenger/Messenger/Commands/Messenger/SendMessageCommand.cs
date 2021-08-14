@@ -1,30 +1,29 @@
-﻿using Messenger.ViewModels;
-using System;
+﻿using System;
 using Messenger.Core.Models;
 using System.Windows.Input;
-using Messenger.Services;
 using Serilog;
 using Messenger.Core.Helpers;
 using Messenger.Views.DialogBoxes;
+using Messenger.Core.Services;
+using Messenger.ViewModels.DataViewModels;
+using Messenger.ViewModels.Pages;
 
 namespace Messenger.Commands.Messenger
 {
     public class SendMessageCommand : ICommand
     {
         private readonly ChatViewModel _viewModel;
-        private readonly ChatHubService _hub;
         private ILogger _logger => GlobalLogger.Instance;
 
-        public SendMessageCommand(ChatViewModel viewModel, ChatHubService hub)
+        public SendMessageCommand(ChatViewModel viewModel)
         {
             _viewModel = viewModel;
-            _hub = hub;
         }
 
         public event EventHandler CanExecuteChanged;
 
         /// <summary>
-        /// Chekcs if the message is valid to be forwarded to the hub
+        /// Checks if the message is valid to be forwarded to the hub
         /// </summary>
         public bool CanExecute(object parameter)
         {
@@ -37,7 +36,9 @@ namespace Messenger.Commands.Messenger
         public async void Execute(object parameter)
         {
             bool executable = _viewModel.MessageToSend != null
-                && !string.IsNullOrEmpty(_viewModel.MessageToSend.Content);
+                && !string.IsNullOrEmpty(_viewModel.MessageToSend.Content)
+                && App.StateProvider.CurrentUser != null
+                && App.StateProvider.SelectedChannel != null;
 
             if (!executable)
             {
@@ -47,18 +48,19 @@ namespace Messenger.Commands.Messenger
             try
             {
                 Message message = _viewModel.MessageToSend;
+                TeamViewModel team = App.StateProvider.SelectedTeam;
 
                 // Records created timestamp
                 message.CreationTime = DateTime.Now;
+                message.SenderId = App.StateProvider.CurrentUser.Id;
+                message.RecipientId = App.StateProvider.SelectedChannel.ChannelId;
 
-                // Sender/Recipient data will be handled in ChatHubService
-                bool success = await _hub.SendMessage(_viewModel.MessageToSend);
+                bool success = await MessengerService.SendMessage(_viewModel.MessageToSend, team.Id);
 
                 if (success)
                 {
                     // Resets the models in the view model
                     _viewModel.ReplyMessage = null;
-                    _viewModel.SelectedFiles = null;
                     _viewModel.MessageToSend = new Message();
                 }
                 else

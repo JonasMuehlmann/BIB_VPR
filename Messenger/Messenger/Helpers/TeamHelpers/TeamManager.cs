@@ -1,132 +1,181 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Models;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Messenger.Helpers.TeamHelpers
 {
     public class TeamManager : Observable
     {
-        private readonly TeamBuilder _builder;
-        private List<TeamViewModel> _myTeams = new List<TeamViewModel>();
-        private List<PrivateChatViewModel> _myChats = new List<PrivateChatViewModel>();
-        private UserViewModel _currentUser;
+        #region Private
 
-        public ReadOnlyCollection<TeamViewModel> MyTeams
+        private readonly StateProvider _provider;
+
+        private ObservableCollection<TeamViewModel> _myTeams = new ObservableCollection<TeamViewModel>();
+
+        private ObservableCollection<PrivateChatViewModel> _myChats = new ObservableCollection<PrivateChatViewModel>();
+
+        #endregion
+
+        public ObservableCollection<TeamViewModel> MyTeams
         {
             get
             {
-                return _myTeams.AsReadOnly();
+                return _myTeams;
             }
         }
 
-        public ReadOnlyCollection<PrivateChatViewModel> MyChats
+        public ObservableCollection<PrivateChatViewModel> MyChats
         {
             get
             {
-                return _myChats.AsReadOnly();
+                return _myChats;
             }
         }
 
-        public UserViewModel CurrentUser
+        public TeamManager(StateProvider provider)
         {
-            get { return _currentUser; }
-            set { Set(ref _currentUser, value); }
+            _provider = provider;
         }
 
-        public TeamManager(TeamBuilder builder)
+        public async Task Initialize(UserViewModel user)
         {
-            _builder = builder;
+            await LoadTeamsFromDatabase(user);
+
+            _provider.MessageManager.MessagesLoadedForChannel += OnMessagesLoadedForChannel;
         }
 
-        public static TeamManager CreateTeamManager()
+        /// <summary>
+        /// Fires only when initializing, to set the last message of the channel to be shown on the navigation panel
+        /// </summary>
+        /// <param name="sender">Message Manager</param>
+        /// <param name="args">Argument containing the messages, team and channel</param>
+        private void OnMessagesLoadedForChannel(object sender, ManagerEventArgs args)
         {
-            TeamFactory factory = new TeamFactory();
-            TeamBuilder builder = new TeamBuilder(factory);
-
-            return new TeamManager(builder);
-        }
-
-        public void Clear()
-        {
-            _myTeams = new List<TeamViewModel>();
-        }
-
-        public TeamViewModel GetTeam(uint teamId)
-        {
-            return _myTeams
-                .Where(team => team.Id == teamId)
-                .FirstOrDefault();
-        }
-
-        public PrivateChatViewModel GetChat(uint chatId)
-        {
-            return _myChats
-                .Where(chat => chat.Id == chatId)
-                .FirstOrDefault();
-        }
-
-        public ChannelViewModel GetChannel(uint channelId)
-        {
-            foreach (TeamViewModel team in _myTeams)
+            if (args.Team is PrivateChatViewModel)
             {
-                foreach (ChannelViewModel channel in team.Channels)
+                foreach (PrivateChatViewModel chat in _myChats)
                 {
-                    if (channel.ChannelId == channelId)
+                    if (chat.MainChannel == args.Channel)
                     {
-                        return channel;
+                        chat.LastMessage = args.Messages.Last();
                     }
                 }
             }
+            else
+            {
+                foreach (TeamViewModel team in _myTeams)
+                {
+                    if (team.Channels.Contains(args.Channel))
+                    {
+                        ChannelViewModel channel = team.Channels.Single(c => c.ChannelId == args.Channel.ChannelId);
 
-            return null;
+                        channel.LastMessage = args.Messages.Last();
+                    }
+                }
+            }
         }
 
-        public async Task<TeamViewModel> AddTeam(Team teamData)
+        #region Load
+
+        public async Task<IEnumerable<TeamViewModel>> LoadTeamsFromDatabase(UserViewModel user)
         {
-            if (!Validate(teamData))
+            IEnumerable<Team> data = await TeamBuilder.GetTeamsFromDatabase(user);
+
+            /* EXIT IF NO DATA */
+            if (data == null || data.Count() <= 0)
             {
                 return null;
             }
 
-            TeamViewModel viewModel = await _builder.Build(teamData, CurrentUser.Id);
+            IEnumerable<TeamViewModel> viewModels = await AddOrUpdateTeam(data);
+
+            return viewModels;
+        }
+
+        #endregion
+
+        #region Add or Update
+
+        public async Task<TeamViewModel> AddOrUpdateTeam(Team teamData)
+        {
+            dynamic viewModel = await TeamBuilder.Build(teamData, _provider.CurrentUser.Id);
 
             if (viewModel is PrivateChatViewModel)
             {
-                PrivateChatViewModel chat = viewModel as PrivateChatViewModel;
-                _myChats.Add(chat);
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
 
-                return chat;
+                if (!_myChats.Any(chat => chat.Id == chatViewModel.Id))
+                {
+                    _myChats.Add(chatViewModel);
+                }
+                else
+                {
+                    PrivateChatViewModel oldValue = _myChats.SingleOrDefault(e => e.Id == chatViewModel.Id);
+
+                    int index = _myChats.IndexOf(oldValue);
+
+                    _myChats[index] = chatViewModel;
+                }
+
+                return chatViewModel;
             }
             else
             {
-                _myTeams.Add(viewModel);
+                TeamViewModel teamViewModel = viewModel as TeamViewModel;
 
-                return viewModel;
+                if (!_myTeams.Any(team => team.Id == teamViewModel.Id))
+                {
+                    _myTeams.Add(teamViewModel);
+                }
+                else
+                {
+                    TeamViewModel oldValue = _myTeams.SingleOrDefault(e => e.Id == teamViewModel.Id);
+
+                    int index = _myTeams.IndexOf(oldValue);
+
+                    _myTeams[index] = teamViewModel;
+                }
+
+                return teamViewModel;
             }
         }
 
-        public async Task AddTeam(IEnumerable<Team> teamData)
+        public async Task<IList<TeamViewModel>> AddOrUpdateTeam(IEnumerable<Team> teamData)
         {
+            List<TeamViewModel> result = new List<TeamViewModel>();
+
             foreach (Team data in teamData)
             {
-                await AddTeam(data);
+                TeamViewModel viewModel = await AddOrUpdateTeam(data);
+                result.Add(viewModel);
             }
+
+            return result;
         }
 
-        public ChannelViewModel AddChannel(Channel channelData)
+        public ChannelViewModel AddOrUpdateChannel(Channel channelData)
         {
             foreach (TeamViewModel teamViewModel in _myTeams)
             {
                 if (teamViewModel.Id == channelData.TeamId)
                 {
-                    ChannelViewModel viewModel = _builder.Map(channelData);
+                    ChannelViewModel viewModel = TeamBuilder.Map(channelData);
 
-                    teamViewModel.Channels.Add(viewModel);
+                    if (!teamViewModel.Channels.Any(channel => channel.ChannelId == viewModel.ChannelId))
+                    {
+                        teamViewModel.Channels.Add(viewModel);
+                    }
+                    else
+                    {
+                        int index = teamViewModel.Channels.IndexOf(viewModel);
+
+                        teamViewModel.Channels[index] = viewModel;
+                    }
 
                     return viewModel;
                 }
@@ -135,21 +184,162 @@ namespace Messenger.Helpers.TeamHelpers
             return null;
         }
 
-        public void RemoveTeam(uint id)
+        public IList<ChannelViewModel> AddOrUpdateChannel(IEnumerable<Channel> channelData)
         {
-            IEnumerable<TeamViewModel> removed =
-                _myTeams
-                .TakeWhile((team) => team.Id != id);
+            IList<ChannelViewModel> result = new List<ChannelViewModel>();
 
-            _myTeams = removed.ToList();
+            foreach (Channel channel in channelData)
+            {
+                result.Add(AddOrUpdateChannel(channel));
+            }
+
+            return result;
         }
 
-        private bool Validate(Team teamData)
+        public async Task<MemberViewModel> AddOrUpdateMember(uint teamId, User userData)
         {
-            bool isValid = teamData != null
-                && teamData.Id > 0;
+            foreach (TeamViewModel teamViewModel in _myTeams)
+            {
+                if (teamViewModel.Id == teamId)
+                {
+                    MemberViewModel member = TeamBuilder.Map(userData);
+                    member.TeamId = teamId;
 
-            return isValid;
+                    await member.WithMemberRoles();
+
+                    if (!teamViewModel.Members.Any(m => m.Id == member.Id))
+                    {
+                        teamViewModel.Members.Add(member);
+                    }
+                    else
+                    {
+                        MemberViewModel oldValue = teamViewModel.Members.SingleOrDefault(m => m.Id == member.Id);
+
+                        int index = teamViewModel.Members.IndexOf(oldValue);
+
+                        teamViewModel.Members[index] = member;
+                    }
+
+                    return member;
+                }
+            }
+
+            return null;
         }
+
+        public async Task<IList<MemberViewModel>> AddOrUpdateMember(uint teamId, IEnumerable<User> userData)
+        {
+            List<MemberViewModel> members = new List<MemberViewModel>();
+
+            foreach (User data in userData)
+            {
+                MemberViewModel member = await AddOrUpdateMember(teamId, data);
+
+                members.Add(member);
+            }
+
+            return members;
+        }
+
+        public async Task<TeamRoleViewModel> AddOrUpdateTeamRole(TeamRole teamRole)
+        {
+            foreach (TeamViewModel teamViewModel in _myTeams)
+            {
+                if (teamViewModel.Id == teamRole.TeamId)
+                {
+                    TeamRoleViewModel roleViewModel = await TeamBuilder.Map(teamRole).WithPermissions();
+
+                    if (!teamViewModel.TeamRoles.Any(r => r.Id == roleViewModel.Id))
+                    {
+                        teamViewModel.TeamRoles.Add(roleViewModel);
+                    }
+                    else
+                    {
+                        TeamRoleViewModel oldValue = teamViewModel.TeamRoles.SingleOrDefault(r => r.Id == roleViewModel.Id);
+
+                        int index = teamViewModel.TeamRoles.IndexOf(oldValue);
+
+                        teamViewModel.TeamRoles[index] = roleViewModel;
+                    }
+
+                    return roleViewModel;
+                }
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Remove
+
+        public TeamViewModel RemoveTeam(uint teamId)
+        {
+            TeamViewModel viewModel = _myTeams.SingleOrDefault(team => team.Id == teamId);
+            
+            if (viewModel == null)
+            {
+                return null;
+            }
+
+            _myTeams.Remove(viewModel);
+
+            return viewModel;
+        }
+
+        public TeamRoleViewModel RemoveTeamRole(uint roleId)
+        {
+            TeamRoleViewModel teamRole = _myTeams.SelectMany(t => t.TeamRoles).SingleOrDefault(r => r.Id == roleId);
+
+            if (teamRole == null)
+            {
+                return null;
+            }
+
+            TeamViewModel team = _myTeams.SingleOrDefault(t => t.Id == teamRole.TeamId);
+
+            team.TeamRoles.Remove(teamRole);
+
+            return teamRole;
+        }
+
+        public ChannelViewModel RemoveChannel(uint channelId)
+        {
+            ChannelViewModel channelViewModel = _myTeams.SelectMany(team => team.Channels).SingleOrDefault(channel => channel.ChannelId == channelId);
+
+            if (channelViewModel == null)
+            {
+                return null;
+            }
+
+            TeamViewModel teamViewModel = _myTeams.SingleOrDefault(team => team.Id == channelViewModel.TeamId);
+
+            teamViewModel.Channels.Remove(channelViewModel);
+
+            return channelViewModel;
+        }
+
+        public MemberViewModel RemoveMember(uint teamId, string userId)
+        {
+            TeamViewModel teamViewModel = _myTeams.Single(team => team.Id == teamId);
+
+            if (teamViewModel == null)
+            {
+                return null;
+            }
+
+            MemberViewModel memberViewModel = teamViewModel.Members.Single(member => member.Id == userId);
+
+            if (memberViewModel == null)
+            {
+                return null;
+            }
+
+            teamViewModel.Members.Remove(memberViewModel);
+
+            return memberViewModel;
+        }
+
+        #endregion
     }
 }

@@ -6,16 +6,17 @@
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Messenger.Controls.Shared"
+    xmlns:controls="using:Messenger.Views.Controls"
     mc:Ignorable="d"
-    Title="Start a new chat"
+    Background="{ThemeResource Elevation_1}"
+    Title="Start Chat"
     PrimaryButtonText="Start"
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
+            <Setter Property="Background" Value="{ThemeResource PrimaryAccent_A}" />
             <Setter Property="Foreground" Value="WhiteSmoke" />
         </Style>
     </ContentDialog.PrimaryButtonStyle>
@@ -24,7 +25,8 @@
             <Grid
                 HorizontalAlignment="Stretch">
                 <TextBlock
-                    Style="{ThemeResource PageTitleStyle}"
+                    FontSize="24"
+                    FontWeight="SemiBold"
                     Text="{Binding}"
                     />
             </Grid>
@@ -32,17 +34,9 @@
     </ContentDialog.TitleTemplate>
     <Grid>
         <controls:UserSearchPanel
-            OnSearch="{Binding
-                ElementName=createDialog,
-                Path=OnSearch}"
-            GetSelectedUser="{Binding
-                ElementName=createDialog,
-                Path=GetSelectedUser}"
-            SelectedUser="{Binding
-                ElementName=createDialog,
-                Path=SelectedUser,
-                Mode=TwoWay,
-                UpdateSourceTrigger=PropertyChanged}"
+            ViewModel="{x:Bind
+                ViewModel.UserSearchPanelViewModel,
+                Mode=OneWay}"
             />
     </Grid>
 </ContentDialog>

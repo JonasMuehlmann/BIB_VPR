@@ -1,5 +1,7 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,56 +15,13 @@ namespace Messenger.Helpers.MessageHelpers
     /// </summary>
     public class MessageManager : Observable
     {
-        private readonly MessageBuilder _builder;
-        private UserViewModel _currentUser;
-
         private readonly ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>> _messagesByChannelId = new ConcurrentDictionary<uint, ObservableCollection<MessageViewModel>>();
 
-        public UserViewModel CurrentUser
+        public event EventHandler<ManagerEventArgs> MessagesLoadedForChannel;
+
+        public MessageManager()
         {
-            get { return _currentUser; }
-            set { Set(ref _currentUser, value); }
-        }
 
-        public MessageManager(MessageBuilder builder)
-        {
-            _builder = builder;
-        }
-
-        public static MessageManager CreateMessageManager()
-        {
-            MessageBuilder builder = new MessageBuilder();
-
-            return new MessageManager(builder);
-        }
-
-        public async Task<MessageViewModel> AddMessage(Message messageData)
-        {
-            MessageViewModel viewModel = await _builder.Build(messageData, CurrentUser);
-
-            Add(viewModel);
-
-            return viewModel;
-        }
-
-        public async Task AddMessage(IEnumerable<Message> messageData)
-        {
-            foreach (Message data in messageData)
-            {
-                await AddMessage(data);
-            }
-        }
-
-        public ObservableCollection<MessageViewModel> GetMessages(uint channelId)
-        {
-            if (TryGetMessages(channelId, out ObservableCollection<MessageViewModel> messages))
-            {
-                return messages;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         /// <summary>
@@ -76,150 +35,157 @@ namespace Messenger.Helpers.MessageHelpers
             return _messagesByChannelId.TryGetValue(channelId, out messages);
         }
 
-        public bool TryGetLastMessage(uint channelId, out MessageViewModel message)
+        #region Add or Update
+
+        public async Task CreateEntry(TeamViewModel viewModel)
         {
-            if (TryGetMessages(channelId, out ObservableCollection<MessageViewModel> messages)
-                && messages.Count > 0)
+            if (viewModel is PrivateChatViewModel)
             {
-                message = messages.LastOrDefault();
-                return true;
+                /* PRIVATE CHAT HAS ONLY ONE MAIN CHANNEL */
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
+
+                /* LOAD FROM DATABASE */
+                IEnumerable<Message> messages = await MessageBuilder.GetMessagesFromDatabase(chatViewModel.MainChannel);
+
+                /* SKIP IF NONE EXISTS */
+                if (messages == null || messages.Count() <= 0)
+                {
+                    return;
+                }
+
+                /* SAVE TO CACHE */
+                IEnumerable<MessageViewModel> messageViewModels = await AddOrUpdateMessage(messages);
+
+                MessagesLoadedForChannel?.Invoke(this, new ManagerEventArgs()
+                {
+                    Messages = messageViewModels,
+                    Team = chatViewModel,
+                    Channel = chatViewModel.MainChannel
+                });
             }
             else
             {
-                message = null;
-                return false;
+                foreach (ChannelViewModel channelViewModel in viewModel.Channels)
+                {
+                    /* LOAD FROM DATABASE */
+                    IEnumerable<Message> messages = await MessageBuilder.GetMessagesFromDatabase(channelViewModel);
+
+                    /* SKIP IF NONE EXISTS */
+                    if (messages == null || messages.Count() <= 0)
+                    {
+                        continue;
+                    }
+
+                    /* SAVE TO CACHE */
+                    IEnumerable<MessageViewModel> messageViewModels = await AddOrUpdateMessage(messages);
+
+                    MessagesLoadedForChannel?.Invoke(this, new ManagerEventArgs()
+                    {
+                        Messages = messageViewModels,
+                        Team = viewModel,
+                        Channel = channelViewModel
+                    });
+                }
             }
         }
 
-        public async Task<MessageViewModel> UpdateMessage(Message messageData)
+        public async Task CreateEntry(IEnumerable<TeamViewModel> viewModels)
         {
-            MessageViewModel viewModel = await _builder.Build(messageData, CurrentUser);
+            foreach (TeamViewModel viewModel in viewModels)
+            {
+                await CreateEntry(viewModel);
+            }
+        }
 
-            Update(viewModel);
+        public async Task<MessageViewModel> AddOrUpdateMessage(Message messageData)
+        {
+            MessageViewModel viewModel = await MessageBuilder.Build(messageData);
+
+            AddOrUpdateToDictionary(viewModel);
 
             return viewModel;
         }
 
-        /// <summary>
-        /// Finds and updates the message in the dictionary
-        /// </summary>
-        /// <param name="message">MessageViewModel to update</param>
-        private void Update(MessageViewModel message)
+        public async Task<IList<MessageViewModel>> AddOrUpdateMessage(IEnumerable<Message> messageData)
         {
-            if (!message.IsReply)
+            List<MessageViewModel> result = new List<MessageViewModel>();
+
+            foreach (Message data in messageData)
             {
-                _messagesByChannelId.AddOrUpdate(
-                    (uint)message.ChannelId,
-                    new ObservableCollection<MessageViewModel>() { message },
-                    (key, list) =>
-                    {
-                        var result = list.Select(m =>
-                        {
-                            if (m.Id == message.Id)
-                            {
-                                m = message;
-                            }
-
-                            return m;
-                        });
-
-                        return new ObservableCollection<MessageViewModel>(result);
-                    });
+                MessageViewModel viewModel = await AddOrUpdateMessage(data);
+                result.Add(viewModel);
             }
-            else
-            {
-                _messagesByChannelId.AddOrUpdate(
-                    (uint)message.ChannelId,
-                    new ObservableCollection<MessageViewModel>() { message },
-                    (key, list) =>
-                    {
-                        var result = list.Select(m =>
-                        {
-                            if (m.Id == message.ParentMessageId)
-                            {
-                                var updated = m.Replies.Select(r =>
-                                {
-                                    if (r.Id == message.Id)
-                                    {
-                                        r = message;
-                                    }
 
-                                    return r;
-                                });
-
-                                m.Replies = new ObservableCollection<MessageViewModel>(updated);
-                            }
-
-                            return m;
-                        });
-
-                        return new ObservableCollection<MessageViewModel>(result);
-                    });
-            }
+            return result;
         }
+
+        #endregion
+
+        #region Remove
 
         /// <summary>
         /// Finds and removes the MessageViewModel with the given Message data model
         /// </summary>
         /// <param name="data">Message data model to be searched with</param>
-        public void RemoveMessage(Message data)
+        public MessageViewModel RemoveMessage(Message data)
         {
-            if (data.ParentMessageId == null)
-            {
-                _messagesByChannelId.AddOrUpdate(
+            if (data.ParentMessageId == null
+                && _messagesByChannelId.TryGetValue(
                     data.RecipientId,
-                    new ObservableCollection<MessageViewModel>(),
-                    (key, list) =>
-                    {
-                        var updated = list
-                            .Where(m => m.Id != data.Id);
+                    out ObservableCollection<MessageViewModel> messages))
+            {
+                MessageViewModel target = messages.Single(message => message.Id == data.Id);
 
-                        return new ObservableCollection<MessageViewModel>(updated);
-                    });
-            }
-            else
-            {
-                if (_messagesByChannelId.TryGetValue(
-                    data.RecipientId,
-                    out ObservableCollection<MessageViewModel> parents))
+                if (target != null)
                 {
-                    foreach (MessageViewModel viewModel in parents)
-                    {
-                        if (viewModel.Id == data.ParentMessageId)
-                        {
-                            var updated = viewModel.Replies.Where(r => r.Id != data.Id);
+                    messages.Remove(target);
 
-                            viewModel.Replies = new ObservableCollection<MessageViewModel>(updated);
-                        }
-                    }
+                    return target;
                 }
             }
+
+            if (data.ParentMessageId != null
+                && _messagesByChannelId.TryGetValue(
+                    data.RecipientId,
+                    out ObservableCollection<MessageViewModel> parents))
+            {
+                MessageViewModel targetParent = parents.Single(p => p.Id == data.ParentMessageId);
+                MessageViewModel target = targetParent.Replies.Single(r => r.Id == data.Id);
+
+                targetParent.Replies.Remove(target);
+
+                return target;
+            }
+
+            return null;
         }
 
         /// <summary>
         /// Removes entry with the given key
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
-        /// <returns>Count of messages deleted</returns>
-        public int RemoveEntry(uint channelId)
+        /// <returns>Removed channel object</returns>
+        public ChannelViewModel RemoveEntry(uint channelId)
         {
-            bool entryExists = _messagesByChannelId.TryRemove(channelId, out ObservableCollection<MessageViewModel> entry);
-
-            if (entryExists)
+            if (_messagesByChannelId.TryRemove(channelId, out ObservableCollection<MessageViewModel> entry))
             {
-                return entry.Count();
+                return CacheQuery.Get<ChannelViewModel>(channelId);
             }
             else
             {
-                return 0;
+                return null;
             }
         }
+
+        #endregion
+
+        #region Helpers
 
         /// <summary>
         /// Adds the message to the dictionary
         /// </summary>
         /// <param name="message">MessageViewModel to add</param>
-        private void Add(MessageViewModel message)
+        private void AddOrUpdateToDictionary(MessageViewModel message)
         {
             if (!message.IsReply)
             {
@@ -228,7 +194,18 @@ namespace Messenger.Helpers.MessageHelpers
                     new ObservableCollection<MessageViewModel>() { message },
                     (key, list) =>
                     {
-                        list.Add(message);
+                        if (list.Any(m => m.Id == message.Id))
+                        {
+                            MessageViewModel target = list.SingleOrDefault(m => m.Id == message.Id);
+                            int index = list.IndexOf(target);
+
+                            list[index] = message;
+                        }
+                        else
+                        {
+                            list.Add(message);
+                        }
+
                         return list;
                     });
             }
@@ -243,7 +220,17 @@ namespace Messenger.Helpers.MessageHelpers
                         {
                             if (viewModel.Id == message.ParentMessageId)
                             {
-                                viewModel.Replies.Add(message);
+                                if (viewModel.Replies.Any(r => r.Id == message.Id))
+                                {
+                                    MessageViewModel target = viewModel.Replies.SingleOrDefault(r => r.Id == message.Id);
+                                    int index = viewModel.Replies.IndexOf(target);
+
+                                    viewModel.Replies[index] = message;
+                                }
+                                else
+                                {
+                                    viewModel.Replies.Add(message);
+                                }
                             }
                         }
 
@@ -251,5 +238,7 @@ namespace Messenger.Helpers.MessageHelpers
                     });
             }
         }
+
+        #endregion
     }
 }

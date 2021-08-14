@@ -93,6 +93,38 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
+        /// <summary>
+        /// Retrieve all replies to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to retrieve replies from</param>
+        /// <returns>An IList of Message objects representing the replies</returns>
+        public static async Task<IList<Message>> RetrieveReplies(uint messageId)
+        {
+            LogContext.PushProperty("Method","RetrieveReplies");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $@"
+                                SELECT
+                                    m.MessageId,
+                                    m.RecipientId,
+                                    m.SenderId,
+                                    m.ParentMessageId,
+                                    m.Message,
+                                    m.CreationDate,
+                                    u.UserId,
+                                    u.NameId,
+                                    u.UserName
+                                FROM
+                                    Messages m
+                                LEFT JOIN Users u
+                                    ON m.SenderId = u.UserId
+                                WHERE
+                                    ParentMessageId = {messageId}";
+
+
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
+        }
 
         /// <summary>
         /// Retrieve a message from a given MessageId
@@ -159,6 +191,13 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("Method","DeleteMessage");
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
+
+            var replies = await RetrieveReplies(messageId);
+
+            foreach (var reply in replies)
+            {
+                await DeleteMessage(reply.Id);
+            }
 
             string query = $@"
                                 DELETE FROM
@@ -297,6 +336,22 @@ namespace Messenger.Core.Services
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
 
             return await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query);
+        }
+        /// <summary>
+        ///	Retrieve a reaction object from a reactionId
+        /// </summary>
+        /// <param name="reactionId">The id of the reaction to make an object from</param>
+        /// <returns>A reaction object</returns>
+        public static async Task<Reaction> GetReaction(uint reactionId)
+        {
+            LogContext.PushProperty("Method","GetReaction");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters reactionId={reactionId}");
+
+            string query = $@"SELECT * FROM Reactions WHERE reactionId={reactionId};";
+
+            // TODO: Implement SqlHelper to build objects from a single row
+            return (await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query)).First();
         }
     }
 }

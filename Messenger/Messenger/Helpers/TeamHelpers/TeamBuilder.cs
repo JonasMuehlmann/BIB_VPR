@@ -1,38 +1,37 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Models;
-using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 
 namespace Messenger.Helpers.TeamHelpers
 {
-    public class TeamBuilder
+    public static class TeamBuilder
     {
-        private readonly TeamFactory _factory;
-
-        public TeamBuilder(TeamFactory factory)
+        public static async Task<IEnumerable<Team>> GetTeamsFromDatabase(UserViewModel currentUser)
         {
-            _factory = factory;
+            return await MessengerService.GetTeams(currentUser.Id);
         }
 
-        public async Task<TeamViewModel> Build(Team team, string userId)
+        public static async Task<TeamViewModel> Build(this Team team, string userId)
         {
-            TeamViewModel viewModel = _factory.CreateBaseViewModel(team);
+            TeamViewModel withMembers = await Map(team).WithMembers(userId);
+            TeamViewModel withChannels = await withMembers.WithChannels();
 
-            var withMembers = await LoadMembers(viewModel, userId);
-
-            var withChannels = await LoadChannels(withMembers);
-
-            return _factory.GetViewModel(withChannels);
+            if (withChannels is PrivateChatViewModel)
+            {
+                return withChannels;
+            }
+            else
+            {
+                return await withChannels.WithTeamRoles();
+            }
         }
 
-        public async Task<IEnumerable<TeamViewModel>> Build(IEnumerable<Team> teams, string userId)
+        public static async Task<IEnumerable<TeamViewModel>> Build(this IEnumerable<Team> teams, string userId)
         {
             List<TeamViewModel> result = new List<TeamViewModel>();
 
@@ -45,66 +44,45 @@ namespace Messenger.Helpers.TeamHelpers
             return result;
         }
 
+        #region Team Extension
+
         /// <summary>
         /// Determines the type of team and sets the corresponding member models
         /// </summary>
         /// <param name="team">Team object to reference to</param>
         /// <param name="members">List of members to set</param>
-        private async Task<TeamViewModel> LoadMembers(TeamViewModel viewModel, string currentUserId)
+        public static async Task<TeamViewModel> WithMembers(this TeamViewModel viewModel, string currentUserId)
         {
-            var members = await MessengerService.LoadTeamMembers((uint)viewModel.Id);
+            IEnumerable<User> members = await MessengerService.GetTeamMembers(viewModel.Id);
 
-            if (string.IsNullOrEmpty(viewModel.TeamName)) // Is private chat
+            viewModel = DetermineTeamType(viewModel);
+
+            if (viewModel is PrivateChatViewModel)
             {
-                var chatPartner = Map(members.Where(m => m.Id != currentUserId));
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
 
-                viewModel.Members = new ObservableCollection<Member>(chatPartner);
+                /* PRIVATE CHAT HAS ONLY PARTNER AS MEMBER */
+                chatViewModel.Partner = Map(members.Where(m => m.Id != currentUserId)).SingleOrDefault();
+                chatViewModel.TeamName = chatViewModel.Partner.Name;
+
+                return chatViewModel;
             }
             else
             {
-                List<Member> mapped = Map(members).ToList();
+                List<MemberViewModel> mapped = Map(members).ToList();
 
-                foreach (Member member in mapped)
+                /* LOAD MEMBER ROLES */
+                foreach (MemberViewModel member in mapped)
                 {
-                    IList<MemberRole> roles = await GetMemberRoles((uint)viewModel.Id, member);
+                    member.TeamId = viewModel.Id;
 
-                    if (roles != null)
-                    {
-                        member.MemberRoles = roles.ToList();
-                    }
+                    await member.WithMemberRoles();
                 }
 
-                viewModel.Members = new ObservableCollection<Member>(mapped);
+                viewModel.Members = new ObservableCollection<MemberViewModel>(mapped);
+
+                return viewModel;
             }
-
-            return viewModel;
-        }
-
-        private async Task<IList<MemberRole>> GetMemberRoles(uint teamId, Member member)
-        {
-            List<MemberRole> memberRoles = new List<MemberRole>();
-
-            var roles = await MessengerService.GetRolesList(teamId, member.Id);
-
-            if (roles == null || roles.Count() <= 0)
-            {
-                return null;
-            }
-
-            foreach (string role in roles)
-            {
-                IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(teamId, role);
-
-                memberRoles.Add(
-                    new MemberRole()
-                    {
-                        Title = role,
-                        TeamId = teamId,
-                        Permissions = permissions.ToList()
-                    });
-            }
-
-            return memberRoles;
         }
 
         /// <summary>
@@ -112,33 +90,162 @@ namespace Messenger.Helpers.TeamHelpers
         /// </summary>
         /// <param name="viewModel">ViewModel of the team</param>
         /// <returns>TeamViewModel with updated channels</returns>
-        public async Task<TeamViewModel> LoadChannels(TeamViewModel viewModel)
+        public static async Task<TeamViewModel> WithChannels(this TeamViewModel viewModel)
         {
-            var channels = await MessengerService.GetChannelsForTeam((uint)viewModel.Id);
+            IEnumerable<ChannelViewModel> channelViewModels = Map(await MessengerService.GetChannelsForTeam(viewModel.Id));
 
-            if (channels.Count() > 0)
+            if (viewModel is PrivateChatViewModel)
             {
-                var channelViewModels = channels.Select(Map);
+                PrivateChatViewModel chatViewModel = (PrivateChatViewModel)viewModel;
 
+                chatViewModel.MainChannel = channelViewModels.SingleOrDefault();
+
+                return chatViewModel;
+            }
+            else
+            {
                 viewModel.Channels.Clear();
+
                 foreach (ChannelViewModel channelViewModel in channelViewModels)
                 {
                     viewModel.Channels.Add(channelViewModel);
+                }
+
+                return viewModel;
+            }
+        }
+
+        public static async Task<TeamViewModel> WithTeamRoles(this TeamViewModel viewModel)
+        {
+            if (viewModel is PrivateChatViewModel)
+            {
+                return (PrivateChatViewModel)viewModel;
+            }
+
+            IList<TeamRole> teamRoles = await TeamService.ListRoles(viewModel.Id);
+
+            if (teamRoles == null || teamRoles.Count() <= 0)
+            {
+                return viewModel;
+            }
+
+            foreach (TeamRole teamRole in teamRoles)
+            {
+                TeamRoleViewModel teamRoleViewModel = await Map(teamRole).WithPermissions();
+
+                viewModel.TeamRoles.Add(teamRoleViewModel);
+            }
+
+            return viewModel;
+        }
+
+        #endregion
+
+        #region Member Extension
+
+        public static async Task<MemberViewModel> WithMemberRoles(this MemberViewModel viewModel)
+        {
+            /** LOAD CUSTOM ROLES FOR THE TEAM **/
+            IEnumerable<TeamRole> allRoles = await TeamService.ListRoles(viewModel.TeamId);
+            IEnumerable<TeamRoleViewModel> allRoleViewModels = await Map(allRoles).WithPermissions();
+
+            IEnumerable<TeamRole> userRoles = await TeamService.GetUsersRoles(viewModel.TeamId, viewModel.Id);
+
+            if (userRoles == null || userRoles.Count() <= 0)
+            {
+                foreach (TeamRoleViewModel assignable in allRoleViewModels)
+                {
+                    viewModel.AssignableMemberRoles.Add(assignable);
+                }
+
+                return viewModel;
+            }
+
+            /** LOAD PERMISSIONS FOR EACH ROLE **/
+            foreach (TeamRoleViewModel roleViewModel in allRoleViewModels)
+            {
+                if (userRoles.Any(u => u.Id == roleViewModel.Id))
+                {
+                    viewModel.MemberRoles.Add(roleViewModel);
+                }
+                else
+                {
+                    viewModel.AssignableMemberRoles.Add(roleViewModel);
                 }
             }
 
             return viewModel;
         }
 
-        public async Task<TeamViewModel> LoadChannels(uint teamId, string userId)
-        {
-            Team team = await MessengerService.GetTeam(teamId);
-            TeamViewModel viewModel = await Build(team, userId);
+        #endregion
 
-            return await LoadChannels(viewModel);
+        #region TeamRole Extension
+
+        public static async Task<TeamRoleViewModel> WithPermissions(this TeamRoleViewModel viewModel)
+        {
+            IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(viewModel.TeamId, viewModel.Title);
+
+            if (permissions == null || permissions.Count() <= 0)
+            {
+                return viewModel;    
+            }
+
+            viewModel.Permissions.Clear();
+
+            foreach (Permissions permission in permissions)
+            {
+                viewModel.Permissions.Add(permission);
+            }
+
+            return viewModel;
         }
 
-        public ChannelViewModel Map(Channel channel)
+        public static async Task<IEnumerable<TeamRoleViewModel>> WithPermissions(this IEnumerable<TeamRoleViewModel> viewModels)
+        {
+            foreach (TeamRoleViewModel viewModel in viewModels)
+            {
+                await viewModel.WithPermissions();
+            }
+
+            return viewModels;
+        }
+
+        #endregion
+
+        #region Mappers
+
+        public static TeamViewModel Map(Team team)
+        {
+            return new TeamViewModel()
+            {
+                Id = team.Id,
+                TeamName = team.Name,
+                Description = team.Description,
+                CreationDate = team.CreationDate,
+                Members = new ObservableCollection<MemberViewModel>(),
+                Channels = new ObservableCollection<ChannelViewModel>(),
+                TeamRoles = new ObservableCollection<TeamRoleViewModel>()
+            };
+        }
+
+        public static TeamRoleViewModel Map(TeamRole teamRole)
+        {
+            return new TeamRoleViewModel()
+            {
+                Id = teamRole.Id,
+                Title = string.Concat(teamRole.Role.Substring(0, 1).ToUpper(), teamRole.Role.Substring(1)),
+                TeamId = teamRole.TeamId,
+                Permissions = new ObservableCollection<Permissions>(),
+                Color = teamRole.Color.ToColor(),
+            };
+        }
+
+        public static IEnumerable<TeamRoleViewModel> Map(IEnumerable<TeamRole> teamRoles)
+        {
+            return teamRoles.Select(Map);
+        }
+
+        public static ChannelViewModel Map(Channel channel)
         {
             return new ChannelViewModel()
             {
@@ -148,26 +255,59 @@ namespace Messenger.Helpers.TeamHelpers
             };
         }
 
-        private Member Map(User user)
+        public static IEnumerable<ChannelViewModel> Map(IEnumerable<Channel> channels)
+        {
+            List<ChannelViewModel> viewModels = new List<ChannelViewModel>();
+
+            foreach (Channel channel in channels)
+            {
+                viewModels.Add(Map(channel));
+            }
+
+            return viewModels;
+        }
+
+        public static MemberViewModel Map(User user)
         {
             if (user == null)
             {
                 return null;
             }
 
-            return new Member()
+            return new MemberViewModel()
             {
                 Id = user.Id,
                 Name = user.DisplayName,
                 NameId = user.NameId,
                 Bio = user.Bio,
-                Mail = user.Mail
+                Mail = user.Mail,
+                MemberRoles = new List<TeamRoleViewModel>(),
+                AssignableMemberRoles = new List<TeamRoleViewModel>()
             };
         }
 
-        private IEnumerable<Member> Map(IEnumerable<User> users)
+        public static IEnumerable<MemberViewModel> Map(IEnumerable<User> users)
         {
             return users.Select(Map);
         }
+
+
+        #endregion
+
+        #region Helpers
+
+        public static TeamViewModel DetermineTeamType(TeamViewModel viewModel)
+        {
+            if (string.IsNullOrEmpty(viewModel.TeamName))
+            {
+                return new PrivateChatViewModel(viewModel);
+            }
+            else
+            {
+                return viewModel;
+            }
+        }
+
+        #endregion
     }
 }

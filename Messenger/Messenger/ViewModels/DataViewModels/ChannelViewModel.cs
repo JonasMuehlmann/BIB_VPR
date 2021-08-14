@@ -3,7 +3,7 @@ using System;
 
 namespace Messenger.ViewModels.DataViewModels
 {
-    public class ChannelViewModel : Observable
+    public class ChannelViewModel : DataViewModel
     {
         private MessageViewModel _pinnedMessage;
         private string _channelName;

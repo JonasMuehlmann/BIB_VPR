@@ -1,25 +1,19 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.Services;
+using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
     public class DeleteMessageCommand : ICommand
     {
-        private readonly ChatHubService _hub;
         private ILogger _logger => GlobalLogger.Instance;
 
-        public DeleteMessageCommand(ChatHubService hub)
+        public DeleteMessageCommand()
         {
-            _hub = hub;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -32,7 +26,9 @@ namespace Messenger.Commands.Messenger
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-               && parameter is MessageViewModel;
+               && parameter is MessageViewModel
+               && App.StateProvider.CurrentUser != null
+               && App.StateProvider.SelectedTeam != null;
 
             if (!executable)
             {
@@ -42,8 +38,9 @@ namespace Messenger.Commands.Messenger
             try
             {
                 MessageViewModel vm = (MessageViewModel)parameter;
+                TeamViewModel team = App.StateProvider.SelectedTeam;
 
-                bool isSuccess = await _hub.DeleteMessage((uint)vm.Id);
+                bool isSuccess = await MessengerService.DeleteMessage((uint)vm.Id, team.Id);
 
                 if (!isSuccess)
                 {
