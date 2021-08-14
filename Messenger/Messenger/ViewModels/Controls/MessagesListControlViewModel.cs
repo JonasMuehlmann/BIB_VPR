@@ -46,16 +46,21 @@ namespace Messenger.ViewModels.Controls
             /** LOAD FROM CACHE **/
             if (App.StateProvider != null)
             {
-                if (CacheQuery.TryGetMessages(
-                        ParentViewModel.SelectedChannel.ChannelId,
-                        out ObservableCollection<MessageViewModel> messages))
-                {
-                    Messages.Clear();
+                LoadFromCache();
+            }
+        }
 
-                    foreach (MessageViewModel message in messages)
-                    {
-                        Messages.Add(message);
-                    }
+        private void LoadFromCache()
+        {
+            if (CacheQuery.TryGetMessages(
+                    ParentViewModel.SelectedChannel.ChannelId,
+                    out ObservableCollection<MessageViewModel> messages))
+            {
+                Messages.Clear();
+
+                foreach (MessageViewModel message in messages)
+                {
+                    Messages.Add(message);
                 }
             }
         }

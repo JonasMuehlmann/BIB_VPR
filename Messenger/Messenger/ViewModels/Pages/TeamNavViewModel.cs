@@ -64,6 +64,11 @@ namespace Messenger.ViewModels.Pages
         public TeamNavViewModel()
         {
             Initialize();
+
+            App.EventProvider.TeamsLoaded += OnTeamsLoaded;
+            App.EventProvider.TeamUpdated += OnTeamUpdated;
+            App.EventProvider.ChannelUpdated += OnChannelUpdated;
+            App.EventProvider.MessageUpdated += OnMessageUpdated;
         }
 
         private async void Initialize()
@@ -71,25 +76,25 @@ namespace Messenger.ViewModels.Pages
             IsBusy = true;
             Teams = new ObservableCollection<TeamViewModel>();
 
-            App.EventProvider.TeamsLoaded += OnTeamsLoaded;
-            App.EventProvider.TeamUpdated += OnTeamUpdated;
-            App.EventProvider.ChannelUpdated += OnChannelUpdated;
-            App.EventProvider.MessageUpdated += OnMessageUpdated;
-
             /** GET DATA FROM CACHE IF ALREADY INITIALIZED **/
             if (App.StateProvider != null && Teams.Count <= 0)
             {
-                Teams.Clear();
-
-                foreach (TeamViewModel team in CacheQuery.GetMyTeams())
-                {
-                    Teams.Add(team);
-                }
+                LoadFromCache();
             }
 
             CurrentUser = await UserDataService.GetUserAsync();
 
             IsBusy = false;
+        }
+
+        private void LoadFromCache()
+        {
+            Teams.Clear();
+
+            foreach (TeamViewModel team in CacheQuery.GetMyTeams())
+            {
+                Teams.Add(team);
+            }
         }
 
         public void OnTeamsLoaded(object sender, BroadcastArgs e)

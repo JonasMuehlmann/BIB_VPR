@@ -60,6 +60,10 @@ namespace Messenger.ViewModels.Pages
         public ChatNavViewModel()
         {
             Initialize();
+
+            App.EventProvider.ChatsLoaded += OnChatsLoaded;
+            App.EventProvider.PrivateChatUpdated += OnChatUpdated;
+            App.EventProvider.MessageUpdated += OnMessageUpdated;
         }
 
         private async void Initialize()
@@ -70,17 +74,22 @@ namespace Messenger.ViewModels.Pages
             /** GET DATA FROM CACHE IF ALREADY INITIALIZED **/
             if (App.StateProvider != null)
             {
-                Chats.Clear();
-
-                foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
-                {
-                    Chats.Add(chat);
-                }
-
-                IsBusy = false;
+                LoadFromCache();
             }
 
             CurrentUser = await UserDataService.GetUserAsync();
+
+            IsBusy = false;
+        }
+
+        private void LoadFromCache()
+        {
+            Chats.Clear();
+
+            foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
+            {
+                Chats.Add(chat);
+            }
         }
 
         public void OnChatsLoaded(object sender, BroadcastArgs e)
