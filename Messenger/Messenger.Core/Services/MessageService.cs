@@ -192,13 +192,29 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
+            // Delete replies to prevent errors
             var replies = await RetrieveReplies(messageId);
 
-            foreach (var reply in replies)
+            if (replies != null)
             {
-                await DeleteMessage(reply.Id);
+                foreach (var reply in replies)
+                {
+                    await DeleteMessage(reply.Id);
+                }
             }
 
+            // Delete reactions to prevent errors
+            var reactions = await RetrieveReactions(messageId);
+
+            if (reactions != null)
+            {
+                foreach (var reaction in reactions)
+                {
+                    await RemoveReaction(messageId, reaction.UserId, reaction.Symbol);
+                }
+            }
+
+            // Delete actual message
             string query = $@"
                                 DELETE FROM
                                     Messages
