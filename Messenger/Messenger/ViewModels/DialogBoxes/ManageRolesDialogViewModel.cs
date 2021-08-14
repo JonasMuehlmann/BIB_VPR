@@ -12,6 +12,8 @@ namespace Messenger.ViewModels.DialogBoxes
 {
     public class ManageRolesDialogViewModel : Observable
     {
+        #region Private
+
         private string _newRoleTitle;
 
         private TeamRoleViewModel _selectedTeamRole;
@@ -28,6 +30,8 @@ namespace Messenger.ViewModels.DialogBoxes
 
         private ObservableCollection<TeamRoleViewModel> _teamRoles;
 
+        #endregion
+
         public ObservableCollection<TeamRoleViewModel> TeamRoles
         {
             get { return _teamRoles; }
@@ -40,6 +44,9 @@ namespace Messenger.ViewModels.DialogBoxes
             set { Set(ref _grantablePermissions, value); }
         }
 
+        /// <summary>
+        /// Actual model of selected team role
+        /// </summary>
         public TeamRoleViewModel SelectedTeamRole
         {
             get { return _selectedTeamRole; }
@@ -63,6 +70,9 @@ namespace Messenger.ViewModels.DialogBoxes
             }
         }
 
+        /// <summary>
+        /// A copy of selected team role that can be modified with ui to make & save changes
+        /// </summary>
         public TeamRoleViewModel PendingChange
         {
             get { return _pendingChange; }
@@ -93,6 +103,8 @@ namespace Messenger.ViewModels.DialogBoxes
             set { Set(ref _isInEditMode, value); }
         }
 
+        #region Commands
+
         public ICommand CreateTeamRoleCommand { get => new CreateTeamRoleCommand(this); }
 
         public ICommand UpdateTeamRoleCommand { get => new UpdateTeamRoleCommand(); }
@@ -101,13 +113,20 @@ namespace Messenger.ViewModels.DialogBoxes
 
         public ICommand RevokePermissionCommand { get => new RevokePermissionCommand(this); }
 
+        #endregion
+
         public ManageRolesDialogViewModel()
         {
             GrantablePermissions = new ObservableCollection<Permissions>();
 
-            /** REFERENCE TO STATE (UPDATES AUTOMATICALLY) **/
+            /** REFERENCE TO GLOBAL STATE **/
             TeamRoles = App.StateProvider.SelectedTeam.TeamRoles;
+
+            /** EVENTS REGISLATION **/
+            App.EventProvider.TeamUpdated += OnTeamUpdated;
         }
+
+        #region Events
 
         public void OnTeamUpdated(object sender, BroadcastArgs args)
         {
@@ -121,6 +140,10 @@ namespace Messenger.ViewModels.DialogBoxes
                 SelectedTeamRole = selectedRole;
             }
         }
+
+        #endregion
+
+        #region Helpers
 
         public void FilterGrantablePermissions()
         {
@@ -145,5 +168,7 @@ namespace Messenger.ViewModels.DialogBoxes
                 HasFullPermissions = true;
             }
         }
+
+        #endregion
     }
 }
