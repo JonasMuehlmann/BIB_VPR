@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Messenger.Core.Helpers
 {
     /// <summary>
-    /// Handles serialization and deserialization of notification messages
+    /// Holds static methods to work with Notification Messages
     /// </summary>
     public static class NotificationMessage
     {
