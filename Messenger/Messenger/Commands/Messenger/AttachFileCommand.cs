@@ -51,10 +51,6 @@ namespace Messenger.Commands.Messenger
                 if (files.Count > 0)
                 {
 
-                    //var attachmentPaths = files.Select(f => f.Path).ToList();
-
-                    //// Sets the models in the view model
-                    //_viewModel.MessageToSend.UploadFileData = attachmentPaths;
                     _viewModel.MessageToSend.UploadFileData.Clear();
                     foreach (StorageFile file in files)
                     {

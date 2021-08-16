@@ -33,62 +33,13 @@ namespace Messenger.Core.Services
             return blobServiceClient.GetBlobContainerClient(containerName);
         }
 
-        /// <summary>
-        /// Download a file into the local cache
-        /// </summary>
-        /// <param name="blobFileName">A blob file to download</param>
-        /// <param name="destinationDirectory">Where to save the file, defaults to the local application cache</param>
-        /// <returns>True on success, false otherwise</returns>
-        //public static async Task<bool> Download(string blobFileName, string destinationDirectory = "")
-        //{
-        //    LogContext.PushProperty("Method", "Download");
-        //    LogContext.PushProperty("SourceContext", "FileSharingService");
-        //    logger.Information($"Function called with parameters  blobFileName={blobFileName}, destinationDirectory={destinationDirectory}");
-
-        //    try
-        //    {
-        //        var containerClient = ConnectToContainer();
-
-        //        // NOTE: destinationDirectory can not be assigned localFileCachePath
-        //        // as a default because the expression assigning to it is not constant(compile time)
-        //        if (destinationDirectory == string.Empty)
-        //        {
-        //            destinationDirectory = localFileCachePath;
-
-        //            logger.Information($"destinationDirectory has been set to {localFileCachePath}");
-        //        }
-
-        //        if (!Directory.Exists(destinationDirectory))
-        //        {
-        //            Directory.CreateDirectory(destinationDirectory);
-
-        //            logger.Information($"created local directory {destinationDirectory}");
-        //        }
-
-        //        BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
-
-        //        var result = await blobClient.DownloadToAsync(Path.Combine(destinationDirectory, blobFileName));
-
-        //        logger.Information($"Return value: {result}");
-
-        //        return true;
-        //    }
-        //    // TODO:Find better exception(s) to catch
-        //    catch (Exception e)
-        //    {
-        //        logger.Information(e, $"Return value: false");
-
-        //        return false;
-        //    }
-        //}
-
 
         /// <summary>
         /// Download a file into the local cache
         /// </summary>
         /// <param name="blobFileName">A blob file to download</param>
         /// <returns>Stream on success, null otherwise</returns>
-        public static async Task<Stream> Download(string blobFileName)
+        public static async Task<MemoryStream> Download(string blobFileName)
         {
             LogContext.PushProperty("Method", "Download");
             LogContext.PushProperty("SourceContext", "FileSharingService");
@@ -100,7 +51,7 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                Stream downloadStream = new MemoryStream();
+                MemoryStream downloadStream = new MemoryStream();
 
                 var result = await blobClient.DownloadToAsync(downloadStream);
 

@@ -245,16 +245,19 @@ namespace Messenger.Helpers.MessageHelpers
 
             foreach (string[] blobData in data)
             {
-                string fileName = blobData[0];
-                string fileType = blobData[1];
-                string uploaderId = blobData[2];
-
-                attachmentsList.Add(new Attachment()
+                if (blobData.Length >= 3)
                 {
-                    FileName = fileName,
-                    FileType = fileType,
-                    UploaderId = uploaderId
-                });
+                    string fileName = blobData[0];
+                    string fileType = blobData[1];
+                    string uploaderId = blobData[2];
+
+                    attachmentsList.Add(new Attachment()
+                    {
+                        FileName = fileName,
+                        FileType = fileType,
+                        UploaderId = uploaderId
+                    });
+                }
             }
 
             return attachmentsList;
