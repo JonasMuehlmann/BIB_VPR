@@ -75,7 +75,7 @@ namespace Messenger.Commands.Messenger
                         .ShowAsync();
             }
         }
-
+        
         /// <summary>
         /// Safes an attachment to the local storage
         /// </summary>
