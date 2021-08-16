@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
 using Messenger.Helpers;
@@ -59,6 +60,8 @@ namespace Messenger.ViewModels.Pages
 
         public ICommand CreateTeamCommand => new CreateTeamCommand();
 
+        public ICommand ReloadCommand => new RelayCommand(Reload);
+
         #endregion
 
         public TeamNavViewModel()
@@ -95,6 +98,13 @@ namespace Messenger.ViewModels.Pages
             {
                 Teams.Add(team);
             }
+        }
+
+        private async void Reload()
+        {
+            IsBusy = true;
+
+            await CacheQuery.Reload();
         }
 
         public void OnTeamsLoaded(object sender, BroadcastArgs e)

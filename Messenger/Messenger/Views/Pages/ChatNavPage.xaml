@@ -45,7 +45,10 @@
                                 FontWeight="SemiBold"
                                 Text="{Binding Partner.Name, Mode=OneWay}"/>
                             <TextBlock
-                                Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                                Visibility="{Binding
+                                LastMessage,
+                                Converter={StaticResource NullToVisibilityConverter},
+                                Mode=OneWay}"
                                 FontSize="12"
                                 Opacity=".75">
                                 <Run
@@ -94,6 +97,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid
             Padding="32 10 20 25"
@@ -169,6 +173,24 @@
                     />
             </StackPanel>
         </ScrollViewer>
+
+        <Grid
+            Margin="10"
+            Grid.Row="2">
+            <Button
+                Command="{x:Bind
+                    ViewModel.ReloadCommand}"
+                HorizontalAlignment="Right"
+                Background="Transparent">
+                <Viewbox
+                    Width="32"
+                    Height="32">
+                    <icons:PackIconFontAwesome
+                        Kind="SyncAltSolid"
+                        />
+                </Viewbox>
+            </Button>
+        </Grid>
     </Grid>
 
     <!--#endregion-->

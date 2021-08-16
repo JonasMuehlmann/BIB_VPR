@@ -1,6 +1,7 @@
 ﻿using Messenger.Core.Models;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,21 @@ namespace Messenger.Helpers
 {
     public static class CacheQuery
     {
+        public static async Task Reload()
+        {
+            await App.StateProvider.TeamManager.LoadTeamsFromDatabase(App.StateProvider.CurrentUser);
+
+            App.EventProvider.Broadcast(
+                BroadcastOptions.TeamsLoaded,
+                BroadcastReasons.Loaded,
+                GetMyTeams());
+
+            App.EventProvider.Broadcast(
+                BroadcastOptions.ChatsLoaded,
+                BroadcastReasons.Loaded,
+                GetMyChats());
+        }
+
         public static bool IsChannelOf<T>(ChannelViewModel viewModel)
         {
             Type type = typeof(T);

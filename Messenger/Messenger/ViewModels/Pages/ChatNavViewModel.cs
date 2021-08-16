@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
 using Messenger.Helpers;
@@ -55,6 +56,8 @@ namespace Messenger.ViewModels.Pages
 
         public ICommand StartChatCommand => new StartChatCommand();
 
+        public ICommand ReloadCommand => new RelayCommand(Reload);
+
         #endregion
 
         public ChatNavViewModel()
@@ -90,6 +93,13 @@ namespace Messenger.ViewModels.Pages
             {
                 Chats.Add(chat);
             }
+        }
+
+        private async void Reload()
+        {
+            IsBusy = true;
+
+            await CacheQuery.Reload();
         }
 
         public void OnChatsLoaded(object sender, BroadcastArgs e)
