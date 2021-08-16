@@ -67,6 +67,8 @@ namespace Messenger.ViewModels.Pages
 
         public ICommand UpdateUserBioCommand { get => new UpdateUserBioCommand(); }
 
+        public ICommand UpdateUsernameCommand { get => new UpdateUserNameCommand(); }
+
         public ICommand NavigateBackCommand => new RelayCommand(() => NavigationService.GoBack());
 
         public UserViewModel User
