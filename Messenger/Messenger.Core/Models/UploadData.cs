@@ -15,5 +15,10 @@ namespace Messenger.Core.Models
             StreamFile = streamFile;
             FilePath = filePath;
         }
+
+        public override string ToString()
+        {
+            return $"UploadData: StreamFile={StreamFile}, FilePath={FilePath}";
+        }
     }
 }
