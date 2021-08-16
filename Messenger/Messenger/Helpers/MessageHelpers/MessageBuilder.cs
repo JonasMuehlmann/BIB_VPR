@@ -260,6 +260,36 @@ namespace Messenger.Helpers.MessageHelpers
             return attachmentsList;
         }
 
+        public static string ToBlobName(this Attachment attachment)
+        {
+            if (attachment == null)
+            {
+                return string.Empty;
+            }
+
+            string blobName = string.Join('.', attachment.FileName, attachment.FileType, attachment.UploaderId);
+
+            return blobName;
+        }
+
+        public static IEnumerable<string> ToBlobNames(this List<Attachment> attachments)
+        {
+            if (attachments == null || attachments.Count() <= 0)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            List<string> blobNamesList = new List<string>();
+
+            foreach (Attachment attachment in attachments)
+            {
+                string blobName = string.Join('.', attachment.FileName, attachment.FileType, attachment.UploaderId);
+                blobNamesList.Add(blobName);
+            }
+
+            return blobNamesList;
+        }
+
         #endregion
     }
 }
