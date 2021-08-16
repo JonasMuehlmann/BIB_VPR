@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
+using System.IO;
 
 namespace Messenger.Core.Services
 {
@@ -126,15 +127,17 @@ namespace Messenger.Core.Services
             }
 
             // Upload attachments
-            if (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count > 0)
+            var blobNames = new List<string>();
+            if (message.UploadFileData != null && message.UploadFileData.Count > 0)
             {
-                foreach (var attachment in message.AttachmentsBlobName)
+                foreach (UploadData file in message.UploadFileData)
                 {
-                    await FileSharingService.Upload(attachment);
+                    string blob = await FileSharingService.Upload(file);
+                    blobNames.Add(blob);
                 }
             }
 
-            logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}");
+            logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFileData)}");
 
             // Save to database
             uint? id = await MessageService.CreateMessage(
@@ -142,7 +145,7 @@ namespace Messenger.Core.Services
                 message.SenderId,
                 message.Content,
                 message.ParentMessageId,
-                message.AttachmentsBlobName);
+                blobNames);
 
             if (id == null)
             {

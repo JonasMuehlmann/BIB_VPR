@@ -7,5 +7,7 @@
         public string FileType { get; set; }
 
         public string UploaderId { get; set; }
+
+        public string ToBlobName() => $"{FileName}.{FileType}.{UploaderId}";
     }
 }

@@ -1,10 +1,12 @@
 ﻿using MahApps.Metro.IconPacks;
+using Messenger.Commands.Messenger;
 using Messenger.Core.Models;
 using Messenger.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -187,6 +189,8 @@ namespace Messenger.ViewModels.DataViewModels
                 Set(ref _myReaction, value);
             }
         }
+
+        public ICommand DownloadAttachmentCommand { get => new DownloadAttachmentCommand(this); }
 
         public MessageViewModel()
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Messenger.Core.Models
 {
@@ -48,6 +49,8 @@ namespace Messenger.Core.Models
         /// </summary>
         public List<string> AttachmentsBlobName { get; set; }
 
+        public List<UploadData> UploadFileData { get; set; }
+
         /// <summary>
         /// Default initialize all members(string values get initialized to "" instead of null
         /// and Lists get initialized to an empty one instead of null)
@@ -57,6 +60,7 @@ namespace Messenger.Core.Models
             SenderId = "";
             Content = "";
             AttachmentsBlobName = new List<string>();
+            UploadFileData = new List<UploadData>();
         }
 
         public override string ToString()
