@@ -183,9 +183,8 @@
             <Button
                 x:Name="RefreshChat"
                 Style="{StaticResource NewTeamButtonStyle}"
-                
                 Grid.Row="0"
-                Margin="30 0 30 0">
+                Margin="40 5 80 2">
                 <Viewbox
                     Height="18"
                     Width="18">
@@ -193,7 +192,7 @@
                         Orientation="Horizontal">
                         <SymbolIcon
                             Symbol="RepeatAll"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             />
                     </StackPanel>
                 </Viewbox>

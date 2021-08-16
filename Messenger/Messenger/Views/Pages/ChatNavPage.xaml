@@ -142,6 +142,23 @@
                 </StackPanel>
             </Button>
         </Grid>
+        <Button
+                x:Name="RefreshChat"
+                Style="{StaticResource NewChatButtonStyle}"
+                Grid.Row="0"
+                Margin="70 0 100 10">
+            <Viewbox
+                    Height="18"
+                    Width="18">
+                <StackPanel
+                        Orientation="Horizontal">
+                    <SymbolIcon
+                            Symbol="RepeatAll"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
+                            />
+                </StackPanel>
+            </Viewbox>
+        </Button>
 
         <!-- LOADING CONTROL -->
         <subcontrols:OnLoading
