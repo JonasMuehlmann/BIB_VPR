@@ -14,6 +14,8 @@ namespace Messenger.Services.Providers
     {
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
+        private ToastNotificationsService Toast => Singleton<ToastNotificationsService>.Instance;
+
         /// <summary>
         /// Events with the payload of a list of objects
         /// Fires on 'loaded' events including:
@@ -177,6 +179,12 @@ namespace Messenger.Services.Providers
             /** ADD TO CACHE **/
             MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
 
+            /** SEND TOAST IF CHANNEL CURRENTLY NOT SELECTED **/
+            if (App.StateProvider.SelectedChannel.ChannelId != message.RecipientId)
+            {
+                Toast.ShowMessageReceived(App.StateProvider.SelectedTeam, viewModel);
+            }
+
             /** TRIGGER MESSAGE UPDATED (CREATED) **/
             Broadcast(
                 BroadcastOptions.MessageUpdated,
@@ -268,6 +276,8 @@ namespace Messenger.Services.Providers
             {
                 PrivateChatViewModel chatViewModel = await CacheQuery.AddOrUpdate<PrivateChatViewModel>(team);
 
+                Toast.ShowInvitationReceived(chatViewModel);
+
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
                     BroadcastReasons.Updated,
@@ -276,6 +286,8 @@ namespace Messenger.Services.Providers
             else
             {
                 TeamViewModel teamViewModel = await CacheQuery.AddOrUpdate<TeamViewModel>(team);
+
+                Toast.ShowInvitationReceived(teamViewModel);
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
