@@ -97,7 +97,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid
             Padding="32 10 20 25"
@@ -122,47 +121,51 @@
                 </TextBlock>
             </StackPanel>
             <!-- CREATE NEW TEAM -->
-            <Button
-                x:Name="newChat"
-                Style="{StaticResource NewChatButtonStyle}"
-                Command="{x:Bind ViewModel.StartChatCommand}">
-                <StackPanel
-                    Spacing="5"
-                    Orientation="Horizontal">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+                <Button
+                    x:Name="RefreshChat"
+                    Command="{x:Bind
+                        ViewModel.ReloadCommand}"
+                    Style="{StaticResource NewChatButtonStyle}">
                     <Viewbox
-                        Height="20"
-                        Width="20">
-                        <icons:PackIconFontAwesome
-                            Kind="CommentMedicalSolid"
-                            Foreground="{ThemeResource PrimaryAccent_A}"
-                            />
+                            Height="18"
+                            Width="18">
+                        <StackPanel
+                                Orientation="Horizontal">
+                            <SymbolIcon
+                                    Symbol="RepeatAll"
+                                    Foreground="{ThemeResource PrimaryAccent_A}"
+                                    />
+                        </StackPanel>
                     </Viewbox>
-                    <TextBlock
-                        Text="Start"
-                        FontSize="14"
-                        FontWeight="Bold"
-                        Foreground="{ThemeResource PrimaryAccent_A}"
-                        />
-                </StackPanel>
-            </Button>
-        </Grid>
-        <Button
-                x:Name="RefreshChat"
-                Style="{StaticResource NewChatButtonStyle}"
-                Grid.Row="0"
-                Margin="70 0 100 10">
-            <Viewbox
-                    Height="18"
-                    Width="18">
-                <StackPanel
+                </Button>
+                <Button
+                    x:Name="newChat"
+                    Style="{StaticResource NewChatButtonStyle}"
+                    Command="{x:Bind ViewModel.StartChatCommand}">
+                    <StackPanel
+                        Spacing="5"
                         Orientation="Horizontal">
-                    <SymbolIcon
-                            Symbol="RepeatAll"
+                        <Viewbox
+                            Height="20"
+                            Width="20">
+                            <icons:PackIconFontAwesome
+                                Kind="CommentMedicalSolid"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
+                                />
+                        </Viewbox>
+                        <TextBlock
+                            Text="Start"
+                            FontSize="14"
+                            FontWeight="Bold"
                             Foreground="{ThemeResource PrimaryAccent_A}"
                             />
-                </StackPanel>
-            </Viewbox>
-        </Button>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
 
         <!-- LOADING CONTROL -->
         <subcontrols:OnLoading
@@ -190,24 +193,6 @@
                     />
             </StackPanel>
         </ScrollViewer>
-
-        <Grid
-            Margin="10"
-            Grid.Row="2">
-            <Button
-                Command="{x:Bind
-                    ViewModel.ReloadCommand}"
-                HorizontalAlignment="Right"
-                Background="Transparent">
-                <Viewbox
-                    Width="32"
-                    Height="32">
-                    <icons:PackIconFontAwesome
-                        Kind="SyncAltSolid"
-                        />
-                </Viewbox>
-            </Button>
-        </Grid>
     </Grid>
 
     <!--#endregion-->
