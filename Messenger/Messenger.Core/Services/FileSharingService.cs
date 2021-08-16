@@ -55,7 +55,7 @@ namespace Messenger.Core.Services
 
                 var result = await blobClient.DownloadToAsync(downloadStream);
 
-                logger.Information($"Return value: {result}");
+                logger.Information($"Return value: {downloadStream}");
 
                 return downloadStream;
             }
