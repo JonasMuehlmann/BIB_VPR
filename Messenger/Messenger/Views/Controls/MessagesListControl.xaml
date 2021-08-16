@@ -23,7 +23,6 @@
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Width" Value="450" />
             <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
             <Setter Property="Margin" Value="{StaticResource MediumLeftMargin}" />
         </Style>
         <Style x:Key="HeaderPanelStyle" TargetType="StackPanel">

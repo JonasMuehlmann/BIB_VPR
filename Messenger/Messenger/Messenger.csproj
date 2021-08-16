@@ -157,6 +157,7 @@
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Commands\Messenger\DeleteMessageCommand.cs" />
     <Compile Include="Commands\Messenger\UpdateMessageCommand.cs" />
+    <Compile Include="Commands\PrivateChat\StartChatWithUserCommand.cs" />
     <Compile Include="Commands\TeamManage\UpdateTeamDetailsCommand.cs" />
     <Compile Include="Commands\TeamManage\UnassignTeamRoleCommand.cs" />
     <Compile Include="Commands\TeamManage\ChannelSwitchCommand.cs" />
@@ -217,7 +218,7 @@
       <DependentUpon>UserSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BindingHelper.cs" />
-    <Compile Include="Helpers\ColorHelper.cs" />
+    <Compile Include="Helpers\ColorExtensions.cs" />
     <Compile Include="Helpers\Converters\BooleanToAlignmentConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToGlyphConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />

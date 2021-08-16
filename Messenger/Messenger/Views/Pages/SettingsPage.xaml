@@ -7,9 +7,8 @@
     xmlns:converters="using:Messenger.Helpers.Converters" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:icons="using:MahApps.Metro.IconPacks" 
-    Style="{StaticResource PageStyle}"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:xaml="using:Windows.UI.Xaml" 
+    xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
@@ -35,7 +34,7 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch">
         <Grid
-            Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+            Background="{ThemeResource Elevation_1}"
             Padding="25">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -46,7 +45,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Command="{x:Bind ViewModel.NavigateBackCommand}"
-                Margin="0 0 0 25"
+                Margin="0 25 0 25"
                 Background="Transparent">
                 <StackPanel
                     Spacing="10"
@@ -56,7 +55,7 @@
                         Height="16">
                         <SymbolIcon
                             Symbol="Back"
-                            Foreground="{ThemeResource SystemAccentColor}"
+                            Foreground="{ThemeResource PrimaryAccent_A}"
                             />
                     </Viewbox>
                     <TextBlock
@@ -68,7 +67,7 @@
             </Button>
             <StackPanel 
                 x:Name="ContentArea"
-                Padding="25"
+                Padding="50 25"
                 Grid.Row="1">
                 <TextBlock 
                     Text="Settings" 
@@ -80,16 +79,16 @@
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Center">
                     <TextBlock 
-                    Text="Logged in as" 
-                    Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        Text="Logged in as" 
+                        Style="{ThemeResource SubtitleTextBlockStyle}" />
                     <Button 
-                    HorizontalAlignment="Right" 
-                    Content="Log out" 
-                    Padding="25 7" 
-                    Command="{x:Bind ViewModel.LogoutCommand}" 
-                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
-                    Foreground="IndianRed" 
-                    />
+                        HorizontalAlignment="Right" 
+                        Content="Log out" 
+                        Padding="25 7" 
+                        Command="{x:Bind ViewModel.LogoutCommand}" 
+                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
+                        Foreground="IndianRed" 
+                        />
                 </Grid>
 
                 <StackPanel 
@@ -121,28 +120,27 @@
                             </TextBlock>
 
                             <TextBlock 
-                            Text="{Binding ViewModel.User.Mail, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            FontSize="14" 
-                            MinWidth="100" 
-                            Opacity=".75" 
-                            />
+                                Text="{Binding ViewModel.User.Mail, ElementName=settingsPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                FontSize="14" 
+                                MinWidth="100" 
+                                Opacity=".75" 
+                                />
+                            <TextBox 
+                                x:Name="UserNametbx" 
+                                Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" 
+                                Visibility="Collapsed" 
+                                KeyDown="UserNametbx_KeyDown" 
+                                />
                         </StackPanel>
-                        <TextBox 
-                        x:Name="UserNametbx" 
-                        MinWidth="200" 
-                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" 
-                        Visibility="Collapsed" 
-                        KeyDown="UserNametbx_KeyDown" 
-                        />
                         <Button 
-                        FontFamily="Segoe MDL2 Assets" 
-                        FontSize="14" 
-                        Content="&#xE70F;" 
-                        Background="Transparent" 
-                        VerticalAlignment="Top" 
-                        BorderBrush="Transparent" 
-                        Click="EditButton_Click" 
-                        />
+                            FontFamily="Segoe MDL2 Assets" 
+                            FontSize="14" 
+                            Content="&#xE70F;" 
+                            Background="Transparent" 
+                            VerticalAlignment="Top" 
+                            BorderBrush="Transparent" 
+                            Click="EditButton_Click" 
+                            />
                     </StackPanel>
                 </StackPanel>
                 <Grid 
@@ -158,7 +156,7 @@
                     CornerRadius="3" 
                     Tapped="EditButton_Tapped"
                     Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" 
-                    Foreground="{ThemeResource SystemAccentColor}">
+                    Foreground="{ThemeResource PrimaryAccent_A}">
                         <StackPanel 
                         Orientation="Horizontal" 
                         VerticalAlignment="Center" 
@@ -211,7 +209,7 @@
                             Style="{StaticResource ActionButtonStyle}" 
                             Icon="Accept" 
                             Label="Accept" 
-                            Foreground="{ThemeResource SystemAccentColor}" 
+                            Foreground="{ThemeResource PrimaryAccent_A}" 
                             Tapped="EditAcceptButton_Tapped"
                             />
                             <AppBarButton 
@@ -219,7 +217,7 @@
                             Name="EditCancelButton" 
                             Icon="Cancel" 
                             Label="Cancel" 
-                            Foreground="{ThemeResource SystemAccentColorDark1}" 
+                            Foreground="IndianRed" 
                             Tapped="EditCancelButton_Tapped" 
                             />
                         </CommandBar>
@@ -240,7 +238,7 @@
                         Height="32">
                             <icons:PackIconFontAwesome 
                             Kind="QuestionCircleRegular" 
-                            Foreground="{ThemeResource SystemAccentColor}" 
+                            Foreground="{ThemeResource PrimaryAccent_A}" 
                             />
                         </Viewbox>
                         <TextBlock 
@@ -248,7 +246,7 @@
                         Opacity=".75" 
                         />
                         <Button 
-                        Background="{ThemeResource SystemAccentColor}" 
+                        Background="{ThemeResource PrimaryAccent_A}" 
                         Foreground="{ThemeResource SystemChromeWhiteColor}" 
                         FontWeight="SemiBold" 
                         HorizontalAlignment="Center" 
@@ -297,31 +295,51 @@
                                 x:Name="ThemeFlyout">
                                     <Flyout.FlyoutPresenterStyle>
                                         <Style TargetType="FlyoutPresenter">
-                                            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
+                                            <Setter Property="Background" Value="{ThemeResource Elevation_2}" />
                                             <Setter Property="CornerRadius" Value="3" />
                                         </Style>
                                     </Flyout.FlyoutPresenterStyle>
                                     <GridView 
-                                    x:Name="ThemeGridView" 
-                                    SelectionChanged="GridView_SelectionChanged" 
-                                    SingleSelectionFollowsFocus="False" 
-                                    SelectionMode="Single" 
-                                    Padding="0">
+                                        x:Name="ThemeGridView" 
+                                        SelectionChanged="GridView_SelectionChanged" 
+                                        SingleSelectionFollowsFocus="False" 
+                                        SelectionMode="Single"
+                                        Padding="0">
                                         <GridViewItem 
-                                        Tag="Light">
-                                            <Rectangle 
-                                            Fill="WhiteSmoke" 
-                                            Width="30" 
-                                            Height="30" 
-                                            />
+                                            Tag="Light">
+                                            <Grid>
+                                                <Rectangle 
+                                                    Fill="WhiteSmoke" 
+                                                    Width="45" 
+                                                    Height="45" 
+                                                    />
+                                                <TextBlock
+                                                    Text="Light"
+                                                    FontSize="12"
+                                                    FontWeight="ExtraBold"
+                                                    TextAlignment="Center"
+                                                    Foreground="Black"
+                                                    VerticalAlignment="Center"
+                                                    />
+                                            </Grid>
                                         </GridViewItem>
                                         <GridViewItem 
-                                        Tag="Dark">
-                                            <Rectangle 
-                                            Fill="#303030" 
-                                            Width="30" 
-                                            Height="30" 
-                                            />
+                                            Tag="Dark">
+                                            <Grid>
+                                                <Rectangle 
+                                                    Fill="Black" 
+                                                    Width="45" 
+                                                    Height="45"
+                                                    />
+                                                <TextBlock
+                                                    Text="Dark"
+                                                    Foreground="White"
+                                                    FontSize="12"
+                                                    FontWeight="ExtraBold"
+                                                    TextAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    />
+                                            </Grid>
                                         </GridViewItem>
                                         <GridView.ItemContainerStyle>
                                             <Style TargetType="GridViewItem">

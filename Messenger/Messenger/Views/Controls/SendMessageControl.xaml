@@ -35,7 +35,6 @@
             <Setter Property="FontSize" Value="16" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="CornerRadius" Value="5" />
-            <Setter Property="Background" Value="{ThemeResource AppBarItemBackgroundThemeBrush}" />
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
         <Style x:Key="IconButton" TargetType="Button">
@@ -91,13 +90,14 @@
             <Button
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Background="Transparent">
+                Background="Transparent"
+                Tapped="RemoveReply_Tapped">
                 <Viewbox
                     Height="15"
                     Opacity=".55">
                     <icons:PathIconFontAwesome
                         Kind="BackspaceSolid"
-                        Foreground="{ThemeResource SystemAccentColor}"
+                        Foreground="{ThemeResource PrimaryAccent_A}"
                         />
                 </Viewbox>
             </Button>
@@ -108,7 +108,7 @@
             <TextBox
                 Name="tbxContent"
                 Style="{StaticResource MessageContent}"
-                Background="{ThemeResource SystemAccentColorLight1}"
+                Background="{ThemeResource Elevation_2}"
                 PlaceholderText="Write something..."
                 PreviewKeyDown="tbxContent_PreviewKeyDown"
                 Text="{x:Bind
