@@ -6,8 +6,10 @@ using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
+using System.IO;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace Messenger.Commands.Messenger
 {
@@ -43,13 +45,25 @@ namespace Messenger.Commands.Messenger
                 Attachment target = parameter as Attachment;
                 string destinationDirectory = UserDataPaths.GetDefault().Downloads;
 
-                bool success = await FileSharingService.Download(target.ToBlobName(), destinationDirectory);
+                var folderPicker = new FolderPicker();
+                folderPicker.SuggestedStartLocation = PickerLocationId.Downloads;
+                folderPicker.FileTypeFilter.Add("*");
 
-                if (success)
+                StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+                if (folder != null)
                 {
+                    // Application now has read/write access to all contents in the picked folder
+                    // (including other sub-folder contents)
+                    Windows.Storage.AccessCache.StorageApplicationPermissions.
+                    FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+
+                    MemoryStream outP = await FileSharingService.Download(target.ToBlobName());
+                    SaveToStorage(outP, target.FileName+"."+target.FileType, folder);
                     await ResultConfirmationDialog
-                        .Set(true, $"Download successful (Path: {destinationDirectory}")
-                        .ShowAsync();
+                       .Set(true, $"Download successful (Path: {destinationDirectory}")
+                       .ShowAsync();
+
+                    return;
                 }
 
             }
@@ -59,6 +73,25 @@ namespace Messenger.Commands.Messenger
                 await ResultConfirmationDialog
                         .Set(false, $"Download failed. Try again.")
                         .ShowAsync();
+            }
+        }
+        
+        /// <summary>
+        /// Safes an attachment to the local storage
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="filename"></param>
+        /// <param name="folder"></param>
+        /// <return></return>
+        public async void SaveToStorage(MemoryStream stream, string filename, StorageFolder folder)
+        {
+            //var localFolder = ApplicationData.Current.LocalFolder;
+            var storageFile = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+
+            using (Stream x = await storageFile.OpenStreamForWriteAsync())
+            {
+                x.Seek(0, SeekOrigin.Begin);
+                stream.WriteTo(x);
             }
         }
     }
