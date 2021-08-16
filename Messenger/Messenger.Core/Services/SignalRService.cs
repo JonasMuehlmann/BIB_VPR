@@ -202,7 +202,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameter message={message}");
 
-            message.UploadFileData.Clear();
+            message.UploadFileData = null;
 
             await _connection.SendAsync("SendMessage", message, teamId.ToString());
 

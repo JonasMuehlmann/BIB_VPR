@@ -18,4 +18,8 @@
      <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
    </ItemGroup>
+
+   <ItemGroup>
+     <Folder Include="Properties\" />
+   </ItemGroup>
 </Project>

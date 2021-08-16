@@ -25,7 +25,7 @@ namespace Messenger.Core.Services
         /// <returns>BlobContainerClient object with established connection</returns>
         private static BlobContainerClient ConnectToContainer()
         {
-            LogContext.PushProperty("Method","ConnectToContainer");
+            LogContext.PushProperty("Method", "ConnectToContainer");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called");
 
@@ -41,7 +41,7 @@ namespace Messenger.Core.Services
         /// <returns>True on success, false otherwise</returns>
         public static async Task<bool> Download(string blobFileName, string destinationDirectory = "")
         {
-            LogContext.PushProperty("Method","Download");
+            LogContext.PushProperty("Method", "Download");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters  blobFileName={blobFileName}, destinationDirectory={destinationDirectory}");
 
@@ -74,7 +74,7 @@ namespace Messenger.Core.Services
                 return true;
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: false");
 
@@ -89,7 +89,7 @@ namespace Messenger.Core.Services
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public static async Task<string> Upload(UploadData uploadFile)
         {
-            LogContext.PushProperty("Method","Upload");
+            LogContext.PushProperty("Method", "Upload");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters filePath={uploadFile.FilePath}");
 
@@ -106,17 +106,12 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
+                await blobClient.UploadAsync(uploadFile.StreamFile, true);
 
-                // Read and upload file
-                //using (FileStream uploadFileStream = File.OpenRead(filePath))
-                //{
-                    await blobClient.UploadAsync(uploadFile.StreamFile, true);
-
-                    return blobFileName;
-                //}
+                return blobFileName;
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: null");
 
@@ -132,7 +127,7 @@ namespace Messenger.Core.Services
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public static async Task<string> UploadFromBase64(string data, string fileName)
         {
-            LogContext.PushProperty("Method","UploadFromBase64");
+            LogContext.PushProperty("Method", "UploadFromBase64");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters data={data.Substring(0, 20)}, fileName={fileName}");
 
@@ -160,7 +155,7 @@ namespace Messenger.Core.Services
                 }
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: null");
 
@@ -175,7 +170,7 @@ namespace Messenger.Core.Services
         /// <returns>true if successfully deleted, false otherwise</returns>
         public static async Task<bool> Delete(string blobFileName)
         {
-            LogContext.PushProperty("Method","Delete");
+            LogContext.PushProperty("Method", "Delete");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters blobFileName={blobFileName}");
 
@@ -186,11 +181,11 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                    // Read and upload file
-                    return await blobClient.DeleteIfExistsAsync();
+                // Read and upload file
+                return await blobClient.DeleteIfExistsAsync();
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: null");
 

@@ -58,7 +58,8 @@ namespace Messenger.Commands.Messenger
                     _viewModel.MessageToSend.UploadFileData.Clear();
                     foreach (StorageFile file in files)
                     {
-                        _viewModel.MessageToSend.UploadFileData.Add(new Core.Models.UploadData((await file.OpenReadAsync()).AsStream(), file.Path));
+                        var str = new Core.Models.UploadData((await file.OpenReadAsync()).AsStream(),file.Path);
+                        _viewModel.MessageToSend.UploadFileData.Add(str);
                     }
                 }
             }
