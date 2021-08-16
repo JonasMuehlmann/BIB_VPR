@@ -1,6 +1,5 @@
 namespace Messenger.Core.Models
 {
-
     /// <summary>
     /// The source code side representation of a team's channel
     /// </summary>
