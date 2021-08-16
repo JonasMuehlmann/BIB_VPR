@@ -98,6 +98,8 @@ namespace Messenger.ViewModels.Pages
         /// </summary>
         private async void Initialize()
         {
+            if (Chats != null) return;
+
             IsBusy = true;
             Chats = new ObservableCollection<PrivateChatViewModel>();
 
