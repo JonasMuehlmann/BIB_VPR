@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
+using System.IO;
 
 namespace Messenger.Core.Services
 {
