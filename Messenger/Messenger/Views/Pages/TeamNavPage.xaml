@@ -173,6 +173,24 @@
                     </StackPanel>
                 </Viewbox>
             </Button>
+            <Button
+                x:Name="RefreshChat"
+                Style="{StaticResource NewTeamButtonStyle}"
+                
+                Grid.Row="0"
+                Margin="30 0 30 0">
+                <Viewbox
+                    Height="18"
+                    Width="18">
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <SymbolIcon
+                            Symbol="RepeatAll"
+                            Foreground="{ThemeResource SystemAccentColor}"
+                            />
+                    </StackPanel>
+                </Viewbox>
+            </Button>
         </Grid>
         
         <!-- LOADING CONTROL -->
