@@ -1,4 +1,4 @@
-﻿using Messenger.Core.Helpers;
+using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
 using System.IO;

@@ -76,6 +76,7 @@
     <ScrollViewer>
         <!-- MESSAGES LIST -->
         <ListView
+            x:Name="messagesListView"
             SelectionMode="None"
             HorizontalAlignment="Stretch"
             Padding="0 0 75 0"
