@@ -234,7 +234,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Add a reaction to a message and notify other clients
+        /// Add a reaction to a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to add a reaction to</param>
         /// <param name="userId">The id of the user making the reaction</param>
@@ -267,7 +267,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Remove a reaction from a message and notify other clients
+        /// Remove a reaction from a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
         /// <param name="userId">The id of the user whose reaction to remove</param>
@@ -446,7 +446,7 @@ namespace Messenger.Core.Services
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if the team was successfully deleted, false otherwise</returns>
+        /// <returns>The deleted Team on success, null otherwise</returns>
         public static async Task<Team> DeleteTeam(uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
@@ -462,9 +462,18 @@ namespace Messenger.Core.Services
 
             await SignalRService.DeleteTeam(team);
 
-            logger.Information($"Return value: {result}");
+            if (result)
+            {
+                logger.Information($"Return value: {team}");
 
-            return team;
+                return team;
+            }
+            else
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
         }
 
         /// <summary>
