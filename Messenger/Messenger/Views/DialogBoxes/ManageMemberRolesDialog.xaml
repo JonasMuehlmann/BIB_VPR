@@ -12,7 +12,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:converters="using:Messenger.Helpers.Converters"
-    Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+    Background="{ThemeResource Elevation_1}"
     CornerRadius="3"
     mc:Ignorable="d">
     <ContentDialog.Resources>
@@ -120,7 +120,7 @@
                 <StackPanel
                     Padding="0 20 0 0"
                     CornerRadius="5"
-                    Background="{ThemeResource SystemAccentColorLight1}">
+                    Background="{ThemeResource Elevation_2}">
                     <TextBlock
                         Padding="0 0 0 20"
                         Visibility="{Binding
@@ -270,7 +270,7 @@
                 <StackPanel
                     Padding="0 20 0 0"
                     CornerRadius="5"
-                    Background="{ThemeResource SystemAccentColorLight1}">
+                    Background="{ThemeResource Elevation_2}">
                     <TextBlock
                         Padding="0 0 0 20"
                         Visibility="{Binding
@@ -373,7 +373,7 @@
                             HorizontalAlignment="Stretch"
                             Content="Assign this role"
                             FontWeight="SemiBold"
-                            Background="{ThemeResource SystemAccentColor}"
+                            Background="{ThemeResource PrimaryAccent_A}"
                             />
                     </StackPanel>
                 </StackPanel>

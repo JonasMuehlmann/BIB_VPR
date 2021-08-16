@@ -5,11 +5,8 @@ using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Services.Providers
 {
@@ -65,6 +62,7 @@ namespace Messenger.Services.Providers
         private void SubscribeEvents()
         {
             SignalRService.ReceiveMessage += OnReceiveMessage;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
             SignalRService.MessageUpdated += OnMessageUpdated;
             SignalRService.MessageDeleted += OnMessageDeleted;
             SignalRService.MessageReactionsUpdated += OnMessageReactionsUpdated;
@@ -80,6 +78,7 @@ namespace Messenger.Services.Providers
             SignalRService.MemberUpdated += OnMemberUpdated;
             SignalRService.MemberRemoved += OnMemberRemoved;
             SignalRService.UserUpdated += OnUserUpdated;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
         }
 
         /// <summary>
@@ -271,7 +270,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     chatViewModel);
             }
             else
@@ -280,7 +279,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     teamViewModel);
             }
         }
@@ -323,10 +322,14 @@ namespace Messenger.Services.Providers
             }
 
             Team team = e.Value;
+            bool isPrivateChat = string.IsNullOrEmpty(team.Name);
 
-            if (string.IsNullOrEmpty(team.Name))
+            if (isPrivateChat)
             {
+                /** ADD PRIVATE CHAT TO CACHE **/
                 PrivateChatViewModel chatViewModel = await CacheQuery.AddOrUpdate<PrivateChatViewModel>(team);
+
+                UpdateSelectedTeam(chatViewModel);
 
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
@@ -335,13 +338,17 @@ namespace Messenger.Services.Providers
             }
             else
             {
+                /** ADD TEAM TO CACHE **/
                 TeamViewModel teamViewModel = await CacheQuery.AddOrUpdate<TeamViewModel>(team);
+
+                UpdateSelectedTeam(teamViewModel);
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
                     BroadcastReasons.Updated,
                     teamViewModel);
             }
+
         }
 
         private void OnTeamDeleted(object sender, SignalREventArgs<Team> e)
@@ -370,7 +377,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Deleted,
                     teamViewModel);
             }
         }
@@ -391,6 +398,8 @@ namespace Messenger.Services.Providers
 
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>(teamRoleViewModel.TeamId);
 
+            UpdateSelectedTeam(teamViewModel);
+
             Broadcast(
                 BroadcastOptions.TeamUpdated,
                 BroadcastReasons.Updated,
@@ -408,6 +417,8 @@ namespace Messenger.Services.Providers
             TeamRoleViewModel teamRoleViewModel = CacheQuery.Remove<TeamRoleViewModel>(teamRole.Id);
 
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>(teamRoleViewModel.TeamId);
+
+            UpdateSelectedTeam(teamViewModel);
 
             Broadcast(
                 BroadcastOptions.TeamUpdated,
@@ -455,6 +466,12 @@ namespace Messenger.Services.Providers
 
             /** ADD OR UPDATE TO CACHE **/
             ChannelViewModel viewModel = await CacheQuery.AddOrUpdate<ChannelViewModel>(channel);
+
+            /** UPDATE STATE IF SELECTED **/
+            if (App.StateProvider.SelectedChannel.ChannelId == viewModel.ChannelId)
+            {
+                App.StateProvider.SelectedChannel = viewModel;
+            }
 
             /** TRIGGER CHANNEL UPDATED (UPDATED) **/
             Broadcast(
@@ -506,10 +523,12 @@ namespace Messenger.Services.Providers
             MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>((uint)team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
 
+            UpdateSelectedTeam(teamViewModel);
+
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
                 BroadcastOptions.TeamUpdated,
-                BroadcastReasons.Created,
+                BroadcastReasons.Updated,
                 teamViewModel);
         }
 
@@ -529,6 +548,8 @@ namespace Messenger.Services.Providers
 
             MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
+
+            UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
@@ -551,8 +572,10 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user);
+            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user.Id);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
+
+            UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
@@ -577,6 +600,23 @@ namespace Messenger.Services.Providers
                 BroadcastOptions.UserUpdated,
                 BroadcastReasons.Updated,
                 user);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private void UpdateSelectedTeam(TeamViewModel updatedViewModel)
+        {
+            TeamViewModel currentTeam = App.StateProvider.SelectedTeam;
+
+            if (currentTeam != null && currentTeam.Id == updatedViewModel.Id)
+            {
+                ChannelViewModel currentChannel = App.StateProvider.SelectedChannel;
+
+                App.StateProvider.SelectedTeam = updatedViewModel;
+                App.StateProvider.SelectedChannel = updatedViewModel.Channels.SingleOrDefault(c => c.ChannelId == currentChannel.ChannelId);
+            }
         }
 
         #endregion

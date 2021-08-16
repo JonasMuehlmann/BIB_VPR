@@ -170,7 +170,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
-            var result = await MessageService.DeleteMessage(messageId);
+            var result = true;
 
             var message = await MessageService.GetMessage(messageId);
 
@@ -186,6 +186,8 @@ namespace Messenger.Core.Services
             }
 
             await SignalRService.DeleteMessage(message, teamId);
+
+            result &= await MessageService.DeleteMessage(messageId);
 
             logger.Information($"Return value: {result}");
 
@@ -403,8 +405,9 @@ namespace Messenger.Core.Services
 
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={teamId.Value}");
 
-            await SignalRService.CreateTeam(team);
+
             await SignalRService.JoinTeam(creatorId, team.Id.ToString());
+            await SignalRService.CreateTeam(team);
 
             logger.Information($"Joined the hub of the team identified by {teamId}");
 

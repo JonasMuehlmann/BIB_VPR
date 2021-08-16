@@ -19,8 +19,7 @@ namespace Messenger.Helpers.Converters
 
             if (!isNull)
             {
-                emptyString = value is string
-                    && string.IsNullOrEmpty((string)value);
+                emptyString = string.IsNullOrEmpty(value.ToString());
 
                 emptyList = value is IList
                     && (value as IList).Count <= 0;

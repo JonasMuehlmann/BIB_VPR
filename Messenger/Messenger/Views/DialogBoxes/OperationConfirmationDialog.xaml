@@ -6,7 +6,7 @@
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+    Background="{ThemeResource Elevation_1}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

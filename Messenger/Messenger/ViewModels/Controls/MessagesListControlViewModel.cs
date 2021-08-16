@@ -1,4 +1,5 @@
-﻿using Messenger.Commands.Messenger;
+using Messenger.Commands.Messenger;
+using Messenger.Commands.TeamManage;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
@@ -39,26 +40,38 @@ namespace Messenger.ViewModels.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Initializes the view model with messages list
+        /// </summary>
         private void Initialize()
         {
             Messages = new ObservableCollection<MessageViewModel>();
 
-            /** LOAD FROM CACHE **/
             if (App.StateProvider != null)
             {
-                if (CacheQuery.TryGetMessages(
-                        ParentViewModel.SelectedChannel.ChannelId,
-                        out ObservableCollection<MessageViewModel> messages))
-                {
-                    Messages.Clear();
+                LoadFromCache();
+            }
+        }
 
-                    foreach (MessageViewModel message in messages)
-                    {
-                        Messages.Add(message);
-                    }
+        /// <summary>
+        /// Loads the messages from the cache
+        /// </summary>
+        private void LoadFromCache()
+        {
+            if (CacheQuery.TryGetMessages(
+                        App.StateProvider.SelectedChannel.ChannelId,
+                        out ObservableCollection<MessageViewModel> messages))
+            {
+                Messages.Clear();
+
+                foreach (MessageViewModel message in messages)
+                {
+                    Messages.Add(message);
                 }
             }
         }
+
+        #region Events
 
         public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
@@ -68,7 +81,10 @@ namespace Messenger.ViewModels.Controls
 
             if (e.Reason == BroadcastReasons.Created)
             {
-                Messages.Add(message);
+                if (!message.IsReply)
+                {
+                    Messages.Add(message);
+                }
             }
             else if (e.Reason == BroadcastReasons.Updated)
             {
@@ -83,11 +99,14 @@ namespace Messenger.ViewModels.Controls
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                MessageViewModel target = Messages.Single(m => m.Id == message.Id);
-
-                if (target != null)
+                if (!message.IsReply )
                 {
-                    Messages.Remove(target);
+                    MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+
+                    if (target != null)
+                    {
+                        Messages.Remove(target);
+                    }
                 }
             }
         }
@@ -106,5 +125,7 @@ namespace Messenger.ViewModels.Controls
                 }
             }
         }
+
+        #endregion
     }
 }

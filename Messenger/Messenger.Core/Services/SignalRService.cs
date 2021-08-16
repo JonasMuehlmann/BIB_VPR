@@ -157,7 +157,7 @@ namespace Messenger.Core.Services
 
             try
             {
-                await _connection.SendAsync("JoinTeam", userId, teamId);
+                await _connection.InvokeAsync("JoinTeam", userId, teamId);
 
                 logger.Information($"Adding the current user to the hub group with the name {teamId}");
             }
