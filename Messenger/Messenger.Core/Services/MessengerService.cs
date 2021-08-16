@@ -127,16 +127,16 @@ namespace Messenger.Core.Services
 
             // Upload attachments
             var blobNames = new List<string>();
-            if (message.UploadFilePaths != null && message.UploadFilePaths.Count > 0)
+            if (message.UploadFileData != null && message.UploadFileData.Count > 0)
             {
-                foreach (var path in message.UploadFilePaths)
+                foreach (UploadData file in message.UploadFileData)
                 {
-                    string blob = await FileSharingService.Upload(path);
+                    string blob = await FileSharingService.Upload(file);
                     blobNames.Add(blob);
                 }
             }
 
-            logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFilePaths)}");
+            logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFileData)}");
 
             // Save to database
             uint? id = await MessageService.CreateMessage(

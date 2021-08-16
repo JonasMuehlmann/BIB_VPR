@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System;
 using Serilog;
 using Serilog.Context;
-
+using Messenger.Core.Models;
 
 namespace Messenger.Core.Services
 {
@@ -87,18 +87,18 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="filePath">A path to a file to upload</param>
         /// <returns>The name of the blob file on success, null otherwise</returns>
-        public static async Task<string> Upload(string filePath)
+        public static async Task<string> Upload(UploadData uploadFile)
         {
             LogContext.PushProperty("Method","Upload");
             LogContext.PushProperty("SourceContext", "FileSharingService");
-            logger.Information($"Function called with parameters filePath={filePath}");
+            logger.Information($"Function called with parameters filePath={uploadFile.FilePath}");
 
             // Adding GUID for deduplication
-            string blobFileName = Path.GetFileNameWithoutExtension(filePath)
-                                + Path.GetExtension(filePath)
+            string blobFileName = Path.GetFileNameWithoutExtension(uploadFile.FilePath)
+                                + Path.GetExtension(uploadFile.FilePath)
                                 + "." + Guid.NewGuid().ToString();
 
-            logger.Information($"set blobFileName to {blobFileName} from filePath={filePath}");
+            logger.Information($"set blobFileName to {blobFileName} from filePath={uploadFile.FilePath}");
 
             try
             {
@@ -106,13 +106,14 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
+
                 // Read and upload file
-                using (FileStream uploadFileStream = File.OpenRead(Path.GetFullPath(filePath)))
-                {
-                    await blobClient.UploadAsync(uploadFileStream, true);
+                //using (FileStream uploadFileStream = File.OpenRead(filePath))
+                //{
+                    await blobClient.UploadAsync(uploadFile.StreamFile, true);
 
                     return blobFileName;
-                }
+                //}
             }
             // TODO:Find better exception(s) to catch
             catch(Exception e)

@@ -202,6 +202,8 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameter message={message}");
 
+            message.UploadFileData.Clear();
+
             await _connection.SendAsync("SendMessage", message, teamId.ToString());
 
             logger.Information($"Sent message #{message.Id} to the channel #{message.RecipientId}");

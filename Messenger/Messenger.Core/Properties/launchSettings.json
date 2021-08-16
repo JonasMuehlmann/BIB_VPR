@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Messenger.Core": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "BIB_VPR_CON_STRING_TEST": "Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database_test;Persist Security Info=False;User ID=pbt3h19a;Password=o)}@}x9SfA!M=:&Rr3-A;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+        "BIB_VPR_CON_STRING_PROD": "Server=tcp:bib-vpr.database.windows.net,1433;Initial Catalog=vpr_messenger_database;Persist Security Info=False;User ID=pbt3h19a;Password=o)}@}x9SfA!M=:&Rr3-A;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      }
+    }
+  }
+}

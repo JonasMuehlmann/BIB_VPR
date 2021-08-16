@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Messenger.Core.Models
 {
@@ -30,14 +31,14 @@ namespace Messenger.Core.Models
 
         public List<string> AttachmentsBlobName { get; set; }
 
-        public List<string> UploadFilePaths { get; set; }
+        public List<UploadData> UploadFileData { get; set; }
 
         public Message()
         {
             SenderId = "";
             Content = "";
             AttachmentsBlobName = new List<string>();
-            UploadFilePaths = new List<string>();
+            UploadFileData = new List<UploadData>();
         }
 
         public override string ToString()

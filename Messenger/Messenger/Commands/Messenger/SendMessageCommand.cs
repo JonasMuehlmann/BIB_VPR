@@ -55,7 +55,8 @@ namespace Messenger.Commands.Messenger
                 message.SenderId = App.StateProvider.CurrentUser.Id;
                 message.RecipientId = App.StateProvider.SelectedChannel.ChannelId;
 
-                bool success = await MessengerService.SendMessage(_viewModel.MessageToSend, team.Id);
+                bool success = await MessengerService.SendMessage(message, team.Id);
+                //bool success = await MessengerService.SendMessage(_viewModel.MessageToSend, team.Id);
 
                 if (success)
                 {

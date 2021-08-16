@@ -4,6 +4,7 @@ using Messenger.ViewModels.Pages;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Windows.Storage;
@@ -49,10 +50,16 @@ namespace Messenger.Commands.Messenger
 
                 if (files.Count > 0)
                 {
-                    var attachmentPaths = files.Select(f => f.Path).ToList();
 
-                    // Sets the models in the view model
-                    _viewModel.MessageToSend.AttachmentsBlobName = attachmentPaths;
+                    //var attachmentPaths = files.Select(f => f.Path).ToList();
+
+                    //// Sets the models in the view model
+                    //_viewModel.MessageToSend.UploadFileData = attachmentPaths;
+                    _viewModel.MessageToSend.UploadFileData.Clear();
+                    foreach (StorageFile file in files)
+                    {
+                        _viewModel.MessageToSend.UploadFileData.Add(new Core.Models.UploadData((await file.OpenReadAsync()).AsStream(), file.Path));
+                    }
                 }
             }
             catch (Exception e)
