@@ -79,6 +79,18 @@ namespace Messenger.Helpers
                     target = allChannels.Single(channel => channel.ChannelId == (uint)parameters.First());
                 }
             }
+            else if (IsTypeOf<MemberViewModel>(type))
+            {
+                if (parameters.Length == 2)
+                {
+                    uint teamId = (uint)parameters[0];
+                    string userId = parameters[1].ToString();
+
+                    TeamViewModel targetTeam = teamManager.MyTeams.SingleOrDefault(team => team.Id == teamId);
+
+                    target = targetTeam.Members.SingleOrDefault(m => m.Id == userId);
+                }
+            }
 
             return (T)Convert.ChangeType(target, type);
         }

@@ -9,13 +9,17 @@
     xmlns:vm="using:Messenger.ViewModels.DataViewModels"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Messenger.Helpers.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid
-        Padding="5"
-        MinWidth="275"
-        MaxWidth="375">
+        Padding="10 5 20 5"
+        MinWidth="300"
+        MaxWidth="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -36,10 +40,11 @@
             <Viewbox
                 Grid.Row="0"
                 Grid.Column="0"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Width="40"
                 Height="40"
-                Margin="0 0 15 0">
+                Margin="0 5 15 0">
                 <icons:PackIconFontAwesome
                     Kind="UserCircleSolid"
                     />
@@ -49,6 +54,9 @@
                 Grid.Column="1"
                 Spacing="5">
                 <StackPanel
+                    Spacing="10"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
                     Margin="0 0 0 5">
                     <TextBlock
                         FontWeight="SemiBold"
@@ -58,48 +66,113 @@
                             Mode=OneWay}"
                         />
                     <TextBlock
-                        FontSize="14"
-                        Opacity=".55"
-                        Text="{x:Bind
-                            Member.Mail,
-                            Mode=OneWay}"
-                        />
+                        FontSize="24"
+                        CharacterSpacing="-150"
+                        Foreground="{ThemeResource PrimaryAccent_A}"
+                        VerticalAlignment="Center">
+                        <Run
+                            Text="#"
+                            />
+                        <Run
+                            Text="{x:Bind
+                                Member.NameId,
+                                Mode=OneWay}"
+                            />
+                    </TextBlock>
                 </StackPanel>
                 <StackPanel
                     Spacing="5"
                     Orientation="Horizontal">
-                    <ListBox
-                        Margin="0 10"
-                        SelectionMode="Single"
+                    <ItemsControl
                         Background="Transparent"
                         ItemsSource="{x:Bind
                             Member.MemberRoles,
                             Mode=OneWay}">
-                        <ListBox.ItemsPanel>
+                        <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
-                                    HorizontalSpacing="10"
+                                    HorizontalSpacing="5"
                                     />
                             </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="vm:TeamRoleViewModel">
                                 <local:RoleTag
                                     extensions:Mouse.Cursor="Hand"
                                     Role="{Binding}"
                                     />
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
-                <TextBlock
-                    Margin="0 10"
-                    TextWrapping="WrapWholeWords"
-                    Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur eu dolor id pellentesque. Quisque aliquam commodo purus, ac consequat neque elementum non. Vestibulum odio nisl, luctus non hendrerit in, fermentum nec tellus."
-                    />
+                <StackPanel
+                    Margin="0 20 0 0"
+                    Spacing="20">
+                    <StackPanel
+                        Spacing="10">
+                        <TextBlock
+                            Text="Email"
+                            FontSize="24"
+                            FontWeight="SemiBold"
+                            Opacity=".55"
+                            />
+                        <TextBlock
+                            IsTextSelectionEnabled="True"
+                            FontSize="16"
+                            Text="{x:Bind
+                                Member.Mail,
+                                Mode=OneWay}"
+                            />
+                    </StackPanel>
+                    <TextBlock
+                        Text="Bio"
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Opacity=".55"
+                        />
+                    <StackPanel
+                        Opacity=".55"
+                        Visibility="{x:Bind
+                                Member.Bio,
+                                Mode=OneWay,
+                                Converter={StaticResource NullToVisibilityConverter},
+                                ConverterParameter='invert'}">
+                        <Viewbox
+                            Width="36"
+                            Height="36">
+                            <icons:PackIconFontAwesome
+                                Kind="QuestionCircleSolid"
+                                />
+                        </Viewbox>
+                        <TextBlock
+                            Margin="0 10"
+                            TextWrapping="WrapWholeWords">
+                            <Run
+                                Text="No bio has been submitted by"
+                                />
+                            <Run
+                                Text="{x:Bind
+                                    Member.Name,
+                                    Mode=OneWay}"
+                                />
+                        </TextBlock>
+                    </StackPanel>
+                    <TextBlock
+                        TextWrapping="WrapWholeWords"
+                        Visibility="{x:Bind
+                            Member.Bio,
+                            Mode=OneWay,
+                            Converter={StaticResource NullToVisibilityConverter}}"
+                        Text="{x:Bind
+                            Member.Bio,
+                            Mode=OneWay}"
+                        />
+                </StackPanel>
             </StackPanel>
+
+            <!-- ACTIONS -->
             <StackPanel
                 Padding="0 10 0 0"
                 Orientation="Horizontal"
@@ -108,10 +181,16 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2">
                 <Button
-                    Width="90"
                     HorizontalAlignment="Right"
+                    Background="{ThemeResource PrimaryAccent_A}"
                     CornerRadius="3"
                     Padding="10 7"
+                    extensions:Mouse.Cursor="Hand"
+                    Command="{x:Bind
+                        StartChatWithUserCommand}"
+                    CommandParameter="{x:Bind
+                        Member,
+                        Mode=OneWay}"
                     Margin="5">
                     <StackPanel
                         Spacing="5"
@@ -125,29 +204,9 @@
                                 />
                         </Viewbox>
                         <TextBlock
-                            Text="Chat"
-                            />
-                    </StackPanel>
-                </Button>
-                <Button
-                    Width="90"
-                    HorizontalAlignment="Right"
-                    CornerRadius="3"
-                    Padding="10 7"
-                    Margin="5">
-                    <StackPanel
-                        Spacing="5"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <Viewbox
-                            Width="16"
-                            Height="16">
-                            <icons:PackIconFontAwesome
-                                Kind="UserPlusSolid"
-                                />
-                        </Viewbox>
-                        <TextBlock
-                            Text="Invite"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Text="Start Chat"
                             />
                     </StackPanel>
                 </Button>
