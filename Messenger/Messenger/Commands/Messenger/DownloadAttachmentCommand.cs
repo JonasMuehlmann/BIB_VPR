@@ -1,6 +1,8 @@
 ﻿using Messenger.Core.Helpers;
+using Messenger.Core.Services;
+using Messenger.Helpers.MessageHelpers;
 using Messenger.Models;
-using Messenger.Services;
+using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using Serilog;
 using System;
@@ -13,48 +15,42 @@ namespace Messenger.Commands.Messenger
 {
     public class DownloadAttachmentCommand : ICommand
     {
-        private ChatHubService Hub => Singleton<ChatHubService>.Instance;
+        private readonly MessageViewModel _viewModel;
         private ILogger _logger => GlobalLogger.Instance;
 
         public event EventHandler CanExecuteChanged;
+
+        public DownloadAttachmentCommand(MessageViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
 
         public bool CanExecute(object parameter)
         {
             return true;
         }
 
+        /// <summary>
+        /// Opens the file open picker and sets the model for AttachmentsBlobName, if any selected
+        /// </summary>
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
                 && parameter is Attachment;
 
-            if (!executable)
-            {
-                _logger.Information($"Invalid attachment model.");
-                return;
-            }
+            if (!executable) return;
 
             try
             {
-                Attachment attachment = (Attachment)parameter;
-                var dialog = new FolderPicker();
-                // ..\Downloads
+                Attachment target = parameter as Attachment;
+                string destinationDirectory = UserDataPaths.GetDefault().Downloads;
 
-                var folder = await dialog.PickSingleFolderAsync();
+                bool success = await FileSharingService.Download(target.ToBlobName(), destinationDirectory);
 
-                if (folder == null)
-                {
-                    return;
-                }
-
-                string path = Path.GetDirectoryName(folder.Path);
-
-                bool isSuccess = await Hub.DownloadAttachment(attachment, path);
-
-                if (!isSuccess)
+                if (success)
                 {
                     await ResultConfirmationDialog
-                        .Set(false, "We could not download the attachment.")
+                        .Set(true, $"Download successful (Path: {destinationDirectory}")
                         .ShowAsync();
 
                     return;
@@ -64,7 +60,10 @@ namespace Messenger.Commands.Messenger
             }
             catch (Exception e)
             {
-                _logger.Fatal($"Error while downloading attachments: {e.Message}");
+                _logger.Information($"Error while fetching files from the device: {e.Message}");
+                await ResultConfirmationDialog
+                        .Set(false, $"Download failed. Try again.")
+                        .ShowAsync();
             }
         }
     }

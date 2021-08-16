@@ -30,16 +30,10 @@ namespace Messenger.Helpers.MessageHelpers
         public static async Task<MessageViewModel> Build(this Message message)
         {
             MessageViewModel withReactions = await Map(message).WithReactions();
-            withReactions = await withReactions.WithReplies();
+            MessageViewModel withReplies = await withReactions.WithReplies();
+            MessageViewModel withAttachments = await withReplies.WithAttachments();
 
-            if (withReactions.Sender == null)
-            {
-                return await withReactions.WithSender();
-            }
-            else
-            {
-                return withReactions;
-            }
+            return withAttachments.Sender == null ? await withAttachments.WithSender() : withAttachments;
         }
 
         /// <summary>
@@ -140,6 +134,18 @@ namespace Messenger.Helpers.MessageHelpers
             return viewModel;
         }
 
+        public static async Task<MessageViewModel> WithAttachments(this MessageViewModel viewModel)
+        {
+            IEnumerable<string> blobNames = await MessageService.GetBlobFileNamesOfAttachments((uint)viewModel.Id);
+
+            if (blobNames != null && blobNames.Count() > 0)
+            {
+                viewModel.Attachments = blobNames.Parse();
+            }
+
+            return viewModel;
+        }
+
         /// <summary>
         /// Sorts parent-messages/replies and assigns replies to matching parents
         /// this should be called only after converting all loaded messages to view models
@@ -186,6 +192,7 @@ namespace Messenger.Helpers.MessageHelpers
         public static MessageViewModel Map(Message message)
         {
             bool isReply = (message.ParentMessageId != null) ? true : false;
+            bool hasAttachments = (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count() > 0);
 
             return new MessageViewModel()
             {
@@ -195,7 +202,7 @@ namespace Messenger.Helpers.MessageHelpers
                 Content = message.Content,
                 CreationTime = message.CreationTime,
                 ChannelId = message.RecipientId,
-                Attachments = message.AttachmentsBlobName.Parse(),
+                Attachments = hasAttachments ? message.AttachmentsBlobName.Parse() : new List<Attachment>(),
                 IsReply = isReply,
                 IsMyMessage = App.StateProvider.CurrentUser.Id == message.SenderId,
                 HasReacted = false
@@ -251,6 +258,36 @@ namespace Messenger.Helpers.MessageHelpers
             }
 
             return attachmentsList;
+        }
+
+        public static string ToBlobName(this Attachment attachment)
+        {
+            if (attachment == null)
+            {
+                return string.Empty;
+            }
+
+            string blobName = string.Join('.', attachment.FileName, attachment.FileType, attachment.UploaderId);
+
+            return blobName;
+        }
+
+        public static IEnumerable<string> ToBlobNames(this List<Attachment> attachments)
+        {
+            if (attachments == null || attachments.Count() <= 0)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            List<string> blobNamesList = new List<string>();
+
+            foreach (Attachment attachment in attachments)
+            {
+                string blobName = string.Join('.', attachment.FileName, attachment.FileType, attachment.UploaderId);
+                blobNamesList.Add(blobName);
+            }
+
+            return blobNamesList;
         }
 
         #endregion
