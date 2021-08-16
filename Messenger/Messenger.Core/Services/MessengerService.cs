@@ -1,6 +1,7 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -126,15 +127,17 @@ namespace Messenger.Core.Services
             }
 
             // Upload attachments
-            if (message.AttachmentsBlobName != null && message.AttachmentsBlobName.Count > 0)
+            var blobNames = new List<string>();
+            if (message.UploadFileData != null && message.UploadFileData.Count > 0)
             {
-                foreach (var attachment in message.AttachmentsBlobName)
+                foreach (UploadData file in message.UploadFileData)
                 {
-                    await FileSharingService.Upload(attachment);
+                    string blob = await FileSharingService.Upload(file);
+                    blobNames.Add(blob);
                 }
             }
 
-            logger.Information($"added the following attachments to the message: {string.Join(",", message.AttachmentsBlobName)}");
+            logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFileData)}");
 
             // Save to database
             uint? id = await MessageService.CreateMessage(
@@ -142,7 +145,7 @@ namespace Messenger.Core.Services
                 message.SenderId,
                 message.Content,
                 message.ParentMessageId,
-                message.AttachmentsBlobName);
+                blobNames);
 
             if (id == null)
             {
@@ -569,8 +572,8 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId"></param>
         /// <returns>Returns a list with all channels</returns>
-        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId) 
-        {           
+        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId)
+        {
             LogContext.PushProperty("Method", "GetChannelsForTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
@@ -662,9 +665,9 @@ namespace Messenger.Core.Services
 
             // Add user to the hub group if the user is connected (will be handled in SignalR)
             await SignalRService.SendInvitation(user, team);
-            
+
             logger.Information($"Return value: true");
-            
+
             return true;
         }
 
