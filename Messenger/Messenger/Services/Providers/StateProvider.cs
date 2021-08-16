@@ -87,16 +87,16 @@ namespace Messenger.Services.Providers
         {
             provider.CurrentUser = user;
 
-            SendProgressToast();
+            Singleton<ToastNotificationsService>.Instance.ShowInitialization();
 
             /** LOAD TEAMS/PRIVATE CHATS FROM DATABASE **/
             await provider.TeamManager.Initialize(user);
 
-            UpdateProgress(2);
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(2);
 
             await provider.LoadAllMessages();
 
-            UpdateProgress(3);
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(3);
 
             /* BROADCAST MY TEAMS */
             App.EventProvider.Broadcast(
@@ -129,61 +129,6 @@ namespace Messenger.Services.Providers
             {
                 await provider.MessageManager.CreateEntry(provider.TeamManager.MyChats);
             }
-        }
-
-        public static void SendProgressToast()
-        {
-            string tag = "initialization";
-
-            // Construct the toast content with data bound fields
-            var content = new ToastContentBuilder()
-                .AddText("Initializing the application...")
-                .AddVisualChild(new AdaptiveProgressBar()
-                {
-                    Title = "Progress",
-                    Value = new BindableProgressBarValue("progressValue"),
-                    ValueStringOverride = new BindableString("progressValueString"),
-                    Status = new BindableString("progressStatus")
-                })
-                .GetToastContent();
-
-            // Generate the toast notification
-            var toast = new ToastNotification(content.GetXml());
-
-            toast.Tag = tag;
-
-            toast.Data = new NotificationData();
-            toast.Data.Values["progressValue"] = "0";
-            toast.Data.Values["progressValueString"] = $"0/2 Loaded";
-            toast.Data.Values["progressStatus"] = "Loading Teams and Chats...";
-
-            toast.Data.SequenceNumber = 1;
-
-            ToastNotificationManager.CreateToastNotifier().Show(toast);
-        }
-
-        public static void UpdateProgress(uint sequence)
-        {
-            string tag = "initialization";
-            
-            var data = new NotificationData
-            {
-                SequenceNumber = sequence
-            };
-
-            data.Values["progressValue"] = $"{sequence - 1}";
-            data.Values["progressValueString"] = $"{sequence - 1}/2 Loaded";
-
-            if (sequence == 2)
-            {
-                data.Values["progressStatus"] = "Loading Messages...";
-            }
-            else if (sequence == 3)
-            {
-                data.Values["progressStatus"] = "Complete!";
-            }
-
-            ToastNotificationManager.CreateToastNotifier().Update(data, tag);
         }
     }
 }
