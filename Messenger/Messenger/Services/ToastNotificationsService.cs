@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using Messenger.Activation;
-
+using Messenger.Core.Helpers;
+using Serilog;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Notifications;
 
@@ -10,15 +10,17 @@ namespace Messenger.Services
 {
     internal partial class ToastNotificationsService : ActivationHandler<ToastNotificationActivatedEventArgs>
     {
+        private ILogger _logger => GlobalLogger.Instance;
+
         public void ShowToastNotification(ToastNotification toastNotification)
         {
             try
             {
                 ToastNotificationManager.CreateToastNotifier().Show(toastNotification);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // TODO WTS: Adding ToastNotification can fail in rare conditions, please handle exceptions as appropriate to your scenario.
+                _logger.Error($"Error while displaying Toast Notification: {e.Message}");
             }
         }
 
