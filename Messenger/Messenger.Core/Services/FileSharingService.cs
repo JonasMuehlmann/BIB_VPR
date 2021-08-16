@@ -62,7 +62,7 @@ namespace Messenger.Core.Services
             // TODO:Find better exception(s) to catch
             catch (Exception e)
             {
-                logger.Information(e, $"Return value: false");
+                logger.Information(e, $"Return value: null");
 
                 return null;
             }
@@ -78,14 +78,14 @@ namespace Messenger.Core.Services
         {
             LogContext.PushProperty("Method", "Upload");
             LogContext.PushProperty("SourceContext", "FileSharingService");
-            logger.Information($"Function called with parameters filePath={uploadFile.FilePath}");
+            logger.Information($"Function called with parameters uploadFile={uploadFile}");
 
             // Adding GUID for deduplication
             string blobFileName = Path.GetFileNameWithoutExtension(uploadFile.FilePath)
                                 + Path.GetExtension(uploadFile.FilePath)
                                 + "." + Guid.NewGuid().ToString();
 
-            logger.Information($"set blobFileName to {blobFileName} from filePath={uploadFile.FilePath}");
+            logger.Information($"set blobFileName to {blobFileName} from uploadFile={uploadFile}");
 
             try
             {
