@@ -155,6 +155,7 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
+    <Compile Include="Commands\Messenger\DownloadAttachmentCommand.cs" />
     <Compile Include="Commands\Messenger\DeleteMessageCommand.cs" />
     <Compile Include="Commands\Messenger\UpdateMessageCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatWithUserCommand.cs" />
