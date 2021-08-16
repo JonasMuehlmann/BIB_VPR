@@ -1,12 +1,15 @@
 ﻿using System;
 using Messenger.Core.Helpers;
 using Messenger.Core.Services;
+using Messenger.Helpers;
 using Messenger.Services;
 using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
+using Messenger.Views.Pages;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.Security.Authentication.Web;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -58,6 +61,32 @@ namespace Messenger
         protected override async void OnActivated(IActivatedEventArgs args)
         {
             await ActivationService.ActivateAsync(args);
+
+            // Handle notification activation
+            if (args is ToastNotificationActivatedEventArgs toastActivationArgs)
+            {
+                // Obtain the arguments from the notification
+                string argument = toastActivationArgs.Argument;
+
+                switch (argument)
+                {
+                    case "NavigateTeams":
+                        NavigationService.Navigate<TeamNavPage>();
+                        NavigationService.Open<LandingPage>();
+                        break;
+                    case "NavigateChats":
+                        NavigationService.Navigate<ChatNavPage>();
+                        NavigationService.Open<LandingPage>();
+                        break;
+                    default:
+                        break;
+                }
+
+                // Obtain any user input (text boxes, menu selections) from the notification
+                ValueSet userInput = toastActivationArgs.UserInput;
+
+                // TODO: Show the corresponding content
+            }
         }
 
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
