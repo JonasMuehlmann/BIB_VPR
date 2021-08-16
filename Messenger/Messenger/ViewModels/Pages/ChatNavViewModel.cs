@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Messenger.Commands;
 using Messenger.Commands.TeamManage;
@@ -26,6 +28,9 @@ namespace Messenger.ViewModels.Pages
 
         #region Properties
 
+        /// <summary>
+        /// Loaded chats list of the current user
+        /// </summary>
         public ObservableCollection<PrivateChatViewModel> Chats
         {
             get
@@ -38,6 +43,9 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        /// <summary>
+        /// Shows loading spinner on true
+        /// </summary>
         public bool IsBusy
         {
             get
@@ -50,12 +58,28 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        /// <summary>
+        /// Currently logged-in user
+        /// </summary>
         public UserViewModel CurrentUser { get; set; }
 
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Switches to another private chat
+        /// </summary>
         public ICommand SwitchChatCommand => new ChannelSwitchCommand();
 
+        /// <summary>
+        /// Opens a start chat dialog to create a new private chat
+        /// </summary>
         public ICommand StartChatCommand => new StartChatCommand();
 
+        /// <summary>
+        /// Manually reloads all chats and messages
+        /// </summary>
         public ICommand ReloadCommand => new RelayCommand(Reload);
 
         #endregion
@@ -69,6 +93,9 @@ namespace Messenger.ViewModels.Pages
             App.EventProvider.MessageUpdated += OnMessageUpdated;
         }
 
+        /// <summary>
+        /// Initializes view model with currently logged-in user and chats list, if already loaded in cache
+        /// </summary>
         private async void Initialize()
         {
             IsBusy = true;
@@ -85,6 +112,9 @@ namespace Messenger.ViewModels.Pages
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Loads the chats list from the cache
+        /// </summary>
         private void LoadFromCache()
         {
             Chats.Clear();
@@ -95,13 +125,24 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        /// <summary>
+        /// Manually reloads all chats list and messages
+        /// </summary>
         private async void Reload()
         {
             IsBusy = true;
 
+            Chats.Clear();
+
+            await Task.Delay(TimeSpan.FromMilliseconds(500));
             await CacheQuery.Reload();
         }
 
+        #region Events
+
+        /// <summary>
+        /// Fired by EventProvider on ChatsLoaded
+        /// </summary>
         public void OnChatsLoaded(object sender, BroadcastArgs e)
         {
             IEnumerable<PrivateChatViewModel> chats = e.Payload as IEnumerable<PrivateChatViewModel>;
@@ -115,10 +156,14 @@ namespace Messenger.ViewModels.Pages
                     Chats.Add(chat);
                 }
 
-                IsBusy = false;
             }
+
+            IsBusy = false;
         }
 
+        /// <summary>
+        /// Fired by EventProvider on PrivateChatUpdated
+        /// </summary>
         public void OnChatUpdated(object sender, BroadcastArgs e)
         {
             PrivateChatViewModel privateChat = e.Payload as PrivateChatViewModel;
@@ -150,6 +195,9 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        /// <summary>
+        /// Fired by EventProvider on MessageUpdated(for LastMessage)
+        /// </summary>
         public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
             if (e.Reason == BroadcastReasons.Created)
@@ -166,5 +214,7 @@ namespace Messenger.ViewModels.Pages
                 }
             }
         }
+
+        #endregion
     }
 }
