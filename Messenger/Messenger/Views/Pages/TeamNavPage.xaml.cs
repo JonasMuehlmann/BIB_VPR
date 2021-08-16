@@ -9,6 +9,8 @@ namespace Messenger.Views.Pages
     {
         public TeamNavViewModel ViewModel { get; } = new TeamNavViewModel();
 
+
+
         public TeamNavPage()
         {
             InitializeComponent();

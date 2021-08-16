@@ -444,13 +444,13 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
         /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public static async Task<bool> DeleteTeam(uint teamId)
+        public static async Task<Team> DeleteTeam(uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            Team team = await TeamService.GetTeam(teamId);
+            var team = await TeamService.GetTeam(teamId);
 
             var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
             var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
@@ -461,7 +461,7 @@ namespace Messenger.Core.Services
 
             logger.Information($"Return value: {result}");
 
-            return result;
+            return team;
         }
 
         /// <summary>

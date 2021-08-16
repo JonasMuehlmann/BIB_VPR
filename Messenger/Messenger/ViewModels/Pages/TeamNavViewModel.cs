@@ -59,6 +59,10 @@ namespace Messenger.ViewModels.Pages
 
         public ICommand CreateTeamCommand => new CreateTeamCommand();
 
+        public ICommand RemoveChannelCommand => new RemoveChannelCommand();
+
+        public ICommand RemoveTeamCommand => new RemoveTeamCommand();
+
         #endregion
 
         public TeamNavViewModel()
