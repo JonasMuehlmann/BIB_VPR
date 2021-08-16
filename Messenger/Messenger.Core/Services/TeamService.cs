@@ -9,6 +9,10 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with teams on the DB,
+    /// including permissions, roles and members.
+    /// </summary>
     public class TeamService : AzureServiceBase
     {
         #region Teams Management

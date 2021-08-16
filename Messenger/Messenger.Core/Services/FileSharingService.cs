@@ -9,12 +9,24 @@ using Messenger.Core.Models;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// A class holding static methods to interact with blob storage for saving and
+    /// retrieving message attachments
+    /// </summary>
     public class FileSharingService
     {
-        const string blobServiceConnectionString = "DefaultEndpointsProtocol=https;AccountName=vpr;AccountKey=Y/A3PMNyH7ASxIB5KobgLqeJrBGW/vNKou0Ff8MWxs3B1PbNTZ0j+Ew9PAhiMkGObziTErqZ0j693pOc+hkVHQ==;EndpointSuffix=core.windows.net";
+        // TODO: This should not actually be hardcoded...
+        private const string blobServiceConnectionString = "DefaultEndpointsProtocol=https;AccountName=vpr;AccountKey=Y/A3PMNyH7ASxIB5KobgLqeJrBGW/vNKou0Ff8MWxs3B1PbNTZ0j+Ew9PAhiMkGObziTErqZ0j693pOc+hkVHQ==;EndpointSuffix=core.windows.net";
 
 
+        /// <summary>
+        /// The name of the container all files are saved to
+        /// </summary>
         private const string containerName = "attachments";
+
+        /// <summary>
+        /// The path at which to cache downloaded files
+        /// </summary>
         public static readonly string localFileCachePath = Path.Combine(Path.GetTempPath(), "BIB_VPR" + Path.DirectorySeparatorChar);
 
         public static ILogger logger => GlobalLogger.Instance;

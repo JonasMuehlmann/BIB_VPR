@@ -9,6 +9,9 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with mentions on the DB
+    /// </summary>
     public class MentionService : AzureServiceBase
     {
         /// <summary>
