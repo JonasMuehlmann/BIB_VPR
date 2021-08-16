@@ -5,6 +5,7 @@ using Messenger.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 
@@ -32,6 +33,7 @@ namespace Messenger.ViewModels.DataViewModels
         private int _reachtionAngryCount;
         private List<Attachment> _attachments;
         private bool _isMyMessage;
+        private List<Attachment> _memorystream;
 
         #endregion
 
@@ -153,6 +155,12 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _attachments, value); }
         }
 
+        public List<Attachment> MemoryStream
+        {
+            get { return _memorystream; }
+            set { Set(ref _memorystream, value); }
+        }
+
         public bool IsReply
         {
             get { return _isReply; }
@@ -198,6 +206,7 @@ namespace Messenger.ViewModels.DataViewModels
             Replies = new ObservableCollection<MessageViewModel>();
             Reactions = new ObservableCollection<Reaction>();
             Attachments = new List<Attachment>();
+            MemoryStream = new List<MemoryStream>();
         }
     }
 }
