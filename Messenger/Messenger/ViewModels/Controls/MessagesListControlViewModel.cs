@@ -4,8 +4,10 @@ using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.Pages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 
@@ -13,6 +15,7 @@ namespace Messenger.ViewModels.Controls
 {
     public class MessagesListControlViewModel : Observable
     {
+
         private ObservableCollection<MessageViewModel> _messages;
 
         /// <summary>
@@ -21,7 +24,10 @@ namespace Messenger.ViewModels.Controls
         public ObservableCollection<MessageViewModel> Messages
         {
             get { return _messages; }
-            set { Set(ref _messages, value); }
+            set
+            {
+                Set(ref _messages, value);
+            }
         }
 
         public ChatViewModel ParentViewModel { get; private set; }
@@ -99,7 +105,7 @@ namespace Messenger.ViewModels.Controls
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                if (!message.IsReply )
+                if (!message.IsReply)
                 {
                     MessageViewModel target = Messages.Single(m => m.Id == message.Id);
 

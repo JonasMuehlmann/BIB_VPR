@@ -74,6 +74,7 @@ namespace Messenger.Views.Pages
                 UserNametbx.Visibility = Visibility.Collapsed;
                 UserNametbk.Visibility = Visibility.Visible;
                 ViewModel.User.Name = UserNametbx.Text;
+                ViewModel.UpdateUsernameCommand?.Execute(ViewModel.User.Name);
             }
         }
 

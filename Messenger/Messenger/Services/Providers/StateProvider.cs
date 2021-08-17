@@ -12,35 +12,56 @@ namespace Messenger.Services.Providers
 {
     public class StateProvider : Observable
     {
+        #region Private
+
         private TeamViewModel _selectedTeam;
 
         private ChannelViewModel _selectedChannel;
 
         private UserViewModel _currentUser;
 
-        private IdentityService IdentityService => Singleton<IdentityService>.Instance;
+        #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// Instance to manage teams and private chats
+        /// </summary>
         public readonly TeamManager TeamManager;
 
+        /// <summary>
+        /// Instance to manage messages by channel id
+        /// </summary>
         public readonly MessageManager MessageManager;
 
+        /// <summary>
+        /// Currently selected team view model
+        /// </summary>
         public TeamViewModel SelectedTeam
         {
             get { return _selectedTeam; }
             set { Set(ref _selectedTeam, value); }
         }
 
+        /// <summary>
+        /// Currently selected channel view model
+        /// </summary>
         public ChannelViewModel SelectedChannel
         {
             get { return _selectedChannel; }
             set { Set(ref _selectedChannel, value); }
         }
 
+        /// <summary>
+        /// Currently logged-in user
+        /// </summary>
         public UserViewModel CurrentUser
         {
             get { return _currentUser; }
             set { Set(ref _currentUser, value); }
         }
+
+        #endregion
 
         public StateProvider()
         {
@@ -49,8 +70,17 @@ namespace Messenger.Services.Providers
         }
     }
 
+    /// <summary>
+    /// Extension methods for StateProvider
+    /// </summary>
     public static class StateProviderExtension
     {
+        /// <summary>
+        /// Initializes the provider with teams/chats and messages, loaded from database
+        /// </summary>
+        /// <param name="provider">Provider instance(Extension)</param>
+        /// <param name="user">Currently logged-in user</param>
+        /// <returns>Initialized provider instance</returns>
         public static async Task<StateProvider> Initialize(this StateProvider provider, UserViewModel user)
         {
             provider.CurrentUser = user;
@@ -72,6 +102,11 @@ namespace Messenger.Services.Providers
             return provider;
         }
 
+        /// <summary>
+        /// Loads all messages from the database
+        /// </summary>
+        /// <param name="provider">Provider instance(Extension)</param>
+        /// <returns>Task to be awaited</returns>
         public static async Task LoadAllMessages(this StateProvider provider)
         {
             /** LOAD MESSAGES FOR TEAMS **/
