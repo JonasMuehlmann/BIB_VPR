@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Services
 {
@@ -665,7 +666,25 @@ namespace Messenger.Core.Services
 
             // Add user to the hub group if the user is connected (will be handled in SignalR)
             await SignalRService.SendInvitation(user, team);
-            
+
+            // Send notification to target user
+            JObject notificationMessage = await NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage(teamId);
+
+            uint? notificationId = await NotificationService.SendNotification(userId, notificationMessage);
+
+            if (notificationId != null)
+            {
+                Notification notification = new Notification()
+                {
+                    Id = (uint)notificationId,
+                    RecipientId = userId,
+                    Message = notificationMessage,
+                    CreationTime = DateTime.Now
+                };
+
+                await SignalRService.SendNotificationToUser(notification);
+            }
+
             logger.Information($"Return value: true");
             
             return true;
