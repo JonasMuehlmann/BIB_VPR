@@ -45,7 +45,10 @@
                                 FontWeight="SemiBold"
                                 Text="{Binding Partner.Name, Mode=OneWay}"/>
                             <TextBlock
-                                Visibility="{Binding LastMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                                Visibility="{Binding
+                                LastMessage,
+                                Converter={StaticResource NullToVisibilityConverter},
+                                Mode=OneWay}"
                                 FontSize="12"
                                 Opacity=".75">
                                 <Run
@@ -118,29 +121,50 @@
                 </TextBlock>
             </StackPanel>
             <!-- CREATE NEW TEAM -->
-            <Button
-                x:Name="newChat"
-                Style="{StaticResource NewChatButtonStyle}"
-                Command="{x:Bind ViewModel.StartChatCommand}">
-                <StackPanel
-                    Spacing="5"
-                    Orientation="Horizontal">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+                <Button
+                    x:Name="RefreshChat"
+                    Command="{x:Bind
+                        ViewModel.ReloadCommand}"
+                    Style="{StaticResource NewChatButtonStyle}">
                     <Viewbox
-                        Height="20"
-                        Width="20">
-                        <icons:PackIconFontAwesome
-                            Kind="CommentMedicalSolid"
+                            Height="18"
+                            Width="18">
+                        <StackPanel
+                                Orientation="Horizontal">
+                            <SymbolIcon
+                                    Symbol="RepeatAll"
+                                    Foreground="{ThemeResource PrimaryAccent_A}"
+                                    />
+                        </StackPanel>
+                    </Viewbox>
+                </Button>
+                <Button
+                    x:Name="newChat"
+                    Style="{StaticResource NewChatButtonStyle}"
+                    Command="{x:Bind ViewModel.StartChatCommand}">
+                    <StackPanel
+                        Spacing="5"
+                        Orientation="Horizontal">
+                        <Viewbox
+                            Height="20"
+                            Width="20">
+                            <icons:PackIconFontAwesome
+                                Kind="CommentMedicalSolid"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
+                                />
+                        </Viewbox>
+                        <TextBlock
+                            Text="Start"
+                            FontSize="14"
+                            FontWeight="Bold"
                             Foreground="{ThemeResource PrimaryAccent_A}"
                             />
-                    </Viewbox>
-                    <TextBlock
-                        Text="Start"
-                        FontSize="14"
-                        FontWeight="Bold"
-                        Foreground="{ThemeResource PrimaryAccent_A}"
-                        />
-                </StackPanel>
-            </Button>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <!-- LOADING CONTROL -->

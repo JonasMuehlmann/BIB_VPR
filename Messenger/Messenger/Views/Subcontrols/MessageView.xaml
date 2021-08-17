@@ -130,6 +130,7 @@
                             <Flyout.FlyoutPresenterStyle>
                                 <Style TargetType="FlyoutPresenter">
                                     <Setter Property="CornerRadius" Value="5" />
+                                    <Setter Property="Background" Value="{ThemeResource Elevation_2}" />
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
                             <local:UserProfileFlyout
@@ -392,11 +393,32 @@
                                 ElementName=AttachmentsExpandButton,
                                 Path=IsChecked,
                                 Converter={StaticResource BoolToVisConverter}}">
-                            <!-- PLACEHOLDER -->
-                            <Button
-                                Style="{StaticResource AttachmentHypertext}"
-                                Content="example_data_02941.png (114.22 KB)"
-                                />
+                            <ItemsControl
+                                ItemsSource="{x:Bind
+                                    Message.Attachments,
+                                    Mode=OneWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Attachment">
+                                        <StackPanel
+                                            Orientation="Horizontal">
+                                            <Button
+                                                Style="{StaticResource AttachmentHypertext}"
+                                                Content="{Binding FileName}"
+                                                Command="{Binding
+                                                    ElementName=messageView,
+                                                    Path=Message.DownloadAttachmentCommand}"
+                                                CommandParameter="{Binding}"
+                                                />
+                                            <TextBlock
+                                                Text="."
+                                                />
+                                            <TextBlock
+                                                Text="{Binding FileType}"
+                                                />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </StackPanel>
                     <!-- MESSAGE ACTIONS (REPLY/UPDATE/DELETE) -->
