@@ -15,7 +15,6 @@ namespace Messenger.Views.Controls
             {
                 SetValue(ViewModelProperty, value);
                 ViewModel.Messages.CollectionChanged += Messages_CollectionChanged;
-                Messages_CollectionChanged(null, null);
             }
         }
 
