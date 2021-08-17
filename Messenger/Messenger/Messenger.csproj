@@ -179,8 +179,10 @@
     <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
     <Compile Include="Helpers\Converters\CountToVisibilityConverter.cs" />
+    <Compile Include="ViewModels\DataViewModels\NotificationMessageViewModel.cs" />
     <Compile Include="ViewModels\Controls\InboxControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\UserSearchPanelViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxes\CreateChatDialogViewModel.cs" />
     <Compile Include="Views\Subcontrols\ChatHeader.xaml.cs">
       <DependentUpon>ChatHeader.xaml</DependentUpon>
@@ -248,8 +250,6 @@
     <Compile Include="ViewModels\Controls\SendMessageControlViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\MemberViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\TeamRoleViewModel.cs" />
-    <Compile Include="Models\Notification.cs" />
-    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\ReactionType.cs" />
     <Compile Include="Models\ToggleReactionArg.cs" />
     <Compile Include="Services\ActivationService.cs" />
