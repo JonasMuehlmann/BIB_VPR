@@ -60,6 +60,8 @@ namespace Messenger.Helpers
 
         public static IReadOnlyCollection<PrivateChatViewModel> GetMyChats() => App.StateProvider.TeamManager.MyChats;
 
+        public static IReadOnlyCollection<NotificationViewModel> GetNotifications() => App.StateProvider.Notifications;
+
         public static bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages) => App.StateProvider.MessageManager.TryGetMessages(channelId, out messages);
 
         /// <summary>
