@@ -7,6 +7,7 @@ using Messenger.ViewModels.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 
@@ -14,7 +15,6 @@ namespace Messenger.ViewModels.Controls
 {
     public class MessagesListControlViewModel : Observable
     {
-        public event EventHandler MessagesInit;
 
         private ObservableCollection<MessageViewModel> _messages;
 
@@ -24,12 +24,9 @@ namespace Messenger.ViewModels.Controls
         public ObservableCollection<MessageViewModel> Messages
         {
             get { return _messages; }
-            set {
+            set
+            {
                 Set(ref _messages, value);
-                if (_messages != null)
-                {
-                    MessagesInit?.Invoke("", EventArgs.Empty);
-                }
             }
         }
 
