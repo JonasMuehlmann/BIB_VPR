@@ -299,16 +299,6 @@
                     </Grid>
                     <!-- MESSAGE CONTENT -->
                     <!-- MESSAGE CONTENT: SHOW MODE -->
-                    <ListView x:Name="imageList">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="BitmapImage">
-                                <Image Source="{x:Bind}"
-                                       Width="50"
-                                       Height="50"
-                                       Stretch="UniformToFill" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
                     <TextBlock
                         x:Name="ShowContent"
                         Grid.Row="1"
@@ -354,6 +344,17 @@
                             </CommandBar>
                         </Viewbox>
                     </StackPanel>
+                    <!-- Image Panel-->
+                    <ListView Grid.Row="2" x:Name="imageList" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="BitmapImage">
+                                <Image Source="{x:Bind}"
+                                       MaxWidth="400"
+                                       HorizontalAlignment="Center"
+                                       Stretch="UniformToFill" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     <!-- ATTACHMENTS PANEL (TOGGLE) -->
                     <StackPanel
                         Visibility="{x:Bind

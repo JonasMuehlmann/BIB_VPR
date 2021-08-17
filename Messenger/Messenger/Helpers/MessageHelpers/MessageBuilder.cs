@@ -143,9 +143,9 @@ namespace Messenger.Helpers.MessageHelpers
                 List<Attachment> attachements = blobNames.Parse();
                 foreach (var item in attachements)
                 {
-                    if(item.FileType == "jpg" || item.FileType == "png" || item.FileType == "gif")
+                    if(item.FileType == "jpg" || item.FileType == "jpeg" || item.FileType == "gif" || item.FileType == "png" || item.FileType == "gif")
                     { 
-                        viewModel.MemoryStream.Add(await FileSharingService.Download(item.FileName));
+                        viewModel.MemoryStream.Add(await FileSharingService.Download(item.ToBlobName()));
                     }
                     else
                     {

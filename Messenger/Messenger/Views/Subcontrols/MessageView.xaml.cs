@@ -71,6 +71,11 @@ namespace Messenger.Views.Subcontrols
         }
 
         #region Image
+        /// <summary>
+        /// converts a MemoryStream(byte[]) to an Image
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Image</returns>
         public object Convert(object value)
         {
             if (value == null || !(value is byte[]))
@@ -89,7 +94,11 @@ namespace Messenger.Views.Subcontrols
         }
 
        
-
+        /// <summary>
+        /// When loaded add images to the Message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             imageList.Items.Clear();
@@ -97,15 +106,13 @@ namespace Messenger.Views.Subcontrols
             List<MemoryStream> ms = Message.MemoryStream;
             if (ms.Count > 0)
             {
-                Debug.WriteLine("stream " + string.Join(";", ms));
                 foreach (var file in ms)
                 {
                     if (file == null)
                     {
                         return;
                     }
-                    Debug.WriteLine($"file: {file.ToArray()}");
-                    imageList.Items.Add(Convert(file));
+                    imageList.Items.Add(Convert(file.ToArray()));
                 }
             }
         }
