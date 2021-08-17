@@ -1,8 +1,6 @@
 ﻿using Messenger.ViewModels.Controls;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace Messenger.Views.Controls
 {
@@ -11,11 +9,7 @@ namespace Messenger.Views.Controls
         public MessagesListControlViewModel ViewModel
         {
             get { return (MessagesListControlViewModel)GetValue(ViewModelProperty); }
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                ViewModel.Messages.CollectionChanged += Messages_CollectionChanged;
-            }
+            set { SetValue(ViewModelProperty, value); }
         }
 
         public static readonly DependencyProperty ViewModelProperty =
@@ -24,10 +18,16 @@ namespace Messenger.Views.Controls
         public MessagesListControl()
         {
             InitializeComponent();
+            //messageListView.Loaded += MessageListView_Loaded;
+            messageListView.SizeChanged += MessageListView_LayoutUpdated;
         }
 
-
-        private void Messages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        /// <summary>
+        /// when it is triggert the list scroll to the bottom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MessageListView_LayoutUpdated(object sender, object e)
         {
             messagesScrollView.ChangeView(0, messageListView.ActualHeight, null);
         }

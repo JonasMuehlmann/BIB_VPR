@@ -52,13 +52,13 @@
                                 FontSize="12"
                                 Opacity=".75">
                                 <Run
-                                    Text="{Binding LastMessage.Sender.Name}"
+                                    Text="{Binding LastMessage.Sender.Name, TargetNullValue=''}"
                                     />
                                 <Run
                                     Text=":"
                                     />
                                 <Run
-                                    Text="{Binding LastMessage.Content}"
+                                    Text="{Binding LastMessage.Content, TargetNullValue=''}"
                                     />
                                 </TextBlock>
                         </StackPanel>
