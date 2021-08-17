@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Messenger.Behaviors"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:models="using:Messenger.ViewModels.DataViewModels"
     xmlns:subcontrols="using:Messenger.Views.Subcontrols"
     xmlns:icons="using:MahApps.Metro.IconPacks"

@@ -51,7 +51,7 @@ namespace Messenger.Commands.Messenger
                 if (files.Count > 0)
                 {
 
-                    _viewModel.MessageToSend.UploadFileData.Clear();
+                    _viewModel.MessageToSend.UploadFileData = new List<Core.Models.UploadData>();
                     foreach (StorageFile file in files)
                     {
                         var str = new Core.Models.UploadData((await file.OpenReadAsync()).AsStream(),file.Path);

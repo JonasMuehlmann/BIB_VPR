@@ -1,7 +1,6 @@
 ﻿<UserControl
     x:Class="Messenger.Views.Controls.MessagesListControl"
     x:Name="messagesListControl"
-    xmlns:local="using:Messenger.Views.Controls"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -73,10 +72,11 @@
             </Grid>
         </ControlTemplate>
     </UserControl.Resources>
-    <ScrollViewer>
+    <ScrollViewer 
+            x:Name="messagesScrollView">
         <!-- MESSAGES LIST -->
         <ListView
-            x:Name="messagesListView"
+            x:Name="messageListView"
             SelectionMode="None"
             HorizontalAlignment="Stretch"
             Padding="0 0 75 0"

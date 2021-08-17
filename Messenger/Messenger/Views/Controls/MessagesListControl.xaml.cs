@@ -18,6 +18,18 @@ namespace Messenger.Views.Controls
         public MessagesListControl()
         {
             InitializeComponent();
+            //messageListView.Loaded += MessageListView_Loaded;
+            messageListView.SizeChanged += MessageListView_LayoutUpdated;
+        }
+
+        /// <summary>
+        /// when it is triggert the list scroll to the bottom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MessageListView_LayoutUpdated(object sender, object e)
+        {
+            messagesScrollView.ChangeView(0, messageListView.ActualHeight, null);
         }
     }
 }
