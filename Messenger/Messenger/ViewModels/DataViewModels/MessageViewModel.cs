@@ -33,7 +33,7 @@ namespace Messenger.ViewModels.DataViewModels
         private int _reachtionAngryCount;
         private List<Attachment> _attachments;
         private bool _isMyMessage;
-        private List<Attachment> _memorystream;
+        private List<MemoryStream> _memorystream;
 
         #endregion
 
@@ -155,7 +155,7 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _attachments, value); }
         }
 
-        public List<Attachment> MemoryStream
+        public List<MemoryStream> MemoryStream
         {
             get { return _memorystream; }
             set { Set(ref _memorystream, value); }
