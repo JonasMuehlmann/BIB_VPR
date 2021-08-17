@@ -30,6 +30,8 @@ namespace Messenger.Services.Providers
 
         public event EventHandler<BroadcastArgs> MessagesLoaded;
 
+        public event EventHandler<BroadcastArgs> NotificationsLoaded;
+
         #endregion
 
         /// <summary>
@@ -48,6 +50,8 @@ namespace Messenger.Services.Providers
 
         public event EventHandler<BroadcastArgs> UserUpdated;
 
+        public event EventHandler<BroadcastArgs> NotificationReceived;
+
         #endregion
 
         #region State Events
@@ -65,6 +69,7 @@ namespace Messenger.Services.Providers
         {
             SignalRService.ReceiveMessage += OnReceiveMessage;
             SignalRService.ReceiveInvitation += OnReceiveInvitation;
+            SignalRService.ReceiveNotification += OnReceiveNotification;
             SignalRService.MessageUpdated += OnMessageUpdated;
             SignalRService.MessageDeleted += OnMessageDeleted;
             SignalRService.MessageReactionsUpdated += OnMessageReactionsUpdated;
@@ -113,6 +118,9 @@ namespace Messenger.Services.Providers
                 case BroadcastOptions.ChatsLoaded:
                     args.Payload = CacheQuery.GetMyChats();
                     break;
+                case BroadcastOptions.NotificationsLoaded:
+                    args.Payload = CacheQuery.GetNotifications();
+                    break;
                 default:
                     break;
             }
@@ -129,6 +137,9 @@ namespace Messenger.Services.Providers
                     break;
                 case BroadcastOptions.ChatsLoaded:
                     ChatsLoaded?.Invoke(this, args);
+                    break;
+                case BroadcastOptions.NotificationsLoaded:
+                    NotificationsLoaded?.Invoke(this, args);
                     break;
                 /* UPDATED EVENTS */
                 case BroadcastOptions.TeamUpdated:
@@ -156,10 +167,37 @@ namespace Messenger.Services.Providers
                         break;
                     MessageUpdated?.Invoke(this, args);
                     break;
+                case BroadcastOptions.NotificationReceived:
+                    if (!(parameter is NotificationViewModel))
+                        break;
+                    NotificationReceived?.Invoke(this, args);
+                    break;
                 default:
                     break;
             }
         }
+
+        #region Notification
+
+        private void OnReceiveNotification(object sender, SignalREventArgs<Notification> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            Notification data = e.Value;
+            NotificationViewModel viewModel = new NotificationViewModel(data);
+
+            Broadcast(
+                BroadcastOptions.NotificationReceived,
+                BroadcastReasons.Created,
+                viewModel);
+        }
+
+        #endregion
 
         #region Message
 
