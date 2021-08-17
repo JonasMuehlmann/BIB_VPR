@@ -8,6 +8,9 @@ using Windows.UI.Notifications;
 
 namespace Messenger.Services
 {
+    /// <summary>
+    /// Sends a toast notification via Windows 10
+    /// </summary>
     internal partial class ToastNotificationsService : ActivationHandler<ToastNotificationActivatedEventArgs>
     {
         private ILogger _logger => GlobalLogger.Instance;

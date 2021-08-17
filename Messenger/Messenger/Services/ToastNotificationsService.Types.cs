@@ -1,16 +1,20 @@
-﻿using Messenger.Helpers;
-using Messenger.ViewModels.DataViewModels;
+﻿using Messenger.ViewModels.DataViewModels;
 using Microsoft.Toolkit.Uwp.Notifications;
-using System;
 using Windows.UI.Notifications;
 
 namespace Messenger.Services
 {
     internal partial class ToastNotificationsService
     {
+        /// <summary>
+        /// Starts reporting progress of initialization in StateProvider
+        /// </summary>
         public void ShowInitialization()
         {
             string tag = "initialization";
+
+            ToastAudio toastAudio = new ToastAudio();
+            toastAudio.Silent = true;
 
             var content = new ToastContentBuilder()
                 .AddText("Initializing the application...")
@@ -23,6 +27,8 @@ namespace Messenger.Services
                 })
                 .GetToastContent();
 
+            content.Audio = new ToastAudio() { Silent = true };
+
             // Generate the toast notification
             var toast = new ToastNotification(content.GetXml())
             {
@@ -32,13 +38,17 @@ namespace Messenger.Services
             toast.Data = new NotificationData();
             toast.Data.Values["progressValue"] = "0";
             toast.Data.Values["progressValueString"] = $"0/2 Loaded";
-            toast.Data.Values["progressStatus"] = "Loading Teams and Chats...";
+            toast.Data.Values["progressStatus"] = "Loading Teams and Private Chats...";
 
             toast.Data.SequenceNumber = 1;
 
             ShowToastNotification(toast);
         }
 
+        /// <summary>
+        /// Updates the progress in StateProvider
+        /// </summary>
+        /// <param name="sequence">Current initialization sequence</param>
         public void UpdateInitialization(uint sequence)
         {
             string tag = "initialization";
@@ -48,21 +58,26 @@ namespace Messenger.Services
                 SequenceNumber = sequence
             };
 
-            data.Values["progressValue"] = $"{sequence - 1}";
             data.Values["progressValueString"] = $"{sequence - 1}/2 Loaded";
 
             if (sequence == 2)
             {
+                data.Values["progressValue"] = "0.5";
                 data.Values["progressStatus"] = "Loading Messages...";
             }
             else if (sequence == 3)
             {
+                data.Values["progressValue"] = "1";
                 data.Values["progressStatus"] = "Complete!";
             }
 
             ToastNotificationManager.CreateToastNotifier().Update(data, tag);
         }
 
+        /// <summary>
+        /// Welcomes the user with the user name
+        /// </summary>
+        /// <param name="user">Currently logged-in user</param>
         public void ShowNotificationLoggedIn(UserViewModel user)
         {
             var content = new ToastContentBuilder()
@@ -80,6 +95,11 @@ namespace Messenger.Services
             ShowToastNotification(toast);
         }
 
+        /// <summary>
+        /// Shows sender and the content of the message received
+        /// </summary>
+        /// <param name="team"></param>
+        /// <param name="message"></param>
         public void ShowMessageReceived(TeamViewModel team, MessageViewModel message)
         {
             var builder = new ToastContentBuilder();
@@ -108,13 +128,17 @@ namespace Messenger.Services
             ShowToastNotification(toast);
         }
 
+        /// <summary>
+        /// Shows team/chat info on invitation received
+        /// </summary>
+        /// <param name="team"></param>
         public void ShowInvitationReceived(TeamViewModel team)
         {
             var builder = new ToastContentBuilder();
 
             if (team is PrivateChatViewModel)
             {
-                ToastButton navigateChat = new ToastButton("Start Chat", $"NavigateChats");
+                ToastButton navigateChat = new ToastButton("Start Chat", "NavigateChats");
 
                 builder
                     .AddText($"{(team as PrivateChatViewModel).Partner.Name} has started chat with you!")
