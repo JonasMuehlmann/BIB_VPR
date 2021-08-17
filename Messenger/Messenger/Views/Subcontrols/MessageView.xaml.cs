@@ -3,6 +3,7 @@ using Messenger.Commands.Messenger;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Input;
@@ -64,59 +65,14 @@ namespace Messenger.Views.Subcontrols
         public static readonly DependencyProperty ToggleReactionCommandProperty =
             DependencyProperty.Register("ToggleReactionCommand", typeof(ICommand), typeof(MessageView), new PropertyMetadata(null));
 
+
         public MessageView()
         {
             InitializeComponent();
-            Loaded += OnLoaded;
         }
+        
 
-        #region Image
-        /// <summary>
-        /// converts a MemoryStream(byte[]) to an Image
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Image</returns>
-        public object Convert(object value)
-        {
-            if (value == null || !(value is byte[]))
-                return null;
-            using (InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream())
-            {
-                using (DataWriter writer = new DataWriter(ms.GetOutputStreamAt(0)))
-                {
-                    writer.WriteBytes((byte[])value);
-                    writer.StoreAsync().GetResults();
-                }
-                var image = new BitmapImage();
-                image.SetSource(ms);
-                return image;
-            }
-        }
 
-       
-        /// <summary>
-        /// When loaded add images to the Message
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            imageList.Items.Clear();
-
-            List<MemoryStream> ms = Message.MemoryStream;
-            if (ms.Count > 0)
-            {
-                foreach (var file in ms)
-                {
-                    if (file == null)
-                    {
-                        return;
-                    }
-                    imageList.Items.Add(Convert(file.ToArray()));
-                }
-            }
-        }
-        #endregion
 
         #region Reply
         private void ReplyButton_Tapped(object sender, TappedRoutedEventArgs e)

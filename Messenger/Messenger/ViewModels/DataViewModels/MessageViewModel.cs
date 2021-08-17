@@ -8,6 +8,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -33,7 +36,7 @@ namespace Messenger.ViewModels.DataViewModels
         private int _reachtionAngryCount;
         private List<Attachment> _attachments;
         private bool _isMyMessage;
-        private List<MemoryStream> _memorystream;
+        private ObservableCollection<BitmapImage> _images;
 
         #endregion
 
@@ -101,7 +104,7 @@ namespace Messenger.ViewModels.DataViewModels
                         }
                         else if (reaction.Symbol == "Dislike")
                         {
-                           ReachtionDislikeCount += 1;
+                            ReachtionDislikeCount += 1;
                         }
                         else if (reaction.Symbol == "Surprised")
                         {
@@ -155,10 +158,10 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _attachments, value); }
         }
 
-        public List<MemoryStream> MemoryStream
+        public ObservableCollection<BitmapImage> Images
         {
-            get { return _memorystream; }
-            set { Set(ref _memorystream, value); }
+            get { return _images; }
+            set { Set(ref _images, value); }
         }
 
         public bool IsReply
@@ -206,7 +209,52 @@ namespace Messenger.ViewModels.DataViewModels
             Replies = new ObservableCollection<MessageViewModel>();
             Reactions = new ObservableCollection<Reaction>();
             Attachments = new List<Attachment>();
-            MemoryStream = new List<MemoryStream>();
+            Images = new ObservableCollection<BitmapImage>();
         }
+
+
+        #region Image
+        /// <summary>
+        /// converts a MemoryStream(byte[]) to an Image
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Image</returns>
+        private object Convert(object value)
+        {
+            if (value == null || !(value is byte[]))
+                return null;
+            using (InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream())
+            {
+                using (DataWriter writer = new DataWriter(ms.GetOutputStreamAt(0)))
+                {
+                    writer.WriteBytes((byte[])value);
+                    writer.StoreAsync().GetResults();
+                }
+                var image = new BitmapImage();
+                image.SetSource(ms);
+                return image;
+            }
+        }
+        /// <summary>
+        /// add images to the Message
+        /// </summary>
+        /// <param name="memoryStreams"></param>
+        public void AddImages(List<MemoryStream> memoryStreams)
+        {
+            Images.Clear();
+
+            if (memoryStreams.Count > 0)
+            {
+                foreach (var file in memoryStreams)
+                {
+                    if (file == null)
+                    {
+                        return;
+                    }
+                    Images.Add((BitmapImage)Convert(file.ToArray()));
+                }
+            }
+        }
+        #endregion
     }
 }
