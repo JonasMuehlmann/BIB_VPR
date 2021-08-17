@@ -37,28 +37,5 @@
             ViewModel="{x:Bind
                 ViewModel.InboxControlViewModel}"
             />
-        <StackPanel
-            Style="{StaticResource ActionPanel}">
-            <!-- CLEAR BUTTON -->
-            <Button
-                Style="{StaticResource ActionButton}"
-                Command="{x:Bind
-                    ViewModel.ClearInboxCommand}">
-                <SymbolIcon
-                    Symbol="Delete"
-                    Foreground="{StaticResource SystemChromeGrayColor}">
-                </SymbolIcon>
-            </Button>
-            <!-- REFRESH BUTTON -->
-            <Button
-                Style="{StaticResource ActionButton}"
-                Command="{x:Bind
-                    ViewModel.RefreshInboxCommand}">
-                <SymbolIcon
-                    Symbol="Refresh"
-                    Foreground="{StaticResource SystemAccentColor}">
-                </SymbolIcon>
-            </Button>
-        </StackPanel>
     </Grid>
 </Page>
