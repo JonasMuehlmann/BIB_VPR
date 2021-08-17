@@ -2,11 +2,16 @@
 using Messenger.Commands.Messenger;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Input;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Messenger.Views.Subcontrols
 {
@@ -62,7 +67,49 @@ namespace Messenger.Views.Subcontrols
         public MessageView()
         {
             InitializeComponent();
+            Loaded += OnLoaded;
         }
+
+        #region Image
+        public object Convert(object value)
+        {
+            if (value == null || !(value is byte[]))
+                return null;
+            using (InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream())
+            {
+                using (DataWriter writer = new DataWriter(ms.GetOutputStreamAt(0)))
+                {
+                    writer.WriteBytes((byte[])value);
+                    writer.StoreAsync().GetResults();
+                }
+                var image = new BitmapImage();
+                image.SetSource(ms);
+                return image;
+            }
+        }
+
+       
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            imageList.Items.Clear();
+
+            List<MemoryStream> ms = Message.MemoryStream;
+            if (ms.Count > 0)
+            {
+                Debug.WriteLine("stream " + string.Join(";", ms));
+                foreach (var file in ms)
+                {
+                    if (file == null)
+                    {
+                        return;
+                    }
+                    Debug.WriteLine($"file: {file.ToArray()}");
+                    imageList.Items.Add(Convert(file));
+                }
+            }
+        }
+        #endregion
 
         #region Reply
         private void ReplyButton_Tapped(object sender, TappedRoutedEventArgs e)
