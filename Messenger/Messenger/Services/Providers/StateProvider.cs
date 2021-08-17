@@ -97,7 +97,7 @@ namespace Messenger.Services.Providers
         {
             provider.CurrentUser = user;
 
-            Singleton<ToastNotificationsService>.Instance.ShowInitialization();
+            Singleton<ToastNotificationsService>.Instance.ShowInitialization("Initializing the application...");
 
             /** LOAD TEAMS/PRIVATE CHATS FROM DATABASE **/
             await provider.TeamManager.Initialize(user);

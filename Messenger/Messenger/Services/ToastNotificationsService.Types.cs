@@ -9,7 +9,7 @@ namespace Messenger.Services
         /// <summary>
         /// Starts reporting progress of initialization in StateProvider
         /// </summary>
-        public void ShowInitialization()
+        public void ShowInitialization(string title)
         {
             string tag = "initialization";
 
@@ -17,7 +17,7 @@ namespace Messenger.Services
             toastAudio.Silent = true;
 
             var content = new ToastContentBuilder()
-                .AddText("Initializing the application...")
+                .AddText(title)
                 .AddVisualChild(new AdaptiveProgressBar()
                 {
                     Title = "Progress",
