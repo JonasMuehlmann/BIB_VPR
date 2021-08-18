@@ -60,9 +60,19 @@
                                 <Run
                                     Text="{Binding LastMessage.Content, TargetNullValue=''}"
                                     />
-                                </TextBlock>
+                            </TextBlock>
                         </StackPanel>
                     </StackPanel>
+                    <Button
+                        Background="Transparent"
+                        Grid.Column="1"
+                        Command="{Binding RemoveChatCommand}"
+                        CommandParameter="{Binding Id}">
+                        <SymbolIcon
+                            Symbol="Delete"
+                            Foreground="{StaticResource SystemChromeGrayColor}">
+                        </SymbolIcon>
+                    </Button>
                 </StackPanel>
             </my:TreeViewItem>
         </DataTemplate>
