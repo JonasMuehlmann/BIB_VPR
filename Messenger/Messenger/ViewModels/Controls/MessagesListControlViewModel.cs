@@ -107,7 +107,7 @@ namespace Messenger.ViewModels.Controls
             {
                 if (!message.IsReply)
                 {
-                    MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+                    MessageViewModel target = Messages.FirstOrDefault(m => m.Id == message.Id);
 
                     if (target != null)
                     {
