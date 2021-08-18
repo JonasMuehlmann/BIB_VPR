@@ -14,6 +14,8 @@ namespace Messenger.Services.Providers
     {
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
+        private ToastNotificationsService Toast => Singleton<ToastNotificationsService>.Instance;
+
         /// <summary>
         /// Events with the payload of a list of objects
         /// Fires on 'loaded' events including:
@@ -27,6 +29,8 @@ namespace Messenger.Services.Providers
         public event EventHandler<BroadcastArgs> ChatsLoaded;
 
         public event EventHandler<BroadcastArgs> MessagesLoaded;
+
+        public event EventHandler<BroadcastArgs> NotificationsLoaded;
 
         #endregion
 
@@ -46,6 +50,8 @@ namespace Messenger.Services.Providers
 
         public event EventHandler<BroadcastArgs> UserUpdated;
 
+        public event EventHandler<BroadcastArgs> NotificationReceived;
+
         #endregion
 
         #region State Events
@@ -63,6 +69,7 @@ namespace Messenger.Services.Providers
         {
             SignalRService.ReceiveMessage += OnReceiveMessage;
             SignalRService.ReceiveInvitation += OnReceiveInvitation;
+            SignalRService.ReceiveNotification += OnReceiveNotification;
             SignalRService.MessageUpdated += OnMessageUpdated;
             SignalRService.MessageDeleted += OnMessageDeleted;
             SignalRService.MessageReactionsUpdated += OnMessageReactionsUpdated;
@@ -111,6 +118,9 @@ namespace Messenger.Services.Providers
                 case BroadcastOptions.ChatsLoaded:
                     args.Payload = CacheQuery.GetMyChats();
                     break;
+                case BroadcastOptions.NotificationsLoaded:
+                    args.Payload = CacheQuery.GetNotifications();
+                    break;
                 default:
                     break;
             }
@@ -127,6 +137,9 @@ namespace Messenger.Services.Providers
                     break;
                 case BroadcastOptions.ChatsLoaded:
                     ChatsLoaded?.Invoke(this, args);
+                    break;
+                case BroadcastOptions.NotificationsLoaded:
+                    NotificationsLoaded?.Invoke(this, args);
                     break;
                 /* UPDATED EVENTS */
                 case BroadcastOptions.TeamUpdated:
@@ -154,10 +167,37 @@ namespace Messenger.Services.Providers
                         break;
                     MessageUpdated?.Invoke(this, args);
                     break;
+                case BroadcastOptions.NotificationReceived:
+                    if (!(parameter is NotificationViewModel))
+                        break;
+                    NotificationReceived?.Invoke(this, args);
+                    break;
                 default:
                     break;
             }
         }
+
+        #region Notification
+
+        private void OnReceiveNotification(object sender, SignalREventArgs<Notification> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            Notification data = e.Value;
+            NotificationViewModel viewModel = new NotificationViewModel(data);
+
+            Broadcast(
+                BroadcastOptions.NotificationReceived,
+                BroadcastReasons.Created,
+                viewModel);
+        }
+
+        #endregion
 
         #region Message
 
@@ -176,6 +216,12 @@ namespace Messenger.Services.Providers
             
             /** ADD TO CACHE **/
             MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
+
+            /** SEND TOAST IF CHANNEL CURRENTLY NOT SELECTED **/
+            if (App.StateProvider.SelectedChannel.ChannelId != message.RecipientId)
+            {
+                Toast.ShowMessageReceived(App.StateProvider.SelectedTeam, viewModel);
+            }
 
             /** TRIGGER MESSAGE UPDATED (CREATED) **/
             Broadcast(
@@ -268,6 +314,8 @@ namespace Messenger.Services.Providers
             {
                 PrivateChatViewModel chatViewModel = await CacheQuery.AddOrUpdate<PrivateChatViewModel>(team);
 
+                Toast.ShowInvitationReceived(chatViewModel);
+
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
                     BroadcastReasons.Updated,
@@ -276,6 +324,8 @@ namespace Messenger.Services.Providers
             else
             {
                 TeamViewModel teamViewModel = await CacheQuery.AddOrUpdate<TeamViewModel>(team);
+
+                Toast.ShowInvitationReceived(teamViewModel);
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,

@@ -1,7 +1,9 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
 using Messenger.Models;
+using Messenger.Services;
 using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using System;
@@ -16,23 +18,23 @@ namespace Messenger.Helpers
     {
         public static async Task Reload()
         {
+            Singleton<ToastNotificationsService>.Instance.ShowInitialization("Reloading...");
+
             await App.StateProvider.TeamManager.LoadTeamsFromDatabase(App.StateProvider.CurrentUser);
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(2);
+
             await App.StateProvider.LoadAllMessages();
 
-            App.EventProvider.Broadcast(
-                BroadcastOptions.TeamsLoaded,
-                BroadcastReasons.Loaded,
-                GetMyTeams());
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(3);
 
-            App.EventProvider.Broadcast(
-                BroadcastOptions.ChatsLoaded,
-                BroadcastReasons.Loaded,
-                GetMyChats());
+            App.EventProvider.Broadcast(BroadcastOptions.TeamsLoaded);
+
+            App.EventProvider.Broadcast(BroadcastOptions.ChatsLoaded);
 
             if (App.StateProvider.SelectedChannel != null)
             {
-                App.EventProvider.Broadcast(
-                    BroadcastOptions.MessagesSwitched);
+                App.EventProvider.Broadcast(BroadcastOptions.MessagesSwitched);
             }
         }
 
@@ -59,6 +61,8 @@ namespace Messenger.Helpers
         public static IReadOnlyCollection<TeamViewModel> GetMyTeams() => App.StateProvider.TeamManager.MyTeams;
 
         public static IReadOnlyCollection<PrivateChatViewModel> GetMyChats() => App.StateProvider.TeamManager.MyChats;
+
+        public static IReadOnlyCollection<NotificationViewModel> GetNotifications() => App.StateProvider.Notifications;
 
         public static bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages) => App.StateProvider.MessageManager.TryGetMessages(channelId, out messages);
 
