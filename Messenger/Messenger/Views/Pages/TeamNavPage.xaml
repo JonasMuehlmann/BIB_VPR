@@ -50,7 +50,8 @@
                     </StackPanel>
                     <Button Background="Transparent"
                             Grid.Column="1"
-                            Command="{Binding RemoveTeamCommand}">
+                            Command="{Binding RemoveTeamCommand}"
+                            CommandParameter="{x:Bind Id}">
                         <SymbolIcon
                             Symbol="Delete"
                             Foreground="{StaticResource SystemChromeGrayColor}">
@@ -110,6 +111,7 @@
                         Background="Transparent"
                         Foreground="{StaticResource SystemChromeGrayColor}"
                         Command="{Binding RemoveChannelCommand}"
+                        CommandParameter="{x:Bind TeamId, Mode=OneWay}"
                         Grid.Column="1">
                         <Viewbox
                             Width="14"
