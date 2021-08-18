@@ -373,7 +373,7 @@ namespace Messenger.Services.Providers
             }
             else
             {
-                TeamViewModel teamViewModel = CacheQuery.Remove<TeamViewModel>(team);
+                TeamViewModel teamViewModel = CacheQuery.Remove<TeamViewModel>(team.Id);
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
