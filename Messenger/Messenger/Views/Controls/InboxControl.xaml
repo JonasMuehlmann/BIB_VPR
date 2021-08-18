@@ -21,7 +21,7 @@
                     <DataTemplate
                         x:DataType="vm:NotificationViewModel">
                         <Grid
-                            Padding="20">
+                            Padding="20 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -33,11 +33,14 @@
                             </Grid.RowDefinitions>
 
                             <!-- MODEL: NOTIFICATION -->
-                            <TextBlock
-                                Text="{Binding MessageViewModel.Source}"
-                                Grid.Row="0"
-                                FontWeight="Bold"
-                                />
+                            <StackPanel>
+                                <TextBlock
+                                    Text="{Binding MessageViewModel.Source}"
+                                    Grid.Row="0"
+                                    FontWeight="Bold"
+                                    FontSize="18"
+                                    />
+                            </StackPanel>
                             <TextBlock
                                 Text="{Binding
                                     CreationTime,
@@ -45,10 +48,16 @@
                                 Grid.Row="0"
                                 TextTrimming="CharacterEllipsis"
                                 Grid.Column="1"
+                                FontSize="12"
+                                VerticalAlignment="Bottom"
+                                Opacity="0.5"
                                 />
                             <TextBlock
                                 Text="{Binding MessageViewModel.TeamName}"
                                 Grid.Row="1"
+                                FontSize="20"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
+                                FontWeight="SemiBold"
                                 />
                             <TextBlock
                                 Text="{Binding MessageViewModel.Type}"

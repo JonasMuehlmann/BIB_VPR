@@ -57,6 +57,7 @@ namespace Messenger.ViewModels.DataViewModels
             CreationTime = data.CreationTime;
 
             _message = data.Message;
+            MessageViewModel = new NotificationMessageViewModel();
 
             if (Enum.TryParse(typeof(NotificationType), _message["notificationType"].Value<string>(), out object result))
             {
