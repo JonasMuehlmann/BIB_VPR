@@ -10,7 +10,7 @@ using System;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
-namespace Messenger.Commands.TeamManage
+namespace Messenger.Commands.PrivateChat
 {
     public class StartChatCommand : ICommand
     {

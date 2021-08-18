@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
-    class RemoveTeamCommand : ICommand
+    public class RemoveTeamCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 

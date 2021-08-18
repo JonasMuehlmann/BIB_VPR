@@ -1,4 +1,5 @@
-﻿using Messenger.Commands.TeamManage;
+﻿using Messenger.Commands.PrivateChat;
+using Messenger.Commands.TeamManage;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
