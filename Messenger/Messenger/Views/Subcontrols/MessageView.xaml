@@ -149,7 +149,7 @@
                     Background="{ThemeResource Elevation_2}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto" MaxHeight="500" />
+                        <RowDefinition Height="Auto" MaxHeight="500"/>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" MaxHeight="200"/>
                         <RowDefinition Height="Auto"/>
@@ -344,6 +344,34 @@
                             </CommandBar>
                         </Viewbox>
                     </StackPanel>
+                    <!-- Image Panel-->
+                    <ListView Grid.Row="2" SelectionMode="None"
+                                    HorizontalAlignment="Stretch" 
+                                   ItemsSource="{x:Bind
+                                        Message.Images,
+                                        Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="15" />
+                                <Setter Property="Padding" Value="0" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                        HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="BitmapImage">
+                                <Image Source="{Binding}"
+                                       MaxWidth="350"
+                                       HorizontalAlignment="Center"
+                                       Stretch="UniformToFill" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     <!-- ATTACHMENTS PANEL (TOGGLE) -->
                     <StackPanel
                         Visibility="{x:Bind
