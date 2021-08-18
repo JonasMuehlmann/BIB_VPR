@@ -352,7 +352,7 @@
                                         Mode=OneWay}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="Margin" Value="15" />
                                 <Setter Property="Padding" Value="0" />
                             </Style>
                         </ListView.ItemContainerStyle>
