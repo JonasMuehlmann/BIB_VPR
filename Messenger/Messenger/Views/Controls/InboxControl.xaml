@@ -13,7 +13,6 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <converters:DateToStringConverter x:Key="DateToStringConverter" />
-        <converters:NotificationTypeToStringConverter x:Key="NotificationTypeToStringConverter" />
         <Style x:Key="InboxListView" TargetType="ListView">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="ItemTemplate">
@@ -61,9 +60,8 @@
                                 FontWeight="SemiBold"
                                 />
                             <TextBlock
-                                Text="{Binding MessageViewModel.Type, Converter={StaticResource NotificationTypeToStringConverter}}"
+                                Text="{Binding MessageViewModel.Type}"
                                 Grid.Row="2"
-                                Opacity=".5"
                                 />
                         </Grid>
                     </DataTemplate>
