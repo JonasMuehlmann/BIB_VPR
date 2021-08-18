@@ -7,6 +7,7 @@ using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -140,7 +141,22 @@ namespace Messenger.Helpers.MessageHelpers
 
             if (blobNames != null && blobNames.Count() > 0)
             {
-                viewModel.Attachments = blobNames.Parse();
+                List<Attachment> attachements = blobNames.Parse();
+                List<MemoryStream> imageStreams = new List<MemoryStream>();
+                foreach (var item in attachements)
+                {
+                    if(item.FileType == "jpg" || item.FileType == "jpeg" || item.FileType == "gif" || item.FileType == "png" || item.FileType == "gif")
+                    {
+                        imageStreams.Add(await FileSharingService.Download(item.ToBlobName()));
+                    }
+                    else
+                    {
+                        viewModel.Attachments.Add(item);
+                    }
+                }
+                if (imageStreams.Count > 0) {
+                    viewModel.AddImages(imageStreams);
+                }
             }
 
             return viewModel;

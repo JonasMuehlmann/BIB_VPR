@@ -736,6 +736,29 @@ namespace Messenger.Core.Services
             return result;
         }
 
+
+        /// Update A user's username
+        /// </summary>
+        /// <param name="userId">Id of the user whos username should be updated</param>
+        /// <param name="newUsername">The new username of the user</param>
+        /// <returns>True if the username was successfully updated, false otherwise</returns>
+        public static async Task<bool> UpdateUserUsername(string userId, string newUsername)
+        {
+            LogContext.PushProperty("Method", "UpdateUserUsername");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters userId={userId}, username={newUsername}");
+
+            var result = await UserService.UpdateUsername(userId, newUsername);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
         /// <summary>
         /// Update A user's bio
         /// </summary>

@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Messenger.Behaviors"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:models="using:Messenger.ViewModels.DataViewModels"
     xmlns:subcontrols="using:Messenger.Views.Subcontrols"
     xmlns:icons="using:MahApps.Metro.IconPacks"
@@ -92,13 +91,16 @@
                             FontSize="12"
                             Opacity=".75">
                             <Run
-                                Text="{Binding LastMessage.Sender.Name, Mode=OneWay}"
+                                Text="{Binding LastMessage.Sender.Name, Mode=OneWay, TargetNullValue=''}"
                                 />
                             <Run
                                 Text=":"
                                 />
                             <Run
-                                Text="{Binding LastMessage.Content, Mode=OneWay}"
+                                Text="{Binding
+                                    LastMessage.Content,
+                                    Mode=OneWay,
+                                    TargetNullValue=''}"
                                 />
                             </TextBlock>
                         </StackPanel>
@@ -191,46 +193,50 @@
                 </TextBlock>
             </StackPanel>
             <!-- CREATE NEW TEAM -->
-            <Button
-                Style="{StaticResource NewTeamButtonStyle}"
-                Command="{x:Bind ViewModel.CreateTeamCommand}"
-                Grid.Row="0">
-                <StackPanel
-                    Spacing="5"
-                    Orientation="Horizontal">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+                <Button
+                    x:Name="RefreshChat"
+                    Command="{x:Bind
+                        ViewModel.ReloadCommand}"
+                    Style="{StaticResource NewTeamButtonStyle}">
                     <Viewbox
-                        Height="20"
-                        Width="20">
-                        <icons:PackIconFontAwesome
-                            Kind="UserPlusSolid"
-                            Foreground="{ThemeResource PrimaryAccent_A}"
-                            />
+                        Height="18"
+                        Width="18">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <SymbolIcon
+                                Symbol="RepeatAll"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
+                                />
+                        </StackPanel>
                     </Viewbox>
-                    <TextBlock
-                        Text="Start"
-                        FontSize="14"
-                        FontWeight="Bold"
-                        Foreground="{ThemeResource PrimaryAccent_A}"
-                        />
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="RefreshChat"
-                Style="{StaticResource NewTeamButtonStyle}"
-                Grid.Row="0"
-                Margin="40 5 80 2">
-                <Viewbox
-                    Height="18"
-                    Width="18">
+                </Button>
+                <Button
+                    Style="{StaticResource NewTeamButtonStyle}"
+                    Command="{x:Bind ViewModel.CreateTeamCommand}"
+                    Grid.Row="0">
                     <StackPanel
+                        Spacing="5"
                         Orientation="Horizontal">
-                        <SymbolIcon
-                            Symbol="RepeatAll"
+                        <Viewbox
+                            Height="20"
+                            Width="20">
+                            <icons:PackIconFontAwesome
+                                Kind="UserPlusSolid"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
+                                />
+                        </Viewbox>
+                        <TextBlock
+                            Text="Start"
+                            FontSize="14"
+                            FontWeight="Bold"
                             Foreground="{ThemeResource PrimaryAccent_A}"
                             />
                     </StackPanel>
-                </Viewbox>
-            </Button>
+                </Button>
+            </StackPanel>
         </Grid>
         
         <!-- LOADING CONTROL -->

@@ -2,11 +2,17 @@
 using Messenger.Commands.Messenger;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Input;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Messenger.Views.Subcontrols
 {
@@ -59,10 +65,14 @@ namespace Messenger.Views.Subcontrols
         public static readonly DependencyProperty ToggleReactionCommandProperty =
             DependencyProperty.Register("ToggleReactionCommand", typeof(ICommand), typeof(MessageView), new PropertyMetadata(null));
 
+
         public MessageView()
         {
             InitializeComponent();
         }
+        
+
+
 
         #region Reply
         private void ReplyButton_Tapped(object sender, TappedRoutedEventArgs e)

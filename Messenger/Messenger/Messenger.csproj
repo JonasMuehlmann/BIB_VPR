@@ -178,6 +178,7 @@
     <Compile Include="Commands\Messenger\ToggleReactionCommand.cs" />
     <Compile Include="Commands\PrivateChat\StartChatCommand.cs" />
     <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
+    <Compile Include="Commands\UserData\UpdateUserNameCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
     <Compile Include="Helpers\Converters\CountToVisibilityConverter.cs" />
     <Compile Include="ViewModels\Controls\InboxControlViewModel.cs" />

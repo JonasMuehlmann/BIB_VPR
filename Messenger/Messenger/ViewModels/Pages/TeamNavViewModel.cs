@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Messenger.Commands;
 using Messenger.Commands.TeamManage;
 using Messenger.Core.Helpers;
 using Messenger.Helpers;
@@ -55,13 +59,24 @@ namespace Messenger.ViewModels.Pages
 
         #region Commands
 
+        /// <summary>
+        /// Switches channel within a team
+        /// </summary>
         public ICommand TeamChannelSwitchCommand => new ChannelSwitchCommand();
 
+        /// <summary>
+        /// Opens CreateTeamDialog to start a new team
+        /// </summary>
         public ICommand CreateTeamCommand => new CreateTeamCommand();
 
         public ICommand RemoveChannelCommand => new RemoveChannelCommand();
 
         public ICommand RemoveTeamCommand => new RemoveTeamCommand();
+
+        /// <summary>
+        /// Manually reloads all teams and messages
+        /// </summary>
+        public ICommand ReloadCommand => new RelayCommand(Reload);
 
         #endregion
 
@@ -101,6 +116,21 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        private async void Reload()
+        {
+            IsBusy = true;
+
+            Teams.Clear();
+
+            await Task.Delay(TimeSpan.FromMilliseconds(500));
+            await CacheQuery.Reload();
+        }
+
+        #region Events
+
+        /// <summary>
+        /// Fired by EventProvider on TeamsLoaded
+        /// </summary>
         public void OnTeamsLoaded(object sender, BroadcastArgs e)
         {
             IEnumerable<TeamViewModel> teams = e.Payload as IEnumerable<TeamViewModel>;
@@ -118,6 +148,9 @@ namespace Messenger.ViewModels.Pages
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Fired by EventProvider on TeamUpdated
+        /// </summary>
         public void OnTeamUpdated(object sender, BroadcastArgs e)
         {
             TeamViewModel team = e.Payload as TeamViewModel;
@@ -149,6 +182,9 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        /// <summary>
+        /// Fired by EventProvider on ChannelUpdated
+        /// </summary>
         public void OnChannelUpdated(object sender, BroadcastArgs e)
         {
             ChannelViewModel channel = e.Payload as ChannelViewModel;
@@ -196,6 +232,9 @@ namespace Messenger.ViewModels.Pages
             }
         }
 
+        /// <summary>
+        /// Fired by EventProvider on MessageUpdated(for LastMessage of Channel)
+        /// </summary>
         public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
             if (e.Reason == BroadcastReasons.Created)
@@ -214,5 +253,7 @@ namespace Messenger.ViewModels.Pages
                 }
             }
         }
+
+        #endregion
     }
 }
