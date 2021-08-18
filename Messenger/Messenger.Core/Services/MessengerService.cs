@@ -1,12 +1,12 @@
-﻿using Messenger.Core.Helpers;
+using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
-using System.IO;
 
 namespace Messenger.Core.Services
 {
@@ -234,7 +234,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Add a reaction to a message and notify other clients
+        /// Add a reaction to a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to add a reaction to</param>
         /// <param name="userId">The id of the user making the reaction</param>
@@ -267,7 +267,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Remove a reaction from a message and notify other clients
+        /// Remove a reaction from a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
         /// <param name="userId">The id of the user whose reaction to remove</param>
@@ -446,14 +446,14 @@ namespace Messenger.Core.Services
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public static async Task<bool> DeleteTeam(uint teamId)
+        /// <returns>The deleted Team on success, null otherwise</returns>
+        public static async Task<Team> DeleteTeam(uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            Team team = await TeamService.GetTeam(teamId);
+            var team = await TeamService.GetTeam(teamId);
 
             var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
             var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
@@ -462,9 +462,18 @@ namespace Messenger.Core.Services
 
             await SignalRService.DeleteTeam(team);
 
-            logger.Information($"Return value: {result}");
+            if (result)
+            {
+                logger.Information($"Return value: {team}");
 
-            return result;
+                return team;
+            }
+            else
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
         }
 
         /// <summary>
@@ -572,8 +581,8 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId"></param>
         /// <returns>Returns a list with all channels</returns>
-        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId) 
-        {           
+        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId)
+        {
             LogContext.PushProperty("Method", "GetChannelsForTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
@@ -665,9 +674,9 @@ namespace Messenger.Core.Services
 
             // Add user to the hub group if the user is connected (will be handled in SignalR)
             await SignalRService.SendInvitation(user, team);
-            
+
             logger.Information($"Return value: true");
-            
+
             return true;
         }
 
