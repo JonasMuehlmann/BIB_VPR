@@ -1121,8 +1121,9 @@ namespace Messenger.Core.Services
 
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={chatId.Value}");
 
-            await SignalRService.CreateTeam(chat);
+
             await SignalRService.JoinTeam(userId, chat.Id.ToString());
+            await SignalRService.CreateTeam(chat);
 
             logger.Information($"Return value: {chatId}");
 
