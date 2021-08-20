@@ -364,7 +364,7 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters reactionId={reactionId}");
 
-            string query = $@"SELECT * FROM Reactions WHERE reactionId={reactionId};";
+            string query = $@"SELECT * FROM Reactions WHERE Id={reactionId};";
 
             // TODO: Implement SqlHelper to build objects from a single row
             return (await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query)).First();
