@@ -8,6 +8,10 @@ using Messenger.Core.Models;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds static methods to interact with the microsoft graph service used to
+    /// authenticate users and retrieve initial user data
+    /// <returns></returns>
     public class MicrosoftGraphService
     {
         //// For more information about Get-User Service, refer to the following documentation
@@ -19,6 +23,11 @@ namespace Messenger.Core.Services
         private static string _apiServiceMe = "me/";
         private static string _apiServiceMePhoto = "me/photo/$value";
 
+        /// <summary>
+        /// Get a user object from a specified accessToken
+        /// </summary>
+        /// <param name="accessToken">An accessToken used to authenticate a user</param>
+        /// <returns>A user object holding the authenticated user's data</returns>
         public static async Task<User> GetUserInfoAsync(string accessToken)
         {
             User user = null;
@@ -35,6 +44,11 @@ namespace Messenger.Core.Services
             return user;
         }
 
+        /// <summary>
+        /// Get a user's profile photo from a specified accessToken
+        /// </summary>
+        /// <param name="accessToken">An accessToken used to authenticate a user</param>
+        /// <returns>A user's profile photo as a base64 encoded string</returns>
         public static async Task<string> GetUserPhoto(string accessToken)
         {
             var httpContent = await GetDataAsync($"{_graphAPIEndpoint}{_apiServiceMePhoto}", accessToken);

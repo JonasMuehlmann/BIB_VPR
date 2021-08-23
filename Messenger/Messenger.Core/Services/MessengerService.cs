@@ -1,20 +1,26 @@
-﻿using Messenger.Core.Helpers;
+using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Services
 {
     /// <summary>
-    /// Container service class for message service, team service and signal-r service
+    /// Holds static wrappers around other Service's methods and
+    /// adds Message passing to notify other clients of changes
     /// </summary>
     public class MessengerService
     {
+        /// <summary>
+        /// The signalRService holding the connection and defined messages to send to the hub
+        /// </summary>
         public static SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
         public static ILogger logger => GlobalLogger.Instance;
@@ -234,7 +240,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Add a reaction to a message and notify other clients
+        /// Add a reaction to a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to add a reaction to</param>
         /// <param name="userId">The id of the user making the reaction</param>
@@ -267,7 +273,7 @@ namespace Messenger.Core.Services
         }
 
         /// <summary>
-        ///	Remove a reaction from a message and notify other clients
+        /// Remove a reaction from a message and notify other clients
         /// </summary>
         /// <param name="messageId">The id of the message to remove a reaction from</param>
         /// <param name="userId">The id of the user whose reaction to remove</param>
@@ -446,14 +452,14 @@ namespace Messenger.Core.Services
         /// Delete a team alongside it's channels and memberships
         /// </summary>
         /// <param name="teamId">The id of the team to delete</param>
-        /// <returns>True if the team was successfully deleted, false otherwise</returns>
-        public static async Task<bool> DeleteTeam(uint teamId)
+        /// <returns>The deleted Team on success, null otherwise</returns>
+        public static async Task<Team> DeleteTeam(uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
 
-            Team team = await TeamService.GetTeam(teamId);
+            var team = await TeamService.GetTeam(teamId);
 
             var didDeleteChannels = await ChannelService.RemoveAllChannels(teamId);
             var didDeleteTeamAndMemberships = await TeamService.DeleteTeam(teamId);
@@ -462,9 +468,18 @@ namespace Messenger.Core.Services
 
             await SignalRService.DeleteTeam(team);
 
-            logger.Information($"Return value: {result}");
+            if (result)
+            {
+                logger.Information($"Return value: {team}");
 
-            return result;
+                return team;
+            }
+            else
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
         }
 
         /// <summary>
@@ -572,8 +587,8 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId"></param>
         /// <returns>Returns a list with all channels</returns>
-        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId) 
-        {           
+        public static async Task<IEnumerable<Channel>> GetChannelsForTeam(uint teamId)
+        {
             LogContext.PushProperty("Method", "GetChannelsForTeam");
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters teamId={teamId}");
@@ -665,9 +680,27 @@ namespace Messenger.Core.Services
 
             // Add user to the hub group if the user is connected (will be handled in SignalR)
             await SignalRService.SendInvitation(user, team);
-            
+
+            // Send notification to target user
+            JObject notificationMessage = await NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage(teamId);
+
+            uint? notificationId = await NotificationService.SendNotification(userId, notificationMessage);
+
+            if (notificationId != null)
+            {
+                Notification notification = new Notification()
+                {
+                    Id = (uint)notificationId,
+                    RecipientId = userId,
+                    Message = notificationMessage,
+                    CreationTime = DateTime.Now
+                };
+
+                await SignalRService.SendNotificationToUser(notification);
+            }
+
             logger.Information($"Return value: true");
-            
+
             return true;
         }
 
@@ -717,6 +750,29 @@ namespace Messenger.Core.Services
             logger.Information($"Function called with parameters userId={userId}, newEmail={newEmail}");
 
             var result = await UserService.UpdateUserMail(userId, newEmail);
+
+            var user = await UserService.GetUser(userId);
+
+            await SignalRService.UpdateUser(user);
+
+            logger.Information($"Return value: {result}");
+
+            return result;
+        }
+
+
+        /// Update A user's username
+        /// </summary>
+        /// <param name="userId">Id of the user whos username should be updated</param>
+        /// <param name="newUsername">The new username of the user</param>
+        /// <returns>True if the username was successfully updated, false otherwise</returns>
+        public static async Task<bool> UpdateUserUsername(string userId, string newUsername)
+        {
+            LogContext.PushProperty("Method", "UpdateUserUsername");
+            LogContext.PushProperty("SourceContext", "MessengerService");
+            logger.Information($"Function called with parameters userId={userId}, username={newUsername}");
+
+            var result = await UserService.UpdateUsername(userId, newUsername);
 
             var user = await UserService.GetUser(userId);
 
@@ -814,6 +870,13 @@ namespace Messenger.Core.Services
             return true;
         }
 
+        /// <summary>
+        /// Update team's role with the specified teamId and notify other clients
+        /// </summary>
+        /// <param name="role">The name of the role to update</param>
+        /// <param name="teamId">The id of the team the role belongs to</param>
+        /// <param name="colorCode">Hex code of the color used to display the role</param>
+        /// <returns>True if successful, false otherwise</returns>
         public static async Task<bool> UpdateTeamRole(uint roleId, string role, string colorCode)
         {
             LogContext.PushProperty("Method", "AddRoleToTeam");
@@ -1012,6 +1075,12 @@ namespace Messenger.Core.Services
 
         #region Private Chat
 
+        /// <summary>
+        /// Start a private chat between two users and notify them
+        /// </summary>
+        /// <param name="userId">The first(ego) participant of the chat</param>
+        /// <param name="targetUserid">The second(other) participant of the chat</param>
+        /// <returns>The id of the created chat's team on success, null otherwise</returns>
         public static async Task<uint?> StartChat(string userId, string targetUserId)
         {
             LogContext.PushProperty("Method", "StartChat");
@@ -1068,8 +1137,9 @@ namespace Messenger.Core.Services
 
             logger.Information($"Created a channel identified by ChannelId={channelId} in the team identified by TeamId={chatId.Value}");
 
-            await SignalRService.CreateTeam(chat);
+
             await SignalRService.JoinTeam(userId, chat.Id.ToString());
+            await SignalRService.CreateTeam(chat);
 
             logger.Information($"Return value: {chatId}");
 

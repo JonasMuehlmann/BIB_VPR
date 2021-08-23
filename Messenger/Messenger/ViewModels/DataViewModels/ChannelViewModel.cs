@@ -1,5 +1,7 @@
-﻿using Messenger.Helpers;
+﻿using Messenger.Commands.TeamManage;
+using Messenger.Helpers;
 using System;
+using System.Windows.Input;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -40,6 +42,11 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _teamId; }
             set { Set(ref _teamId, value); }
+        }
+
+        public ICommand RemoveChannelCommand
+        {
+            get => new RemoveChannelCommand();
         }
 
         public MessageViewModel LastMessage

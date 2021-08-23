@@ -69,6 +69,10 @@ namespace Messenger.ViewModels.Pages
         /// </summary>
         public ICommand CreateTeamCommand => new CreateTeamCommand();
 
+        public ICommand RemoveChannelCommand => new RemoveChannelCommand();
+
+        public ICommand RemoveTeamCommand => new RemoveTeamCommand();
+
         /// <summary>
         /// Manually reloads all teams and messages
         /// </summary>

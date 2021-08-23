@@ -114,6 +114,8 @@ namespace Messenger.Services
             // Connect to signal-r hub and retrieve the team list
             await InitializeSignalR(viewModel.Id);
 
+            Singleton<ToastNotificationsService>.Instance.ShowNotificationLoggedIn(viewModel);
+
             // Merged with user model from the application database
             return viewModel;
         }

@@ -9,7 +9,7 @@ using Serilog;
 using System;
 using System.Windows.Input;
 
-namespace Messenger.Commands.TeamManage
+namespace Messenger.Commands.PrivateChat
 {
     public class StartChatWithUserCommand : ICommand
     {

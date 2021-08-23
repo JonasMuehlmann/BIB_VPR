@@ -9,6 +9,9 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds static methods to interact with messages, reactions and message attachments on the DB
+    /// </summary>
     public class MessageService : AzureServiceBase
     {
         /// <summary>
