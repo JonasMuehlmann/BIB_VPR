@@ -130,6 +130,7 @@
                             <Flyout.FlyoutPresenterStyle>
                                 <Style TargetType="FlyoutPresenter">
                                     <Setter Property="CornerRadius" Value="5" />
+                                    <Setter Property="Background" Value="{ThemeResource Elevation_2}" />
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
                             <local:UserProfileFlyout
@@ -148,7 +149,7 @@
                     Background="{ThemeResource Elevation_2}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto" MaxHeight="500" />
+                        <RowDefinition Height="Auto" MaxHeight="500"/>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" MaxHeight="200"/>
                         <RowDefinition Height="Auto"/>
@@ -343,6 +344,34 @@
                             </CommandBar>
                         </Viewbox>
                     </StackPanel>
+                    <!-- Image Panel-->
+                    <ListView Grid.Row="2" SelectionMode="None"
+                                    HorizontalAlignment="Stretch" 
+                                   ItemsSource="{x:Bind
+                                        Message.Images,
+                                        Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="15" />
+                                <Setter Property="Padding" Value="0" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                        HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="BitmapImage">
+                                <Image Source="{Binding}"
+                                       MaxWidth="350"
+                                       HorizontalAlignment="Center"
+                                       Stretch="UniformToFill" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     <!-- ATTACHMENTS PANEL (TOGGLE) -->
                     <StackPanel
                         Visibility="{x:Bind
@@ -392,11 +421,32 @@
                                 ElementName=AttachmentsExpandButton,
                                 Path=IsChecked,
                                 Converter={StaticResource BoolToVisConverter}}">
-                            <!-- PLACEHOLDER -->
-                            <Button
-                                Style="{StaticResource AttachmentHypertext}"
-                                Content="example_data_02941.png (114.22 KB)"
-                                />
+                            <ItemsControl
+                                ItemsSource="{x:Bind
+                                    Message.Attachments,
+                                    Mode=OneWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Attachment">
+                                        <StackPanel
+                                            Orientation="Horizontal">
+                                            <Button
+                                                Style="{StaticResource AttachmentHypertext}"
+                                                Content="{Binding FileName}"
+                                                Command="{Binding
+                                                    ElementName=messageView,
+                                                    Path=Message.DownloadAttachmentCommand}"
+                                                CommandParameter="{Binding}"
+                                                />
+                                            <TextBlock
+                                                Text="."
+                                                />
+                                            <TextBlock
+                                                Text="{Binding FileType}"
+                                                />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </StackPanel>
                     <!-- MESSAGE ACTIONS (REPLY/UPDATE/DELETE) -->

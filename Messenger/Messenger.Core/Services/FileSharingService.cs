@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System;
 using Serilog;
 using Serilog.Context;
-
+using Messenger.Core.Models;
 
 namespace Messenger.Core.Services
 {
@@ -25,7 +25,7 @@ namespace Messenger.Core.Services
         /// <returns>BlobContainerClient object with established connection</returns>
         private static BlobContainerClient ConnectToContainer()
         {
-            LogContext.PushProperty("Method","ConnectToContainer");
+            LogContext.PushProperty("Method", "ConnectToContainer");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called");
 
@@ -33,72 +33,59 @@ namespace Messenger.Core.Services
             return blobServiceClient.GetBlobContainerClient(containerName);
         }
 
+
         /// <summary>
         /// Download a file into the local cache
         /// </summary>
         /// <param name="blobFileName">A blob file to download</param>
-        /// <param name="destinationDirectory">Where to save the file, defaults to the local application cache</param>
-        /// <returns>True on success, false otherwise</returns>
-        public static async Task<bool> Download(string blobFileName, string destinationDirectory = "")
+        /// <returns>Stream on success, null otherwise</returns>
+        public static async Task<MemoryStream> Download(string blobFileName)
         {
-            LogContext.PushProperty("Method","Download");
+            LogContext.PushProperty("Method", "Download");
             LogContext.PushProperty("SourceContext", "FileSharingService");
-            logger.Information($"Function called with parameters  blobFileName={blobFileName}, destinationDirectory={destinationDirectory}");
+            logger.Information($"Function called with parameters  blobFileName={blobFileName}");
 
             try
             {
                 var containerClient = ConnectToContainer();
 
-                // NOTE: destinationDirectory can not be assigned localFileCachePath
-                // as a default because the expression assigning to it is not constant(compile time)
-                if (destinationDirectory == string.Empty)
-                {
-                    destinationDirectory = localFileCachePath;
-
-                    logger.Information($"destinationDirectory has been set to {localFileCachePath}");
-                }
-
-                if (!Directory.Exists(destinationDirectory))
-                {
-                    Directory.CreateDirectory(destinationDirectory);
-
-                    logger.Information($"created local directory {destinationDirectory}");
-                }
-
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                var result = await blobClient.DownloadToAsync(Path.Combine(destinationDirectory, blobFileName));
+                MemoryStream downloadStream = new MemoryStream();
+
+                var result = await blobClient.DownloadToAsync(downloadStream);
 
                 logger.Information($"Return value: {result}");
 
-                return true;
+                return downloadStream;
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: false");
 
-                return false;
+                return null;
             }
         }
+
 
         /// <summary>
         /// Upload a file to the blob storage
         /// </summary>
-        /// <param name="filePath">A path to a file to upload</param>
+        /// <param name="uploadFile">An object with file data</param>
         /// <returns>The name of the blob file on success, null otherwise</returns>
-        public static async Task<string> Upload(string filePath)
+        public static async Task<string> Upload(UploadData uploadFile)
         {
-            LogContext.PushProperty("Method","Upload");
+            LogContext.PushProperty("Method", "Upload");
             LogContext.PushProperty("SourceContext", "FileSharingService");
-            logger.Information($"Function called with parameters filePath={filePath}");
+            logger.Information($"Function called with parameters filePath={uploadFile.FilePath}");
 
             // Adding GUID for deduplication
-            string blobFileName = Path.GetFileNameWithoutExtension(filePath)
-                                + Path.GetExtension(filePath)
+            string blobFileName = Path.GetFileNameWithoutExtension(uploadFile.FilePath)
+                                + Path.GetExtension(uploadFile.FilePath)
                                 + "." + Guid.NewGuid().ToString();
 
-            logger.Information($"set blobFileName to {blobFileName} from filePath={filePath}");
+            logger.Information($"set blobFileName to {blobFileName} from filePath={uploadFile.FilePath}");
 
             try
             {
@@ -106,16 +93,12 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                // Read and upload file
-                using (FileStream uploadFileStream = File.OpenRead(Path.GetFullPath(filePath)))
-                {
-                    await blobClient.UploadAsync(uploadFileStream, true);
+                await blobClient.UploadAsync(uploadFile.StreamFile, true);
 
-                    return blobFileName;
-                }
+                return blobFileName;
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: null");
 
@@ -131,7 +114,7 @@ namespace Messenger.Core.Services
         /// <returns>The name of the blob file on success, null otherwise</returns>
         public static async Task<string> UploadFromBase64(string data, string fileName)
         {
-            LogContext.PushProperty("Method","UploadFromBase64");
+            LogContext.PushProperty("Method", "UploadFromBase64");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters data={data.Substring(0, 20)}, fileName={fileName}");
 
@@ -159,7 +142,7 @@ namespace Messenger.Core.Services
                 }
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: null");
 
@@ -174,7 +157,7 @@ namespace Messenger.Core.Services
         /// <returns>true if successfully deleted, false otherwise</returns>
         public static async Task<bool> Delete(string blobFileName)
         {
-            LogContext.PushProperty("Method","Delete");
+            LogContext.PushProperty("Method", "Delete");
             LogContext.PushProperty("SourceContext", "FileSharingService");
             logger.Information($"Function called with parameters blobFileName={blobFileName}");
 
@@ -185,11 +168,11 @@ namespace Messenger.Core.Services
 
                 BlobClient blobClient = containerClient.GetBlobClient(blobFileName);
 
-                    // Read and upload file
-                    return await blobClient.DeleteIfExistsAsync();
+                // Read and upload file
+                return await blobClient.DeleteIfExistsAsync();
             }
             // TODO:Find better exception(s) to catch
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Information(e, $"Return value: null");
 

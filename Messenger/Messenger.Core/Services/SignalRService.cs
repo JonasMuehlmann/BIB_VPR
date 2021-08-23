@@ -26,6 +26,7 @@ namespace Messenger.Core.Services
         /// </summary>
         public event EventHandler<SignalREventArgs<Message>> ReceiveMessage;
         public event EventHandler<SignalREventArgs<Team>> ReceiveInvitation;
+        public event EventHandler<SignalREventArgs<Notification>> ReceiveNotification;
 
         public event EventHandler<SignalREventArgs<Message>> MessageUpdated;
         public event EventHandler<SignalREventArgs<Message>> MessageDeleted;
@@ -63,6 +64,7 @@ namespace Messenger.Core.Services
             /** RECEIVE: PASSIVE EVENTS TRIGGERED ONLY FROM OTHER USERS **/
             _connection.On<Message>("ReceiveMessage", (message) => ReceiveMessage?.Invoke(typeof(SignalRService), BuildArgument(message)));
             _connection.On<Team>("ReceiveInvitation", (team) => ReceiveInvitation?.Invoke(typeof(SignalRService), BuildArgument(team)));
+            _connection.On<Notification>("ReceiveNotification", (notification) => ReceiveNotification?.Invoke(typeof(SignalRService), BuildArgument(notification)));
 
             /** MESSAGE **/
             _connection.On<Message>("MessageUpdated", (message) => MessageUpdated?.Invoke(typeof(SignalRService), BuildArgument(message)));
@@ -188,6 +190,22 @@ namespace Messenger.Core.Services
 
         #endregion
 
+        #region Notification
+
+        public async Task SendNotificationToUser(Notification notification)
+        {
+            LogContext.PushProperty("Method", "SendNotificationToUser");
+            LogContext.PushProperty("SourceContext", "SignalRService");
+
+            logger.Information($"Function called with parameter notification={notification}");
+
+            await _connection.SendAsync("SendNotificationToUser", notification);
+
+            logger.Information($"Sent notification #{notification.Id} to user #{notification.RecipientId}");
+        }
+
+        #endregion
+
         #region Message
 
         /// <summary>
@@ -201,6 +219,8 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "SignalRService");
 
             logger.Information($"Function called with parameter message={message}");
+
+            message.UploadFileData = null;
 
             await _connection.SendAsync("SendMessage", message, teamId.ToString());
 

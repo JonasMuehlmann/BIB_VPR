@@ -56,6 +56,15 @@ namespace Messenger.SignalR
 
         #endregion
 
+        #region Notification
+
+        public async Task SendNotificationToUser(Notification notification)
+        {
+            await Clients.Clients(_connections.GetConnections(notification.RecipientId)).SendAsync("ReceiveNotification", notification);
+        }
+
+        #endregion
+
         #region Message
 
         /// <summary>

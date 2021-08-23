@@ -1,6 +1,10 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
+using Messenger.Models;
+using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,6 +16,28 @@ namespace Messenger.Helpers
 {
     public static class CacheQuery
     {
+        public static async Task Reload()
+        {
+            Singleton<ToastNotificationsService>.Instance.ShowInitialization("Reloading...");
+
+            await App.StateProvider.TeamManager.LoadTeamsFromDatabase(App.StateProvider.CurrentUser);
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(2);
+
+            await App.StateProvider.LoadAllMessages();
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(3);
+
+            App.EventProvider.Broadcast(BroadcastOptions.TeamsLoaded);
+
+            App.EventProvider.Broadcast(BroadcastOptions.ChatsLoaded);
+
+            if (App.StateProvider.SelectedChannel != null)
+            {
+                App.EventProvider.Broadcast(BroadcastOptions.MessagesSwitched);
+            }
+        }
+
         public static bool IsChannelOf<T>(ChannelViewModel viewModel)
         {
             Type type = typeof(T);
@@ -35,6 +61,8 @@ namespace Messenger.Helpers
         public static IReadOnlyCollection<TeamViewModel> GetMyTeams() => App.StateProvider.TeamManager.MyTeams;
 
         public static IReadOnlyCollection<PrivateChatViewModel> GetMyChats() => App.StateProvider.TeamManager.MyChats;
+
+        public static IReadOnlyCollection<NotificationViewModel> GetNotifications() => App.StateProvider.Notifications;
 
         public static bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages) => App.StateProvider.MessageManager.TryGetMessages(channelId, out messages);
 
@@ -77,6 +105,18 @@ namespace Messenger.Helpers
                 if (allChannels.Any(c => c.ChannelId == channelId))
                 {
                     target = allChannels.Single(channel => channel.ChannelId == (uint)parameters.First());
+                }
+            }
+            else if (IsTypeOf<MemberViewModel>(type))
+            {
+                if (parameters.Length == 2)
+                {
+                    uint teamId = (uint)parameters[0];
+                    string userId = parameters[1].ToString();
+
+                    TeamViewModel targetTeam = teamManager.MyTeams.SingleOrDefault(team => team.Id == teamId);
+
+                    target = targetTeam.Members.SingleOrDefault(m => m.Id == userId);
                 }
             }
 

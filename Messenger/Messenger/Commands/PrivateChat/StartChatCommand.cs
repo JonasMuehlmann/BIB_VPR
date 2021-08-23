@@ -1,13 +1,16 @@
 ﻿using Messenger.Core.Helpers;
 using Messenger.Core.Services;
+using Messenger.Helpers;
+using Messenger.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
+using Messenger.Views.Pages;
 using Serilog;
 using System;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
-namespace Messenger.Commands.TeamManage
+namespace Messenger.Commands.PrivateChat
 {
     public class StartChatCommand : ICommand
     {
@@ -37,6 +40,15 @@ namespace Messenger.Commands.TeamManage
                 {
                     UserViewModel currentUser = App.StateProvider.CurrentUser;
 
+                    foreach (PrivateChatViewModel chat in CacheQuery.GetMyChats())
+                    {
+                        if (chat.Partner.Id == dialog.ViewModel.SelectedUser.Id)
+                        {
+                            SwitchToChatPage(chat);
+                            return;
+                        }
+                    }
+
                     uint? chatId = await MessengerService.StartChat(currentUser.Id, dialog.ViewModel.SelectedUser.Id);
 
                     if (chatId != null)
@@ -44,6 +56,13 @@ namespace Messenger.Commands.TeamManage
                         await ResultConfirmationDialog
                                 .Set(true, $"You have started a new chat with {dialog.ViewModel.SelectedUser.DisplayName}.")
                                 .ShowAsync();
+
+                        PrivateChatViewModel chat = CacheQuery.Get<PrivateChatViewModel>(chatId);
+
+                        if (chat != null)
+                        {
+                            SwitchToChatPage(chat);
+                        }
                     }
                 }
             }
@@ -55,6 +74,15 @@ namespace Messenger.Commands.TeamManage
                             .Set(false, $"We could not start a new private chat.")
                             .ShowAsync();
             }
+        }
+
+        private void SwitchToChatPage(PrivateChatViewModel chat)
+        {
+            App.StateProvider.SelectedTeam = chat;
+            App.StateProvider.SelectedChannel = chat.MainChannel;
+
+            NavigationService.Navigate<ChatNavPage>();
+            NavigationService.Open<ChatPage>();
         }
     }
 }

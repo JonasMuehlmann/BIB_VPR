@@ -1,10 +1,13 @@
-﻿using Messenger.Commands.Messenger;
+using Messenger.Commands.Messenger;
+using Messenger.Commands.TeamManage;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.Pages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 
@@ -12,6 +15,7 @@ namespace Messenger.ViewModels.Controls
 {
     public class MessagesListControlViewModel : Observable
     {
+
         private ObservableCollection<MessageViewModel> _messages;
 
         /// <summary>
@@ -20,7 +24,10 @@ namespace Messenger.ViewModels.Controls
         public ObservableCollection<MessageViewModel> Messages
         {
             get { return _messages; }
-            set { Set(ref _messages, value); }
+            set
+            {
+                Set(ref _messages, value);
+            }
         }
 
         public ChatViewModel ParentViewModel { get; private set; }
@@ -39,26 +46,38 @@ namespace Messenger.ViewModels.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Initializes the view model with messages list
+        /// </summary>
         private void Initialize()
         {
             Messages = new ObservableCollection<MessageViewModel>();
 
-            /** LOAD FROM CACHE **/
             if (App.StateProvider != null)
             {
-                if (CacheQuery.TryGetMessages(
-                        ParentViewModel.SelectedChannel.ChannelId,
-                        out ObservableCollection<MessageViewModel> messages))
-                {
-                    Messages.Clear();
+                LoadFromCache();
+            }
+        }
 
-                    foreach (MessageViewModel message in messages)
-                    {
-                        Messages.Add(message);
-                    }
+        /// <summary>
+        /// Loads the messages from the cache
+        /// </summary>
+        private void LoadFromCache()
+        {
+            if (CacheQuery.TryGetMessages(
+                        App.StateProvider.SelectedChannel.ChannelId,
+                        out ObservableCollection<MessageViewModel> messages))
+            {
+                Messages.Clear();
+
+                foreach (MessageViewModel message in messages)
+                {
+                    Messages.Add(message);
                 }
             }
         }
+
+        #region Events
 
         public void OnMessageUpdated(object sender, BroadcastArgs e)
         {
@@ -86,9 +105,9 @@ namespace Messenger.ViewModels.Controls
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                if (!message.IsReply )
+                if (!message.IsReply)
                 {
-                    MessageViewModel target = Messages.Single(m => m.Id == message.Id);
+                    MessageViewModel target = Messages.FirstOrDefault(m => m.Id == message.Id);
 
                     if (target != null)
                     {
@@ -112,5 +131,7 @@ namespace Messenger.ViewModels.Controls
                 }
             }
         }
+
+        #endregion
     }
 }
