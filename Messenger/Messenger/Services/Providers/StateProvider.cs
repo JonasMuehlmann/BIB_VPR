@@ -1,10 +1,14 @@
 ﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +23,8 @@ namespace Messenger.Services.Providers
         private ChannelViewModel _selectedChannel;
 
         private UserViewModel _currentUser;
+
+        private ObservableCollection<NotificationViewModel> _notifications;
 
         #endregion
 
@@ -61,6 +67,12 @@ namespace Messenger.Services.Providers
             set { Set(ref _currentUser, value); }
         }
 
+        public ObservableCollection<NotificationViewModel> Notifications
+        {
+            get { return _notifications; }
+            set { Set(ref _notifications, value); }
+        }
+
         #endregion
 
         public StateProvider()
@@ -85,9 +97,18 @@ namespace Messenger.Services.Providers
         {
             provider.CurrentUser = user;
 
+            Singleton<ToastNotificationsService>.Instance.ShowInitialization("Initializing the application...");
+
             /** LOAD TEAMS/PRIVATE CHATS FROM DATABASE **/
             await provider.TeamManager.Initialize(user);
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(2);
+
             await provider.LoadAllMessages();
+            await provider.LoadAllNotifications();
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(3);
+
 
             /* BROADCAST MY TEAMS */
             App.EventProvider.Broadcast(
@@ -119,6 +140,21 @@ namespace Messenger.Services.Providers
             if (provider.TeamManager.MyChats.Count() > 0)
             {
                 await provider.MessageManager.CreateEntry(provider.TeamManager.MyChats);
+            }
+        }
+
+        public static async Task LoadAllNotifications(this StateProvider provider)
+        {
+            provider.Notifications = new ObservableCollection<NotificationViewModel>();
+
+            IEnumerable<Notification> data = await NotificationService.RetrieveNotifications(provider.CurrentUser.Id);
+
+            if (data != null && data.Count() > 0)
+            {
+                foreach (Notification item in data)
+                {
+                    provider.Notifications.Add(new NotificationViewModel(item));
+                }
             }
         }
     }

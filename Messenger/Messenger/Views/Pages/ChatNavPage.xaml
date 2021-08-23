@@ -20,11 +20,15 @@
             <my:TreeViewItem
                 IsExpanded="False"
                 Padding="0 10">
-                <StackPanel
+                <Grid
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Stretch"
-                    Orientation="Horizontal">
+                    HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
                     <StackPanel
+                        Grid.Column="0"
                         Spacing="10"
                         Orientation="Horizontal">
                         <Viewbox
@@ -52,18 +56,28 @@
                                 FontSize="12"
                                 Opacity=".75">
                                 <Run
-                                    Text="{Binding LastMessage.Sender.Name}"
+                                    Text="{Binding LastMessage.Sender.Name, TargetNullValue=''}"
                                     />
                                 <Run
                                     Text=":"
                                     />
                                 <Run
-                                    Text="{Binding LastMessage.Content}"
+                                    Text="{Binding LastMessage.Content, TargetNullValue=''}"
                                     />
-                                </TextBlock>
+                            </TextBlock>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                    <Button
+                        Background="Transparent"
+                        Grid.Column="1"
+                        Command="{Binding RemoveChatCommand}"
+                        CommandParameter="{Binding Id}">
+                        <SymbolIcon
+                            Symbol="Delete"
+                            Foreground="{StaticResource SystemChromeGrayColor}">
+                        </SymbolIcon>
+                    </Button>
+                </Grid>
             </my:TreeViewItem>
         </DataTemplate>
         <!--#region STYLES -->
