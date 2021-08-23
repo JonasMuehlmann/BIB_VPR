@@ -3,11 +3,17 @@ using System.IO;
 
 namespace Messenger.Core.Helpers
 {
+    /// <summary>
+    /// Configures a logger to log at <TempPath>/BIB_VPR/log.txt
+    /// </summary>
     public static class GlobalLogger
     {
         private static ILogger _instance;
 
-        public static ILogger Instance => _instance ?? 
+        /// <summary>
+        /// The actual logger instance
+        /// </summary>
+        public static ILogger Instance => _instance ??
             (_instance = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.File(Path.Combine(Path.GetTempPath(), "BIB_VPR", "log.txt"),

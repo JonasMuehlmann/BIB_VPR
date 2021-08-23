@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds definitions for messages to send to the signalR hub
+    /// </summary>
     public class SignalRService
     {
         #region Private
@@ -148,6 +151,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Joins a hub group with the current connection id
         /// </summary>
+        /// <param name="userId">Id of the current user</param>
         /// <param name="teamId">Team id as the group name</param>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task JoinTeam(string userId, string teamId)
@@ -169,6 +173,12 @@ namespace Messenger.Core.Services
             }
         }
 
+        /// <summary>
+        /// Leaves a hub group with the current connection id
+        /// </summary>
+        /// <param name="userId">Id of the current user</param>
+        /// <param name="teamId">Team id as the group name</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task LeaveTeam(string userId, string teamId)
         {
             LogContext.PushProperty("Method", "LeaveTeam");
@@ -212,6 +222,7 @@ namespace Messenger.Core.Services
         /// Sends a message to a hub group
         /// </summary>
         /// <param name="message">A complete message object to be sent</param>
+        /// <param name="teamId">Team id as the group name</param>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task SendMessage(Message message, uint teamId)
         {
@@ -231,6 +242,7 @@ namespace Messenger.Core.Services
         /// Update a message's data and notify other clients
         /// </summary>
         /// <param name="message">The updated message object</param>
+        /// <param name="teamId">Team id as the group name</param>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateMessage(Message message, uint teamId)
         {
@@ -244,6 +256,12 @@ namespace Messenger.Core.Services
             logger.Information($"Updated message #{message.Id} from the channel #{message.RecipientId}");
         }
 
+        /// <summary>
+        /// Delete a message and notify other clients
+        /// </summary>
+        /// <param name="message">The updated message object</param>
+        /// <param name="teamId">Team id as the group name</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task DeleteMessage(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "DeleteMessage");
@@ -256,6 +274,12 @@ namespace Messenger.Core.Services
             logger.Information($"Deleted message #{message.Id} from the channel #{message.RecipientId}");
         }
 
+        /// <summary>
+        /// Update a message's reactions and notify other clients
+        /// </summary>
+        /// <param name="message">The updated message object</param>
+        /// <param name="teamId">Team id as the group name</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateMessageReactions(Message message, uint teamId)
         {
             LogContext.PushProperty("Method", "UpdateMessageReactions");
@@ -280,8 +304,7 @@ namespace Messenger.Core.Services
         /// <summary>
         /// Adds the user to the hub group
         /// </summary>
-        /// <param name="userId">Id of the user to add</param>
-        /// <param name="teamId">Id the of team to add user to</param>
+        /// <param name="team">A team object to create a team from</param>
         /// <returns>Asynchronous task to be awaited</returns>
         public async Task CreateTeam(Team team)
         {
@@ -295,6 +318,11 @@ namespace Messenger.Core.Services
             logger.Information($"Created team #{team.Id} ({team.CreationDate})");
         }
 
+        /// <summary>
+        /// Update a team's data and notify other clients
+        /// </summary>
+        /// <param name="team">A team object to update a team from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateTeam(Team team)
         {
             LogContext.PushProperty("Method", "UpdateTeam");
@@ -307,6 +335,11 @@ namespace Messenger.Core.Services
             logger.Information($"Updated team '{team.Name}' #{team.Id} ({team.CreationDate})");
         }
 
+        /// <summary>
+        /// Delete a team and notify other clients
+        /// </summary>
+        /// <param name="team">A team object to delete a team from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task DeleteTeam(Team team)
         {
             LogContext.PushProperty("Method", "DeleteTeam");
@@ -323,6 +356,11 @@ namespace Messenger.Core.Services
 
         #region Channel
 
+        /// <summary>
+        /// Create a channel and and notify other clients other clients
+        /// </summary>
+        /// <param name="channel">Channel object to create channel from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task CreateChannel(Channel channel)
         {
             LogContext.PushProperty("Method", "CreateChannel");
@@ -335,6 +373,11 @@ namespace Messenger.Core.Services
             logger.Information($"Created channel #{channel.ChannelId} in team #{channel.TeamId})");
         }
 
+        /// <summary>
+        /// Update a channel and and notify other clients other clients
+        /// </summary>
+        /// <param name="channel">Channel object to update channel from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateChannel(Channel channel)
         {
             LogContext.PushProperty("Method", "UpdateChannel");
@@ -347,6 +390,11 @@ namespace Messenger.Core.Services
             logger.Information($"Updated channel #{channel.ChannelId} in team #{channel.TeamId})");
         }
 
+        /// <summary>
+        /// Delete a channel and and notify other clients other clients
+        /// </summary>
+        /// <param name="channel">Channel object to delete channel from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task DeleteChannel(Channel channel)
         {
             LogContext.PushProperty("Method", "DeleteChannel");
@@ -363,6 +411,11 @@ namespace Messenger.Core.Services
 
         #region Team Roles
 
+        /// <summary>
+        /// Add or update a team role and notify other clients
+        /// </summary>
+        /// <param name="role">TeamRole object to create/update role from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task AddOrUpdateTeamRole(TeamRole role)
         {
             LogContext.PushProperty("Method", "AddOrUpdateTeamRole");
@@ -375,6 +428,11 @@ namespace Messenger.Core.Services
             logger.Information($"Added/Updated team role '{role.Role}' in team #{role.TeamId})");
         }
 
+        /// <summary>
+        /// Delete a team role and notify other clients
+        /// </summary>
+        /// <param name="role">TeamRole object to delete role from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task DeleteTeamRole(TeamRole role)
         {
             LogContext.PushProperty("Method", "DeleteTeamRole");
@@ -391,6 +449,12 @@ namespace Messenger.Core.Services
 
         #region Member
 
+        /// <summary>
+        /// Send a user an invitation to a team and notify other clients
+        /// </summary>
+        /// <param name="user">Object of user to invite</param>
+        /// <param name="team">Objecte of team to invite user to</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task SendInvitation(User user, Team team)
         {
             LogContext.PushProperty("Method", "SendInvitation");
@@ -403,6 +467,12 @@ namespace Messenger.Core.Services
             logger.Information($"Sent invitation to team #{team.Id} to user #{user.Id}");
         }
 
+        /// <summary>
+        /// Add a member to a team and notify other clients
+        /// </summary>
+        /// <param name="user">Object of user to add</param>
+        /// <param name="team">Objecte of team to add user to</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task AddMember(User user, Team team)
         {
             LogContext.PushProperty("Method", "AddMember");
@@ -427,6 +497,12 @@ namespace Messenger.Core.Services
             logger.Information($"Updated member #{user.Id} in team #{team.Id}");
         }
 
+        /// <summary>
+        /// Remove a member from a team and notify other clients
+        /// </summary>
+        /// <param name="user">Object of user to remove</param>
+        /// <param name="team">Objecte of team to remove user from</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task RemoveMember(User user, Team team)
         {
             LogContext.PushProperty("Method", "RemoveMember");
@@ -443,6 +519,11 @@ namespace Messenger.Core.Services
 
         #region User
 
+        /// <summary>
+        /// Update a user's data and notify other clients
+        /// </summary>
+        /// <param name="user">Updated user object</param>
+        /// <returns>Asynchronous task to be awaited</returns>
         public async Task UpdateUser(User user)
         {
             LogContext.PushProperty("Method", "UpdateUser");
@@ -459,6 +540,10 @@ namespace Messenger.Core.Services
 
         #region Helpers
 
+        /// <summary>
+        /// Reconnect to the signalR hub after a 500ms delay
+        /// </summary>
+        /// <returns>Asynchronous task to be awaited</returns>
         private async Task Reconnect(Exception e)
         {
             LogContext.PushProperty("Method", "Reconnect");
@@ -473,6 +558,10 @@ namespace Messenger.Core.Services
             logger.Information($"Building a new connection to the hub");
         }
 
+        /// <summary>
+        /// Connect to the configured signalR hub
+        /// </summary>
+        /// <returns>Asynchronous task to be awaited</returns>
         private async Task<HubConnection> CreateHubConnection()
         {
             LogContext.PushProperty("Method", "CreateHubConnection");
@@ -493,11 +582,17 @@ namespace Messenger.Core.Services
             return hubConnection;
         }
 
+        /// <summary>
+        /// Build a SignalREventArgs instance with one value
+        /// </summary>
         private SignalREventArgs<T> BuildArgument<T>(T value)
         {
             return new SignalREventArgs<T>(value);
         }
 
+        /// <summary>
+        /// Build a SignalREventArgs instance with two values
+        /// </summary>
         private SignalREventArgs<TOne, TTwo> BuildArgument<TOne, TTwo>(TOne firstValue, TTwo secondValue)
         {
             return new SignalREventArgs<TOne, TTwo>(firstValue, secondValue);

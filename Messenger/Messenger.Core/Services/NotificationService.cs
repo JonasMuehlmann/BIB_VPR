@@ -9,6 +9,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with notifications in the DB
+    /// </summary>
     public class NotificationService : AzureServiceBase
     {
         /// <summary>

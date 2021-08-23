@@ -7,7 +7,7 @@ using Messenger.Core.Services;
 namespace Messenger.Core.Helpers
 {
     /// <summary>
-    ///	Contains static methods to create notification messages from minimal information
+    ///	Holds static methods to create notification messages from minimal information
     /// </summary>
     public static class NotificationMessageBuilder
     {

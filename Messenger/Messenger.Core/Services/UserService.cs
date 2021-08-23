@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with users on the DB
+    /// </summary>
     public class UserService : AzureServiceBase
     {
         // TODO: Maybe use an enum of values like User.Name?

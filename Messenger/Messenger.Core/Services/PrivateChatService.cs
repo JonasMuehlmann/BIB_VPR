@@ -10,6 +10,11 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with private chats on the DB
+    /// </summary>
+    /// <param name=""></param>
+    /// <returns></returns>
     public class PrivateChatService : TeamService
     {
         /// <summary>

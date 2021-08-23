@@ -13,10 +13,14 @@ using Newtonsoft.Json.Linq;
 namespace Messenger.Core.Services
 {
     /// <summary>
-    /// Container service class for message service, team service and signal-r service
+    /// Holds static wrappers around other Service's methods and
+    /// adds Message passing to notify other clients of changes
     /// </summary>
     public class MessengerService
     {
+        /// <summary>
+        /// The signalRService holding the connection and defined messages to send to the hub
+        /// </summary>
         public static SignalRService SignalRService => Singleton<SignalRService>.Instance;
 
         public static ILogger logger => GlobalLogger.Instance;
@@ -695,7 +699,6 @@ namespace Messenger.Core.Services
                 await SignalRService.SendNotificationToUser(notification);
             }
 
-
             logger.Information($"Return value: true");
 
             return true;
@@ -867,6 +870,13 @@ namespace Messenger.Core.Services
             return true;
         }
 
+        /// <summary>
+        /// Update team's role with the specified teamId and notify other clients
+        /// </summary>
+        /// <param name="role">The name of the role to update</param>
+        /// <param name="teamId">The id of the team the role belongs to</param>
+        /// <param name="colorCode">Hex code of the color used to display the role</param>
+        /// <returns>True if successful, false otherwise</returns>
         public static async Task<bool> UpdateTeamRole(uint roleId, string role, string colorCode)
         {
             LogContext.PushProperty("Method", "AddRoleToTeam");
@@ -1065,6 +1075,12 @@ namespace Messenger.Core.Services
 
         #region Private Chat
 
+        /// <summary>
+        /// Start a private chat between two users and notify them
+        /// </summary>
+        /// <param name="userId">The first(ego) participant of the chat</param>
+        /// <param name="targetUserid">The second(other) participant of the chat</param>
+        /// <returns>The id of the created chat's team on success, null otherwise</returns>
         public static async Task<uint?> StartChat(string userId, string targetUserId)
         {
             LogContext.PushProperty("Method", "StartChat");
