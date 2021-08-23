@@ -11,6 +11,9 @@ using Messenger.Core.Services;
 
 namespace Messenger.Core.Helpers
 {
+    /// <summary>
+    /// Holds static methods for common sql operations
+    /// </summary>
     public class SqlHelpers : AzureServiceBase
     {
         /// <summary>

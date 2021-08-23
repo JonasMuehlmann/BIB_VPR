@@ -11,6 +11,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Helpers
 {
+    /// <summary>
+    /// Holds static methods to convert (mostly) from data rows to other types or classes
+    /// </summary>
     public class Mapper
     {
         public static ILogger logger => GlobalLogger.Instance;
@@ -154,6 +157,7 @@ namespace Messenger.Core.Helpers
             };
         }
 
+        /// <summary>
         /// Maps to a full Mention model from the data rows
         /// </summary>
         /// <param name="row">DataRow from the DataSet</param>
@@ -243,6 +247,7 @@ namespace Messenger.Core.Helpers
             return JObject.Parse(str as string);
         }
 
+        /// <summary>
         /// Convert a specified column of a dataRow to an enum
         /// </summary>
         /// <typeparam name="T">The type of the enum to convert to</typeparam>
