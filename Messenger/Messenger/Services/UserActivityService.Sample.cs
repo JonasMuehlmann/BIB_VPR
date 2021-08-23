@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using AdaptiveCards;
 
 using Messenger.Activation;
-using Messenger.Views;
-
+using Messenger.Views.Pages;
 using Windows.ApplicationModel;
 using Windows.UI;
 using Windows.UI.Shell;

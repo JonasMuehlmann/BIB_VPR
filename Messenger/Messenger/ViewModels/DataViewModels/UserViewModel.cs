@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Messenger.Core.Models;
-using Messenger.Helpers;
-
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Messenger.ViewModels
+namespace Messenger.ViewModels.DataViewModels
 {
-    public class UserViewModel : Observable
+    public class UserViewModel : DataViewModel
     {
         private string _name;
-        private string _userPrincipalName;
         private string _bio;
         private string _mail;
         private BitmapImage _photo;
         private string _id;
         private uint _nameId;
-        private List<Team> _teams = new List<Team>();
 
         public string Id
         {
@@ -34,12 +29,6 @@ namespace Messenger.ViewModels
         {
             get => _nameId;
             set => Set(ref _nameId, value);
-        }
-
-        public string UserPrincipalName
-        {
-            get => _userPrincipalName;
-            set => Set(ref _userPrincipalName, value);
         }
 
         public string Bio
@@ -60,22 +49,37 @@ namespace Messenger.ViewModels
             set => Set(ref _photo, value);
         }
 
-        public List<Team> Teams
-        {
-            get { return _teams; }
-            set
-            {
-                _teams = value;
-                Set(ref _teams, value);
-            }
-        }
-
         public UserViewModel()
         {
         }
 
-        public User ToUserObject() {
-            return new User() { Id = Id, DisplayName = UserPrincipalName, NameId = 0, Photo = "", Mail = Mail, Bio = Bio};
+        public MemberViewModel ToMemberViewModel(uint teamId)
+        {
+            return new MemberViewModel()
+            {
+                Id = Id,
+                Name = Name,
+                NameId = NameId,
+                Bio = Bio,
+                Mail = Mail,
+                Photo = Photo,
+                MemberRoles = new List<TeamRoleViewModel>(),
+                AssignableMemberRoles = new List<TeamRoleViewModel>(),
+                TeamId = teamId
+            };
+        }
+
+        public User ToUserObject()
+        {
+            return new User()
+            {
+                Id = Id,
+                DisplayName = Name,
+                NameId = NameId,
+                Photo = Photo.UriSource.ToString(),
+                Mail = Mail,
+                Bio = Bio
+            };
         }
     }
 }

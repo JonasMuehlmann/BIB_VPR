@@ -207,7 +207,6 @@ namespace Messenger.Tests.MSTest
 
         }
 
-
         [TestMethod]
         public void ChangeBio_Test()
         {

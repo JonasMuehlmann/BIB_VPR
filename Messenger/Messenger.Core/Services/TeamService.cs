@@ -9,6 +9,10 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with teams on the DB,
+    /// including permissions, roles and members.
+    /// </summary>
     public class TeamService : AzureServiceBase
     {
         #region Teams Management
@@ -55,7 +59,8 @@ namespace Messenger.Core.Services
                                                 Team_roles
                                             VALUES(
                                                 '',
-                                                {result}
+                                                {result},
+                                                'FFFFFF'
                                             );";
 
             logger.Information($"Result value: {await SqlHelpers.NonQueryAsync(createEmptyRoleQuery)}");
@@ -433,8 +438,9 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="role">The name of the role to add</param>
         /// <param name="teamId">The id of the team to add the role to</param>
-        /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> AddRole(string role, uint teamId)
+        /// <param name="colorCode">Hex code of the color</param>
+        /// <returns>Id of the added team role</returns>
+        public static async Task<uint?> AddRole(string role, uint teamId, string colorCode)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","AddRole");
@@ -446,8 +452,29 @@ namespace Messenger.Core.Services
                                     Team_Roles
                                 VALUES(
                                     '{role}',
-                                     {teamId}
-                                );";
+                                     {teamId},
+                                    '{colorCode}'
+                                );
+                                SELECT SCOPE_IDENTITY();";
+
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+        }
+
+        public static async Task<bool> UpdateRole(uint roleId, string role, string colorCode)
+        {
+            // TODO: Prevent adding duplicate roles
+            LogContext.PushProperty("Method", "UpdateRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters roleId={roleId}, role={role}, colorCode={colorCode}");
+
+            string query = $@"
+                                UPDATE
+                                    Team_roles
+                                SET
+                                    Role='{role}',
+                                    Color='{colorCode}'
+                                WHERE
+                                    Id={roleId};";
 
             return await SqlHelpers.NonQueryAsync(query);
         }
@@ -458,7 +485,7 @@ namespace Messenger.Core.Services
         /// <param name="role">The name of the role to remove</param>
         /// <param name="teamId">The id of the team to remove the role from</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static async Task<bool> RemoveRole(string role, uint teamId)
+        public static async Task<uint?> RemoveRole(string role, uint teamId)
         {
             // TODO: Prevent adding duplicate roles
             LogContext.PushProperty("Method","RemoveRole");
@@ -471,9 +498,44 @@ namespace Messenger.Core.Services
                                 WHERE
                                     TeamId={teamId}
                                     AND
-                                    Role='{role}'";
+                                    Role='{role}';
+                                SELECT SCOPE_IDENTITY();";
 
-            return await SqlHelpers.NonQueryAsync(query);
+            return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToUInt32);
+        }
+
+        /// <summary>
+        /// Build a role object from a specified roleId
+        /// </summary>
+        /// <param name="roleId">The id of the role to build an object from</param>
+        /// <returns>The built role object on success, null otherwise</returns>
+        public static async Task<TeamRole> GetRole(uint roleId)
+        {
+            // TODO: Prevent adding duplicate roles
+            LogContext.PushProperty("Method","GetRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters roleId={roleId}");
+
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Team_roles
+                                WHERE
+                                    ID = {roleId};
+                ";
+
+            var rows = await SqlHelpers.GetRows("Team_roles", query);
+
+            if (rows.Count() == 0)
+            {
+                logger.Information($"Return value: null");
+
+                return null;
+            }
+
+            return rows.Select(Mapper.TeamRoleFromDataRow).First();
         }
 
         /// <summary>
@@ -559,7 +621,7 @@ namespace Messenger.Core.Services
         /// </summary>
         /// <param name="teamId">The id of the team to retrieve roles from</param>
         /// <returns>A list of available role names</returns>
-        public static async Task<IList<string>> ListRoles(uint teamId)
+        public static async Task<IList<TeamRole>> ListRoles(uint teamId)
         {
             LogContext.PushProperty("Method","AssignRole");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -567,15 +629,16 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                 SELECT
-                                    Role
+                                    *
                                 FROM
                                     Team_roles
                                 WHERE
                                     teamId={teamId}
                                     AND
-                                    Role != '';";
+                                    Role != '';
+                    ";
 
-            return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_roles", "Role");
+            return await SqlHelpers.MapToList(Mapper.TeamRoleFromDataRow, query, "Team_roles");
         }
 
         /// <summary>
@@ -613,7 +676,7 @@ namespace Messenger.Core.Services
         /// <param name="teamId">The id of the team to retrieve users from</param>
         /// <param name="userId">The id of the user to retrieve roles from</param>
         /// <returns>The list of role names of the user in the specified team</returns>
-        public static async Task<IList<string>> GetUsersRoles(uint teamId, string userId)
+        public static async Task<IList<TeamRole>> GetUsersRoles(uint teamId, string userId)
         {
             LogContext.PushProperty("Method","GetUsersRoles");
             LogContext.PushProperty("SourceContext", "TeamService");
@@ -621,7 +684,10 @@ namespace Messenger.Core.Services
 
             string query = $@"
                                 SELECT
-                                    Role
+                                    tr.Id,
+                                    tr.Role,
+                                    tr.TeamId,
+                                    tr.Color
                                 FROM
                                     Team_roles tr
                                 INNER JOIN
@@ -634,7 +700,7 @@ namespace Messenger.Core.Services
                                     AND tr.Role != '';";
 
 
-            return await SqlHelpers.MapToList(Mapper.StringFromDataRow, query, "Team_Roles", "Role");
+            return await SqlHelpers.MapToList(Mapper.TeamRoleFromDataRow, query, "Team_Roles");
         }
 
         /// <summary>
@@ -644,30 +710,30 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to grant a permission</param>
         /// <param name="permission">The permission to grant a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public static async Task<bool> GrantPermission(uint teamId, string role, Permissions permission)
+        public static async Task<uint?> GrantPermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method","GrantPermissions");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
 
 
-            var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
+            var teamRoleIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
 
-            var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
+            var teamRoleId = await SqlHelpers.ExecuteScalarAsync(teamRoleIdQuery, Convert.ToUInt32);
 
             LogContext.PushProperty("Method","GrantPermissions");
             LogContext.PushProperty("SourceContext", "TeamService");
 
-            if (Team_rolesId == 1)
+            if (teamRoleId == 1)
             {
                 logger.Information($"could not retrieve the Team_rolesId");
 
                 logger.Information("Return value: false");
 
-                return false;
+                return null;
             }
 
-            var PermissionsIdQuery= $@"
+            var permissionsIdQuery = $@"
                                         SELECT
                                             Id
                                         FROM
@@ -675,26 +741,33 @@ namespace Messenger.Core.Services
                                         WHERE
                                             Permissions = '{Enum.GetName(typeof(Permissions),permission)}'";
 
-            var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, Convert.ToUInt32);
+            var permissionsId = await SqlHelpers.ExecuteScalarAsync(permissionsIdQuery, Convert.ToUInt32);
 
             LogContext.PushProperty("Method","GrantPermissions");
             LogContext.PushProperty("SourceContext", "TeamService");
 
-            if (PermissionsId== 0)
+            if (permissionsId== 0)
             {
                 logger.Information($"could not retrieve the PermissionsId");
 
                 logger.Information("Return value: false");
 
-                return false;
+                return null;
             }
 
             string query = $@"
                                 INSERT INTO
                                     Role_permissions
-                                VALUES({PermissionsId}, {Team_rolesId});";
+                                VALUES({permissionsId}, {teamRoleId});";
 
-            return await SqlHelpers.NonQueryAsync(query);
+            bool isSuccess = await SqlHelpers.NonQueryAsync(query);
+
+            if (!isSuccess)
+            {
+                return null;
+            }
+
+            return teamRoleId;
         }
 
         /// <summary>
@@ -704,28 +777,29 @@ namespace Messenger.Core.Services
         /// <param name="role">The role of the team to revoke a permission from</param>
         /// <param name="permission">The permission to revoke from a team's role</param>
         /// <returns>True on success, false otherwise</returns>
-        public static async Task<bool> RevokePermission(uint teamId, string role, Permissions permission)
+        public static async Task<uint?> RevokePermission(uint teamId, string role, Permissions permission)
         {
             LogContext.PushProperty("Method","RevokePermission");
             LogContext.PushProperty("SourceContext", "TeamService");
             logger.Information($"Function called with parameters teamId={teamId}, role={role}, permission={permission}");
 
-            var Team_rolesIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
+            var teamRoleIdQuery = $@"SELECT Id FROM Team_roles WHERE Role='{role}' AND TeamId={teamId}";
 
-            var Team_rolesId = await SqlHelpers.ExecuteScalarAsync(Team_rolesIdQuery, Convert.ToUInt32);
+            var teamRoleId = await SqlHelpers.ExecuteScalarAsync(teamRoleIdQuery, Convert.ToUInt32);
 
             LogContext.PushProperty("Method","RevokePermission");
             LogContext.PushProperty("SourceContext", "TeamService");
 
-            if (Team_rolesId == 1)
+            if (teamRoleId == 1)
             {
                 logger.Information($"could not retrieve the Team_rolesId");
 
                 logger.Information("Return value: false");
 
-                return false;
+                return null;
             }
-            var PermissionsIdQuery= $@"
+
+            var permissionIdQuery= $@"
                                         SELECT
                                             Id
                                         FROM
@@ -733,28 +807,36 @@ namespace Messenger.Core.Services
                                         WHERE
                                             Permissions = '{Enum.GetName(typeof(Permissions), permission)}'";
 
-            var PermissionsId = await SqlHelpers.ExecuteScalarAsync(PermissionsIdQuery, Convert.ToUInt32);
+            var permissionId = await SqlHelpers.ExecuteScalarAsync(permissionIdQuery, Convert.ToUInt32);
 
             LogContext.PushProperty("Method","RevokePermission");
             LogContext.PushProperty("SourceContext", "TeamService");
 
-            if (PermissionsId == 0)
+            if (permissionId == 0)
             {
                 logger.Information($"could not retrieve the PermissionsId");
 
                 logger.Information("Return value: false");
 
-                return false;
+                return null;
             }
+
             string query = $@"
                                 Delete FROM
                                     Role_permissions
                                 WHERE
-                                    PermissionsId = {PermissionsId}
+                                    PermissionsId = {permissionId}
                                     AND
-                                    Team_rolesId = {Team_rolesId};";
+                                    Team_rolesId = {teamRoleId};";
 
-            return await SqlHelpers.NonQueryAsync(query);
+            bool isSuccess = await SqlHelpers.NonQueryAsync(query);
+
+            if (!isSuccess)
+            {
+                return null;
+            }
+
+            return teamRoleId;
         }
 
         /// <summary>
@@ -824,6 +906,37 @@ namespace Messenger.Core.Services
                 return await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean);
         }
 
+        /// <summary>
+        /// List all permissions a role has
+        /// </summary>
+        /// <param name="teamId">The id of the team list permissions of</param>
+        /// <param name="role">The role of the team to list permission of</param>
+        /// <returns>A list of Permissions the role has</returns>
+        public static async Task<IList<Permissions>> GetPermissionsOfRole(uint teamId, string role)
+        {
+            LogContext.PushProperty("Method","GetPermissionsOfRole");
+            LogContext.PushProperty("SourceContext", "TeamService");
+            logger.Information($"Function called with parameters teamId={teamId}, role={role}");
+
+            string query = $@"
+                SELECT
+                    Permissions
+                FROM
+                    Permissions p
+                LEFT JOIN Role_permissions rp ON
+                    rp.permissionsId = p.Id
+                LEFT JOIN Team_roles tr ON
+                   tr.Id = rp.Team_rolesId
+                WHERE
+                    teamId = {teamId}
+                    AND
+                    Role = '{role}';
+            ";
+
+
+                // (つ◕_◕)つ Gimme' non-type template parameters
+                return await SqlHelpers.MapToList((val) => Mapper.EnumFromDataRow<Permissions>(val, "permissions"), query);
+        }
         #endregion
     }
 }

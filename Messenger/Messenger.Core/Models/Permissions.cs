@@ -1,5 +1,8 @@
 namespace Messenger.Core.Models
 {
+    /// <summary>
+    /// Holds permissions assignable to a team's roles
+    /// </summary>
     public enum Permissions
     {
         CanAddUser,
@@ -15,6 +18,8 @@ namespace Messenger.Core.Models
         CanChangeChannelName,
         CanChangeChannelDescription,
         CanAttachFiles,
-        CanDeleteTeam
+        CanDeleteTeam,
+        CanPinMessages,
+        CanUnpinMessages
     }
 }

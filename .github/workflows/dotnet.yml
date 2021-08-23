@@ -6,10 +6,11 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
     env:
       BIB_VPR_DEBUG: true
+      BIB_VPR_CON_STRING_PROD: ${{ secrets.BIB_VPR_CON_STRING_PROD }}
+      BIB_VPR_CON_STRING_TEST: ${{ secrets.BIB_VPR_CON_STRING_TEST }}
     
     defaults:
         run:
@@ -26,6 +27,8 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
+    - name: Rename AzureServiceBase
+      run: mv ../Messenger.Core/Services/AzureServiceBase.cs.example ../Messenger.Core/Services/AzureServiceBase.cs
     - name: Build
       run: dotnet build --no-restore
     - name: Test

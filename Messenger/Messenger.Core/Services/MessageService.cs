@@ -9,6 +9,9 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds static methods to interact with messages, reactions and message attachments on the DB
+    /// </summary>
     public class MessageService : AzureServiceBase
     {
         /// <summary>
@@ -93,6 +96,38 @@ namespace Messenger.Core.Services
 
             return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
+        /// <summary>
+        /// Retrieve all replies to a message
+        /// </summary>
+        /// <param name="messageId">The id of the message to retrieve replies from</param>
+        /// <returns>An IList of Message objects representing the replies</returns>
+        public static async Task<IList<Message>> RetrieveReplies(uint messageId)
+        {
+            LogContext.PushProperty("Method","RetrieveReplies");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters messageId={messageId}");
+
+            string query = $@"
+                                SELECT
+                                    m.MessageId,
+                                    m.RecipientId,
+                                    m.SenderId,
+                                    m.ParentMessageId,
+                                    m.Message,
+                                    m.CreationDate,
+                                    u.UserId,
+                                    u.NameId,
+                                    u.UserName
+                                FROM
+                                    Messages m
+                                LEFT JOIN Users u
+                                    ON m.SenderId = u.UserId
+                                WHERE
+                                    ParentMessageId = {messageId}";
+
+
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
+        }
 
         /// <summary>
         /// Retrieve a message from a given MessageId
@@ -160,6 +195,29 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessageService");
             logger.Information($"Function called with parameters messageId={messageId}");
 
+            // Delete replies to prevent errors
+            var replies = await RetrieveReplies(messageId);
+
+            if (replies != null)
+            {
+                foreach (var reply in replies)
+                {
+                    await DeleteMessage(reply.Id);
+                }
+            }
+
+            // Delete reactions to prevent errors
+            var reactions = await RetrieveReactions(messageId);
+
+            if (reactions != null)
+            {
+                foreach (var reaction in reactions)
+                {
+                    await RemoveReaction(messageId, reaction.UserId, reaction.Symbol);
+                }
+            }
+
+            // Delete actual message
             string query = $@"
                                 DELETE FROM
                                     Messages
@@ -297,6 +355,22 @@ namespace Messenger.Core.Services
             string query = $@"SELECT * FROM Reactions WHERE messageId={messageId};";
 
             return await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query);
+        }
+        /// <summary>
+        ///	Retrieve a reaction object from a reactionId
+        /// </summary>
+        /// <param name="reactionId">The id of the reaction to make an object from</param>
+        /// <returns>A reaction object</returns>
+        public static async Task<Reaction> GetReaction(uint reactionId)
+        {
+            LogContext.PushProperty("Method","GetReaction");
+            LogContext.PushProperty("SourceContext", "MessageService");
+            logger.Information($"Function called with parameters reactionId={reactionId}");
+
+            string query = $@"SELECT * FROM Reactions WHERE reactionId={reactionId};";
+
+            // TODO: Implement SqlHelper to build objects from a single row
+            return (await SqlHelpers.MapToList(Mapper.ReactionFromDataRow, query)).First();
         }
     }
 }

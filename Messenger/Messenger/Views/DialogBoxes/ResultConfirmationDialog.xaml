@@ -4,11 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Messenger.Views.DialogBoxes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:converters="using:Messenger.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     CornerRadius="4"
-    Background="{ThemeResource AppBarItemBackgroundThemeBrush}"
+    Background="{ThemeResource Elevation_1}"
     BorderBrush="Transparent">
     <ContentDialog.Resources>
         <Style x:Key="ConfirmButton" TargetType="Button">
@@ -19,7 +18,7 @@
             <Setter Property="FontSize" Value="12" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Padding" Value="0 7" />
-            <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}" />
+            <Setter Property="Background" Value="{ThemeResource PrimaryAccent_A}" />
         </Style>
         <Style x:Key="ExitButton" TargetType="Button">
             <Setter Property="Padding" Value="0" />

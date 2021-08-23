@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System.Data.SqlClient;
@@ -9,6 +10,9 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// A class holding static methods to interact with channels on the DB
+    /// </summary>
     public class ChannelService: AzureServiceBase
     {
         /// <summary>
@@ -128,6 +132,84 @@ namespace Messenger.Core.Services
             }
 
             return rows.Select(Mapper.ChannelFromDataRow).First();
+        }
+
+        /// <summary>
+        /// Pin a specified message in the specified channel
+        /// </summary>
+        /// <param name="messageId">The id of the message to pin</param>
+        /// <param name="channelId">The id of the channel to pin the message in</param>
+        /// <returns>True on success, false on failure</returns>
+        public static async Task<bool> PinMessage(uint messageId, uint channelId)
+        {
+            LogContext.PushProperty("Method","PinMessage");
+            LogContext.PushProperty("SourceContext", "ChannelService");
+
+            logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
+
+            string query = $@"
+                                INSERT INTO
+                                    PinnedMessages
+                                VALUES(
+                                        {channelId},
+                                        {messageId}
+                                      );
+                ";
+
+            return await SqlHelpers.NonQueryAsync(query);
+        }
+
+        /// <summary>
+        /// Unpin a specified message in the specified channel
+        /// </summary>
+        /// <param name="messageId">The id of the message to Unpin</param>
+        /// <param name="channelId">The id of the channel to Unpin the message in</param>
+        /// <returns>True on success, false on failure</returns>
+        public static async Task<bool> UnPinMessage(uint messageId, uint channelId)
+        {
+            LogContext.PushProperty("Method","UnpinMessage");
+            LogContext.PushProperty("SourceContext", "ChannelService");
+
+            logger.Information($"Function called with parameters messageId={messageId}, channelId={channelId}");
+
+            string query = $@"
+                                DELETE FROM
+                                    PinnedMessages
+                                WHERE
+                                    channelId = {channelId}
+                                    AND
+                                    messageId = {messageId};
+                ";
+
+            return await SqlHelpers.NonQueryAsync(query);
+        }
+
+        /// <summary>
+        /// Retrieve the pinned messages of a channel
+        /// </summary>
+        /// <param name="channelId">The channel to retrieve pinned messages from</param>
+        /// <returns>An enumerable of message objects representing the pinned messages</returns>
+        public static async Task<IEnumerable<Message>> RetrievePinnedMessages(uint channelId)
+        {
+            LogContext.PushProperty("Method","RetrievePinnedMessages");
+            LogContext.PushProperty("SourceContext", "ChannelService");
+
+            logger.Information($"Function called with parameters channelId={channelId}");
+
+            string query = $@"
+                                SELECT
+                                    *
+                                FROM
+                                    Messages m
+                                LEFT JOIN PinnedMessages p ON
+                                    p.MessageId = m.MessageId
+                                LEFT JOIN Users u ON
+                                    u.userId = m.senderId
+                                WHERE
+                                    p.ChannelId = {channelId};
+                ";
+
+            return await SqlHelpers.MapToList(Mapper.MessageFromDataRow, query);
         }
     }
 }
