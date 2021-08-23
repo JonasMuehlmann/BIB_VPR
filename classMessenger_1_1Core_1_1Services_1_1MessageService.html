@@ -73,15 +73,15 @@ $(function() {
 <div class="title">Messenger.Core.Services.MessageService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds static methods to interact with messages, reactions and message attachments on the DB  
+ <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Messenger.Core.Services.MessageService:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classMessenger_1_1Core_1_1Services_1_1MessageService.png" usemap="#Messenger.Core.Services.MessageService_map" alt=""/>
-  <map id="Messenger.Core.Services.MessageService_map" name="Messenger.Core.Services.MessageService_map">
-<area href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html" alt="Messenger.Core.Services.AzureServiceBase" shape="rect" coords="0,0,271,24"/>
-  </map>
-</div></div>
+  <img src="classMessenger_1_1Core_1_1Services_1_1MessageService.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -93,6 +93,9 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 <tr class="memitem:af04546bd31c5ce91f3cbad2cb9ebe5f5"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af04546bd31c5ce91f3cbad2cb9ebe5f5">RetrieveMessages</a> (uint channelId)</td></tr>
 <tr class="memdesc:af04546bd31c5ce91f3cbad2cb9ebe5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve all Messages of a channel/chat with user data of the sender  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af04546bd31c5ce91f3cbad2cb9ebe5f5">More...</a><br /></td></tr>
 <tr class="separator:af04546bd31c5ce91f3cbad2cb9ebe5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462a9685cf0274dc70dcc36c2bfe8766"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a462a9685cf0274dc70dcc36c2bfe8766">RetrieveReplies</a> (uint messageId)</td></tr>
+<tr class="memdesc:a462a9685cf0274dc70dcc36c2bfe8766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve all replies to a message  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a462a9685cf0274dc70dcc36c2bfe8766">More...</a><br /></td></tr>
+<tr class="separator:a462a9685cf0274dc70dcc36c2bfe8766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2ff768aacb3829e822c500adb107854"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af2ff768aacb3829e822c500adb107854">GetMessage</a> (uint messageId)</td></tr>
 <tr class="memdesc:af2ff768aacb3829e822c500adb107854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a message from a given MessageId  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af2ff768aacb3829e822c500adb107854">More...</a><br /></td></tr>
 <tr class="separator:af2ff768aacb3829e822c500adb107854"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,19 +120,13 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 <tr class="memitem:a7091ab4d20a2f23602a4710020dff3b7"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a7091ab4d20a2f23602a4710020dff3b7">RetrieveReactions</a> (uint messageId)</td></tr>
 <tr class="memdesc:a7091ab4d20a2f23602a4710020dff3b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve The reactions of a message  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a7091ab4d20a2f23602a4710020dff3b7">More...</a><br /></td></tr>
 <tr class="separator:a7091ab4d20a2f23602a4710020dff3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html">Messenger.Core.Services.AzureServiceBase</a></td></tr>
-<tr class="memitem:adbfd30783294ceb9ca78d147d6e7d9c0 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memItemLeft" align="right" valign="top"><a id="adbfd30783294ceb9ca78d147d6e7d9c0"></a>
-static SqlConnection&#160;</td><td class="memItemRight" valign="bottom"><b>GetDefaultConnection</b> ()</td></tr>
-<tr class="separator:adbfd30783294ceb9ca78d147d6e7d9c0 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td colspan="2" onclick="javascript:toggleInherit('properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html">Messenger.Core.Services.AzureServiceBase</a></td></tr>
-<tr class="memitem:a7f4a060dbbc4300644880c75b8fcc2e4 inherit properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memItemLeft" align="right" valign="top"><a id="a7f4a060dbbc4300644880c75b8fcc2e4"></a>
-static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
-<tr class="separator:a7f4a060dbbc4300644880c75b8fcc2e4 inherit properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879c86823d5bd214feb86e0755f8a83f"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a879c86823d5bd214feb86e0755f8a83f">GetReaction</a> (uint reactionId)</td></tr>
+<tr class="memdesc:a879c86823d5bd214feb86e0755f8a83f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a reaction object from a reactionId  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a879c86823d5bd214feb86e0755f8a83f">More...</a><br /></td></tr>
+<tr class="separator:a879c86823d5bd214feb86e0755f8a83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds static methods to interact with messages, reactions and message attachments on the DB </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac5ee6f4f0148cc9890feb30bfe047d1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5ee6f4f0148cc9890feb30bfe047d1b">&#9670;&nbsp;</a></span>AddReaction()</h2>
 
@@ -387,6 +384,41 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
+<a id="a879c86823d5bd214feb86e0755f8a83f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a879c86823d5bd214feb86e0755f8a83f">&#9670;&nbsp;</a></span>GetReaction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a>&gt; Messenger.Core.Services.MessageService.GetReaction </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>reactionId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve a reaction object from a reactionId </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reactionId</td><td>The id of the reaction to make an object from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reaction object</dd></dl>
+
+</div>
+</div>
 <a id="a92c6cd5d25343849ca12038d5ae67860"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92c6cd5d25343849ca12038d5ae67860">&#9670;&nbsp;</a></span>RemoveReaction()</h2>
 
@@ -507,6 +539,41 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of reaction objects</dd></dl>
+
+</div>
+</div>
+<a id="a462a9685cf0274dc70dcc36c2bfe8766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a462a9685cf0274dc70dcc36c2bfe8766">&#9670;&nbsp;</a></span>RetrieveReplies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;IList&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&gt; &gt; Messenger.Core.Services.MessageService.RetrieveReplies </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>messageId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve all replies to a message </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">messageId</td><td>The id of the message to retrieve replies from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An IList of Message objects representing the replies</dd></dl>
 
 </div>
 </div>

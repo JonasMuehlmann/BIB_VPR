@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['invitationreceived_560',['InvitationReceived',['../classMessenger_1_1Services_1_1ChatHubService.html#a45cf715076a1560a7dfa0c06712c708a',1,'Messenger::Services::ChatHubService']]]
+  ['receivemessage_837',['ReceiveMessage',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abf03ca33295b49abceebb1b668cce8b0',1,'Messenger::Core::Services::SignalRService']]]
 ];

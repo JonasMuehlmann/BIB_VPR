@@ -1,11 +1,24 @@
 var searchData=
 [
-  ['navhelper_171',['NavHelper',['../classMessenger_1_1Helpers_1_1NavHelper.html',1,'Messenger::Helpers']]],
-  ['navigationheader_172',['NavigationHeader',['../classMessenger_1_1Controls_1_1Navigation_1_1NavigationHeader.html',1,'Messenger::Controls::Navigation']]],
-  ['navigationviewheaderbehavior_173',['NavigationViewHeaderBehavior',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html',1,'Messenger::Behaviors']]],
-  ['nonqueryasync_174',['NonQueryAsync',['../classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#ab83ca55cb1c27ddad35ee38dd04ac3fb',1,'Messenger::Core::Helpers::SqlHelpers']]],
-  ['notification_175',['Notification',['../classMessenger_1_1Models_1_1Notification.html',1,'Messenger::Models']]],
-  ['notificationnavpage_176',['NotificationNavPage',['../classMessenger_1_1Views_1_1NotificationNavPage.html',1,'Messenger::Views']]],
-  ['notificationnavviewmodel_177',['NotificationNavViewModel',['../classMessenger_1_1ViewModels_1_1NotificationNavViewModel.html',1,'Messenger::ViewModels']]],
-  ['nulltovisibilityconverter_178',['NullToVisibilityConverter',['../classMessenger_1_1Helpers_1_1NullToVisibilityConverter.html',1,'Messenger::Helpers']]]
+  ['name_217',['Name',['../classMessenger_1_1Core_1_1Models_1_1Team.html#a6ea94af5d90e3687802f334da29665b8',1,'Messenger::Core::Models::Team']]],
+  ['nameid_218',['NameId',['../classMessenger_1_1Core_1_1Models_1_1User.html#a0baf5c8fcf2dc88f5655160615214c37',1,'Messenger::Core::Models::User']]],
+  ['navigationviewheaderbehavior_219',['NavigationViewHeaderBehavior',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html',1,'Messenger::Behaviors']]],
+  ['nonqueryasync_220',['NonQueryAsync',['../classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#ab83ca55cb1c27ddad35ee38dd04ac3fb',1,'Messenger::Core::Helpers::SqlHelpers']]],
+  ['notification_221',['Notification',['../classMessenger_1_1Core_1_1Models_1_1Notification.html',1,'Messenger.Core.Models.Notification'],['../classMessenger_1_1Core_1_1Models_1_1Notification.html#a3aa2ae9efb763ccb78f9b7d78dc880ef',1,'Messenger.Core.Models.Notification.Notification()']]],
+  ['notificationfromdatarow_222',['NotificationFromDataRow',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ade471c774fcd8f824baf3ed9ba3e2172',1,'Messenger::Core::Helpers::Mapper']]],
+  ['notificationmessagebuildertest_223',['NotificationMessageBuilderTest',['../classMessenger_1_1Tests_1_1MSTest_1_1NotificationMessageBuilderTest.html',1,'Messenger::Tests::MSTest']]],
+  ['notificationmessageviewmodel_224',['NotificationMessageViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
+  ['notificationmute_225',['NotificationMute',['../classMessenger_1_1Core_1_1Models_1_1NotificationMute.html',1,'Messenger.Core.Models.NotificationMute'],['../classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a9525dd69bbc3861e390df620ec76a904',1,'Messenger.Core.Models.NotificationMute.NotificationMute()']]],
+  ['notificationmutefromdatarow_226',['NotificationMuteFromDataRow',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a016edf290202ad28e65057ffb3eb984d',1,'Messenger::Core::Helpers::Mapper']]],
+  ['notificationnavpage_227',['NotificationNavPage',['../classMessenger_1_1Views_1_1Pages_1_1NotificationNavPage.html',1,'Messenger::Views::Pages']]],
+  ['notificationnavviewmodel_228',['NotificationNavViewModel',['../classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html',1,'Messenger::ViewModels::Pages']]],
+  ['notificationservice_229',['NotificationService',['../classMessenger_1_1Core_1_1Services_1_1NotificationService.html',1,'Messenger::Core::Services']]],
+  ['notificationservicetest_230',['NotificationServiceTest',['../classMessenger_1_1Tests_1_1MSTest_1_1NotificationServiceTest.html',1,'Messenger::Tests::MSTest']]],
+  ['notificationsource_231',['NotificationSource',['../namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3',1,'Messenger::Core::Models']]],
+  ['notificationsourcetype_232',['NotificationSourceType',['../classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#ad7369034539cfad6a35a68e5f8726af7',1,'Messenger::Core::Models::NotificationMute']]],
+  ['notificationsourcevalue_233',['NotificationSourceValue',['../classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a820d7a06bfddc1f80b2e6cea3ba96cec',1,'Messenger::Core::Models::NotificationMute']]],
+  ['notificationtype_234',['NotificationType',['../classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a754d76e752f502f98f8fda643491f58d',1,'Messenger.Core.Models.NotificationMute.NotificationType()'],['../namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebab',1,'Messenger.Core.Models.NotificationType()']]],
+  ['notificationtypetostringconverter_235',['NotificationTypeToStringConverter',['../classMessenger_1_1Helpers_1_1Converters_1_1NotificationTypeToStringConverter.html',1,'Messenger::Helpers::Converters']]],
+  ['notificationviewmodel_236',['NotificationViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
+  ['nulltovisibilityconverter_237',['NullToVisibilityConverter',['../classMessenger_1_1Helpers_1_1Converters_1_1NullToVisibilityConverter.html',1,'Messenger::Helpers::Converters']]]
 ];

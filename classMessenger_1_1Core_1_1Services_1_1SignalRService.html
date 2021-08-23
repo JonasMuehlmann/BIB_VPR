@@ -68,7 +68,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
 <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService-members.html">List of all members</a>  </div>
@@ -76,97 +75,149 @@ $(function() {
 <div class="title">Messenger.Core.Services.SignalRService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds definitions for messages to send to the signalR hub  
+ <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abd32ae1098a1c45692500cb71fd6e8ac"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abd32ae1098a1c45692500cb71fd6e8ac">Open</a> (string userId)</td></tr>
-<tr class="memdesc:abd32ae1098a1c45692500cb71fd6e8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the connection with the preset  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abd32ae1098a1c45692500cb71fd6e8ac">More...</a><br /></td></tr>
-<tr class="separator:abd32ae1098a1c45692500cb71fd6e8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5314da6480bf7a2922c910d1bc4eb8e5"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a5314da6480bf7a2922c910d1bc4eb8e5">Close</a> ()</td></tr>
-<tr class="memdesc:a5314da6480bf7a2922c910d1bc4eb8e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the connection with the hub  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a5314da6480bf7a2922c910d1bc4eb8e5">More...</a><br /></td></tr>
-<tr class="separator:a5314da6480bf7a2922c910d1bc4eb8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae45a09ac182c0b013a26701c971cf5db"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ae45a09ac182c0b013a26701c971cf5db">JoinTeam</a> (string teamId)</td></tr>
-<tr class="memdesc:ae45a09ac182c0b013a26701c971cf5db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins a hub group with the current connection id  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ae45a09ac182c0b013a26701c971cf5db">More...</a><br /></td></tr>
-<tr class="separator:ae45a09ac182c0b013a26701c971cf5db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1089c7b5dd3ec9b0b9580af363923a34"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a1089c7b5dd3ec9b0b9580af363923a34">SendMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message)</td></tr>
-<tr class="memdesc:a1089c7b5dd3ec9b0b9580af363923a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message to a hub group  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a1089c7b5dd3ec9b0b9580af363923a34">More...</a><br /></td></tr>
-<tr class="separator:a1089c7b5dd3ec9b0b9580af363923a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4142d0adeac751f0bd6b6a0448b3ec04"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a4142d0adeac751f0bd6b6a0448b3ec04">AddToTeam</a> (string userId, string teamId)</td></tr>
-<tr class="memdesc:a4142d0adeac751f0bd6b6a0448b3ec04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the user to the hub group  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a4142d0adeac751f0bd6b6a0448b3ec04">More...</a><br /></td></tr>
-<tr class="separator:a4142d0adeac751f0bd6b6a0448b3ec04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa15993d5309d3800f0d231487e1a421"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#afa15993d5309d3800f0d231487e1a421">UpdateMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message)</td></tr>
-<tr class="memdesc:afa15993d5309d3800f0d231487e1a421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a message's data and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#afa15993d5309d3800f0d231487e1a421">More...</a><br /></td></tr>
-<tr class="separator:afa15993d5309d3800f0d231487e1a421"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c359bb8d0db6e788ce6611b40d87d2e"><td class="memItemLeft" align="right" valign="top"><a id="a9c359bb8d0db6e788ce6611b40d87d2e"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteMessage</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message)</td></tr>
-<tr class="separator:a9c359bb8d0db6e788ce6611b40d87d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad61da6c4bea9555625dd0b1542059e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aad61da6c4bea9555625dd0b1542059e4">Initialize</a> ()</td></tr>
+<tr class="separator:aad61da6c4bea9555625dd0b1542059e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aee81da19161b62727e27928dae7e54"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a1aee81da19161b62727e27928dae7e54">OpenConnection</a> (string userId)</td></tr>
+<tr class="memdesc:a1aee81da19161b62727e27928dae7e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the connection with the preset  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a1aee81da19161b62727e27928dae7e54">More...</a><br /></td></tr>
+<tr class="separator:a1aee81da19161b62727e27928dae7e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe281968446f652babfcaa6acddda11d"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abe281968446f652babfcaa6acddda11d">CloseConnection</a> ()</td></tr>
+<tr class="memdesc:abe281968446f652babfcaa6acddda11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the connection with the hub  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abe281968446f652babfcaa6acddda11d">More...</a><br /></td></tr>
+<tr class="separator:abe281968446f652babfcaa6acddda11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba655b98194b39e13d84804e586b0f34"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aba655b98194b39e13d84804e586b0f34">JoinTeam</a> (string userId, string teamId)</td></tr>
+<tr class="memdesc:aba655b98194b39e13d84804e586b0f34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins a hub group with the current connection id  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aba655b98194b39e13d84804e586b0f34">More...</a><br /></td></tr>
+<tr class="separator:aba655b98194b39e13d84804e586b0f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba568e4242ab858fae511b0688ab1657"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aba568e4242ab858fae511b0688ab1657">LeaveTeam</a> (string userId, string teamId)</td></tr>
+<tr class="memdesc:aba568e4242ab858fae511b0688ab1657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leaves a hub group with the current connection id  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aba568e4242ab858fae511b0688ab1657">More...</a><br /></td></tr>
+<tr class="separator:aba568e4242ab858fae511b0688ab1657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3662fa4966a99e3a1010fe071e8f690"><td class="memItemLeft" align="right" valign="top"><a id="af3662fa4966a99e3a1010fe071e8f690"></a>
+async Task&#160;</td><td class="memItemRight" valign="bottom"><b>SendNotificationToUser</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a> notification)</td></tr>
+<tr class="separator:af3662fa4966a99e3a1010fe071e8f690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c39835894af32e050e7c77c161fef68"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a6c39835894af32e050e7c77c161fef68">SendMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, uint teamId)</td></tr>
+<tr class="memdesc:a6c39835894af32e050e7c77c161fef68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message to a hub group  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a6c39835894af32e050e7c77c161fef68">More...</a><br /></td></tr>
+<tr class="separator:a6c39835894af32e050e7c77c161fef68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c5ca0878e7e9ae5e04e6323cdc251d"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab5c5ca0878e7e9ae5e04e6323cdc251d">UpdateMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, uint teamId)</td></tr>
+<tr class="memdesc:ab5c5ca0878e7e9ae5e04e6323cdc251d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a message's data and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab5c5ca0878e7e9ae5e04e6323cdc251d">More...</a><br /></td></tr>
+<tr class="separator:ab5c5ca0878e7e9ae5e04e6323cdc251d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb8a4fb96fd86c9b73618fd71888b95c"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#afb8a4fb96fd86c9b73618fd71888b95c">DeleteMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, uint teamId)</td></tr>
+<tr class="memdesc:afb8a4fb96fd86c9b73618fd71888b95c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a message and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#afb8a4fb96fd86c9b73618fd71888b95c">More...</a><br /></td></tr>
+<tr class="separator:afb8a4fb96fd86c9b73618fd71888b95c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a581b9141a95ba76a60d961f514e615a8"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a581b9141a95ba76a60d961f514e615a8">UpdateMessageReactions</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, uint teamId)</td></tr>
+<tr class="memdesc:a581b9141a95ba76a60d961f514e615a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a message's reactions and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a581b9141a95ba76a60d961f514e615a8">More...</a><br /></td></tr>
+<tr class="separator:a581b9141a95ba76a60d961f514e615a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1c32727c383ca4618cc41950d28b463"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ad1c32727c383ca4618cc41950d28b463">CreateTeam</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memdesc:ad1c32727c383ca4618cc41950d28b463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the user to the hub group  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ad1c32727c383ca4618cc41950d28b463">More...</a><br /></td></tr>
+<tr class="separator:ad1c32727c383ca4618cc41950d28b463"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59c0097a80abef4c636a0477e2016791"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a59c0097a80abef4c636a0477e2016791">UpdateTeam</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
-<tr class="memdesc:a59c0097a80abef4c636a0477e2016791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a teams data and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a59c0097a80abef4c636a0477e2016791">More...</a><br /></td></tr>
+<tr class="memdesc:a59c0097a80abef4c636a0477e2016791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a team's data and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a59c0097a80abef4c636a0477e2016791">More...</a><br /></td></tr>
 <tr class="separator:a59c0097a80abef4c636a0477e2016791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36a590a0333843e932caea44065533db"><td class="memItemLeft" align="right" valign="top"><a id="a36a590a0333843e932caea44065533db"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateChannel</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memitem:a004748ef7c1f25241d192f89a48d02f2"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a004748ef7c1f25241d192f89a48d02f2">DeleteTeam</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memdesc:a004748ef7c1f25241d192f89a48d02f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a team and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a004748ef7c1f25241d192f89a48d02f2">More...</a><br /></td></tr>
+<tr class="separator:a004748ef7c1f25241d192f89a48d02f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c752d12a6fc38712f7a1e75c1c50ade"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a9c752d12a6fc38712f7a1e75c1c50ade">CreateChannel</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memdesc:a9c752d12a6fc38712f7a1e75c1c50ade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel and and notify other clients other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a9c752d12a6fc38712f7a1e75c1c50ade">More...</a><br /></td></tr>
+<tr class="separator:a9c752d12a6fc38712f7a1e75c1c50ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36a590a0333843e932caea44065533db"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a36a590a0333843e932caea44065533db">UpdateChannel</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memdesc:a36a590a0333843e932caea44065533db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a channel and and notify other clients other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a36a590a0333843e932caea44065533db">More...</a><br /></td></tr>
 <tr class="separator:a36a590a0333843e932caea44065533db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf50de35c5aaf275e3a04c2888995ee8"><td class="memItemLeft" align="right" valign="top"><a id="aaf50de35c5aaf275e3a04c2888995ee8"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user)</td></tr>
+<tr class="memitem:ab9abb703a9beab10d43d6d02cfcf61a2"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab9abb703a9beab10d43d6d02cfcf61a2">DeleteChannel</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memdesc:ab9abb703a9beab10d43d6d02cfcf61a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a channel and and notify other clients other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab9abb703a9beab10d43d6d02cfcf61a2">More...</a><br /></td></tr>
+<tr class="separator:ab9abb703a9beab10d43d6d02cfcf61a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46544b0901b6a79d306c4d3f71f25e0f"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a46544b0901b6a79d306c4d3f71f25e0f">AddOrUpdateTeamRole</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> role)</td></tr>
+<tr class="memdesc:a46544b0901b6a79d306c4d3f71f25e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add or update a team role and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a46544b0901b6a79d306c4d3f71f25e0f">More...</a><br /></td></tr>
+<tr class="separator:a46544b0901b6a79d306c4d3f71f25e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ba91df570e93229b722aedb9cde676c"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a9ba91df570e93229b722aedb9cde676c">DeleteTeamRole</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> role)</td></tr>
+<tr class="memdesc:a9ba91df570e93229b722aedb9cde676c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a team role and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a9ba91df570e93229b722aedb9cde676c">More...</a><br /></td></tr>
+<tr class="separator:a9ba91df570e93229b722aedb9cde676c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a048ca72ded57e483b972f7989d67be21"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a048ca72ded57e483b972f7989d67be21">SendInvitation</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memdesc:a048ca72ded57e483b972f7989d67be21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a user an invitation to a team and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a048ca72ded57e483b972f7989d67be21">More...</a><br /></td></tr>
+<tr class="separator:a048ca72ded57e483b972f7989d67be21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a367abae10bf004f84f9286d1d95f87"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a8a367abae10bf004f84f9286d1d95f87">AddMember</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memdesc:a8a367abae10bf004f84f9286d1d95f87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a member to a team and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a8a367abae10bf004f84f9286d1d95f87">More...</a><br /></td></tr>
+<tr class="separator:a8a367abae10bf004f84f9286d1d95f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ffadad357607c826fc8bf5d17644570"><td class="memItemLeft" align="right" valign="top"><a id="a7ffadad357607c826fc8bf5d17644570"></a>
+async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMember</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="separator:a7ffadad357607c826fc8bf5d17644570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32779f00eba8b3b135b5d44eecbf329"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab32779f00eba8b3b135b5d44eecbf329">RemoveMember</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memdesc:ab32779f00eba8b3b135b5d44eecbf329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a member from a team and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab32779f00eba8b3b135b5d44eecbf329">More...</a><br /></td></tr>
+<tr class="separator:ab32779f00eba8b3b135b5d44eecbf329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf50de35c5aaf275e3a04c2888995ee8"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aaf50de35c5aaf275e3a04c2888995ee8">UpdateUser</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user)</td></tr>
+<tr class="memdesc:aaf50de35c5aaf275e3a04c2888995ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a user's data and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aaf50de35c5aaf275e3a04c2888995ee8">More...</a><br /></td></tr>
 <tr class="separator:aaf50de35c5aaf275e3a04c2888995ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dae3b5e7cd547b68c4ff9af622a2b8f"><td class="memItemLeft" align="right" valign="top"><a id="a2dae3b5e7cd547b68c4ff9af622a2b8f"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTeamRoles</b> (uint teamId)</td></tr>
-<tr class="separator:a2dae3b5e7cd547b68c4ff9af622a2b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a514a1ecc1810cc1d9fe02796e841011b"><td class="memItemLeft" align="right" valign="top"><a id="a514a1ecc1810cc1d9fe02796e841011b"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMessageReactions</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message)</td></tr>
-<tr class="separator:a514a1ecc1810cc1d9fe02796e841011b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7394b8a3244d5fab58a9a2c0c6e80c12"><td class="memItemLeft" align="right" valign="top"><a id="a7394b8a3244d5fab58a9a2c0c6e80c12"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateRolePermission</b> (uint teamId)</td></tr>
-<tr class="separator:a7394b8a3244d5fab58a9a2c0c6e80c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a57e92c62242b91ed28fc00fd96415272"><td class="memItemLeft" align="right" valign="top"><a id="a57e92c62242b91ed28fc00fd96415272"></a>
-Serilog.ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b> = GlobalLogger.Instance</td></tr>
-<tr class="separator:a57e92c62242b91ed28fc00fd96415272"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:acc2faa94501d7cdb36f6bc67452fb0fe"><td class="memItemLeft" align="right" valign="top"><a id="acc2faa94501d7cdb36f6bc67452fb0fe"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionId</b><code> [get]</code></td></tr>
-<tr class="separator:acc2faa94501d7cdb36f6bc67452fb0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57e92c62242b91ed28fc00fd96415272"><td class="memItemLeft" align="right" valign="top"><a id="a57e92c62242b91ed28fc00fd96415272"></a>
+Serilog.ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
+<tr class="separator:a57e92c62242b91ed28fc00fd96415272"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
-<tr class="memitem:aab8b11a9300ee99641a6f899b9402897"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aab8b11a9300ee99641a6f899b9402897">MessageReceived</a></td></tr>
-<tr class="memdesc:aab8b11a9300ee99641a6f899b9402897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delegate on "ReceiveMessage"(Hub Method)  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aab8b11a9300ee99641a6f899b9402897">More...</a><br /></td></tr>
-<tr class="separator:aab8b11a9300ee99641a6f899b9402897"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcce01263de1f1e1567ffd7e7c5db41f"><td class="memItemLeft" align="right" valign="top"><a id="abcce01263de1f1e1567ffd7e7c5db41f"></a>
-EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>InviteReceived</b></td></tr>
-<tr class="separator:abcce01263de1f1e1567ffd7e7c5db41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f9ec14ae851d34717eb997f464b7137"><td class="memItemLeft" align="right" valign="top"><a id="a2f9ec14ae851d34717eb997f464b7137"></a>
-EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamUpdated</b></td></tr>
-<tr class="separator:a2f9ec14ae851d34717eb997f464b7137"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6870de86604541eb8902a96d1c5c385"><td class="memItemLeft" align="right" valign="top"><a id="ab6870de86604541eb8902a96d1c5c385"></a>
-EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MessageUpdated</b></td></tr>
-<tr class="separator:ab6870de86604541eb8902a96d1c5c385"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d59e28e35aaeb499e2f77378d21df77"><td class="memItemLeft" align="right" valign="top"><a id="a7d59e28e35aaeb499e2f77378d21df77"></a>
-EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MessageDeleted</b></td></tr>
-<tr class="separator:a7d59e28e35aaeb499e2f77378d21df77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3472b231aefa06d3f1663ccf5c7383b"><td class="memItemLeft" align="right" valign="top"><a id="ad3472b231aefa06d3f1663ccf5c7383b"></a>
-EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelUpdated</b></td></tr>
-<tr class="separator:ad3472b231aefa06d3f1663ccf5c7383b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8109cf1cfe5d2294fa2bab07c80b312e"><td class="memItemLeft" align="right" valign="top"><a id="a8109cf1cfe5d2294fa2bab07c80b312e"></a>
-EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UserUpdated</b></td></tr>
-<tr class="separator:a8109cf1cfe5d2294fa2bab07c80b312e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cb85d6e20efd55e236a86cdf6c38b42"><td class="memItemLeft" align="right" valign="top"><a id="a6cb85d6e20efd55e236a86cdf6c38b42"></a>
-EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamRolesUpdated</b></td></tr>
-<tr class="separator:a6cb85d6e20efd55e236a86cdf6c38b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3c5b6c68fcb039acb9e12cdfc161a9"><td class="memItemLeft" align="right" valign="top"><a id="a2c3c5b6c68fcb039acb9e12cdfc161a9"></a>
-EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MessageReactionsUpdated</b></td></tr>
-<tr class="separator:a2c3c5b6c68fcb039acb9e12cdfc161a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c9534bfce4872661c5fc4f4a9ae87fc"><td class="memItemLeft" align="right" valign="top"><a id="a9c9534bfce4872661c5fc4f4a9ae87fc"></a>
-EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>RolePermissionsUpdated</b></td></tr>
-<tr class="separator:a9c9534bfce4872661c5fc4f4a9ae87fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf03ca33295b49abceebb1b668cce8b0"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abf03ca33295b49abceebb1b668cce8b0">ReceiveMessage</a></td></tr>
+<tr class="memdesc:abf03ca33295b49abceebb1b668cce8b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delegate on "ReceiveMessage"(Hub Method)  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abf03ca33295b49abceebb1b668cce8b0">More...</a><br /></td></tr>
+<tr class="separator:abf03ca33295b49abceebb1b668cce8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b5f6d823fc66860cc34a7b14feda69"><td class="memItemLeft" align="right" valign="top"><a id="ac3b5f6d823fc66860cc34a7b14feda69"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReceiveInvitation</b></td></tr>
+<tr class="separator:ac3b5f6d823fc66860cc34a7b14feda69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7b6e189b838e530962c295e3f1b2123"><td class="memItemLeft" align="right" valign="top"><a id="af7b6e189b838e530962c295e3f1b2123"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReceiveNotification</b></td></tr>
+<tr class="separator:af7b6e189b838e530962c295e3f1b2123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16bbc8d97a81df94825af2cd13f6ead7"><td class="memItemLeft" align="right" valign="top"><a id="a16bbc8d97a81df94825af2cd13f6ead7"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MessageUpdated</b></td></tr>
+<tr class="separator:a16bbc8d97a81df94825af2cd13f6ead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74e5cf6a0d878e17d2a53ffc745a6e43"><td class="memItemLeft" align="right" valign="top"><a id="a74e5cf6a0d878e17d2a53ffc745a6e43"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MessageDeleted</b></td></tr>
+<tr class="separator:a74e5cf6a0d878e17d2a53ffc745a6e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac41495b82a082293df3d00e8aa73a6b6"><td class="memItemLeft" align="right" valign="top"><a id="ac41495b82a082293df3d00e8aa73a6b6"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MessageReactionsUpdated</b></td></tr>
+<tr class="separator:ac41495b82a082293df3d00e8aa73a6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eff07dd2385d0993561515f38e3c4e3"><td class="memItemLeft" align="right" valign="top"><a id="a9eff07dd2385d0993561515f38e3c4e3"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamCreated</b></td></tr>
+<tr class="separator:a9eff07dd2385d0993561515f38e3c4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349eb64c5868d87ac28d8575353ebff6"><td class="memItemLeft" align="right" valign="top"><a id="a349eb64c5868d87ac28d8575353ebff6"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamUpdated</b></td></tr>
+<tr class="separator:a349eb64c5868d87ac28d8575353ebff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46928683d1b0fef6cd91292b8192fe8a"><td class="memItemLeft" align="right" valign="top"><a id="a46928683d1b0fef6cd91292b8192fe8a"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamDeleted</b></td></tr>
+<tr class="separator:a46928683d1b0fef6cd91292b8192fe8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2267e172ef174ef8cd0a1f386e80baef"><td class="memItemLeft" align="right" valign="top"><a id="a2267e172ef174ef8cd0a1f386e80baef"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelCreated</b></td></tr>
+<tr class="separator:a2267e172ef174ef8cd0a1f386e80baef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2d9dc01045f7731652a904549df6f62"><td class="memItemLeft" align="right" valign="top"><a id="ab2d9dc01045f7731652a904549df6f62"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelUpdated</b></td></tr>
+<tr class="separator:ab2d9dc01045f7731652a904549df6f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561a807f202d2790f2e46df3d2912c5e"><td class="memItemLeft" align="right" valign="top"><a id="a561a807f202d2790f2e46df3d2912c5e"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelDeleted</b></td></tr>
+<tr class="separator:a561a807f202d2790f2e46df3d2912c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdccbe49f4c16d8ce201a0d3382c8f3c"><td class="memItemLeft" align="right" valign="top"><a id="acdccbe49f4c16d8ce201a0d3382c8f3c"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamRoleUpdated</b></td></tr>
+<tr class="separator:acdccbe49f4c16d8ce201a0d3382c8f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10acf21cf9817cdf6c6a0bfe03760657"><td class="memItemLeft" align="right" valign="top"><a id="a10acf21cf9817cdf6c6a0bfe03760657"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TeamRoleDeleted</b></td></tr>
+<tr class="separator:a10acf21cf9817cdf6c6a0bfe03760657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae28054342712877daca091dd0dd9b8b6"><td class="memItemLeft" align="right" valign="top"><a id="ae28054342712877daca091dd0dd9b8b6"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MemberAdded</b></td></tr>
+<tr class="separator:ae28054342712877daca091dd0dd9b8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27493dae3620454d5947f6d132b98586"><td class="memItemLeft" align="right" valign="top"><a id="a27493dae3620454d5947f6d132b98586"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MemberUpdated</b></td></tr>
+<tr class="separator:a27493dae3620454d5947f6d132b98586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dc3442222a835a1fff1475e52fe46f0"><td class="memItemLeft" align="right" valign="top"><a id="a0dc3442222a835a1fff1475e52fe46f0"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MemberRemoved</b></td></tr>
+<tr class="separator:a0dc3442222a835a1fff1475e52fe46f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8552880edf8c8b696673fd02452cbde4"><td class="memItemLeft" align="right" valign="top"><a id="a8552880edf8c8b696673fd02452cbde4"></a>
+EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UserUpdated</b></td></tr>
+<tr class="separator:a8552880edf8c8b696673fd02452cbde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4142d0adeac751f0bd6b6a0448b3ec04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4142d0adeac751f0bd6b6a0448b3ec04">&#9670;&nbsp;</a></span>AddToTeam()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds definitions for messages to send to the signalR hub </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8a367abae10bf004f84f9286d1d95f87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a367abae10bf004f84f9286d1d95f87">&#9670;&nbsp;</a></span>AddMember()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +226,369 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">async Task Messenger.Core.Services.SignalRService.AddToTeam </td>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.AddMember </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add a member to a team and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>Object of user to add</td></tr>
+    <tr><td class="paramname">team</td><td>Objecte of team to add user to</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a46544b0901b6a79d306c4d3f71f25e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46544b0901b6a79d306c4d3f71f25e0f">&#9670;&nbsp;</a></span>AddOrUpdateTeamRole()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a>&#160;</td>
+          <td class="paramname"><em>role</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add or update a team role and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">role</td><td>TeamRole object to create/update role from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="abe281968446f652babfcaa6acddda11d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe281968446f652babfcaa6acddda11d">&#9670;&nbsp;</a></span>CloseConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.CloseConnection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Closes the connection with the hub </p>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a9c752d12a6fc38712f7a1e75c1c50ade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c752d12a6fc38712f7a1e75c1c50ade">&#9670;&nbsp;</a></span>CreateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.CreateChannel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a channel and and notify other clients other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Channel object to create channel from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="ad1c32727c383ca4618cc41950d28b463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1c32727c383ca4618cc41950d28b463">&#9670;&nbsp;</a></span>CreateTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.CreateTeam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds the user to the hub group </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">team</td><td>A team object to create a team from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="ab9abb703a9beab10d43d6d02cfcf61a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9abb703a9beab10d43d6d02cfcf61a2">&#9670;&nbsp;</a></span>DeleteChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.DeleteChannel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a channel and and notify other clients other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Channel object to delete channel from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="afb8a4fb96fd86c9b73618fd71888b95c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb8a4fb96fd86c9b73618fd71888b95c">&#9670;&nbsp;</a></span>DeleteMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.DeleteMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a message and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>The updated message object</td></tr>
+    <tr><td class="paramname">teamId</td><td>Team id as the group name</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a004748ef7c1f25241d192f89a48d02f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a004748ef7c1f25241d192f89a48d02f2">&#9670;&nbsp;</a></span>DeleteTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.DeleteTeam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a team and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">team</td><td>A team object to delete a team from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a9ba91df570e93229b722aedb9cde676c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ba91df570e93229b722aedb9cde676c">&#9670;&nbsp;</a></span>DeleteTeamRole()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.DeleteTeamRole </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a>&#160;</td>
+          <td class="paramname"><em>role</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a team role and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">role</td><td>TeamRole object to delete role from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="aad61da6c4bea9555625dd0b1542059e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad61da6c4bea9555625dd0b1542059e4">&#9670;&nbsp;</a></span>Initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Core.Services.SignalRService.Initialize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>RECEIVE: PASSIVE EVENTS TRIGGERED ONLY FROM OTHER USERS</p>
+<p>MESSAGE</p>
+<p>TEAM</p>
+<p>CHANNEL</p>
+<p>TEAM ROLES</p>
+<p>MEMBER</p>
+<p>USER</p>
+
+</div>
+</div>
+<a id="aba655b98194b39e13d84804e586b0f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba655b98194b39e13d84804e586b0f34">&#9670;&nbsp;</a></span>JoinTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.JoinTeam </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>userId</em>, </td>
@@ -199,73 +612,10 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 </table>
 </div><div class="memdoc">
 
-<p>Adds the user to the hub group </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">userId</td><td>Id of the user to add</td></tr>
-    <tr><td class="paramname">teamId</td><td>Id the of team to add user to</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
-
-</div>
-</div>
-<a id="a5314da6480bf7a2922c910d1bc4eb8e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5314da6480bf7a2922c910d1bc4eb8e5">&#9670;&nbsp;</a></span>Close()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">async Task Messenger.Core.Services.SignalRService.Close </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Closes the connection with the hub </p>
-<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
-
-</div>
-</div>
-<a id="ae45a09ac182c0b013a26701c971cf5db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae45a09ac182c0b013a26701c971cf5db">&#9670;&nbsp;</a></span>JoinTeam()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">async Task Messenger.Core.Services.SignalRService.JoinTeam </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>teamId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
 <p>Joins a hub group with the current connection id </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">userId</td><td>Id of the current user</td></tr>
     <tr><td class="paramname">teamId</td><td>Team id as the group name</td></tr>
   </table>
   </dd>
@@ -274,8 +624,8 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 
 </div>
 </div>
-<a id="abd32ae1098a1c45692500cb71fd6e8ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd32ae1098a1c45692500cb71fd6e8ac">&#9670;&nbsp;</a></span>Open()</h2>
+<a id="aba568e4242ab858fae511b0688ab1657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba568e4242ab858fae511b0688ab1657">&#9670;&nbsp;</a></span>LeaveTeam()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -284,7 +634,53 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">async Task Messenger.Core.Services.SignalRService.Open </td>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.LeaveTeam </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Leaves a hub group with the current connection id </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userId</td><td>Id of the current user</td></tr>
+    <tr><td class="paramname">teamId</td><td>Team id as the group name</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a1aee81da19161b62727e27928dae7e54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aee81da19161b62727e27928dae7e54">&#9670;&nbsp;</a></span>OpenConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.OpenConnection </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>userId</em></td><td>)</td>
@@ -309,8 +705,100 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 
 </div>
 </div>
-<a id="a1089c7b5dd3ec9b0b9580af363923a34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1089c7b5dd3ec9b0b9580af363923a34">&#9670;&nbsp;</a></span>SendMessage()</h2>
+<a id="ab32779f00eba8b3b135b5d44eecbf329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab32779f00eba8b3b135b5d44eecbf329">&#9670;&nbsp;</a></span>RemoveMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.RemoveMember </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove a member from a team and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>Object of user to remove</td></tr>
+    <tr><td class="paramname">team</td><td>Objecte of team to remove user from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a048ca72ded57e483b972f7989d67be21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a048ca72ded57e483b972f7989d67be21">&#9670;&nbsp;</a></span>SendInvitation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.SendInvitation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Send a user an invitation to a team and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>Object of user to invite</td></tr>
+    <tr><td class="paramname">team</td><td>Objecte of team to invite user to</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a6c39835894af32e050e7c77c161fef68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c39835894af32e050e7c77c161fef68">&#9670;&nbsp;</a></span>SendMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,8 +810,18 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
           <td class="memname">async Task Messenger.Core.Services.SignalRService.SendMessage </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -337,6 +835,7 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td>A complete message object to be sent</td></tr>
+    <tr><td class="paramname">teamId</td><td>Team id as the group name</td></tr>
   </table>
   </dd>
 </dl>
@@ -344,8 +843,43 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 
 </div>
 </div>
-<a id="afa15993d5309d3800f0d231487e1a421"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa15993d5309d3800f0d231487e1a421">&#9670;&nbsp;</a></span>UpdateMessage()</h2>
+<a id="a36a590a0333843e932caea44065533db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36a590a0333843e932caea44065533db">&#9670;&nbsp;</a></span>UpdateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.UpdateChannel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a channel and and notify other clients other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Channel object to update channel from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="ab5c5ca0878e7e9ae5e04e6323cdc251d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c5ca0878e7e9ae5e04e6323cdc251d">&#9670;&nbsp;</a></span>UpdateMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,8 +891,18 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
           <td class="memname">async Task Messenger.Core.Services.SignalRService.UpdateMessage </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -372,6 +916,53 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td>The updated message object</td></tr>
+    <tr><td class="paramname">teamId</td><td>Team id as the group name</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="a581b9141a95ba76a60d961f514e615a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a581b9141a95ba76a60d961f514e615a8">&#9670;&nbsp;</a></span>UpdateMessageReactions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.UpdateMessageReactions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a message's reactions and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>The updated message object</td></tr>
+    <tr><td class="paramname">teamId</td><td>Team id as the group name</td></tr>
   </table>
   </dd>
 </dl>
@@ -403,10 +994,45 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 </table>
 </div><div class="memdoc">
 
-<p>Update a teams data and notify other clients </p>
+<p>Update a team's data and notify other clients </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">team</td><td>The updated team object</td></tr>
+    <tr><td class="paramname">team</td><td>A team object to update a team from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+</div>
+</div>
+<a id="aaf50de35c5aaf275e3a04c2888995ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf50de35c5aaf275e3a04c2888995ee8">&#9670;&nbsp;</a></span>UpdateUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.UpdateUser </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a user's data and notify other clients </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>Updated user object</td></tr>
   </table>
   </dd>
 </dl>
@@ -415,14 +1041,14 @@ EventHandler&lt; uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 </div>
 </div>
 <h2 class="groupheader">Event Documentation</h2>
-<a id="aab8b11a9300ee99641a6f899b9402897"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab8b11a9300ee99641a6f899b9402897">&#9670;&nbsp;</a></span>MessageReceived</h2>
+<a id="abf03ca33295b49abceebb1b668cce8b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf03ca33295b49abceebb1b668cce8b0">&#9670;&nbsp;</a></span>ReceiveMessage</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">EventHandler&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&gt; Messenger.Core.Services.SignalRService.MessageReceived</td>
+          <td class="memname">EventHandler&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&gt; &gt; Messenger.Core.Services.SignalRService.ReceiveMessage</td>
         </tr>
       </table>
 </div><div class="memdoc">

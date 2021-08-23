@@ -1,6 +1,13 @@
 var searchData=
 [
-  ['teamfromdatarow_524',['TeamFromDataRow',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ad328dbf02651fe79efb36d64f68bb6e1',1,'Messenger::Core::Helpers::Mapper']]],
-  ['tryconvertdbvalue_3c_20t_20_3e_525',['TryConvertDbValue&lt; T &gt;',['../classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#a91664fdce9ce2aec559075adab281fd1',1,'Messenger::Core::Helpers::SqlHelpers']]],
-  ['trygetmessages_526',['TryGetMessages',['../classMessenger_1_1Helpers_1_1MessageManager.html#a85a8834ff20f180984b5c412def79575',1,'Messenger::Helpers::MessageManager']]]
+  ['savetostorage_727',['SaveToStorage',['../classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a699e24c43d908556d5e7e6cf1ab8fbc3',1,'Messenger::Commands::Messenger::DownloadAttachmentCommand']]],
+  ['searchmentionable_728',['SearchMentionable',['../classMessenger_1_1Core_1_1Services_1_1MentionService.html#ac1329c21b2337d4343b4dbf51b28d29f',1,'Messenger::Core::Services::MentionService']]],
+  ['searchuser_729',['SearchUser',['../classMessenger_1_1Core_1_1Services_1_1UserService.html#af7e4f61a320c6ee9f039437917843ce2',1,'Messenger::Core::Services::UserService']]],
+  ['sendinvitation_730',['SendInvitation',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa690d0e394ac175474fb41e071822677',1,'Messenger.Core.Services.MessengerService.SendInvitation()'],['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a048ca72ded57e483b972f7989d67be21',1,'Messenger.Core.Services.SignalRService.SendInvitation()']]],
+  ['sendmessage_731',['SendMessage',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a8ee0203eb531c86cfaec43beb5484e5b',1,'Messenger.Core.Services.MessengerService.SendMessage()'],['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a6c39835894af32e050e7c77c161fef68',1,'Messenger.Core.Services.SignalRService.SendMessage()'],['../classMessenger_1_1SignalR_1_1ChatHub.html#a93ad64f342c5b1188b83bd954419b8f8',1,'Messenger.SignalR.ChatHub.SendMessage()']]],
+  ['sendnotification_732',['SendNotification',['../classMessenger_1_1Core_1_1Services_1_1NotificationService.html#a894dd1988c7594206cc04578b85fb52d',1,'Messenger::Core::Services::NotificationService']]],
+  ['signalreventargs_733',['SignalREventArgs',['../classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html#a59cb5487d25cf462bbcbf2a8ac7671c4',1,'Messenger.Core.Models.SignalREventArgs.SignalREventArgs(T value)'],['../classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html#aaaa034555504394667cfe6b2f67cf1e5',1,'Messenger.Core.Models.SignalREventArgs.SignalREventArgs(TOne firstValue, TTwo secondValue)']]],
+  ['startchat_734',['StartChat',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a2e4f6f60829b9bc9b37451d9a06f2002',1,'Messenger::Core::Services::MessengerService']]],
+  ['stringfromdatarow_735',['StringFromDataRow',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a1f6d4641763746842ceb02c645b1ffa9',1,'Messenger::Core::Helpers::Mapper']]],
+  ['strtojobject_736',['strToJObject',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ae15c4cbc8381b2b418bd9e85f568ad8d',1,'Messenger::Core::Helpers::Mapper']]]
 ];

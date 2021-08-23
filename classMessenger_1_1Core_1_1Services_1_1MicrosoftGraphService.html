@@ -73,16 +73,93 @@ $(function() {
 <div class="title">Messenger.Core.Services.MicrosoftGraphService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds static methods to interact with the microsoft graph service used to authenticate users and retrieve initial user data </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+ 
+ <a href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:accb64c665719443d909203316fdf1c9e"><td class="memItemLeft" align="right" valign="top"><a id="accb64c665719443d909203316fdf1c9e"></a>
-static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetUserInfoAsync</b> (string accessToken)</td></tr>
+<tr class="memitem:accb64c665719443d909203316fdf1c9e"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#accb64c665719443d909203316fdf1c9e">GetUserInfoAsync</a> (string accessToken)</td></tr>
+<tr class="memdesc:accb64c665719443d909203316fdf1c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a user object from a specified accessToken  <a href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#accb64c665719443d909203316fdf1c9e">More...</a><br /></td></tr>
 <tr class="separator:accb64c665719443d909203316fdf1c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c5ec7da88c0814d17b19465f20c0132"><td class="memItemLeft" align="right" valign="top"><a id="a4c5ec7da88c0814d17b19465f20c0132"></a>
-static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetUserPhoto</b> (string accessToken)</td></tr>
+<tr class="memitem:a4c5ec7da88c0814d17b19465f20c0132"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a4c5ec7da88c0814d17b19465f20c0132">GetUserPhoto</a> (string accessToken)</td></tr>
+<tr class="memdesc:a4c5ec7da88c0814d17b19465f20c0132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a user's profile photo from a specified accessToken  <a href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a4c5ec7da88c0814d17b19465f20c0132">More...</a><br /></td></tr>
 <tr class="separator:a4c5ec7da88c0814d17b19465f20c0132"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds static methods to interact with the microsoft graph service used to authenticate users and retrieve initial user data </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="accb64c665719443d909203316fdf1c9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb64c665719443d909203316fdf1c9e">&#9670;&nbsp;</a></span>GetUserInfoAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&gt; Messenger.Core.Services.MicrosoftGraphService.GetUserInfoAsync </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>accessToken</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a user object from a specified accessToken </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">accessToken</td><td>An accessToken used to authenticate a user</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A user object holding the authenticated user's data</dd></dl>
+
+</div>
+</div>
+<a id="a4c5ec7da88c0814d17b19465f20c0132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c5ec7da88c0814d17b19465f20c0132">&#9670;&nbsp;</a></span>GetUserPhoto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;string&gt; Messenger.Core.Services.MicrosoftGraphService.GetUserPhoto </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>accessToken</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a user's profile photo from a specified accessToken </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">accessToken</td><td>An accessToken used to authenticate a user</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A user's profile photo as a base64 encoded string</dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Messenger/Messenger.Core/Services/MicrosoftGraphService.cs</li>
 </ul>

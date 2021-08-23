@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['selectedfiles_558',['SelectedFiles',['../classMessenger_1_1ViewModels_1_1ChatViewModel.html#a5addf85bb8ed4bb97c767f0dd5eadd89',1,'Messenger::ViewModels::ChatViewModel']]],
-  ['sendmessagecommand_559',['SendMessageCommand',['../classMessenger_1_1ViewModels_1_1ChatViewModel.html#a284a5abffee8dca2bb7243976a9b6ea5',1,'Messenger::ViewModels::ChatViewModel']]]
+  ['hub_795',['Hub',['../classMessenger_1_1ViewModels_1_1MainViewModel.html#aedd4acf193752b19d231f6a9e65f92eb',1,'Messenger::ViewModels::MainViewModel']]]
 ];

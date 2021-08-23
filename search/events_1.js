@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['messagereceived_561',['MessageReceived',['../classMessenger_1_1Services_1_1ChatHubService.html#aa139d5f01549ca5eb62ba32d9d54c468',1,'Messenger.Services.ChatHubService.MessageReceived()'],['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aab8b11a9300ee99641a6f899b9402897',1,'Messenger.Core.Services.SignalRService.MessageReceived()']]]
+  ['teamsloaded_838',['TeamsLoaded',['../classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a2db3092d1e96c395450f1586ff081ef6',1,'Messenger::Services::Providers::EventProvider']]],
+  ['teamupdated_839',['TeamUpdated',['../classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a2bba2e0db043dbfce61e4c1cca4bf071',1,'Messenger::Services::Providers::EventProvider']]]
 ];

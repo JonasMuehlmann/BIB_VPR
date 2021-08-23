@@ -75,15 +75,18 @@ $(function() {
 <div class="title">Messenger.Core.Services.FileSharingService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class holding static methods to interact with blob storage for saving and retrieving message attachments  
+ <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a541248babe41f4d79138f972d0237d0e"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a541248babe41f4d79138f972d0237d0e">Download</a> (string blobFileName, string destinationDirectory=&quot;&quot;)</td></tr>
-<tr class="memdesc:a541248babe41f4d79138f972d0237d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Download a file into the local cache  <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a541248babe41f4d79138f972d0237d0e">More...</a><br /></td></tr>
-<tr class="separator:a541248babe41f4d79138f972d0237d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eef8d0b833c6417820048775b1d2f40"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a0eef8d0b833c6417820048775b1d2f40">Upload</a> (string filePath)</td></tr>
-<tr class="memdesc:a0eef8d0b833c6417820048775b1d2f40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload a file to the blob storage  <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a0eef8d0b833c6417820048775b1d2f40">More...</a><br /></td></tr>
-<tr class="separator:a0eef8d0b833c6417820048775b1d2f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e61035c9efc431e991595df6a2c03f"><td class="memItemLeft" align="right" valign="top">static async Task&lt; MemoryStream &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#af5e61035c9efc431e991595df6a2c03f">Download</a> (string blobFileName)</td></tr>
+<tr class="memdesc:af5e61035c9efc431e991595df6a2c03f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Download a file into the local cache  <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#af5e61035c9efc431e991595df6a2c03f">More...</a><br /></td></tr>
+<tr class="separator:af5e61035c9efc431e991595df6a2c03f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55105132f467d4e4b826cb2648f4e7dc"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a55105132f467d4e4b826cb2648f4e7dc">Upload</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html">UploadData</a> uploadFile)</td></tr>
+<tr class="memdesc:a55105132f467d4e4b826cb2648f4e7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload a file to the blob storage  <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a55105132f467d4e4b826cb2648f4e7dc">More...</a><br /></td></tr>
+<tr class="separator:a55105132f467d4e4b826cb2648f4e7dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34dae61564eaf7499a367381a32f8574"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a34dae61564eaf7499a367381a32f8574">UploadFromBase64</a> (string data, string fileName)</td></tr>
 <tr class="memdesc:a34dae61564eaf7499a367381a32f8574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload a base64 encoded file to the blob storage  <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a34dae61564eaf7499a367381a32f8574">More...</a><br /></td></tr>
 <tr class="separator:a34dae61564eaf7499a367381a32f8574"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,8 +96,8 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a9535df135df40132fa8d8109ff35a33a"><td class="memItemLeft" align="right" valign="top"><a id="a9535df135df40132fa8d8109ff35a33a"></a>
-static readonly string&#160;</td><td class="memItemRight" valign="bottom"><b>localFileCachePath</b> = Path.Combine(Path.GetTempPath(), &quot;BIB_VPR&quot; + Path.DirectorySeparatorChar)</td></tr>
+<tr class="memitem:a9535df135df40132fa8d8109ff35a33a"><td class="memItemLeft" align="right" valign="top">static readonly string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a9535df135df40132fa8d8109ff35a33a">localFileCachePath</a> = Path.Combine(Path.GetTempPath(), &quot;BIB_VPR&quot; + Path.DirectorySeparatorChar)</td></tr>
+<tr class="memdesc:a9535df135df40132fa8d8109ff35a33a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The path at which to cache downloaded files  <a href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a9535df135df40132fa8d8109ff35a33a">More...</a><br /></td></tr>
 <tr class="separator:a9535df135df40132fa8d8109ff35a33a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
@@ -103,7 +106,9 @@ Properties</h2></td></tr>
 static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
 <tr class="separator:af21b64fd07cefded040cc2711dda20e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class holding static methods to interact with blob storage for saving and retrieving message attachments </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a2fef494da70066b36819c8db04e57644"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2fef494da70066b36819c8db04e57644">&#9670;&nbsp;</a></span>Delete()</h2>
 
@@ -139,8 +144,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a541248babe41f4d79138f972d0237d0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a541248babe41f4d79138f972d0237d0e">&#9670;&nbsp;</a></span>Download()</h2>
+<a id="af5e61035c9efc431e991595df6a2c03f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e61035c9efc431e991595df6a2c03f">&#9670;&nbsp;</a></span>Download()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,21 +154,11 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.FileSharingService.Download </td>
+          <td class="memname">static async Task&lt;MemoryStream&gt; Messenger.Core.Services.FileSharingService.Download </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>blobFileName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>blobFileName</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>destinationDirectory</em> = <code>&quot;&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -177,16 +172,15 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">blobFileName</td><td>A blob file to download</td></tr>
-    <tr><td class="paramname">destinationDirectory</td><td>Where to save the file, defaults to the local application cache</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false otherwise</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Stream on success, null otherwise</dd></dl>
 
 </div>
 </div>
-<a id="a0eef8d0b833c6417820048775b1d2f40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0eef8d0b833c6417820048775b1d2f40">&#9670;&nbsp;</a></span>Upload()</h2>
+<a id="a55105132f467d4e4b826cb2648f4e7dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55105132f467d4e4b826cb2648f4e7dc">&#9670;&nbsp;</a></span>Upload()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,8 +191,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
         <tr>
           <td class="memname">static async Task&lt;string&gt; Messenger.Core.Services.FileSharingService.Upload </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filePath</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html">UploadData</a>&#160;</td>
+          <td class="paramname"><em>uploadFile</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -212,7 +206,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 <p>Upload a file to the blob storage </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filePath</td><td>A path to a file to upload</td></tr>
+    <tr><td class="paramname">uploadFile</td><td>An object with file data</td></tr>
   </table>
   </dd>
 </dl>
@@ -263,6 +257,31 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The name of the blob file on success, null otherwise</dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9535df135df40132fa8d8109ff35a33a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9535df135df40132fa8d8109ff35a33a">&#9670;&nbsp;</a></span>localFileCachePath</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly string Messenger.Core.Services.FileSharingService.localFileCachePath = Path.Combine(Path.GetTempPath(), &quot;BIB_VPR&quot; + Path.DirectorySeparatorChar)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The path at which to cache downloaded files </p>
 
 </div>
 </div>

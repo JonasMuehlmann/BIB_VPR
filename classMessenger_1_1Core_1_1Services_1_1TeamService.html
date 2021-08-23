@@ -73,14 +73,16 @@ $(function() {
 <div class="title">Messenger.Core.Services.TeamService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds helpers and static methods to interact with teams on the DB, including permissions, roles and members.  
+ <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Messenger.Core.Services.TeamService:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Services_1_1TeamService.png" usemap="#Messenger.Core.Services.TeamService_map" alt=""/>
   <map id="Messenger.Core.Services.TeamService_map" name="Messenger.Core.Services.TeamService_map">
-<area href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html" alt="Messenger.Core.Services.AzureServiceBase" shape="rect" coords="0,0,275,24"/>
-<area href="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html" alt="Messenger.Core.Services.PrivateChatService" shape="rect" coords="0,112,275,136"/>
+<area href="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html" title="Holds helpers and static methods to interact with private chats on the DB" alt="Messenger.Core.Services.PrivateChatService" shape="rect" coords="0,112,275,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -124,49 +126,49 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a3280e25fe2932519743b83161a423624"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a3280e25fe2932519743b83161a423624">GetAllChannelsByTeamId</a> (uint teamId)</td></tr>
 <tr class="memdesc:a3280e25fe2932519743b83161a423624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve all channels of a team  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a3280e25fe2932519743b83161a423624">More...</a><br /></td></tr>
 <tr class="separator:a3280e25fe2932519743b83161a423624"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a015d97853db6b9d75c9eb0dfab29e900"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a015d97853db6b9d75c9eb0dfab29e900">AddRole</a> (string role, uint teamId)</td></tr>
-<tr class="memdesc:a015d97853db6b9d75c9eb0dfab29e900"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a role to a team with the specified teamId  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a015d97853db6b9d75c9eb0dfab29e900">More...</a><br /></td></tr>
-<tr class="separator:a015d97853db6b9d75c9eb0dfab29e900"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a564b23892228a9393fc9e4fcc60fb7d2"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a564b23892228a9393fc9e4fcc60fb7d2">RemoveRole</a> (string role, uint teamId)</td></tr>
-<tr class="memdesc:a564b23892228a9393fc9e4fcc60fb7d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a role from a team's available roles  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a564b23892228a9393fc9e4fcc60fb7d2">More...</a><br /></td></tr>
-<tr class="separator:a564b23892228a9393fc9e4fcc60fb7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f722037537d2b09850eeae0b6d3117"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">AddRole</a> (string role, uint teamId, string colorCode)</td></tr>
+<tr class="memdesc:ae5f722037537d2b09850eeae0b6d3117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a role to a team with the specified teamId  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">More...</a><br /></td></tr>
+<tr class="separator:ae5f722037537d2b09850eeae0b6d3117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa695d221afd6a98bb1e81477daa6f3"><td class="memItemLeft" align="right" valign="top"><a id="abaa695d221afd6a98bb1e81477daa6f3"></a>
+static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateRole</b> (uint roleId, string role, string colorCode)</td></tr>
+<tr class="separator:abaa695d221afd6a98bb1e81477daa6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca5bf5c0c783dbb36fddfc1f5e8e6de7"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7">RemoveRole</a> (string role, uint teamId)</td></tr>
+<tr class="memdesc:aca5bf5c0c783dbb36fddfc1f5e8e6de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a role from a team's available roles  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7">More...</a><br /></td></tr>
+<tr class="separator:aca5bf5c0c783dbb36fddfc1f5e8e6de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeddc05b8cae12801dd4360a3425609c1"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aeddc05b8cae12801dd4360a3425609c1">GetRole</a> (uint roleId)</td></tr>
+<tr class="memdesc:aeddc05b8cae12801dd4360a3425609c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a role object from a specified roleId  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aeddc05b8cae12801dd4360a3425609c1">More...</a><br /></td></tr>
+<tr class="separator:aeddc05b8cae12801dd4360a3425609c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7e71844865b0a106d5d36e6d0221452"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ac7e71844865b0a106d5d36e6d0221452">AssignRole</a> (string role, string userId, uint teamId)</td></tr>
 <tr class="memdesc:ac7e71844865b0a106d5d36e6d0221452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a team's member a role  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ac7e71844865b0a106d5d36e6d0221452">More...</a><br /></td></tr>
 <tr class="separator:ac7e71844865b0a106d5d36e6d0221452"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94a8e6f8f14271fc49a5da51216d3b19"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a94a8e6f8f14271fc49a5da51216d3b19">UnAssignRole</a> (string role, string userId, uint teamId)</td></tr>
 <tr class="memdesc:a94a8e6f8f14271fc49a5da51216d3b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unassign a team's member a role  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a94a8e6f8f14271fc49a5da51216d3b19">More...</a><br /></td></tr>
 <tr class="separator:a94a8e6f8f14271fc49a5da51216d3b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65b3d9206b3fc926f5948630e7ed65d8"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a65b3d9206b3fc926f5948630e7ed65d8">ListRoles</a> (uint teamId)</td></tr>
-<tr class="memdesc:a65b3d9206b3fc926f5948630e7ed65d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all roles available in a specified team  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a65b3d9206b3fc926f5948630e7ed65d8">More...</a><br /></td></tr>
-<tr class="separator:a65b3d9206b3fc926f5948630e7ed65d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ac69b2ba2aaec35ce4e4d3ce94ff8b"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a48ac69b2ba2aaec35ce4e4d3ce94ff8b">ListRoles</a> (uint teamId)</td></tr>
+<tr class="memdesc:a48ac69b2ba2aaec35ce4e4d3ce94ff8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all roles available in a specified team  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a48ac69b2ba2aaec35ce4e4d3ce94ff8b">More...</a><br /></td></tr>
+<tr class="separator:a48ac69b2ba2aaec35ce4e4d3ce94ff8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1582ef2a99db4d382aff1f4024527584"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a1582ef2a99db4d382aff1f4024527584">GetUsersWithRole</a> (uint teamId, string role)</td></tr>
 <tr class="memdesc:a1582ef2a99db4d382aff1f4024527584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a team's users that have a specified role  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a1582ef2a99db4d382aff1f4024527584">More...</a><br /></td></tr>
 <tr class="separator:a1582ef2a99db4d382aff1f4024527584"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c17e86a0a87e16853a7a69b73363a3c"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a3c17e86a0a87e16853a7a69b73363a3c">GetUsersRoles</a> (uint teamId, string userId)</td></tr>
-<tr class="memdesc:a3c17e86a0a87e16853a7a69b73363a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a users roles in a specified team  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a3c17e86a0a87e16853a7a69b73363a3c">More...</a><br /></td></tr>
-<tr class="separator:a3c17e86a0a87e16853a7a69b73363a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b6d972215dc7a99478be6a67afc66ad"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a4b6d972215dc7a99478be6a67afc66ad">GrantPermission</a> (uint teamId, string role, Permissions permission)</td></tr>
-<tr class="memdesc:a4b6d972215dc7a99478be6a67afc66ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grant a team's role a specified permissions  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a4b6d972215dc7a99478be6a67afc66ad">More...</a><br /></td></tr>
-<tr class="separator:a4b6d972215dc7a99478be6a67afc66ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f28479673fcc9348859219f42fae3ff"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a5f28479673fcc9348859219f42fae3ff">RevokePermission</a> (uint teamId, string role, Permissions permission)</td></tr>
-<tr class="memdesc:a5f28479673fcc9348859219f42fae3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revoke a permission from a specified team's role  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a5f28479673fcc9348859219f42fae3ff">More...</a><br /></td></tr>
-<tr class="separator:a5f28479673fcc9348859219f42fae3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6acd267c3c3b82540193d467703e1eac"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a6acd267c3c3b82540193d467703e1eac">HasPermission</a> (uint teamId, string role, Permissions permission)</td></tr>
+<tr class="memitem:ab431c7fd69522089e69c7c2e3398e953"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ab431c7fd69522089e69c7c2e3398e953">GetUsersRoles</a> (uint teamId, string userId)</td></tr>
+<tr class="memdesc:ab431c7fd69522089e69c7c2e3398e953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a users roles in a specified team  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ab431c7fd69522089e69c7c2e3398e953">More...</a><br /></td></tr>
+<tr class="separator:ab431c7fd69522089e69c7c2e3398e953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f904f5163e93e69a33be7677a4c71cf"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a4f904f5163e93e69a33be7677a4c71cf">GrantPermission</a> (uint teamId, string role, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> permission)</td></tr>
+<tr class="memdesc:a4f904f5163e93e69a33be7677a4c71cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grant a team's role a specified permissions  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a4f904f5163e93e69a33be7677a4c71cf">More...</a><br /></td></tr>
+<tr class="separator:a4f904f5163e93e69a33be7677a4c71cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8908d1618465db976f4bcb3519e5a0e0"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a8908d1618465db976f4bcb3519e5a0e0">RevokePermission</a> (uint teamId, string role, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> permission)</td></tr>
+<tr class="memdesc:a8908d1618465db976f4bcb3519e5a0e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revoke a permission from a specified team's role  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a8908d1618465db976f4bcb3519e5a0e0">More...</a><br /></td></tr>
+<tr class="separator:a8908d1618465db976f4bcb3519e5a0e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6acd267c3c3b82540193d467703e1eac"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a6acd267c3c3b82540193d467703e1eac">HasPermission</a> (uint teamId, string role, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> permission)</td></tr>
 <tr class="memdesc:a6acd267c3c3b82540193d467703e1eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a role has a permission in a team  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a6acd267c3c3b82540193d467703e1eac">More...</a><br /></td></tr>
 <tr class="separator:a6acd267c3c3b82540193d467703e1eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html">Messenger.Core.Services.AzureServiceBase</a></td></tr>
-<tr class="memitem:adbfd30783294ceb9ca78d147d6e7d9c0 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memItemLeft" align="right" valign="top"><a id="adbfd30783294ceb9ca78d147d6e7d9c0"></a>
-static SqlConnection&#160;</td><td class="memItemRight" valign="bottom"><b>GetDefaultConnection</b> ()</td></tr>
-<tr class="separator:adbfd30783294ceb9ca78d147d6e7d9c0 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td colspan="2" onclick="javascript:toggleInherit('properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html">Messenger.Core.Services.AzureServiceBase</a></td></tr>
-<tr class="memitem:a7f4a060dbbc4300644880c75b8fcc2e4 inherit properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memItemLeft" align="right" valign="top"><a id="a7f4a060dbbc4300644880c75b8fcc2e4"></a>
-static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
-<tr class="separator:a7f4a060dbbc4300644880c75b8fcc2e4 inherit properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b6e39fc8794f86a200ced7ad8702b6"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a37b6e39fc8794f86a200ced7ad8702b6">GetPermissionsOfRole</a> (uint teamId, string role)</td></tr>
+<tr class="memdesc:a37b6e39fc8794f86a200ced7ad8702b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all permissions a role has  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a37b6e39fc8794f86a200ced7ad8702b6">More...</a><br /></td></tr>
+<tr class="separator:a37b6e39fc8794f86a200ced7ad8702b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds helpers and static methods to interact with teams on the DB, including permissions, roles and members. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a71e7113d4f2bf94929884d5cbb5ca7df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71e7113d4f2bf94929884d5cbb5ca7df">&#9670;&nbsp;</a></span>AddMember()</h2>
 
@@ -213,8 +215,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a015d97853db6b9d75c9eb0dfab29e900"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a015d97853db6b9d75c9eb0dfab29e900">&#9670;&nbsp;</a></span>AddRole()</h2>
+<a id="ae5f722037537d2b09850eeae0b6d3117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f722037537d2b09850eeae0b6d3117">&#9670;&nbsp;</a></span>AddRole()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +225,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.TeamService.AddRole </td>
+          <td class="memname">static async Task&lt;uint?&gt; Messenger.Core.Services.TeamService.AddRole </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>role</em>, </td>
@@ -232,7 +234,13 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint&#160;</td>
-          <td class="paramname"><em>teamId</em>&#160;</td>
+          <td class="paramname"><em>teamId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>colorCode</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -252,10 +260,11 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <table class="params">
     <tr><td class="paramname">role</td><td>The name of the role to add</td></tr>
     <tr><td class="paramname">teamId</td><td>The id of the team to add the role to</td></tr>
+    <tr><td class="paramname">colorCode</td><td>Hex code of the color</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Id of the added team role</dd></dl>
 
 </div>
 </div>
@@ -653,6 +662,87 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
+<a id="a37b6e39fc8794f86a200ced7ad8702b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b6e39fc8794f86a200ced7ad8702b6">&#9670;&nbsp;</a></span>GetPermissionsOfRole()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;IList&lt;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a>&gt; &gt; Messenger.Core.Services.TeamService.GetPermissionsOfRole </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>teamId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>role</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List all permissions a role has </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">teamId</td><td>The id of the team list permissions of</td></tr>
+    <tr><td class="paramname">role</td><td>The role of the team to list permission of</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of Permissions the role has</dd></dl>
+
+</div>
+</div>
+<a id="aeddc05b8cae12801dd4360a3425609c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeddc05b8cae12801dd4360a3425609c1">&#9670;&nbsp;</a></span>GetRole()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a>&gt; Messenger.Core.Services.TeamService.GetRole </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>roleId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build a role object from a specified roleId </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">roleId</td><td>The id of the role to build an object from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The built role object on success, null otherwise</dd></dl>
+
+</div>
+</div>
 <a id="afb5b3ce75e4fd6ff9f425d03a405c785"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afb5b3ce75e4fd6ff9f425d03a405c785">&#9670;&nbsp;</a></span>GetTeam()</h2>
 
@@ -688,8 +778,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a3c17e86a0a87e16853a7a69b73363a3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c17e86a0a87e16853a7a69b73363a3c">&#9670;&nbsp;</a></span>GetUsersRoles()</h2>
+<a id="ab431c7fd69522089e69c7c2e3398e953"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab431c7fd69522089e69c7c2e3398e953">&#9670;&nbsp;</a></span>GetUsersRoles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -698,7 +788,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;IList&lt;string&gt; &gt; Messenger.Core.Services.TeamService.GetUsersRoles </td>
+          <td class="memname">static async Task&lt;IList&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a>&gt; &gt; Messenger.Core.Services.TeamService.GetUsersRoles </td>
           <td>(</td>
           <td class="paramtype">uint&#160;</td>
           <td class="paramname"><em>teamId</em>, </td>
@@ -780,8 +870,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a4b6d972215dc7a99478be6a67afc66ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b6d972215dc7a99478be6a67afc66ad">&#9670;&nbsp;</a></span>GrantPermission()</h2>
+<a id="a4f904f5163e93e69a33be7677a4c71cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f904f5163e93e69a33be7677a4c71cf">&#9670;&nbsp;</a></span>GrantPermission()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -790,7 +880,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.TeamService.GrantPermission </td>
+          <td class="memname">static async Task&lt;uint?&gt; Messenger.Core.Services.TeamService.GrantPermission </td>
           <td>(</td>
           <td class="paramtype">uint&#160;</td>
           <td class="paramname"><em>teamId</em>, </td>
@@ -804,7 +894,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Permissions&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a>&#160;</td>
           <td class="paramname"><em>permission</em>&#160;</td>
         </tr>
         <tr>
@@ -857,7 +947,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Permissions&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a>&#160;</td>
           <td class="paramname"><em>permission</em>&#160;</td>
         </tr>
         <tr>
@@ -886,8 +976,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a65b3d9206b3fc926f5948630e7ed65d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65b3d9206b3fc926f5948630e7ed65d8">&#9670;&nbsp;</a></span>ListRoles()</h2>
+<a id="a48ac69b2ba2aaec35ce4e4d3ce94ff8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48ac69b2ba2aaec35ce4e4d3ce94ff8b">&#9670;&nbsp;</a></span>ListRoles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -896,7 +986,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;IList&lt;string&gt; &gt; Messenger.Core.Services.TeamService.ListRoles </td>
+          <td class="memname">static async Task&lt;IList&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a>&gt; &gt; Messenger.Core.Services.TeamService.ListRoles </td>
           <td>(</td>
           <td class="paramtype">uint&#160;</td>
           <td class="paramname"><em>teamId</em></td><td>)</td>
@@ -967,8 +1057,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a564b23892228a9393fc9e4fcc60fb7d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a564b23892228a9393fc9e4fcc60fb7d2">&#9670;&nbsp;</a></span>RemoveRole()</h2>
+<a id="aca5bf5c0c783dbb36fddfc1f5e8e6de7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca5bf5c0c783dbb36fddfc1f5e8e6de7">&#9670;&nbsp;</a></span>RemoveRole()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -977,7 +1067,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.TeamService.RemoveRole </td>
+          <td class="memname">static async Task&lt;uint?&gt; Messenger.Core.Services.TeamService.RemoveRole </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>role</em>, </td>
@@ -1013,8 +1103,8 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 </div>
 </div>
-<a id="a5f28479673fcc9348859219f42fae3ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f28479673fcc9348859219f42fae3ff">&#9670;&nbsp;</a></span>RevokePermission()</h2>
+<a id="a8908d1618465db976f4bcb3519e5a0e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8908d1618465db976f4bcb3519e5a0e0">&#9670;&nbsp;</a></span>RevokePermission()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1023,7 +1113,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.TeamService.RevokePermission </td>
+          <td class="memname">static async Task&lt;uint?&gt; Messenger.Core.Services.TeamService.RevokePermission </td>
           <td>(</td>
           <td class="paramtype">uint&#160;</td>
           <td class="paramname"><em>teamId</em>, </td>
@@ -1037,7 +1127,7 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Permissions&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a>&#160;</td>
           <td class="paramname"><em>permission</em>&#160;</td>
         </tr>
         <tr>

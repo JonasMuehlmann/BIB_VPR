@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['unassignrole_744',['UnAssignRole',['../classMessenger_1_1Core_1_1Services_1_1TeamService.html#a94a8e6f8f14271fc49a5da51216d3b19',1,'Messenger::Core::Services::TeamService']]],
+  ['unassignuserrole_745',['UnassignUserRole',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a51771daf6c6bd2db4f4ac253f9597842',1,'Messenger::Core::Services::MessengerService']]],
+  ['unpinmessage_746',['UnPinMessage',['../classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a9201c143bd2feacba1685c97d8ebc2f1',1,'Messenger::Core::Services::ChannelService']]],
+  ['update_747',['Update',['../classMessenger_1_1Core_1_1Services_1_1UserService.html#af14dfc2d6e0360bde2b1cee531b96381',1,'Messenger::Core::Services::UserService']]],
+  ['updatechannel_748',['UpdateChannel',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a36a590a0333843e932caea44065533db',1,'Messenger::Core::Services::SignalRService']]],
+  ['updatemessage_749',['UpdateMessage',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a3bf01add80c82c5d19865a5353d65e79',1,'Messenger.Core.Services.MessengerService.UpdateMessage()'],['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab5c5ca0878e7e9ae5e04e6323cdc251d',1,'Messenger.Core.Services.SignalRService.UpdateMessage()'],['../classMessenger_1_1SignalR_1_1ChatHub.html#aa685aaf925ae62944db1cb5efaf605db',1,'Messenger.SignalR.ChatHub.UpdateMessage()']]],
+  ['updatemessagereactions_750',['UpdateMessageReactions',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a581b9141a95ba76a60d961f514e615a8',1,'Messenger::Core::Services::SignalRService']]],
+  ['updateteam_751',['UpdateTeam',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a59c0097a80abef4c636a0477e2016791',1,'Messenger.Core.Services.SignalRService.UpdateTeam()'],['../classMessenger_1_1Core_1_1Services_1_1TeamService.html#ac8614e542091b6ebaf1d95d469937653',1,'Messenger.Core.Services.TeamService.UpdateTeam()']]],
+  ['updateteamdescription_752',['UpdateTeamDescription',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ad3d3c6f0b20b3762ced93658bdc76055',1,'Messenger::Core::Services::MessengerService']]],
+  ['updateteamname_753',['UpdateTeamName',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a194eafdd3ac6fcb3ed35b52f1b0ad1df',1,'Messenger::Core::Services::MessengerService']]],
+  ['updateteamrole_754',['UpdateTeamRole',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ac54dc19e93e51aadb561fc3f3eda9142',1,'Messenger::Core::Services::MessengerService']]],
+  ['updateuser_755',['UpdateUser',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aaf50de35c5aaf275e3a04c2888995ee8',1,'Messenger::Core::Services::SignalRService']]],
+  ['updateuserbio_756',['UpdateUserBio',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a99ad70a09c5547faecddf248c8146266',1,'Messenger.Core.Services.MessengerService.UpdateUserBio()'],['../classMessenger_1_1Core_1_1Services_1_1UserService.html#a5c83744b1bb2d6e804cf882fba5aa4c2',1,'Messenger.Core.Services.UserService.UpdateUserBio()']]],
+  ['updateuseremail_757',['UpdateUserEmail',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a03e8e675a894e551aeaa79629a9877d3',1,'Messenger::Core::Services::MessengerService']]],
+  ['updateuserinfo_5ftest_758',['UpdateUserInfo_Test',['../classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#af3dc44e2b51234fa2f5422691d2083e3',1,'Messenger::Tests::MSTest::UserServiceTest']]],
+  ['updateusermail_759',['UpdateUserMail',['../classMessenger_1_1Core_1_1Services_1_1UserService.html#accfe05fb1b2837328b6ec4317fb895c8',1,'Messenger::Core::Services::UserService']]],
+  ['updateusername_760',['UpdateUsername',['../classMessenger_1_1Core_1_1Services_1_1UserService.html#a0056d218815cf8f2c92a5b5840552199',1,'Messenger::Core::Services::UserService']]],
+  ['updateusername_5ftest_761',['UpdateUsername_Test',['../classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#acb774aca4ff3adce26f0c6d892a86798',1,'Messenger::Tests::MSTest::UserServiceTest']]],
+  ['updateuserphoto_762',['UpdateUserPhoto',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9a9ee61c44d1255f0913e617ed04aeda',1,'Messenger.Core.Services.MessengerService.UpdateUserPhoto()'],['../classMessenger_1_1Core_1_1Services_1_1UserService.html#a3755811adc98c86c8434f57a785acdb8',1,'Messenger.Core.Services.UserService.UpdateUserPhoto()']]],
+  ['updateuserusername_763',['UpdateUserUsername',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#af39da3130ead71c475843f078e776256',1,'Messenger::Core::Services::MessengerService']]],
+  ['upload_764',['Upload',['../classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a55105132f467d4e4b826cb2648f4e7dc',1,'Messenger::Core::Services::FileSharingService']]],
+  ['uploaddata_765',['UploadData',['../classMessenger_1_1Core_1_1Models_1_1UploadData.html#ae74229ec810fbbfcf6dbda30f40b7425',1,'Messenger::Core::Models::UploadData']]],
+  ['uploadfrombase64_766',['UploadFromBase64',['../classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a34dae61564eaf7499a367381a32f8574',1,'Messenger::Core::Services::FileSharingService']]],
+  ['userfromdatarow_767',['UserFromDataRow',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a63ce65bce94769acaa7369a814deecb0',1,'Messenger::Core::Helpers::Mapper']]],
+  ['userfrommsgraph_768',['UserFromMSGraph',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a3731c6c341ca525016f75021027223c6',1,'Messenger::Core::Helpers::Mapper']]]
+];

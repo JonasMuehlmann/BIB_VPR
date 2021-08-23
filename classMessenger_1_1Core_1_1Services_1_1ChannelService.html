@@ -73,15 +73,15 @@ $(function() {
 <div class="title">Messenger.Core.Services.ChannelService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class holding static methods to interact with channels on the DB  
+ <a href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Messenger.Core.Services.ChannelService:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classMessenger_1_1Core_1_1Services_1_1ChannelService.png" usemap="#Messenger.Core.Services.ChannelService_map" alt=""/>
-  <map id="Messenger.Core.Services.ChannelService_map" name="Messenger.Core.Services.ChannelService_map">
-<area href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html" alt="Messenger.Core.Services.AzureServiceBase" shape="rect" coords="0,0,271,24"/>
-  </map>
-</div></div>
+  <img src="classMessenger_1_1Core_1_1Services_1_1ChannelService.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -100,19 +100,19 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aced27456c4cba135d277f0c3f8cd4df8"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#aced27456c4cba135d277f0c3f8cd4df8">GetChannel</a> (uint channelId)</td></tr>
 <tr class="memdesc:aced27456c4cba135d277f0c3f8cd4df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a Channel object from data that belongs to the channel identified by channelId.  <a href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#aced27456c4cba135d277f0c3f8cd4df8">More...</a><br /></td></tr>
 <tr class="separator:aced27456c4cba135d277f0c3f8cd4df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html">Messenger.Core.Services.AzureServiceBase</a></td></tr>
-<tr class="memitem:adbfd30783294ceb9ca78d147d6e7d9c0 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memItemLeft" align="right" valign="top"><a id="adbfd30783294ceb9ca78d147d6e7d9c0"></a>
-static SqlConnection&#160;</td><td class="memItemRight" valign="bottom"><b>GetDefaultConnection</b> ()</td></tr>
-<tr class="separator:adbfd30783294ceb9ca78d147d6e7d9c0 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td colspan="2" onclick="javascript:toggleInherit('properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="classMessenger_1_1Core_1_1Services_1_1AzureServiceBase.html">Messenger.Core.Services.AzureServiceBase</a></td></tr>
-<tr class="memitem:a7f4a060dbbc4300644880c75b8fcc2e4 inherit properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memItemLeft" align="right" valign="top"><a id="a7f4a060dbbc4300644880c75b8fcc2e4"></a>
-static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
-<tr class="separator:a7f4a060dbbc4300644880c75b8fcc2e4 inherit properties_classMessenger_1_1Core_1_1Services_1_1AzureServiceBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c9c200b9a85ed564723235cc0560e2"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a73c9c200b9a85ed564723235cc0560e2">PinMessage</a> (uint messageId, uint channelId)</td></tr>
+<tr class="memdesc:a73c9c200b9a85ed564723235cc0560e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin a specified message in the specified channel  <a href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a73c9c200b9a85ed564723235cc0560e2">More...</a><br /></td></tr>
+<tr class="separator:a73c9c200b9a85ed564723235cc0560e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9201c143bd2feacba1685c97d8ebc2f1"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a9201c143bd2feacba1685c97d8ebc2f1">UnPinMessage</a> (uint messageId, uint channelId)</td></tr>
+<tr class="memdesc:a9201c143bd2feacba1685c97d8ebc2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpin a specified message in the specified channel  <a href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a9201c143bd2feacba1685c97d8ebc2f1">More...</a><br /></td></tr>
+<tr class="separator:a9201c143bd2feacba1685c97d8ebc2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c06a7342ca18c48f412e9ee1b52fb5"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a41c06a7342ca18c48f412e9ee1b52fb5">RetrievePinnedMessages</a> (uint channelId)</td></tr>
+<tr class="memdesc:a41c06a7342ca18c48f412e9ee1b52fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the pinned messages of a channel  <a href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#a41c06a7342ca18c48f412e9ee1b52fb5">More...</a><br /></td></tr>
+<tr class="separator:a41c06a7342ca18c48f412e9ee1b52fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class holding static methods to interact with channels on the DB </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae9388aa7e8ae52ab9236e67b705cc3dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae9388aa7e8ae52ab9236e67b705cc3dc">&#9670;&nbsp;</a></span>CreateChannel()</h2>
 
@@ -191,6 +191,52 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a73c9c200b9a85ed564723235cc0560e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c9c200b9a85ed564723235cc0560e2">&#9670;&nbsp;</a></span>PinMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.ChannelService.PinMessage </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>messageId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>channelId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pin a specified message in the specified channel </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">messageId</td><td>The id of the message to pin</td></tr>
+    <tr><td class="paramname">channelId</td><td>The id of the channel to pin the message in</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on failure</dd></dl>
 
 </div>
 </div>
@@ -307,6 +353,87 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True, if the channel got renamed successfully, false otherwise</dd></dl>
+
+</div>
+</div>
+<a id="a41c06a7342ca18c48f412e9ee1b52fb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c06a7342ca18c48f412e9ee1b52fb5">&#9670;&nbsp;</a></span>RetrievePinnedMessages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;IEnumerable&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&gt; &gt; Messenger.Core.Services.ChannelService.RetrievePinnedMessages </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>channelId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve the pinned messages of a channel </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channelId</td><td>The channel to retrieve pinned messages from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An enumerable of message objects representing the pinned messages</dd></dl>
+
+</div>
+</div>
+<a id="a9201c143bd2feacba1685c97d8ebc2f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9201c143bd2feacba1685c97d8ebc2f1">&#9670;&nbsp;</a></span>UnPinMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.ChannelService.UnPinMessage </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>messageId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>channelId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unpin a specified message in the specified channel </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">messageId</td><td>The id of the message to Unpin</td></tr>
+    <tr><td class="paramname">channelId</td><td>The id of the channel to Unpin the message in</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on failure</dd></dl>
 
 </div>
 </div>

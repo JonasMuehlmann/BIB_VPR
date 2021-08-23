@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['build_435',['Build',['../classMessenger_1_1Helpers_1_1MessageBuilder.html#a58da4f2786f39880d7d7944c7655bb1a',1,'Messenger.Helpers.MessageBuilder.Build(Message message, UserViewModel currentUser)'],['../classMessenger_1_1Helpers_1_1MessageBuilder.html#a8169b250afd6357abe076a41456dfcb6',1,'Messenger.Helpers.MessageBuilder.Build(IEnumerable&lt; Message &gt; messages, UserViewModel currentUser)']]]
+  ['broadcast_609',['Broadcast',['../classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a6e015f0f56460d1005f45f368059c15d',1,'Messenger::Services::Providers::EventProvider']]]
 ];

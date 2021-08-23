@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['chatmenuoption_549',['ChatMenuOption',['../namespaceMessenger_1_1ConsoleMessenger_1_1Models.html#a75aa2facbfe76b468ff20a34ebea379a',1,'Messenger::ConsoleMessenger::Models']]]
+  ['loginresulttype_775',['LoginResultType',['../namespaceMessenger_1_1Core_1_1Helpers.html#a41d9c32bad0a9be98c36ee8070f8626c',1,'Messenger::Core::Helpers']]]
 ];

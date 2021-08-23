@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['identityservice_106',['IdentityService',['../classMessenger_1_1Core_1_1Services_1_1IdentityService.html',1,'Messenger::Core::Services']]],
-  ['imessengerapp_107',['IMessengerApp',['../interfaceMessenger_1_1ConsoleMessenger_1_1IMessengerApp.html',1,'Messenger::ConsoleMessenger']]],
-  ['inboxcontrol_108',['InboxControl',['../classMessenger_1_1Controls_1_1NotificationControls_1_1InboxControl.html',1,'Messenger::Controls::NotificationControls']]],
-  ['initialize_109',['Initialize',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a634d8a2e7a0e69c93627309674d514d6',1,'Messenger::Core::Services::MessengerService']]],
-  ['invitation_110',['Invitation',['../classMessenger_1_1Models_1_1Invitation.html',1,'Messenger::Models']]],
-  ['invitationreceived_111',['InvitationReceived',['../classMessenger_1_1Services_1_1ChatHubService.html#a45cf715076a1560a7dfa0c06712c708a',1,'Messenger::Services::ChatHubService']]],
-  ['inviteuser_112',['InviteUser',['../classMessenger_1_1Services_1_1ChatHubService.html#a532316e2e74149bac78d91ecb6e2b075',1,'Messenger.Services.ChatHubService.InviteUser()'],['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a52e9d920792de5a5dd02ed323f65d05f',1,'Messenger.Core.Services.MessengerService.InviteUser()']]]
+  ['id_136',['Id',['../classMessenger_1_1Core_1_1Models_1_1Mention.html#af2fb9f2cc99cabaf756af8dbef6544d6',1,'Messenger.Core.Models.Mention.Id()'],['../classMessenger_1_1Core_1_1Models_1_1Message.html#a4f83a3ddb5cb8475351010fe724a3a3c',1,'Messenger.Core.Models.Message.Id()'],['../classMessenger_1_1Core_1_1Models_1_1Notification.html#a71681aaf1564bf585b2f24594cc12f77',1,'Messenger.Core.Models.Notification.Id()'],['../classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a13e9d80e2d446a4da4733d07e923dbfc',1,'Messenger.Core.Models.NotificationMute.Id()'],['../classMessenger_1_1Core_1_1Models_1_1Reaction.html#a94e6d31cba7e97a8f377b7fc451d647d',1,'Messenger.Core.Models.Reaction.Id()'],['../classMessenger_1_1Core_1_1Models_1_1Team.html#a02c394b8983392d4bbfe1484d37e0480',1,'Messenger.Core.Models.Team.Id()'],['../classMessenger_1_1Core_1_1Models_1_1TeamRole.html#a5a468e1c3ad670b9675f119c0c4dad7e',1,'Messenger.Core.Models.TeamRole.Id()'],['../classMessenger_1_1Core_1_1Models_1_1User.html#a1b037f27650fa868b6e85378c89936af',1,'Messenger.Core.Models.User.Id()']]],
+  ['identityservice_137',['IdentityService',['../classMessenger_1_1Core_1_1Services_1_1IdentityService.html',1,'Messenger::Core::Services']]],
+  ['inboxcontrol_138',['InboxControl',['../classMessenger_1_1Views_1_1Controls_1_1InboxControl.html',1,'Messenger::Views::Controls']]],
+  ['inboxcontrolviewmodel_139',['InboxControlViewModel',['../classMessenger_1_1ViewModels_1_1Controls_1_1InboxControlViewModel.html',1,'Messenger::ViewModels::Controls']]],
+  ['initialize_140',['Initialize',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a634d8a2e7a0e69c93627309674d514d6',1,'Messenger.Core.Services.MessengerService.Initialize()'],['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aad61da6c4bea9555625dd0b1542059e4',1,'Messenger.Core.Services.SignalRService.Initialize()']]],
+  ['inviteusercommand_141',['InviteUserCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1InviteUserCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['isbusy_142',['IsBusy',['../classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a36a2f512c1ca027aa60c7e1fe1104f72',1,'Messenger::ViewModels::Pages::ChatNavViewModel']]]
 ];

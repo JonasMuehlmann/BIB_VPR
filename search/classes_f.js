@@ -1,16 +1,19 @@
 var searchData=
 [
-  ['team_376',['Team',['../classMessenger_1_1Core_1_1Models_1_1Team.html',1,'Messenger::Core::Models']]],
-  ['teamdatatemplateselector_377',['TeamDataTemplateSelector',['../classMessenger_1_1TemplateSelectors_1_1TeamDataTemplateSelector.html',1,'Messenger::TemplateSelectors']]],
-  ['teammanagepage_378',['TeamManagePage',['../classMessenger_1_1Views_1_1TeamManagePage.html',1,'Messenger::Views']]],
-  ['teammanageviewmodel_379',['TeamManageViewModel',['../classMessenger_1_1ViewModels_1_1TeamManageViewModel.html',1,'Messenger::ViewModels']]],
-  ['teamnavpage_380',['TeamNavPage',['../classMessenger_1_1Views_1_1TeamNavPage.html',1,'Messenger::Views']]],
-  ['teamnavviewmodel_381',['TeamNavViewModel',['../classMessenger_1_1ViewModels_1_1TeamNavViewModel.html',1,'Messenger::ViewModels']]],
-  ['teamservice_382',['TeamService',['../classMessenger_1_1Core_1_1Services_1_1TeamService.html',1,'Messenger::Core::Services']]],
-  ['teamservicetest_383',['TeamServiceTest',['../classMessenger_1_1Tests_1_1MSTest_1_1TeamServiceTest.html',1,'Messenger::Tests::MSTest']]],
-  ['tests_384',['Tests',['../classMessenger_1_1Tests_1_1MSTest_1_1Tests.html',1,'Messenger::Tests::MSTest']]],
-  ['themetofillbrushconverter_385',['ThemeToFillBrushConverter',['../classMessenger_1_1Helpers_1_1ThemeToFillBrushConverter.html',1,'Messenger::Helpers']]],
-  ['togglereactionarg_386',['ToggleReactionArg',['../classMessenger_1_1Models_1_1ToggleReactionArg.html',1,'Messenger::Models']]],
-  ['togglereactioncommand_387',['ToggleReactionCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1ToggleReactionCommand.html',1,'Messenger::Commands::Messenger']]],
-  ['treeviewcollapsebehavior_388',['TreeViewCollapseBehavior',['../classMessenger_1_1Behaviors_1_1TreeViewCollapseBehavior.html',1,'Messenger::Behaviors']]]
+  ['unassignteamrolecommand_555',['UnassignTeamRoleCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1UnassignTeamRoleCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['updatemessagecommand_556',['UpdateMessageCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1UpdateMessageCommand.html',1,'Messenger::Commands::Messenger']]],
+  ['updateteamdetailscommand_557',['UpdateTeamDetailsCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamDetailsCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['updateteamrolecommand_558',['UpdateTeamRoleCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamRoleCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['updateuserbiocommand_559',['UpdateUserBioCommand',['../classMessenger_1_1Commands_1_1UserData_1_1UpdateUserBioCommand.html',1,'Messenger::Commands::UserData']]],
+  ['updateusernamecommand_560',['UpdateUserNameCommand',['../classMessenger_1_1Commands_1_1UserData_1_1UpdateUserNameCommand.html',1,'Messenger::Commands::UserData']]],
+  ['uploaddata_561',['UploadData',['../classMessenger_1_1Core_1_1Models_1_1UploadData.html',1,'Messenger::Core::Models']]],
+  ['user_562',['User',['../classMessenger_1_1Core_1_1Models_1_1User.html',1,'Messenger::Core::Models']]],
+  ['useractivitydata_563',['UserActivityData',['../classMessenger_1_1Services_1_1UserActivityData.html',1,'Messenger::Services']]],
+  ['userdataservice_564',['UserDataService',['../classMessenger_1_1Services_1_1UserDataService.html',1,'Messenger::Services']]],
+  ['userprofileflyout_565',['UserProfileFlyout',['../classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html',1,'Messenger::Views::Subcontrols']]],
+  ['usersearchpanel_566',['UserSearchPanel',['../classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html',1,'Messenger::Views::Controls']]],
+  ['usersearchpanelviewmodel_567',['UserSearchPanelViewModel',['../classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html',1,'Messenger::ViewModels::Controls']]],
+  ['userservice_568',['UserService',['../classMessenger_1_1Core_1_1Services_1_1UserService.html',1,'Messenger::Core::Services']]],
+  ['userservicetest_569',['UserServiceTest',['../classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html',1,'Messenger::Tests::MSTest']]],
+  ['userviewmodel_570',['UserViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html',1,'Messenger::ViewModels::DataViewModels']]]
 ];

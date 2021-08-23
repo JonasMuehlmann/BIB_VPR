@@ -75,45 +75,175 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>An abstract class of a message used asa base for Privatemessage and Teammessage  
+<p>The source code side representation of a <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html" title="The source code side representation of a Message">Message</a>  
  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a822104e713d365568e371f4f9e0a78b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a822104e713d365568e371f4f9e0a78b0">Message</a> ()</td></tr>
+<tr class="memdesc:a822104e713d365568e371f4f9e0a78b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default initialize all members(string values get initialized to "" instead of null and Lists get initialized to an empty one instead of null)  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a822104e713d365568e371f4f9e0a78b0">More...</a><br /></td></tr>
+<tr class="separator:a822104e713d365568e371f4f9e0a78b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2268851ee63f8005d6f2fa891e3f67b2"><td class="memItemLeft" align="right" valign="top"><a id="a2268851ee63f8005d6f2fa891e3f67b2"></a>
 override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
 <tr class="separator:a2268851ee63f8005d6f2fa891e3f67b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a4f83a3ddb5cb8475351010fe724a3a3c"><td class="memItemLeft" align="right" valign="top"><a id="a4f83a3ddb5cb8475351010fe724a3a3c"></a>
-uint&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a4f83a3ddb5cb8475351010fe724a3a3c"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a4f83a3ddb5cb8475351010fe724a3a3c">Id</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a4f83a3ddb5cb8475351010fe724a3a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique id of the message  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a4f83a3ddb5cb8475351010fe724a3a3c">More...</a><br /></td></tr>
 <tr class="separator:a4f83a3ddb5cb8475351010fe724a3a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97fed67252ac0a193529ffb55b16d061"><td class="memItemLeft" align="right" valign="top"><a id="a97fed67252ac0a193529ffb55b16d061"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>SenderId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a97fed67252ac0a193529ffb55b16d061"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a97fed67252ac0a193529ffb55b16d061">SenderId</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a97fed67252ac0a193529ffb55b16d061"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of the messages's sender  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a97fed67252ac0a193529ffb55b16d061">More...</a><br /></td></tr>
 <tr class="separator:a97fed67252ac0a193529ffb55b16d061"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a746296aacb69894c78eda52a9664a0a6"><td class="memItemLeft" align="right" valign="top"><a id="a746296aacb69894c78eda52a9664a0a6"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Content</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a746296aacb69894c78eda52a9664a0a6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a746296aacb69894c78eda52a9664a0a6">Content</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a746296aacb69894c78eda52a9664a0a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual content of the message  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a746296aacb69894c78eda52a9664a0a6">More...</a><br /></td></tr>
 <tr class="separator:a746296aacb69894c78eda52a9664a0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85080de0319bb163e114077c3f476fc4"><td class="memItemLeft" align="right" valign="top"><a id="a85080de0319bb163e114077c3f476fc4"></a>
-DateTime&#160;</td><td class="memItemRight" valign="bottom"><b>CreationTime</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a85080de0319bb163e114077c3f476fc4"><td class="memItemLeft" align="right" valign="top">DateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a85080de0319bb163e114077c3f476fc4">CreationTime</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a85080de0319bb163e114077c3f476fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time at which the message was created  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a85080de0319bb163e114077c3f476fc4">More...</a><br /></td></tr>
 <tr class="separator:a85080de0319bb163e114077c3f476fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae07b2c690ab85f6e2e6596ef99c24331"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#ae07b2c690ab85f6e2e6596ef99c24331">RecipientId</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ae07b2c690ab85f6e2e6596ef99c24331"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> where the message was posted  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#ae07b2c690ab85f6e2e6596ef99c24331">More...</a><br /></td></tr>
+<tr class="memdesc:ae07b2c690ab85f6e2e6596ef99c24331"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of the channel the message was sent to  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#ae07b2c690ab85f6e2e6596ef99c24331">More...</a><br /></td></tr>
 <tr class="separator:ae07b2c690ab85f6e2e6596ef99c24331"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e8deffa31b5af4fe93c0cc43b5b8c8"><td class="memItemLeft" align="right" valign="top">uint?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a53e8deffa31b5af4fe93c0cc43b5b8c8">ParentMessageId</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a53e8deffa31b5af4fe93c0cc43b5b8c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Null in case of a Top-level message  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a53e8deffa31b5af4fe93c0cc43b5b8c8">More...</a><br /></td></tr>
+<tr class="memdesc:a53e8deffa31b5af4fe93c0cc43b5b8c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The optional parent of the message (which this one is a reply to)  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a53e8deffa31b5af4fe93c0cc43b5b8c8">More...</a><br /></td></tr>
 <tr class="separator:a53e8deffa31b5af4fe93c0cc43b5b8c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9c989be3a51db741e695dc54285cf6d"><td class="memItemLeft" align="right" valign="top"><a id="ab9c989be3a51db741e695dc54285cf6d"></a>
-<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Sender</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ab9c989be3a51db741e695dc54285cf6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#ab9c989be3a51db741e695dc54285cf6d">Sender</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab9c989be3a51db741e695dc54285cf6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of the user who sent the message  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#ab9c989be3a51db741e695dc54285cf6d">More...</a><br /></td></tr>
 <tr class="separator:ab9c989be3a51db741e695dc54285cf6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09607685d86cc933ebcb4f9d63958b29"><td class="memItemLeft" align="right" valign="top"><a id="a09607685d86cc933ebcb4f9d63958b29"></a>
-List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>AttachmentsBlobName</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a09607685d86cc933ebcb4f9d63958b29"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a09607685d86cc933ebcb4f9d63958b29">AttachmentsBlobName</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a09607685d86cc933ebcb4f9d63958b29"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of blob names representing the message attachments  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a09607685d86cc933ebcb4f9d63958b29">More...</a><br /></td></tr>
 <tr class="separator:a09607685d86cc933ebcb4f9d63958b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9894915afacb8c77951c1d66ef06137e"><td class="memItemLeft" align="right" valign="top"><a id="a9894915afacb8c77951c1d66ef06137e"></a>
+List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html">UploadData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UploadFileData</b><code> [get, set]</code></td></tr>
+<tr class="separator:a9894915afacb8c77951c1d66ef06137e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An abstract class of a message used asa base for Privatemessage and Teammessage </p>
-</div><h2 class="groupheader">Property Documentation</h2>
+<div class="textblock"><p>The source code side representation of a <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html" title="The source code side representation of a Message">Message</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a822104e713d365568e371f4f9e0a78b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a822104e713d365568e371f4f9e0a78b0">&#9670;&nbsp;</a></span>Message()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.Core.Models.Message.Message </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default initialize all members(string values get initialized to "" instead of null and Lists get initialized to an empty one instead of null) </p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a09607685d86cc933ebcb4f9d63958b29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09607685d86cc933ebcb4f9d63958b29">&#9670;&nbsp;</a></span>AttachmentsBlobName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;string&gt; Messenger.Core.Models.Message.AttachmentsBlobName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The list of blob names representing the message attachments </p>
+
+</div>
+</div>
+<a id="a746296aacb69894c78eda52a9664a0a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a746296aacb69894c78eda52a9664a0a6">&#9670;&nbsp;</a></span>Content</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Core.Models.Message.Content</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The actual content of the message </p>
+
+</div>
+</div>
+<a id="a85080de0319bb163e114077c3f476fc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85080de0319bb163e114077c3f476fc4">&#9670;&nbsp;</a></span>CreationTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DateTime Messenger.Core.Models.Message.CreationTime</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The time at which the message was created </p>
+
+</div>
+</div>
+<a id="a4f83a3ddb5cb8475351010fe724a3a3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f83a3ddb5cb8475351010fe724a3a3c">&#9670;&nbsp;</a></span>Id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint Messenger.Core.Models.Message.Id</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The unique id of the message </p>
+
+</div>
+</div>
 <a id="a53e8deffa31b5af4fe93c0cc43b5b8c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53e8deffa31b5af4fe93c0cc43b5b8c8">&#9670;&nbsp;</a></span>ParentMessageId</h2>
 
@@ -134,7 +264,7 @@ List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Attac
 </table>
 </div><div class="memdoc">
 
-<p>Null in case of a Top-level message </p>
+<p>The optional parent of the message (which this one is a reply to) </p>
 
 </div>
 </div>
@@ -158,7 +288,55 @@ List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Attac
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> where the message was posted </p>
+<p>The id of the channel the message was sent to </p>
+
+</div>
+</div>
+<a id="ab9c989be3a51db741e695dc54285cf6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9c989be3a51db741e695dc54285cf6d">&#9670;&nbsp;</a></span>Sender</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> Messenger.Core.Models.Message.Sender</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The id of the user who sent the message </p>
+
+</div>
+</div>
+<a id="a97fed67252ac0a193529ffb55b16d061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97fed67252ac0a193529ffb55b16d061">&#9670;&nbsp;</a></span>SenderId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Core.Models.Message.SenderId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The id of the messages's sender </p>
 
 </div>
 </div>
