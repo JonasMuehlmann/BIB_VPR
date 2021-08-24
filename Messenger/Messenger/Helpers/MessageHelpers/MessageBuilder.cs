@@ -2,7 +2,6 @@
 using Messenger.Core.Services;
 using Messenger.Helpers.TeamHelpers;
 using Messenger.Models;
-using Messenger.ViewModels;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,6 +17,12 @@ namespace Messenger.Helpers.MessageHelpers
     /// </summary>
     public static class MessageBuilder
     {
+
+        /// <summary>
+        /// loads all messages in channel from the db
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns>Task<IEnumerable<Message>> all messages from channel</returns>
         public static async Task<IEnumerable<Message>> GetMessagesFromDatabase(ChannelViewModel channel)
         {
             return await MessengerService.GetMessages(channel.ChannelId);
@@ -120,6 +125,11 @@ namespace Messenger.Helpers.MessageHelpers
             return viewModel;
         }
 
+        /// <summary>
+        /// loads the sender to the ViewModel
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns>Task<MessageViewModel> with senders</returns>
         public static async Task<MessageViewModel> WithSender(this MessageViewModel viewModel)
         {
             ChannelViewModel recipient = TeamBuilder.Map(await ChannelService.GetChannel((uint)viewModel.ChannelId));
@@ -135,6 +145,11 @@ namespace Messenger.Helpers.MessageHelpers
             return viewModel;
         }
 
+        /// <summary>
+        /// loads the attachments to the viewmodel
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns>Task<MessageViewModel> with attachments</returns>
         public static async Task<MessageViewModel> WithAttachments(this MessageViewModel viewModel)
         {
             IEnumerable<string> blobNames = await MessageService.GetBlobFileNamesOfAttachments((uint)viewModel.Id);
@@ -225,6 +240,11 @@ namespace Messenger.Helpers.MessageHelpers
             };
         }
 
+        /// <summary>
+        /// converts the user to an UserViewModel
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static UserViewModel Map(User user)
         {
             if (user == null)
@@ -279,6 +299,11 @@ namespace Messenger.Helpers.MessageHelpers
             return attachmentsList;
         }
 
+        /// <summary>
+        /// converts the attachment to the download name
+        /// </summary>
+        /// <param name="attachment"></param>
+        /// <returns></returns>
         public static string ToBlobName(this Attachment attachment)
         {
             if (attachment == null)
@@ -291,6 +316,11 @@ namespace Messenger.Helpers.MessageHelpers
             return blobName;
         }
 
+        /// <summary>
+        /// converts a list of attachments to donwloadnames
+        /// </summary>
+        /// <param name="attachments"></param>
+        /// <returns></returns>
         public static IEnumerable<string> ToBlobNames(this List<Attachment> attachments)
         {
             if (attachments == null || attachments.Count() <= 0)
