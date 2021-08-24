@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['unassignteamrolecommand_2ecs_1354',['UnassignTeamRoleCommand.cs',['../UnassignTeamRoleCommand_8cs.html',1,'']]],
+  ['updatemessagecommand_2ecs_1355',['UpdateMessageCommand.cs',['../UpdateMessageCommand_8cs.html',1,'']]],
+  ['updateteamdetailscommand_2ecs_1356',['UpdateTeamDetailsCommand.cs',['../UpdateTeamDetailsCommand_8cs.html',1,'']]],
+  ['updateteamrolecommand_2ecs_1357',['UpdateTeamRoleCommand.cs',['../UpdateTeamRoleCommand_8cs.html',1,'']]],
+  ['updateuserbiocommand_2ecs_1358',['UpdateUserBioCommand.cs',['../UpdateUserBioCommand_8cs.html',1,'']]],
+  ['updateusernamecommand_2ecs_1359',['UpdateUserNameCommand.cs',['../UpdateUserNameCommand_8cs.html',1,'']]],
+  ['uploaddata_2ecs_1360',['UploadData.cs',['../UploadData_8cs.html',1,'']]],
+  ['user_2ecs_1361',['User.cs',['../User_8cs.html',1,'']]],
+  ['useractivitydata_2ecs_1362',['UserActivityData.cs',['../UserActivityData_8cs.html',1,'']]],
+  ['useractivityservice_2ecs_1363',['UserActivityService.cs',['../UserActivityService_8cs.html',1,'']]],
+  ['useractivityservice_2esample_2ecs_1364',['UserActivityService.Sample.cs',['../UserActivityService_8Sample_8cs.html',1,'']]],
+  ['userdataservice_2ecs_1365',['UserDataService.cs',['../UserDataService_8cs.html',1,'']]],
+  ['userprofileflyout_2examl_2ecs_1366',['UserProfileFlyout.xaml.cs',['../UserProfileFlyout_8xaml_8cs.html',1,'']]],
+  ['usersearchpanel_2examl_2ecs_1367',['UserSearchPanel.xaml.cs',['../UserSearchPanel_8xaml_8cs.html',1,'']]],
+  ['usersearchpanelviewmodel_2ecs_1368',['UserSearchPanelViewModel.cs',['../UserSearchPanelViewModel_8cs.html',1,'']]],
+  ['userservice_2ecs_1369',['UserService.cs',['../UserService_8cs.html',1,'']]],
+  ['userviewmodel_2ecs_1370',['UserViewModel.cs',['../UserViewModel_8cs.html',1,'']]]
+];

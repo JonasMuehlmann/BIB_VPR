@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_m.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,11 +82,48 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>Mail
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html#adf1584ef4e32b1a0acef158db08c8993">Messenger.Core.Models.User</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html#a9f66988e1a00decbce19297dfe7890a1">Messenger.ViewModels.DataViewModels.UserViewModel</a>
+</li>
+<li>Main()
+: <a class="el" href="classMessenger_1_1SignalR_1_1Program.html#a148d29c465a4779db98cc22b36677f46">Messenger.SignalR.Program</a>
+</li>
+<li>MainChannel
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html#a5733d85ce262eb043dda60c049d93b85">Messenger.ViewModels.DataViewModels.PrivateChatViewModel</a>
+</li>
+<li>MainViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1MainViewModel.html#a33f5091d509433665e49f3fd09f3ad50">Messenger.ViewModels.MainViewModel</a>
+</li>
+<li>MakeInvitedToTeamNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#ac8392674ac6a35057ee129ec78db6d81">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>MakeMessageInPrivateChatNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#a7d75ce4f7c58ec47e9ab31a1c54faac1">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>MakeMessageInSubscribedChannelNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#aaa93fc9ca63c643d4a5f0211fe168aca">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>MakeMessageInSubscribedTeamNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#a8f8a589047c0195ffdf3c5c949322d19">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>MakeReactionToMessageNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#a938b9f88b270463939822e1ef03bdc15">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>MakeRemovedFromTeamNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#aab99919045e4b990b5a41fdff1334927">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>MakeUserMentionedNotificationMessage()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1NotificationMessageBuilder.html#abc36c63f84aa77426aa9ee2e117b301b">Messenger.Core.Helpers.NotificationMessageBuilder</a>
+</li>
+<li>ManageMemberRolesDialog()
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ManageMemberRolesDialog.html#ab7e009f47efd626e1e3905ef2ac7d0b6">Messenger.Views.DialogBoxes.ManageMemberRolesDialog</a>
+</li>
+<li>ManageMemberRolesDialogViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageMemberRolesDialogViewModel.html#a6837f5358eda1eae5f61e4089d619262">Messenger.ViewModels.DialogBoxes.ManageMemberRolesDialogViewModel</a>
 </li>
 <li>ManageRolesDialog()
 : <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ManageRolesDialog.html#a936c0b05652cf5ee2f8cd02aae4332d5">Messenger.Views.DialogBoxes.ManageRolesDialog</a>
@@ -74,11 +131,33 @@ $(function() {
 <li>ManageRolesDialogViewModel()
 : <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a2cd3928045ea462569f5c41c9c441ded">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel</a>
 </li>
+<li>Map()
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageBuilder.html#a18a62a6bd823c092f8b6eb96302ec6a3">Messenger.Helpers.MessageHelpers.MessageBuilder</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamBuilder.html#a98f243c85e146324d07f11a3e546ed79">Messenger.Helpers.TeamHelpers.TeamBuilder</a>
+</li>
 <li>MapToList&lt; T &gt;()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#a7eaabf89b5974712f39e5f907976c4c1">Messenger.Core.Helpers.SqlHelpers</a>
 </li>
+<li>Member
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageMemberRolesDialogViewModel.html#abda4d984f746e24e9bdb9332873f5334">Messenger.ViewModels.DialogBoxes.ManageMemberRolesDialogViewModel</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html#a192b1d925fa2759a99be0ff5579f3e86">Messenger.Views.Subcontrols.UserProfileFlyout</a>
+</li>
+<li>MemberAdded
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ae28054342712877daca091dd0dd9b8b6">Messenger.Core.Services.SignalRService</a>
+</li>
+<li>MemberProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html#a4a42b8fb3a7c8f2a8de9c054004af231">Messenger.Views.Subcontrols.UserProfileFlyout</a>
+</li>
+<li>MemberRemoved
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a0dc3442222a835a1fff1475e52fe46f0">Messenger.Core.Services.SignalRService</a>
+</li>
+<li>MemberRoles
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a579640d95731ed4e9090700eda69102b">Messenger.ViewModels.DataViewModels.MemberViewModel</a>
+</li>
 <li>Members
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a6795467117de83a2bf1d71c4d050985a">Messenger.Core.Models.Team</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MembersListControlViewModel.html#aa111926d4d68e467d19d11982c7f64df">Messenger.ViewModels.Controls.MembersListControlViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html#a078840c2231c3ae1147e8fe59af60af1">Messenger.ViewModels.DataViewModels.TeamViewModel</a>
 </li>
 <li>Membership()
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Membership.html#a1406a9fe688a99d8f4c5bba85d1ab881">Messenger.Core.Models.Membership</a>
@@ -88,6 +167,19 @@ $(function() {
 </li>
 <li>MembershipId
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Membership.html#a6455889b2a33c5afbf3ff27b4fb8899c">Messenger.Core.Models.Membership</a>
+</li>
+<li>MembersListControl()
+: <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1MembersListControl.html#a2570ee7513cc5d4debf526c581ddf300">Messenger.Views.Controls.MembersListControl</a>
+</li>
+<li>MembersListControlViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MembersListControlViewModel.html#a6e4cdff0bc0c1f2595162904cce038b7">Messenger.ViewModels.Controls.MembersListControlViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamManageViewModel.html#ac5ede952b72d2388af39f363281abaaa">Messenger.ViewModels.Pages.TeamManageViewModel</a>
+</li>
+<li>MemberUpdated
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a27493dae3620454d5947f6d132b98586">Messenger.Core.Services.SignalRService</a>
+</li>
+<li>MemberViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a331bf1af5ea24975141b4fe5423f3e3c">Messenger.ViewModels.DataViewModels.MemberViewModel</a>
 </li>
 <li>Mention()
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Mention.html#a640157338a7b01d5fa57bb33daac5b44">Messenger.Core.Models.Mention</a>
@@ -107,6 +199,11 @@ $(function() {
 <li>Message()
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a822104e713d365568e371f4f9e0a78b0">Messenger.Core.Models.Message</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html#a2636ac01459510989ef49fb0b7086e8c">Messenger.Core.Models.Notification</a>
+, <a class="el" href="classMessenger_1_1Models_1_1ToggleReactionArg.html#a63796025b669e14ca6b981b5d469dcd3">Messenger.Models.ToggleReactionArg</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a451f56e2ed70d88c1edc6d6e0d8d576c">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>MessageDeleted
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a74e5cf6a0d878e17d2a53ffc745a6e43">Messenger.Core.Services.SignalRService</a>
 </li>
 <li>MessageFromDataRow()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ab622d24b3b44618d88518024055e3806">Messenger.Core.Helpers.Mapper</a>
@@ -114,20 +211,73 @@ $(function() {
 <li>MessageId
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html#ae67ac7b67d9deac1750a3fd56e506ca6">Messenger.Core.Models.Reaction</a>
 </li>
-<li>MessageManager
-: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a11140609dba9e5b63689c255544463ab">Messenger.Services.Providers.StateProvider</a>
+<li>MessageManager()
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a8b2a3758f389db236d7dc90391d35313">Messenger.Helpers.MessageHelpers.MessageManager</a>
+, <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a11140609dba9e5b63689c255544463ab">Messenger.Services.Providers.StateProvider</a>
+</li>
+<li>MessageProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a876cfa4c341a66ad38d60fae64bbe982">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>MessageReactionsUpdated
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ac41495b82a082293df3d00e8aa73a6b6">Messenger.Core.Services.SignalRService</a>
 </li>
 <li>Messages
-: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a607e5a1f0cd35e5bb1191dfe998b18c2">Messenger.ViewModels.Controls.MessagesListControlViewModel</a>
+: <a class="el" href="classMessenger_1_1Models_1_1ManagerEventArgs.html#ae9a6df11c57834bf337aeb8b1b41ba25">Messenger.Models.ManagerEventArgs</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a607e5a1f0cd35e5bb1191dfe998b18c2">Messenger.ViewModels.Controls.MessagesListControlViewModel</a>
+</li>
+<li>MessagesListControl()
+: <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1MessagesListControl.html#a6dd2bb052ea5d988ffc1cd04d6f763ad">Messenger.Views.Controls.MessagesListControl</a>
+</li>
+<li>MessagesListControlViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#acfaa27734c6183345cd8942740947cc1">Messenger.ViewModels.Controls.MessagesListControlViewModel</a>
+</li>
+<li>MessagesListViewModel
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#ac1b67e14debb2611f3776d08deb9d2cf">Messenger.ViewModels.Pages.ChatViewModel</a>
+</li>
+<li>MessagesLoaded
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a86d1b80a2dc4fbdbdeb9b6e7af2579ad">Messenger.Services.Providers.EventProvider</a>
+</li>
+<li>MessagesLoadedForChannel
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a3d80f17ca80fba74f715a86a374c20bd">Messenger.Helpers.MessageHelpers.MessageManager</a>
+</li>
+<li>MessagesSwitched
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a76fe496944ff0ef1cea333b6e47462cb">Messenger.Services.Providers.EventProvider</a>
 </li>
 <li>MessageToSend
 : <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a7441f6287b66ca0f03afd7344afedef6">Messenger.ViewModels.Pages.ChatViewModel</a>
 </li>
+<li>MessageUpdated
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a16bbc8d97a81df94825af2cd13f6ead7">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a1a8c6ad79c290087b04d8a6c290a096c">Messenger.Services.Providers.EventProvider</a>
+</li>
+<li>MessageView()
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>MessageViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a5ce571d22e799b637b2f75fdbbb336af">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationViewModel.html#a7d9d71717a1be8459d9003ef61991164">Messenger.ViewModels.DataViewModels.NotificationViewModel</a>
+</li>
+<li>MyChats
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a4b15d72bef24bf20987d1eadf50a9262">Messenger.Helpers.TeamHelpers.TeamManager</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1CreateChatDialogViewModel.html#a379626a3e727eb6d34686c48a289f00f">Messenger.ViewModels.DialogBoxes.CreateChatDialogViewModel</a>
+</li>
+<li>MyMessageActionsVisibility
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#adf9d6f652efac089c4d8f7b27c5f1f47">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>MyReaction
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#af8a3708b71fc0b41d7ded0993b05f525">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
+</li>
+<li>MyTeams
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a65d9be34b7c958ac3673f1eb05c7e2b2">Messenger.Helpers.TeamHelpers.TeamManager</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

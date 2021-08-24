@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['parentmessageid_811',['ParentMessageId',['../classMessenger_1_1Core_1_1Models_1_1Message.html#a53e8deffa31b5af4fe93c0cc43b5b8c8',1,'Messenger::Core::Models::Message']]],
-  ['pendingchange_812',['PendingChange',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a944672f103098033c71988a70a3da68b',1,'Messenger::ViewModels::DialogBoxes::ManageRolesDialogViewModel']]],
-  ['photo_813',['Photo',['../classMessenger_1_1Core_1_1Models_1_1User.html#acf59258a18e9d4863bf0b5d1b626bdb3',1,'Messenger::Core::Models::User']]]
+  ['lastmessage_1958',['LastMessage',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#a4cc934c5f9dbfad1c0b7b3315ba379d8',1,'Messenger.ViewModels.DataViewModels.ChannelViewModel.LastMessage()'],['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html#a0ba79a86a8b809ef13fa0c4b04a3953a',1,'Messenger.ViewModels.DataViewModels.PrivateChatViewModel.LastMessage()']]],
+  ['loadingtext_1959',['LoadingText',['../classMessenger_1_1Views_1_1Subcontrols_1_1OnLoading.html#ae1660b4fbda2286060185f6ac0895a98',1,'Messenger::Views::Subcontrols::OnLoading']]],
+  ['logger_1960',['logger',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a5500128a898add002399414456dab462',1,'Messenger.Core.Helpers.Mapper.logger()'],['../classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#af21b64fd07cefded040cc2711dda20e3',1,'Messenger.Core.Services.FileSharingService.logger()'],['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a65cf5588551168c6535da06de1cb55fa',1,'Messenger.Core.Services.MessengerService.logger()'],['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a57e92c62242b91ed28fc00fd96415272',1,'Messenger.Core.Services.SignalRService.logger()']]],
+  ['logincommand_1961',['LoginCommand',['../classMessenger_1_1ViewModels_1_1Pages_1_1LogInViewModel.html#ae0252069732b1514d41772c8d103702f',1,'Messenger::ViewModels::Pages::LogInViewModel']]],
+  ['logoutcommand_1962',['LogoutCommand',['../classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a6303fe01e6876ec8fc0be6b5e2a4c75d',1,'Messenger::ViewModels::Pages::SettingsViewModel']]]
 ];

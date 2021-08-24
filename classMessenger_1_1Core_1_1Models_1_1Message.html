@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Models_1_1Message.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -83,8 +99,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a822104e713d365568e371f4f9e0a78b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a822104e713d365568e371f4f9e0a78b0">Message</a> ()</td></tr>
 <tr class="memdesc:a822104e713d365568e371f4f9e0a78b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default initialize all members(string values get initialized to "" instead of null and Lists get initialized to an empty one instead of null)  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a822104e713d365568e371f4f9e0a78b0">More...</a><br /></td></tr>
 <tr class="separator:a822104e713d365568e371f4f9e0a78b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2268851ee63f8005d6f2fa891e3f67b2"><td class="memItemLeft" align="right" valign="top"><a id="a2268851ee63f8005d6f2fa891e3f67b2"></a>
-override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
+<tr class="memitem:a2268851ee63f8005d6f2fa891e3f67b2"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a2268851ee63f8005d6f2fa891e3f67b2">ToString</a> ()</td></tr>
 <tr class="separator:a2268851ee63f8005d6f2fa891e3f67b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
@@ -113,12 +128,13 @@ Properties</h2></td></tr>
 <tr class="memitem:a09607685d86cc933ebcb4f9d63958b29"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a09607685d86cc933ebcb4f9d63958b29">AttachmentsBlobName</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a09607685d86cc933ebcb4f9d63958b29"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of blob names representing the message attachments  <a href="classMessenger_1_1Core_1_1Models_1_1Message.html#a09607685d86cc933ebcb4f9d63958b29">More...</a><br /></td></tr>
 <tr class="separator:a09607685d86cc933ebcb4f9d63958b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9894915afacb8c77951c1d66ef06137e"><td class="memItemLeft" align="right" valign="top"><a id="a9894915afacb8c77951c1d66ef06137e"></a>
-List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html">UploadData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UploadFileData</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a9894915afacb8c77951c1d66ef06137e"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html">UploadData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a9894915afacb8c77951c1d66ef06137e">UploadFileData</a><code> [get, set]</code></td></tr>
 <tr class="separator:a9894915afacb8c77951c1d66ef06137e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The source code side representation of a <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html" title="The source code side representation of a Message">Message</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00010">10</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a822104e713d365568e371f4f9e0a78b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a822104e713d365568e371f4f9e0a78b0">&#9670;&nbsp;</a></span>Message()</h2>
@@ -145,6 +161,40 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 
 <p>Default initialize all members(string values get initialized to "" instead of null and Lists get initialized to an empty one instead of null) </p>
 
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00058">58</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Message_8cs_source.html#l00050">Messenger.Core.Models.Message.AttachmentsBlobName</a>, <a class="el" href="Message_8cs_source.html#l00025">Messenger.Core.Models.Message.Content</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, and <a class="el" href="Message_8cs_source.html#l00052">Messenger.Core.Models.Message.UploadFileData</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2268851ee63f8005d6f2fa891e3f67b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2268851ee63f8005d6f2fa891e3f67b2">&#9670;&nbsp;</a></span>ToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string Messenger.Core.Models.Message.ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00066">66</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00265">Messenger.Core.Services.SignalRService.DeleteMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00247">Messenger.Core.Services.SignalRService.UpdateMessage()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00283">Messenger.Core.Services.SignalRService.UpdateMessageReactions()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
@@ -170,6 +220,10 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 
 <p>The list of blob names representing the message attachments </p>
 
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00050">50</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>, and <a class="el" href="Message_8cs_source.html#l00058">Messenger.Core.Models.Message.Message()</a>.</p>
+
 </div>
 </div>
 <a id="a746296aacb69894c78eda52a9664a0a6"></a>
@@ -193,6 +247,10 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 </div><div class="memdoc">
 
 <p>The actual content of the message </p>
+
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00025">25</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>, <a class="el" href="Message_8cs_source.html#l00058">Messenger.Core.Models.Message.Message()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
 
 </div>
 </div>
@@ -218,6 +276,10 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 
 <p>The time at which the message was created </p>
 
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00030">30</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>.</p>
+
 </div>
 </div>
 <a id="a4f83a3ddb5cb8475351010fe724a3a3c"></a>
@@ -241,6 +303,10 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 </div><div class="memdoc">
 
 <p>The unique id of the message </p>
+
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00015">15</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>, <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>, <a class="el" href="MessageManager_8cs_source.html#l00130">Messenger.Helpers.MessageHelpers.MessageManager.RemoveMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
 
 </div>
 </div>
@@ -266,6 +332,10 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 
 <p>The optional parent of the message (which this one is a reply to) </p>
 
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00040">40</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>, <a class="el" href="MessageManager_8cs_source.html#l00130">Messenger.Helpers.MessageHelpers.MessageManager.RemoveMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
+
 </div>
 </div>
 <a id="ae07b2c690ab85f6e2e6596ef99c24331"></a>
@@ -289,6 +359,10 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 </div><div class="memdoc">
 
 <p>The id of the channel the message was sent to </p>
+
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00035">35</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>, <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>, <a class="el" href="MessageManager_8cs_source.html#l00130">Messenger.Helpers.MessageHelpers.MessageManager.RemoveMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
 
 </div>
 </div>
@@ -314,6 +388,8 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 
 <p>The id of the user who sent the message </p>
 
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00045">45</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
 </div>
 </div>
 <a id="a97fed67252ac0a193529ffb55b16d061"></a>
@@ -338,15 +414,49 @@ List&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html
 
 <p>The id of the messages's sender </p>
 
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00020">20</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>, <a class="el" href="MessageBuilder_8cs_source.html#l00223">Messenger.Helpers.MessageHelpers.MessageBuilder.Map()</a>, <a class="el" href="Message_8cs_source.html#l00058">Messenger.Core.Models.Message.Message()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
+
+</div>
+</div>
+<a id="a9894915afacb8c77951c1d66ef06137e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9894915afacb8c77951c1d66ef06137e">&#9670;&nbsp;</a></span>UploadFileData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html">UploadData</a>&gt; Messenger.Core.Models.Message.UploadFileData</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Message_8cs_source.html#l00052">52</a> of file <a class="el" href="Message_8cs_source.html">Message.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Message_8cs_source.html#l00058">Messenger.Core.Models.Message.Message()</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Models/Message.cs</li>
+<li>Messenger/Messenger.Core/Models/<a class="el" href="Message_8cs_source.html">Message.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

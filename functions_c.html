@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,13 +82,72 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>CanExecute()
 : <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1AttachFileCommand.html#a7e95cca4a8d1b92a8fe7d1235d38a53b">Messenger.Commands.Messenger.AttachFileCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DeleteMessageCommand.html#ad4cd5b2f6a36b611d998ebbc51aad8c5">Messenger.Commands.Messenger.DeleteMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#aa7dd2162df0630653b6fdd31fd2ff7d6">Messenger.Commands.Messenger.DownloadAttachmentCommand</a>
 , <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1ReplyMessageCommand.html#af7d31ecb251dc18bdf35c8766046747c">Messenger.Commands.Messenger.ReplyMessageCommand</a>
 , <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#abc5d0c2074e85126a07064a84e1006f3">Messenger.Commands.Messenger.SendMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1ToggleReactionCommand.html#a89e26b9cb759a217b5cdab81e335422f">Messenger.Commands.Messenger.ToggleReactionCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1UpdateMessageCommand.html#a67b59661026cc472b0dc357be434e2fa">Messenger.Commands.Messenger.UpdateMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1RemoveChatCommand.html#ae1e3be67b408c1cca84d2c6c94250199">Messenger.Commands.PrivateChat.RemoveChatCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#a25c99d3a27305aa4c92fec9ab4332df1">Messenger.Commands.PrivateChat.StartChatCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatWithUserCommand.html#a8db0836ede076a692370cc5001a6605e">Messenger.Commands.PrivateChat.StartChatWithUserCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1RelayCommand.html#a9441a062bb59326635d076b594475d34">Messenger.Commands.RelayCommand&lt; T &gt;</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1AssignTeamRoleCommand.html#a9bc37b7e2cbd43da9634acba9af1181c">Messenger.Commands.TeamManage.AssignTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1ChannelSwitchCommand.html#aa3e96714fdfc73ed3041c623f820e94e">Messenger.Commands.TeamManage.ChannelSwitchCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateChannelCommand.html#a9262f6b908242a9059b89943da9a02c3">Messenger.Commands.TeamManage.CreateChannelCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand.html#a270967288e2169a81e1d1234546afdb9">Messenger.Commands.TeamManage.CreateTeamCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamRoleCommand.html#adb47da19a94ec58de9e4a9cf68d2221e">Messenger.Commands.TeamManage.CreateTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1InviteUserCommand.html#aeecd38bea1062568b05948114dafab79">Messenger.Commands.TeamManage.InviteUserCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveChannelCommand.html#adcb0429d8c33b8703d1ed5c488de6bec">Messenger.Commands.TeamManage.RemoveChannelCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveTeamCommand.html#a0079116b7d7fb76fdc7b4ef3b5d2ea0e">Messenger.Commands.TeamManage.RemoveTeamCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveTeamRoleCommand.html#a15cfe56f46db31cd99b42d40661fe6be">Messenger.Commands.TeamManage.RemoveTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveUserCommand.html#af42c6e0fb68f91c660a1e8337aad9c58">Messenger.Commands.TeamManage.RemoveUserCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RevokePermissionCommand.html#ad6b9b750fc372489fdcf475c14f15228">Messenger.Commands.TeamManage.RevokePermissionCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1UnassignTeamRoleCommand.html#ad95b5ddc894cd625df68917d0db5cd3d">Messenger.Commands.TeamManage.UnassignTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamDetailsCommand.html#a5c202b9db2f144cc66968ff160d83569">Messenger.Commands.TeamManage.UpdateTeamDetailsCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamRoleCommand.html#a1453bdc433afe0b78eef8e8efd4b6ebb">Messenger.Commands.TeamManage.UpdateTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1UserData_1_1UpdateUserBioCommand.html#a07e926fe96ae81540cd1599004e8217e">Messenger.Commands.UserData.UpdateUserBioCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1UserData_1_1UpdateUserNameCommand.html#a10b1fb9527b932f42335f49e9d77b054">Messenger.Commands.UserData.UpdateUserNameCommand</a>
+</li>
+<li>CanExecuteChanged
+: <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1AttachFileCommand.html#a50c002bae2cc1531b0e0caf12d7cf017">Messenger.Commands.Messenger.AttachFileCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DeleteMessageCommand.html#a0130634120156c47defdebbe232729f4">Messenger.Commands.Messenger.DeleteMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#ac7da12d3dc1a82e9d80c62ba66d527c4">Messenger.Commands.Messenger.DownloadAttachmentCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1ReplyMessageCommand.html#ac731ffbf52e50d41ddcb65577958a289">Messenger.Commands.Messenger.ReplyMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ab09108538b47d30be5af792955835629">Messenger.Commands.Messenger.SendMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1ToggleReactionCommand.html#ac6c6e2753f3df77e3bcc831ebfb27738">Messenger.Commands.Messenger.ToggleReactionCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1UpdateMessageCommand.html#a4286bf688337a1ca6038c3a9c659c6ba">Messenger.Commands.Messenger.UpdateMessageCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1RemoveChatCommand.html#a7b9643c77821ec96fd19048cff3ae732">Messenger.Commands.PrivateChat.RemoveChatCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#a6274423072025f5bc7be1acb59ff89ed">Messenger.Commands.PrivateChat.StartChatCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatWithUserCommand.html#aa48a999dd91a2ec4a2e74138f0fdbf82">Messenger.Commands.PrivateChat.StartChatWithUserCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1RelayCommand.html#a2362d85971f90dc642c8535835baf08c">Messenger.Commands.RelayCommand&lt; T &gt;</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1AssignTeamRoleCommand.html#ad2625523045e7cde3b92895e235f7969">Messenger.Commands.TeamManage.AssignTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1ChannelSwitchCommand.html#a39cd02e61503590da6be3ec4f657f7df">Messenger.Commands.TeamManage.ChannelSwitchCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateChannelCommand.html#a2f2cad9fd8b80e4b7da9efc78f578e8f">Messenger.Commands.TeamManage.CreateChannelCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand.html#a18aa88cb26e043d4ff951d78bee56891">Messenger.Commands.TeamManage.CreateTeamCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamRoleCommand.html#a23cbf872fec2c953f87f1e3f7679dd0a">Messenger.Commands.TeamManage.CreateTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1InviteUserCommand.html#a92dc6ffb7a21439e3378d0225c2e8e59">Messenger.Commands.TeamManage.InviteUserCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveChannelCommand.html#a26532aaa870558e241c9a1a9723b7baf">Messenger.Commands.TeamManage.RemoveChannelCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveTeamCommand.html#ab0aa1238fbb32da1752e25bc06248c69">Messenger.Commands.TeamManage.RemoveTeamCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveTeamRoleCommand.html#ab97e1fef92f83ce02285efe601c7c149">Messenger.Commands.TeamManage.RemoveTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RemoveUserCommand.html#aed5a0df4f14a6ce9b5ce4b6f39817cda">Messenger.Commands.TeamManage.RemoveUserCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1RevokePermissionCommand.html#aecd61f24a2348740d8232f44631b2715">Messenger.Commands.TeamManage.RevokePermissionCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1UnassignTeamRoleCommand.html#a58d17b33860c99c8964f82ca54c6561e">Messenger.Commands.TeamManage.UnassignTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamDetailsCommand.html#ade401e24bfe9f4de340925ac39160c97">Messenger.Commands.TeamManage.UpdateTeamDetailsCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamRoleCommand.html#a62404f958ed5a956e96315efaac4502c">Messenger.Commands.TeamManage.UpdateTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1UserData_1_1UpdateUserBioCommand.html#a3bebf97e6228d46020635686c30e3509">Messenger.Commands.UserData.UpdateUserBioCommand</a>
+, <a class="el" href="classMessenger_1_1Commands_1_1UserData_1_1UpdateUserNameCommand.html#ae9437ca2edee5757423bfadbb8452425">Messenger.Commands.UserData.UpdateUserNameCommand</a>
+</li>
+<li>CanGoBack
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#aa8b63a9465a6cee88f67a71a82e466ce">Messenger.Services.NavigationService</a>
+</li>
+<li>CanGoForward
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#a890e19d52cbc545a850a7fdbf728cbe9">Messenger.Services.NavigationService</a>
 </li>
 <li>CanMakeReaction()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a890317379c4babb78081b247a205317c">Messenger.Core.Services.MessageService</a>
@@ -76,29 +155,78 @@ $(function() {
 <li>CanSendNotification()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1NotificationService.html#a03dafc0f857aa64a1f304c9fdc8adab9">Messenger.Core.Services.NotificationService</a>
 </li>
+<li>Caption
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#abc42562358a55ed542a85301a6fa241f">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>CaptionProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#a48ee78f006dcff1aabc0e96e5bcdd1e5">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
 <li>ChangeTeamDescription()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#afc9dcbc65164fe083249096e35bb0b3e">Messenger.Core.Services.TeamService</a>
+</li>
+<li>ChangeTeamDialog()
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ChangeTeamDialog.html#a25efe2d920687db4678a235afcf2fd2e">Messenger.Views.DialogBoxes.ChangeTeamDialog</a>
 </li>
 <li>ChangeTeamName()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a455351a1c7e584a9a67932fe3e2a4ec4">Messenger.Core.Services.TeamService</a>
 </li>
 <li>Channel()
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html#a710fda44c1e8b918c1ef338668b691a6">Messenger.Core.Models.Channel</a>
+, <a class="el" href="classMessenger_1_1Models_1_1ManagerEventArgs.html#afb1daea85cf65a1f498e9afe78d06630">Messenger.Models.ManagerEventArgs</a>
+</li>
+<li>ChannelCreated
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a2267e172ef174ef8cd0a1f386e80baef">Messenger.Core.Services.SignalRService</a>
+</li>
+<li>ChannelDeleted
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a561a807f202d2790f2e46df3d2912c5e">Messenger.Core.Services.SignalRService</a>
 </li>
 <li>ChannelFromDataRow()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a143a2a47cd35bbba295443726d6b15d9">Messenger.Core.Helpers.Mapper</a>
 </li>
 <li>ChannelId
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html#a475d525341451432ba9a6d087bba8493">Messenger.Core.Models.Channel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#a69752a51640c494d55e222495902e699">Messenger.ViewModels.DataViewModels.ChannelViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a8cae477af7858709f59947da81964da0">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
 </li>
 <li>ChannelName
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html#a4f696a475026c076dba512ac4c71007e">Messenger.Core.Models.Channel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#af0a06a5e110ddce410c9693ef810a621">Messenger.ViewModels.DataViewModels.ChannelViewModel</a>
+, <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateChannelDialog.html#a867b978c0f9bedbc5bad4673d214febb">Messenger.Views.DialogBoxes.CreateChannelDialog</a>
 </li>
 <li>ChannelNameProperty
 : <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateChannelDialog.html#a83f556276e7c5d67494191c8bef24fb2">Messenger.Views.DialogBoxes.CreateChannelDialog</a>
 </li>
+<li>Channels
+: <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a0ff60b67201f09cc6d7be68ba21ad408">Messenger.Core.Models.Team</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html#a3b15d69542faf00c538c74eebcc4d192">Messenger.ViewModels.DataViewModels.TeamViewModel</a>
+</li>
+<li>ChannelSwitchCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1ChannelSwitchCommand.html#ac2687a89616e86be93a2a6aee3efdac7">Messenger.Commands.TeamManage.ChannelSwitchCommand</a>
+</li>
+<li>ChannelUpdated
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab2d9dc01045f7731652a904549df6f62">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a6b6f0382fb07e57e917ea3c33d59448d">Messenger.Services.Providers.EventProvider</a>
+</li>
+<li>ChannelViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#aedc1ae00f835ee0e8a6ab30c7339e8f7">Messenger.ViewModels.DataViewModels.ChannelViewModel</a>
+</li>
+<li>ChatHeader()
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#a2c9d9ad966e3231c9dfcf8bcc1809268">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>ChatNavPage()
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1ChatNavPage.html#aae72ab3071f436df2f826fe9027aa461">Messenger.Views.Pages.ChatNavPage</a>
+</li>
+<li>ChatNavViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#af5f2c46b1d16a5e4d66805a136d63d66">Messenger.ViewModels.Pages.ChatNavViewModel</a>
+</li>
+<li>ChatPage()
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1ChatPage.html#afba013901187a7f1aef19a490c0bde86">Messenger.Views.Pages.ChatPage</a>
+</li>
 <li>Chats
 : <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#ac35713e9f8d2f9e8830aa7c23f4f8bdb">Messenger.ViewModels.Pages.ChatNavViewModel</a>
+</li>
+<li>ChatsLoaded
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#ad4b9b40b6001d193ec6833079991a5f8">Messenger.Services.Providers.EventProvider</a>
 </li>
 <li>ChatViewModel()
 : <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a0fc0c8e2382569c7dffe92782eb012c2">Messenger.ViewModels.Pages.ChatViewModel</a>
@@ -106,16 +234,91 @@ $(function() {
 <li>CloseConnection()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abe281968446f652babfcaa6acddda11d">Messenger.Core.Services.SignalRService</a>
 </li>
+<li>CollapseAllCommand
+: <a class="el" href="classMessenger_1_1Behaviors_1_1TreeViewCollapseBehavior.html#af0d436df6744b459f440287b20e6f8da">Messenger.Behaviors.TreeViewCollapseBehavior</a>
+</li>
 <li>Color
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html#a65b558707f6b512bfb9b1f328cefca9f">Messenger.Core.Models.TeamRole</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#a9e1cdfe4b3730826ecb8fe3853e72e61">Messenger.ViewModels.DataViewModels.TeamRoleViewModel</a>
+</li>
+<li>Configuration
+: <a class="el" href="classMessenger_1_1SignalR_1_1Startup.html#a956c4be0f67f86e13f7e1ef5505eb28f">Messenger.SignalR.Startup</a>
+</li>
+<li>Configure()
+: <a class="el" href="classMessenger_1_1SignalR_1_1Startup.html#a246f705e2950d6b4c8407c0d0ca79dec">Messenger.SignalR.Startup</a>
+</li>
+<li>ConfigureServices()
+: <a class="el" href="classMessenger_1_1SignalR_1_1Startup.html#a64945860a18ed63d4842bcde0f1835b6">Messenger.SignalR.Startup</a>
 </li>
 <li>Content
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a746296aacb69894c78eda52a9664a0a6">Messenger.Core.Models.Message</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a5f717bf2a5ec3f1cacdb30893ec452a0">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
+</li>
+<li>ContentFrame
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#ab060720752903f38dd472b82895d5f89">Messenger.Services.NavigationService</a>
+</li>
+<li>ContentText
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1OperationConfirmationDialog.html#a2ad2fdabf3b79ddb4152f53cc00dfa4f">Messenger.Views.DialogBoxes.OperationConfirmationDialog</a>
+, <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html#ac82d76cd57730070b65717e87196e935">Messenger.Views.DialogBoxes.ResultConfirmationDialog</a>
+</li>
+<li>ContentTextProperty
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1OperationConfirmationDialog.html#a968285c66cc271e438b2a6614ed27127">Messenger.Views.DialogBoxes.OperationConfirmationDialog</a>
+, <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html#a1df85bd23a0841146e786d7e77b23041">Messenger.Views.DialogBoxes.ResultConfirmationDialog</a>
+</li>
+<li>Convert()
+: <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1BooleanToAlignmentConverter.html#ad66388d578106f6dd33d977e99f95ce9">Messenger.Helpers.Converters.BooleanToAlignmentConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1BooleanToGlyphConverter.html#ac798feec398d55f6cb5524c03b065e84">Messenger.Helpers.Converters.BooleanToGlyphConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1BooleanToVisibilityConverter.html#a78a8487a49d44a37053ab9614834047b">Messenger.Helpers.Converters.BooleanToVisibilityConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ColorToHexCodeConverter.html#a2827793898bdad8b36bdce8bd79578b8">Messenger.Helpers.Converters.ColorToHexCodeConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ColorToSolidBrushConverter.html#a740178cd1c3acee00024dc725e9b3821">Messenger.Helpers.Converters.ColorToSolidBrushConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1CountToVisibilityConverter.html#af6cd7b6543340b34df165e6d1fb76644">Messenger.Helpers.Converters.CountToVisibilityConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1DateToStringConverter.html#a938f257350d20680fc76c5995efcc964">Messenger.Helpers.Converters.DateToStringConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1EnumToBooleanConverter.html#ab3654dbeee8ab31181c825d381966ce4">Messenger.Helpers.Converters.EnumToBooleanConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1NotificationTypeToStringConverter.html#a2606470c8cb4c7df2332be393da5b6cb">Messenger.Helpers.Converters.NotificationTypeToStringConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1NullToVisibilityConverter.html#a3c66b0d7604f54e409bebc848f0e7b5f">Messenger.Helpers.Converters.NullToVisibilityConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ReactionTypeToBooleanConverter.html#ab7949dd278a760bafa169420a75cc88c">Messenger.Helpers.Converters.ReactionTypeToBooleanConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ThemeToFillBrushConverter.html#a271932829fcdd92d67c5ea4465289841">Messenger.Helpers.Converters.ThemeToFillBrushConverter</a>
+</li>
+<li>ConvertBack()
+: <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1BooleanToAlignmentConverter.html#a414c351d9fae910526cb9781e9d0d987">Messenger.Helpers.Converters.BooleanToAlignmentConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1BooleanToGlyphConverter.html#a8f651e94274412116276fa907e3f0496">Messenger.Helpers.Converters.BooleanToGlyphConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1BooleanToVisibilityConverter.html#a3d748015b6ffbcf256681a50b1b58925">Messenger.Helpers.Converters.BooleanToVisibilityConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ColorToHexCodeConverter.html#a70e60c018d5f3e2421d0d37843590ec9">Messenger.Helpers.Converters.ColorToHexCodeConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ColorToSolidBrushConverter.html#a6ff4e4fd0966ae9a5ca7de6c4f7439c9">Messenger.Helpers.Converters.ColorToSolidBrushConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1CountToVisibilityConverter.html#af599095f8c81e20f5b5f816b3e1e1f62">Messenger.Helpers.Converters.CountToVisibilityConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1DateToStringConverter.html#aa716e8ac1937f703614cbe239c2cabc1">Messenger.Helpers.Converters.DateToStringConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1EnumToBooleanConverter.html#acae9dc70bb3f415f117f6b9d231dad15">Messenger.Helpers.Converters.EnumToBooleanConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1NotificationTypeToStringConverter.html#a1880eaf6080ee440d0df44bf98ad60b3">Messenger.Helpers.Converters.NotificationTypeToStringConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1NullToVisibilityConverter.html#accd55729d92f0ae994d9ac9288a43a77">Messenger.Helpers.Converters.NullToVisibilityConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ReactionTypeToBooleanConverter.html#a4ff9f5b21c4f2f0a62b4ec578536c0a9">Messenger.Helpers.Converters.ReactionTypeToBooleanConverter</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1Converters_1_1ThemeToFillBrushConverter.html#a7301bdc23221cc6a71690cdf52d08780">Messenger.Helpers.Converters.ThemeToFillBrushConverter</a>
+</li>
+<li>Count
+: <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#af2cbe58bb06ab361d6e73f5563a0d149">Messenger.SignalR.Models.ConnectionMapping</a>
 </li>
 <li>CreateChannel()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1ChannelService.html#ae9388aa7e8ae52ab9236e67b705cc3dc">Messenger.Core.Services.ChannelService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a439978fcd19b38d516b893cd9f9515a7">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a9c752d12a6fc38712f7a1e75c1c50ade">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a516f4eaa8d608fdce4a97bd7a5fddda9">Messenger.SignalR.ChatHub</a>
+</li>
+<li>CreateChannelCommand
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamManageViewModel.html#a8444cfca0f6cac5fbb7cb6fe7e9bdeff">Messenger.ViewModels.Pages.TeamManageViewModel</a>
+</li>
+<li>CreateChannelDialog()
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateChannelDialog.html#affe29e13ed458da0097e3fc0847b8329">Messenger.Views.DialogBoxes.CreateChannelDialog</a>
+</li>
+<li>CreateChatDialog()
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateChatDialog.html#abb63b893e56ebd234f85d24bd4f2d759">Messenger.Views.DialogBoxes.CreateChatDialog</a>
+</li>
+<li>CreateChatDialogViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1CreateChatDialogViewModel.html#afe9a839afeea2e78681839b4c3c388fc">Messenger.ViewModels.DialogBoxes.CreateChatDialogViewModel</a>
+</li>
+<li>CreateEntry()
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a77d24b7079aa8342d34577e09d9f0711">Messenger.Helpers.MessageHelpers.MessageManager</a>
+</li>
+<li>CreateHostBuilder()
+: <a class="el" href="classMessenger_1_1SignalR_1_1Program.html#afbc2a27cedb45527b52f7b731ff31ec6">Messenger.SignalR.Program</a>
 </li>
 <li>CreateMention&lt; T &gt;()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MentionService.html#a8f89168b4af7fcd68cb6a395e734c095">Messenger.Core.Services.MentionService</a>
@@ -133,32 +336,70 @@ $(function() {
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a112a6e879f278a7d16a0f6b3911e500d">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ad1c32727c383ca4618cc41950d28b463">Messenger.Core.Services.SignalRService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a250de2dabac7790655a8888d04ff13fe">Messenger.Core.Services.TeamService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a29b49a4b8170a75138126644c2dea2b0">Messenger.SignalR.ChatHub</a>
 </li>
-<li>CreateTeamCommand
-: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#af52da1102659ab5e3048ecc327196bfe">Messenger.ViewModels.Pages.TeamNavViewModel</a>
+<li>CreateTeamCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand.html#acac966cc2a7531950a2a8b65ad2d13e9">Messenger.Commands.TeamManage.CreateTeamCommand</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#af52da1102659ab5e3048ecc327196bfe">Messenger.ViewModels.Pages.TeamNavViewModel</a>
 </li>
-<li>CreateTeamEmptyName_Test()
-: <a class="el" href="classMessenger_1_1Tests_1_1MSTest_1_1TeamServiceTest.html#a69b10609c63df9f6774dfd1a460b3769">Messenger.Tests.MSTest.TeamServiceTest</a>
+<li>CreateTeamDialog()
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ac42a1435f6e1afa96d6ec4013be6a76e">Messenger.Views.DialogBoxes.CreateTeamDialog</a>
 </li>
 <li>CreateTeamRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa0a679bf00d7b9bdcd4c532473ea2c53">Messenger.Core.Services.MessengerService</a>
 </li>
+<li>CreateTeamRoleCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamRoleCommand.html#aa35d786143faeb637a3d9caefcb05d56">Messenger.Commands.TeamManage.CreateTeamRoleCommand</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1f7d17a54183fae176bcddd309cb8e06">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel</a>
+</li>
+<li>CreateUserActivityAsync()
+: <a class="el" href="classMessenger_1_1Services_1_1UserActivityService.html#ae634c76d6b8afb2698c336543854663e">Messenger.Services.UserActivityService</a>
+</li>
 <li>CreationDate
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a04754bf407c834359b2b313490ee424a">Messenger.Core.Models.Team</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html#add9fc4ce4f3d0e045dd0b450f251e4ac">Messenger.ViewModels.DataViewModels.TeamViewModel</a>
 </li>
 <li>CreationTime
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a85080de0319bb163e114077c3f476fc4">Messenger.Core.Models.Message</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html#adfa781fdd7302575f02285e8a796bdcd">Messenger.Core.Models.Notification</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a8d0ee1d91b198c87e5948c973ce2f36e">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationViewModel.html#add21147031dae67d94c559321fe16cf2">Messenger.ViewModels.DataViewModels.NotificationViewModel</a>
+</li>
+<li>CurrentBio
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a10df1c4a0d994b879d2d67508e79ebea">Messenger.ViewModels.Pages.SettingsViewModel</a>
+</li>
+<li>CurrentChannel
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#af63dc020f967fba3ed7fd1b99c366e6d">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>CurrentChannelProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#a20c7810264ddc29e19663e024a997654">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>CurrentTeam
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#af288ff68cb574d319786546ce7b31fb7">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>CurrentTeamProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#a5ce5265667bb1a3bf242b9c36e5e6a92">Messenger.Views.Subcontrols.ChatHeader</a>
 </li>
 <li>CurrentUser
 : <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#ad7825e6e0dbbfe575974b0251391d8b3">Messenger.Services.Providers.StateProvider</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1CreateChatDialogViewModel.html#ab19bcfd8acecbb040f63d99c58dc8cbf">Messenger.ViewModels.DialogBoxes.CreateChatDialogViewModel</a>
 , <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#acd92ef4169a9b832c761bf1a079ee601">Messenger.ViewModels.Pages.ChatNavViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a1c941469b7374e85732b0d8c957b2775">Messenger.ViewModels.Pages.ChatViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamManageViewModel.html#ac1aedc03adb8e980353f93257fe4fedb">Messenger.ViewModels.Pages.TeamManageViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a5d4317f57018ba5eae95618d83b8d7dd">Messenger.ViewModels.Pages.TeamNavViewModel</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#a2d13ffc4dade031fb2b27d579600081d">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>CurrentUserProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#ad2eea0817ab42b62a67ca9d95e5260fc">Messenger.Views.Subcontrols.ChatHeader</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

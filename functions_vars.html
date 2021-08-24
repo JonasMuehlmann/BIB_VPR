@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_vars.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +82,171 @@ $(function() {
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a id="index_c"></a>- c -</h3><ul>
+<li>CaptionProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#a48ee78f006dcff1aabc0e96e5bcdd1e5">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
 <li>ChannelNameProperty
 : <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateChannelDialog.html#a83f556276e7c5d67494191c8bef24fb2">Messenger.Views.DialogBoxes.CreateChannelDialog</a>
+</li>
+<li>ContentTextProperty
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1OperationConfirmationDialog.html#a968285c66cc271e438b2a6614ed27127">Messenger.Views.DialogBoxes.OperationConfirmationDialog</a>
+, <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html#a1df85bd23a0841146e786d7e77b23041">Messenger.Views.DialogBoxes.ResultConfirmationDialog</a>
+</li>
+<li>CurrentChannelProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#a20c7810264ddc29e19663e024a997654">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>CurrentTeamProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#a5ce5265667bb1a3bf242b9c36e5e6a92">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+<li>CurrentUserProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ChatHeader.html#ad2eea0817ab42b62a67ca9d95e5260fc">Messenger.Views.Subcontrols.ChatHeader</a>
+</li>
+</ul>
+
+
+<h3><a id="index_d"></a>- d -</h3><ul>
+<li>DefaultHeaderProperty
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2bb522c95f20e4aef06269512bf63f1d">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>DeleteMessageCommandProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5c5b00eade8eb29be0e37517dc0de32e">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>DragEnterCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad633226c35abf79bb31364d4ad37dbb2">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragItemsCompletedCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a765fde8dc3a11bf1aba246fb6a18c238">Messenger.Services.DragAndDrop.ListViewDropConfiguration</a>
+</li>
+<li>DragItemsStartingCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a7fd49e2503c504d59664e57a6569d827">Messenger.Services.DragAndDrop.ListViewDropConfiguration</a>
+</li>
+<li>DragLeaveCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ab366b125b1fb77323a9e4979fcc5dbfa">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragOverCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a7a7e3111bb9a56c28d98511e8da83f4c">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragStartingImageProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#ae5e6e4e4732989fe337be7cc23ed8170">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>DropApplicationLinkCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a56d5a94064d2a032483399b2dfea202d">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropBitmapCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a761a37f9b36c4510296bf51db6fead1d">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropDataViewCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aa0c36c1ab72b9869691247944d4089e3">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropHtmlCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ae1068c84a77bb6017a05f2c02eb21fb2">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropOverImageProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#aab1760db4331c84a8b6b2ab63cd8592e">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>DropRtfCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ade54d6a27fb2575ccb0b012fac56f5d5">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropStorageItemsCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a537b069e655579733e2ce9500ae585aa">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropTextCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a80f7331e537cb0a40318116680eca32f">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropWebLinkCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aab738bb792141485791cdb57f229d4a8">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+</ul>
+
+
+<h3><a id="index_e"></a>- e -</h3><ul>
+<li>editUserNameMode
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1SettingsPage.html#ad469c21df9e3c19e1943353b564132b7">Messenger.Views.Pages.SettingsPage</a>
+</li>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>HeaderContextProperty
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ac606a2aa4c71a11396a0ad3cfa453eb3">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>HeaderModeProperty
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a1f06006663e06a55690c67360354c3d9">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>HeaderTemplateProperty
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2013638f0ca1a9b13a74b588a2367b6d">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>HorizontalAlignBindingPathProperty
+: <a class="el" href="classMessenger_1_1Helpers_1_1BindingHelper.html#a3926b5fce5fb353b574e63d22cb307d4">Messenger.Helpers.BindingHelper</a>
+</li>
+</ul>
+
+
+<h3><a id="index_i"></a>- i -</h3><ul>
+<li>IsBusyProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1OnLoading.html#acdc1fb5d6ac7a060014a399f52b12dea">Messenger.Views.Subcontrols.OnLoading</a>
+</li>
+<li>IsCaptionVisibleProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#a62c93d62ba7661eac586952771065c54">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>IsContentVisibleProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#a4007d601cd0e09c07441c4d1cd1e2af1">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>IsGlyphVisibleProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#af4a75490833e2fd608ade59acac2b56f">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>IsSuccessProperty
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html#a78354e6e8da43380ffe9e3396e72a040">Messenger.Views.DialogBoxes.ResultConfirmationDialog</a>
+</li>
+</ul>
+
+
+<h3><a id="index_l"></a>- l -</h3><ul>
+<li>LoadingTextProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1OnLoading.html#a7a0f55b653c0b1beba143829e7a983c9">Messenger.Views.Subcontrols.OnLoading</a>
 </li>
 <li>localFileCachePath
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a9535df135df40132fa8d8109ff35a33a">Messenger.Core.Services.FileSharingService</a>
 </li>
+<li>logger
+: <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">Messenger.SignalR.Models.ConnectionMapping</a>
+</li>
+</ul>
+
+
+<h3><a id="index_m"></a>- m -</h3><ul>
+<li>MemberProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html#a4a42b8fb3a7c8f2a8de9c054004af231">Messenger.Views.Subcontrols.UserProfileFlyout</a>
+</li>
 <li>MessageManager
 : <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a11140609dba9e5b63689c255544463ab">Messenger.Services.Providers.StateProvider</a>
 </li>
+<li>MessageProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a876cfa4c341a66ad38d60fae64bbe982">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+</ul>
+
+
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>ReplyProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ReplyView.html#ab5d731237f2527786a6ded4eed54ec1e">Messenger.Views.Subcontrols.ReplyView</a>
+</li>
+<li>ReplyToCommandProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ac67d49467c55e2ff63c608361dbcd195">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>ResponseProperty
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1OperationConfirmationDialog.html#aade73a1e4c4d5c1b9acf5614333f89a2">Messenger.Views.DialogBoxes.OperationConfirmationDialog</a>
+</li>
+<li>RoleProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1RoleTag.html#ab19ac7ebead19738c1a7d2ffaf388505">Messenger.Views.Subcontrols.RoleTag</a>
+</li>
+</ul>
+
+
+<h3><a id="index_t"></a>- t -</h3><ul>
 <li>TeamDescriptionProperty
 : <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ChangeTeamDialog.html#a245c3df08753ccf5770313cd3f743978">Messenger.Views.DialogBoxes.ChangeTeamDialog</a>
 , <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ab8ecb9bd7d4de1ddb0cec93e327c0895">Messenger.Views.DialogBoxes.CreateTeamDialog</a>
@@ -83,11 +258,35 @@ $(function() {
 : <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ChangeTeamDialog.html#a4866935759a3f69323ea3688d69491d1">Messenger.Views.DialogBoxes.ChangeTeamDialog</a>
 , <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#a43dea3b7bcb373da5ec1209aa9725968">Messenger.Views.DialogBoxes.CreateTeamDialog</a>
 </li>
+<li>ToggleReactionCommandProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#aac3f7926356a92ab8760b7ea8e12e51f">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+</ul>
+
+
+<h3><a id="index_u"></a>- u -</h3><ul>
+<li>UpdateMessageCommandProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a1d0371c1c6144d32c811653c68a2e15d">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+</ul>
+
+
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>ViewModelProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1InboxControl.html#a8dc6a58fe554b2d54d11a06a3c34e6e2">Messenger.Views.Controls.InboxControl</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1MembersListControl.html#a7fe5859a54f9dabf61ae133899425414">Messenger.Views.Controls.MembersListControl</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1MessagesListControl.html#aa7ec9fd8dd2878e92cb9afe7544e9b91">Messenger.Views.Controls.MessagesListControl</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1SendMessageControl.html#a6862e35258fcc8a85127099da0b109e4">Messenger.Views.Controls.SendMessageControl</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html#ae689e04cd78e7cc04496be49154bf698">Messenger.Views.Controls.UserSearchPanel</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

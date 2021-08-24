@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Models_1_1ToggleReactionArg.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Models_1_1ToggleReactionArg.html">ToggleReactionArg</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#properties">Properties</a> &#124;
@@ -76,20 +92,78 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:aa7aa1e438266612264175fcc97ce562e"><td class="memItemLeft" align="right" valign="top"><a id="aa7aa1e438266612264175fcc97ce562e"></a>
-ReactionType&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aa7aa1e438266612264175fcc97ce562e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMessenger_1_1Models.html#a47717b2c26e91777afb3c6736b1ff9ed">ReactionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Models_1_1ToggleReactionArg.html#aa7aa1e438266612264175fcc97ce562e">Type</a><code> [get, set]</code></td></tr>
 <tr class="separator:aa7aa1e438266612264175fcc97ce562e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63796025b669e14ca6b981b5d469dcd3"><td class="memItemLeft" align="right" valign="top"><a id="a63796025b669e14ca6b981b5d469dcd3"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Message</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a63796025b669e14ca6b981b5d469dcd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Models_1_1ToggleReactionArg.html#a63796025b669e14ca6b981b5d469dcd3">Message</a><code> [get, set]</code></td></tr>
 <tr class="separator:a63796025b669e14ca6b981b5d469dcd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="ToggleReactionArg_8cs_source.html#l00005">5</a> of file <a class="el" href="ToggleReactionArg_8cs_source.html">ToggleReactionArg.cs</a>.</p>
+</div><h2 class="groupheader">Property Documentation</h2>
+<a id="a63796025b669e14ca6b981b5d469dcd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63796025b669e14ca6b981b5d469dcd3">&#9670;&nbsp;</a></span>Message</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> Messenger.Models.ToggleReactionArg.Message</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ToggleReactionArg_8cs_source.html#l00009">9</a> of file <a class="el" href="ToggleReactionArg_8cs_source.html">ToggleReactionArg.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ToggleReactionCommand_8cs_source.html#l00028">Messenger.Commands.Messenger.ToggleReactionCommand.Execute()</a>.</p>
+
+</div>
+</div>
+<a id="aa7aa1e438266612264175fcc97ce562e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7aa1e438266612264175fcc97ce562e">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceMessenger_1_1Models.html#a47717b2c26e91777afb3c6736b1ff9ed">ReactionType</a> Messenger.Models.ToggleReactionArg.Type</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ToggleReactionArg_8cs_source.html#l00007">7</a> of file <a class="el" href="ToggleReactionArg_8cs_source.html">ToggleReactionArg.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ToggleReactionCommand_8cs_source.html#l00028">Messenger.Commands.Messenger.ToggleReactionCommand.Execute()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Models/ToggleReactionArg.cs</li>
+<li>Messenger/Messenger/Models/<a class="el" href="ToggleReactionArg_8cs_source.html">ToggleReactionArg.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Models_1_1ToggleReactionArg.html">ToggleReactionArg</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

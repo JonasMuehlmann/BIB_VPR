@@ -1,28 +1,4 @@
 var searchData=
 [
-  ['mainviewmodel_463',['MainViewModel',['../classMessenger_1_1ViewModels_1_1MainViewModel.html',1,'Messenger::ViewModels']]],
-  ['managememberrolesdialog_464',['ManageMemberRolesDialog',['../classMessenger_1_1Views_1_1DialogBoxes_1_1ManageMemberRolesDialog.html',1,'Messenger::Views::DialogBoxes']]],
-  ['managememberrolesdialogviewmodel_465',['ManageMemberRolesDialogViewModel',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageMemberRolesDialogViewModel.html',1,'Messenger::ViewModels::DialogBoxes']]],
-  ['managereventargs_466',['ManagerEventArgs',['../classMessenger_1_1Models_1_1ManagerEventArgs.html',1,'Messenger::Models']]],
-  ['managerolesdialog_467',['ManageRolesDialog',['../classMessenger_1_1Views_1_1DialogBoxes_1_1ManageRolesDialog.html',1,'Messenger::Views::DialogBoxes']]],
-  ['managerolesdialogviewmodel_468',['ManageRolesDialogViewModel',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html',1,'Messenger::ViewModels::DialogBoxes']]],
-  ['mapper_469',['Mapper',['../classMessenger_1_1Core_1_1Helpers_1_1Mapper.html',1,'Messenger::Core::Helpers']]],
-  ['membership_470',['Membership',['../classMessenger_1_1Core_1_1Models_1_1Membership.html',1,'Messenger::Core::Models']]],
-  ['memberslistcontrol_471',['MembersListControl',['../classMessenger_1_1Views_1_1Controls_1_1MembersListControl.html',1,'Messenger::Views::Controls']]],
-  ['memberslistcontrolviewmodel_472',['MembersListControlViewModel',['../classMessenger_1_1ViewModels_1_1Controls_1_1MembersListControlViewModel.html',1,'Messenger::ViewModels::Controls']]],
-  ['memberviewmodel_473',['MemberViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
-  ['mention_474',['Mention',['../classMessenger_1_1Core_1_1Models_1_1Mention.html',1,'Messenger::Core::Models']]],
-  ['mentionable_475',['Mentionable',['../classMessenger_1_1Core_1_1Models_1_1Mentionable.html',1,'Messenger::Core::Models']]],
-  ['mentionservice_476',['MentionService',['../classMessenger_1_1Core_1_1Services_1_1MentionService.html',1,'Messenger::Core::Services']]],
-  ['mentionservicetest_477',['MentionServiceTest',['../classMessenger_1_1Tests_1_1MSTest_1_1MentionServiceTest.html',1,'Messenger::Tests::MSTest']]],
-  ['message_478',['Message',['../classMessenger_1_1Core_1_1Models_1_1Message.html',1,'Messenger::Core::Models']]],
-  ['messagemanager_479',['MessageManager',['../classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html',1,'Messenger::Helpers::MessageHelpers']]],
-  ['messageservice_480',['MessageService',['../classMessenger_1_1Core_1_1Services_1_1MessageService.html',1,'Messenger::Core::Services']]],
-  ['messageservicetest_481',['MessageServiceTest',['../classMessenger_1_1Tests_1_1MSTest_1_1MessageServiceTest.html',1,'Messenger::Tests::MSTest']]],
-  ['messageslistcontrol_482',['MessagesListControl',['../classMessenger_1_1Views_1_1Controls_1_1MessagesListControl.html',1,'Messenger::Views::Controls']]],
-  ['messageslistcontrolviewmodel_483',['MessagesListControlViewModel',['../classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html',1,'Messenger::ViewModels::Controls']]],
-  ['messageview_484',['MessageView',['../classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html',1,'Messenger::Views::Subcontrols']]],
-  ['messageviewmodel_485',['MessageViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
-  ['messengerservice_486',['MessengerService',['../classMessenger_1_1Core_1_1Services_1_1MessengerService.html',1,'Messenger::Core::Services']]],
-  ['microsoftgraphservice_487',['MicrosoftGraphService',['../classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html',1,'Messenger::Core::Services']]]
+  ['json_1039',['Json',['../classMessenger_1_1Core_1_1Helpers_1_1Json.html',1,'Messenger::Core::Helpers']]]
 ];

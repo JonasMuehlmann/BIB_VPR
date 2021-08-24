@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,22 +81,20 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1DataViewModels.html">DataViewModels</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html">ChannelViewModel</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.ViewModels.DataViewModels.ChannelViewModel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.ViewModels.DataViewModels.ChannelViewModel:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.ViewModels.DataViewModels.ChannelViewModel:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.png" usemap="#Messenger.ViewModels.DataViewModels.ChannelViewModel_map" alt=""/>
   <map id="Messenger.ViewModels.DataViewModels.ChannelViewModel_map" name="Messenger.ViewModels.DataViewModels.ChannelViewModel_map">
@@ -84,51 +103,256 @@ Inheritance diagram for Messenger.ViewModels.DataViewModels.ChannelViewModel:</d
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aedc1ae00f835ee0e8a6ab30c7339e8f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#aedc1ae00f835ee0e8a6ab30c7339e8f7">ChannelViewModel</a> ()</td></tr>
+<tr class="separator:aedc1ae00f835ee0e8a6ab30c7339e8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a6770e2d45aeb1ba8e61ed287c9058b42"><td class="memItemLeft" align="right" valign="top"><a id="a6770e2d45aeb1ba8e61ed287c9058b42"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedMessage</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a6770e2d45aeb1ba8e61ed287c9058b42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#a6770e2d45aeb1ba8e61ed287c9058b42">PinnedMessage</a><code> [get, set]</code></td></tr>
 <tr class="separator:a6770e2d45aeb1ba8e61ed287c9058b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0a06a5e110ddce410c9693ef810a621"><td class="memItemLeft" align="right" valign="top"><a id="af0a06a5e110ddce410c9693ef810a621"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelName</b><code> [get, set]</code></td></tr>
+<tr class="memitem:af0a06a5e110ddce410c9693ef810a621"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#af0a06a5e110ddce410c9693ef810a621">ChannelName</a><code> [get, set]</code></td></tr>
 <tr class="separator:af0a06a5e110ddce410c9693ef810a621"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69752a51640c494d55e222495902e699"><td class="memItemLeft" align="right" valign="top"><a id="a69752a51640c494d55e222495902e699"></a>
-uint&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a69752a51640c494d55e222495902e699"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#a69752a51640c494d55e222495902e699">ChannelId</a><code> [get, set]</code></td></tr>
 <tr class="separator:a69752a51640c494d55e222495902e699"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedb82a0b2974166effe9f710c002f32b"><td class="memItemLeft" align="right" valign="top"><a id="aedb82a0b2974166effe9f710c002f32b"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Description</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aedb82a0b2974166effe9f710c002f32b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#aedb82a0b2974166effe9f710c002f32b">Description</a><code> [get, set]</code></td></tr>
 <tr class="separator:aedb82a0b2974166effe9f710c002f32b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add0f27636c196febaf7843419e74989d"><td class="memItemLeft" align="right" valign="top"><a id="add0f27636c196febaf7843419e74989d"></a>
-uint&#160;</td><td class="memItemRight" valign="bottom"><b>TeamId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:add0f27636c196febaf7843419e74989d"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#add0f27636c196febaf7843419e74989d">TeamId</a><code> [get, set]</code></td></tr>
 <tr class="separator:add0f27636c196febaf7843419e74989d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ff3bba4b80167b4d84e181541ee166a"><td class="memItemLeft" align="right" valign="top"><a id="a6ff3bba4b80167b4d84e181541ee166a"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveChannelCommand</b><code> [get]</code></td></tr>
+<tr class="memitem:a6ff3bba4b80167b4d84e181541ee166a"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#a6ff3bba4b80167b4d84e181541ee166a">RemoveChannelCommand</a><code> [get]</code></td></tr>
 <tr class="separator:a6ff3bba4b80167b4d84e181541ee166a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cc934c5f9dbfad1c0b7b3315ba379d8"><td class="memItemLeft" align="right" valign="top"><a id="a4cc934c5f9dbfad1c0b7b3315ba379d8"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LastMessage</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a4cc934c5f9dbfad1c0b7b3315ba379d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#a4cc934c5f9dbfad1c0b7b3315ba379d8">LastMessage</a><code> [get, set]</code></td></tr>
 <tr class="separator:a4cc934c5f9dbfad1c0b7b3315ba379d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="ae8cf458aa24cfd172c194942009a5c62"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set&lt; T &gt;</b> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
 <tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OnPropertyChanged</b> (string propertyName)</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
 <tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
-PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyChanged</b></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
 <tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00008">8</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aedc1ae00f835ee0e8a6ab30c7339e8f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedc1ae00f835ee0e8a6ab30c7339e8f7">&#9670;&nbsp;</a></span>ChannelViewModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelViewModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00058">58</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a69752a51640c494d55e222495902e699"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69752a51640c494d55e222495902e699">&#9670;&nbsp;</a></span>ChannelId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00029">29</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00164">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateChannel()</a>, <a class="el" href="ChannelSwitchCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.ChannelSwitchCommand.Execute()</a>, <a class="el" href="RemoveChannelCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.RemoveChannelCommand.Execute()</a>, <a class="el" href="MessageBuilder_8cs_source.html#l00026">Messenger.Helpers.MessageHelpers.MessageBuilder.GetMessagesFromDatabase()</a>, <a class="el" href="CacheQuery_8cs_source.html#l00041">Messenger.Helpers.CacheQuery.IsChannelOf&lt; T &gt;()</a>, <a class="el" href="TeamNavViewModel_8cs_source.html#l00188">Messenger.ViewModels.Pages.TeamNavViewModel.OnChannelUpdated()</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00204">Messenger.ViewModels.Pages.ChatNavViewModel.OnMessageUpdated()</a>.</p>
+
+</div>
+</div>
+<a id="af0a06a5e110ddce410c9693ef810a621"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0a06a5e110ddce410c9693ef810a621">&#9670;&nbsp;</a></span>ChannelName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00023">23</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+</div>
+</div>
+<a id="aedb82a0b2974166effe9f710c002f32b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb82a0b2974166effe9f710c002f32b">&#9670;&nbsp;</a></span>Description</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.ViewModels.DataViewModels.ChannelViewModel.Description</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00035">35</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+</div>
+</div>
+<a id="a4cc934c5f9dbfad1c0b7b3315ba379d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc934c5f9dbfad1c0b7b3315ba379d8">&#9670;&nbsp;</a></span>LastMessage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> Messenger.ViewModels.DataViewModels.ChannelViewModel.LastMessage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00052">52</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamNavViewModel_8cs_source.html#l00238">Messenger.ViewModels.Pages.TeamNavViewModel.OnMessageUpdated()</a>.</p>
+
+</div>
+</div>
+<a id="a6770e2d45aeb1ba8e61ed287c9058b42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6770e2d45aeb1ba8e61ed287c9058b42">&#9670;&nbsp;</a></span>PinnedMessage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> Messenger.ViewModels.DataViewModels.ChannelViewModel.PinnedMessage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00017">17</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+</div>
+</div>
+<a id="a6ff3bba4b80167b4d84e181541ee166a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff3bba4b80167b4d84e181541ee166a">&#9670;&nbsp;</a></span>RemoveChannelCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.ViewModels.DataViewModels.ChannelViewModel.RemoveChannelCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00047">47</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+</div>
+</div>
+<a id="add0f27636c196febaf7843419e74989d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add0f27636c196febaf7843419e74989d">&#9670;&nbsp;</a></span>TeamId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint Messenger.ViewModels.DataViewModels.ChannelViewModel.TeamId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChannelViewModel_8cs_source.html#l00041">41</a> of file <a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChannelSwitchCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.ChannelSwitchCommand.Execute()</a>, <a class="el" href="TeamNavViewModel_8cs_source.html#l00188">Messenger.ViewModels.Pages.TeamNavViewModel.OnChannelUpdated()</a>, <a class="el" href="TeamManager_8cs_source.html#l00309">Messenger.Helpers.TeamHelpers.TeamManager.RemoveChannel()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00133">Messenger.Helpers.MessageHelpers.MessageBuilder.WithSender()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/ViewModels/DataViewModels/ChannelViewModel.cs</li>
+<li>Messenger/Messenger/ViewModels/DataViewModels/<a class="el" href="ChannelViewModel_8cs_source.html">ChannelViewModel.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1DataViewModels.html">DataViewModels</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html">ChannelViewModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

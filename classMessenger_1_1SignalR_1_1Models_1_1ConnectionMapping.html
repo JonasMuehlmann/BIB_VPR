@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1SignalR_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -93,18 +109,18 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa70829c6e00a1ac8a5bed388c02e638d"><td class="memItemLeft" align="right" valign="top"><a id="aa70829c6e00a1ac8a5bed388c02e638d"></a>
-ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b> = GlobalLogger.Instance</td></tr>
+<tr class="memitem:aa70829c6e00a1ac8a5bed388c02e638d"><td class="memItemLeft" align="right" valign="top">ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">logger</a> = GlobalLogger.Instance</td></tr>
 <tr class="separator:aa70829c6e00a1ac8a5bed388c02e638d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:af2cbe58bb06ab361d6e73f5563a0d149"><td class="memItemLeft" align="right" valign="top"><a id="af2cbe58bb06ab361d6e73f5563a0d149"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b><code> [get]</code></td></tr>
+<tr class="memitem:af2cbe58bb06ab361d6e73f5563a0d149"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#af2cbe58bb06ab361d6e73f5563a0d149">Count</a><code> [get]</code></td></tr>
 <tr class="separator:af2cbe58bb06ab361d6e73f5563a0d149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Thread-safe dictionary mapping class for connection ids </p>
+
+<p class="definition">Definition at line <a class="el" href="ConnectionMapping_8cs_source.html#l00012">12</a> of file <a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4e4eb750780a6dc96158a0727b1ca592"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e4eb750780a6dc96158a0727b1ca592">&#9670;&nbsp;</a></span>Add()</h2>
@@ -149,6 +165,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b><code> [get]<
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="ConnectionMapping_8cs_source.html#l00031">31</a> of file <a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ConnectionMapping_8cs_source.html#l00024">Messenger.SignalR.Models.ConnectionMapping.logger</a>.</p>
+
 </div>
 </div>
 <a id="a6dc3a4b24721e871a27826e1172a379b"></a>
@@ -183,6 +203,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b><code> [get]<
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>List of connection ids, empty enumerable if none exists</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ConnectionMapping_8cs_source.html#l00063">63</a> of file <a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ConnectionMapping_8cs_source.html#l00024">Messenger.SignalR.Models.ConnectionMapping.logger</a>.</p>
 
 </div>
 </div>
@@ -229,15 +253,67 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b><code> [get]<
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="ConnectionMapping_8cs_source.html#l00086">86</a> of file <a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ConnectionMapping_8cs_source.html#l00024">Messenger.SignalR.Models.ConnectionMapping.logger</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa70829c6e00a1ac8a5bed388c02e638d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa70829c6e00a1ac8a5bed388c02e638d">&#9670;&nbsp;</a></span>logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.SignalR.Models.ConnectionMapping.logger = GlobalLogger.Instance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ConnectionMapping_8cs_source.html#l00024">24</a> of file <a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ConnectionMapping_8cs_source.html#l00031">Messenger.SignalR.Models.ConnectionMapping.Add()</a>, <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>, and <a class="el" href="ConnectionMapping_8cs_source.html#l00086">Messenger.SignalR.Models.ConnectionMapping.Remove()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="af2cbe58bb06ab361d6e73f5563a0d149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2cbe58bb06ab361d6e73f5563a0d149">&#9670;&nbsp;</a></span>Count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Messenger.SignalR.Models.ConnectionMapping.Count</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ConnectionMapping_8cs_source.html#l00016">16</a> of file <a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.SignalR/Models/ConnectionMapping.cs</li>
+<li>Messenger/Messenger.SignalR/Models/<a class="el" href="ConnectionMapping_8cs_source.html">ConnectionMapping.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1SignalR_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

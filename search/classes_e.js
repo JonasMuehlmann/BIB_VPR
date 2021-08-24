@@ -1,20 +1,16 @@
 var searchData=
 [
-  ['team_538',['Team',['../classMessenger_1_1Core_1_1Models_1_1Team.html',1,'Messenger::Core::Models']]],
-  ['teamdatatemplateselector_539',['TeamDataTemplateSelector',['../classMessenger_1_1TemplateSelectors_1_1TeamDataTemplateSelector.html',1,'Messenger::TemplateSelectors']]],
-  ['teammanagepage_540',['TeamManagePage',['../classMessenger_1_1Views_1_1Pages_1_1TeamManagePage.html',1,'Messenger::Views::Pages']]],
-  ['teammanager_541',['TeamManager',['../classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html',1,'Messenger::Helpers::TeamHelpers']]],
-  ['teammanageviewmodel_542',['TeamManageViewModel',['../classMessenger_1_1ViewModels_1_1Pages_1_1TeamManageViewModel.html',1,'Messenger::ViewModels::Pages']]],
-  ['teamnavpage_543',['TeamNavPage',['../classMessenger_1_1Views_1_1Pages_1_1TeamNavPage.html',1,'Messenger::Views::Pages']]],
-  ['teamnavviewmodel_544',['TeamNavViewModel',['../classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html',1,'Messenger::ViewModels::Pages']]],
-  ['teamrole_545',['TeamRole',['../classMessenger_1_1Core_1_1Models_1_1TeamRole.html',1,'Messenger::Core::Models']]],
-  ['teamroleviewmodel_546',['TeamRoleViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
-  ['teamservice_547',['TeamService',['../classMessenger_1_1Core_1_1Services_1_1TeamService.html',1,'Messenger::Core::Services']]],
-  ['teamservicetest_548',['TeamServiceTest',['../classMessenger_1_1Tests_1_1MSTest_1_1TeamServiceTest.html',1,'Messenger::Tests::MSTest']]],
-  ['teamviewmodel_549',['TeamViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
-  ['tests_550',['Tests',['../classMessenger_1_1Tests_1_1MSTest_1_1Tests.html',1,'Messenger::Tests::MSTest']]],
-  ['themetofillbrushconverter_551',['ThemeToFillBrushConverter',['../classMessenger_1_1Helpers_1_1Converters_1_1ThemeToFillBrushConverter.html',1,'Messenger::Helpers::Converters']]],
-  ['togglereactionarg_552',['ToggleReactionArg',['../classMessenger_1_1Models_1_1ToggleReactionArg.html',1,'Messenger::Models']]],
-  ['togglereactioncommand_553',['ToggleReactionCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1ToggleReactionCommand.html',1,'Messenger::Commands::Messenger']]],
-  ['treeviewcollapsebehavior_554',['TreeViewCollapseBehavior',['../classMessenger_1_1Behaviors_1_1TreeViewCollapseBehavior.html',1,'Messenger::Behaviors']]]
+  ['reaction_1087',['Reaction',['../classMessenger_1_1Core_1_1Models_1_1Reaction.html',1,'Messenger::Core::Models']]],
+  ['reactiontypetobooleanconverter_1088',['ReactionTypeToBooleanConverter',['../classMessenger_1_1Helpers_1_1Converters_1_1ReactionTypeToBooleanConverter.html',1,'Messenger::Helpers::Converters']]],
+  ['relaycommand_1089',['RelayCommand',['../classMessenger_1_1Commands_1_1RelayCommand.html',1,'Messenger::Commands']]],
+  ['removechannelcommand_1090',['RemoveChannelCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1RemoveChannelCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['removechatcommand_1091',['RemoveChatCommand',['../classMessenger_1_1Commands_1_1PrivateChat_1_1RemoveChatCommand.html',1,'Messenger::Commands::PrivateChat']]],
+  ['removeteamcommand_1092',['RemoveTeamCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1RemoveTeamCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['removeteamrolecommand_1093',['RemoveTeamRoleCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1RemoveTeamRoleCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['removeusercommand_1094',['RemoveUserCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1RemoveUserCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['replymessagecommand_1095',['ReplyMessageCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1ReplyMessageCommand.html',1,'Messenger::Commands::Messenger']]],
+  ['replyview_1096',['ReplyView',['../classMessenger_1_1Views_1_1Subcontrols_1_1ReplyView.html',1,'Messenger::Views::Subcontrols']]],
+  ['resultconfirmationdialog_1097',['ResultConfirmationDialog',['../classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html',1,'Messenger::Views::DialogBoxes']]],
+  ['revokepermissioncommand_1098',['RevokePermissionCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1RevokePermissionCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['roletag_1099',['RoleTag',['../classMessenger_1_1Views_1_1Subcontrols_1_1RoleTag.html',1,'Messenger::Views::Subcontrols']]]
 ];

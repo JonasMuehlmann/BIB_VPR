@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Behaviors.html">Behaviors</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html">NavigationViewHeaderBehavior</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -76,65 +92,352 @@ $(function() {
 <div class="title">Messenger.Behaviors.NavigationViewHeaderBehavior Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.Behaviors.NavigationViewHeaderBehavior:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Behaviors.NavigationViewHeaderBehavior:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.png" alt=""/>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a9d37b72b8f8ca1dea1becd5cc669dcba"><td class="memItemLeft" align="right" valign="top"><a id="a9d37b72b8f8ca1dea1becd5cc669dcba"></a>
-static NavigationViewHeaderMode&#160;</td><td class="memItemRight" valign="bottom"><b>GetHeaderMode</b> (Page item)</td></tr>
+<tr class="memitem:a9d37b72b8f8ca1dea1becd5cc669dcba"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceMessenger_1_1Behaviors.html#ae16a301e911d77a53f21ec37890419d4">NavigationViewHeaderMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a9d37b72b8f8ca1dea1becd5cc669dcba">GetHeaderMode</a> (Page item)</td></tr>
 <tr class="separator:a9d37b72b8f8ca1dea1becd5cc669dcba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0678b7a657ac672e972a83ee9fe162d"><td class="memItemLeft" align="right" valign="top"><a id="ad0678b7a657ac672e972a83ee9fe162d"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHeaderMode</b> (Page item, NavigationViewHeaderMode value)</td></tr>
+<tr class="memitem:ad0678b7a657ac672e972a83ee9fe162d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ad0678b7a657ac672e972a83ee9fe162d">SetHeaderMode</a> (Page item, <a class="el" href="namespaceMessenger_1_1Behaviors.html#ae16a301e911d77a53f21ec37890419d4">NavigationViewHeaderMode</a> value)</td></tr>
 <tr class="separator:ad0678b7a657ac672e972a83ee9fe162d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa8bbfc1695700672fc24b5943feb0f6"><td class="memItemLeft" align="right" valign="top"><a id="afa8bbfc1695700672fc24b5943feb0f6"></a>
-static object&#160;</td><td class="memItemRight" valign="bottom"><b>GetHeaderContext</b> (Page item)</td></tr>
+<tr class="memitem:afa8bbfc1695700672fc24b5943feb0f6"><td class="memItemLeft" align="right" valign="top">static object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#afa8bbfc1695700672fc24b5943feb0f6">GetHeaderContext</a> (Page item)</td></tr>
 <tr class="separator:afa8bbfc1695700672fc24b5943feb0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60c5e67bc707b497afe1e87c75096ccd"><td class="memItemLeft" align="right" valign="top"><a id="a60c5e67bc707b497afe1e87c75096ccd"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHeaderContext</b> (Page item, object value)</td></tr>
+<tr class="memitem:a60c5e67bc707b497afe1e87c75096ccd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a60c5e67bc707b497afe1e87c75096ccd">SetHeaderContext</a> (Page item, object value)</td></tr>
 <tr class="separator:a60c5e67bc707b497afe1e87c75096ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a436cfdc4560fcd5f85881e49f7152057"><td class="memItemLeft" align="right" valign="top"><a id="a436cfdc4560fcd5f85881e49f7152057"></a>
-static DataTemplate&#160;</td><td class="memItemRight" valign="bottom"><b>GetHeaderTemplate</b> (Page item)</td></tr>
+<tr class="memitem:a436cfdc4560fcd5f85881e49f7152057"><td class="memItemLeft" align="right" valign="top">static DataTemplate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a436cfdc4560fcd5f85881e49f7152057">GetHeaderTemplate</a> (Page item)</td></tr>
 <tr class="separator:a436cfdc4560fcd5f85881e49f7152057"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5edf13192bdd829513633546a93568f6"><td class="memItemLeft" align="right" valign="top"><a id="a5edf13192bdd829513633546a93568f6"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHeaderTemplate</b> (Page item, DataTemplate value)</td></tr>
+<tr class="memitem:a5edf13192bdd829513633546a93568f6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a5edf13192bdd829513633546a93568f6">SetHeaderTemplate</a> (Page item, DataTemplate value)</td></tr>
 <tr class="separator:a5edf13192bdd829513633546a93568f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a2bb522c95f20e4aef06269512bf63f1d"><td class="memItemLeft" align="right" valign="top"><a id="a2bb522c95f20e4aef06269512bf63f1d"></a>
-static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultHeaderProperty</b> = DependencyProperty.Register(&quot;DefaultHeader&quot;, typeof(object), typeof(<a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html">NavigationViewHeaderBehavior</a>), new PropertyMetadata(null, (d, e) =&gt; _current.UpdateHeader()))</td></tr>
+<tr class="memitem:a2bb522c95f20e4aef06269512bf63f1d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2bb522c95f20e4aef06269512bf63f1d">DefaultHeaderProperty</a> = DependencyProperty.Register(&quot;DefaultHeader&quot;, typeof(object), typeof(<a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html">NavigationViewHeaderBehavior</a>), new PropertyMetadata(null, (d, e) =&gt; _current.UpdateHeader()))</td></tr>
 <tr class="separator:a2bb522c95f20e4aef06269512bf63f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f06006663e06a55690c67360354c3d9"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>HeaderModeProperty</b></td></tr>
+<tr class="memitem:a1f06006663e06a55690c67360354c3d9"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a1f06006663e06a55690c67360354c3d9">HeaderModeProperty</a></td></tr>
 <tr class="separator:a1f06006663e06a55690c67360354c3d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac606a2aa4c71a11396a0ad3cfa453eb3"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>HeaderContextProperty</b></td></tr>
+<tr class="memitem:ac606a2aa4c71a11396a0ad3cfa453eb3"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ac606a2aa4c71a11396a0ad3cfa453eb3">HeaderContextProperty</a></td></tr>
 <tr class="separator:ac606a2aa4c71a11396a0ad3cfa453eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2013638f0ca1a9b13a74b588a2367b6d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>HeaderTemplateProperty</b></td></tr>
+<tr class="memitem:a2013638f0ca1a9b13a74b588a2367b6d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2013638f0ca1a9b13a74b588a2367b6d">HeaderTemplateProperty</a></td></tr>
 <tr class="separator:a2013638f0ca1a9b13a74b588a2367b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a8960a99857166f86dc896422bb2d80c5"><td class="memItemLeft" align="right" valign="top"><a id="a8960a99857166f86dc896422bb2d80c5"></a>
-override void&#160;</td><td class="memItemRight" valign="bottom"><b>OnAttached</b> ()</td></tr>
+<tr class="memitem:a8960a99857166f86dc896422bb2d80c5"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a8960a99857166f86dc896422bb2d80c5">OnAttached</a> ()</td></tr>
 <tr class="separator:a8960a99857166f86dc896422bb2d80c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6dd1a7743b23325b3c2185e202a7465"><td class="memItemLeft" align="right" valign="top"><a id="af6dd1a7743b23325b3c2185e202a7465"></a>
-override void&#160;</td><td class="memItemRight" valign="bottom"><b>OnDetaching</b> ()</td></tr>
+<tr class="memitem:af6dd1a7743b23325b3c2185e202a7465"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#af6dd1a7743b23325b3c2185e202a7465">OnDetaching</a> ()</td></tr>
 <tr class="separator:af6dd1a7743b23325b3c2185e202a7465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a09bff282df5919bb08524588d88141d5"><td class="memItemLeft" align="right" valign="top"><a id="a09bff282df5919bb08524588d88141d5"></a>
-DataTemplate&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultHeaderTemplate</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a09bff282df5919bb08524588d88141d5"><td class="memItemLeft" align="right" valign="top">DataTemplate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a09bff282df5919bb08524588d88141d5">DefaultHeaderTemplate</a><code> [get, set]</code></td></tr>
 <tr class="separator:a09bff282df5919bb08524588d88141d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0026753076022d9389bab52574f9dc7"><td class="memItemLeft" align="right" valign="top"><a id="aa0026753076022d9389bab52574f9dc7"></a>
-object&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultHeader</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aa0026753076022d9389bab52574f9dc7"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#aa0026753076022d9389bab52574f9dc7">DefaultHeader</a><code> [get, set]</code></td></tr>
 <tr class="separator:aa0026753076022d9389bab52574f9dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00013">13</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="afa8bbfc1695700672fc24b5943feb0f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa8bbfc1695700672fc24b5943feb0f6">&#9670;&nbsp;</a></span>GetHeaderContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static object Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext </td>
+          <td>(</td>
+          <td class="paramtype">Page&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00041">41</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00051">Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderContextProperty</a>.</p>
+
+</div>
+</div>
+<a id="a9d37b72b8f8ca1dea1becd5cc669dcba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d37b72b8f8ca1dea1becd5cc669dcba">&#9670;&nbsp;</a></span>GetHeaderMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespaceMessenger_1_1Behaviors.html#ae16a301e911d77a53f21ec37890419d4">NavigationViewHeaderMode</a> Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode </td>
+          <td>(</td>
+          <td class="paramtype">Page&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00028">28</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00038">Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderModeProperty</a>.</p>
+
+</div>
+</div>
+<a id="a436cfdc4560fcd5f85881e49f7152057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a436cfdc4560fcd5f85881e49f7152057">&#9670;&nbsp;</a></span>GetHeaderTemplate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static DataTemplate Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate </td>
+          <td>(</td>
+          <td class="paramtype">Page&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00054">54</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00064">Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderTemplateProperty</a>.</p>
+
+</div>
+</div>
+<a id="a8960a99857166f86dc896422bb2d80c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8960a99857166f86dc896422bb2d80c5">&#9670;&nbsp;</a></span>OnAttached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Messenger.Behaviors.NavigationViewHeaderBehavior.OnAttached </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00067">67</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationService_8cs_source.html#l00013">Messenger.Services.NavigationService.Navigated</a>.</p>
+
+</div>
+</div>
+<a id="af6dd1a7743b23325b3c2185e202a7465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6dd1a7743b23325b3c2185e202a7465">&#9670;&nbsp;</a></span>OnDetaching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Messenger.Behaviors.NavigationViewHeaderBehavior.OnDetaching </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00074">74</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationService_8cs_source.html#l00013">Messenger.Services.NavigationService.Navigated</a>.</p>
+
+</div>
+</div>
+<a id="a60c5e67bc707b497afe1e87c75096ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c5e67bc707b497afe1e87c75096ccd">&#9670;&nbsp;</a></span>SetHeaderContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext </td>
+          <td>(</td>
+          <td class="paramtype">Page&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00046">46</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00051">Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderContextProperty</a>.</p>
+
+</div>
+</div>
+<a id="ad0678b7a657ac672e972a83ee9fe162d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0678b7a657ac672e972a83ee9fe162d">&#9670;&nbsp;</a></span>SetHeaderMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode </td>
+          <td>(</td>
+          <td class="paramtype">Page&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceMessenger_1_1Behaviors.html#ae16a301e911d77a53f21ec37890419d4">NavigationViewHeaderMode</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00033">33</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00038">Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderModeProperty</a>.</p>
+
+</div>
+</div>
+<a id="a5edf13192bdd829513633546a93568f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5edf13192bdd829513633546a93568f6">&#9670;&nbsp;</a></span>SetHeaderTemplate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate </td>
+          <td>(</td>
+          <td class="paramtype">Page&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataTemplate&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00059">59</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00064">Messenger.Behaviors.NavigationViewHeaderBehavior.HeaderTemplateProperty</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2bb522c95f20e4aef06269512bf63f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bb522c95f20e4aef06269512bf63f1d">&#9670;&nbsp;</a></span>DefaultHeaderProperty</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly DependencyProperty Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderProperty = DependencyProperty.Register(&quot;DefaultHeader&quot;, typeof(object), typeof(<a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html">NavigationViewHeaderBehavior</a>), new PropertyMetadata(null, (d, e) =&gt; _current.UpdateHeader()))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00026">26</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+</div>
+</div>
 <a id="ac606a2aa4c71a11396a0ad3cfa453eb3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac606a2aa4c71a11396a0ad3cfa453eb3">&#9670;&nbsp;</a></span>HeaderContextProperty</h2>
 
@@ -157,6 +460,10 @@ object&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultHeader</b><c
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.RegisterAttached(<span class="stringliteral">&quot;HeaderContext&quot;</span>, typeof(<span class="keywordtype">object</span>), typeof(NavigationViewHeaderBehavior), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>, (d, e) =&gt; _current.UpdateHeader()))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00051">51</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00041">Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderContext()</a>, and <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00046">Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderContext()</a>.</p>
+
 </div>
 </div>
 <a id="a1f06006663e06a55690c67360354c3d9"></a>
@@ -179,8 +486,13 @@ object&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultHeader</b><c
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.RegisterAttached(<span class="stringliteral">&quot;HeaderMode&quot;</span>, typeof(<span class="keywordtype">bool</span>), typeof(NavigationViewHeaderBehavior), <span class="keyword">new</span> PropertyMetadata(NavigationViewHeaderMode.Always, (d, e) =&gt; _current.UpdateHeader()))</div>
+<div class="line">            DependencyProperty.RegisterAttached(<span class="stringliteral">&quot;HeaderMode&quot;</span>, typeof(<span class="keywordtype">bool</span>), typeof(NavigationViewHeaderBehavior), <span class="keyword">new</span> PropertyMetadata(<a class="code" href="namespaceMessenger_1_1Behaviors.html#ae16a301e911d77a53f21ec37890419d4">NavigationViewHeaderMode</a>.Always, (d, e) =&gt; _current.UpdateHeader()))</div>
+<div class="ttc" id="anamespaceMessenger_1_1Behaviors_html_ae16a301e911d77a53f21ec37890419d4"><div class="ttname"><a href="namespaceMessenger_1_1Behaviors.html#ae16a301e911d77a53f21ec37890419d4">Messenger.Behaviors.NavigationViewHeaderMode</a></div><div class="ttdeci">NavigationViewHeaderMode</div><div class="ttdef"><b>Definition:</b> <a href="NavigationViewHeaderMode_8cs_source.html#l00003">NavigationViewHeaderMode.cs:4</a></div></div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00038">38</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00028">Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderMode()</a>, and <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00033">Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderMode()</a>.</p>
+
 </div>
 </div>
 <a id="a2013638f0ca1a9b13a74b588a2367b6d"></a>
@@ -205,15 +517,72 @@ object&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultHeader</b><c
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.RegisterAttached(<span class="stringliteral">&quot;HeaderTemplate&quot;</span>, typeof(DataTemplate), typeof(NavigationViewHeaderBehavior), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>, (d, e) =&gt; _current.UpdateHeaderTemplate()))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00064">64</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00054">Messenger.Behaviors.NavigationViewHeaderBehavior.GetHeaderTemplate()</a>, and <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00059">Messenger.Behaviors.NavigationViewHeaderBehavior.SetHeaderTemplate()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="aa0026753076022d9389bab52574f9dc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0026753076022d9389bab52574f9dc7">&#9670;&nbsp;</a></span>DefaultHeader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">object Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00020">20</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
+</div>
+</div>
+<a id="a09bff282df5919bb08524588d88141d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09bff282df5919bb08524588d88141d5">&#9670;&nbsp;</a></span>DefaultHeaderTemplate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataTemplate Messenger.Behaviors.NavigationViewHeaderBehavior.DefaultHeaderTemplate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html#l00018">18</a> of file <a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Behaviors/NavigationViewHeaderBehavior.cs</li>
+<li>Messenger/Messenger/Behaviors/<a class="el" href="NavigationViewHeaderBehavior_8cs_source.html">NavigationViewHeaderBehavior.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Behaviors.html">Behaviors</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html">NavigationViewHeaderBehavior</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

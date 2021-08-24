@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,13 +81,9 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1DialogBoxes.html">DialogBoxes</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html">CreateTeamDialog</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog-members.html">List of all members</a>  </div>
@@ -74,13 +91,20 @@ $(function() {
 <div class="title">Messenger.Views.DialogBoxes.CreateTeamDialog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.Views.DialogBoxes.CreateTeamDialog:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Views.DialogBoxes.CreateTeamDialog:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.png" alt=""/>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac42a1435f6e1afa96d6ec4013be6a76e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ac42a1435f6e1afa96d6ec4013be6a76e">CreateTeamDialog</a> ()</td></tr>
+<tr class="separator:ac42a1435f6e1afa96d6ec4013be6a76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a43dea3b7bcb373da5ec1209aa9725968"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#a43dea3b7bcb373da5ec1209aa9725968">TeamNameProperty</a></td></tr>
@@ -92,13 +116,42 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:ad9b7351353e52357955b74cdaccc5198"><td class="memItemLeft" align="right" valign="top"><a id="ad9b7351353e52357955b74cdaccc5198"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>TeamName</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ad9b7351353e52357955b74cdaccc5198"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ad9b7351353e52357955b74cdaccc5198">TeamName</a><code> [get, set]</code></td></tr>
 <tr class="separator:ad9b7351353e52357955b74cdaccc5198"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a7475cbfa1ee383381eb08dcd905c42"><td class="memItemLeft" align="right" valign="top"><a id="a1a7475cbfa1ee383381eb08dcd905c42"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>TeamDescription</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a1a7475cbfa1ee383381eb08dcd905c42"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#a1a7475cbfa1ee383381eb08dcd905c42">TeamDescription</a><code> [get, set]</code></td></tr>
 <tr class="separator:a1a7475cbfa1ee383381eb08dcd905c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00006">6</a> of file <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac42a1435f6e1afa96d6ec4013be6a76e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42a1435f6e1afa96d6ec4013be6a76e">&#9670;&nbsp;</a></span>CreateTeamDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.Views.DialogBoxes.CreateTeamDialog.CreateTeamDialog </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00032">32</a> of file <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ab8ecb9bd7d4de1ddb0cec93e327c0895"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8ecb9bd7d4de1ddb0cec93e327c0895">&#9670;&nbsp;</a></span>TeamDescriptionProperty</h2>
@@ -120,9 +173,12 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>TeamDescription</b>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;TeamDescription&quot;</span>, typeof(<span class="keywordtype">string</span>), typeof(CreateTeamDialog), <span class="keyword">new</span> PropertyMetadata(<span class="keywordtype">string</span>.Empty))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;TeamDescription&quot;</span>, typeof(<span class="keywordtype">string</span>), typeof(<a class="code" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ac42a1435f6e1afa96d6ec4013be6a76e">CreateTeamDialog</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keywordtype">string</span>.Empty))</div>
+<div class="ttc" id="aclassMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog_html_ac42a1435f6e1afa96d6ec4013be6a76e"><div class="ttname"><a href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ac42a1435f6e1afa96d6ec4013be6a76e">Messenger.Views.DialogBoxes.CreateTeamDialog.CreateTeamDialog</a></div><div class="ttdeci">CreateTeamDialog()</div><div class="ttdef"><b>Definition:</b> <a href="CreateTeamDialog_8xaml_8cs_source.html#l00032">CreateTeamDialog.xaml.cs:32</a></div></div>
 </div><!-- fragment -->
 <p>Description of the team to create (optional) </p>
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00029">29</a> of file <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a>.</p>
 
 </div>
 </div>
@@ -146,19 +202,78 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>TeamDescription</b>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;TeamName&quot;</span>, typeof(<span class="keywordtype">string</span>), typeof(CreateTeamDialog), <span class="keyword">new</span> PropertyMetadata(<span class="keywordtype">string</span>.Empty))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;TeamName&quot;</span>, typeof(<span class="keywordtype">string</span>), typeof(<a class="code" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ac42a1435f6e1afa96d6ec4013be6a76e">CreateTeamDialog</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keywordtype">string</span>.Empty))</div>
 </div><!-- fragment -->
 <p>Name of the team to create </p>
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00017">17</a> of file <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a1a7475cbfa1ee383381eb08dcd905c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a7475cbfa1ee383381eb08dcd905c42">&#9670;&nbsp;</a></span>TeamDescription</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Views.DialogBoxes.CreateTeamDialog.TeamDescription</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00020">20</a> of file <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateTeamCommand_8cs_source.html#l00029">Messenger.Commands.TeamManage.CreateTeamCommand.Execute()</a>.</p>
+
+</div>
+</div>
+<a id="ad9b7351353e52357955b74cdaccc5198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9b7351353e52357955b74cdaccc5198">&#9670;&nbsp;</a></span>TeamName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Views.DialogBoxes.CreateTeamDialog.TeamName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00008">8</a> of file <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateTeamCommand_8cs_source.html#l00029">Messenger.Commands.TeamManage.CreateTeamCommand.Execute()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Views/DialogBoxes/CreateTeamDialog.xaml.cs</li>
+<li>Messenger/Messenger/Views/DialogBoxes/<a class="el" href="CreateTeamDialog_8xaml_8cs_source.html">CreateTeamDialog.xaml.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1DialogBoxes.html">DialogBoxes</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html">CreateTeamDialog</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VPR_Messenger: Main Page</title>
+<title>VPR_Messenger: BIB_VPR</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,15 +81,127 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">VPR_Messenger Documentation</div>  </div>
+<div class="title">BIB_VPR </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> A group messaging service inspired by Discord and Microsoft Teams. Allows users to authenticate with their microsoft account</p>
+<p>Docs at <a href="https://jonasmuehlmann.github.io/BIB_VPR/">https://jonasmuehlmann.github.io/BIB_VPR/</a></p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Used technologies</h1>
+<ul>
+<li>.Net(Core, Framework, ASP)</li>
+<li>Azure SignalR</li>
+<li>SqlServer</li>
+<li>Azure Blob Storage</li>
+<li>UWP</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Features</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Chat Model</h2>
+<p>This messenger allows users to chat in private chats and <em>teams</em>, which are divided into <em>channels</em>. Teams hold the members and channels, channels hold the messages.</p>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Teams</h3>
+<h4><a class="anchor" id="autotoc_md5"></a>
+Team Management</h4>
+<ul>
+<li>Create/Delete teams</li>
+<li>Change team name</li>
+<li>Change team description</li>
+</ul>
+<h4><a class="anchor" id="autotoc_md6"></a>
+Member Management</h4>
+<ul>
+<li>Invite members</li>
+<li>Remove members</li>
+<li>List members</li>
+</ul>
+<h4><a class="anchor" id="autotoc_md7"></a>
+Role Management</h4>
+<ul>
+<li>Make/Remove user defined roles available to the team</li>
+<li>Assign/Unassign roles to members</li>
+</ul>
+<h4><a class="anchor" id="autotoc_md8"></a>
+Permission Management</h4>
+<ul>
+<li>Grant/Revoke permissions to roles</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md9"></a>
+Channels</h3>
+<ul>
+<li>Create/Delete channels</li>
+<li>Rename channels</li>
+<li>Pin messages to the top</li>
+<li><a href="###messaging">Send Messages</a></li>
+</ul>
+<h3><a class="anchor" id="autotoc_md10"></a>
+Private Chats</h3>
+<ul>
+<li>Create/Delete private chat rooms between two users</li>
+<li>Pin messages to the top</li>
+<li><a href="###messaging">Send Messages</a></li>
+</ul>
+<h3><a class="anchor" id="autotoc_md11"></a>
+Messaging</h3>
+<ul>
+<li>Send messages including emojis</li>
+<li>Edit messsages</li>
+<li>Delete messages</li>
+<li>Upload file attachments</li>
+<li>Send images, which are displayed in the chat view</li>
+<li>React to other messages with emojis</li>
+<li>Mention/Reference different entities like roles, messages</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Notifications</h2>
+<p>Notifications are sent when an event occurs either while the recieving user is offline or not in the view where the event takes place(e.g. recieving a message from another team)</p>
+<ul>
+<li>Collect and display notifications</li>
+<li>Go to origin of notification(e.g. channel where message was sent in)</li>
+<li>Mark notification as read</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md13"></a>
+Mentions/References</h3>
+<ul>
+<li>Mention/Reference entitites like:<ul>
+<li>Users</li>
+<li>Roles</li>
+<li>A channel</li>
+<li>The whole team</li>
+<li>A message</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md14"></a>
+User profile management</h2>
+<ul>
+<li>Edit User data like:<ul>
+<li>User name</li>
+<li>Bio</li>
+<li>Email address</li>
+<li>Profile picture</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Settings</h2>
+<ul>
+<li>Switch between light and dark theme</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md16"></a>
+Screenshots</h1>
+<p><img src="docs/MicrosoftTeams-image.png" alt="" class="inline"/> <img src="docs/MicrosoftTeams-image1.png" alt="" class="inline"/> <img src="docs/MicrosoftTeams-image2.png" alt="" class="inline"/> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

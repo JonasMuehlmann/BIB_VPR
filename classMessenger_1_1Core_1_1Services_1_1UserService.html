@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1UserService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html">UserService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -76,17 +92,18 @@ $(function() {
 
 <p>Holds helpers and static methods to interact with users on the DB  
  <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.Core.Services.UserService:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Core.Services.UserService:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Services_1_1UserService.png" alt=""/>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af14dfc2d6e0360bde2b1cee531b96381"><td class="memItemLeft" align="right" valign="top"><a id="af14dfc2d6e0360bde2b1cee531b96381"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#af14dfc2d6e0360bde2b1cee531b96381">Update</a> (string userId, string columnToChange, string newVal)</td></tr>
+<tr class="memitem:af14dfc2d6e0360bde2b1cee531b96381"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#af14dfc2d6e0360bde2b1cee531b96381">Update</a> (string userId, string columnToChange, string newVal)</td></tr>
 <tr class="memdesc:af14dfc2d6e0360bde2b1cee531b96381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a specified column for a specified user. /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userId</td><td>The id of the user, whose data will be updated</td></tr>
@@ -96,10 +113,9 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</dd></dl>
-<br /></td></tr>
+ <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#af14dfc2d6e0360bde2b1cee531b96381">More...</a><br /></td></tr>
 <tr class="separator:af14dfc2d6e0360bde2b1cee531b96381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0056d218815cf8f2c92a5b5840552199"><td class="memItemLeft" align="right" valign="top"><a id="a0056d218815cf8f2c92a5b5840552199"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a0056d218815cf8f2c92a5b5840552199">UpdateUsername</a> (string userId, string newUsername)</td></tr>
+<tr class="memitem:a0056d218815cf8f2c92a5b5840552199"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a0056d218815cf8f2c92a5b5840552199">UpdateUsername</a> (string userId, string newUsername)</td></tr>
 <tr class="memdesc:a0056d218815cf8f2c92a5b5840552199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a specified users name /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userId</td><td>The id of the user, whose name will be updated</td></tr>
@@ -108,10 +124,9 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
-<br /></td></tr>
+ <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a0056d218815cf8f2c92a5b5840552199">More...</a><br /></td></tr>
 <tr class="separator:a0056d218815cf8f2c92a5b5840552199"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accfe05fb1b2837328b6ec4317fb895c8"><td class="memItemLeft" align="right" valign="top"><a id="accfe05fb1b2837328b6ec4317fb895c8"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#accfe05fb1b2837328b6ec4317fb895c8">UpdateUserMail</a> (string userId, string newMail)</td></tr>
+<tr class="memitem:accfe05fb1b2837328b6ec4317fb895c8"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#accfe05fb1b2837328b6ec4317fb895c8">UpdateUserMail</a> (string userId, string newMail)</td></tr>
 <tr class="memdesc:accfe05fb1b2837328b6ec4317fb895c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a specified users email /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userId</td><td>The id of the user, whose email will be updated</td></tr>
@@ -120,10 +135,9 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
-<br /></td></tr>
+ <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#accfe05fb1b2837328b6ec4317fb895c8">More...</a><br /></td></tr>
 <tr class="separator:accfe05fb1b2837328b6ec4317fb895c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3755811adc98c86c8434f57a785acdb8"><td class="memItemLeft" align="right" valign="top"><a id="a3755811adc98c86c8434f57a785acdb8"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a3755811adc98c86c8434f57a785acdb8">UpdateUserPhoto</a> (string userId, string newPhoto)</td></tr>
+<tr class="memitem:a3755811adc98c86c8434f57a785acdb8"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a3755811adc98c86c8434f57a785acdb8">UpdateUserPhoto</a> (string userId, string newPhoto)</td></tr>
 <tr class="memdesc:a3755811adc98c86c8434f57a785acdb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a specified users photo /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userId</td><td>The id of the user, whose photo will be updated</td></tr>
@@ -132,10 +146,9 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
-<br /></td></tr>
+ <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a3755811adc98c86c8434f57a785acdb8">More...</a><br /></td></tr>
 <tr class="separator:a3755811adc98c86c8434f57a785acdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c83744b1bb2d6e804cf882fba5aa4c2"><td class="memItemLeft" align="right" valign="top"><a id="a5c83744b1bb2d6e804cf882fba5aa4c2"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a5c83744b1bb2d6e804cf882fba5aa4c2">UpdateUserBio</a> (string userId, string newBio)</td></tr>
+<tr class="memitem:a5c83744b1bb2d6e804cf882fba5aa4c2"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a5c83744b1bb2d6e804cf882fba5aa4c2">UpdateUserBio</a> (string userId, string newBio)</td></tr>
 <tr class="memdesc:a5c83744b1bb2d6e804cf882fba5aa4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a specified users bio /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userId</td><td>The id of the user, whose bio will be updated</td></tr>
@@ -144,7 +157,7 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
-<br /></td></tr>
+ <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a5c83744b1bb2d6e804cf882fba5aa4c2">More...</a><br /></td></tr>
 <tr class="separator:a5c83744b1bb2d6e804cf882fba5aa4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac11b0f0e3816153cccd4da715356c0c9"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#ac11b0f0e3816153cccd4da715356c0c9">GetOrCreateApplicationUser</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> userdata)</td></tr>
 <tr class="memdesc:ac11b0f0e3816153cccd4da715356c0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create or retrieve an application user from a specified user object holding a GraphService Id.  <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#ac11b0f0e3816153cccd4da715356c0c9">More...</a><br /></td></tr>
@@ -164,6 +177,8 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds helpers and static methods to interact with users on the DB </p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00016">16</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0bb00f415851f9b6009b10150f010f5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0bb00f415851f9b6009b10150f010f5e">&#9670;&nbsp;</a></span>DeleteUser()</h2>
@@ -197,6 +212,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00278">278</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
 
 </div>
 </div>
@@ -233,6 +252,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The existing or newly created User object</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00180">180</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="User_8cs_source.html#l00019">Messenger.Core.Models.User.DisplayName</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, <a class="el" href="User_8cs_source.html#l00024">Messenger.Core.Models.User.NameId</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>, <a class="el" href="User_8cs_source.html#l00029">Messenger.Core.Models.User.Photo</a>, <a class="el" href="FileSharingService_8cs_source.html#l00127">Messenger.Core.Services.FileSharingService.UploadFromBase64()</a>, <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>, and <a class="el" href="Mapper_8cs_source.html#l00043">Messenger.Core.Helpers.Mapper.UserFromMSGraph()</a>.</p>
+
 </div>
 </div>
 <a id="ae284599a84ca261552fd06ed48fcbdfb"></a>
@@ -267,6 +290,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A full User object</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00301">301</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, and <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="RemoveUserCommand_8cs_source.html#l00023">Messenger.Commands.TeamManage.RemoveUserCommand.Execute()</a>, <a class="el" href="MessengerService_8cs_source.html#l00632">Messenger.Core.Services.MessengerService.GetUserWithNameId()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MentionService_8cs_source.html#l00101">Messenger.Core.Services.MentionService.ResolveMentions()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00133">Messenger.Helpers.MessageHelpers.MessageBuilder.WithSender()</a>.</p>
 
 </div>
 </div>
@@ -314,6 +343,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A full User object</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00333">333</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>.</p>
+
 </div>
 </div>
 <a id="af7e4f61a320c6ee9f039437917843ce2"></a>
@@ -349,15 +382,288 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>List of top 10 matched User names</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00362">362</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>.</p>
+
+</div>
+</div>
+<a id="af14dfc2d6e0360bde2b1cee531b96381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14dfc2d6e0360bde2b1cee531b96381">&#9670;&nbsp;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.UserService.Update </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>columnToChange</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>newVal</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a specified column for a specified user. /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userId</td><td>The id of the user, whose data will be updated</td></tr>
+    <tr><td class="paramname">columnToChange</td><td>The column to update for the user</td></tr>
+    <tr><td class="paramname">newVal</td><td>The new value for the specifed column for the specified user</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</dd></dl>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00027">27</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00103">Messenger.Core.Helpers.SqlHelpers.GetColumnType()</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>, and <a class="el" href="UserService_8cs_source.html#l00063">Messenger.Core.Services.UserService.UpdateUsername()</a>.</p>
+
+</div>
+</div>
+<a id="a5c83744b1bb2d6e804cf882fba5aa4c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c83744b1bb2d6e804cf882fba5aa4c2">&#9670;&nbsp;</a></span>UpdateUserBio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.UserService.UpdateUserBio </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>newBio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a specified users bio /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userId</td><td>The id of the user, whose bio will be updated</td></tr>
+    <tr><td class="paramname">newBio</td><td>The new bio to set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00156">156</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>.</p>
+
+</div>
+</div>
+<a id="accfe05fb1b2837328b6ec4317fb895c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfe05fb1b2837328b6ec4317fb895c8">&#9670;&nbsp;</a></span>UpdateUserMail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.UserService.UpdateUserMail </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>newMail</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a specified users email /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userId</td><td>The id of the user, whose email will be updated</td></tr>
+    <tr><td class="paramname">newMail</td><td>The new email to set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00105">105</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>.</p>
+
+</div>
+</div>
+<a id="a0056d218815cf8f2c92a5b5840552199"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0056d218815cf8f2c92a5b5840552199">&#9670;&nbsp;</a></span>UpdateUsername()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.UserService.UpdateUsername </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>newUsername</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a specified users name /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userId</td><td>The id of the user, whose name will be updated</td></tr>
+    <tr><td class="paramname">newUsername</td><td>The new username to set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00063">63</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserService_8cs_source.html#l00027">Messenger.Core.Services.UserService.Update()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>.</p>
+
+</div>
+</div>
+<a id="a3755811adc98c86c8434f57a785acdb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3755811adc98c86c8434f57a785acdb8">&#9670;&nbsp;</a></span>UpdateUserPhoto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.UserService.UpdateUserPhoto </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>newPhoto</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a specified users photo /summary&gt; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userId</td><td>The id of the user, whose photo will be updated</td></tr>
+    <tr><td class="paramname">newPhoto</td><td>The new photo to set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query, false otherwise</dd></dl>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00130">130</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/UserService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="UserService_8cs_source.html">UserService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html">UserService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

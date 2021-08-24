@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1MessengerService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">MessengerService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -86,8 +102,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:abab5dfc717e70a1c8acb5e25981fe19a"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#abab5dfc717e70a1c8acb5e25981fe19a">GetMessages</a> (uint channelId)</td></tr>
 <tr class="memdesc:abab5dfc717e70a1c8acb5e25981fe19a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all messages of the team  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#abab5dfc717e70a1c8acb5e25981fe19a">More...</a><br /></td></tr>
 <tr class="separator:abab5dfc717e70a1c8acb5e25981fe19a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2a043d3fe88d76974f1c980dc20d320"><td class="memItemLeft" align="right" valign="top"><a id="ac2a043d3fe88d76974f1c980dc20d320"></a>
-static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMessage</b> (uint messageId)</td></tr>
+<tr class="memitem:ac2a043d3fe88d76974f1c980dc20d320"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ac2a043d3fe88d76974f1c980dc20d320">GetMessage</a> (uint messageId)</td></tr>
 <tr class="separator:ac2a043d3fe88d76974f1c980dc20d320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ee0203eb531c86cfaec43beb5484e5b"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a8ee0203eb531c86cfaec43beb5484e5b">SendMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, uint teamId)</td></tr>
 <tr class="memdesc:a8ee0203eb531c86cfaec43beb5484e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the message to the database and simultaneously broadcasts to the connected Signal-R hub  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a8ee0203eb531c86cfaec43beb5484e5b">More...</a><br /></td></tr>
@@ -98,8 +113,7 @@ static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Me
 <tr class="memitem:a3bf01add80c82c5d19865a5353d65e79"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a3bf01add80c82c5d19865a5353d65e79">UpdateMessage</a> (uint messageId, string newContent, uint teamId)</td></tr>
 <tr class="memdesc:a3bf01add80c82c5d19865a5353d65e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change a messages content and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a3bf01add80c82c5d19865a5353d65e79">More...</a><br /></td></tr>
 <tr class="separator:a3bf01add80c82c5d19865a5353d65e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62565e9e6eac3e92e65b7ec80ef61652"><td class="memItemLeft" align="right" valign="top"><a id="a62565e9e6eac3e92e65b7ec80ef61652"></a>
-static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetReactions</b> (uint messageId)</td></tr>
+<tr class="memitem:a62565e9e6eac3e92e65b7ec80ef61652"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a62565e9e6eac3e92e65b7ec80ef61652">GetReactions</a> (uint messageId)</td></tr>
 <tr class="separator:a62565e9e6eac3e92e65b7ec80ef61652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77ef5dd21275ec31699255e8333d9d36"><td class="memItemLeft" align="right" valign="top">static async Task&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a77ef5dd21275ec31699255e8333d9d36">CreateMessageReaction</a> (uint messageId, string userId, uint teamId, string reaction)</td></tr>
 <tr class="memdesc:a77ef5dd21275ec31699255e8333d9d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a reaction to a message and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a77ef5dd21275ec31699255e8333d9d36">More...</a><br /></td></tr>
@@ -158,8 +172,7 @@ static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core
 <tr class="separator:a99ad70a09c5547faecddf248c8146266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a9ee61c44d1255f0913e617ed04aeda"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9a9ee61c44d1255f0913e617ed04aeda">UpdateUserPhoto</a> (string userId, string newPhotoURL)</td></tr>
 <tr class="separator:a9a9ee61c44d1255f0913e617ed04aeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9738b95bd73dfddb38fb8c0e78f75829"><td class="memItemLeft" align="right" valign="top"><a id="a9738b95bd73dfddb38fb8c0e78f75829"></a>
-static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRolesList</b> (uint teamId, string userId)</td></tr>
+<tr class="memitem:a9738b95bd73dfddb38fb8c0e78f75829"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9738b95bd73dfddb38fb8c0e78f75829">GetRolesList</a> (uint teamId, string userId)</td></tr>
 <tr class="separator:a9738b95bd73dfddb38fb8c0e78f75829"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0a679bf00d7b9bdcd4c532473ea2c53"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa0a679bf00d7b9bdcd4c532473ea2c53">CreateTeamRole</a> (string role, uint teamId, string colorCode)</td></tr>
 <tr class="memdesc:aa0a679bf00d7b9bdcd4c532473ea2c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a role to a team with the specified teamId and notify other clients  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa0a679bf00d7b9bdcd4c532473ea2c53">More...</a><br /></td></tr>
@@ -190,12 +203,13 @@ Properties</h2></td></tr>
 <tr class="memitem:a166cc663374b23a6f3908442487df9b1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html">SignalRService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a166cc663374b23a6f3908442487df9b1">SignalRService</a><code> [get]</code></td></tr>
 <tr class="memdesc:a166cc663374b23a6f3908442487df9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The signalRService holding the connection and defined messages to send to the hub  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a166cc663374b23a6f3908442487df9b1">More...</a><br /></td></tr>
 <tr class="separator:a166cc663374b23a6f3908442487df9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65cf5588551168c6535da06de1cb55fa"><td class="memItemLeft" align="right" valign="top"><a id="a65cf5588551168c6535da06de1cb55fa"></a>
-static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
+<tr class="memitem:a65cf5588551168c6535da06de1cb55fa"><td class="memItemLeft" align="right" valign="top">static ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a65cf5588551168c6535da06de1cb55fa">logger</a><code> [get]</code></td></tr>
 <tr class="separator:a65cf5588551168c6535da06de1cb55fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds static wrappers around other Service's methods and adds Message passing to notify other clients of changes </p>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00019">19</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a71b3144d6d2b7f925a4b4ca494c9b5cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71b3144d6d2b7f925a4b4ca494c9b5cb">&#9670;&nbsp;</a></span>AssignUserRole()</h2>
@@ -248,6 +262,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00947">947</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00548">Messenger.Core.Services.TeamService.AssignRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00488">Messenger.Core.Services.SignalRService.UpdateMember()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="AssignTeamRoleCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.AssignTeamRoleCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a439978fcd19b38d516b893cd9f9515a7"></a>
@@ -293,6 +313,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the channel was successfully created, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00514">514</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00364">Messenger.Core.Services.SignalRService.CreateChannel()</a>, <a class="el" href="ChannelService_8cs_source.html#l00024">Messenger.Core.Services.ChannelService.CreateChannel()</a>, <a class="el" href="ChannelService_8cs_source.html#l00108">Messenger.Core.Services.ChannelService.GetChannel()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateChannelCommand_8cs_source.html#l00023">Messenger.Commands.TeamManage.CreateChannelCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -353,6 +379,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00249">249</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessageService_8cs_source.html#l00266">Messenger.Core.Services.MessageService.AddReaction()</a>, <a class="el" href="MessageService_8cs_source.html#l00137">Messenger.Core.Services.MessageService.GetMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="MessageService_8cs_source.html#l00349">Messenger.Core.Services.MessageService.RetrieveReactions()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00283">Messenger.Core.Services.SignalRService.UpdateMessageReactions()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ToggleReactionCommand_8cs_source.html#l00028">Messenger.Commands.Messenger.ToggleReactionCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a112a6e879f278a7d16a0f6b3911e500d"></a>
@@ -405,6 +437,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Id of the newly created team on success, null on fail (error will be handled in each service)</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00358">358</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00273">Messenger.Core.Services.TeamService.AddMember()</a>, <a class="el" href="TeamService_8cs_source.html#l00443">Messenger.Core.Services.TeamService.AddRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00548">Messenger.Core.Services.TeamService.AssignRole()</a>, <a class="el" href="ChannelService_8cs_source.html#l00024">Messenger.Core.Services.ChannelService.CreateChannel()</a>, <a class="el" href="TeamService_8cs_source.html#l00026">Messenger.Core.Services.TeamService.CreateTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00309">Messenger.Core.Services.SignalRService.CreateTeam()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="TeamService_8cs_source.html#l00713">Messenger.Core.Services.TeamService.GrantPermission()</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateTeamCommand_8cs_source.html#l00029">Messenger.Commands.TeamManage.CreateTeamCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -459,6 +497,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00852">852</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00443">Messenger.Core.Services.TeamService.AddRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00512">Messenger.Core.Services.TeamService.GetRole()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateTeamRoleCommand_8cs_source.html#l00026">Messenger.Commands.TeamManage.CreateTeamRoleCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="aeef9238a7ed6bcd0bd1a5d4c2031b443"></a>
@@ -493,6 +537,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An awaitable task</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00544">544</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00398">Messenger.Core.Services.SignalRService.DeleteChannel()</a>, <a class="el" href="ChannelService_8cs_source.html#l00108">Messenger.Core.Services.ChannelService.GetChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="ChannelService_8cs_source.html#l00049">Messenger.Core.Services.ChannelService.RemoveChannel()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RemoveChannelCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.RemoveChannelCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -538,6 +588,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the team was successfully deleted, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00176">176</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="FileSharingService_8cs_source.html#l00170">Messenger.Core.Services.FileSharingService.Delete()</a>, <a class="el" href="SignalRService_8cs_source.html#l00265">Messenger.Core.Services.SignalRService.DeleteMessage()</a>, <a class="el" href="MessageService_8cs_source.html#l00192">Messenger.Core.Services.MessageService.DeleteMessage()</a>, <a class="el" href="MessageService_8cs_source.html#l00235">Messenger.Core.Services.MessageService.GetBlobFileNamesOfAttachments()</a>, <a class="el" href="MessageService_8cs_source.html#l00137">Messenger.Core.Services.MessageService.GetMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DeleteMessageCommand_8cs_source.html#l00026">Messenger.Commands.Messenger.DeleteMessageCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -598,6 +654,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whetever or not to the reaction was successfully removed</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00282">282</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessageService_8cs_source.html#l00137">Messenger.Core.Services.MessageService.GetMessage()</a>, <a class="el" href="Message_8cs_source.html#l00015">Messenger.Core.Models.Message.Id</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="MessageService_8cs_source.html#l00293">Messenger.Core.Services.MessageService.RemoveReaction()</a>, <a class="el" href="MessageService_8cs_source.html#l00349">Messenger.Core.Services.MessageService.RetrieveReactions()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00283">Messenger.Core.Services.SignalRService.UpdateMessageReactions()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ToggleReactionCommand_8cs_source.html#l00028">Messenger.Commands.Messenger.ToggleReactionCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="ab01f2292133ce2d756c758899ef30dc7"></a>
@@ -632,6 +694,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The deleted Team on success, null otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00456">456</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00343">Messenger.Core.Services.SignalRService.DeleteTeam()</a>, <a class="el" href="TeamService_8cs_source.html#l00079">Messenger.Core.Services.TeamService.DeleteTeam()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="ChannelService_8cs_source.html#l00069">Messenger.Core.Services.ChannelService.RemoveAllChannels()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RemoveChatCommand_8cs_source.html#l00020">Messenger.Commands.PrivateChat.RemoveChatCommand.Execute()</a>, and <a class="el" href="RemoveTeamCommand_8cs_source.html#l00024">Messenger.Commands.TeamManage.RemoveTeamCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -679,6 +747,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00907">907</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00436">Messenger.Core.Services.SignalRService.DeleteTeamRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00512">Messenger.Core.Services.TeamService.GetRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00650">Messenger.Core.Services.TeamService.GetUsersWithRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="TeamService_8cs_source.html#l00488">Messenger.Core.Services.TeamService.RemoveRole()</a>, and <a class="el" href="TeamService_8cs_source.html#l00588">Messenger.Core.Services.TeamService.UnAssignRole()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RemoveTeamRoleCommand_8cs_source.html#l00017">Messenger.Commands.TeamManage.RemoveTeamRoleCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a80ae9c3ea6da61093a916f209cd17ab5"></a>
@@ -713,6 +787,42 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a list with all channels</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00590">590</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00420">Messenger.Core.Services.TeamService.GetAllChannelsByTeamId()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00093">Messenger.Helpers.TeamHelpers.TeamBuilder.WithChannels()</a>.</p>
+
+</div>
+</div>
+<a id="ac2a043d3fe88d76974f1c980dc20d320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2a043d3fe88d76974f1c980dc20d320">&#9670;&nbsp;</a></span>GetMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&gt; Messenger.Core.Services.MessengerService.GetMessage </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>messageId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00100">100</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessageService_8cs_source.html#l00137">Messenger.Core.Services.MessageService.GetMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
 
 </div>
 </div>
@@ -749,6 +859,84 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>List of messages</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00086">86</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="MessageService_8cs_source.html#l00072">Messenger.Core.Services.MessageService.RetrieveMessages()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageBuilder_8cs_source.html#l00026">Messenger.Helpers.MessageHelpers.MessageBuilder.GetMessagesFromDatabase()</a>.</p>
+
+</div>
+</div>
+<a id="a62565e9e6eac3e92e65b7ec80ef61652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62565e9e6eac3e92e65b7ec80ef61652">&#9670;&nbsp;</a></span>GetReactions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;IEnumerable&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html">Reaction</a>&gt; &gt; Messenger.Core.Services.MessengerService.GetReactions </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>messageId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00229">229</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="MessageService_8cs_source.html#l00349">Messenger.Core.Services.MessageService.RetrieveReactions()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageBuilder_8cs_source.html#l00067">Messenger.Helpers.MessageHelpers.MessageBuilder.WithReactions()</a>.</p>
+
+</div>
+</div>
+<a id="a9738b95bd73dfddb38fb8c0e78f75829"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9738b95bd73dfddb38fb8c0e78f75829">&#9670;&nbsp;</a></span>GetRolesList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;IEnumerable&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a>&gt; &gt; Messenger.Core.Services.MessengerService.GetRolesList </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>teamId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00831">831</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00679">Messenger.Core.Services.TeamService.GetUsersRoles()</a>.</p>
+
 </div>
 </div>
 <a id="a2491aff81294c379e49a4e7f9a6a0258"></a>
@@ -783,6 +971,10 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A complete Team object</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00338">338</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
 
 </div>
 </div>
@@ -819,6 +1011,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>List of teams</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00612">612</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00390">Messenger.Core.Services.TeamService.GetAllMembers()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00054">Messenger.Helpers.TeamHelpers.TeamBuilder.WithMembers()</a>.</p>
+
 </div>
 </div>
 <a id="a0bbf126af4adc2b648860c94567f0acb"></a>
@@ -853,6 +1051,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>List of teams</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00320">320</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00243">Messenger.Core.Services.TeamService.GetAllTeamsByUserId()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00014">Messenger.Helpers.TeamHelpers.TeamBuilder.GetTeamsFromDatabase()</a>.</p>
 
 </div>
 </div>
@@ -899,6 +1103,10 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A complete User object on success, null if the user was not found</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00632">632</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
 
 </div>
 </div>
@@ -954,6 +1162,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l01018">1018</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00512">Messenger.Core.Services.TeamService.GetRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00713">Messenger.Core.Services.TeamService.GrantPermission()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a634d8a2e7a0e69c93627309674d514d6"></a>
@@ -1003,6 +1217,10 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 <p>LOAD TEAMS</p>
 <p>CONNECT TO EACH SIGNAL-R GROUPS</p>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00036">36</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00243">Messenger.Core.Services.TeamService.GetAllTeamsByUserId()</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00107">Messenger.Core.Services.SignalRService.OpenConnection()</a>.</p>
+
 </div>
 </div>
 <a id="a70dac26bef9f6990e399b887af88c401"></a>
@@ -1049,6 +1267,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success, false on invalid message (error will be handled in each service)</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00713">713</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="TeamService_8cs_source.html#l00336">Messenger.Core.Services.TeamService.RemoveMember()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00506">Messenger.Core.Services.SignalRService.RemoveMember()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RemoveUserCommand_8cs_source.html#l00023">Messenger.Commands.TeamManage.RemoveUserCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="aa5e022419ec275539459420f0f144619"></a>
@@ -1094,6 +1318,10 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the channel was successfully renamed, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00567">567</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChannelService_8cs_source.html#l00108">Messenger.Core.Services.ChannelService.GetChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="ChannelService_8cs_source.html#l00091">Messenger.Core.Services.ChannelService.RenameChannel()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00381">Messenger.Core.Services.SignalRService.UpdateChannel()</a>.</p>
 
 </div>
 </div>
@@ -1148,6 +1376,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l01047">1047</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00512">Messenger.Core.Services.TeamService.GetRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="TeamService_8cs_source.html#l00780">Messenger.Core.Services.TeamService.RevokePermission()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RevokePermissionCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.RevokePermissionCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="aa690d0e394ac175474fb41e071822677"></a>
@@ -1194,6 +1428,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success, false on invalid message (error will be handled in each service)</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00652">652</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00273">Messenger.Core.Services.TeamService.AddMember()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="NotificationMessageBuilder_8cs_source.html#l00232">Messenger.Core.Helpers.NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00458">Messenger.Core.Services.SignalRService.SendInvitation()</a>, <a class="el" href="NotificationService_8cs_source.html#l00025">Messenger.Core.Services.NotificationService.SendNotification()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00205">Messenger.Core.Services.SignalRService.SendNotificationToUser()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="InviteUserCommand_8cs_source.html#l00026">Messenger.Commands.TeamManage.InviteUserCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a8ee0203eb531c86cfaec43beb5484e5b"></a>
@@ -1238,6 +1478,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success, false on invalid message (error will be handled in each service)</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00119">119</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Message_8cs_source.html#l00025">Messenger.Core.Models.Message.Content</a>, <a class="el" href="MessageService_8cs_source.html#l00026">Messenger.Core.Services.MessageService.CreateMessage()</a>, <a class="el" href="Message_8cs_source.html#l00015">Messenger.Core.Models.Message.Id</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="Message_8cs_source.html#l00040">Messenger.Core.Models.Message.ParentMessageId</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="FileSharingService_8cs_source.html#l00089">Messenger.Core.Services.FileSharingService.Upload()</a>, and <a class="el" href="Message_8cs_source.html#l00052">Messenger.Core.Models.Message.UploadFileData</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -1284,6 +1530,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The id of the created chat's team on success, null otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l01084">1084</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00443">Messenger.Core.Services.TeamService.AddRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00548">Messenger.Core.Services.TeamService.AssignRole()</a>, <a class="el" href="ChannelService_8cs_source.html#l00024">Messenger.Core.Services.ChannelService.CreateChannel()</a>, <a class="el" href="PrivateChatService_8cs_source.html#l00026">Messenger.Core.Services.PrivateChatService.CreatePrivateChat()</a>, <a class="el" href="SignalRService_8cs_source.html#l00309">Messenger.Core.Services.SignalRService.CreateTeam()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="TeamService_8cs_source.html#l00713">Messenger.Core.Services.TeamService.GrantPermission()</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="StartChatCommand_8cs_source.html#l00033">Messenger.Commands.PrivateChat.StartChatCommand.Execute()</a>, and <a class="el" href="StartChatWithUserCommand_8cs_source.html#l00032">Messenger.Commands.PrivateChat.StartChatWithUserCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -1338,6 +1590,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00983">983</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="TeamService_8cs_source.html#l00588">Messenger.Core.Services.TeamService.UnAssignRole()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00488">Messenger.Core.Services.SignalRService.UpdateMember()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UnassignTeamRoleCommand_8cs_source.html#l00026">Messenger.Commands.TeamManage.UnassignTeamRoleCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a3bf01add80c82c5d19865a5353d65e79"></a>
@@ -1390,6 +1648,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the channel was successfully renamed, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00212">212</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessageService_8cs_source.html#l00169">Messenger.Core.Services.MessageService.EditMessage()</a>, <a class="el" href="MessageService_8cs_source.html#l00137">Messenger.Core.Services.MessageService.GetMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00247">Messenger.Core.Services.SignalRService.UpdateMessage()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateMessageCommand_8cs_source.html#l00026">Messenger.Commands.Messenger.UpdateMessageCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="ad3d3c6f0b20b3762ced93658bdc76055"></a>
@@ -1436,6 +1700,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the team's description was successfully changed, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00491">491</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00171">Messenger.Core.Services.TeamService.ChangeTeamDescription()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00326">Messenger.Core.Services.SignalRService.UpdateTeam()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamDetailsCommand_8cs_source.html#l00030">Messenger.Commands.TeamManage.UpdateTeamDetailsCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a194eafdd3ac6fcb3ed35b52f1b0ad1df"></a>
@@ -1481,6 +1751,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the team was successfully renamed, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00434">434</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00139">Messenger.Core.Services.TeamService.ChangeTeamName()</a>, <a class="el" href="TeamService_8cs_source.html#l00216">Messenger.Core.Services.TeamService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00326">Messenger.Core.Services.SignalRService.UpdateTeam()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamDetailsCommand_8cs_source.html#l00030">Messenger.Commands.TeamManage.UpdateTeamDetailsCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -1535,6 +1811,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00880">880</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="TeamService_8cs_source.html#l00512">Messenger.Core.Services.TeamService.GetRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="TeamService_8cs_source.html#l00463">Messenger.Core.Services.TeamService.UpdateRole()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <a id="a99ad70a09c5547faecddf248c8146266"></a>
@@ -1580,6 +1862,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the bio was successfully updated, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00792">792</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>, and <a class="el" href="UserService_8cs_source.html#l00156">Messenger.Core.Services.UserService.UpdateUserBio()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateUserBioCommand_8cs_source.html#l00026">Messenger.Commands.UserData.UpdateUserBioCommand.Execute()</a>.</p>
 
 </div>
 </div>
@@ -1628,6 +1916,10 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the email was successfully updated, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00746">746</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>, and <a class="el" href="UserService_8cs_source.html#l00105">Messenger.Core.Services.UserService.UpdateUserMail()</a>.</p>
+
 </div>
 </div>
 <a id="a9a9ee61c44d1255f0913e617ed04aeda"></a>
@@ -1674,6 +1966,10 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the photo was successfully updated, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00814">814</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>, and <a class="el" href="UserService_8cs_source.html#l00130">Messenger.Core.Services.UserService.UpdateUserPhoto()</a>.</p>
 
 </div>
 </div>
@@ -1722,9 +2018,41 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the username was successfully updated, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00769">769</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>, and <a class="el" href="UserService_8cs_source.html#l00063">Messenger.Core.Services.UserService.UpdateUsername()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateUserNameCommand_8cs_source.html#l00026">Messenger.Commands.UserData.UpdateUserNameCommand.Execute()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a65cf5588551168c6535da06de1cb55fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65cf5588551168c6535da06de1cb55fa">&#9670;&nbsp;</a></span>logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.Core.Services.MessengerService.logger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00026">26</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00514">Messenger.Core.Services.MessengerService.CreateChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00852">Messenger.Core.Services.MessengerService.CreateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00544">Messenger.Core.Services.MessengerService.DeleteChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00456">Messenger.Core.Services.MessengerService.DeleteTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00590">Messenger.Core.Services.MessengerService.GetChannelsForTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00100">Messenger.Core.Services.MessengerService.GetMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00086">Messenger.Core.Services.MessengerService.GetMessages()</a>, <a class="el" href="MessengerService_8cs_source.html#l00229">Messenger.Core.Services.MessengerService.GetReactions()</a>, <a class="el" href="MessengerService_8cs_source.html#l00338">Messenger.Core.Services.MessengerService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00612">Messenger.Core.Services.MessengerService.GetTeamMembers()</a>, <a class="el" href="MessengerService_8cs_source.html#l00320">Messenger.Core.Services.MessengerService.GetTeams()</a>, <a class="el" href="MessengerService_8cs_source.html#l00632">Messenger.Core.Services.MessengerService.GetUserWithNameId()</a>, <a class="el" href="MessengerService_8cs_source.html#l01018">Messenger.Core.Services.MessengerService.GrantPermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MessengerService_8cs_source.html#l00567">Messenger.Core.Services.MessengerService.RenameChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l01047">Messenger.Core.Services.MessengerService.RevokePermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00212">Messenger.Core.Services.MessengerService.UpdateMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00491">Messenger.Core.Services.MessengerService.UpdateTeamDescription()</a>, <a class="el" href="MessengerService_8cs_source.html#l00434">Messenger.Core.Services.MessengerService.UpdateTeamName()</a>, <a class="el" href="MessengerService_8cs_source.html#l00880">Messenger.Core.Services.MessengerService.UpdateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>.</p>
+
+</div>
+</div>
 <a id="a166cc663374b23a6f3908442487df9b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a166cc663374b23a6f3908442487df9b1">&#9670;&nbsp;</a></span>SignalRService</h2>
 
@@ -1747,15 +2075,21 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 <p>The signalRService holding the connection and defined messages to send to the hub </p>
 
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00024">24</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/MessengerService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">MessengerService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

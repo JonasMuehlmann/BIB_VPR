@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_n.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,14 +82,44 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_n"></a>- n -</h3><ul>
 <li>Name
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a6ea94af5d90e3687802f334da29665b8">Messenger.Core.Models.Team</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html#a0bb95c61f6e785a263bf0b2b3cad233b">Messenger.ViewModels.DataViewModels.UserViewModel</a>
 </li>
 <li>NameId
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html#a0baf5c8fcf2dc88f5655160615214c37">Messenger.Core.Models.User</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html#a63209a0c4f6154d933d9f9e14ac0ed5b">Messenger.ViewModels.DataViewModels.UserViewModel</a>
+</li>
+<li>Navigate()
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#a33693226e84720d26b83d3654235e2e1">Messenger.Services.NavigationService</a>
+</li>
+<li>Navigate&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#aec339510d03a09e87a1806f29b1cce7a">Messenger.Services.NavigationService</a>
+</li>
+<li>NavigateBackCommand
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a58021e6daa70b94f8b531bfa8744ae27">Messenger.ViewModels.Pages.SettingsViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamManageViewModel.html#a01886b79a2f8600942d6f217ab23ef82">Messenger.ViewModels.Pages.TeamManageViewModel</a>
+</li>
+<li>Navigated
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#a14e2a655a397703f2f851d1b680de4d1">Messenger.Services.NavigationService</a>
+</li>
+<li>NavigateToChats
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1SideNavigation.html#a66b87c1b05d165e9cb7f481b4f11c981">Messenger.Views.Subcontrols.SideNavigation</a>
+</li>
+<li>NavigateToNotifications
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1SideNavigation.html#ae470b31e7ecd6fe23cce96cfdf3c5421">Messenger.Views.Subcontrols.SideNavigation</a>
+</li>
+<li>NavigateToTeams
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1SideNavigation.html#ae983369c72a327fe72a1e9bf543e3e6d">Messenger.Views.Subcontrols.SideNavigation</a>
+</li>
+<li>NavigationFailed
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#a4e86c41d8150fecac3d63646094c201d">Messenger.Services.NavigationService</a>
+</li>
+<li>NewRoleTitle
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a233dc0224b88d4d518c8a54643d1645f">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel</a>
 </li>
 <li>NonQueryAsync()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#ab83ca55cb1c27ddad35ee38dd04ac3fb">Messenger.Core.Helpers.SqlHelpers</a>
@@ -80,11 +130,30 @@ $(function() {
 <li>NotificationFromDataRow()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ade471c774fcd8f824baf3ed9ba3e2172">Messenger.Core.Helpers.Mapper</a>
 </li>
+<li>NotificationMessageViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel.html#a61d53bb74f7ce89044762e64e6d29b1a">Messenger.ViewModels.DataViewModels.NotificationMessageViewModel</a>
+</li>
 <li>NotificationMute()
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a9525dd69bbc3861e390df620ec76a904">Messenger.Core.Models.NotificationMute</a>
 </li>
 <li>NotificationMuteFromDataRow()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a016edf290202ad28e65057ffb3eb984d">Messenger.Core.Helpers.Mapper</a>
+</li>
+<li>NotificationNavPage()
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1NotificationNavPage.html#a2e171503ddfa5fb17651d846e2e962d2">Messenger.Views.Pages.NotificationNavPage</a>
+</li>
+<li>NotificationNavViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html#ad0db9095be799e17e25bcfdadde88c3a">Messenger.ViewModels.Pages.NotificationNavViewModel</a>
+</li>
+<li>NotificationReceived
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#af792e9e8587dc1fbdd26c9a69c05e5a8">Messenger.Services.Providers.EventProvider</a>
+</li>
+<li>Notifications
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a87b1e9e0d8059188aac8c251043b280b">Messenger.Services.Providers.StateProvider</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1InboxControlViewModel.html#afada439010d7f368ffcca74c960965fb">Messenger.ViewModels.Controls.InboxControlViewModel</a>
+</li>
+<li>NotificationsLoaded
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#adb611c2b76c7f1802bb347ea875c694a">Messenger.Services.Providers.EventProvider</a>
 </li>
 <li>NotificationSourceType
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#ad7369034539cfad6a35a68e5f8726af7">Messenger.Core.Models.NotificationMute</a>
@@ -95,11 +164,17 @@ $(function() {
 <li>NotificationType
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a754d76e752f502f98f8fda643491f58d">Messenger.Core.Models.NotificationMute</a>
 </li>
+<li>NotificationViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationViewModel.html#af1dc529532792dffd92cbc4f68df01c8">Messenger.ViewModels.DataViewModels.NotificationViewModel</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

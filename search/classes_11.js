@@ -1,4 +1,19 @@
 var searchData=
 [
-  ['winuireference_572',['WinUiReference',['../classMessenger_1_1Tests_1_1MSTest_1_1WinUiReference.html',1,'Messenger::Tests::MSTest']]]
+  ['unassignteamrolecommand_1140',['UnassignTeamRoleCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1UnassignTeamRoleCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['updatemessagecommand_1141',['UpdateMessageCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1UpdateMessageCommand.html',1,'Messenger::Commands::Messenger']]],
+  ['updateteamdetailscommand_1142',['UpdateTeamDetailsCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamDetailsCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['updateteamrolecommand_1143',['UpdateTeamRoleCommand',['../classMessenger_1_1Commands_1_1TeamManage_1_1UpdateTeamRoleCommand.html',1,'Messenger::Commands::TeamManage']]],
+  ['updateuserbiocommand_1144',['UpdateUserBioCommand',['../classMessenger_1_1Commands_1_1UserData_1_1UpdateUserBioCommand.html',1,'Messenger::Commands::UserData']]],
+  ['updateusernamecommand_1145',['UpdateUserNameCommand',['../classMessenger_1_1Commands_1_1UserData_1_1UpdateUserNameCommand.html',1,'Messenger::Commands::UserData']]],
+  ['uploaddata_1146',['UploadData',['../classMessenger_1_1Core_1_1Models_1_1UploadData.html',1,'Messenger::Core::Models']]],
+  ['user_1147',['User',['../classMessenger_1_1Core_1_1Models_1_1User.html',1,'Messenger::Core::Models']]],
+  ['useractivitydata_1148',['UserActivityData',['../classMessenger_1_1Services_1_1UserActivityData.html',1,'Messenger::Services']]],
+  ['useractivityservice_1149',['UserActivityService',['../classMessenger_1_1Services_1_1UserActivityService.html',1,'Messenger::Services']]],
+  ['userdataservice_1150',['UserDataService',['../classMessenger_1_1Services_1_1UserDataService.html',1,'Messenger::Services']]],
+  ['userprofileflyout_1151',['UserProfileFlyout',['../classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html',1,'Messenger::Views::Subcontrols']]],
+  ['usersearchpanel_1152',['UserSearchPanel',['../classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html',1,'Messenger::Views::Controls']]],
+  ['usersearchpanelviewmodel_1153',['UserSearchPanelViewModel',['../classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html',1,'Messenger::ViewModels::Controls']]],
+  ['userservice_1154',['UserService',['../classMessenger_1_1Core_1_1Services_1_1UserService.html',1,'Messenger::Core::Services']]],
+  ['userviewmodel_1155',['UserViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html',1,'Messenger::ViewModels::DataViewModels']]]
 ];

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,13 +81,9 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1Subcontrols.html">Subcontrols</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">MessageView</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView-members.html">List of all members</a>  </div>
@@ -74,47 +91,79 @@ $(function() {
 <div class="title">Messenger.Views.Subcontrols.MessageView Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.Views.Subcontrols.MessageView:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Views.Subcontrols.MessageView:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.png" alt=""/>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae8c0c8c574f5c6216fd5f40ee028efb2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a> ()</td></tr>
+<tr class="separator:ae8c0c8c574f5c6216fd5f40ee028efb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a876cfa4c341a66ad38d60fae64bbe982"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>MessageProperty</b></td></tr>
+<tr class="memitem:a876cfa4c341a66ad38d60fae64bbe982"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a876cfa4c341a66ad38d60fae64bbe982">MessageProperty</a></td></tr>
 <tr class="separator:a876cfa4c341a66ad38d60fae64bbe982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac67d49467c55e2ff63c608361dbcd195"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>ReplyToCommandProperty</b></td></tr>
+<tr class="memitem:ac67d49467c55e2ff63c608361dbcd195"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ac67d49467c55e2ff63c608361dbcd195">ReplyToCommandProperty</a></td></tr>
 <tr class="separator:ac67d49467c55e2ff63c608361dbcd195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0371c1c6144d32c811653c68a2e15d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMessageCommandProperty</b></td></tr>
+<tr class="memitem:a1d0371c1c6144d32c811653c68a2e15d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a1d0371c1c6144d32c811653c68a2e15d">UpdateMessageCommandProperty</a></td></tr>
 <tr class="separator:a1d0371c1c6144d32c811653c68a2e15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c5b00eade8eb29be0e37517dc0de32e"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteMessageCommandProperty</b></td></tr>
+<tr class="memitem:a5c5b00eade8eb29be0e37517dc0de32e"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5c5b00eade8eb29be0e37517dc0de32e">DeleteMessageCommandProperty</a></td></tr>
 <tr class="separator:a5c5b00eade8eb29be0e37517dc0de32e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac3f7926356a92ab8760b7ea8e12e51f"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCommandProperty</b></td></tr>
+<tr class="memitem:aac3f7926356a92ab8760b7ea8e12e51f"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#aac3f7926356a92ab8760b7ea8e12e51f">ToggleReactionCommandProperty</a></td></tr>
 <tr class="separator:aac3f7926356a92ab8760b7ea8e12e51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a451f56e2ed70d88c1edc6d6e0d8d576c"><td class="memItemLeft" align="right" valign="top"><a id="a451f56e2ed70d88c1edc6d6e0d8d576c"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Message</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a451f56e2ed70d88c1edc6d6e0d8d576c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a451f56e2ed70d88c1edc6d6e0d8d576c">Message</a><code> [get, set]</code></td></tr>
 <tr class="separator:a451f56e2ed70d88c1edc6d6e0d8d576c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf9d6f652efac089c4d8f7b27c5f1f47"><td class="memItemLeft" align="right" valign="top"><a id="adf9d6f652efac089c4d8f7b27c5f1f47"></a>
-CommandBarOverflowButtonVisibility&#160;</td><td class="memItemRight" valign="bottom"><b>MyMessageActionsVisibility</b><code> [get]</code></td></tr>
+<tr class="memitem:adf9d6f652efac089c4d8f7b27c5f1f47"><td class="memItemLeft" align="right" valign="top">CommandBarOverflowButtonVisibility&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#adf9d6f652efac089c4d8f7b27c5f1f47">MyMessageActionsVisibility</a><code> [get]</code></td></tr>
 <tr class="separator:adf9d6f652efac089c4d8f7b27c5f1f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a486a8c07684717e9170c66eb09428e22"><td class="memItemLeft" align="right" valign="top"><a id="a486a8c07684717e9170c66eb09428e22"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ReplyToCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a486a8c07684717e9170c66eb09428e22"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a486a8c07684717e9170c66eb09428e22">ReplyToCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a486a8c07684717e9170c66eb09428e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a067330c01ed045c48fce042a500383b4"><td class="memItemLeft" align="right" valign="top"><a id="a067330c01ed045c48fce042a500383b4"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMessageCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a067330c01ed045c48fce042a500383b4"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a067330c01ed045c48fce042a500383b4">UpdateMessageCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a067330c01ed045c48fce042a500383b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03e76d4b74663c31969c9e8c8983df27"><td class="memItemLeft" align="right" valign="top"><a id="a03e76d4b74663c31969c9e8c8983df27"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteMessageCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a03e76d4b74663c31969c9e8c8983df27"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a03e76d4b74663c31969c9e8c8983df27">DeleteMessageCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a03e76d4b74663c31969c9e8c8983df27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa733769982f09bb76bf4dacd253efde"><td class="memItemLeft" align="right" valign="top"><a id="aaa733769982f09bb76bf4dacd253efde"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aaa733769982f09bb76bf4dacd253efde"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#aaa733769982f09bb76bf4dacd253efde">ToggleReactionCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:aaa733769982f09bb76bf4dacd253efde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00019">19</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae8c0c8c574f5c6216fd5f40ee028efb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8c0c8c574f5c6216fd5f40ee028efb2">&#9670;&nbsp;</a></span>MessageView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.Views.Subcontrols.MessageView.MessageView </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00069">69</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a5c5b00eade8eb29be0e37517dc0de32e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c5b00eade8eb29be0e37517dc0de32e">&#9670;&nbsp;</a></span>DeleteMessageCommandProperty</h2>
@@ -136,8 +185,11 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCom
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DeleteMessageCommand&quot;</span>, typeof(ICommand), typeof(MessageView), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DeleteMessageCommand&quot;</span>, typeof(ICommand), typeof(<a class="code" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="ttc" id="aclassMessenger_1_1Views_1_1Subcontrols_1_1MessageView_html_ae8c0c8c574f5c6216fd5f40ee028efb2"><div class="ttname"><a href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">Messenger.Views.Subcontrols.MessageView.MessageView</a></div><div class="ttdeci">MessageView()</div><div class="ttdef"><b>Definition:</b> <a href="MessageView_8xaml_8cs_source.html#l00069">MessageView.xaml.cs:69</a></div></div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00056">56</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
 </div>
 </div>
 <a id="a876cfa4c341a66ad38d60fae64bbe982"></a>
@@ -160,8 +212,10 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCom
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;Message&quot;</span>, typeof(MessageViewModel), typeof(MessageView), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;Message&quot;</span>, typeof(MessageViewModel), typeof(<a class="code" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00027">27</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
 </div>
 </div>
 <a id="ac67d49467c55e2ff63c608361dbcd195"></a>
@@ -184,8 +238,10 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCom
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;ReplyToCommand&quot;</span>, typeof(ICommand), typeof(MessageView), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;ReplyToCommand&quot;</span>, typeof(ICommand), typeof(<a class="code" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00038">38</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
 </div>
 </div>
 <a id="aac3f7926356a92ab8760b7ea8e12e51f"></a>
@@ -208,8 +264,10 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCom
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;ToggleReactionCommand&quot;</span>, typeof(ICommand), typeof(MessageView), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;ToggleReactionCommand&quot;</span>, typeof(ICommand), typeof(<a class="code" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00065">65</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
 </div>
 </div>
 <a id="a1d0371c1c6144d32c811653c68a2e15d"></a>
@@ -232,17 +290,168 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleReactionCom
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;UpdateMessageCommand&quot;</span>, typeof(ICommand), typeof(MessageView), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;UpdateMessageCommand&quot;</span>, typeof(ICommand), typeof(<a class="code" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00047">47</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a03e76d4b74663c31969c9e8c8983df27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e76d4b74663c31969c9e8c8983df27">&#9670;&nbsp;</a></span>DeleteMessageCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Views.Subcontrols.MessageView.DeleteMessageCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00050">50</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
+<a id="a451f56e2ed70d88c1edc6d6e0d8d576c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a451f56e2ed70d88c1edc6d6e0d8d576c">&#9670;&nbsp;</a></span>Message</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> Messenger.Views.Subcontrols.MessageView.Message</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00021">21</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
+<a id="adf9d6f652efac089c4d8f7b27c5f1f47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf9d6f652efac089c4d8f7b27c5f1f47">&#9670;&nbsp;</a></span>MyMessageActionsVisibility</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CommandBarOverflowButtonVisibility Messenger.Views.Subcontrols.MessageView.MyMessageActionsVisibility</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00030">30</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
+<a id="a486a8c07684717e9170c66eb09428e22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486a8c07684717e9170c66eb09428e22">&#9670;&nbsp;</a></span>ReplyToCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Views.Subcontrols.MessageView.ReplyToCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00032">32</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
+<a id="aaa733769982f09bb76bf4dacd253efde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa733769982f09bb76bf4dacd253efde">&#9670;&nbsp;</a></span>ToggleReactionCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Views.Subcontrols.MessageView.ToggleReactionCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00059">59</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
+</div>
+</div>
+<a id="a067330c01ed045c48fce042a500383b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a067330c01ed045c48fce042a500383b4">&#9670;&nbsp;</a></span>UpdateMessageCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Views.Subcontrols.MessageView.UpdateMessageCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessageView_8xaml_8cs_source.html#l00041">41</a> of file <a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Views/Subcontrols/MessageView.xaml.cs</li>
+<li>Messenger/Messenger/Views/Subcontrols/<a class="el" href="MessageView_8xaml_8cs_source.html">MessageView.xaml.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1Subcontrols.html">Subcontrols</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">MessageView</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

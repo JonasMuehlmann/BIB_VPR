@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,13 +81,9 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1Controls.html">Controls</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html">UserSearchPanel</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel-members.html">List of all members</a>  </div>
@@ -74,24 +91,61 @@ $(function() {
 <div class="title">Messenger.Views.Controls.UserSearchPanel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.Views.Controls.UserSearchPanel:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Views.Controls.UserSearchPanel:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.png" alt=""/>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aafd36b92b23d3bb709865c47b419202e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html#aafd36b92b23d3bb709865c47b419202e">UserSearchPanel</a> ()</td></tr>
+<tr class="separator:aafd36b92b23d3bb709865c47b419202e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ae689e04cd78e7cc04496be49154bf698"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>ViewModelProperty</b></td></tr>
+<tr class="memitem:ae689e04cd78e7cc04496be49154bf698"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html#ae689e04cd78e7cc04496be49154bf698">ViewModelProperty</a></td></tr>
 <tr class="separator:ae689e04cd78e7cc04496be49154bf698"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:abffce17927f09510563260d44cd4c553"><td class="memItemLeft" align="right" valign="top"><a id="abffce17927f09510563260d44cd4c553"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html">UserSearchPanelViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ViewModel</b><code> [get, set]</code></td></tr>
+<tr class="memitem:abffce17927f09510563260d44cd4c553"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html">UserSearchPanelViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html#abffce17927f09510563260d44cd4c553">ViewModel</a><code> [get, set]</code></td></tr>
 <tr class="separator:abffce17927f09510563260d44cd4c553"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="UserSearchPanel_8xaml_8cs_source.html#l00007">7</a> of file <a class="el" href="UserSearchPanel_8xaml_8cs_source.html">UserSearchPanel.xaml.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aafd36b92b23d3bb709865c47b419202e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd36b92b23d3bb709865c47b419202e">&#9670;&nbsp;</a></span>UserSearchPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.Views.Controls.UserSearchPanel.UserSearchPanel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserSearchPanel_8xaml_8cs_source.html#l00018">18</a> of file <a class="el" href="UserSearchPanel_8xaml_8cs_source.html">UserSearchPanel.xaml.cs</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ae689e04cd78e7cc04496be49154bf698"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae689e04cd78e7cc04496be49154bf698">&#9670;&nbsp;</a></span>ViewModelProperty</h2>
@@ -113,17 +167,49 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;ViewModel&quot;</span>, typeof(UserSearchPanelViewModel), typeof(UserSearchPanel), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;ViewModel&quot;</span>, typeof(UserSearchPanelViewModel), typeof(<a class="code" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html#aafd36b92b23d3bb709865c47b419202e">UserSearchPanel</a>), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
+<div class="ttc" id="aclassMessenger_1_1Views_1_1Controls_1_1UserSearchPanel_html_aafd36b92b23d3bb709865c47b419202e"><div class="ttname"><a href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html#aafd36b92b23d3bb709865c47b419202e">Messenger.Views.Controls.UserSearchPanel.UserSearchPanel</a></div><div class="ttdeci">UserSearchPanel()</div><div class="ttdef"><b>Definition:</b> <a href="UserSearchPanel_8xaml_8cs_source.html#l00018">UserSearchPanel.xaml.cs:18</a></div></div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="UserSearchPanel_8xaml_8cs_source.html#l00015">15</a> of file <a class="el" href="UserSearchPanel_8xaml_8cs_source.html">UserSearchPanel.xaml.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="abffce17927f09510563260d44cd4c553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abffce17927f09510563260d44cd4c553">&#9670;&nbsp;</a></span>ViewModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html">UserSearchPanelViewModel</a> Messenger.Views.Controls.UserSearchPanel.ViewModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserSearchPanel_8xaml_8cs_source.html#l00009">9</a> of file <a class="el" href="UserSearchPanel_8xaml_8cs_source.html">UserSearchPanel.xaml.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Views/Controls/UserSearchPanel.xaml.cs</li>
+<li>Messenger/Messenger/Views/Controls/<a class="el" href="UserSearchPanel_8xaml_8cs_source.html">UserSearchPanel.xaml.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1Controls.html">Controls</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1Controls_1_1UserSearchPanel.html">UserSearchPanel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

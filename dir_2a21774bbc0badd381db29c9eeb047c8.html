@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('dir_2a21774bbc0badd381db29c9eeb047c8.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,20 +81,43 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_1dc1e69466d8ce14c9524a2d7b0dcec3.html">Messenger</a></li><li class="navelem"><a class="el" href="dir_36fb6c61f298490859c68e98f5b6d279.html">Messenger</a></li><li class="navelem"><a class="el" href="dir_5edabe90bab8e6797c1737c8e3834577.html">ViewModels</a></li><li class="navelem"><a class="el" href="dir_2a21774bbc0badd381db29c9eeb047c8.html">DataViewModels</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">DataViewModels Directory Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
+Files</h2></td></tr>
+<tr class="memitem:ChannelViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ChannelViewModel_8cs.html">ChannelViewModel.cs</a> <a href="ChannelViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:DataViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DataViewModel_8cs.html">DataViewModel.cs</a> <a href="DataViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:MemberViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MemberViewModel_8cs.html">MemberViewModel.cs</a> <a href="MemberViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:MessageViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MessageViewModel_8cs.html">MessageViewModel.cs</a> <a href="MessageViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:NotificationMessageViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NotificationMessageViewModel_8cs.html">NotificationMessageViewModel.cs</a> <a href="NotificationMessageViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:NotificationViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NotificationViewModel_8cs.html">NotificationViewModel.cs</a> <a href="NotificationViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:PrivateChatViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PrivateChatViewModel_8cs.html">PrivateChatViewModel.cs</a> <a href="PrivateChatViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:TeamRoleViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TeamRoleViewModel_8cs.html">TeamRoleViewModel.cs</a> <a href="TeamRoleViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:TeamViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TeamViewModel_8cs.html">TeamViewModel.cs</a> <a href="TeamViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:UserViewModel_8cs"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UserViewModel_8cs.html">UserViewModel.cs</a> <a href="UserViewModel_8cs_source.html">[code]</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_1dc1e69466d8ce14c9524a2d7b0dcec3.html">Messenger</a></li><li class="navelem"><a class="el" href="dir_36fb6c61f298490859c68e98f5b6d279.html">Messenger</a></li><li class="navelem"><a class="el" href="dir_5edabe90bab8e6797c1737c8e3834577.html">ViewModels</a></li><li class="navelem"><a class="el" href="dir_2a21774bbc0badd381db29c9eeb047c8.html">DataViewModels</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

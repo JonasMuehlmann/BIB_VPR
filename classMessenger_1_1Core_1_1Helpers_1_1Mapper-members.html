@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Helpers_1_1Mapper.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Helpers.html">Helpers</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Mapper</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Messenger.Core.Helpers.Mapper Member List</div>  </div>
@@ -75,7 +91,7 @@ $(function() {
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a143a2a47cd35bbba295443726d6b15d9">ChannelFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ae175124ac58acd907758671e67e143d0">EnumFromDataRow&lt; T &gt;</a>(DataRow row, string columnName)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>logger</b> (defined in <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a5500128a898add002399414456dab462">logger</a></td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a1f61cc6f8e59faea6f044f192f58c8bb">MembershipFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a0f52426a2f9f399d5cc369dcf5475b80">MentionableFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#aad607cdf2f17ac7b30d0a2b78bba0f70">MentionFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
@@ -84,16 +100,19 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a016edf290202ad28e65057ffb3eb984d">NotificationMuteFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a87b87b7d987aa865d926502bbd77486d">ReactionFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a1f6d4641763746842ceb02c645b1ffa9">StringFromDataRow</a>(DataRow row, string columnName)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>StringToEnum&lt; T &gt;</b>(object value) (defined in <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a7381cb7aea4475f03093b5d50a62ed71">StringToEnum&lt; T &gt;</a>(object value)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ae15c4cbc8381b2b418bd9e85f568ad8d">strToJObject</a>(object str)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ad328dbf02651fe79efb36d64f68bb6e1">TeamFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a49cf9b3e09fd8eb2618fb077c87d4e0a">TeamRoleFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a63ce65bce94769acaa7369a814deecb0">UserFromDataRow</a>(DataRow row)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a3731c6c341ca525016f75021027223c6">UserFromMSGraph</a>(User userdata)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html">Messenger.Core.Helpers.Mapper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

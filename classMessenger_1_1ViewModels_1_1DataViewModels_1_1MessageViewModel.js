@@ -1,0 +1,25 @@
+var classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel =
+[
+    [ "MessageViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a5ce571d22e799b637b2f75fdbbb336af", null ],
+    [ "AddImages", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#aad07734c1080132aecbd8fc466c20883", null ],
+    [ "Attachments", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a7b86d42f98db23c0e00571d0a3b22416", null ],
+    [ "ChannelId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a8cae477af7858709f59947da81964da0", null ],
+    [ "Content", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a5f717bf2a5ec3f1cacdb30893ec452a0", null ],
+    [ "CreationTime", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a8d0ee1d91b198c87e5948c973ce2f36e", null ],
+    [ "DownloadAttachmentCommand", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a7b1369b6d6035a57f7498a06bbdd2fb0", null ],
+    [ "HasReacted", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a58b3c2ab79bb1d9dc90d2399e45c5321", null ],
+    [ "Id", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#aacb6f537c79e5cbbf8d0da9904b9a9e5", null ],
+    [ "Images", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#ae193b242694bfa4e0cda3debe83b4fd3", null ],
+    [ "IsMyMessage", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#adf8898f4436ae30ddddec5848a7d272f", null ],
+    [ "IsReply", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a5ec5674b0ff28a42d6456a21fb6dac89", null ],
+    [ "MyReaction", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#af8a3708b71fc0b41d7ded0993b05f525", null ],
+    [ "ParentMessageId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a2cac796aa507e969084af087771ea31f", null ],
+    [ "ReachtionAngryCount", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#aae42cc7f6e5561ec8221f2a6167cdeca", null ],
+    [ "ReachtionDislikeCount", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#ab1a4264bb58676513d0c2ba6b6858834", null ],
+    [ "ReachtionLikeCount", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a841cfb9c33446b34460543e44df8f82c", null ],
+    [ "ReachtionSurpriseCount", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#af451778143d885777863d4cc00b131ff", null ],
+    [ "Reactions", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a6234a0de034257e0f4cef6d3ae5a0160", null ],
+    [ "Replies", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#abcee84af742f27cf4b5ce5d03ec6be97", null ],
+    [ "Sender", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a03ca4b766bae32fb670866e7fd65205d", null ],
+    [ "SenderId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a9b5a08fc0b99744e3b9fc44b7991b2c8", null ]
+];

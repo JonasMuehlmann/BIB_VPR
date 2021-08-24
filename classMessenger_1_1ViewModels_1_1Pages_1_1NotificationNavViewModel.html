@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,22 +81,20 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1Pages.html">Pages</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html">NotificationNavViewModel</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.ViewModels.Pages.NotificationNavViewModel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.ViewModels.Pages.NotificationNavViewModel:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.ViewModels.Pages.NotificationNavViewModel:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.png" usemap="#Messenger.ViewModels.Pages.NotificationNavViewModel_map" alt=""/>
   <map id="Messenger.ViewModels.Pages.NotificationNavViewModel_map" name="Messenger.ViewModels.Pages.NotificationNavViewModel_map">
@@ -83,33 +102,98 @@ Inheritance diagram for Messenger.ViewModels.Pages.NotificationNavViewModel:</di
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad0db9095be799e17e25bcfdadde88c3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html#ad0db9095be799e17e25bcfdadde88c3a">NotificationNavViewModel</a> ()</td></tr>
+<tr class="separator:ad0db9095be799e17e25bcfdadde88c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a1c4cf0685f5c1d81841fb8740ecc3bb4"><td class="memItemLeft" align="right" valign="top"><a id="a1c4cf0685f5c1d81841fb8740ecc3bb4"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1InboxControlViewModel.html">InboxControlViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>InboxControlViewModel</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a1c4cf0685f5c1d81841fb8740ecc3bb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1InboxControlViewModel.html">InboxControlViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html#a1c4cf0685f5c1d81841fb8740ecc3bb4">InboxControlViewModel</a><code> [get, set]</code></td></tr>
 <tr class="separator:a1c4cf0685f5c1d81841fb8740ecc3bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="ae8cf458aa24cfd172c194942009a5c62"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set&lt; T &gt;</b> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
 <tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OnPropertyChanged</b> (string propertyName)</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
 <tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
-PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyChanged</b></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
 <tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="NotificationNavViewModel_8cs_source.html#l00011">11</a> of file <a class="el" href="NotificationNavViewModel_8cs_source.html">NotificationNavViewModel.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad0db9095be799e17e25bcfdadde88c3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0db9095be799e17e25bcfdadde88c3a">&#9670;&nbsp;</a></span>NotificationNavViewModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.ViewModels.Pages.NotificationNavViewModel.NotificationNavViewModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NotificationNavViewModel_8cs_source.html#l00015">15</a> of file <a class="el" href="NotificationNavViewModel_8cs_source.html">NotificationNavViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="NotificationNavViewModel_8cs_source.html#l00013">Messenger.ViewModels.Pages.NotificationNavViewModel.InboxControlViewModel</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a1c4cf0685f5c1d81841fb8740ecc3bb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c4cf0685f5c1d81841fb8740ecc3bb4">&#9670;&nbsp;</a></span>InboxControlViewModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1InboxControlViewModel.html">InboxControlViewModel</a> Messenger.ViewModels.Pages.NotificationNavViewModel.InboxControlViewModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="NotificationNavViewModel_8cs_source.html#l00013">13</a> of file <a class="el" href="NotificationNavViewModel_8cs_source.html">NotificationNavViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NotificationNavViewModel_8cs_source.html#l00015">Messenger.ViewModels.Pages.NotificationNavViewModel.NotificationNavViewModel()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/ViewModels/Pages/NotificationNavViewModel .cs</li>
+<li>Messenger/Messenger/ViewModels/Pages/<a class="el" href="NotificationNavViewModel_8cs_source.html">NotificationNavViewModel.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1Pages.html">Pages</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1NotificationNavViewModel.html">NotificationNavViewModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

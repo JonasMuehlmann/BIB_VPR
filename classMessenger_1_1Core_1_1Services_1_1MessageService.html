@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1MessageService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html">MessageService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -76,19 +92,20 @@ $(function() {
 
 <p>Holds static methods to interact with messages, reactions and message attachments on the DB  
  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.Core.Services.MessageService:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Core.Services.MessageService:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Services_1_1MessageService.png" alt=""/>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a89d9db60d865b366f1dac8720e5ed7c7"><td class="memItemLeft" align="right" valign="top"><a id="a89d9db60d865b366f1dac8720e5ed7c7"></a>
-static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a89d9db60d865b366f1dac8720e5ed7c7">CreateMessage</a> (uint recipientsId, string senderId, string message, uint? parentMessageId=null, IEnumerable&lt; string &gt; attachmentBlobNames=null)</td></tr>
+<tr class="memitem:a89d9db60d865b366f1dac8720e5ed7c7"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a89d9db60d865b366f1dac8720e5ed7c7">CreateMessage</a> (uint recipientsId, string senderId, string message, uint? parentMessageId=null, IEnumerable&lt; string &gt; attachmentBlobNames=null)</td></tr>
 <tr class="memdesc:a89d9db60d865b366f1dac8720e5ed7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message to a specified recipient and retrieve the sent messages id. /summary&gt; param name="recipientsId"&gt;The id of the recipient of this messageparam name="senderId"&gt;The id of the message's senderparam name="message"&gt;The content of the messageparam name="parentMessageId"&gt;The optional id of a message this one is a reply toparam name="attachmentBlobNames"&gt;Enumerable of blob names of uploaded attachments<dl class="section return"><dt>Returns</dt><dd>The id of the created message if it was created successfully, null otherwise</dd></dl>
-<br /></td></tr>
+ <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a89d9db60d865b366f1dac8720e5ed7c7">More...</a><br /></td></tr>
 <tr class="separator:a89d9db60d865b366f1dac8720e5ed7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af04546bd31c5ce91f3cbad2cb9ebe5f5"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af04546bd31c5ce91f3cbad2cb9ebe5f5">RetrieveMessages</a> (uint channelId)</td></tr>
 <tr class="memdesc:af04546bd31c5ce91f3cbad2cb9ebe5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve all Messages of a channel/chat with user data of the sender  <a href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af04546bd31c5ce91f3cbad2cb9ebe5f5">More...</a><br /></td></tr>
@@ -126,6 +143,8 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds static methods to interact with messages, reactions and message attachments on the DB </p>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00015">15</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac5ee6f4f0148cc9890feb30bfe047d1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5ee6f4f0148cc9890feb30bfe047d1b">&#9670;&nbsp;</a></span>AddReaction()</h2>
@@ -177,6 +196,10 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The id of the created reaction</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00266">266</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>.</p>
 
 </div>
 </div>
@@ -231,6 +254,69 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the user did not yet make the reaction to to the message, false otherwise </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00321">321</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+</div>
+</div>
+<a id="a89d9db60d865b366f1dac8720e5ed7c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89d9db60d865b366f1dac8720e5ed7c7">&#9670;&nbsp;</a></span>CreateMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;uint?&gt; Messenger.Core.Services.MessageService.CreateMessage </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>recipientsId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>senderId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint?&#160;</td>
+          <td class="paramname"><em>parentMessageId</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>attachmentBlobNames</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Send a message to a specified recipient and retrieve the sent messages id. /summary&gt; param name="recipientsId"&gt;The id of the recipient of this messageparam name="senderId"&gt;The id of the message's senderparam name="message"&gt;The content of the messageparam name="parentMessageId"&gt;The optional id of a message this one is a reply toparam name="attachmentBlobNames"&gt;Enumerable of blob names of uploaded attachments<dl class="section return"><dt>Returns</dt><dd>The id of the created message if it was created successfully, null otherwise</dd></dl>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00026">26</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
+
 </div>
 </div>
 <a id="a9baa767efdc37243db34bd079866316a"></a>
@@ -265,6 +351,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the message got deleted successfully, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00192">192</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>, <a class="el" href="MessageService_8cs_source.html#l00293">Messenger.Core.Services.MessageService.RemoveReaction()</a>, <a class="el" href="MessageService_8cs_source.html#l00349">Messenger.Core.Services.MessageService.RetrieveReactions()</a>, and <a class="el" href="MessageService_8cs_source.html#l00104">Messenger.Core.Services.MessageService.RetrieveReplies()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>.</p>
 
 </div>
 </div>
@@ -312,6 +404,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the message got edited successfully, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00169">169</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00212">Messenger.Core.Services.MessengerService.UpdateMessage()</a>.</p>
+
 </div>
 </div>
 <a id="a59979a89a47fed52370aaed56e57a359"></a>
@@ -346,6 +444,10 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An enumerable of Blob File Names</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00235">235</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00153">Messenger.Helpers.MessageHelpers.MessageBuilder.WithAttachments()</a>.</p>
 
 </div>
 </div>
@@ -382,6 +484,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A complete message object</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00137">137</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, and <a class="el" href="Mapper_8cs_source.html#l00077">Messenger.Core.Helpers.Mapper.MessageFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NotificationService_8cs_source.html#l00189">Messenger.Core.Services.NotificationService.CanSendNotification()</a>, <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00100">Messenger.Core.Services.MessengerService.GetMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00212">Messenger.Core.Services.MessengerService.UpdateMessage()</a>.</p>
+
 </div>
 </div>
 <a id="a879c86823d5bd214feb86e0755f8a83f"></a>
@@ -416,6 +524,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A reaction object</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00364">364</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00133">Messenger.Core.Helpers.Mapper.ReactionFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NotificationService_8cs_source.html#l00189">Messenger.Core.Services.NotificationService.CanSendNotification()</a>.</p>
 
 </div>
 </div>
@@ -470,6 +584,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whetever or not to the reaction was successfully removed</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00293">293</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageService_8cs_source.html#l00192">Messenger.Core.Services.MessageService.DeleteMessage()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>.</p>
+
 </div>
 </div>
 <a id="af04546bd31c5ce91f3cbad2cb9ebe5f5"></a>
@@ -504,6 +624,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An enumerable of data rows containing the message data</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00072">72</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00077">Messenger.Core.Helpers.Mapper.MessageFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00086">Messenger.Core.Services.MessengerService.GetMessages()</a>.</p>
 
 </div>
 </div>
@@ -540,6 +666,12 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of reaction objects</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00349">349</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00133">Messenger.Core.Helpers.Mapper.ReactionFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>, <a class="el" href="MessageService_8cs_source.html#l00192">Messenger.Core.Services.MessageService.DeleteMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00229">Messenger.Core.Services.MessengerService.GetReactions()</a>.</p>
+
 </div>
 </div>
 <a id="a462a9685cf0274dc70dcc36c2bfe8766"></a>
@@ -575,15 +707,25 @@ static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An IList of Message objects representing the replies</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MessageService_8cs_source.html#l00104">104</a> of file <a class="el" href="MessageService_8cs_source.html">MessageService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00077">Messenger.Core.Helpers.Mapper.MessageFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessageService_8cs_source.html#l00192">Messenger.Core.Services.MessageService.DeleteMessage()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00102">Messenger.Helpers.MessageHelpers.MessageBuilder.WithReplies()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/MessageService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="MessageService_8cs_source.html">MessageService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html">MessageService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

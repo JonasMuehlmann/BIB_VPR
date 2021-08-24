@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html">PrivateChatService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -76,9 +92,11 @@ $(function() {
 
 <p>Holds helpers and static methods to interact with private chats on the DB  
  <a href="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.Core.Services.PrivateChatService:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Core.Services.PrivateChatService:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.png" usemap="#Messenger.Core.Services.PrivateChatService_map" alt=""/>
   <map id="Messenger.Core.Services.PrivateChatService_map" name="Messenger.Core.Services.PrivateChatService_map">
@@ -139,8 +157,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ae5f722037537d2b09850eeae0b6d3117 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">AddRole</a> (string role, uint teamId, string colorCode)</td></tr>
 <tr class="memdesc:ae5f722037537d2b09850eeae0b6d3117 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a role to a team with the specified teamId  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">More...</a><br /></td></tr>
 <tr class="separator:ae5f722037537d2b09850eeae0b6d3117 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa695d221afd6a98bb1e81477daa6f3 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="memItemLeft" align="right" valign="top"><a id="abaa695d221afd6a98bb1e81477daa6f3"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateRole</b> (uint roleId, string role, string colorCode)</td></tr>
+<tr class="memitem:abaa695d221afd6a98bb1e81477daa6f3 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#abaa695d221afd6a98bb1e81477daa6f3">UpdateRole</a> (uint roleId, string role, string colorCode)</td></tr>
 <tr class="separator:abaa695d221afd6a98bb1e81477daa6f3 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca5bf5c0c783dbb36fddfc1f5e8e6de7 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7">RemoveRole</a> (string role, uint teamId)</td></tr>
 <tr class="memdesc:aca5bf5c0c783dbb36fddfc1f5e8e6de7 inherit pub_static_methods_classMessenger_1_1Core_1_1Services_1_1TeamService"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a role from a team's available roles  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7">More...</a><br /></td></tr>
@@ -179,6 +196,8 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds helpers and static methods to interact with private chats on the DB </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="PrivateChatService_8cs_source.html#l00018">18</a> of file <a class="el" href="PrivateChatService_8cs_source.html">PrivateChatService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8ed7d6d7887dc14f767a8c1361997ac1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ed7d6d7887dc14f767a8c1361997ac1">&#9670;&nbsp;</a></span>CreatePrivateChat()</h2>
@@ -224,6 +243,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The teamId of the created Team</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="PrivateChatService_8cs_source.html#l00026">26</a> of file <a class="el" href="PrivateChatService_8cs_source.html">PrivateChatService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00273">Messenger.Core.Services.TeamService.AddMember()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>.</p>
+
 </div>
 </div>
 <a id="ab9175da3e4f11f3212d4efb446822e53"></a>
@@ -258,6 +283,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An enumerable of Team objects</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="PrivateChatService_8cs_source.html#l00078">78</a> of file <a class="el" href="PrivateChatService_8cs_source.html">PrivateChatService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00243">Messenger.Core.Services.TeamService.GetAllTeamsByUserId()</a>.</p>
 
 </div>
 </div>
@@ -294,15 +323,21 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The user id of the conversation partner</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="PrivateChatService_8cs_source.html#l00093">93</a> of file <a class="el" href="PrivateChatService_8cs_source.html">PrivateChatService.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/PrivateChatService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="PrivateChatService_8cs_source.html">PrivateChatService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html">PrivateChatService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

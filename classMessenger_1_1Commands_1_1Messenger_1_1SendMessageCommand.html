@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Commands.html">Commands</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Commands_1_1Messenger.html">Messenger</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html">SendMessageCommand</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -74,17 +90,18 @@ $(function() {
 <div class="title">Messenger.Commands.Messenger.SendMessageCommand Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.Commands.Messenger.SendMessageCommand:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Commands.Messenger.SendMessageCommand:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.png" alt=""/>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac34e65bfd8c1d838e2187f5c18aa1ecd"><td class="memItemLeft" align="right" valign="top"><a id="ac34e65bfd8c1d838e2187f5c18aa1ecd"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SendMessageCommand</b> (<a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a> viewModel)</td></tr>
+<tr class="memitem:ac34e65bfd8c1d838e2187f5c18aa1ecd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ac34e65bfd8c1d838e2187f5c18aa1ecd">SendMessageCommand</a> (<a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a> viewModel)</td></tr>
 <tr class="separator:ac34e65bfd8c1d838e2187f5c18aa1ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc5d0c2074e85126a07064a84e1006f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#abc5d0c2074e85126a07064a84e1006f3">CanExecute</a> (object parameter)</td></tr>
 <tr class="memdesc:abc5d0c2074e85126a07064a84e1006f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the message is valid to be forwarded to the hub  <a href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#abc5d0c2074e85126a07064a84e1006f3">More...</a><br /></td></tr>
@@ -95,10 +112,41 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
-<tr class="memitem:ab09108538b47d30be5af792955835629"><td class="memItemLeft" align="right" valign="top"><a id="ab09108538b47d30be5af792955835629"></a>
-EventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>CanExecuteChanged</b></td></tr>
+<tr class="memitem:ab09108538b47d30be5af792955835629"><td class="memItemLeft" align="right" valign="top">EventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ab09108538b47d30be5af792955835629">CanExecuteChanged</a></td></tr>
 <tr class="separator:ab09108538b47d30be5af792955835629"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00013">13</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac34e65bfd8c1d838e2187f5c18aa1ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac34e65bfd8c1d838e2187f5c18aa1ecd">&#9670;&nbsp;</a></span>SendMessageCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.Commands.Messenger.SendMessageCommand.SendMessageCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a>&#160;</td>
+          <td class="paramname"><em>viewModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00018">18</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="abc5d0c2074e85126a07064a84e1006f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc5d0c2074e85126a07064a84e1006f3">&#9670;&nbsp;</a></span>CanExecute()</h2>
@@ -125,6 +173,8 @@ EventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>CanExecuteCha
 </div><div class="memdoc">
 
 <p>Checks if the message is valid to be forwarded to the hub </p>
+
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00028">28</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
 
 </div>
 </div>
@@ -154,15 +204,40 @@ EventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>CanExecuteCha
 
 <p>Sends a new message to the hub and saves it to database </p>
 
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00036">36</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Message_8cs_source.html#l00030">Messenger.Core.Models.Message.CreationTime</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, and <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Event Documentation</h2>
+<a id="ab09108538b47d30be5af792955835629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab09108538b47d30be5af792955835629">&#9670;&nbsp;</a></span>CanExecuteChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler Messenger.Commands.Messenger.SendMessageCommand.CanExecuteChanged</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00023">23</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Commands/Messenger/SendMessageCommand.cs</li>
+<li>Messenger/Messenger/Commands/Messenger/<a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Commands.html">Commands</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Commands_1_1Messenger.html">Messenger</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html">SendMessageCommand</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

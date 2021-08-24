@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['messagemanager_771',['MessageManager',['../classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a11140609dba9e5b63689c255544463ab',1,'Messenger::Services::Providers::StateProvider']]]
+  ['editusernamemode_1770',['editUserNameMode',['../classMessenger_1_1Views_1_1Pages_1_1SettingsPage.html#ad469c21df9e3c19e1943353b564132b7',1,'Messenger::Views::Pages::SettingsPage']]]
 ];

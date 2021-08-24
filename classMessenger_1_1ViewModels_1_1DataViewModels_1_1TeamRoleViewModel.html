@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1DataViewModels.html">DataViewModels</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html">TeamRoleViewModel</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -74,9 +90,11 @@ $(function() {
 <div class="title">Messenger.ViewModels.DataViewModels.TeamRoleViewModel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.ViewModels.DataViewModels.TeamRoleViewModel:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.ViewModels.DataViewModels.TeamRoleViewModel:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.png" usemap="#Messenger.ViewModels.DataViewModels.TeamRoleViewModel_map" alt=""/>
   <map id="Messenger.ViewModels.DataViewModels.TeamRoleViewModel_map" name="Messenger.ViewModels.DataViewModels.TeamRoleViewModel_map">
@@ -87,52 +105,268 @@ Inheritance diagram for Messenger.ViewModels.DataViewModels.TeamRoleViewModel:</
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad72342b6c2d281404d4e9f2ca017ee6b"><td class="memItemLeft" align="right" valign="top"><a id="ad72342b6c2d281404d4e9f2ca017ee6b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TeamRoleViewModel</b> (<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html">TeamRoleViewModel</a> data)</td></tr>
+<tr class="memitem:ada6960083665a913df050766963ba044"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#ada6960083665a913df050766963ba044">TeamRoleViewModel</a> ()</td></tr>
+<tr class="separator:ada6960083665a913df050766963ba044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad72342b6c2d281404d4e9f2ca017ee6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#ad72342b6c2d281404d4e9f2ca017ee6b">TeamRoleViewModel</a> (<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html">TeamRoleViewModel</a> data)</td></tr>
 <tr class="separator:ad72342b6c2d281404d4e9f2ca017ee6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a01ea9d60ca558fce64ba048dca98aad4"><td class="memItemLeft" align="right" valign="top"><a id="a01ea9d60ca558fce64ba048dca98aad4"></a>
-uint&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a01ea9d60ca558fce64ba048dca98aad4"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#a01ea9d60ca558fce64ba048dca98aad4">Id</a><code> [get, set]</code></td></tr>
 <tr class="separator:a01ea9d60ca558fce64ba048dca98aad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea837be24908f00b9d824eefa117d62e"><td class="memItemLeft" align="right" valign="top"><a id="aea837be24908f00b9d824eefa117d62e"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Title</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aea837be24908f00b9d824eefa117d62e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#aea837be24908f00b9d824eefa117d62e">Title</a><code> [get, set]</code></td></tr>
 <tr class="separator:aea837be24908f00b9d824eefa117d62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377a668628ef17847882679daf29c29f"><td class="memItemLeft" align="right" valign="top"><a id="a377a668628ef17847882679daf29c29f"></a>
-ObservableCollection&lt; <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Permissions</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a377a668628ef17847882679daf29c29f"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#a377a668628ef17847882679daf29c29f">Permissions</a><code> [get, set]</code></td></tr>
 <tr class="separator:a377a668628ef17847882679daf29c29f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11e4eb87fffbfd5a859f9470b4b52bb0"><td class="memItemLeft" align="right" valign="top"><a id="a11e4eb87fffbfd5a859f9470b4b52bb0"></a>
-uint&#160;</td><td class="memItemRight" valign="bottom"><b>TeamId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a11e4eb87fffbfd5a859f9470b4b52bb0"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#a11e4eb87fffbfd5a859f9470b4b52bb0">TeamId</a><code> [get, set]</code></td></tr>
 <tr class="separator:a11e4eb87fffbfd5a859f9470b4b52bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e1cdfe4b3730826ecb8fe3853e72e61"><td class="memItemLeft" align="right" valign="top"><a id="a9e1cdfe4b3730826ecb8fe3853e72e61"></a>
-Color&#160;</td><td class="memItemRight" valign="bottom"><b>Color</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a9e1cdfe4b3730826ecb8fe3853e72e61"><td class="memItemLeft" align="right" valign="top">Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#a9e1cdfe4b3730826ecb8fe3853e72e61">Color</a><code> [get, set]</code></td></tr>
 <tr class="separator:a9e1cdfe4b3730826ecb8fe3853e72e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38d130652b2d2c89ab3f2bf9cfe5bcb5"><td class="memItemLeft" align="right" valign="top"><a id="a38d130652b2d2c89ab3f2bf9cfe5bcb5"></a>
-ObservableCollection&lt; <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>PendingPermissions</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a38d130652b2d2c89ab3f2bf9cfe5bcb5"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html#a38d130652b2d2c89ab3f2bf9cfe5bcb5">PendingPermissions</a><code> [get, set]</code></td></tr>
 <tr class="separator:a38d130652b2d2c89ab3f2bf9cfe5bcb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="ae8cf458aa24cfd172c194942009a5c62"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set&lt; T &gt;</b> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
 <tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OnPropertyChanged</b> (string propertyName)</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
 <tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
-PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyChanged</b></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
 <tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00007">7</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ada6960083665a913df050766963ba044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada6960083665a913df050766963ba044">&#9670;&nbsp;</a></span>TeamRoleViewModel() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00057">57</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamRoleViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.PendingPermissions</a>.</p>
+
+</div>
+</div>
+<a id="ad72342b6c2d281404d4e9f2ca017ee6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad72342b6c2d281404d4e9f2ca017ee6b">&#9670;&nbsp;</a></span>TeamRoleViewModel() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html">TeamRoleViewModel</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00063">63</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamRoleViewModel_8cs_source.html#l00046">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Color</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Id</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.PendingPermissions</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00034">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Permissions</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00040">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamId</a>, and <a class="el" href="TeamRoleViewModel_8cs_source.html#l00028">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Title</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a9e1cdfe4b3730826ecb8fe3853e72e61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1cdfe4b3730826ecb8fe3853e72e61">&#9670;&nbsp;</a></span>Color</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Color Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Color</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00045">45</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>, and <a class="el" href="TeamRoleViewModel_8cs_source.html#l00063">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="a01ea9d60ca558fce64ba048dca98aad4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ea9d60ca558fce64ba048dca98aad4">&#9670;&nbsp;</a></span>Id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Id</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00021">21</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00247">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeamRole()</a>, <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>, <a class="el" href="ManageRolesDialogViewModel_8cs_source.html#l00131">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel.OnTeamUpdated()</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00063">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00146">Messenger.Helpers.TeamHelpers.TeamBuilder.WithMemberRoles()</a>.</p>
+
+</div>
+</div>
+<a id="a38d130652b2d2c89ab3f2bf9cfe5bcb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38d130652b2d2c89ab3f2bf9cfe5bcb5">&#9670;&nbsp;</a></span>PendingPermissions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a>&gt; Messenger.ViewModels.DataViewModels.TeamRoleViewModel.PendingPermissions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00051">51</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>, and <a class="el" href="TeamRoleViewModel_8cs_source.html#l00057">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="a377a668628ef17847882679daf29c29f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a377a668628ef17847882679daf29c29f">&#9670;&nbsp;</a></span>Permissions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a>&gt; Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Permissions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00033">33</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RevokePermissionCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.RevokePermissionCommand.Execute()</a>, <a class="el" href="ManageRolesDialogViewModel_8cs_source.html#l00148">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel.FilterGrantablePermissions()</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00063">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00184">Messenger.Helpers.TeamHelpers.TeamBuilder.WithPermissions()</a>.</p>
+
+</div>
+</div>
+<a id="a11e4eb87fffbfd5a859f9470b4b52bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11e4eb87fffbfd5a859f9470b4b52bb0">&#9670;&nbsp;</a></span>TeamId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00039">39</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>, <a class="el" href="TeamManager_8cs_source.html#l00293">Messenger.Helpers.TeamHelpers.TeamManager.RemoveTeamRole()</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00063">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00184">Messenger.Helpers.TeamHelpers.TeamBuilder.WithPermissions()</a>.</p>
+
+</div>
+</div>
+<a id="aea837be24908f00b9d824eefa117d62e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea837be24908f00b9d824eefa117d62e">&#9670;&nbsp;</a></span>Title</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Title</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamRoleViewModel_8cs_source.html#l00027">27</a> of file <a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="AssignTeamRoleCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.AssignTeamRoleCommand.Execute()</a>, <a class="el" href="RemoveTeamRoleCommand_8cs_source.html#l00017">Messenger.Commands.TeamManage.RemoveTeamRoleCommand.Execute()</a>, <a class="el" href="RevokePermissionCommand_8cs_source.html#l00028">Messenger.Commands.TeamManage.RevokePermissionCommand.Execute()</a>, <a class="el" href="UnassignTeamRoleCommand_8cs_source.html#l00026">Messenger.Commands.TeamManage.UnassignTeamRoleCommand.Execute()</a>, <a class="el" href="UpdateTeamRoleCommand_8cs_source.html#l00020">Messenger.Commands.TeamManage.UpdateTeamRoleCommand.Execute()</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00063">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamRoleViewModel()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00184">Messenger.Helpers.TeamHelpers.TeamBuilder.WithPermissions()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/ViewModels/DataViewModels/TeamRoleViewModel.cs</li>
+<li>Messenger/Messenger/ViewModels/DataViewModels/<a class="el" href="TeamRoleViewModel_8cs_source.html">TeamRoleViewModel.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1DataViewModels.html">DataViewModels</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamRoleViewModel.html">TeamRoleViewModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

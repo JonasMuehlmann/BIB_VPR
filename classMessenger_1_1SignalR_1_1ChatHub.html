@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1SignalR_1_1ChatHub.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a></li><li class="navelem"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html">ChatHub</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,9 +92,11 @@ $(function() {
 
 <p>Hub definition for <a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a> service, that clients can connect to Defines various hub methods to be consumed by application service  
  <a href="classMessenger_1_1SignalR_1_1ChatHub.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.SignalR.ChatHub:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.SignalR.ChatHub:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1SignalR_1_1ChatHub.png" alt=""/>
  </div></div>
@@ -91,11 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a23917f59bb63a4429b884c6b1617c17e"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a23917f59bb63a4429b884c6b1617c17e">JoinTeam</a> (string userId, string teamId)</td></tr>
 <tr class="memdesc:a23917f59bb63a4429b884c6b1617c17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the current connection id to a client group on the hub  <a href="classMessenger_1_1SignalR_1_1ChatHub.html#a23917f59bb63a4429b884c6b1617c17e">More...</a><br /></td></tr>
 <tr class="separator:a23917f59bb63a4429b884c6b1617c17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4cd9d459cd33671d6dc8a73ba4614f5"><td class="memItemLeft" align="right" valign="top"><a id="ac4cd9d459cd33671d6dc8a73ba4614f5"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>LeaveTeam</b> (string userId, string teamId)</td></tr>
+<tr class="memitem:ac4cd9d459cd33671d6dc8a73ba4614f5"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#ac4cd9d459cd33671d6dc8a73ba4614f5">LeaveTeam</a> (string userId, string teamId)</td></tr>
 <tr class="separator:ac4cd9d459cd33671d6dc8a73ba4614f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b96c2c5f8cbf894eff9d29badc76d3"><td class="memItemLeft" align="right" valign="top"><a id="aa4b96c2c5f8cbf894eff9d29badc76d3"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>SendNotificationToUser</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a> notification)</td></tr>
+<tr class="memitem:aa4b96c2c5f8cbf894eff9d29badc76d3"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aa4b96c2c5f8cbf894eff9d29badc76d3">SendNotificationToUser</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a> notification)</td></tr>
 <tr class="separator:aa4b96c2c5f8cbf894eff9d29badc76d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93ad64f342c5b1188b83bd954419b8f8"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a93ad64f342c5b1188b83bd954419b8f8">SendMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, string teamId)</td></tr>
 <tr class="memdesc:a93ad64f342c5b1188b83bd954419b8f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the message to the recipients  <a href="classMessenger_1_1SignalR_1_1ChatHub.html#a93ad64f342c5b1188b83bd954419b8f8">More...</a><br /></td></tr>
@@ -103,29 +119,21 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>SendNotificatio
 <tr class="memitem:aa685aaf925ae62944db1cb5efaf605db"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aa685aaf925ae62944db1cb5efaf605db">UpdateMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, string teamId)</td></tr>
 <tr class="memdesc:aa685aaf925ae62944db1cb5efaf605db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send updated message to the recipients  <a href="classMessenger_1_1SignalR_1_1ChatHub.html#aa685aaf925ae62944db1cb5efaf605db">More...</a><br /></td></tr>
 <tr class="separator:aa685aaf925ae62944db1cb5efaf605db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abde6c37cf202390d49425df314bb6bf6"><td class="memItemLeft" align="right" valign="top"><a id="abde6c37cf202390d49425df314bb6bf6"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMessageReactions</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, string teamId)</td></tr>
+<tr class="memitem:abde6c37cf202390d49425df314bb6bf6"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#abde6c37cf202390d49425df314bb6bf6">UpdateMessageReactions</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, string teamId)</td></tr>
 <tr class="separator:abde6c37cf202390d49425df314bb6bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5019ac3241f1dde92c03600574be8a41"><td class="memItemLeft" align="right" valign="top"><a id="a5019ac3241f1dde92c03600574be8a41"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteMessage</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, string teamId)</td></tr>
+<tr class="memitem:a5019ac3241f1dde92c03600574be8a41"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a5019ac3241f1dde92c03600574be8a41">DeleteMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message, string teamId)</td></tr>
 <tr class="separator:a5019ac3241f1dde92c03600574be8a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29b49a4b8170a75138126644c2dea2b0"><td class="memItemLeft" align="right" valign="top"><a id="a29b49a4b8170a75138126644c2dea2b0"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>CreateTeam</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:a29b49a4b8170a75138126644c2dea2b0"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a29b49a4b8170a75138126644c2dea2b0">CreateTeam</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:a29b49a4b8170a75138126644c2dea2b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa122e317c2bfb4785cf49a76e944f4d0"><td class="memItemLeft" align="right" valign="top"><a id="aa122e317c2bfb4785cf49a76e944f4d0"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTeam</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:aa122e317c2bfb4785cf49a76e944f4d0"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aa122e317c2bfb4785cf49a76e944f4d0">UpdateTeam</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:aa122e317c2bfb4785cf49a76e944f4d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac25b93e0b696cce1be58b10c8488c8a0"><td class="memItemLeft" align="right" valign="top"><a id="ac25b93e0b696cce1be58b10c8488c8a0"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteTeam</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:ac25b93e0b696cce1be58b10c8488c8a0"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#ac25b93e0b696cce1be58b10c8488c8a0">DeleteTeam</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:ac25b93e0b696cce1be58b10c8488c8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516f4eaa8d608fdce4a97bd7a5fddda9"><td class="memItemLeft" align="right" valign="top"><a id="a516f4eaa8d608fdce4a97bd7a5fddda9"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>CreateChannel</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memitem:a516f4eaa8d608fdce4a97bd7a5fddda9"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a516f4eaa8d608fdce4a97bd7a5fddda9">CreateChannel</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
 <tr class="separator:a516f4eaa8d608fdce4a97bd7a5fddda9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53b554c08110a9e5de669303de953a43"><td class="memItemLeft" align="right" valign="top"><a id="a53b554c08110a9e5de669303de953a43"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateChannel</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memitem:a53b554c08110a9e5de669303de953a43"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a53b554c08110a9e5de669303de953a43">UpdateChannel</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
 <tr class="separator:a53b554c08110a9e5de669303de953a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a489d7815a043fca64c8b7dd3ad553a96"><td class="memItemLeft" align="right" valign="top"><a id="a489d7815a043fca64c8b7dd3ad553a96"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteChannel</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
+<tr class="memitem:a489d7815a043fca64c8b7dd3ad553a96"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a489d7815a043fca64c8b7dd3ad553a96">DeleteChannel</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> channel)</td></tr>
 <tr class="separator:a489d7815a043fca64c8b7dd3ad553a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a456e7445e4374da61c6df91766dd4242"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a456e7445e4374da61c6df91766dd4242">AddOrUpdateTeamRole</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> role)</td></tr>
 <tr class="memdesc:a456e7445e4374da61c6df91766dd4242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a team's roles and notify other clients  <a href="classMessenger_1_1SignalR_1_1ChatHub.html#a456e7445e4374da61c6df91766dd4242">More...</a><br /></td></tr>
@@ -133,25 +141,64 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteChannel</
 <tr class="memitem:aa3fc1b2ea149e28f2ccd8b7ce46fad58"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aa3fc1b2ea149e28f2ccd8b7ce46fad58">DeleteTeamRole</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> role)</td></tr>
 <tr class="memdesc:aa3fc1b2ea149e28f2ccd8b7ce46fad58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a team's roles and notify other clients  <a href="classMessenger_1_1SignalR_1_1ChatHub.html#aa3fc1b2ea149e28f2ccd8b7ce46fad58">More...</a><br /></td></tr>
 <tr class="separator:aa3fc1b2ea149e28f2ccd8b7ce46fad58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a479ae1b44cda30a711d87f61684360ec"><td class="memItemLeft" align="right" valign="top"><a id="a479ae1b44cda30a711d87f61684360ec"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>SendInvitation</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:a479ae1b44cda30a711d87f61684360ec"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a479ae1b44cda30a711d87f61684360ec">SendInvitation</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:a479ae1b44cda30a711d87f61684360ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf96cbac0170b13656838477066a09cd"><td class="memItemLeft" align="right" valign="top"><a id="aaf96cbac0170b13656838477066a09cd"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>AddMember</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:aaf96cbac0170b13656838477066a09cd"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aaf96cbac0170b13656838477066a09cd">AddMember</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:aaf96cbac0170b13656838477066a09cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aade89634002bf322fb489ff96b52f9cc"><td class="memItemLeft" align="right" valign="top"><a id="aade89634002bf322fb489ff96b52f9cc"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMember</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:aade89634002bf322fb489ff96b52f9cc"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aade89634002bf322fb489ff96b52f9cc">UpdateMember</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:aade89634002bf322fb489ff96b52f9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed6f31ccda2e0987fe8cd8d774163e61"><td class="memItemLeft" align="right" valign="top"><a id="aed6f31ccda2e0987fe8cd8d774163e61"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveMember</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
+<tr class="memitem:aed6f31ccda2e0987fe8cd8d774163e61"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aed6f31ccda2e0987fe8cd8d774163e61">RemoveMember</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> team)</td></tr>
 <tr class="separator:aed6f31ccda2e0987fe8cd8d774163e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a239fca42c126f316ed102582f9469211"><td class="memItemLeft" align="right" valign="top"><a id="a239fca42c126f316ed102582f9469211"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user)</td></tr>
+<tr class="memitem:a239fca42c126f316ed102582f9469211"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a239fca42c126f316ed102582f9469211">UpdateUser</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user)</td></tr>
 <tr class="separator:a239fca42c126f316ed102582f9469211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Hub definition for <a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a> service, that clients can connect to Defines various hub methods to be consumed by application service </p>
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00014">14</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaf96cbac0170b13656838477066a09cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf96cbac0170b13656838477066a09cd">&#9670;&nbsp;</a></span>AddMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.AddMember </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00180">180</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatHub_8cs_source.html#l00166">Messenger.SignalR.ChatHub.SendInvitation()</a>.</p>
+
+</div>
+</div>
 <a id="a456e7445e4374da61c6df91766dd4242"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a456e7445e4374da61c6df91766dd4242">&#9670;&nbsp;</a></span>AddOrUpdateTeamRole()</h2>
 
@@ -184,6 +231,168 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00147">147</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamRole_8cs_source.html#l00021">Messenger.Core.Models.TeamRole.TeamId</a>.</p>
+
+</div>
+</div>
+<a id="a516f4eaa8d608fdce4a97bd7a5fddda9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516f4eaa8d608fdce4a97bd7a5fddda9">&#9670;&nbsp;</a></span>CreateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.CreateChannel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00123">123</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Channel_8cs_source.html#l00021">Messenger.Core.Models.Channel.TeamId</a>.</p>
+
+</div>
+</div>
+<a id="a29b49a4b8170a75138126644c2dea2b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29b49a4b8170a75138126644c2dea2b0">&#9670;&nbsp;</a></span>CreateTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.CreateTeam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00104">104</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
+
+</div>
+</div>
+<a id="a489d7815a043fca64c8b7dd3ad553a96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a489d7815a043fca64c8b7dd3ad553a96">&#9670;&nbsp;</a></span>DeleteChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.DeleteChannel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00133">133</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Channel_8cs_source.html#l00021">Messenger.Core.Models.Channel.TeamId</a>.</p>
+
+</div>
+</div>
+<a id="a5019ac3241f1dde92c03600574be8a41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5019ac3241f1dde92c03600574be8a41">&#9670;&nbsp;</a></span>DeleteMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.DeleteMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00095">95</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+</div>
+</div>
+<a id="ac25b93e0b696cce1be58b10c8488c8a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac25b93e0b696cce1be58b10c8488c8a0">&#9670;&nbsp;</a></span>DeleteTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.DeleteTeam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00114">114</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
 
 </div>
 </div>
@@ -219,6 +428,10 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00157">157</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamRole_8cs_source.html#l00021">Messenger.Core.Models.TeamRole.TeamId</a>.</p>
 
 </div>
 </div>
@@ -265,6 +478,46 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> 
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00041">41</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+</div>
+</div>
+<a id="ac4cd9d459cd33671d6dc8a73ba4614f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4cd9d459cd33671d6dc8a73ba4614f5">&#9670;&nbsp;</a></span>LeaveTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.LeaveTeam </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00049">49</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
 </div>
 </div>
 <a id="ade20eb6be5f2d54ffdd4c0215860454a"></a>
@@ -299,6 +552,88 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00029">29</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+</div>
+</div>
+<a id="aed6f31ccda2e0987fe8cd8d774163e61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed6f31ccda2e0987fe8cd8d774163e61">&#9670;&nbsp;</a></span>RemoveMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.RemoveMember </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00190">190</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
+
+</div>
+</div>
+<a id="a479ae1b44cda30a711d87f61684360ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a479ae1b44cda30a711d87f61684360ec">&#9670;&nbsp;</a></span>SendInvitation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.SendInvitation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00166">166</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00180">Messenger.SignalR.ChatHub.AddMember()</a>.</p>
 
 </div>
 </div>
@@ -345,6 +680,108 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> 
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00075">75</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+</div>
+</div>
+<a id="aa4b96c2c5f8cbf894eff9d29badc76d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4b96c2c5f8cbf894eff9d29badc76d3">&#9670;&nbsp;</a></span>SendNotificationToUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.SendNotificationToUser </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a>&#160;</td>
+          <td class="paramname"><em>notification</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00061">61</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Notification_8cs_source.html#l00020">Messenger.Core.Models.Notification.RecipientId</a>.</p>
+
+</div>
+</div>
+<a id="a53b554c08110a9e5de669303de953a43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53b554c08110a9e5de669303de953a43">&#9670;&nbsp;</a></span>UpdateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.UpdateChannel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00128">128</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Channel_8cs_source.html#l00021">Messenger.Core.Models.Channel.TeamId</a>.</p>
+
+</div>
+</div>
+<a id="aade89634002bf322fb489ff96b52f9cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade89634002bf322fb489ff96b52f9cc">&#9670;&nbsp;</a></span>UpdateMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.UpdateMember </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00185">185</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
+
 </div>
 </div>
 <a id="aa685aaf925ae62944db1cb5efaf605db"></a>
@@ -390,15 +827,119 @@ async Task&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateUser</b> 
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00085">85</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+</div>
+</div>
+<a id="abde6c37cf202390d49425df314bb6bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abde6c37cf202390d49425df314bb6bf6">&#9670;&nbsp;</a></span>UpdateMessageReactions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.UpdateMessageReactions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>teamId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00090">90</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+</div>
+</div>
+<a id="aa122e317c2bfb4785cf49a76e944f4d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa122e317c2bfb4785cf49a76e944f4d0">&#9670;&nbsp;</a></span>UpdateTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.UpdateTeam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&#160;</td>
+          <td class="paramname"><em>team</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00109">109</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
+
+</div>
+</div>
+<a id="a239fca42c126f316ed102582f9469211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a239fca42c126f316ed102582f9469211">&#9670;&nbsp;</a></span>UpdateUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.SignalR.ChatHub.UpdateUser </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>user</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00206">206</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="User_8cs_source.html#l00014">Messenger.Core.Models.User.Id</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.SignalR/ChatHub.cs</li>
+<li>Messenger/Messenger.SignalR/<a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a></li><li class="navelem"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html">ChatHub</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

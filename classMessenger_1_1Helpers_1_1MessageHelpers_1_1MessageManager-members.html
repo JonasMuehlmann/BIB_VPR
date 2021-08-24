@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Helpers.html">Helpers</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Helpers_1_1MessageHelpers.html">MessageHelpers</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">MessageManager</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Messenger.Helpers.MessageHelpers.MessageManager Member List</div>  </div>
@@ -73,22 +89,25 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>AddOrUpdateMessage</b>(Message messageData) (defined in <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>AddOrUpdateMessage</b>(IEnumerable&lt; Message &gt; messageData) (defined in <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>CreateEntry</b>(TeamViewModel viewModel) (defined in <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>CreateEntry</b>(IEnumerable&lt; TeamViewModel &gt; viewModels) (defined in <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>MessageManager</b>() (defined in <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>MessagesLoadedForChannel</b> (defined in <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>OnPropertyChanged</b>(string propertyName) (defined in <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>PropertyChanged</b> (defined in <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a77ba05bea278a23b65b3f7fbffce479c">AddOrUpdateMessage</a>(Message messageData)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a208e887e7fc557c47cee874a7dd4bf14">AddOrUpdateMessage</a>(IEnumerable&lt; Message &gt; messageData)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a77d24b7079aa8342d34577e09d9f0711">CreateEntry</a>(TeamViewModel viewModel)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#ae89cbff31a807a3ac65181981a8b6737">CreateEntry</a>(IEnumerable&lt; TeamViewModel &gt; viewModels)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a8b2a3758f389db236d7dc90391d35313">MessageManager</a>()</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a3d80f17ca80fba74f715a86a374c20bd">MessagesLoadedForChannel</a></td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a>(string propertyName)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a6e2c331f57667e7b42809fc7816c403b">RemoveEntry</a>(uint channelId)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#ad2a6c9baee6c72333c50ac2facc311c0">RemoveMessage</a>(Message data)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Set&lt; T &gt;</b>(ref T storage, T value, [CallerMemberName]string propertyName=null) (defined in <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a>(ref T storage, T value, [CallerMemberName]string propertyName=null)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#ab7a4af3505d9cc12b32c5ae74c1ddce3">TryGetMessages</a>(uint channelId, out ObservableCollection&lt; MessageViewModel &gt; messages)</td><td class="entry"><a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html">Messenger.Helpers.MessageHelpers.MessageManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

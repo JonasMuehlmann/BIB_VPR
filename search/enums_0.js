@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['loginresulttype_775',['LoginResultType',['../namespaceMessenger_1_1Core_1_1Helpers.html#a41d9c32bad0a9be98c36ee8070f8626c',1,'Messenger::Core::Helpers']]]
+  ['broadcastoptions_1797',['BroadcastOptions',['../namespaceMessenger_1_1Models.html#ad50ffd6c40fec329c4e96c706d46e686',1,'Messenger::Models']]],
+  ['broadcastreasons_1798',['BroadcastReasons',['../namespaceMessenger_1_1Models.html#aee7d172dca49981849ce6512777b5ad8',1,'Messenger::Models']]]
 ];

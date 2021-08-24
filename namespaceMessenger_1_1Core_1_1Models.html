@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('namespaceMessenger_1_1Core_1_1Models.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -119,55 +135,55 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a20f0ec6ed5650b09536fc6e60a5a2472"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472">MentionTarget</a> { <br />
-&#160;&#160;<b>User</b>
-, <b>Role</b>
-, <b>Channel</b>
-, <b>Message</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472a8f9bfe9d1345237cb3b2b205864da075">User</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472abbbabdbe1b262f75d99d62880b953be1">Role</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472a781dc97dc62331eec3ea9ec4373a3ca8">Channel</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472a4c2a8fe7eaf24721cc7a9f0175115bd4">Message</a>
 , <br />
-&#160;&#160;<b>All</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472ab1c94ca2fbc3e78fc30069c8d0f01680">All</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a20f0ec6ed5650b09536fc6e60a5a2472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds mentionable entity types  <a href="namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472">More...</a><br /></td></tr>
 <tr class="separator:a20f0ec6ed5650b09536fc6e60a5a2472"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae8dff35530635a36d478effbeb7b6e3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3">NotificationSource</a> { <b>Team</b>
-, <b>Channel</b>
-, <b>PrivateChat</b>
+<tr class="memitem:aae8dff35530635a36d478effbeb7b6e3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3">NotificationSource</a> { <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3aac848fa228f49ba2b8a5fbd76596817d">Team</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3a781dc97dc62331eec3ea9ec4373a3ca8">Channel</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3a55c5689ac36e3c6a2750327c38fd18bd">PrivateChat</a>
  }</td></tr>
 <tr class="memdesc:aae8dff35530635a36d478effbeb7b6e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds types of notification sources  <a href="namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3">More...</a><br /></td></tr>
 <tr class="separator:aae8dff35530635a36d478effbeb7b6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13cd00e86df58886f8982650917cebab"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebab">NotificationType</a> { <br />
-&#160;&#160;<b>UserMentioned</b>
-, <b>MessageInSubscribedChannel</b>
-, <b>MessageInSubscribedTeam</b>
-, <b>MessageInPrivateChat</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebabaea04d927cbb6b1da262c8dfedefaf216">UserMentioned</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebaba4c06dc23d743d847ec75373f1a8b6bff">MessageInSubscribedChannel</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebabad45135e63a431fcdb982caa313a83be8">MessageInSubscribedTeam</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebabadaf0b0e0dd760b05fcd7b7cf8bcd9cd7">MessageInPrivateChat</a>
 , <br />
-&#160;&#160;<b>InvitedToTeam</b>
-, <b>RemovedFromTeam</b>
-, <b>ReactionToMessage</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebabab5b8eb2b6a3b9994093ed9480d81cec5">InvitedToTeam</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebaba64e9eb4017d886bc4aeaf4ed8c84e2a5">RemovedFromTeam</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebabaaacd200186e09e70bae9808009aa379e">ReactionToMessage</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a13cd00e86df58886f8982650917cebab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds types of notifications  <a href="namespaceMessenger_1_1Core_1_1Models.html#a13cd00e86df58886f8982650917cebab">More...</a><br /></td></tr>
 <tr class="separator:a13cd00e86df58886f8982650917cebab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1019aae76184edeb4a742cff2f260be4"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">Permissions</a> { <br />
-&#160;&#160;<b>CanAddUser</b>
-, <b>CanRemoveUser</b>
-, <b>CanAddRole</b>
-, <b>CanRemoveRole</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4aa6be49ac1606969808627937b7216024">CanAddUser</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a477763c43f7170eec0aeebc5a332fd10">CanRemoveUser</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a73b8cf4daacaad9381ad7b41981b2a59">CanAddRole</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4ab5fc981e763ffbe75aadc6c00a84faf4">CanRemoveRole</a>
 , <br />
-&#160;&#160;<b>CanAssignRole</b>
-, <b>CanUnassignRole</b>
-, <b>CanChangeTeamName</b>
-, <b>CanChangeTeamDescription</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4ab112586637327025090a4e2af1209d78">CanAssignRole</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a7545d7eeab6f575dd2d00d89b153e2cb">CanUnassignRole</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a28e8a852d3bda1257acbb157e5ece103">CanChangeTeamName</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4affb7f7f472467eabb1be724a5cfcb0a2">CanChangeTeamDescription</a>
 , <br />
-&#160;&#160;<b>CanAddChannel</b>
-, <b>CanRemoveChannel</b>
-, <b>CanChangeChannelName</b>
-, <b>CanChangeChannelDescription</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a03f5804781d55f27d48bea5e42068344">CanAddChannel</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4aa83ee4074ad7e4cb1ea4ead5c2274218">CanRemoveChannel</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a2cf2bb4592ecd686c4983616b587b856">CanChangeChannelName</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a03070120938fbf7183aeff5afe8344e6">CanChangeChannelDescription</a>
 , <br />
-&#160;&#160;<b>CanAttachFiles</b>
-, <b>CanDeleteTeam</b>
-, <b>CanPinMessages</b>
-, <b>CanUnpinMessages</b>
+&#160;&#160;<a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a315f060783c9ddcde5c64a1859f5fd25">CanAttachFiles</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a15cbc5c563ba7f900006977cab68beca">CanDeleteTeam</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a35105ceea2b3c00974dc51ffa41baf7e">CanPinMessages</a>
+, <a class="el" href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a1597f8964fb7f68e269668ca39d0fa2a">CanUnpinMessages</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a1019aae76184edeb4a742cff2f260be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds permissions assignable to a team's roles  <a href="namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4">More...</a><br /></td></tr>
@@ -195,6 +211,15 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Holds mentionable entity types </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a20f0ec6ed5650b09536fc6e60a5a2472a8f9bfe9d1345237cb3b2b205864da075"></a>User&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a20f0ec6ed5650b09536fc6e60a5a2472abbbabdbe1b262f75d99d62880b953be1"></a>Role&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a20f0ec6ed5650b09536fc6e60a5a2472a781dc97dc62331eec3ea9ec4373a3ca8"></a>Channel&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a20f0ec6ed5650b09536fc6e60a5a2472a4c2a8fe7eaf24721cc7a9f0175115bd4"></a>Message&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a20f0ec6ed5650b09536fc6e60a5a2472ab1c94ca2fbc3e78fc30069c8d0f01680"></a>All&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="MentionTarget_8cs_source.html#l00006">6</a> of file <a class="el" href="MentionTarget_8cs_source.html">MentionTarget.cs</a>.</p>
 
 </div>
 </div>
@@ -219,6 +244,13 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Holds types of notification sources </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aae8dff35530635a36d478effbeb7b6e3aac848fa228f49ba2b8a5fbd76596817d"></a>Team&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aae8dff35530635a36d478effbeb7b6e3a781dc97dc62331eec3ea9ec4373a3ca8"></a>Channel&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aae8dff35530635a36d478effbeb7b6e3a55c5689ac36e3c6a2750327c38fd18bd"></a>PrivateChat&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="NotificationSource_8cs_source.html#l00006">6</a> of file <a class="el" href="NotificationSource_8cs_source.html">NotificationSource.cs</a>.</p>
 
 </div>
 </div>
@@ -243,6 +275,17 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Holds types of notifications </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebabaea04d927cbb6b1da262c8dfedefaf216"></a>UserMentioned&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebaba4c06dc23d743d847ec75373f1a8b6bff"></a>MessageInSubscribedChannel&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebabad45135e63a431fcdb982caa313a83be8"></a>MessageInSubscribedTeam&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebabadaf0b0e0dd760b05fcd7b7cf8bcd9cd7"></a>MessageInPrivateChat&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebabab5b8eb2b6a3b9994093ed9480d81cec5"></a>InvitedToTeam&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebaba64e9eb4017d886bc4aeaf4ed8c84e2a5"></a>RemovedFromTeam&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a13cd00e86df58886f8982650917cebabaaacd200186e09e70bae9808009aa379e"></a>ReactionToMessage&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="NotificationType_8cs_source.html#l00006">6</a> of file <a class="el" href="NotificationType_8cs_source.html">NotificationType.cs</a>.</p>
 
 </div>
 </div>
@@ -267,13 +310,37 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Holds permissions assignable to a team's roles </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4aa6be49ac1606969808627937b7216024"></a>CanAddUser&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a477763c43f7170eec0aeebc5a332fd10"></a>CanRemoveUser&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a73b8cf4daacaad9381ad7b41981b2a59"></a>CanAddRole&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4ab5fc981e763ffbe75aadc6c00a84faf4"></a>CanRemoveRole&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4ab112586637327025090a4e2af1209d78"></a>CanAssignRole&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a7545d7eeab6f575dd2d00d89b153e2cb"></a>CanUnassignRole&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a28e8a852d3bda1257acbb157e5ece103"></a>CanChangeTeamName&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4affb7f7f472467eabb1be724a5cfcb0a2"></a>CanChangeTeamDescription&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a03f5804781d55f27d48bea5e42068344"></a>CanAddChannel&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4aa83ee4074ad7e4cb1ea4ead5c2274218"></a>CanRemoveChannel&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a2cf2bb4592ecd686c4983616b587b856"></a>CanChangeChannelName&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a03070120938fbf7183aeff5afe8344e6"></a>CanChangeChannelDescription&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a315f060783c9ddcde5c64a1859f5fd25"></a>CanAttachFiles&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a15cbc5c563ba7f900006977cab68beca"></a>CanDeleteTeam&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a35105ceea2b3c00974dc51ffa41baf7e"></a>CanPinMessages&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1019aae76184edeb4a742cff2f260be4a1597f8964fb7f68e269668ca39d0fa2a"></a>CanUnpinMessages&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="Permissions_8cs_source.html#l00006">6</a> of file <a class="el" href="Permissions_8cs_source.html">Permissions.cs</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

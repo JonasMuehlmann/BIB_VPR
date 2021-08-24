@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['canaddchannel_1810',['CanAddChannel',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a03f5804781d55f27d48bea5e42068344',1,'Messenger::Core::Models']]],
+  ['canaddrole_1811',['CanAddRole',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a73b8cf4daacaad9381ad7b41981b2a59',1,'Messenger::Core::Models']]],
+  ['canadduser_1812',['CanAddUser',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4aa6be49ac1606969808627937b7216024',1,'Messenger::Core::Models']]],
+  ['canassignrole_1813',['CanAssignRole',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4ab112586637327025090a4e2af1209d78',1,'Messenger::Core::Models']]],
+  ['canattachfiles_1814',['CanAttachFiles',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a315f060783c9ddcde5c64a1859f5fd25',1,'Messenger::Core::Models']]],
+  ['cancelledbyuser_1815',['CancelledByUser',['../namespaceMessenger_1_1Core_1_1Helpers.html#a41d9c32bad0a9be98c36ee8070f8626cad2aa53d9d798b1a4a99957538b77d38f',1,'Messenger::Core::Helpers']]],
+  ['canchangechanneldescription_1816',['CanChangeChannelDescription',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a03070120938fbf7183aeff5afe8344e6',1,'Messenger::Core::Models']]],
+  ['canchangechannelname_1817',['CanChangeChannelName',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a2cf2bb4592ecd686c4983616b587b856',1,'Messenger::Core::Models']]],
+  ['canchangeteamdescription_1818',['CanChangeTeamDescription',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4affb7f7f472467eabb1be724a5cfcb0a2',1,'Messenger::Core::Models']]],
+  ['canchangeteamname_1819',['CanChangeTeamName',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a28e8a852d3bda1257acbb157e5ece103',1,'Messenger::Core::Models']]],
+  ['candeleteteam_1820',['CanDeleteTeam',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a15cbc5c563ba7f900006977cab68beca',1,'Messenger::Core::Models']]],
+  ['canpinmessages_1821',['CanPinMessages',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a35105ceea2b3c00974dc51ffa41baf7e',1,'Messenger::Core::Models']]],
+  ['canremovechannel_1822',['CanRemoveChannel',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4aa83ee4074ad7e4cb1ea4ead5c2274218',1,'Messenger::Core::Models']]],
+  ['canremoverole_1823',['CanRemoveRole',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4ab5fc981e763ffbe75aadc6c00a84faf4',1,'Messenger::Core::Models']]],
+  ['canremoveuser_1824',['CanRemoveUser',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a477763c43f7170eec0aeebc5a332fd10',1,'Messenger::Core::Models']]],
+  ['canunassignrole_1825',['CanUnassignRole',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a7545d7eeab6f575dd2d00d89b153e2cb',1,'Messenger::Core::Models']]],
+  ['canunpinmessages_1826',['CanUnpinMessages',['../namespaceMessenger_1_1Core_1_1Models.html#a1019aae76184edeb4a742cff2f260be4a1597f8964fb7f68e269668ca39d0fa2a',1,'Messenger::Core::Models']]],
+  ['channel_1827',['Channel',['../namespaceMessenger_1_1Core_1_1Models.html#a20f0ec6ed5650b09536fc6e60a5a2472a781dc97dc62331eec3ea9ec4373a3ca8',1,'Messenger.Core.Models.Channel()'],['../namespaceMessenger_1_1Core_1_1Models.html#aae8dff35530635a36d478effbeb7b6e3a781dc97dc62331eec3ea9ec4373a3ca8',1,'Messenger.Core.Models.Channel()']]],
+  ['channelupdated_1828',['ChannelUpdated',['../namespaceMessenger_1_1Models.html#ad50ffd6c40fec329c4e96c706d46e686a3e85a58f08921fdb0801e131c42168cc',1,'Messenger::Models']]],
+  ['chatsloaded_1829',['ChatsLoaded',['../namespaceMessenger_1_1Models.html#ad50ffd6c40fec329c4e96c706d46e686aba0be12618a2f16584d3b2bbc7bc5e47',1,'Messenger::Models']]],
+  ['chatupdated_1830',['ChatUpdated',['../namespaceMessenger_1_1Models.html#ad50ffd6c40fec329c4e96c706d46e686af034f3313e46606e66a2dbd29522da7e',1,'Messenger::Models']]],
+  ['created_1831',['Created',['../namespaceMessenger_1_1Models.html#aee7d172dca49981849ce6512777b5ad8a0eceeb45861f9585dd7a97a3e36f85c6',1,'Messenger::Models']]]
+];

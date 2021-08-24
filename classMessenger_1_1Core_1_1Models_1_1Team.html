@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Models_1_1Team.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -83,8 +99,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a5afab68fac982a39cbea62e55f4751"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a5a5afab68fac982a39cbea62e55f4751">Team</a> ()</td></tr>
 <tr class="memdesc:a5a5afab68fac982a39cbea62e55f4751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default initialize all members(string values get initialized to "" instead of null and List values get initialized instead of being null)  <a href="classMessenger_1_1Core_1_1Models_1_1Team.html#a5a5afab68fac982a39cbea62e55f4751">More...</a><br /></td></tr>
 <tr class="separator:a5a5afab68fac982a39cbea62e55f4751"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae396aed82b42603ea563024cc0229816"><td class="memItemLeft" align="right" valign="top"><a id="ae396aed82b42603ea563024cc0229816"></a>
-override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
+<tr class="memitem:ae396aed82b42603ea563024cc0229816"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#ae396aed82b42603ea563024cc0229816">ToString</a> ()</td></tr>
 <tr class="separator:ae396aed82b42603ea563024cc0229816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d2a703cb5dda3540f3ebdda63ed919d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a9d2a703cb5dda3540f3ebdda63ed919d">FilterAndUpdateChannels</a> (IEnumerable&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; channels)</td></tr>
 <tr class="memdesc:a9d2a703cb5dda3540f3ebdda63ed919d"><td class="mdescLeft">&#160;</td><td class="mdescRight">refactors the Channels list  <a href="classMessenger_1_1Core_1_1Models_1_1Team.html#a9d2a703cb5dda3540f3ebdda63ed919d">More...</a><br /></td></tr>
@@ -92,8 +107,7 @@ override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a0ff60b67201f09cc6d7be68ba21ad408"><td class="memItemLeft" align="right" valign="top"><a id="a0ff60b67201f09cc6d7be68ba21ad408"></a>
-ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Channels</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a0ff60b67201f09cc6d7be68ba21ad408"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a0ff60b67201f09cc6d7be68ba21ad408">Channels</a><code> [get, set]</code></td></tr>
 <tr class="separator:a0ff60b67201f09cc6d7be68ba21ad408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02c394b8983392d4bbfe1484d37e0480"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a02c394b8983392d4bbfe1484d37e0480">Id</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a02c394b8983392d4bbfe1484d37e0480"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique id of the team  <a href="classMessenger_1_1Core_1_1Models_1_1Team.html#a02c394b8983392d4bbfe1484d37e0480">More...</a><br /></td></tr>
@@ -113,6 +127,8 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The source code side representation of a <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html" title="The source code side representation of a Team">Team</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00010">10</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5a5afab68fac982a39cbea62e55f4751"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a5afab68fac982a39cbea62e55f4751">&#9670;&nbsp;</a></span>Team()</h2>
@@ -138,6 +154,10 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 </div><div class="memdoc">
 
 <p>Default initialize all members(string values get initialized to "" instead of null and List values get initialized instead of being null) </p>
+
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00044">44</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00013">Messenger.Core.Models.Team.Channels</a>, <a class="el" href="Team_8cs_source.html#l00028">Messenger.Core.Models.Team.Description</a>, <a class="el" href="Team_8cs_source.html#l00038">Messenger.Core.Models.Team.Members</a>, and <a class="el" href="Team_8cs_source.html#l00023">Messenger.Core.Models.Team.Name</a>.</p>
 
 </div>
 </div>
@@ -174,9 +194,66 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00063">63</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Team_8cs_source.html#l00013">Messenger.Core.Models.Team.Channels</a>.</p>
+
+</div>
+</div>
+<a id="ae396aed82b42603ea563024cc0229816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae396aed82b42603ea563024cc0229816">&#9670;&nbsp;</a></span>ToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string Messenger.Core.Models.Team.ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00052">52</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a0ff60b67201f09cc6d7be68ba21ad408"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ff60b67201f09cc6d7be68ba21ad408">&#9670;&nbsp;</a></span>Channels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a>&gt; Messenger.Core.Models.Team.Channels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00013">13</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Team_8cs_source.html#l00063">Messenger.Core.Models.Team.FilterAndUpdateChannels()</a>, and <a class="el" href="Team_8cs_source.html#l00044">Messenger.Core.Models.Team.Team()</a>.</p>
+
+</div>
+</div>
 <a id="a04754bf407c834359b2b313490ee424a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a04754bf407c834359b2b313490ee424a">&#9670;&nbsp;</a></span>CreationDate</h2>
 
@@ -198,6 +275,10 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 </div><div class="memdoc">
 
 <p>The time at which the team was created </p>
+
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00033">33</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>.</p>
 
 </div>
 </div>
@@ -223,6 +304,10 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 
 <p>The name of the team </p>
 
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00028">28</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, and <a class="el" href="Team_8cs_source.html#l00044">Messenger.Core.Models.Team.Team()</a>.</p>
+
 </div>
 </div>
 <a id="a02c394b8983392d4bbfe1484d37e0480"></a>
@@ -246,6 +331,10 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 </div><div class="memdoc">
 
 <p>The unique id of the team </p>
+
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00018">18</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatHub_8cs_source.html#l00180">Messenger.SignalR.ChatHub.AddMember()</a>, <a class="el" href="TeamManager_8cs_source.html#l00107">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="ChatHub_8cs_source.html#l00104">Messenger.SignalR.ChatHub.CreateTeam()</a>, <a class="el" href="ChatHub_8cs_source.html#l00114">Messenger.SignalR.ChatHub.DeleteTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>, <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, <a class="el" href="ChatHub_8cs_source.html#l00190">Messenger.SignalR.ChatHub.RemoveMember()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, <a class="el" href="ChatHub_8cs_source.html#l00185">Messenger.SignalR.ChatHub.UpdateMember()</a>, and <a class="el" href="ChatHub_8cs_source.html#l00109">Messenger.SignalR.ChatHub.UpdateTeam()</a>.</p>
 
 </div>
 </div>
@@ -271,6 +360,10 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 
 <p>The members of the team </p>
 
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00038">38</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Team_8cs_source.html#l00044">Messenger.Core.Models.Team.Team()</a>.</p>
+
 </div>
 </div>
 <a id="a6ea94af5d90e3687802f334da29665b8"></a>
@@ -295,15 +388,23 @@ ObservableCollection&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_
 
 <p>The name of the team </p>
 
+<p class="definition">Definition at line <a class="el" href="Team_8cs_source.html#l00023">23</a> of file <a class="el" href="Team_8cs_source.html">Team.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, and <a class="el" href="Team_8cs_source.html#l00044">Messenger.Core.Models.Team.Team()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Models/Team.cs</li>
+<li>Messenger/Messenger.Core/Models/<a class="el" href="Team_8cs_source.html">Team.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

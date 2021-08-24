@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1FileSharingService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html">FileSharingService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -102,12 +118,13 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:af21b64fd07cefded040cc2711dda20e3"><td class="memItemLeft" align="right" valign="top"><a id="af21b64fd07cefded040cc2711dda20e3"></a>
-static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><code> [get]</code></td></tr>
+<tr class="memitem:af21b64fd07cefded040cc2711dda20e3"><td class="memItemLeft" align="right" valign="top">static ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#af21b64fd07cefded040cc2711dda20e3">logger</a><code> [get]</code></td></tr>
 <tr class="separator:af21b64fd07cefded040cc2711dda20e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class holding static methods to interact with blob storage for saving and retrieving message attachments </p>
+
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00016">16</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a2fef494da70066b36819c8db04e57644"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2fef494da70066b36819c8db04e57644">&#9670;&nbsp;</a></span>Delete()</h2>
@@ -141,6 +158,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if successfully deleted, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00170">170</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="FileSharingService_8cs_source.html#l00032">Messenger.Core.Services.FileSharingService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>.</p>
 
 </div>
 </div>
@@ -177,6 +200,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Stream on success, null otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00054">54</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="FileSharingService_8cs_source.html#l00032">Messenger.Core.Services.FileSharingService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.DownloadAttachmentCommand.Execute()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00153">Messenger.Helpers.MessageHelpers.MessageBuilder.WithAttachments()</a>.</p>
+
 </div>
 </div>
 <a id="a55105132f467d4e4b826cb2648f4e7dc"></a>
@@ -211,6 +240,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The name of the blob file on success, null otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00089">89</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UploadData_8cs_source.html#l00020">Messenger.Core.Models.UploadData.FilePath</a>, <a class="el" href="FileSharingService_8cs_source.html#l00032">Messenger.Core.Services.FileSharingService.logger</a>, and <a class="el" href="UploadData_8cs_source.html#l00016">Messenger.Core.Models.UploadData.StreamFile</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
 
 </div>
 </div>
@@ -258,6 +293,12 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The name of the blob file on success, null otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00127">127</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="FileSharingService_8cs_source.html#l00032">Messenger.Core.Services.FileSharingService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserService_8cs_source.html#l00180">Messenger.Core.Services.UserService.GetOrCreateApplicationUser()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -283,15 +324,48 @@ static ILogger&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b><
 
 <p>The path at which to cache downloaded files </p>
 
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00030">30</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="af21b64fd07cefded040cc2711dda20e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af21b64fd07cefded040cc2711dda20e3">&#9670;&nbsp;</a></span>logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.Core.Services.FileSharingService.logger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="FileSharingService_8cs_source.html#l00032">32</a> of file <a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="FileSharingService_8cs_source.html#l00170">Messenger.Core.Services.FileSharingService.Delete()</a>, <a class="el" href="FileSharingService_8cs_source.html#l00054">Messenger.Core.Services.FileSharingService.Download()</a>, <a class="el" href="FileSharingService_8cs_source.html#l00089">Messenger.Core.Services.FileSharingService.Upload()</a>, and <a class="el" href="FileSharingService_8cs_source.html#l00127">Messenger.Core.Services.FileSharingService.UploadFromBase64()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/FileSharingService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="FileSharingService_8cs_source.html">FileSharingService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html">FileSharingService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

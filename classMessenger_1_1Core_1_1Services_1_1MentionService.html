@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1MentionService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MentionService.html">MentionService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -76,9 +92,11 @@ $(function() {
 
 <p>Holds helpers and static methods to interact with mentions on the DB  
  <a href="classMessenger_1_1Core_1_1Services_1_1MentionService.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.Core.Services.MentionService:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Core.Services.MentionService:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Services_1_1MentionService.png" alt=""/>
  </div></div>
@@ -103,6 +121,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds helpers and static methods to interact with mentions on the DB </p>
+
+<p class="definition">Definition at line <a class="el" href="MentionService_8cs_source.html#l00015">15</a> of file <a class="el" href="MentionService_8cs_source.html">MentionService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8f89168b4af7fcd68cb6a395e734c095"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f89168b4af7fcd68cb6a395e734c095">&#9670;&nbsp;</a></span>CreateMention&lt; T &gt;()</h2>
@@ -155,6 +175,8 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The created mention id on success, null on failure</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MentionService_8cs_source.html#l00024">24</a> of file <a class="el" href="MentionService_8cs_source.html">MentionService.cs</a>.</p>
+
 </div>
 </div>
 <a id="acbac5724f9d65775da729f9b591de6da"></a>
@@ -189,6 +211,10 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on successfully, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MentionService_8cs_source.html#l00057">57</a> of file <a class="el" href="MentionService_8cs_source.html">MentionService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
 
 </div>
 </div>
@@ -225,6 +251,12 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The message with all mentions resolved</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MentionService_8cs_source.html#l00101">101</a> of file <a class="el" href="MentionService_8cs_source.html">MentionService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChannelService_8cs_source.html#l00108">Messenger.Core.Services.ChannelService.GetChannel()</a>, <a class="el" href="TeamService_8cs_source.html#l00512">Messenger.Core.Services.TeamService.GetRole()</a>, <a class="el" href="UserService_8cs_source.html#l00301">Messenger.Core.Services.UserService.GetUser()</a>, and <a class="el" href="MentionService_8cs_source.html#l00078">Messenger.Core.Services.MentionService.RetrieveMention()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NotificationMessageBuilder_8cs_source.html#l00415">Messenger.Core.Helpers.NotificationMessageBuilder.MakeUserMentionedNotificationMessage()</a>.</p>
+
 </div>
 </div>
 <a id="a59d6d6db482584f6a26840c04eefde17"></a>
@@ -259,6 +291,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The mention object</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MentionService_8cs_source.html#l00078">78</a> of file <a class="el" href="MentionService_8cs_source.html">MentionService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, and <a class="el" href="Mapper_8cs_source.html#l00165">Messenger.Core.Helpers.Mapper.MentionFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="NotificationService_8cs_source.html#l00189">Messenger.Core.Services.NotificationService.CanSendNotification()</a>, and <a class="el" href="MentionService_8cs_source.html#l00101">Messenger.Core.Services.MentionService.ResolveMentions()</a>.</p>
 
 </div>
 </div>
@@ -306,15 +344,21 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of Mentionables</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="MentionService_8cs_source.html#l00302">302</a> of file <a class="el" href="MentionService_8cs_source.html">MentionService.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/MentionService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="MentionService_8cs_source.html">MentionService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MentionService.html">MentionService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['mail_798',['Mail',['../classMessenger_1_1Core_1_1Models_1_1User.html#adf1584ef4e32b1a0acef158db08c8993',1,'Messenger::Core::Models::User']]],
-  ['members_799',['Members',['../classMessenger_1_1Core_1_1Models_1_1Team.html#a6795467117de83a2bf1d71c4d050985a',1,'Messenger::Core::Models::Team']]],
-  ['membershipid_800',['MembershipId',['../classMessenger_1_1Core_1_1Models_1_1Membership.html#a6455889b2a33c5afbf3ff27b4fb8899c',1,'Messenger::Core::Models::Membership']]],
-  ['mentionerid_801',['MentionerId',['../classMessenger_1_1Core_1_1Models_1_1Mention.html#a7f104c89db3b97275e1ba627da463012',1,'Messenger::Core::Models::Mention']]],
-  ['message_802',['Message',['../classMessenger_1_1Core_1_1Models_1_1Notification.html#a2636ac01459510989ef49fb0b7086e8c',1,'Messenger::Core::Models::Notification']]],
-  ['messageid_803',['MessageId',['../classMessenger_1_1Core_1_1Models_1_1Reaction.html#ae67ac7b67d9deac1750a3fd56e506ca6',1,'Messenger::Core::Models::Reaction']]],
-  ['messages_804',['Messages',['../classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a607e5a1f0cd35e5bb1191dfe998b18c2',1,'Messenger::ViewModels::Controls::MessagesListControlViewModel']]],
-  ['messagetosend_805',['MessageToSend',['../classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a7441f6287b66ca0f03afd7344afedef6',1,'Messenger::ViewModels::Pages::ChatViewModel']]]
+  ['haschanged_1937',['HasChanged',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a30dd7d0b67e64ee356b06936084da720',1,'Messenger::ViewModels::DialogBoxes::ManageRolesDialogViewModel']]],
+  ['hasfullpermissions_1938',['HasFullPermissions',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#aec17b260427957a76518f69fbb4d91bb',1,'Messenger::ViewModels::DialogBoxes::ManageRolesDialogViewModel']]],
+  ['hasreacted_1939',['HasReacted',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a58b3c2ab79bb1d9dc90d2399e45c5321',1,'Messenger::ViewModels::DataViewModels::MessageViewModel']]],
+  ['hub_1940',['Hub',['../classMessenger_1_1ViewModels_1_1MainViewModel.html#aedd4acf193752b19d231f6a9e65f92eb',1,'Messenger::ViewModels::MainViewModel']]]
 ];

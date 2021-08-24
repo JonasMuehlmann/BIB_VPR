@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1MessengerService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">MessengerService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Messenger.Core.Services.MessengerService Member List</div>  </div>
@@ -84,17 +100,17 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ab01f2292133ce2d756c758899ef30dc7">DeleteTeam</a>(uint teamId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a7c3bc949dd7e9500e7c7bac424bf08d7">DeleteTeamRole</a>(string role, uint teamId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a80ae9c3ea6da61093a916f209cd17ab5">GetChannelsForTeam</a>(uint teamId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>GetMessage</b>(uint messageId) (defined in <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ac2a043d3fe88d76974f1c980dc20d320">GetMessage</a>(uint messageId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#abab5dfc717e70a1c8acb5e25981fe19a">GetMessages</a>(uint channelId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>GetReactions</b>(uint messageId) (defined in <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetRolesList</b>(uint teamId, string userId) (defined in <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a62565e9e6eac3e92e65b7ec80ef61652">GetReactions</a>(uint messageId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9738b95bd73dfddb38fb8c0e78f75829">GetRolesList</a>(uint teamId, string userId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a2491aff81294c379e49a4e7f9a6a0258">GetTeam</a>(uint teamId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ae1ae15e99206f5fdea267b84b00dfd58">GetTeamMembers</a>(uint teamId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a0bbf126af4adc2b648860c94567f0acb">GetTeams</a>(string userId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa4efb7021eae3d556c8f8ec858613e43">GetUserWithNameId</a>(string username, uint nameId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a31680edbab1758de675e170540c0dd78">GrantPermission</a>(uint teamId, string role, Permissions permission)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a634d8a2e7a0e69c93627309674d514d6">Initialize</a>(string userId, string connectionString=null)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>logger</b> (defined in <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a65cf5588551168c6535da06de1cb55fa">logger</a></td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a70dac26bef9f6990e399b887af88c401">RemoveMember</a>(string userId, uint teamId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa5e022419ec275539459420f0f144619">RenameChannel</a>(string channelName, uint channelId)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ae875b229f117e0c0ee800b5596302b41">RevokePermission</a>(uint teamId, string role, Permissions permission)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
@@ -112,9 +128,12 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9a9ee61c44d1255f0913e617ed04aeda">UpdateUserPhoto</a>(string userId, string newPhotoURL)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#af39da3130ead71c475843f078e776256">UpdateUserUsername</a>(string userId, string newUsername)</td><td class="entry"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html">Messenger.Core.Services.MessengerService</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

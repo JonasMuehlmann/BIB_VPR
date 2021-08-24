@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['cachequery_2ecs_1196',['CacheQuery.cs',['../CacheQuery_8cs.html',1,'']]],
+  ['changeteamdialog_2examl_2ecs_1197',['ChangeTeamDialog.xaml.cs',['../ChangeTeamDialog_8xaml_8cs.html',1,'']]],
+  ['channel_2ecs_1198',['Channel.cs',['../Channel_8cs.html',1,'']]],
+  ['channelservice_2ecs_1199',['ChannelService.cs',['../ChannelService_8cs.html',1,'']]],
+  ['channelswitchcommand_2ecs_1200',['ChannelSwitchCommand.cs',['../ChannelSwitchCommand_8cs.html',1,'']]],
+  ['channelviewmodel_2ecs_1201',['ChannelViewModel.cs',['../ChannelViewModel_8cs.html',1,'']]],
+  ['chatheader_2examl_2ecs_1202',['ChatHeader.xaml.cs',['../ChatHeader_8xaml_8cs.html',1,'']]],
+  ['chathub_2ecs_1203',['ChatHub.cs',['../ChatHub_8cs.html',1,'']]],
+  ['chathubconnectionstate_2ecs_1204',['ChatHubConnectionState.cs',['../ChatHubConnectionState_8cs.html',1,'']]],
+  ['chatnavpage_2examl_2ecs_1205',['ChatNavPage.xaml.cs',['../ChatNavPage_8xaml_8cs.html',1,'']]],
+  ['chatnavviewmodel_2ecs_1206',['ChatNavViewModel.cs',['../ChatNavViewModel_8cs.html',1,'']]],
+  ['chatpage_2examl_2ecs_1207',['ChatPage.xaml.cs',['../ChatPage_8xaml_8cs.html',1,'']]],
+  ['chatviewmodel_2ecs_1208',['ChatViewModel.cs',['../ChatViewModel_8cs.html',1,'']]],
+  ['colorextensions_2ecs_1209',['ColorExtensions.cs',['../ColorExtensions_8cs.html',1,'']]],
+  ['colortohexcodeconverter_2ecs_1210',['ColorToHexCodeConverter.cs',['../ColorToHexCodeConverter_8cs.html',1,'']]],
+  ['colortosolidbrushconverter_2ecs_1211',['ColorToSolidBrushConverter.cs',['../ColorToSolidBrushConverter_8cs.html',1,'']]],
+  ['connectionmapping_2ecs_1212',['ConnectionMapping.cs',['../ConnectionMapping_8cs.html',1,'']]],
+  ['counttovisibilityconverter_2ecs_1213',['CountToVisibilityConverter.cs',['../CountToVisibilityConverter_8cs.html',1,'']]],
+  ['createchannelcommand_2ecs_1214',['CreateChannelCommand.cs',['../CreateChannelCommand_8cs.html',1,'']]],
+  ['createchanneldialog_2examl_2ecs_1215',['CreateChannelDialog.xaml.cs',['../CreateChannelDialog_8xaml_8cs.html',1,'']]],
+  ['createchatdialog_2examl_2ecs_1216',['CreateChatDialog.xaml.cs',['../CreateChatDialog_8xaml_8cs.html',1,'']]],
+  ['createchatdialogviewmodel_2ecs_1217',['CreateChatDialogViewModel.cs',['../CreateChatDialogViewModel_8cs.html',1,'']]],
+  ['createteamcommand_2ecs_1218',['CreateTeamCommand.cs',['../CreateTeamCommand_8cs.html',1,'']]],
+  ['createteamdialog_2examl_2ecs_1219',['CreateTeamDialog.xaml.cs',['../CreateTeamDialog_8xaml_8cs.html',1,'']]],
+  ['createteamrolecommand_2ecs_1220',['CreateTeamRoleCommand.cs',['../CreateTeamRoleCommand_8cs.html',1,'']]]
+];

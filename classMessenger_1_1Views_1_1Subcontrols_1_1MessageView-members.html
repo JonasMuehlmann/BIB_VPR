@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views.html">Views</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Views_1_1Subcontrols.html">Subcontrols</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">MessageView</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Messenger.Views.Subcontrols.MessageView Member List</div>  </div>
@@ -73,22 +89,25 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>DeleteMessageCommand</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>DeleteMessageCommandProperty</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Message</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>MessageProperty</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>MessageView</b>() (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>MyMessageActionsVisibility</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>ReplyToCommand</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>ReplyToCommandProperty</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>ToggleReactionCommand</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>ToggleReactionCommandProperty</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>UpdateMessageCommand</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>UpdateMessageCommandProperty</b> (defined in <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a>)</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a03e76d4b74663c31969c9e8c8983df27">DeleteMessageCommand</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5c5b00eade8eb29be0e37517dc0de32e">DeleteMessageCommandProperty</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a451f56e2ed70d88c1edc6d6e0d8d576c">Message</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a876cfa4c341a66ad38d60fae64bbe982">MessageProperty</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2">MessageView</a>()</td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#adf9d6f652efac089c4d8f7b27c5f1f47">MyMessageActionsVisibility</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a486a8c07684717e9170c66eb09428e22">ReplyToCommand</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ac67d49467c55e2ff63c608361dbcd195">ReplyToCommandProperty</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#aaa733769982f09bb76bf4dacd253efde">ToggleReactionCommand</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#aac3f7926356a92ab8760b7ea8e12e51f">ToggleReactionCommandProperty</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a067330c01ed045c48fce042a500383b4">UpdateMessageCommand</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a1d0371c1c6144d32c811653c68a2e15d">UpdateMessageCommandProperty</a></td><td class="entry"><a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html">Messenger.Views.Subcontrols.MessageView</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

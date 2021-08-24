@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_func.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -65,6 +85,9 @@ $(function() {
 &#160;
 
 <h3><a id="index_a"></a>- a -</h3><ul>
+<li>AcquireTokenSilentAsync()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a77d1df7506907824afd7f84f84eb9615">Messenger.Core.Services.IdentityService</a>
+</li>
 <li>Add()
 : <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#a4e4eb750780a6dc96158a0727b1ca592">Messenger.SignalR.Models.ConnectionMapping</a>
 </li>
@@ -74,12 +97,29 @@ $(function() {
 <li>AddMember()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a8a367abae10bf004f84f9286d1d95f87">Messenger.Core.Services.SignalRService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a71e7113d4f2bf94929884d5cbb5ca7df">Messenger.Core.Services.TeamService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aaf96cbac0170b13656838477066a09cd">Messenger.SignalR.ChatHub</a>
 </li>
 <li>AddMute()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1NotificationService.html#a86260a87c3bf03b05e1f5f1ea5ea2fc0">Messenger.Core.Services.NotificationService</a>
 </li>
+<li>AddOrUpdate&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#ae3037bbc2742fbb37d2d33d0dfd84257">Messenger.Helpers.CacheQuery</a>
+</li>
+<li>AddOrUpdateChannel()
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a2ee887b11a49138c34d46042898f65d6">Messenger.Helpers.TeamHelpers.TeamManager</a>
+</li>
+<li>AddOrUpdateMember()
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a217788855463d8471ae7298d629e975b">Messenger.Helpers.TeamHelpers.TeamManager</a>
+</li>
+<li>AddOrUpdateMessage()
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageManager.html#a77ba05bea278a23b65b3f7fbffce479c">Messenger.Helpers.MessageHelpers.MessageManager</a>
+</li>
+<li>AddOrUpdateTeam()
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a807fd6fcf19d8a84b1268a9437179c9f">Messenger.Helpers.TeamHelpers.TeamManager</a>
+</li>
 <li>AddOrUpdateTeamRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a46544b0901b6a79d306c4d3f71f25e0f">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a5600c579da6cdfcc35cc99238f7732d3">Messenger.Helpers.TeamHelpers.TeamManager</a>
 , <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a456e7445e4374da61c6df91766dd4242">Messenger.SignalR.ChatHub</a>
 </li>
 <li>AddReaction()
@@ -88,17 +128,35 @@ $(function() {
 <li>AddRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">Messenger.Core.Services.TeamService</a>
 </li>
+<li>AddSampleUserActivity()
+: <a class="el" href="classMessenger_1_1Services_1_1UserActivityService.html#affbf8704e74562c79401d6cfe6341652">Messenger.Services.UserActivityService</a>
+</li>
+<li>App()
+: <a class="el" href="classMessenger_1_1App.html#a51fd04335bb3a670011f3e23b8ffec37">Messenger.App</a>
+</li>
+<li>AsInvitedToTeamNotificationMessage()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel.html#a663a07d363d2ea2317b5b8cfa92f6013">Messenger.ViewModels.DataViewModels.NotificationMessageViewModel</a>
+</li>
 <li>AssignRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ac7e71844865b0a106d5d36e6d0221452">Messenger.Core.Services.TeamService</a>
+</li>
+<li>AssignTeamRoleCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1AssignTeamRoleCommand.html#abd1e1c64c1012e4edd80aed35499086c">Messenger.Commands.TeamManage.AssignTeamRoleCommand</a>
 </li>
 <li>AssignUserRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a71b3144d6d2b7f925a4b4ca494c9b5cb">Messenger.Core.Services.MessengerService</a>
 </li>
+<li>AttachFileCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1AttachFileCommand.html#a96d8dd6f1f69682306a3b419cef0469b">Messenger.Commands.Messenger.AttachFileCommand</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

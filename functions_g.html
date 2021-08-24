@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_g.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,9 +82,21 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>Get&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a72ef24a3e1381e5237a2a58c011f166a">Messenger.Helpers.CacheQuery</a>
+</li>
+<li>GetAccessTokenAsync()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a56bd00a76fc648ea274175823a9ebaad">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>GetAccessTokenForGraphAsync()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a90f7a1665a86714fbd720ef5299ea2d6">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>GetAccountUserName()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a64c8206c0642541ab737ec80dbeed7e0">Messenger.Core.Services.IdentityService</a>
+</li>
 <li>GetAllChannelsByTeamId()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a3280e25fe2932519743b83161a423624">Messenger.Core.Services.TeamService</a>
 </li>
@@ -95,26 +127,51 @@ $(function() {
 <li>GetColumnType()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#a8431edc8f13bd26525d7476a1ba807cc">Messenger.Core.Helpers.SqlHelpers</a>
 </li>
+<li>GetConfiguration()
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DragDropService.html#a1fed62df038334cfe15e7e288906e8cf">Messenger.Services.DragAndDrop.DragDropService</a>
+</li>
 <li>GetConnections()
 : <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#a6dc3a4b24721e871a27826e1172a379b">Messenger.SignalR.Models.ConnectionMapping</a>
 </li>
+<li>GetHeaderContext()
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#afa8bbfc1695700672fc24b5943feb0f6">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>GetHeaderMode()
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a9d37b72b8f8ca1dea1becd5cc669dcba">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>GetHeaderTemplate()
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a436cfdc4560fcd5f85881e49f7152057">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>GetHorizontalAlignBindingPath()
+: <a class="el" href="classMessenger_1_1Helpers_1_1BindingHelper.html#aa9ddfaf740631ae8cea1ca56e7fdb395">Messenger.Helpers.BindingHelper</a>
+</li>
 <li>GetMessage()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#af2ff768aacb3829e822c500adb107854">Messenger.Core.Services.MessageService</a>
+, <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ac2a043d3fe88d76974f1c980dc20d320">Messenger.Core.Services.MessengerService</a>
 </li>
 <li>GetMessages()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#abab5dfc717e70a1c8acb5e25981fe19a">Messenger.Core.Services.MessengerService</a>
 </li>
-<li>GetOrCreateApplicationNonExisting_Test()
-: <a class="el" href="classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#ad5c066bc726e52916ba8fc16876f7e77">Messenger.Tests.MSTest.UserServiceTest</a>
+<li>GetMessagesFromDatabase()
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageBuilder.html#a54f7b7863f06dbd9007cd7e3f794ebeb">Messenger.Helpers.MessageHelpers.MessageBuilder</a>
+</li>
+<li>GetMyChats()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a765098283d02a96b5cb171e396d0c52a">Messenger.Helpers.CacheQuery</a>
+</li>
+<li>GetMyTeams()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#af168cc661d0647d6ed58d5949f60fe50">Messenger.Helpers.CacheQuery</a>
+</li>
+<li>GetNotifications()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a185755b2fad80a47c843dbe0609704a6">Messenger.Helpers.CacheQuery</a>
 </li>
 <li>GetOrCreateApplicationUser()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#ac11b0f0e3816153cccd4da715356c0c9">Messenger.Core.Services.UserService</a>
 </li>
-<li>GetOrCreateApplicationUserExisting_Test()
-: <a class="el" href="classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#aa53fdb71871aebd7efab00a0a0f86b3f">Messenger.Tests.MSTest.UserServiceTest</a>
+<li>GetPage()
+: <a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationConfig.html#a2a4ec96b851561792518cdd0a767b9b7">Messenger.Activation.SchemeActivationConfig</a>
 </li>
-<li>GetOrCreateApplicationUserSecondNameId_Test()
-: <a class="el" href="classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#ae29a74f8b0facad6639d846261a9bdc6">Messenger.Tests.MSTest.UserServiceTest</a>
+<li>GetPageKey()
+: <a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationConfig.html#abc4cb599a0a53939275b6bb5d33a4766">Messenger.Activation.SchemeActivationConfig</a>
 </li>
 <li>GetPartner()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a3e8fa40ecbae39aca562fcf1d6e4ff2c">Messenger.Core.Services.PrivateChatService</a>
@@ -125,11 +182,20 @@ $(function() {
 <li>GetReaction()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a879c86823d5bd214feb86e0755f8a83f">Messenger.Core.Services.MessageService</a>
 </li>
+<li>GetReactions()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a62565e9e6eac3e92e65b7ec80ef61652">Messenger.Core.Services.MessengerService</a>
+</li>
 <li>GetRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aeddc05b8cae12801dd4360a3425609c1">Messenger.Core.Services.TeamService</a>
 </li>
+<li>GetRolesList()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9738b95bd73dfddb38fb8c0e78f75829">Messenger.Core.Services.MessengerService</a>
+</li>
 <li>GetRows()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html#af100e043f757122c81a603b010d2ebf8">Messenger.Core.Helpers.SqlHelpers</a>
+</li>
+<li>GetSelectedUserCommand
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html#a5e4e0ddcc30590c1ec9e62390a960308">Messenger.ViewModels.Controls.UserSearchPanelViewModel</a>
 </li>
 <li>GetTeam()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a2491aff81294c379e49a4e7f9a6a0258">Messenger.Core.Services.MessengerService</a>
@@ -141,8 +207,14 @@ $(function() {
 <li>GetTeams()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a0bbf126af4adc2b648860c94567f0acb">Messenger.Core.Services.MessengerService</a>
 </li>
+<li>GetTeamsFromDatabase()
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamBuilder.html#ad632cd3f2724a605118bb76f8dc6d5d1">Messenger.Helpers.TeamHelpers.TeamBuilder</a>
+</li>
 <li>GetUser()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#ade881cc9dbad4fbd97ac0fe1b8f8cd78">Messenger.Core.Services.UserService</a>
+</li>
+<li>GetUserAsync()
+: <a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#aea2d88177b172125321b81c36b53ecb4">Messenger.Services.UserDataService</a>
 </li>
 <li>GetUserInfoAsync()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#accb64c665719443d909203316fdf1c9e">Messenger.Core.Services.MicrosoftGraphService</a>
@@ -162,15 +234,30 @@ $(function() {
 <li>GetUserWithNameId()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa4efb7021eae3d556c8f8ec858613e43">Messenger.Core.Services.MessengerService</a>
 </li>
+<li>GetVisualConfiguration()
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DragDropService.html#a715c72b81418ce1bc431adfabbcd0767">Messenger.Services.DragAndDrop.DragDropService</a>
+</li>
+<li>GoBack()
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#a73e4d1bc068e518c41ce1a399255c07f">Messenger.Services.NavigationService</a>
+</li>
+<li>GoForward()
+: <a class="el" href="classMessenger_1_1Services_1_1NavigationService.html#aacc1eebc79395feb7d31ba5872abd93c">Messenger.Services.NavigationService</a>
+</li>
+<li>GrantablePermissions
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1879117d9aea2ae7cca94c701017919e">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel</a>
+</li>
 <li>GrantPermission()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a31680edbab1758de675e170540c0dd78">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a4f904f5163e93e69a33be7677a4c71cf">Messenger.Core.Services.TeamService</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

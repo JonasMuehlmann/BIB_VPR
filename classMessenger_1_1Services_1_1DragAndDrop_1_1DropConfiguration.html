@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Services_1_1DragAndDrop.html">DragAndDrop</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html">DropConfiguration</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -75,9 +91,11 @@ $(function() {
 <div class="title">Messenger.Services.DragAndDrop.DropConfiguration Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.Services.DragAndDrop.DropConfiguration:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Services.DragAndDrop.DropConfiguration:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.png" usemap="#Messenger.Services.DragAndDrop.DropConfiguration_map" alt=""/>
   <map id="Messenger.Services.DragAndDrop.DropConfiguration_map" name="Messenger.Services.DragAndDrop.DropConfiguration_map">
@@ -87,71 +105,93 @@ Inheritance diagram for Messenger.Services.DragAndDrop.DropConfiguration:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3073ae7c872ed681f5cc9f1737ec7424"><td class="memItemLeft" align="right" valign="top"><a id="a3073ae7c872ed681f5cc9f1737ec7424"></a>
-async Task&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessComandsAsync</b> (DataPackageView dataview)</td></tr>
+<tr class="memitem:a3073ae7c872ed681f5cc9f1737ec7424"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a3073ae7c872ed681f5cc9f1737ec7424">ProcessComandsAsync</a> (DataPackageView dataview)</td></tr>
 <tr class="separator:a3073ae7c872ed681f5cc9f1737ec7424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a761a37f9b36c4510296bf51db6fead1d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropBitmapCommandProperty</b></td></tr>
+<tr class="memitem:a761a37f9b36c4510296bf51db6fead1d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a761a37f9b36c4510296bf51db6fead1d">DropBitmapCommandProperty</a></td></tr>
 <tr class="separator:a761a37f9b36c4510296bf51db6fead1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1068c84a77bb6017a05f2c02eb21fb2"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropHtmlCommandProperty</b></td></tr>
+<tr class="memitem:ae1068c84a77bb6017a05f2c02eb21fb2"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ae1068c84a77bb6017a05f2c02eb21fb2">DropHtmlCommandProperty</a></td></tr>
 <tr class="separator:ae1068c84a77bb6017a05f2c02eb21fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade54d6a27fb2575ccb0b012fac56f5d5"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropRtfCommandProperty</b></td></tr>
+<tr class="memitem:ade54d6a27fb2575ccb0b012fac56f5d5"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ade54d6a27fb2575ccb0b012fac56f5d5">DropRtfCommandProperty</a></td></tr>
 <tr class="separator:ade54d6a27fb2575ccb0b012fac56f5d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a537b069e655579733e2ce9500ae585aa"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropStorageItemsCommandProperty</b></td></tr>
+<tr class="memitem:a537b069e655579733e2ce9500ae585aa"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a537b069e655579733e2ce9500ae585aa">DropStorageItemsCommandProperty</a></td></tr>
 <tr class="separator:a537b069e655579733e2ce9500ae585aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80f7331e537cb0a40318116680eca32f"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropTextCommandProperty</b></td></tr>
+<tr class="memitem:a80f7331e537cb0a40318116680eca32f"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a80f7331e537cb0a40318116680eca32f">DropTextCommandProperty</a></td></tr>
 <tr class="separator:a80f7331e537cb0a40318116680eca32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56d5a94064d2a032483399b2dfea202d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropApplicationLinkCommandProperty</b></td></tr>
+<tr class="memitem:a56d5a94064d2a032483399b2dfea202d"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a56d5a94064d2a032483399b2dfea202d">DropApplicationLinkCommandProperty</a></td></tr>
 <tr class="separator:a56d5a94064d2a032483399b2dfea202d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab738bb792141485791cdb57f229d4a8"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropWebLinkCommandProperty</b></td></tr>
+<tr class="memitem:aab738bb792141485791cdb57f229d4a8"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aab738bb792141485791cdb57f229d4a8">DropWebLinkCommandProperty</a></td></tr>
 <tr class="separator:aab738bb792141485791cdb57f229d4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0c36c1ab72b9869691247944d4089e3"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DropDataViewCommandProperty</b></td></tr>
+<tr class="memitem:aa0c36c1ab72b9869691247944d4089e3"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aa0c36c1ab72b9869691247944d4089e3">DropDataViewCommandProperty</a></td></tr>
 <tr class="separator:aa0c36c1ab72b9869691247944d4089e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad633226c35abf79bb31364d4ad37dbb2"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DragEnterCommandProperty</b></td></tr>
+<tr class="memitem:ad633226c35abf79bb31364d4ad37dbb2"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad633226c35abf79bb31364d4ad37dbb2">DragEnterCommandProperty</a></td></tr>
 <tr class="separator:ad633226c35abf79bb31364d4ad37dbb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a7e3111bb9a56c28d98511e8da83f4c"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DragOverCommandProperty</b></td></tr>
+<tr class="memitem:a7a7e3111bb9a56c28d98511e8da83f4c"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a7a7e3111bb9a56c28d98511e8da83f4c">DragOverCommandProperty</a></td></tr>
 <tr class="separator:a7a7e3111bb9a56c28d98511e8da83f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab366b125b1fb77323a9e4979fcc5dbfa"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommandProperty</b></td></tr>
+<tr class="memitem:ab366b125b1fb77323a9e4979fcc5dbfa"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ab366b125b1fb77323a9e4979fcc5dbfa">DragLeaveCommandProperty</a></td></tr>
 <tr class="separator:ab366b125b1fb77323a9e4979fcc5dbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:ad4d10b94318f514fbb957d9d16f35dcc"><td class="memItemLeft" align="right" valign="top"><a id="ad4d10b94318f514fbb957d9d16f35dcc"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropBitmapCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ad4d10b94318f514fbb957d9d16f35dcc"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad4d10b94318f514fbb957d9d16f35dcc">DropBitmapCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:ad4d10b94318f514fbb957d9d16f35dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a2444ca44fd565c3d1a89143d89c724"><td class="memItemLeft" align="right" valign="top"><a id="a2a2444ca44fd565c3d1a89143d89c724"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropHtmlCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a2a2444ca44fd565c3d1a89143d89c724"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a2a2444ca44fd565c3d1a89143d89c724">DropHtmlCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a2a2444ca44fd565c3d1a89143d89c724"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ca7449d2f2d75db4b3ca94eba9f7262"><td class="memItemLeft" align="right" valign="top"><a id="a4ca7449d2f2d75db4b3ca94eba9f7262"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropRtfCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a4ca7449d2f2d75db4b3ca94eba9f7262"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a4ca7449d2f2d75db4b3ca94eba9f7262">DropRtfCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a4ca7449d2f2d75db4b3ca94eba9f7262"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40f8035796898470d550e5831e7d2358"><td class="memItemLeft" align="right" valign="top"><a id="a40f8035796898470d550e5831e7d2358"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropStorageItemsCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a40f8035796898470d550e5831e7d2358"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a40f8035796898470d550e5831e7d2358">DropStorageItemsCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a40f8035796898470d550e5831e7d2358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a005357746a6bffbb73aa30fc8beffd25"><td class="memItemLeft" align="right" valign="top"><a id="a005357746a6bffbb73aa30fc8beffd25"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropTextCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a005357746a6bffbb73aa30fc8beffd25"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a005357746a6bffbb73aa30fc8beffd25">DropTextCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a005357746a6bffbb73aa30fc8beffd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada66a5fba7c573a44e987f813655a157"><td class="memItemLeft" align="right" valign="top"><a id="ada66a5fba7c573a44e987f813655a157"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropApplicationLinkCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ada66a5fba7c573a44e987f813655a157"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ada66a5fba7c573a44e987f813655a157">DropApplicationLinkCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:ada66a5fba7c573a44e987f813655a157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad57e41e7edc9a1f208c8518cfb530fa"><td class="memItemLeft" align="right" valign="top"><a id="aad57e41e7edc9a1f208c8518cfb530fa"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropWebLinkCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aad57e41e7edc9a1f208c8518cfb530fa"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aad57e41e7edc9a1f208c8518cfb530fa">DropWebLinkCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:aad57e41e7edc9a1f208c8518cfb530fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed654f2233fdafb3a03ccc3e303819e7"><td class="memItemLeft" align="right" valign="top"><a id="aed654f2233fdafb3a03ccc3e303819e7"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DropDataViewCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aed654f2233fdafb3a03ccc3e303819e7"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aed654f2233fdafb3a03ccc3e303819e7">DropDataViewCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:aed654f2233fdafb3a03ccc3e303819e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a443d2022c52d6ab1556ffd5c40b02ed0"><td class="memItemLeft" align="right" valign="top"><a id="a443d2022c52d6ab1556ffd5c40b02ed0"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragEnterCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a443d2022c52d6ab1556ffd5c40b02ed0"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a443d2022c52d6ab1556ffd5c40b02ed0">DragEnterCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a443d2022c52d6ab1556ffd5c40b02ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78b77a047ec45fac51b737528d197949"><td class="memItemLeft" align="right" valign="top"><a id="a78b77a047ec45fac51b737528d197949"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragOverCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a78b77a047ec45fac51b737528d197949"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a78b77a047ec45fac51b737528d197949">DragOverCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:a78b77a047ec45fac51b737528d197949"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb13ce1f7b1966ad14f5af802d75a0d8"><td class="memItemLeft" align="right" valign="top"><a id="afb13ce1f7b1966ad14f5af802d75a0d8"></a>
-ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand</b><code> [get, set]</code></td></tr>
+<tr class="memitem:afb13ce1f7b1966ad14f5af802d75a0d8"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#afb13ce1f7b1966ad14f5af802d75a0d8">DragLeaveCommand</a><code> [get, set]</code></td></tr>
 <tr class="separator:afb13ce1f7b1966ad14f5af802d75a0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00013">13</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3073ae7c872ed681f5cc9f1737ec7424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3073ae7c872ed681f5cc9f1737ec7424">&#9670;&nbsp;</a></span>ProcessComandsAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync </td>
+          <td>(</td>
+          <td class="paramtype">DataPackageView&#160;</td>
+          <td class="paramname"><em>dataview</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00114">114</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="DropConfiguration_8cs_source.html#l00079">Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand</a>, <a class="el" href="DropConfiguration_8cs_source.html#l00049">Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand</a>, <a class="el" href="DropConfiguration_8cs_source.html#l00091">Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand</a>, <a class="el" href="DropConfiguration_8cs_source.html#l00055">Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand</a>, <a class="el" href="DropConfiguration_8cs_source.html#l00061">Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand</a>, <a class="el" href="DropConfiguration_8cs_source.html#l00067">Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand</a>, <a class="el" href="DropConfiguration_8cs_source.html#l00073">Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand</a>, and <a class="el" href="DropConfiguration_8cs_source.html#l00085">Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ad633226c35abf79bb31364d4ad37dbb2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad633226c35abf79bb31364d4ad37dbb2">&#9670;&nbsp;</a></span>DragEnterCommandProperty</h2>
@@ -175,6 +215,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DragEnterCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00039">39</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="ab366b125b1fb77323a9e4979fcc5dbfa"></a>
@@ -199,6 +241,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DragLeaveCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00045">45</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="a7a7e3111bb9a56c28d98511e8da83f4c"></a>
@@ -223,6 +267,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DragOverCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00042">42</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="a56d5a94064d2a032483399b2dfea202d"></a>
@@ -247,6 +293,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropApplicationLinkCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00030">30</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="a761a37f9b36c4510296bf51db6fead1d"></a>
@@ -271,6 +319,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropBitmapCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00015">15</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="aa0c36c1ab72b9869691247944d4089e3"></a>
@@ -295,6 +345,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropDataViewCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00036">36</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="ae1068c84a77bb6017a05f2c02eb21fb2"></a>
@@ -319,6 +371,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropHtmlCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00018">18</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="ade54d6a27fb2575ccb0b012fac56f5d5"></a>
@@ -343,6 +397,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropRtfCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00021">21</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="a537b069e655579733e2ce9500ae585aa"></a>
@@ -367,6 +423,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropStorageItemsCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00024">24</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="a80f7331e537cb0a40318116680eca32f"></a>
@@ -391,6 +449,8 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropTextCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00027">27</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
 </div>
 </div>
 <a id="aab738bb792141485791cdb57f229d4a8"></a>
@@ -415,15 +475,302 @@ ICommand&#160;</td><td class="memItemRight" valign="bottom"><b>DragLeaveCommand<
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;DropWebLinkCommand&quot;</span>, typeof(ICommand), typeof(DropConfiguration), <span class="keyword">new</span> PropertyMetadata(<span class="keyword">null</span>))</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00033">33</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a443d2022c52d6ab1556ffd5c40b02ed0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a443d2022c52d6ab1556ffd5c40b02ed0">&#9670;&nbsp;</a></span>DragEnterCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DragEnterCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00096">96</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+</div>
+</div>
+<a id="afb13ce1f7b1966ad14f5af802d75a0d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb13ce1f7b1966ad14f5af802d75a0d8">&#9670;&nbsp;</a></span>DragLeaveCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DragLeaveCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00108">108</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+</div>
+</div>
+<a id="a78b77a047ec45fac51b737528d197949"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78b77a047ec45fac51b737528d197949">&#9670;&nbsp;</a></span>DragOverCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DragOverCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00102">102</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+</div>
+</div>
+<a id="ada66a5fba7c573a44e987f813655a157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada66a5fba7c573a44e987f813655a157">&#9670;&nbsp;</a></span>DropApplicationLinkCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropApplicationLinkCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00078">78</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="ad4d10b94318f514fbb957d9d16f35dcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4d10b94318f514fbb957d9d16f35dcc">&#9670;&nbsp;</a></span>DropBitmapCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropBitmapCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00048">48</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="aed654f2233fdafb3a03ccc3e303819e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed654f2233fdafb3a03ccc3e303819e7">&#9670;&nbsp;</a></span>DropDataViewCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropDataViewCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00090">90</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a2a2444ca44fd565c3d1a89143d89c724"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a2444ca44fd565c3d1a89143d89c724">&#9670;&nbsp;</a></span>DropHtmlCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropHtmlCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00054">54</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a4ca7449d2f2d75db4b3ca94eba9f7262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca7449d2f2d75db4b3ca94eba9f7262">&#9670;&nbsp;</a></span>DropRtfCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropRtfCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00060">60</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a40f8035796898470d550e5831e7d2358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40f8035796898470d550e5831e7d2358">&#9670;&nbsp;</a></span>DropStorageItemsCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropStorageItemsCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00066">66</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a005357746a6bffbb73aa30fc8beffd25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a005357746a6bffbb73aa30fc8beffd25">&#9670;&nbsp;</a></span>DropTextCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropTextCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00072">72</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
+</div>
+</div>
+<a id="aad57e41e7edc9a1f208c8518cfb530fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad57e41e7edc9a1f208c8518cfb530fa">&#9670;&nbsp;</a></span>DropWebLinkCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICommand Messenger.Services.DragAndDrop.DropConfiguration.DropWebLinkCommand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DropConfiguration_8cs_source.html#l00084">84</a> of file <a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DropConfiguration_8cs_source.html#l00114">Messenger.Services.DragAndDrop.DropConfiguration.ProcessComandsAsync()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Services/DragAndDrop/DropConfiguration.cs</li>
+<li>Messenger/Messenger/Services/DragAndDrop/<a class="el" href="DropConfiguration_8cs_source.html">DropConfiguration.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Services_1_1DragAndDrop.html">DragAndDrop</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html">DropConfiguration</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

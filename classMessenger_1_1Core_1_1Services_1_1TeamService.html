@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1TeamService.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html">TeamService</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -76,9 +92,11 @@ $(function() {
 
 <p>Holds helpers and static methods to interact with teams on the DB, including permissions, roles and members.  
  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.Core.Services.TeamService:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Core.Services.TeamService:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Services_1_1TeamService.png" usemap="#Messenger.Core.Services.TeamService_map" alt=""/>
   <map id="Messenger.Core.Services.TeamService_map" name="Messenger.Core.Services.TeamService_map">
@@ -129,8 +147,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ae5f722037537d2b09850eeae0b6d3117"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">AddRole</a> (string role, uint teamId, string colorCode)</td></tr>
 <tr class="memdesc:ae5f722037537d2b09850eeae0b6d3117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a role to a team with the specified teamId  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#ae5f722037537d2b09850eeae0b6d3117">More...</a><br /></td></tr>
 <tr class="separator:ae5f722037537d2b09850eeae0b6d3117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa695d221afd6a98bb1e81477daa6f3"><td class="memItemLeft" align="right" valign="top"><a id="abaa695d221afd6a98bb1e81477daa6f3"></a>
-static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateRole</b> (uint roleId, string role, string colorCode)</td></tr>
+<tr class="memitem:abaa695d221afd6a98bb1e81477daa6f3"><td class="memItemLeft" align="right" valign="top">static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#abaa695d221afd6a98bb1e81477daa6f3">UpdateRole</a> (uint roleId, string role, string colorCode)</td></tr>
 <tr class="separator:abaa695d221afd6a98bb1e81477daa6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca5bf5c0c783dbb36fddfc1f5e8e6de7"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7">RemoveRole</a> (string role, uint teamId)</td></tr>
 <tr class="memdesc:aca5bf5c0c783dbb36fddfc1f5e8e6de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a role from a team's available roles  <a href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7">More...</a><br /></td></tr>
@@ -168,6 +185,8 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds helpers and static methods to interact with teams on the DB, including permissions, roles and members. </p>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00016">16</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a71e7113d4f2bf94929884d5cbb5ca7df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71e7113d4f2bf94929884d5cbb5ca7df">&#9670;&nbsp;</a></span>AddMember()</h2>
@@ -212,6 +231,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00273">273</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="PrivateChatService_8cs_source.html#l00026">Messenger.Core.Services.PrivateChatService.CreatePrivateChat()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>.</p>
 
 </div>
 </div>
@@ -266,6 +291,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Id of the added team role</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00443">443</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00852">Messenger.Core.Services.MessengerService.CreateTeamRole()</a>, and <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>.</p>
+
 </div>
 </div>
 <a id="ac7e71844865b0a106d5d36e6d0221452"></a>
@@ -319,6 +348,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00548">548</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, and <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>.</p>
+
 </div>
 </div>
 <a id="afc9dcbc65164fe083249096e35bb0b3e"></a>
@@ -364,6 +399,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True, if the teams name was changed, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00171">171</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00491">Messenger.Core.Services.MessengerService.UpdateTeamDescription()</a>.</p>
 
 </div>
 </div>
@@ -411,6 +452,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True, if the teams name was changed, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00139">139</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00434">Messenger.Core.Services.MessengerService.UpdateTeamName()</a>.</p>
+
 </div>
 </div>
 <a id="a250de2dabac7790655a8888d04ff13fe"></a>
@@ -457,6 +504,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The id of the created team if it was created successfully, null otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00026">26</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>.</p>
+
 </div>
 </div>
 <a id="a4b0651f74678710a739ee75884aaa075"></a>
@@ -491,6 +542,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query and it affected at least one query, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00079">79</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00456">Messenger.Core.Services.MessengerService.DeleteTeam()</a>.</p>
 
 </div>
 </div>
@@ -527,6 +584,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of channel objects</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00420">420</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00119">Messenger.Core.Helpers.Mapper.ChannelFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00590">Messenger.Core.Services.MessengerService.GetChannelsForTeam()</a>.</p>
+
 </div>
 </div>
 <a id="aa57d048a3cfd663ed2cb88eee57e0f12"></a>
@@ -561,6 +624,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <p>returns&gt;Enumerable of User objects representing the teams members</p>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00390">390</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00612">Messenger.Core.Services.MessengerService.GetTeamMembers()</a>.</p>
 
 </div>
 </div>
@@ -597,6 +666,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of membership objects</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00367">367</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00103">Messenger.Core.Helpers.Mapper.MembershipFromDataRow()</a>.</p>
+
 </div>
 </div>
 <a id="a5c8049fa057888a5b7483985d40696a0"></a>
@@ -624,6 +697,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 
 <p>Gets the list of all existing teams. </p>
 <dl class="section return"><dt>Returns</dt><dd>An enumerable of Team objects</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00194">194</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00061">Messenger.Core.Helpers.Mapper.TeamFromDataRow()</a>.</p>
 
 </div>
 </div>
@@ -659,6 +736,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An enumerable of Team objects</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00243">243</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00061">Messenger.Core.Helpers.Mapper.TeamFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="PrivateChatService_8cs_source.html#l00078">Messenger.Core.Services.PrivateChatService.GetAllPrivateChatsFromUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00320">Messenger.Core.Services.MessengerService.GetTeams()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>.</p>
 
 </div>
 </div>
@@ -706,6 +789,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of Permissions the role has</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00915">915</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00184">Messenger.Helpers.TeamHelpers.TeamBuilder.WithPermissions()</a>.</p>
+
 </div>
 </div>
 <a id="aeddc05b8cae12801dd4360a3425609c1"></a>
@@ -741,6 +828,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The built role object on success, null otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00512">512</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, and <a class="el" href="Mapper_8cs_source.html#l00200">Messenger.Core.Helpers.Mapper.TeamRoleFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00852">Messenger.Core.Services.MessengerService.CreateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l01018">Messenger.Core.Services.MessengerService.GrantPermission()</a>, <a class="el" href="MentionService_8cs_source.html#l00101">Messenger.Core.Services.MentionService.ResolveMentions()</a>, <a class="el" href="MessengerService_8cs_source.html#l01047">Messenger.Core.Services.MessengerService.RevokePermission()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00880">Messenger.Core.Services.MessengerService.UpdateTeamRole()</a>.</p>
+
 </div>
 </div>
 <a id="afb5b3ce75e4fd6ff9f425d03a405c785"></a>
@@ -775,6 +868,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A complete Team object</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00216">216</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00061">Messenger.Core.Helpers.Mapper.TeamFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00456">Messenger.Core.Services.MessengerService.DeleteTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00338">Messenger.Core.Services.MessengerService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00491">Messenger.Core.Services.MessengerService.UpdateTeamDescription()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00434">Messenger.Core.Services.MessengerService.UpdateTeamName()</a>.</p>
 
 </div>
 </div>
@@ -822,6 +921,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The list of role names of the user in the specified team</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00679">679</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00200">Messenger.Core.Helpers.Mapper.TeamRoleFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00831">Messenger.Core.Services.MessengerService.GetRolesList()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00146">Messenger.Helpers.TeamHelpers.TeamBuilder.WithMemberRoles()</a>.</p>
+
 </div>
 </div>
 <a id="a1582ef2a99db4d382aff1f4024527584"></a>
@@ -867,6 +972,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of user objects belonging to users with the specified role</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00650">650</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>.</p>
 
 </div>
 </div>
@@ -921,6 +1032,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00713">713</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l01018">Messenger.Core.Services.MessengerService.GrantPermission()</a>, and <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>.</p>
+
 </div>
 </div>
 <a id="a6acd267c3c3b82540193d467703e1eac"></a>
@@ -974,6 +1091,8 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the role has the permission, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00849">849</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
 </div>
 </div>
 <a id="a48ac69b2ba2aaec35ce4e4d3ce94ff8b"></a>
@@ -1008,6 +1127,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of available role names</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00624">624</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Mapper_8cs_source.html#l00200">Messenger.Core.Helpers.Mapper.TeamRoleFromDataRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamBuilder_8cs_source.html#l00146">Messenger.Helpers.TeamHelpers.TeamBuilder.WithMemberRoles()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00118">Messenger.Helpers.TeamHelpers.TeamBuilder.WithTeamRoles()</a>.</p>
 
 </div>
 </div>
@@ -1055,6 +1180,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00336">336</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>.</p>
+
 </div>
 </div>
 <a id="aca5bf5c0c783dbb36fddfc1f5e8e6de7"></a>
@@ -1100,6 +1231,10 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00488">488</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>.</p>
 
 </div>
 </div>
@@ -1154,6 +1289,12 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false otherwise</dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00780">780</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l01047">Messenger.Core.Services.MessengerService.RevokePermission()</a>.</p>
+
 </div>
 </div>
 <a id="a94a8e6f8f14271fc49a5da51216d3b19"></a>
@@ -1206,6 +1347,60 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00588">588</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>.</p>
+
+</div>
+</div>
+<a id="abaa695d221afd6a98bb1e81477daa6f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaa695d221afd6a98bb1e81477daa6f3">&#9670;&nbsp;</a></span>UpdateRole()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;bool&gt; Messenger.Core.Services.TeamService.UpdateRole </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>roleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>role</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>colorCode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00463">463</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00880">Messenger.Core.Services.MessengerService.UpdateTeamRole()</a>.</p>
 
 </div>
 </div>
@@ -1260,15 +1455,23 @@ static async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="botto
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="TeamService_8cs_source.html#l00111">111</a> of file <a class="el" href="TeamService_8cs_source.html">TeamService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Services/TeamService.cs</li>
+<li>Messenger/Messenger.Core/Services/<a class="el" href="TeamService_8cs_source.html">TeamService.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html">TeamService</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

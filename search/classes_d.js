@@ -1,21 +1,6 @@
 var searchData=
 [
-  ['schemeactivationdata_520',['SchemeActivationData',['../classMessenger_1_1Activation_1_1SchemeActivationData.html',1,'Messenger::Activation']]],
-  ['schemeactivationsamplepage_521',['SchemeActivationSamplePage',['../classMessenger_1_1Views_1_1Pages_1_1SchemeActivationSamplePage.html',1,'Messenger::Views::Pages']]],
-  ['schemeactivationsampleviewmodel_522',['SchemeActivationSampleViewModel',['../classMessenger_1_1ViewModels_1_1Pages_1_1SchemeActivationSampleViewModel.html',1,'Messenger::ViewModels::Pages']]],
-  ['sendmessagecommand_523',['SendMessageCommand',['../classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html',1,'Messenger::Commands::Messenger']]],
-  ['sendmessagecontrol_524',['SendMessageControl',['../classMessenger_1_1Views_1_1Controls_1_1SendMessageControl.html',1,'Messenger::Views::Controls']]],
-  ['sendmessagecontrolviewmodel_525',['SendMessageControlViewModel',['../classMessenger_1_1ViewModels_1_1Controls_1_1SendMessageControlViewModel.html',1,'Messenger::ViewModels::Controls']]],
-  ['settingspage_526',['SettingsPage',['../classMessenger_1_1Views_1_1Pages_1_1SettingsPage.html',1,'Messenger::Views::Pages']]],
-  ['settingsviewmodel_527',['SettingsViewModel',['../classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html',1,'Messenger::ViewModels::Pages']]],
-  ['shellpage_528',['ShellPage',['../classMessenger_1_1Views_1_1Pages_1_1ShellPage.html',1,'Messenger::Views::Pages']]],
-  ['shellviewmodel_529',['ShellViewModel',['../classMessenger_1_1ViewModels_1_1Pages_1_1ShellViewModel.html',1,'Messenger::ViewModels::Pages']]],
-  ['sidenavigation_530',['SideNavigation',['../classMessenger_1_1Views_1_1Subcontrols_1_1SideNavigation.html',1,'Messenger::Views::Subcontrols']]],
-  ['signalreventargs_531',['SignalREventArgs',['../classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html',1,'Messenger::Core::Models']]],
-  ['signalrservice_532',['SignalRService',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html',1,'Messenger::Core::Services']]],
-  ['sqlhelpers_533',['SqlHelpers',['../classMessenger_1_1Core_1_1Helpers_1_1SqlHelpers.html',1,'Messenger::Core::Helpers']]],
-  ['startchatcommand_534',['StartChatCommand',['../classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html',1,'Messenger::Commands::PrivateChat']]],
-  ['startchatwithusercommand_535',['StartChatWithUserCommand',['../classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatWithUserCommand.html',1,'Messenger::Commands::PrivateChat']]],
-  ['startup_536',['Startup',['../classMessenger_1_1SignalR_1_1Startup.html',1,'Messenger::SignalR']]],
-  ['stateprovider_537',['StateProvider',['../classMessenger_1_1Services_1_1Providers_1_1StateProvider.html',1,'Messenger::Services::Providers']]]
+  ['privatechatservice_1084',['PrivateChatService',['../classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html',1,'Messenger::Core::Services']]],
+  ['privatechatviewmodel_1085',['PrivateChatViewModel',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html',1,'Messenger::ViewModels::DataViewModels']]],
+  ['program_1086',['Program',['../classMessenger_1_1SignalR_1_1Program.html',1,'Messenger::SignalR']]]
 ];

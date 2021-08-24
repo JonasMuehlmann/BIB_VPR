@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -77,9 +93,11 @@ $(function() {
 
 <p>Represents event arguments to use with signalR functions  
  <a href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.png" alt=""/>
  </div></div>
@@ -107,6 +125,8 @@ Properties</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents event arguments to use with signalR functions </p>
+
+<p class="definition">Definition at line <a class="el" href="SignalREventArgs_8cs_source.html#l00024">24</a> of file <a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a59cb5487d25cf462bbcbf2a8ac7671c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59cb5487d25cf462bbcbf2a8ac7671c4">&#9670;&nbsp;</a></span>SignalREventArgs() <span class="overload">[1/2]</span></h2>
@@ -133,6 +153,10 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Build a signalR event argument with one value </p>
+
+<p class="definition">Definition at line <a class="el" href="SignalREventArgs_8cs_source.html#l00018">18</a> of file <a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
 
 </div>
 </div>
@@ -172,6 +196,10 @@ Properties</h2></td></tr>
 
 <p>Build a signalR event argument with two values </p>
 
+<p class="definition">Definition at line <a class="el" href="SignalREventArgs_8cs_source.html#l00039">39</a> of file <a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalREventArgs_8cs_source.html#l00029">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.FirstValue</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00034">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SecondValue</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
@@ -197,6 +225,10 @@ Properties</h2></td></tr>
 
 <p>The first value of an signalR event argument </p>
 
+<p class="definition">Definition at line <a class="el" href="SignalREventArgs_8cs_source.html#l00029">29</a> of file <a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalREventArgs_8cs_source.html#l00039">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SignalREventArgs()</a>.</p>
+
 </div>
 </div>
 <a id="ae493cd34e81b6683e7578e0b0c896284"></a>
@@ -220,6 +252,10 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The second value of an signalR event argument </p>
+
+<p class="definition">Definition at line <a class="el" href="SignalREventArgs_8cs_source.html#l00034">34</a> of file <a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalREventArgs_8cs_source.html#l00039">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SignalREventArgs()</a>.</p>
 
 </div>
 </div>
@@ -245,15 +281,23 @@ Properties</h2></td></tr>
 
 <p>The value of an signalR event argument </p>
 
+<p class="definition">Definition at line <a class="el" href="SignalREventArgs_8cs_source.html#l00013">13</a> of file <a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalREventArgs_8cs_source.html#l00018">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SignalREventArgs()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger.Core/Models/SignalREventArgs.cs</li>
+<li>Messenger/Messenger.Core/Models/<a class="el" href="SignalREventArgs_8cs_source.html">SignalREventArgs.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Core_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

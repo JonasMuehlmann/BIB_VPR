@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['teamdescriptionproperty_772',['TeamDescriptionProperty',['../classMessenger_1_1Views_1_1DialogBoxes_1_1ChangeTeamDialog.html#a245c3df08753ccf5770313cd3f743978',1,'Messenger.Views.DialogBoxes.ChangeTeamDialog.TeamDescriptionProperty()'],['../classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#ab8ecb9bd7d4de1ddb0cec93e327c0895',1,'Messenger.Views.DialogBoxes.CreateTeamDialog.TeamDescriptionProperty()']]],
-  ['teammanager_773',['TeamManager',['../classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a82f040c61cc98b9d6b7d9905a9d966c3',1,'Messenger::Services::Providers::StateProvider']]],
-  ['teamnameproperty_774',['TeamNameProperty',['../classMessenger_1_1Views_1_1DialogBoxes_1_1ChangeTeamDialog.html#a4866935759a3f69323ea3688d69491d1',1,'Messenger.Views.DialogBoxes.ChangeTeamDialog.TeamNameProperty()'],['../classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html#a43dea3b7bcb373da5ec1209aa9725968',1,'Messenger.Views.DialogBoxes.CreateTeamDialog.TeamNameProperty()']]]
+  ['headercontextproperty_1771',['HeaderContextProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ac606a2aa4c71a11396a0ad3cfa453eb3',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['headermodeproperty_1772',['HeaderModeProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a1f06006663e06a55690c67360354c3d9',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['headertemplateproperty_1773',['HeaderTemplateProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2013638f0ca1a9b13a74b588a2367b6d',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['horizontalalignbindingpathproperty_1774',['HorizontalAlignBindingPathProperty',['../classMessenger_1_1Helpers_1_1BindingHelper.html#a3926b5fce5fb353b574e63d22cb307d4',1,'Messenger::Helpers::BindingHelper']]]
 ];

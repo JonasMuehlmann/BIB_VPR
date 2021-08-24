@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_s.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,14 +82,41 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>SaveAsync&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Helpers_1_1SettingsStorageExtensions.html#ad668fbad0bbe9c6f54e4d879551aaf88">Messenger.Helpers.SettingsStorageExtensions</a>
+</li>
+<li>SaveFileAsync()
+: <a class="el" href="classMessenger_1_1Helpers_1_1SettingsStorageExtensions.html#a6a69b7647c767e1f248aca1447b84809">Messenger.Helpers.SettingsStorageExtensions</a>
+</li>
+<li>SaveString()
+: <a class="el" href="classMessenger_1_1Helpers_1_1SettingsStorageExtensions.html#a0a72b9df12f10f50cdb9a8c43bf67804">Messenger.Helpers.SettingsStorageExtensions</a>
+</li>
 <li>SaveToStorage()
 : <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a699e24c43d908556d5e7e6cf1ab8fbc3">Messenger.Commands.Messenger.DownloadAttachmentCommand</a>
 </li>
+<li>SchemeActivationData()
+: <a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#a2685163ae322c68b25dfb0bfa2cc5cae">Messenger.Activation.SchemeActivationData</a>
+</li>
+<li>SchemeActivationSamplePage()
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1SchemeActivationSamplePage.html#aeb458bae06046b49963210820e2887ab">Messenger.Views.Pages.SchemeActivationSamplePage</a>
+</li>
+<li>SchemeActivationSampleViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SchemeActivationSampleViewModel.html#a2abf884266bd134af3ff1f66ed5df021">Messenger.ViewModels.Pages.SchemeActivationSampleViewModel</a>
+</li>
+<li>SearchCommand
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html#a31e026dd14c4cb16b5a4ad782fd9eac0">Messenger.ViewModels.Controls.UserSearchPanelViewModel</a>
+</li>
+<li>SearchFilter
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html#a982b6a07cd0cbaa8edff0cffe0520cb2">Messenger.ViewModels.Controls.UserSearchPanelViewModel</a>
+</li>
 <li>SearchMentionable()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MentionService.html#ac1329c21b2337d4343b4dbf51b28d29f">Messenger.Core.Services.MentionService</a>
+</li>
+<li>SearchResults
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html#adfe2ef1e8c0d009939043f5bee75e7f1">Messenger.ViewModels.Controls.UserSearchPanelViewModel</a>
 </li>
 <li>SearchUser()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#af7e4f61a320c6ee9f039437917843ce2">Messenger.Core.Services.UserService</a>
@@ -77,45 +124,145 @@ $(function() {
 <li>SecondValue
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html#ae493cd34e81b6683e7578e0b0c896284">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;</a>
 </li>
+<li>SelectedAssignableTeamRole
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageMemberRolesDialogViewModel.html#a653f0e3791370ae3eb91c36b33afffe5">Messenger.ViewModels.DialogBoxes.ManageMemberRolesDialogViewModel</a>
+</li>
+<li>SelectedAssignedTeamRole
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageMemberRolesDialogViewModel.html#a86dac3b2d2e6e5178868a213ce660c80">Messenger.ViewModels.DialogBoxes.ManageMemberRolesDialogViewModel</a>
+</li>
 <li>SelectedChannel
 : <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a78dd3b386051debe92937cd16c3e3ae0">Messenger.Services.Providers.StateProvider</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#adceb5a9ed7c9e963b745febf59d25b7a">Messenger.ViewModels.Pages.ChatViewModel</a>
 </li>
 <li>SelectedTeam
 : <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#aec23d9ee3d5eefacb5b4deccae88baa8">Messenger.Services.Providers.StateProvider</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#abf2f13c4e60225045ac55984028193f3">Messenger.ViewModels.Pages.ChatViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1TeamManageViewModel.html#a29b61a30a0889c92a628ff47d041b87e">Messenger.ViewModels.Pages.TeamManageViewModel</a>
 </li>
 <li>SelectedTeamRole
 : <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a317d51e5e3ae75968592babbe2f95bc2">Messenger.ViewModels.DialogBoxes.ManageRolesDialogViewModel</a>
 </li>
+<li>SelectedUser
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html#a0bbe44fade6a0231cd62e36a1b6ee701">Messenger.ViewModels.Controls.UserSearchPanelViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DialogBoxes_1_1CreateChatDialogViewModel.html#ab995c71f0bc5f190e357a96513538811">Messenger.ViewModels.DialogBoxes.CreateChatDialogViewModel</a>
+</li>
+<li>SelectTemplateCore()
+: <a class="el" href="classMessenger_1_1TemplateSelectors_1_1TeamDataTemplateSelector.html#a32eff3a3e931224ea56e9b2420c7779a">Messenger.TemplateSelectors.TeamDataTemplateSelector</a>
+</li>
 <li>Sender
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#ab9c989be3a51db741e695dc54285cf6d">Messenger.Core.Models.Message</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a03ca4b766bae32fb670866e7fd65205d">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
 </li>
 <li>SenderId
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html#a97fed67252ac0a193529ffb55b16d061">Messenger.Core.Models.Message</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Models_1_1NotificationMute.html#a704878e94d4a9d9cd7d9c8dfaadfd53c">Messenger.Core.Models.NotificationMute</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a9b5a08fc0b99744e3b9fc44b7991b2c8">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
 </li>
 <li>SendInvitation()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa690d0e394ac175474fb41e071822677">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a048ca72ded57e483b972f7989d67be21">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a479ae1b44cda30a711d87f61684360ec">Messenger.SignalR.ChatHub</a>
 </li>
 <li>SendMessage()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a8ee0203eb531c86cfaec43beb5484e5b">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a6c39835894af32e050e7c77c161fef68">Messenger.Core.Services.SignalRService</a>
 , <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a93ad64f342c5b1188b83bd954419b8f8">Messenger.SignalR.ChatHub</a>
 </li>
+<li>SendMessageCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ac34e65bfd8c1d838e2187f5c18aa1ecd">Messenger.Commands.Messenger.SendMessageCommand</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1SendMessageControlViewModel.html#a7239a9557f2904258597faa88d10aa0e">Messenger.ViewModels.Controls.SendMessageControlViewModel</a>
+</li>
+<li>SendMessageControl()
+: <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1SendMessageControl.html#afefec5e29db75b7d5b79e04dae5f5684">Messenger.Views.Controls.SendMessageControl</a>
+</li>
+<li>SendMessageControlViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1SendMessageControlViewModel.html#a7c235979598051bc81ba02a092b13961">Messenger.ViewModels.Controls.SendMessageControlViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#ac1b066f4c2799999bb337abeaee2a819">Messenger.ViewModels.Pages.ChatViewModel</a>
+</li>
 <li>SendNotification()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1NotificationService.html#a894dd1988c7594206cc04578b85fb52d">Messenger.Core.Services.NotificationService</a>
 </li>
+<li>SendNotificationToUser()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#af3662fa4966a99e3a1010fe071e8f690">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#aa4b96c2c5f8cbf894eff9d29badc76d3">Messenger.SignalR.ChatHub</a>
+</li>
+<li>Set()
+: <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1OperationConfirmationDialog.html#afb529dd73ba5c3f7d8ac061bf4b8c9df">Messenger.Views.DialogBoxes.OperationConfirmationDialog</a>
+, <a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1ResultConfirmationDialog.html#ac644d15d7c1feaade9ae7ef37d7988b7">Messenger.Views.DialogBoxes.ResultConfirmationDialog</a>
+</li>
+<li>Set&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Messenger.Helpers.Observable</a>
+</li>
+<li>SetConfiguration()
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DragDropService.html#a9f141c12eb0f6845db2655b4fad0ecdb">Messenger.Services.DragAndDrop.DragDropService</a>
+</li>
+<li>SetHeaderContext()
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a60c5e67bc707b497afe1e87c75096ccd">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>SetHeaderMode()
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ad0678b7a657ac672e972a83ee9fe162d">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>SetHeaderTemplate()
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a5edf13192bdd829513633546a93568f6">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>SetHorizontalAlignBindingPath()
+: <a class="el" href="classMessenger_1_1Helpers_1_1BindingHelper.html#a0dc6560a5e0784d4d2d84f4f4918d9c4">Messenger.Helpers.BindingHelper</a>
+</li>
+<li>SetRequestedThemeAsync()
+: <a class="el" href="classMessenger_1_1Services_1_1ThemeSelectorService.html#ab5327243d23d2655e2f5272d87695e5d">Messenger.Services.ThemeSelectorService</a>
+</li>
+<li>SetThemeAsync()
+: <a class="el" href="classMessenger_1_1Services_1_1ThemeSelectorService.html#a3102c50f7082f51ddde5a25cba4c171b">Messenger.Services.ThemeSelectorService</a>
+</li>
+<li>SettingsPage()
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1SettingsPage.html#af67c14a8fae3e05c1a68f14420da4ebe">Messenger.Views.Pages.SettingsPage</a>
+</li>
+<li>SettingsViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#abc620a1083446f4d2aa8ef0dbf3a04e5">Messenger.ViewModels.Pages.SettingsViewModel</a>
+</li>
+<li>SetVisualConfiguration()
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DragDropService.html#a964cc684e8e3aa31e9b1f97ba7a3b044">Messenger.Services.DragAndDrop.DragDropService</a>
+</li>
+<li>ShellPage()
+: <a class="el" href="classMessenger_1_1Views_1_1Pages_1_1ShellPage.html#a8bb9eed96ac0c1192e1f7b3085031489">Messenger.Views.Pages.ShellPage</a>
+</li>
+<li>ShellViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ShellViewModel.html#af95fbed7d98fd16ad09f998f1f807f53">Messenger.ViewModels.Pages.ShellViewModel</a>
+</li>
+<li>SideNavigation()
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1SideNavigation.html#a0d5489a0c21ff374e6b1c1c51994a193">Messenger.Views.Subcontrols.SideNavigation</a>
+</li>
 <li>SignalREventArgs()
-: <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html#a59cb5487d25cf462bbcbf2a8ac7671c4">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;</a>
+: <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html#aaaa034555504394667cfe6b2f67cf1e5">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;</a>
 </li>
 <li>SignalRService
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a166cc663374b23a6f3908442487df9b1">Messenger.Core.Services.MessengerService</a>
 </li>
+<li>SortReplies()
+: <a class="el" href="classMessenger_1_1Helpers_1_1MessageHelpers_1_1MessageBuilder.html#aa2c6bb9c032fcdac89d52353fa3bf1c5">Messenger.Helpers.MessageHelpers.MessageBuilder</a>
+</li>
+<li>Source
+: <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel.html#af9dfdae5d871f8bd4c5ac0bd0c72c7b6">Messenger.ViewModels.DataViewModels.NotificationMessageViewModel</a>
+</li>
 <li>StartChat()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a2e4f6f60829b9bc9b37451d9a06f2002">Messenger.Core.Services.MessengerService</a>
 </li>
-<li>StartChatCommand
-: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a98717c4a65a366975276a32a3cb689eb">Messenger.ViewModels.Pages.ChatNavViewModel</a>
+<li>StartChatCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#a169f64f2764bb8a35b28fbae15521e2a">Messenger.Commands.PrivateChat.StartChatCommand</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a98717c4a65a366975276a32a3cb689eb">Messenger.ViewModels.Pages.ChatNavViewModel</a>
+</li>
+<li>StartChatWithUserCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatWithUserCommand.html#a9bcc8e4d8dbedaddb1ec2c5074fd0e91">Messenger.Commands.PrivateChat.StartChatWithUserCommand</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html#a5849a19f5ea425ca2af69f3251fc084e">Messenger.Views.Subcontrols.UserProfileFlyout</a>
+</li>
+<li>Startup()
+: <a class="el" href="classMessenger_1_1SignalR_1_1Startup.html#a756365565cc7608593b3094252aaf05a">Messenger.SignalR.Startup</a>
+</li>
+<li>StateProvider()
+: <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a0891580272511a56d55ae46427158b83">Messenger.Services.Providers.StateProvider</a>
+</li>
+<li>StatusMessage
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1LogInViewModel.html#a64405e5ba5da7c83dc301b021d5042ef">Messenger.ViewModels.Pages.LogInViewModel</a>
 </li>
 <li>StreamFile
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1UploadData.html#a10c65dd6224047fbf419eb3f89afef00">Messenger.Core.Models.UploadData</a>
@@ -123,20 +270,32 @@ $(function() {
 <li>StringFromDataRow()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a1f6d4641763746842ceb02c645b1ffa9">Messenger.Core.Helpers.Mapper</a>
 </li>
+<li>StringifyAsync()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Json.html#af8179f83666ce0dbfb75f9287179885b">Messenger.Core.Helpers.Json</a>
+</li>
+<li>StringToEnum&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#a7381cb7aea4475f03093b5d50a62ed71">Messenger.Core.Helpers.Mapper</a>
+</li>
 <li>strToJObject()
 : <a class="el" href="classMessenger_1_1Core_1_1Helpers_1_1Mapper.html#ae15c4cbc8381b2b418bd9e85f568ad8d">Messenger.Core.Helpers.Mapper</a>
 </li>
 <li>SwitchChatCommand
 : <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#ae15c462f1c67b953e2453f295d5680fd">Messenger.ViewModels.Pages.ChatNavViewModel</a>
 </li>
+<li>SwitchThemeCommand
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#ab13373c7e4bb87e87e2c4135ced01054">Messenger.ViewModels.Pages.SettingsViewModel</a>
+</li>
 <li>Symbol
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Reaction.html#a78929a14740188e79be54dce0224aee6">Messenger.Core.Models.Reaction</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

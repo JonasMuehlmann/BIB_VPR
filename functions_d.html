@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_d.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,31 +82,57 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>Data
+: <a class="el" href="classMessenger_1_1Models_1_1DragDropStartingData.html#a0a8cef8b0ee859eb0003b53434490cbe">Messenger.Models.DragDropStartingData</a>
+</li>
+<li>DataView
+: <a class="el" href="classMessenger_1_1Models_1_1DragDropData.html#ab3dc05cae60f31249ffe8486690d8f59">Messenger.Models.DragDropData</a>
+</li>
+<li>DefaultHeader
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#aa0026753076022d9389bab52574f9dc7">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>DefaultHeaderProperty
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2bb522c95f20e4aef06269512bf63f1d">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
+<li>DefaultHeaderTemplate
+: <a class="el" href="classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a09bff282df5919bb08524588d88141d5">Messenger.Behaviors.NavigationViewHeaderBehavior</a>
+</li>
 <li>Delete()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#a2fef494da70066b36819c8db04e57644">Messenger.Core.Services.FileSharingService</a>
 </li>
 <li>DeleteChannel()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aeef9238a7ed6bcd0bd1a5d4c2031b443">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ab9abb703a9beab10d43d6d02cfcf61a2">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a489d7815a043fca64c8b7dd3ad553a96">Messenger.SignalR.ChatHub</a>
 </li>
 <li>DeleteMessage()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessageService.html#a9baa767efdc37243db34bd079866316a">Messenger.Core.Services.MessageService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ae19f1d2a853d7afc9c0ea0aee96bcd8c">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#afb8a4fb96fd86c9b73618fd71888b95c">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a5019ac3241f1dde92c03600574be8a41">Messenger.SignalR.ChatHub</a>
+</li>
+<li>DeleteMessageCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DeleteMessageCommand.html#adfb41fae198596ee22941c2a915aa9a0">Messenger.Commands.Messenger.DeleteMessageCommand</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a071ad27778b2dacd976cd68b4eeaf967">Messenger.ViewModels.Controls.MessagesListControlViewModel</a>
+, <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a03e76d4b74663c31969c9e8c8983df27">Messenger.Views.Subcontrols.MessageView</a>
+</li>
+<li>DeleteMessageCommandProperty
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5c5b00eade8eb29be0e37517dc0de32e">Messenger.Views.Subcontrols.MessageView</a>
 </li>
 <li>DeleteMessageReaction()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#adc8b726c3ce2e48801aa22b7074a8e5a">Messenger.Core.Services.MessengerService</a>
 </li>
-<li>DeleteNonExistentUser_Test()
-: <a class="el" href="classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#a0435f0dead0cac4a3962f8896a4142b8">Messenger.Tests.MSTest.UserServiceTest</a>
+<li>DeleteReplyCommand
+: <a class="el" href="classMessenger_1_1Views_1_1Subcontrols_1_1ReplyView.html#aa51d84bdf6861b2f7a3f1b66896d1bba">Messenger.Views.Subcontrols.ReplyView</a>
 </li>
 <li>DeleteTeam()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#ab01f2292133ce2d756c758899ef30dc7">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a004748ef7c1f25241d192f89a48d02f2">Messenger.Core.Services.SignalRService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1TeamService.html#a4b0651f74678710a739ee75884aaa075">Messenger.Core.Services.TeamService</a>
+, <a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#ac25b93e0b696cce1be58b10c8488c8a0">Messenger.SignalR.ChatHub</a>
 </li>
 <li>DeleteTeamRole()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a7c3bc949dd7e9500e7c7bac424bf08d7">Messenger.Core.Services.MessengerService</a>
@@ -96,23 +142,129 @@ $(function() {
 <li>DeleteUser()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#a0bb00f415851f9b6009b10150f010f5e">Messenger.Core.Services.UserService</a>
 </li>
-<li>DeleteUser_Test()
-: <a class="el" href="classMessenger_1_1Tests_1_1MSTest_1_1UserServiceTest.html#a30e6a3b82e2bdab2d5b62ac0774b1908">Messenger.Tests.MSTest.UserServiceTest</a>
-</li>
 <li>Description
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html#a944fe018e34b0e5ba1a4dcefa83dcbae">Messenger.Core.Models.Team</a>
+, <a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a1b643227a90af10c8a0d6b5e388b2d93">Messenger.Services.UserActivityData</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html#aedb82a0b2974166effe9f710c002f32b">Messenger.ViewModels.DataViewModels.ChannelViewModel</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html#abae31033c7972e5050a67a9a213d303d">Messenger.ViewModels.DataViewModels.TeamViewModel</a>
+</li>
+<li>DetermineTeamType()
+: <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamBuilder.html#aaa0a967781c0c7527d11033cda865678">Messenger.Helpers.TeamHelpers.TeamBuilder</a>
 </li>
 <li>DisplayName
 : <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html#a27da36a8f0610d792f7d02c2236dc04e">Messenger.Core.Models.User</a>
 </li>
+<li>DisplayText
+: <a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a18870e988180b68a5ab10696461c4b12">Messenger.Services.UserActivityData</a>
+</li>
 <li>Download()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1FileSharingService.html#af5e61035c9efc431e991595df6a2c03f">Messenger.Core.Services.FileSharingService</a>
 </li>
+<li>DownloadAttachmentCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a287223e2a28917311881b3f3d92bff4c">Messenger.Commands.Messenger.DownloadAttachmentCommand</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a7b1369b6d6035a57f7498a06bbdd2fb0">Messenger.ViewModels.DataViewModels.MessageViewModel</a>
+</li>
+<li>DragEnterCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a443d2022c52d6ab1556ffd5c40b02ed0">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragEnterCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad633226c35abf79bb31364d4ad37dbb2">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragItemsCompletedCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#ad61f84d130512b5a8d9e9e033d91f8be">Messenger.Services.DragAndDrop.ListViewDropConfiguration</a>
+</li>
+<li>DragItemsCompletedCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a765fde8dc3a11bf1aba246fb6a18c238">Messenger.Services.DragAndDrop.ListViewDropConfiguration</a>
+</li>
+<li>DragItemsStartingCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a610d91528645046366fb4684f54bf0ae">Messenger.Services.DragAndDrop.ListViewDropConfiguration</a>
+</li>
+<li>DragItemsStartingCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a7fd49e2503c504d59664e57a6569d827">Messenger.Services.DragAndDrop.ListViewDropConfiguration</a>
+</li>
+<li>DragLeaveCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#afb13ce1f7b1966ad14f5af802d75a0d8">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragLeaveCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ab366b125b1fb77323a9e4979fcc5dbfa">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragOverCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a78b77a047ec45fac51b737528d197949">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragOverCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a7a7e3111bb9a56c28d98511e8da83f4c">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DragStartingImage
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#a76982bb42850fe57aeecb5e41b3f9bbc">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>DragStartingImageProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#ae5e6e4e4732989fe337be7cc23ed8170">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>DropApplicationLinkCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ada66a5fba7c573a44e987f813655a157">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropApplicationLinkCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a56d5a94064d2a032483399b2dfea202d">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropBitmapCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad4d10b94318f514fbb957d9d16f35dcc">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropBitmapCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a761a37f9b36c4510296bf51db6fead1d">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropDataViewCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aed654f2233fdafb3a03ccc3e303819e7">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropDataViewCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aa0c36c1ab72b9869691247944d4089e3">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropHtmlCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a2a2444ca44fd565c3d1a89143d89c724">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropHtmlCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ae1068c84a77bb6017a05f2c02eb21fb2">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropOverImage
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#a49a5cab199eff4ff80964ec89c1507ca">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>DropOverImageProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#aab1760db4331c84a8b6b2ab63cd8592e">Messenger.Services.DragAndDrop.VisualDropConfiguration</a>
+</li>
+<li>DropResult
+: <a class="el" href="classMessenger_1_1Models_1_1DragDropCompletedData.html#ad28087b3f71e116b7169c4337c05faf8">Messenger.Models.DragDropCompletedData</a>
+</li>
+<li>DropRtfCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a4ca7449d2f2d75db4b3ca94eba9f7262">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropRtfCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ade54d6a27fb2575ccb0b012fac56f5d5">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropStorageItemsCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a40f8035796898470d550e5831e7d2358">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropStorageItemsCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a537b069e655579733e2ce9500ae585aa">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropTextCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a005357746a6bffbb73aa30fc8beffd25">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropTextCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a80f7331e537cb0a40318116680eca32f">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropWebLinkCommand
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aad57e41e7edc9a1f208c8518cfb530fa">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
+<li>DropWebLinkCommandProperty
+: <a class="el" href="classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aab738bb792141485791cdb57f229d4a8">Messenger.Services.DragAndDrop.DropConfiguration</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

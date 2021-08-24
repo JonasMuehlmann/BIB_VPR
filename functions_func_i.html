@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_func_i.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -65,15 +85,68 @@ $(function() {
 &#160;
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>ImageFromAssetsFile()
+: <a class="el" href="classMessenger_1_1Helpers_1_1ImageHelper.html#ac056ed9741034fcd37c30c559ac048da">Messenger.Helpers.ImageHelper</a>
+</li>
+<li>ImageFromStringAsync()
+: <a class="el" href="classMessenger_1_1Helpers_1_1ImageHelper.html#a47f2f50a39249fdd5d99598d2dd3039c">Messenger.Helpers.ImageHelper</a>
+</li>
+<li>InboxControl()
+: <a class="el" href="classMessenger_1_1Views_1_1Controls_1_1InboxControl.html#a262bf742590ea5ccd0d10ccee977cb7b">Messenger.Views.Controls.InboxControl</a>
+</li>
+<li>InboxControlViewModel()
+: <a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1InboxControlViewModel.html#ab333df31d63090b7b63f1add0706bb5e">Messenger.ViewModels.Controls.InboxControlViewModel</a>
+</li>
 <li>Initialize()
 : <a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a634d8a2e7a0e69c93627309674d514d6">Messenger.Core.Services.MessengerService</a>
 , <a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#aad61da6c4bea9555625dd0b1542059e4">Messenger.Core.Services.SignalRService</a>
+, <a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a7b910334ef3277be02e4f5ce2e483860">Messenger.Helpers.TeamHelpers.TeamManager</a>
+, <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProviderExtension.html#aa5e956597a3bc1d1b7aadc8d3fe6f5b5">Messenger.Services.Providers.StateProviderExtension</a>
+, <a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a38f2ed73b1684ce15f516046b9400b11">Messenger.Services.UserDataService</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SchemeActivationSampleViewModel.html#a379e591acad94b03c365e7f5b2b76da2">Messenger.ViewModels.Pages.SchemeActivationSampleViewModel</a>
+</li>
+<li>InitializeAsync()
+: <a class="el" href="classMessenger_1_1Services_1_1ThemeSelectorService.html#a04ca47be446e18bf9636be4af8edf8ae">Messenger.Services.ThemeSelectorService</a>
+, <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a80ae0a5f89112c8e107f3ac3fd5e69ae">Messenger.ViewModels.Pages.SettingsViewModel</a>
+</li>
+<li>InitializeConsoleForAadMultipleOrgs()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#ad6e0048dff07911692d845c8f461a666">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>InitializeWithAadAndPersonalMsAccounts()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#af65cd4624aaf54e2e4d98a2c37f2b691">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>InitializeWithAadMultipleOrgs()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#afa94a30d58a2e7d6d22b6a45f82bd035">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>InitializeWithAadSingleOrg()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#ac4316b857342c8920b684287dc5a8392">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>InviteUserCommand()
+: <a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1InviteUserCommand.html#ac8b5028e9c9444a16e2b434b082ecfdd">Messenger.Commands.TeamManage.InviteUserCommand</a>
+</li>
+<li>IsAuthorized()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#ab687eaab43481d526689822db4d2dbaf">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>IsChannelOf&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a67d664c7bf70909f8efff2fb7c5d0505">Messenger.Helpers.CacheQuery</a>
+</li>
+<li>IsLoggedIn()
+: <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#abbeed854bd4ab835f5d14b12c328514a">Messenger.Core.Services.IdentityService</a>
+</li>
+<li>IsRoamingStorageAvailable()
+: <a class="el" href="classMessenger_1_1Helpers_1_1SettingsStorageExtensions.html#a8cd3e399413cdf56288d1a5a79a4c790">Messenger.Helpers.SettingsStorageExtensions</a>
+</li>
+<li>IsTypeOf&lt; T &gt;()
+: <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a7b0e76425ece927be0c704c343dc237a">Messenger.Helpers.CacheQuery</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

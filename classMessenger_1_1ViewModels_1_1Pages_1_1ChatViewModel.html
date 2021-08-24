@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1Pages.html">Pages</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -74,9 +90,11 @@ $(function() {
 <div class="title">Messenger.ViewModels.Pages.ChatViewModel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for Messenger.ViewModels.Pages.ChatViewModel:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Messenger.ViewModels.Pages.ChatViewModel:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.png" usemap="#Messenger.ViewModels.Pages.ChatViewModel_map" alt=""/>
   <map id="Messenger.ViewModels.Pages.ChatViewModel_map" name="Messenger.ViewModels.Pages.ChatViewModel_map">
@@ -98,37 +116,32 @@ Properties</h2></td></tr>
 <tr class="memitem:a7441f6287b66ca0f03afd7344afedef6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a7441f6287b66ca0f03afd7344afedef6">MessageToSend</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7441f6287b66ca0f03afd7344afedef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message object to be sent, update is triggered by SendMessageControl, data is injected to SendMessageCommand  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a7441f6287b66ca0f03afd7344afedef6">More...</a><br /></td></tr>
 <tr class="separator:a7441f6287b66ca0f03afd7344afedef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf2f13c4e60225045ac55984028193f3"><td class="memItemLeft" align="right" valign="top"><a id="abf2f13c4e60225045ac55984028193f3"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SelectedTeam</b><code> [get, set]</code></td></tr>
+<tr class="memitem:abf2f13c4e60225045ac55984028193f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#abf2f13c4e60225045ac55984028193f3">SelectedTeam</a><code> [get, set]</code></td></tr>
 <tr class="separator:abf2f13c4e60225045ac55984028193f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adceb5a9ed7c9e963b745febf59d25b7a"><td class="memItemLeft" align="right" valign="top"><a id="adceb5a9ed7c9e963b745febf59d25b7a"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html">ChannelViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SelectedChannel</b><code> [get, set]</code></td></tr>
+<tr class="memitem:adceb5a9ed7c9e963b745febf59d25b7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html">ChannelViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#adceb5a9ed7c9e963b745febf59d25b7a">SelectedChannel</a><code> [get, set]</code></td></tr>
 <tr class="separator:adceb5a9ed7c9e963b745febf59d25b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c941469b7374e85732b0d8c957b2775"><td class="memItemLeft" align="right" valign="top"><a id="a1c941469b7374e85732b0d8c957b2775"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>CurrentUser</b><code> [get]</code></td></tr>
+<tr class="memitem:a1c941469b7374e85732b0d8c957b2775"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#a1c941469b7374e85732b0d8c957b2775">CurrentUser</a><code> [get]</code></td></tr>
 <tr class="separator:a1c941469b7374e85732b0d8c957b2775"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b67e14debb2611f3776d08deb9d2cf"><td class="memItemLeft" align="right" valign="top"><a id="ac1b67e14debb2611f3776d08deb9d2cf"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html">MessagesListControlViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>MessagesListViewModel</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ac1b67e14debb2611f3776d08deb9d2cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html">MessagesListControlViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#ac1b67e14debb2611f3776d08deb9d2cf">MessagesListViewModel</a><code> [get, set]</code></td></tr>
 <tr class="separator:ac1b67e14debb2611f3776d08deb9d2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b066f4c2799999bb337abeaee2a819"><td class="memItemLeft" align="right" valign="top"><a id="ac1b066f4c2799999bb337abeaee2a819"></a>
-<a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1SendMessageControlViewModel.html">SendMessageControlViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SendMessageControlViewModel</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ac1b066f4c2799999bb337abeaee2a819"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1SendMessageControlViewModel.html">SendMessageControlViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html#ac1b066f4c2799999bb337abeaee2a819">SendMessageControlViewModel</a><code> [get, set]</code></td></tr>
 <tr class="separator:ac1b066f4c2799999bb337abeaee2a819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="ae8cf458aa24cfd172c194942009a5c62"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set&lt; T &gt;</b> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
 <tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OnPropertyChanged</b> (string propertyName)</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
 <tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top"><a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
-PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyChanged</b></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
 <tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00010">10</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0fc0c8e2382569c7dffe92782eb012c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0fc0c8e2382569c7dffe92782eb012c2">&#9670;&nbsp;</a></span>ChatViewModel()</h2>
 
@@ -156,9 +169,63 @@ PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><
 <p>REFERENCE TO GLOBAL STATE</p>
 <p>EVENTS REGISLATION</p>
 
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00082">82</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChatViewModel_8cs_source.html#l00072">Messenger.ViewModels.Pages.ChatViewModel.MessagesListViewModel</a>, <a class="el" href="ChatViewModel_8cs_source.html#l00047">Messenger.ViewModels.Pages.ChatViewModel.MessageToSend</a>, <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00120">Messenger.ViewModels.Controls.MessagesListControlViewModel.OnMessagesSwitched()</a>, <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00082">Messenger.ViewModels.Controls.MessagesListControlViewModel.OnMessageUpdated()</a>, <a class="el" href="ChatViewModel_8cs_source.html#l00065">Messenger.ViewModels.Pages.ChatViewModel.SelectedChannel</a>, <a class="el" href="ChatViewModel_8cs_source.html#l00059">Messenger.ViewModels.Pages.ChatViewModel.SelectedTeam</a>, and <a class="el" href="ChatViewModel_8cs_source.html#l00074">Messenger.ViewModels.Pages.ChatViewModel.SendMessageControlViewModel</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a1c941469b7374e85732b0d8c957b2775"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c941469b7374e85732b0d8c957b2775">&#9670;&nbsp;</a></span>CurrentUser</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> Messenger.ViewModels.Pages.ChatViewModel.CurrentUser</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00070">70</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+</div>
+</div>
+<a id="ac1b67e14debb2611f3776d08deb9d2cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1b67e14debb2611f3776d08deb9d2cf">&#9670;&nbsp;</a></span>MessagesListViewModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html">MessagesListControlViewModel</a> Messenger.ViewModels.Pages.ChatViewModel.MessagesListViewModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00072">72</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatViewModel_8cs_source.html#l00082">Messenger.ViewModels.Pages.ChatViewModel.ChatViewModel()</a>.</p>
+
+</div>
+</div>
 <a id="a7441f6287b66ca0f03afd7344afedef6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7441f6287b66ca0f03afd7344afedef6">&#9670;&nbsp;</a></span>MessageToSend</h2>
 
@@ -180,6 +247,10 @@ PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><
 </div><div class="memdoc">
 
 <p>Message object to be sent, update is triggered by SendMessageControl, data is injected to SendMessageCommand </p>
+
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00046">46</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatViewModel_8cs_source.html#l00082">Messenger.ViewModels.Pages.ChatViewModel.ChatViewModel()</a>.</p>
 
 </div>
 </div>
@@ -205,15 +276,99 @@ PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><
 
 <p>Message that the user is replying to, update is triggered by MessageView, data is injected to SendMessageControl </p>
 
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00030">30</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+</div>
+</div>
+<a id="adceb5a9ed7c9e963b745febf59d25b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adceb5a9ed7c9e963b745febf59d25b7a">&#9670;&nbsp;</a></span>SelectedChannel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html">ChannelViewModel</a> Messenger.ViewModels.Pages.ChatViewModel.SelectedChannel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00064">64</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatViewModel_8cs_source.html#l00082">Messenger.ViewModels.Pages.ChatViewModel.ChatViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="abf2f13c4e60225045ac55984028193f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2f13c4e60225045ac55984028193f3">&#9670;&nbsp;</a></span>SelectedTeam</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a> Messenger.ViewModels.Pages.ChatViewModel.SelectedTeam</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00058">58</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatViewModel_8cs_source.html#l00082">Messenger.ViewModels.Pages.ChatViewModel.ChatViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="ac1b066f4c2799999bb337abeaee2a819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1b066f4c2799999bb337abeaee2a819">&#9670;&nbsp;</a></span>SendMessageControlViewModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1SendMessageControlViewModel.html">SendMessageControlViewModel</a> Messenger.ViewModels.Pages.ChatViewModel.SendMessageControlViewModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatViewModel_8cs_source.html#l00074">74</a> of file <a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatViewModel_8cs_source.html#l00082">Messenger.ViewModels.Pages.ChatViewModel.ChatViewModel()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/ViewModels/Pages/ChatViewModel.cs</li>
+<li>Messenger/Messenger/ViewModels/Pages/<a class="el" href="ChatViewModel_8cs_source.html">ChatViewModel.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1ViewModels_1_1Pages.html">Pages</a></li><li class="navelem"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classMessenger_1_1Services_1_1UserActivityData.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html">UserActivityData</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -77,38 +93,260 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a706c3cd6f9041bf81a355cc940d36c75"><td class="memItemLeft" align="right" valign="top"><a id="a706c3cd6f9041bf81a355cc940d36c75"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UserActivityData</b> (string activityId, <a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html">SchemeActivationData</a> activationData, string displayText, Color backgroundColor=default, string description=null)</td></tr>
+<tr class="memitem:a706c3cd6f9041bf81a355cc940d36c75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a706c3cd6f9041bf81a355cc940d36c75">UserActivityData</a> (string activityId, <a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html">SchemeActivationData</a> activationData, string displayText, Color backgroundColor=default, string description=null)</td></tr>
 <tr class="separator:a706c3cd6f9041bf81a355cc940d36c75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab12b3a188e5c8fbc891a1c961ede3749"><td class="memItemLeft" align="right" valign="top"><a id="ab12b3a188e5c8fbc891a1c961ede3749"></a>
-async Task&lt; UserActivity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ToUserActivity</b> ()</td></tr>
+<tr class="memitem:ab12b3a188e5c8fbc891a1c961ede3749"><td class="memItemLeft" align="right" valign="top">async Task&lt; UserActivity &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#ab12b3a188e5c8fbc891a1c961ede3749">ToUserActivity</a> ()</td></tr>
 <tr class="separator:ab12b3a188e5c8fbc891a1c961ede3749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a4bfe7763ef3af651da7efb110b83aaff"><td class="memItemLeft" align="right" valign="top"><a id="a4bfe7763ef3af651da7efb110b83aaff"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>ActivityId</b><code> [get]</code></td></tr>
+<tr class="memitem:a4bfe7763ef3af651da7efb110b83aaff"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a4bfe7763ef3af651da7efb110b83aaff">ActivityId</a><code> [get]</code></td></tr>
 <tr class="separator:a4bfe7763ef3af651da7efb110b83aaff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34e5c88f74b43123db3caf34b822d015"><td class="memItemLeft" align="right" valign="top"><a id="a34e5c88f74b43123db3caf34b822d015"></a>
-<a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html">SchemeActivationData</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ActivationData</b><code> [get]</code></td></tr>
+<tr class="memitem:a34e5c88f74b43123db3caf34b822d015"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html">SchemeActivationData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a34e5c88f74b43123db3caf34b822d015">ActivationData</a><code> [get]</code></td></tr>
 <tr class="separator:a34e5c88f74b43123db3caf34b822d015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18870e988180b68a5ab10696461c4b12"><td class="memItemLeft" align="right" valign="top"><a id="a18870e988180b68a5ab10696461c4b12"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>DisplayText</b><code> [get]</code></td></tr>
+<tr class="memitem:a18870e988180b68a5ab10696461c4b12"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a18870e988180b68a5ab10696461c4b12">DisplayText</a><code> [get]</code></td></tr>
 <tr class="separator:a18870e988180b68a5ab10696461c4b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b643227a90af10c8a0d6b5e388b2d93"><td class="memItemLeft" align="right" valign="top"><a id="a1b643227a90af10c8a0d6b5e388b2d93"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Description</b><code> [get]</code></td></tr>
+<tr class="memitem:a1b643227a90af10c8a0d6b5e388b2d93"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#a1b643227a90af10c8a0d6b5e388b2d93">Description</a><code> [get]</code></td></tr>
 <tr class="separator:a1b643227a90af10c8a0d6b5e388b2d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca23a2d20b6fc4f7b544a75621f057ac"><td class="memItemLeft" align="right" valign="top"><a id="aca23a2d20b6fc4f7b544a75621f057ac"></a>
-Color&#160;</td><td class="memItemRight" valign="bottom"><b>BackgroundColor</b><code> [get]</code></td></tr>
+<tr class="memitem:aca23a2d20b6fc4f7b544a75621f057ac"><td class="memItemLeft" align="right" valign="top">Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html#aca23a2d20b6fc4f7b544a75621f057ac">BackgroundColor</a><code> [get]</code></td></tr>
 <tr class="separator:aca23a2d20b6fc4f7b544a75621f057ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00011">11</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a706c3cd6f9041bf81a355cc940d36c75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a706c3cd6f9041bf81a355cc940d36c75">&#9670;&nbsp;</a></span>UserActivityData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Messenger.Services.UserActivityData.UserActivityData </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>activityId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html">SchemeActivationData</a>&#160;</td>
+          <td class="paramname"><em>activationData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>displayText</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Color&#160;</td>
+          <td class="paramname"><em>backgroundColor</em> = <code>default</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>description</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00023">23</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserActivityData_8cs_source.html#l00015">Messenger.Services.UserActivityData.ActivationData</a>, <a class="el" href="UserActivityData_8cs_source.html#l00013">Messenger.Services.UserActivityData.ActivityId</a>, <a class="el" href="UserActivityData_8cs_source.html#l00021">Messenger.Services.UserActivityData.BackgroundColor</a>, <a class="el" href="UserActivityData_8cs_source.html#l00019">Messenger.Services.UserActivityData.Description</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00017">Messenger.Services.UserActivityData.DisplayText</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab12b3a188e5c8fbc891a1c961ede3749"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab12b3a188e5c8fbc891a1c961ede3749">&#9670;&nbsp;</a></span>ToUserActivity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;UserActivity&gt; Messenger.Services.UserActivityData.ToUserActivity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00032">32</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserActivityData_8cs_source.html#l00015">Messenger.Services.UserActivityData.ActivationData</a>, <a class="el" href="UserActivityData_8cs_source.html#l00013">Messenger.Services.UserActivityData.ActivityId</a>, <a class="el" href="UserActivityData_8cs_source.html#l00021">Messenger.Services.UserActivityData.BackgroundColor</a>, <a class="el" href="UserActivityData_8cs_source.html#l00019">Messenger.Services.UserActivityData.Description</a>, <a class="el" href="UserActivityData_8cs_source.html#l00017">Messenger.Services.UserActivityData.DisplayText</a>, and <a class="el" href="SchemeActivationData_8cs_source.html#l00017">Messenger.Activation.SchemeActivationData.Uri</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserActivityService_8cs_source.html#l00019">Messenger.Services.UserActivityService.CreateUserActivityAsync()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a34e5c88f74b43123db3caf34b822d015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34e5c88f74b43123db3caf34b822d015">&#9670;&nbsp;</a></span>ActivationData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html">SchemeActivationData</a> Messenger.Services.UserActivityData.ActivationData</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00015">15</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00023">Messenger.Services.UserActivityData.UserActivityData()</a>.</p>
+
+</div>
+</div>
+<a id="a4bfe7763ef3af651da7efb110b83aaff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bfe7763ef3af651da7efb110b83aaff">&#9670;&nbsp;</a></span>ActivityId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Services.UserActivityData.ActivityId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00013">13</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00023">Messenger.Services.UserActivityData.UserActivityData()</a>.</p>
+
+</div>
+</div>
+<a id="aca23a2d20b6fc4f7b544a75621f057ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca23a2d20b6fc4f7b544a75621f057ac">&#9670;&nbsp;</a></span>BackgroundColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Color Messenger.Services.UserActivityData.BackgroundColor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00021">21</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00023">Messenger.Services.UserActivityData.UserActivityData()</a>.</p>
+
+</div>
+</div>
+<a id="a1b643227a90af10c8a0d6b5e388b2d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b643227a90af10c8a0d6b5e388b2d93">&#9670;&nbsp;</a></span>Description</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Services.UserActivityData.Description</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00019">19</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00023">Messenger.Services.UserActivityData.UserActivityData()</a>.</p>
+
+</div>
+</div>
+<a id="a18870e988180b68a5ab10696461c4b12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18870e988180b68a5ab10696461c4b12">&#9670;&nbsp;</a></span>DisplayText</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Services.UserActivityData.DisplayText</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserActivityData_8cs_source.html#l00017">17</a> of file <a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00023">Messenger.Services.UserActivityData.UserActivityData()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Messenger/Messenger/Services/UserActivityData.cs</li>
+<li>Messenger/Messenger/Services/<a class="el" href="UserActivityData_8cs_source.html">UserActivityData.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceMessenger.html">Messenger</a></li><li class="navelem"><a class="el" href="namespaceMessenger_1_1Services.html">Services</a></li><li class="navelem"><a class="el" href="classMessenger_1_1Services_1_1UserActivityData.html">UserActivityData</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>
