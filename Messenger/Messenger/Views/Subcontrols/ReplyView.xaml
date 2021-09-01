@@ -211,13 +211,15 @@
                                 </AppBarButton.Icon>
                                 <FlyoutBase.AttachedFlyout>
                                     <CommandBarFlyout
-                                        Placement="TopEdgeAlignedLeft">
+                                        Placement="TopEdgeAlignedLeft"
+                                        x:Name="ReactionFlyout">
                                         <AppBarToggleButton
                                             Content="Like"
                                             Style="{StaticResource ReactionButtonStyle}"
                                             Tapped="LikeButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Reply.MyReaction,
+                                                Mode=OneWay,
                                                 Converter={StaticResource ReactionToBooleanConverter},
                                                 ConverterParameter='Like'}"
                                         >
@@ -233,6 +235,7 @@
                                             Tapped="DislikeButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Reply.MyReaction,
+                                                Mode=OneWay,
                                                 Converter={StaticResource ReactionToBooleanConverter},
                                                 ConverterParameter='Dislike'}"
                                         >
@@ -248,6 +251,7 @@
                                             Tapped="SurprisedButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Reply.MyReaction,
+                                                Mode=OneWay,
                                                 Converter={StaticResource ReactionToBooleanConverter},
                                                 ConverterParameter='Surprised'}"
                                         >
@@ -263,6 +267,7 @@
                                             Tapped="AngryButton_Tapped"
                                             IsChecked="{x:Bind
                                                 Reply.MyReaction,
+                                                Mode=OneWay,
                                                 Converter={StaticResource ReactionToBooleanConverter},
                                                 ConverterParameter='Angry'}">
                                             <AppBarToggleButton.Icon>
