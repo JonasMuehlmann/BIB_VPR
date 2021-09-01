@@ -202,6 +202,17 @@
                             Command="{x:Bind OpenTeamManageCommand}"
                             />
                         <MenuFlyoutItem
+                            Visibility="{x:Bind
+                                CurrentTeam.IsPrivateChat,
+                                Mode=OneWay,
+                                Converter={StaticResource BooleanToVisibilityConverter},
+                                ConverterParameter='invert'}"
+                            Width="150"
+                            Icon="Contact"
+                            Text="Create Channel"
+                            Command="{x:Bind CreateChannelCommand}"
+                            />
+                        <MenuFlyoutItem
                             Icon="Setting"
                             Text="Settings"
                             Command="{x:Bind OpenSettingsCommand}"

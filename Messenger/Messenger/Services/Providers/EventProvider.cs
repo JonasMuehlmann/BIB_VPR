@@ -543,7 +543,7 @@ namespace Messenger.Services.Providers
             Channel channel = e.Value;
 
             /** REMOVE FROM CACHE **/
-            ChannelViewModel viewModel = CacheQuery.Remove<ChannelViewModel>(channel);
+            ChannelViewModel viewModel = CacheQuery.Remove<ChannelViewModel>(channel.ChannelId);
 
             /** TRIGGER CHANNEL UPDATED (UPDATED) **/
             Broadcast(

@@ -198,7 +198,7 @@ namespace Messenger.ViewModels.Pages
             {
                 foreach (TeamViewModel team in _teams)
                 {
-                    if (team.Id == channel.TeamId)
+                    if (team.Id == channel.TeamId && !team.Channels.Contains(channel))
                     {
                         team.Channels.Add(channel);
                         break;
@@ -224,7 +224,7 @@ namespace Messenger.ViewModels.Pages
                 {
                     if (team.Id == channel.TeamId)
                     {
-                        ChannelViewModel target = team.Channels.Single(ch => ch.ChannelId == channel.ChannelId);
+                        ChannelViewModel target = team.Channels.FirstOrDefault(ch => ch.ChannelId == channel.ChannelId);
 
                         team.Channels.Remove(target);
                     }

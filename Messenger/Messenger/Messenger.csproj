@@ -188,6 +188,7 @@
     <Compile Include="ViewModels\Controls\UserSearchPanelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxes\CreateChatDialogViewModel.cs" />
+    <Compile Include="ViewModels\Pages\NotificationNavViewModel.cs" />
     <Compile Include="Views\Subcontrols\ChatHeader.xaml.cs">
       <DependentUpon>ChatHeader.xaml</DependentUpon>
     </Compile>
@@ -288,7 +289,6 @@
     <Compile Include="ViewModels\DialogBoxes\ManageRolesDialogViewModel.cs" />
     <Compile Include="ViewModels\Pages\LogInViewModel.cs" />
     <Compile Include="ViewModels\Pages\TeamManageViewModel.cs" />
-    <Compile Include="ViewModels\Pages\NotificationNavViewModel .cs" />
     <Compile Include="ViewModels\Pages\TeamNavViewModel.cs" />
     <Compile Include="ViewModels\Pages\ChatNavViewModel.cs" />
     <Compile Include="ViewModels\Pages\ChatViewModel.cs" />

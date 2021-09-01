@@ -13,6 +13,8 @@ namespace Messenger.Views.Subcontrols
     {
         public ICommand OpenTeamManageCommand { get => new RelayCommand(() => NavigationService.Open<TeamManagePage>()); }
 
+        public ICommand CreateChannelCommand { get => new CreateChannelCommand(); }
+
         public ICommand OpenSettingsCommand { get => new RelayCommand(() => NavigationService.Open<SettingsPage>()); }
 
         public ICommand UpdateTeamDetailsCommand { get => new UpdateTeamDetailsCommand(); }
