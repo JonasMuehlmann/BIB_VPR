@@ -1,13 +1,11 @@
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Context;
-using System.IO;
 using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Services
@@ -547,11 +545,11 @@ namespace Messenger.Core.Services
             LogContext.PushProperty("SourceContext", "MessengerService");
             logger.Information($"Function called with parameters channelId={channelId}");
 
-            var result = await ChannelService.RemoveChannel(channelId);
-
             var channel = await ChannelService.GetChannel(channelId);
 
             await SignalRService.DeleteChannel(channel);
+
+            var result = await ChannelService.RemoveChannel(channelId);
 
             logger.Information($"Return value: {result}");
 

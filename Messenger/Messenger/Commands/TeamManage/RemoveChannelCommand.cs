@@ -43,6 +43,7 @@ namespace Messenger.Commands.TeamManage
                     await ResultConfirmationDialog
                         .Set(false, $"No channel was found with id: {channelId}")
                         .ShowAsync();
+                    return;
                 }
 
                 Channel deleted = await MessengerService.DeleteChannel(channel.ChannelId);
