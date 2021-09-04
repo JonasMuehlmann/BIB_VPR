@@ -1,5 +1,8 @@
 namespace Messenger.Core.Models
 {
+    /// <summary>
+    /// Holds types of notifications
+    /// </summary>
     public enum NotificationType
     {
         UserMentioned,

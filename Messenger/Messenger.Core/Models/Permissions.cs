@@ -1,5 +1,8 @@
 namespace Messenger.Core.Models
 {
+    /// <summary>
+    /// Holds permissions assignable to a team's roles
+    /// </summary>
     public enum Permissions
     {
         CanAddUser,

@@ -109,20 +109,12 @@ namespace Messenger.Services
                 Photo = userPhoto
             };
 
-            App.StateProvider = await StateProvider.Initialize(viewModel);
-
-            /* BROADCAST MY TEAMS */
-            App.EventProvider.Broadcast(
-                BroadcastOptions.TeamsLoaded,
-                BroadcastReasons.Loaded);
-
-            /* BROADCAST MY CHATS */
-            App.EventProvider.Broadcast(
-                BroadcastOptions.ChatsLoaded,
-                BroadcastReasons.Loaded);
+            await App.StateProvider.Initialize(viewModel);
 
             // Connect to signal-r hub and retrieve the team list
             await InitializeSignalR(viewModel.Id);
+
+            Singleton<ToastNotificationsService>.Instance.ShowNotificationLoggedIn(viewModel);
 
             // Merged with user model from the application database
             return viewModel;

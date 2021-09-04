@@ -1,19 +1,21 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Services.Providers
 {
     public class EventProvider
     {
+        private SignalRService SignalRService => Singleton<SignalRService>.Instance;
+
+        private ToastNotificationsService Toast => Singleton<ToastNotificationsService>.Instance;
+
         /// <summary>
         /// Events with the payload of a list of objects
         /// Fires on 'loaded' events including:
@@ -27,6 +29,8 @@ namespace Messenger.Services.Providers
         public event EventHandler<BroadcastArgs> ChatsLoaded;
 
         public event EventHandler<BroadcastArgs> MessagesLoaded;
+
+        public event EventHandler<BroadcastArgs> NotificationsLoaded;
 
         #endregion
 
@@ -46,6 +50,8 @@ namespace Messenger.Services.Providers
 
         public event EventHandler<BroadcastArgs> UserUpdated;
 
+        public event EventHandler<BroadcastArgs> NotificationReceived;
+
         #endregion
 
         #region State Events
@@ -62,6 +68,8 @@ namespace Messenger.Services.Providers
         private void SubscribeEvents()
         {
             SignalRService.ReceiveMessage += OnReceiveMessage;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
+            SignalRService.ReceiveNotification += OnReceiveNotification;
             SignalRService.MessageUpdated += OnMessageUpdated;
             SignalRService.MessageDeleted += OnMessageDeleted;
             SignalRService.MessageReactionsUpdated += OnMessageReactionsUpdated;
@@ -77,6 +85,7 @@ namespace Messenger.Services.Providers
             SignalRService.MemberUpdated += OnMemberUpdated;
             SignalRService.MemberRemoved += OnMemberRemoved;
             SignalRService.UserUpdated += OnUserUpdated;
+            SignalRService.ReceiveInvitation += OnReceiveInvitation;
         }
 
         /// <summary>
@@ -109,6 +118,9 @@ namespace Messenger.Services.Providers
                 case BroadcastOptions.ChatsLoaded:
                     args.Payload = CacheQuery.GetMyChats();
                     break;
+                case BroadcastOptions.NotificationsLoaded:
+                    args.Payload = CacheQuery.GetNotifications();
+                    break;
                 default:
                     break;
             }
@@ -125,6 +137,9 @@ namespace Messenger.Services.Providers
                     break;
                 case BroadcastOptions.ChatsLoaded:
                     ChatsLoaded?.Invoke(this, args);
+                    break;
+                case BroadcastOptions.NotificationsLoaded:
+                    NotificationsLoaded?.Invoke(this, args);
                     break;
                 /* UPDATED EVENTS */
                 case BroadcastOptions.TeamUpdated:
@@ -152,10 +167,37 @@ namespace Messenger.Services.Providers
                         break;
                     MessageUpdated?.Invoke(this, args);
                     break;
+                case BroadcastOptions.NotificationReceived:
+                    if (!(parameter is NotificationViewModel))
+                        break;
+                    NotificationReceived?.Invoke(this, args);
+                    break;
                 default:
                     break;
             }
         }
+
+        #region Notification
+
+        private void OnReceiveNotification(object sender, SignalREventArgs<Notification> e)
+        {
+            bool isValid = e.Value != null;
+
+            if (!isValid)
+            {
+                return;
+            }
+
+            Notification data = e.Value;
+            NotificationViewModel viewModel = new NotificationViewModel(data);
+
+            Broadcast(
+                BroadcastOptions.NotificationReceived,
+                BroadcastReasons.Created,
+                viewModel);
+        }
+
+        #endregion
 
         #region Message
 
@@ -174,6 +216,12 @@ namespace Messenger.Services.Providers
             
             /** ADD TO CACHE **/
             MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
+
+            /** SEND TOAST IF CHANNEL CURRENTLY NOT SELECTED **/
+            if (App.StateProvider.SelectedChannel.ChannelId != message.RecipientId)
+            {
+                Toast.ShowMessageReceived(App.StateProvider.SelectedTeam, viewModel);
+            }
 
             /** TRIGGER MESSAGE UPDATED (CREATED) **/
             Broadcast(
@@ -266,18 +314,22 @@ namespace Messenger.Services.Providers
             {
                 PrivateChatViewModel chatViewModel = await CacheQuery.AddOrUpdate<PrivateChatViewModel>(team);
 
+                Toast.ShowInvitationReceived(chatViewModel);
+
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     chatViewModel);
             }
             else
             {
                 TeamViewModel teamViewModel = await CacheQuery.AddOrUpdate<TeamViewModel>(team);
 
+                Toast.ShowInvitationReceived(teamViewModel);
+
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Updated,
                     teamViewModel);
             }
         }
@@ -320,10 +372,14 @@ namespace Messenger.Services.Providers
             }
 
             Team team = e.Value;
+            bool isPrivateChat = string.IsNullOrEmpty(team.Name);
 
-            if (string.IsNullOrEmpty(team.Name))
+            if (isPrivateChat)
             {
+                /** ADD PRIVATE CHAT TO CACHE **/
                 PrivateChatViewModel chatViewModel = await CacheQuery.AddOrUpdate<PrivateChatViewModel>(team);
+
+                UpdateSelectedTeam(chatViewModel);
 
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
@@ -332,13 +388,17 @@ namespace Messenger.Services.Providers
             }
             else
             {
+                /** ADD TEAM TO CACHE **/
                 TeamViewModel teamViewModel = await CacheQuery.AddOrUpdate<TeamViewModel>(team);
+
+                UpdateSelectedTeam(teamViewModel);
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
                     BroadcastReasons.Updated,
                     teamViewModel);
             }
+
         }
 
         private void OnTeamDeleted(object sender, SignalREventArgs<Team> e)
@@ -363,11 +423,11 @@ namespace Messenger.Services.Providers
             }
             else
             {
-                TeamViewModel teamViewModel = CacheQuery.Remove<TeamViewModel>(team);
+                TeamViewModel teamViewModel = CacheQuery.Remove<TeamViewModel>(team.Id);
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Created,
+                    BroadcastReasons.Deleted,
                     teamViewModel);
             }
         }
@@ -388,6 +448,8 @@ namespace Messenger.Services.Providers
 
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>(teamRoleViewModel.TeamId);
 
+            UpdateSelectedTeam(teamViewModel);
+
             Broadcast(
                 BroadcastOptions.TeamUpdated,
                 BroadcastReasons.Updated,
@@ -405,6 +467,8 @@ namespace Messenger.Services.Providers
             TeamRoleViewModel teamRoleViewModel = CacheQuery.Remove<TeamRoleViewModel>(teamRole.Id);
 
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>(teamRoleViewModel.TeamId);
+
+            UpdateSelectedTeam(teamViewModel);
 
             Broadcast(
                 BroadcastOptions.TeamUpdated,
@@ -453,6 +517,12 @@ namespace Messenger.Services.Providers
             /** ADD OR UPDATE TO CACHE **/
             ChannelViewModel viewModel = await CacheQuery.AddOrUpdate<ChannelViewModel>(channel);
 
+            /** UPDATE STATE IF SELECTED **/
+            if (App.StateProvider.SelectedChannel.ChannelId == viewModel.ChannelId)
+            {
+                App.StateProvider.SelectedChannel = viewModel;
+            }
+
             /** TRIGGER CHANNEL UPDATED (UPDATED) **/
             Broadcast(
                 BroadcastOptions.ChannelUpdated,
@@ -473,7 +543,7 @@ namespace Messenger.Services.Providers
             Channel channel = e.Value;
 
             /** REMOVE FROM CACHE **/
-            ChannelViewModel viewModel = CacheQuery.Remove<ChannelViewModel>(channel);
+            ChannelViewModel viewModel = CacheQuery.Remove<ChannelViewModel>(channel.ChannelId);
 
             /** TRIGGER CHANNEL UPDATED (UPDATED) **/
             Broadcast(
@@ -500,13 +570,15 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(user);
+            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>((uint)team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
+
+            UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
                 BroadcastOptions.TeamUpdated,
-                BroadcastReasons.Created,
+                BroadcastReasons.Updated,
                 teamViewModel);
         }
 
@@ -524,8 +596,10 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(user);
+            MemberViewModel viewModel = await CacheQuery.AddOrUpdate<MemberViewModel>(team.Id, user);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
+
+            UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
@@ -548,8 +622,10 @@ namespace Messenger.Services.Providers
             User user = e.FirstValue;
             Team team = e.SecondValue;
 
-            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>(user);
+            MemberViewModel viewModel = CacheQuery.Remove<MemberViewModel>((uint)team.Id, user.Id);
             TeamViewModel teamViewModel = CacheQuery.Get<TeamViewModel>((uint)team.Id);
+
+            UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
             Broadcast(
@@ -574,6 +650,23 @@ namespace Messenger.Services.Providers
                 BroadcastOptions.UserUpdated,
                 BroadcastReasons.Updated,
                 user);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private void UpdateSelectedTeam(TeamViewModel updatedViewModel)
+        {
+            TeamViewModel currentTeam = App.StateProvider.SelectedTeam;
+
+            if (currentTeam != null && currentTeam.Id == updatedViewModel.Id)
+            {
+                ChannelViewModel currentChannel = App.StateProvider.SelectedChannel;
+
+                App.StateProvider.SelectedTeam = updatedViewModel;
+                App.StateProvider.SelectedChannel = updatedViewModel.Channels.SingleOrDefault(c => c.ChannelId == currentChannel.ChannelId);
+            }
         }
 
         #endregion

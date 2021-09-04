@@ -2,9 +2,8 @@
 using Messenger.Helpers;
 using Messenger.Models;
 using Messenger.Services;
-using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
-using Messenger.Views;
+using Messenger.Views.Pages;
 using Serilog;
 using System;
 using System.Windows.Input;
@@ -29,7 +28,7 @@ namespace Messenger.Commands.TeamManage
         public void Execute(object parameter)
         {
             bool executable = parameter != null
-                && parameter is ChannelViewModel; 
+                && parameter is ChannelViewModel;
 
             if (!executable) return;
 

@@ -143,6 +143,138 @@ namespace Messenger.Tests.MSTest
         }
 
         [TestMethod]
+        public void AddMutePartialOnlySourceValueMuted_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                Assert.IsNotNull( userId);
+                Assert.AreNotEqual("", userId);
+
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                Assert.IsNotNull(messageId);
+
+                var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
+
+                Assert.IsTrue(await NotificationService.CanSendNotification(notification, userId));
+
+                var muteId = await NotificationService.AddMute(null, NotificationSource.Channel, channelId.Value.ToString(), userId, null);
+                Assert.IsNotNull(muteId);
+
+                Assert.IsFalse(await NotificationService.CanSendNotification(notification, userId));
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void AddMutePartialOnlySourceTypeMuted_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                Assert.IsNotNull( userId);
+                Assert.AreNotEqual("", userId);
+
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                Assert.IsNotNull(messageId);
+
+                var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
+
+                Assert.IsTrue(await NotificationService.CanSendNotification(notification, userId));
+
+                var muteId = await NotificationService.AddMute(null, NotificationSource.Channel, null, userId, null);
+                Assert.IsNotNull(muteId);
+
+                Assert.IsFalse(await NotificationService.CanSendNotification(notification, userId));
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void AddMutePartialOnlyOtherSourceValueMuted_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                Assert.IsNotNull( userId);
+                Assert.AreNotEqual("", userId);
+
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                Assert.IsNotNull(messageId);
+
+                var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
+
+                Assert.IsTrue(await NotificationService.CanSendNotification(notification, userId));
+
+                var muteId = await NotificationService.AddMute(null, NotificationSource.Channel, "foo", userId, null);
+                Assert.IsNotNull(muteId);
+
+                Assert.IsTrue(await NotificationService.CanSendNotification(notification, userId));
+
+            }).GetAwaiter().GetResult();
+        }
+        [TestMethod]
+        public void AddMutePartialOnlyEventType_Test()
+        {
+
+            var testName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            Task.Run(async () =>
+            {
+                string userId = (await UserService.GetOrCreateApplicationUser(new User(){Id = testName + "UserSender"})).Id;
+                Assert.IsNotNull( userId);
+                Assert.AreNotEqual("", userId);
+
+                uint? teamId = await TeamService.CreateTeam(testName + "Team");
+                Assert.IsNotNull(teamId);
+
+                uint? channelId = await ChannelService.CreateChannel(testName + "Chanel", teamId.Value);
+                Assert.IsNotNull(channelId);
+
+                var messageId = (await MessageService.CreateMessage(channelId.Value, userId, testName + "Message"));
+                Assert.IsNotNull(messageId);
+
+                var notification = await NotificationMessageBuilder.MakeMessageInSubscribedChannelNotificationMessage(messageId.Value);
+
+                Assert.IsTrue(await NotificationService.CanSendNotification(notification, userId));
+
+                var muteId = await NotificationService.AddMute(NotificationType.MessageInSubscribedChannel, null, null, userId, null);
+                Assert.IsNotNull(muteId);
+
+                Assert.IsFalse(await NotificationService.CanSendNotification(notification, userId));
+
+            }).GetAwaiter().GetResult();
+        }
+
+
+        [TestMethod]
         public void RemoveMute_Test()
         {
 

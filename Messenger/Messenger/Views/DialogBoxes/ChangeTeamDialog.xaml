@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Background="{ThemeResource Elevation_1}"
     Title="Change Team"
     PrimaryButtonText="Update"
     SecondaryButtonText="Cancel"
@@ -13,12 +14,25 @@
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
     <ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#0275d8" />
+            <Setter Property="Background" Value="{ThemeResource PrimaryAccent_A}" />
             <Setter Property="Foreground" Value="WhiteSmoke" />
         </Style>
     </ContentDialog.PrimaryButtonStyle>
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <Grid
+                HorizontalAlignment="Stretch">
+                <TextBlock
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Text="{Binding}"
+                    />
+            </Grid>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
     <Grid>
-        <StackPanel>
+        <StackPanel
+            Spacing="10">
             <TextBox
                 Text="{x:Bind TeamName, Mode=TwoWay}"
                 Header="Name"

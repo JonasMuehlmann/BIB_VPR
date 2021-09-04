@@ -26,6 +26,12 @@ namespace Messenger.Commands.TeamManage
 
             try
             {
+                OperationConfirmationDialog dialog = OperationConfirmationDialog.Set("You're about to remove a channel");
+
+                await dialog.ShowAsync();
+
+                if (!dialog.Response) return;
+
                 TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
 
                 uint channelId = (uint)parameter;
@@ -37,6 +43,7 @@ namespace Messenger.Commands.TeamManage
                     await ResultConfirmationDialog
                         .Set(false, $"No channel was found with id: {channelId}")
                         .ShowAsync();
+                    return;
                 }
 
                 Channel deleted = await MessengerService.DeleteChannel(channel.ChannelId);

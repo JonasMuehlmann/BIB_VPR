@@ -1,6 +1,10 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Core.Helpers;
+using Messenger.Core.Models;
 using Messenger.Helpers.MessageHelpers;
 using Messenger.Helpers.TeamHelpers;
+using Messenger.Models;
+using Messenger.Services;
+using Messenger.Services.Providers;
 using Messenger.ViewModels.DataViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,6 +16,28 @@ namespace Messenger.Helpers
 {
     public static class CacheQuery
     {
+        public static async Task Reload()
+        {
+            Singleton<ToastNotificationsService>.Instance.ShowInitialization("Reloading...");
+
+            await App.StateProvider.TeamManager.LoadTeamsFromDatabase(App.StateProvider.CurrentUser);
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(2);
+
+            await App.StateProvider.LoadAllMessages();
+
+            Singleton<ToastNotificationsService>.Instance.UpdateInitialization(3);
+
+            App.EventProvider.Broadcast(BroadcastOptions.TeamsLoaded);
+
+            App.EventProvider.Broadcast(BroadcastOptions.ChatsLoaded);
+
+            if (App.StateProvider.SelectedChannel != null)
+            {
+                App.EventProvider.Broadcast(BroadcastOptions.MessagesSwitched);
+            }
+        }
+
         public static bool IsChannelOf<T>(ChannelViewModel viewModel)
         {
             Type type = typeof(T);
@@ -36,8 +62,20 @@ namespace Messenger.Helpers
 
         public static IReadOnlyCollection<PrivateChatViewModel> GetMyChats() => App.StateProvider.TeamManager.MyChats;
 
+        public static IReadOnlyCollection<NotificationViewModel> GetNotifications() => App.StateProvider.Notifications;
+
         public static bool TryGetMessages(uint channelId, out ObservableCollection<MessageViewModel> messages) => App.StateProvider.MessageManager.TryGetMessages(channelId, out messages);
 
+        /// <summary>
+        /// Gets given model from the cache,
+        /// following parameter(s) is/are required for each model:
+        /// 'TeamViewModel' => 'uint teamId',
+        /// 'PrivateChatViewModel' => 'uint chatId',
+        /// 'ChannelViewModel' => 'uint channelId',
+        /// </summary>
+        /// <typeparam name="T">Type of view model to get from the cache</typeparam>
+        /// <param name="parameters">Required parameter(s)</param>
+        /// <returns>Requested view model</returns>
         public static T Get<T>(params object[] parameters) where T : DataViewModel
         {
             TeamManager teamManager = App.StateProvider.TeamManager;
@@ -62,19 +100,41 @@ namespace Messenger.Helpers
             {
                 uint channelId = (uint)parameters.First();
 
-                foreach (TeamViewModel team in teamManager.MyTeams)
+                IEnumerable<ChannelViewModel> allChannels = teamManager.MyTeams.SelectMany(t => t.Channels);
+
+                if (allChannels.Any(c => c.ChannelId == channelId))
                 {
-                    if (team.Channels.Any(c => c.ChannelId == channelId))
-                    {
-                        ChannelViewModel viewModel = team.Channels.Single(channel => channel.ChannelId == (uint)parameters.First());
-                        target = viewModel;
-                    }
+                    target = allChannels.Single(channel => channel.ChannelId == (uint)parameters.First());
+                }
+            }
+            else if (IsTypeOf<MemberViewModel>(type))
+            {
+                if (parameters.Length == 2)
+                {
+                    uint teamId = (uint)parameters[0];
+                    string userId = parameters[1].ToString();
+
+                    TeamViewModel targetTeam = teamManager.MyTeams.SingleOrDefault(team => team.Id == teamId);
+
+                    target = targetTeam.Members.SingleOrDefault(m => m.Id == userId);
                 }
             }
 
             return (T)Convert.ChangeType(target, type);
         }
 
+        /// <summary>
+        /// Adds or updates given model to the cache,
+        /// following parameter(s) is/are required for each model:
+        /// 'MessageViewModel' => 'Message message',
+        /// 'TeamViewModel' => 'Team team',
+        /// 'TeamRoleViewModel' => 'TeamRole teamRole',
+        /// 'ChannelViewModel' => 'Channel channel',
+        /// 'MemberViewModel' => 'uint teamId, User user'
+        /// </summary>
+        /// <typeparam name="T">Type of view model to be added/updated to the cache</typeparam>
+        /// <param name="parameters">Required parameter(s)</param>
+        /// <returns>Added/Updated view model</returns>
         public static async Task<T> AddOrUpdate<T>(params object[] parameters)
         {
             TeamManager teamManager = App.StateProvider.TeamManager;
@@ -105,7 +165,7 @@ namespace Messenger.Helpers
             }
             else if (IsTypeOf<TeamRoleViewModel>(type))
             {
-                target = teamManager.AddOrUpdateTeamRole((TeamRole)parameters.First());
+                target = await teamManager.AddOrUpdateTeamRole((TeamRole)parameters.First());
             }
             else if (IsTypeOf<ChannelViewModel>(type))
             {
@@ -127,6 +187,18 @@ namespace Messenger.Helpers
             return target;
         }
 
+        /// <summary>
+        /// Removes given model from the cache,
+        /// following parameter(s) is/are required for each model:
+        /// 'MessageViewModel' => 'Message message',
+        /// 'TeamViewModel' => 'uint teamId',
+        /// 'TeamRoleViewModel' => 'uint teamRoleId',
+        /// 'ChannelViewModel' => 'uint channelId',
+        /// 'MemberViewModel' => 'uint teamId, string userId'
+        /// </summary>
+        /// <typeparam name="T">Type of view model to be removed from the cache</typeparam>
+        /// <param name="parameters">Required parameter(s)</param>
+        /// <returns>Removed view model</returns>
         public static T Remove<T>(params object[] parameters)
         {
             TeamManager teamManager = App.StateProvider.TeamManager;

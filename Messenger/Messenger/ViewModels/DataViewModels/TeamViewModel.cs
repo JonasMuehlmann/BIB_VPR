@@ -1,8 +1,10 @@
-﻿using Messenger.Core.Models;
+﻿using Messenger.Commands.TeamManage;
+using Messenger.Core.Models;
 using Messenger.Helpers;
 using Messenger.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -58,6 +60,16 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _teamRoles, value); }
         }
 
+        public bool IsPrivateChat
+        {
+            get => GetType() == typeof(PrivateChatViewModel);
+        }
+
+
+        public ICommand RemoveTeamCommand
+        {
+            get => new RemoveTeamCommand();
+        }
         public TeamViewModel()
         {
 

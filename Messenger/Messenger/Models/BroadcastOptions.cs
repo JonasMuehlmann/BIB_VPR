@@ -9,6 +9,8 @@
         ChatUpdated,
         MessagesSwitched,
         MessageUpdated,
-        UserUpdated
+        UserUpdated,
+        NotificationsLoaded,
+        NotificationReceived
     }
 }

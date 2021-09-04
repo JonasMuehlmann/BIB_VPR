@@ -10,6 +10,9 @@ using Serilog.Context;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// A class holding static methods to interact with channels on the DB
+    /// </summary>
     public class ChannelService: AzureServiceBase
     {
         /// <summary>

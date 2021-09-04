@@ -9,6 +9,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Messenger.Core.Services
 {
+    /// <summary>
+    /// Holds helpers and static methods to interact with notifications in the DB
+    /// </summary>
     public class NotificationService : AzureServiceBase
     {
         /// <summary>
@@ -100,24 +103,27 @@ namespace Messenger.Core.Services
         /// The id of the sender of notifications to be muted
         /// </param>
         /// <returns>The id of the Notification mute on success, null otherwise</returns>
-        public static async Task<uint?> AddMute(NotificationType notificationType, NotificationSource notificationSourceType, string notificationSourceValue, string userId, string senderId = null)
+        public static async Task<uint?> AddMute(NotificationType? notificationType, NotificationSource? notificationSourceType, string notificationSourceValue, string userId, string senderId = null)
         {
             LogContext.PushProperty("Method","AddMute");
             LogContext.PushProperty("SourceContext", "NotificationService");
 
             logger.Information($"Function called with parameters notificationType={notificationType.ToString()}, notificationSourceType={notificationSourceType.ToString()}, notificationSourceValue={notificationSourceValue}, userId={userId}");
 
-            senderId = senderId is null ? "NULL" : $"'{senderId}'";
+            var senderIdQueryFragment                = senderId                is null ? "NULL" : $"'{senderId}'";
+            var notificationTypeQueryFragment        = notificationType        is null ? "NULL" : $"'{notificationType}'";
+            var notificationSourceTypeQueryFragment  = notificationSourceType  is null ? "NULL" : $"'{notificationSourceType}'";
+            var notificationSourceValueQueryFragment = notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
 
             string query = $@"
                                 INSERT INTO
                                     NotificationMutes
                                 VALUES(
-                                        '{notificationType.ToString()}',
-                                        '{notificationSourceType.ToString()}',
-                                        '{notificationSourceValue.ToString()}',
+                                         {notificationTypeQueryFragment.ToString()},
+                                         {notificationSourceTypeQueryFragment.ToString()},
+                                         {notificationSourceValueQueryFragment.ToString()},
                                         '{userId}',
-                                         {senderId}
+                                         {senderIdQueryFragment}
                                       );
 
                                 SELECT SCOPE_IDENTITY();
@@ -187,8 +193,8 @@ namespace Messenger.Core.Services
 
             logger.Information($"Function called with parameters message={message}, userId={userId}");
 
-            NotificationType notificationType         = message["notificationType"].ToObject<NotificationType>();
-            NotificationSource notificationSourceType = message["notificationSource"].ToObject<NotificationSource>();
+            NotificationType? notificationType         = message["notificationType"].ToObject<NotificationType>();
+            NotificationSource? notificationSourceType = message["notificationSource"].ToObject<NotificationSource>();
 
             string notificationSourceValue = null;
             string senderId = null;
@@ -234,27 +240,24 @@ namespace Messenger.Core.Services
                     break;
             }
 
-            var senderIdQueryFragment = senderId is null ? "NULL" : $"'{senderId}'";
-            var notificationSourceValueQueryFragment = notificationSourceValue is null ? "NULL" : $"'{notificationSourceValue}'";
+            var targetUsersMutes = await GetUsersMutes(userId);
 
-            var query = $@"
-                            SELECT
-                                COUNT(*)
-                            FROM
-                                NotificationMutes
-                            WHERE
-                                NotificationType = '{notificationType}'
-                                AND
-                                NotificationSourceType = '{notificationSourceType}'
-                                AND
-                                NotificationSourceValue = '{notificationSourceValue}'
-                                AND
-                                UserId = '{userId}'
-                                AND
-                                SenderId = {senderIdQueryFragment};
-                ";
+            foreach (var curMute in targetUsersMutes)
+            {
+                var  isMuted = true;
 
-            return !(await SqlHelpers.ExecuteScalarAsync(query, Convert.ToBoolean));
+                isMuted &= curMute.NotificationType        == null || curMute.NotificationType        == notificationType;
+                isMuted &= curMute.NotificationSourceType  == null || curMute.NotificationSourceType  == notificationSourceType;
+                isMuted &= curMute.NotificationSourceValue == null || curMute.NotificationSourceValue == notificationSourceValue;
+                isMuted &= curMute.SenderId                == null || curMute.SenderId                == senderId;
+
+                if (isMuted)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

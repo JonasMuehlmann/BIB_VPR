@@ -11,13 +11,15 @@ using Messenger.Core.Services;
 
 namespace Messenger.Core.Helpers
 {
+    /// <summary>
+    /// Holds static methods for common sql operations
+    /// </summary>
     public class SqlHelpers : AzureServiceBase
     {
         /// <summary>
         /// Run the specified query on the specified connection.
         /// </summary>
         /// <param name="query">A query to run</param>
-        /// <param name="connection">An sql connection to run the query on</param>
         /// <returns>True if no exceptions occured while executing the query and it affected at least one entry, false otherwise</returns>
         public static async Task<bool> NonQueryAsync(string query)
         {

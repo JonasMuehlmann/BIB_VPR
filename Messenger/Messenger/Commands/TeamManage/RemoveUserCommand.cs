@@ -1,10 +1,9 @@
-﻿using Messenger.Core.Models;
+﻿using System;
+using System.Windows.Input;
+using Messenger.Core.Models;
 using Messenger.Core.Services;
-using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
-using System;
-using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
@@ -24,13 +23,19 @@ namespace Messenger.Commands.TeamManage
         public async void Execute(object parameter)
         {
             bool executable = parameter != null
-                && string.IsNullOrEmpty(parameter.ToString())
+                && !string.IsNullOrEmpty(parameter.ToString())
                 && App.StateProvider.SelectedTeam != null;
 
             if (!executable) return;
 
             try
             {
+                OperationConfirmationDialog dialog = OperationConfirmationDialog.Set("You're about to remove a member");
+
+                await dialog.ShowAsync();
+
+                if (!dialog.Response) return;
+
                 TeamViewModel selectedTeam = App.StateProvider.SelectedTeam;
 
                 string userId = parameter.ToString();
@@ -49,7 +54,7 @@ namespace Messenger.Commands.TeamManage
                 if (isSuccess)
                 {
                     await ResultConfirmationDialog
-                        .Set(true, $"Invited user \"{user.DisplayName}\" to the team")
+                        .Set(true, $"Removed \"{user.DisplayName}\" from the team")
                         .ShowAsync();
                 }
             }

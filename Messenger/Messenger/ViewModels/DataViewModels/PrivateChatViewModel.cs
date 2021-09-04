@@ -1,9 +1,6 @@
-﻿using Messenger.Models;
-using System;
-using System.Collections.Generic;
+﻿using Messenger.Commands.PrivateChat;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Messenger.ViewModels.DataViewModels
 {
@@ -30,6 +27,8 @@ namespace Messenger.ViewModels.DataViewModels
             get { return _mainChannel; }
             set { Set(ref _mainChannel, value); }
         }
+        
+        public ICommand RemoveChatCommand => new RemoveChatCommand();
 
         public PrivateChatViewModel(TeamViewModel viewModel)
         {
