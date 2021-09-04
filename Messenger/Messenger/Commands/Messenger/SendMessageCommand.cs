@@ -10,6 +10,9 @@ using Messenger.ViewModels.Pages;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Send the message to the current channel
+    /// </summary>
     public class SendMessageCommand : ICommand
     {
         private readonly ChatViewModel _viewModel;

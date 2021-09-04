@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Messenger.Helpers.MessageHelpers
 {
     /// <summary>
-    /// Handles the dictionary for storing messages with the key of channel ids.
+    /// Manages the dictionary for storing messages with the key of channel ids, dwelling in application cache
     /// </summary>
     public class MessageManager : Observable
     {
@@ -37,6 +37,11 @@ namespace Messenger.Helpers.MessageHelpers
 
         #region Add or Update
 
+        /// <summary>
+        /// Creates an entry in dictionary with given TeamViewModel with loaded messages for each channel
+        /// </summary>
+        /// <param name="viewModel">TeamViewModel to create entries for</param>
+        /// <returns>Task to be awaited</returns>
         public async Task CreateEntry(TeamViewModel viewModel)
         {
             if (viewModel is PrivateChatViewModel)
@@ -97,6 +102,11 @@ namespace Messenger.Helpers.MessageHelpers
             }
         }
 
+        /// <summary>
+        /// Builds a MessageViewModel and adds to the dictionary, updates if exists
+        /// </summary>
+        /// <param name="messageData">Message data model</param>
+        /// <returns>Added/updated MessageViewModel</returns>
         public async Task<MessageViewModel> AddOrUpdateMessage(Message messageData)
         {
             MessageViewModel viewModel = await MessageBuilder.Build(messageData);

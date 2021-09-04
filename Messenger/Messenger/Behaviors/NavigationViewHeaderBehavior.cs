@@ -10,6 +10,9 @@ using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.Behaviors
 {
+    /// <summary>
+    /// Defines UI-Behavior of XAML component 'NavigationViewHeader'
+    /// </summary>
     public class NavigationViewHeaderBehavior : Behavior<WinUI.NavigationView>
     {
         private static NavigationViewHeaderBehavior _current;

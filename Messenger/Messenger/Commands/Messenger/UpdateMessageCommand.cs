@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Update the content of the selected message
+    /// </summary>
     public class UpdateMessageCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

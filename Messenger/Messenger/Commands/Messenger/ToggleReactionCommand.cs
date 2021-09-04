@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Make reaction on the selected message, remove if already made
+    /// </summary>
     public class ToggleReactionCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

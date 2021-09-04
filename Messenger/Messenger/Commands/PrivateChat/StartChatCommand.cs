@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Messenger.Commands.PrivateChat
 {
+    /// <summary>
+    /// Open a dialog for starting a new private chat
+    /// </summary>
     public class StartChatCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

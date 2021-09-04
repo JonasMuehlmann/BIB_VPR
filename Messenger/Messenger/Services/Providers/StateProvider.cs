@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.Services.Providers
 {
+    /// <summary>
+    /// Manages application cache data for the current user
+    /// </summary>
     public class StateProvider : Observable
     {
         #region Private

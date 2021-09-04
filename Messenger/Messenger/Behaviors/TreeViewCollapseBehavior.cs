@@ -8,6 +8,9 @@ using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Messenger.Behaviors
 {
+    /// <summary>
+    /// Defines UI-Behavior(Collapse) of XAML component 'TreeView'
+    /// </summary>
     public class TreeViewCollapseBehavior : Behavior<WinUI.TreeView>
     {
         public ICommand CollapseAllCommand { get; }

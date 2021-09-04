@@ -9,13 +9,27 @@ using Windows.UI;
 
 namespace Messenger.Helpers.TeamHelpers
 {
+    /// <summary>
+    /// Loads and creates complete TeamViewModels to be saved in TeamManager
+    /// </summary>
     public static class TeamBuilder
     {
+        /// <summary>
+        /// Loads the team data for the user from the database
+        /// </summary>
+        /// <param name="currentUser">Currently logged in user</param>
+        /// <returns>Enumerable teams data</returns>
         public static async Task<IEnumerable<Team>> GetTeamsFromDatabase(UserViewModel currentUser)
         {
             return await MessengerService.GetTeams(currentUser.Id);
         }
 
+        /// <summary>
+        /// Builds a complete team view model loaded with members and channels
+        /// </summary>
+        /// <param name="team">Team data model</param>
+        /// <param name="userId">Currently logged in user id</param>
+        /// <returns>A complete team view model</returns>
         public static async Task<TeamViewModel> Build(this Team team, string userId)
         {
             TeamViewModel withMembers = await Map(team).WithMembers(userId);
@@ -115,6 +129,11 @@ namespace Messenger.Helpers.TeamHelpers
             }
         }
 
+        /// <summary>
+        /// Loads the team roles for the team
+        /// </summary>
+        /// <param name="viewModel">(Extension)TeamViewModel</param>
+        /// <returns>TeamViewModel with loaded team roles</returns>
         public static async Task<TeamViewModel> WithTeamRoles(this TeamViewModel viewModel)
         {
             if (viewModel is PrivateChatViewModel)
@@ -143,6 +162,11 @@ namespace Messenger.Helpers.TeamHelpers
 
         #region Member Extension
 
+        /// <summary>
+        /// Loads the roles of the member in the team
+        /// </summary>
+        /// <param name="viewModel">(Extension)MemberViewModel</param>
+        /// <returns>MemberViewModel with assigned team roles</returns>
         public static async Task<MemberViewModel> WithMemberRoles(this MemberViewModel viewModel)
         {
             /** LOAD CUSTOM ROLES FOR THE TEAM **/
@@ -181,6 +205,11 @@ namespace Messenger.Helpers.TeamHelpers
 
         #region TeamRole Extension
 
+        /// <summary>
+        /// Loads the granted permissions for the team role
+        /// </summary>
+        /// <param name="viewModel">(Extension)TeamRoleViewModel</param>
+        /// <returns>TeamRoleViewModel with granted permissions</returns>
         public static async Task<TeamRoleViewModel> WithPermissions(this TeamRoleViewModel viewModel)
         {
             IList<Permissions> permissions = await TeamService.GetPermissionsOfRole(viewModel.TeamId, viewModel.Title);
@@ -214,6 +243,11 @@ namespace Messenger.Helpers.TeamHelpers
 
         #region Mappers
 
+        /// <summary>
+        /// Maps team data model to TeamViewModel
+        /// </summary>
+        /// <param name="team">Team data model</param>
+        /// <returns>TeamViewModel</returns>
         public static TeamViewModel Map(Team team)
         {
             return new TeamViewModel()
@@ -228,6 +262,11 @@ namespace Messenger.Helpers.TeamHelpers
             };
         }
 
+        /// <summary>
+        /// Maps team role data model to TeamRoleViewModel
+        /// </summary>
+        /// <param name="team">TeamRole data model</param>
+        /// <returns>TeamRoleViewModel</returns>
         public static TeamRoleViewModel Map(TeamRole teamRole)
         {
             return new TeamRoleViewModel()

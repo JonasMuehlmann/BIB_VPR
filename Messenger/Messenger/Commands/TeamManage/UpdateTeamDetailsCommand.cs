@@ -9,6 +9,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Update the title/description of the selected team
+    /// </summary>
     public class UpdateTeamDetailsCommand : ICommand
     {
         private ILogger _log => GlobalLogger.Instance;
