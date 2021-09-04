@@ -8,6 +8,8 @@
     xmlns:local="using:Messenger.Views.Controls"
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:converters="using:Messenger.Helpers.Converters"
+    xmlns:ms="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:Messenger.Core.Models"
     mc:Ignorable="d"
     d:DesignHeight="400"
     d:DesignWidth="800">
@@ -143,6 +145,89 @@
                             Kind="SmileRegular"
                             />
                     </Viewbox>
+                    <Button.Flyout>
+                        <Flyout
+                            Placement="TopEdgeAlignedRight">
+                            <StackPanel
+                                Spacing="10">
+                                <TextBox
+                                    PlaceholderText="Search Emojis.."
+                                    />
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <ScrollViewer
+                                        VerticalScrollMode="Disabled"
+                                        HorizontalScrollMode="Enabled">
+                                        <ItemsControl
+                                            ItemsSource="{x:Bind
+                                                ViewModel.EmojiCategories,
+                                                Mode=OneWay}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel
+                                                        Orientation="Horizontal"
+                                                        />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ToggleButton
+                                                        Content="{Binding}"
+                                                        />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </StackPanel>
+                                <Grid
+                                    Visibility="{x:Bind
+                                        ViewModel.Emojis,
+                                        Mode=OneWay,
+                                        Converter={StaticResource NullToVisibilityConverter},
+                                        ConverterParameter='invert'}"
+                                    Opacity=".55">
+                                    <StackPanel
+                                        Margin="0 50"
+                                        Spacing="5">
+                                        <TextBlock
+                                            TextAlignment="Center"
+                                            Text="Select a category"
+                                            />
+                                        <Viewbox
+                                            Width="22"
+                                            Height="22">
+                                            <icons:PackIconFontAwesome
+                                                Kind="SmileRegular"
+                                                />
+                                        </Viewbox>
+                                    </StackPanel>
+                                </Grid>
+                                <ListBox
+                                    MaxWidth="325"
+                                    MaxHeight="150"
+                                    ItemsSource="{x:Bind
+                                        ViewModel.Emojis,
+                                        Mode=OneWay}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ms:WrapPanel
+                                                />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Emoji">
+                                            <Grid>
+                                                <TextBlock
+                                                    TextAlignment="Center"
+                                                    Text="{x:Bind Emoji_}"
+                                                    />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
                 </Button>
             </StackPanel>
             <Button
