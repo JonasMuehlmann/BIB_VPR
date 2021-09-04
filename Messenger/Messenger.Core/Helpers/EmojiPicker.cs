@@ -8,7 +8,6 @@ using DuoVia.FuzzyStrings;
 
 namespace Messenger.Core.Helpers
 {
-
     public class EmojiPicker
     {
         private List<Emoji> emojisOriginal;
@@ -17,9 +16,8 @@ namespace Messenger.Core.Helpers
 
         public EmojiPicker(string emojiFilePath)
         {
-            string fileContent = File.ReadAllText(emojiFilePath);
-            emojisOriginal= JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
-            emojis = emojisOriginal;
+            string fileContent = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "emojis.json"));
+            emojisOriginal = JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
             emojiCategorieFilter = EmojiCategory.None;
         }
 
@@ -72,9 +70,5 @@ namespace Messenger.Core.Helpers
         {
             emojis = emojis.OrderByDescending(emoji => LongestCommonSubsequenceExtensions.LongestCommonSubsequence(emoji.Name, searchTerm).Item2 * 100.0).ToList();
         }
-    }
-    public class EmojiUtils
-    {
-
     }
 }
