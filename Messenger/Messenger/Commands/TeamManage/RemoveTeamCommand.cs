@@ -12,6 +12,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Permanently remove the team from the list
+    /// </summary>
     public class RemoveTeamCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

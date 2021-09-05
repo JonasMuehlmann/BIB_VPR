@@ -8,6 +8,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.UserData
 {
+    /// <summary>
+    /// Update the bio of the current user
+    /// </summary>
     public class UpdateUserBioCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

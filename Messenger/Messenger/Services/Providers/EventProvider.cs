@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace Messenger.Services.Providers
 {
+    /// <summary>
+    /// Manages events between SignalR and view models
+    /// </summary>
     public class EventProvider
     {
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;

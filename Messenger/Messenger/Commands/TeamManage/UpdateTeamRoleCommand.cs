@@ -8,6 +8,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Update and apply all changes made to the role
+    /// </summary>
     public class UpdateTeamRoleCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

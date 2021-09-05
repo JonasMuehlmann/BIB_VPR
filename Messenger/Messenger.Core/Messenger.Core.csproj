@@ -5,6 +5,10 @@
     <RootNamespace>Messenger.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Services\AzureServiceBase.cs.example" />
+  </ItemGroup>
+
    <ItemGroup>
      <PackageReference Include="Azure.Storage.Blobs" Version="12.8.4" />
      <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />

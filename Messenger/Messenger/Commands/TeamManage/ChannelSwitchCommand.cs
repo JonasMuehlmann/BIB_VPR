@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Switch the currently selected channel and display the messages
+    /// </summary>
     public class ChannelSwitchCommand : ICommand
     {
         private ILogger _log = GlobalLogger.Instance;

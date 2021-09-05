@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.Helpers.TeamHelpers
 {
+    /// <summary>
+    /// Manages all TeamViewModels dwelling in application cache
+    /// </summary>
     public class TeamManager : Observable
     {
         #region Private

@@ -7,6 +7,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Create a new role in the team
+    /// </summary>
     public class CreateTeamRoleCommand : ICommand
     {
         private ManageRolesDialogViewModel _vm;

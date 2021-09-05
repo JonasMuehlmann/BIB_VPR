@@ -9,6 +9,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Remove the permission from the role
+    /// </summary>
     public class RevokePermissionCommand : ICommand
     {
         private ManageRolesDialogViewModel _vm;
