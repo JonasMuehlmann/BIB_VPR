@@ -5,6 +5,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Send a reply to selected message
+    /// </summary>
     public class ReplyMessageCommand : ICommand
     {
         private readonly ChatViewModel _viewModel;

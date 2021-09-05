@@ -9,6 +9,9 @@ using Windows.UI.Xaml.Media;
 
 namespace Messenger.Helpers.Converters
 {
+    /// <summary>
+    /// Returns SolidColorBrush with given Color
+    /// </summary>
     public class ColorToSolidBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

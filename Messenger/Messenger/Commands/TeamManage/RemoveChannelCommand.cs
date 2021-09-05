@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Remove the channel from the team
+    /// </summary>
     public class RemoveChannelCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Messenger.Helpers.Converters
 {
+    /// <summary>
+    /// Converts from Windows.UI.Color to string hex code
+    /// </summary>
     public class ColorToHexCodeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

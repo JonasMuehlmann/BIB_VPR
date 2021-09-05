@@ -7,6 +7,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Remove the role from the member
+    /// </summary>
     public class UnassignTeamRoleCommand : ICommand
     {
         private ManageMemberRolesDialogViewModel _vm;

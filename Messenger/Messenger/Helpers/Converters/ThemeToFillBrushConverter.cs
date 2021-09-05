@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Media;
 
 namespace Messenger.Helpers.Converters
 {
+    /// <summary>
+    /// Returns matching color for the current theme
+    /// </summary>
     public class ThemeToFillBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

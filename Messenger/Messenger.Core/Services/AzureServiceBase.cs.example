@@ -1,0 +1,54 @@
+﻿﻿﻿using System;
+using System.Configuration;
+using System.Data.SqlClient;
+using Serilog;
+using Messenger.Core.Helpers;
+
+namespace Messenger.Core.Services
+{
+    /// <summary>
+    /// An abstract base class offering the ability to connect to an SQL DB
+    /// </summary>
+    public abstract class AzureServiceBase
+    {
+        #region Private
+
+        private static string connectionStringTest = @"InsertConnectionStringHere";
+        private static string connectionStringProd = @"InsertConnectionStringHere";
+
+        #endregion
+
+        public static ILogger logger => GlobalLogger.Instance;
+
+        /// <summary>
+        /// Return a connection object to either a production DB or a test DB.
+        ///
+        /// Set the env var BIB_VPR_DEBUG to use a test connection instead of a production connection.
+        /// The test connection is read from the env var BIB_VPR_CON_STRING_TEST
+        /// and if it does not exist, it is read from the connectionStringTest variable above.
+        /// The production connection is read from the env var BIB_VPR_CON_STRING_PROD
+        /// and if it does not exist, it is read from the connectionStringProd variable above.
+        /// </summary>
+        /// <returns>A connection object</returns>
+        public static SqlConnection GetDefaultConnection()
+        {
+            string connectionString;
+
+            var envVarDebug         = Environment.GetEnvironmentVariable("BIB_VPR_DEBUG");
+            var envVarConStringProd = Environment.GetEnvironmentVariable("BIB_VPR_CON_STRING_PROD");
+            var envVarConStringTest = Environment.GetEnvironmentVariable("BIB_VPR_CON_STRING_TEST");
+
+            if (envVarDebug is null || envVarDebug == "false")
+            {
+                connectionString = envVarConStringProd is null? connectionStringProd : envVarConStringProd;
+            }
+            else
+            {
+                connectionString = envVarConStringTest is null? connectionStringTest : envVarConStringTest;
+            }
+
+            return new SqlConnection(connectionString);
+        }
+
+    }
+}

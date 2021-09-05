@@ -9,6 +9,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Open a dialog for creating a new channel of the current team
+    /// </summary>
     public class CreateChannelCommand : ICommand
     {
         private ILogger _log = GlobalLogger.Instance;

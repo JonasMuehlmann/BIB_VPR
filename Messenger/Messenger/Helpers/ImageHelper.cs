@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Helper class for processing image data
+    /// </summary>
     public static class ImageHelper
     {
         public static async Task<BitmapImage> ImageFromStringAsync(string data)

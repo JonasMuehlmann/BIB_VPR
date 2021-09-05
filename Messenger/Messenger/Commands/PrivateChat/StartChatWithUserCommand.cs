@@ -11,6 +11,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.PrivateChat
 {
+    /// <summary>
+    /// Directly start the private chat with the selected user (No dialog)
+    /// </summary>
     public class StartChatWithUserCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

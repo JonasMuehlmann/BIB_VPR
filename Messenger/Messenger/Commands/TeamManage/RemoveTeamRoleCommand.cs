@@ -5,6 +5,9 @@ using Messenger.ViewModels.DataViewModels;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Permanently remove the role from the team
+    /// </summary>
     public class RemoveTeamRoleCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

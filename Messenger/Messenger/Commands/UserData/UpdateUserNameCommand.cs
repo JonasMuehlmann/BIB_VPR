@@ -8,6 +8,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.UserData
 {
+    /// <summary>
+    /// Update the user name of the current user
+    /// </summary>
     public class UpdateUserNameCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

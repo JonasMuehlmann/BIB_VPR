@@ -13,6 +13,9 @@ using Windows.Storage;
 
 namespace Messenger.Services
 {
+    /// <summary>
+    /// Receives and holds the current user data from IdentityService
+    /// </summary>
     public class UserDataService
     {
         private const string _userSettingsKey = "IdentityUser";
