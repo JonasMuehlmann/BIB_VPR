@@ -152,19 +152,52 @@
                                 Spacing="10">
                                 <TextBox
                                     PlaceholderText="Search Emojis.."
+                                    TextChanged="TextBox_TextChanged"
                                     />
-                                <StackPanel
-                                    Orientation="Horizontal">
-                                    <ScrollViewer
-                                        VerticalScrollMode="Disabled"
-                                        HorizontalScrollMode="Enabled">
+
+                                <TextBlock
+                                    Text="Applied Filters"
+                                    Opacity=".55"
+                                    Padding="5 0 0 0"
+                                    />
+                                <ListBox
+                                    Background="Transparent"
+                                    ItemsSource="{x:Bind
+                                        ViewModel.AppliedFilters,
+                                        Mode=OneWay}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    Text="{Binding}"
+                                                    FontSize="14"
+                                                    FontWeight="SemiBold"
+                                                    Foreground="{ThemeResource PrimaryAccent_A}"
+                                                    />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <ScrollViewer
+                                    Width="400"
+                                    HorizontalScrollBarVisibility="Visible"
+                                    VerticalScrollBarVisibility="Disabled">
                                         <ItemsControl
+                                            Margin="0 0 0 20"
                                             ItemsSource="{x:Bind
                                                 ViewModel.EmojiCategories,
                                                 Mode=OneWay}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <StackPanel
+                                                    <ItemsStackPanel
                                                         Orientation="Horizontal"
                                                         />
                                                 </ItemsPanelTemplate>
@@ -172,39 +205,47 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <ToggleButton
+                                                        Checked="ToggleButton_Checked"
+                                                        Unchecked="ToggleButton_Unchecked"
+                                                        Background="Transparent"
+                                                        CornerRadius="0"
+                                                        BorderThickness="1 1 1 0"
+                                                        BorderBrush="{ThemeResource Elevation_2}"
+                                                        FontSize="10"
                                                         Content="{Binding}"
                                                         />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
-                                    </ScrollViewer>
-                                </StackPanel>
-                                <Grid
+                                </ScrollViewer>
+                                <StackPanel
                                     Visibility="{x:Bind
-                                        ViewModel.Emojis,
+                                        ViewModel.Emojis.Count,
                                         Mode=OneWay,
                                         Converter={StaticResource NullToVisibilityConverter},
                                         ConverterParameter='invert'}"
-                                    Opacity=".55">
-                                    <StackPanel
-                                        Margin="0 50"
-                                        Spacing="5">
-                                        <TextBlock
-                                            TextAlignment="Center"
-                                            Text="Select a category"
+                                    Opacity=".55"
+                                    Margin="0 50"
+                                    Spacing="5">
+                                    <TextBlock
+                                        TextAlignment="Center"
+                                        Text="Select a category"
+                                        />
+                                    <Viewbox
+                                        Width="22"
+                                        Height="22">
+                                        <icons:PackIconFontAwesome
+                                            Kind="SmileRegular"
                                             />
-                                        <Viewbox
-                                            Width="22"
-                                            Height="22">
-                                            <icons:PackIconFontAwesome
-                                                Kind="SmileRegular"
-                                                />
-                                        </Viewbox>
-                                    </StackPanel>
-                                </Grid>
+                                    </Viewbox>
+                                </StackPanel>
                                 <ListBox
-                                    MaxWidth="325"
                                     MaxHeight="150"
+                                    Width="400"
+                                    Visibility="{x:Bind
+                                        ViewModel.Emojis.Count,
+                                        Mode=OneWay,
+                                        Converter={StaticResource NullToVisibilityConverter}}"
                                     ItemsSource="{x:Bind
                                         ViewModel.Emojis,
                                         Mode=OneWay}">
@@ -216,7 +257,8 @@
                                     </ListBox.ItemsPanel>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate x:DataType="models:Emoji">
-                                            <Grid>
+                                            <Grid
+                                                Width="25">
                                                 <TextBlock
                                                     TextAlignment="Center"
                                                     Text="{x:Bind Emoji_}"
