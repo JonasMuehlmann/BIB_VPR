@@ -27,7 +27,15 @@ namespace Messenger.ViewModels.Controls
             set { Set(ref _emojis, value); }
         }
 
-        public IEnumerable<string> EmojiCategories { get => Enum.GetNames(typeof(EmojiCategory)); }
+        private ObservableCollection<EmojiCategory> _appliedFilters;
+
+        public ObservableCollection<EmojiCategory> AppliedFilters
+        {
+            get { return _appliedFilters; }
+            set { Set(ref _appliedFilters, value); }
+        }
+
+        public IEnumerable<string> EmojiCategories { get => Enum.GetNames(typeof(EmojiCategory)).Where(c => c != "None"); }
 
         public ICommand AttachFileCommand { get => new AttachFileCommand(ParentViewModel); }
 
@@ -36,9 +44,60 @@ namespace Messenger.ViewModels.Controls
         public SendMessageControlViewModel(ChatViewModel parentViewModel)
         {
             ParentViewModel = parentViewModel;
-            EmojiPicker = new EmojiPicker("");
+            EmojiPicker = new EmojiPicker();
+            Emojis = new ObservableCollection<Emoji>();
+            AppliedFilters = new ObservableCollection<EmojiCategory>();
+        }
 
-            Emojis = new ObservableCollection<Emoji>(EmojiPicker.GetEmojisFromCategory(EmojiCategory.Smileys));
+        public void AddEmojiFilter(EmojiCategory category)
+        {
+            if (Emojis == null) Emojis = new ObservableCollection<Emoji>();
+
+            EmojiPicker.AddFilter(category);
+            EmojiPicker.FilterCategories();
+
+            AppliedFilters.Add(category);
+
+            Emojis.Clear();
+
+            foreach (Emoji emoji in EmojiPicker.emojis)
+            {
+                Emojis.Add(emoji);
+            }
+        }
+
+        public void RemoveEmojiFilter(EmojiCategory category)
+        {
+            EmojiPicker.RemoveFilter(category);
+
+            AppliedFilters.Remove(category);
+
+            if (AppliedFilters.Count == 0)
+            {
+                EmojiPicker.ResetFilters();
+                Emojis.Clear();
+                return;
+            }
+
+            EmojiPicker.FilterCategories();
+            Emojis.Clear();
+
+            foreach (Emoji emoji in EmojiPicker.emojis)
+            {
+                Emojis.Add(emoji);
+            }
+        }
+
+        public void SearchEmojis(string name)
+        {
+            EmojiPicker.Rank(name);
+
+            Emojis.Clear();
+
+            foreach (Emoji emoji in EmojiPicker.emojis)
+            {
+                Emojis.Add(emoji);
+            }
         }
     }
 }
