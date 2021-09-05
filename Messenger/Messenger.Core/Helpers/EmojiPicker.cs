@@ -14,7 +14,7 @@ namespace Messenger.Core.Helpers
         public List<Emoji> emojis;
         public EmojiCategory emojiCategorieFilter;
 
-        public EmojiPicker(string emojiFilePath)
+        public EmojiPicker()
         {
             string fileContent = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "emojis.json"));
             emojisOriginal = JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
@@ -60,10 +60,7 @@ namespace Messenger.Core.Helpers
 
         public void FilterCategories()
         {
-            emojis = emojisOriginal.Where((emoji) => {
-                    return emojiCategorieFilter.HasFlag(emoji.Category)
-                        || emojiCategorieFilter == EmojiCategory.None;
-            }).ToList();
+            emojis = emojisOriginal.Where((emoji) => emojiCategorieFilter.HasFlag(emoji.Category)).ToList();
         }
 
         public void Rank(string searchTerm)
