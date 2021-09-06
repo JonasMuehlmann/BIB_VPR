@@ -59,5 +59,15 @@ namespace Messenger.ViewModels.DataViewModels
         {
 
         }
+
+        public ChannelViewModel Clone(ChannelViewModel c) {
+            PinnedMessage = c.PinnedMessage;
+            ChannelName = c.ChannelName;
+            ChannelId = c.ChannelId;
+            Description = c.Description;
+            TeamId = c.TeamId;
+            LastMessage = c.LastMessage;
+            return this;
+        }
     }
 }

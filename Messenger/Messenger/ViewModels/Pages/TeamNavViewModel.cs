@@ -55,6 +55,7 @@ namespace Messenger.ViewModels.Pages
 
         public UserViewModel CurrentUser { get; set; }
 
+
         #endregion
 
         #region Commands
@@ -227,6 +228,8 @@ namespace Messenger.ViewModels.Pages
                         ChannelViewModel target = team.Channels.FirstOrDefault(ch => ch.ChannelId == channel.ChannelId);
 
                         team.Channels.Remove(target);
+                        ChannelViewModel newSelected = team.Channels.FirstOrDefault();
+                        TeamChannelSwitchCommand.Execute(newSelected);
                     }
                 }
             }
