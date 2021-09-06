@@ -221,7 +221,7 @@ namespace Messenger.Services.Providers
             MessageViewModel viewModel = await CacheQuery.AddOrUpdate<MessageViewModel>(message);
 
             /** SEND TOAST IF CHANNEL CURRENTLY NOT SELECTED **/
-            if (App.StateProvider.SelectedChannel.ChannelId != message.RecipientId)
+            if (App.StateProvider.SelectedChannel == null || App.StateProvider.SelectedChannel.ChannelId != message.RecipientId)
             {
                 Toast.ShowMessageReceived(App.StateProvider.SelectedTeam, viewModel);
             }

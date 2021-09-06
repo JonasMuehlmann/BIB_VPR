@@ -111,6 +111,7 @@
                 Background="{ThemeResource Elevation_2}"
                 PlaceholderText="Write something..."
                 PreviewKeyDown="tbxContent_PreviewKeyDown"
+                BeforeTextChanging="tbxContent_BeforeTextChanging"
                 Text="{x:Bind
                     ViewModel.ParentViewModel.MessageToSend.Content,
                     Mode=TwoWay,

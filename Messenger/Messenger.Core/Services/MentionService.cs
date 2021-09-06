@@ -309,7 +309,7 @@ namespace Messenger.Core.Services
             var mentionables = new List<Mentionable>();
 
             // Check for filters
-            if (char.IsLetter(searchString[0]) && searchString[1] == ':')
+            if (searchString.Length > 2 && char.IsLetter(searchString[0]) && searchString[1] == ':')
             {
                 switch (searchString[0])
                 {

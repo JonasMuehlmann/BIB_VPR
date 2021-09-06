@@ -58,8 +58,10 @@ namespace Messenger.Commands.Messenger
                 message.SenderId = App.StateProvider.CurrentUser.Id;
                 message.RecipientId = App.StateProvider.SelectedChannel.ChannelId;
 
+                // Resolve mentions
+                await MentionService.ResolveMentions(message.Content);
+
                 bool success = await MessengerService.SendMessage(message, team.Id);
-                //bool success = await MessengerService.SendMessage(_viewModel.MessageToSend, team.Id);
 
                 if (success)
                 {

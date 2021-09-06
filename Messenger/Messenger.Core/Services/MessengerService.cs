@@ -679,11 +679,11 @@ namespace Messenger.Core.Services
             // Add user to the hub group if the user is connected (will be handled in SignalR)
             await SignalRService.SendInvitation(user, team);
 
-            // Send notification to target user
+            // Send notification to target user => to database
             JObject notificationMessage = await NotificationMessageBuilder.MakeInvitedToTeamNotificationMessage(teamId);
-
             uint? notificationId = await NotificationService.SendNotification(userId, notificationMessage);
 
+            // Notify target user => to SignalR
             if (notificationId != null)
             {
                 Notification notification = new Notification()

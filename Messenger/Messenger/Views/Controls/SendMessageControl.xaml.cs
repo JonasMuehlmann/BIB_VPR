@@ -1,4 +1,7 @@
-﻿using Messenger.ViewModels.Controls;
+﻿using Messenger.Core.Models;
+using Messenger.Core.Services;
+using Messenger.ViewModels.Controls;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -15,6 +18,8 @@ namespace Messenger.Views.Controls
 
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register("ViewModel", typeof(SendMessageControlViewModel), typeof(SendMessageControl), new PropertyMetadata(null));
+
+        private bool _mentionableSearchMode = false;
 
         public SendMessageControl()
         {
@@ -41,6 +46,43 @@ namespace Messenger.Views.Controls
         {
             ViewModel.ParentViewModel.ReplyMessage = null;
             ViewModel.ParentViewModel.MessageToSend.ParentMessageId = null;
+        }
+
+        private async void tbxContent_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            string newText = args.NewText;
+            string oldText = sender.Text;
+
+            if (newText.Length < oldText.Length) return;
+
+            if (newText[newText.Length - 1] == '@' && !_mentionableSearchMode)
+            {
+                _mentionableSearchMode = true;
+                return;
+            }
+            else if (newText[newText.Length - 1] == ' ' && _mentionableSearchMode)
+            {
+                _mentionableSearchMode = false;
+                return;
+            }
+
+            if (_mentionableSearchMode)
+            {
+                int searchStringIndex = newText.IndexOf('@');
+
+                if (newText.Substring(searchStringIndex).Length > 1)
+                {
+                    string searchString = newText.Substring(searchStringIndex + 1);
+
+                    IList<Mentionable> mentionables = await MentionService.SearchMentionable(searchString, App.StateProvider.SelectedTeam.Id);
+
+
+                    if (mentionables != null && mentionables.Count > 0)
+                    {
+
+                    }
+                }
+            }       
         }
     }
 }
