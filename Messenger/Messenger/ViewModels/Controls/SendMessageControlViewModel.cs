@@ -1,4 +1,5 @@
-﻿using Messenger.Commands.Messenger;
+﻿using Messenger.Commands;
+using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
 using Messenger.Helpers;
@@ -40,6 +41,8 @@ namespace Messenger.ViewModels.Controls
         public ICommand AttachFileCommand { get => new AttachFileCommand(ParentViewModel); }
 
         public ICommand SendMessageCommand { get => new SendMessageCommand(ParentViewModel); }
+
+        public ICommand ResetEmojisCommand { get => new RelayCommand(ResetEmojiFilter); }
 
         public SendMessageControlViewModel(ChatViewModel parentViewModel)
         {
@@ -86,6 +89,15 @@ namespace Messenger.ViewModels.Controls
             {
                 Emojis.Add(emoji);
             }
+        }
+
+        public void ResetEmojiFilter()
+        {
+            EmojiPicker.ResetFilters();
+            EmojiPicker.FilterCategories();
+
+            AppliedFilters.Clear();
+            Emojis.Clear();
         }
 
         public void SearchEmojis(string name)

@@ -154,12 +154,34 @@
                                     PlaceholderText="Search Emojis.."
                                     TextChanged="TextBox_TextChanged"
                                     />
-
-                                <TextBlock
-                                    Text="Applied Filters"
-                                    Opacity=".55"
-                                    Padding="5 0 0 0"
-                                    />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Text="Applied Filters"
+                                        VerticalAlignment="Center"
+                                        Opacity=".55"
+                                        FontSize="12"
+                                        Padding="5 0 0 0"
+                                        />
+                                    <Button
+                                        Visibility="{x:Bind
+                                            ViewModel.AppliedFilters.Count,
+                                            Mode=OneWay,
+                                            Converter={StaticResource NullToVisibilityConverter}}"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Content="Reset"
+                                        Foreground="IndianRed"
+                                        Background="Transparent"
+                                        Tapped="Reset_Tapped"
+                                        />
+                                </Grid>
                                 <ListBox
                                     Background="Transparent"
                                     ItemsSource="{x:Bind
@@ -191,6 +213,7 @@
                                     HorizontalScrollBarVisibility="Visible"
                                     VerticalScrollBarVisibility="Disabled">
                                         <ItemsControl
+                                            x:Name="ctlCategory"
                                             Margin="0 0 0 20"
                                             ItemsSource="{x:Bind
                                                 ViewModel.EmojiCategories,
@@ -205,6 +228,7 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <ToggleButton
+                                                        Name="buttonCategory"
                                                         Checked="ToggleButton_Checked"
                                                         Unchecked="ToggleButton_Unchecked"
                                                         Background="Transparent"
@@ -240,6 +264,7 @@
                                     </Viewbox>
                                 </StackPanel>
                                 <ListBox
+                                    x:Name="lbxEmojis"
                                     MaxHeight="150"
                                     Width="400"
                                     Visibility="{x:Bind
@@ -261,8 +286,12 @@
                                                 Width="25">
                                                 <TextBlock
                                                     TextAlignment="Center"
-                                                    Text="{x:Bind Emoji_}"
-                                                    />
+                                                    Text="{Binding Emoji_}"
+                                                    Tapped="Emoji_Tapped">
+                                                    <ToolTipService.ToolTip>
+                                                        <ToolTip Content="{Binding Name}" />
+                                                    </ToolTipService.ToolTip>
+                                                </TextBlock>
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>

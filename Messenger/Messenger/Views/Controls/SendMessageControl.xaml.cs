@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Messenger.Views.Controls
 {
@@ -29,6 +30,38 @@ namespace Messenger.Views.Controls
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(300);
             _timer.Tick += OnSearchTimer;
+        }
+
+        private void Reset_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            foreach (var item in FindVisualChildren<ToggleButton>(ctlCategory))
+            {
+                ToggleButton button = item as ToggleButton;
+
+                if (button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+
+            ViewModel.ResetEmojisCommand.Execute(null);
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null)
+                yield break;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                if (child != null && child is T)
+                    yield return (T)child;
+
+                foreach (T childOfChild in FindVisualChildren<T>(child))
+                    yield return childOfChild;
+            }
         }
 
         private void tbxContent_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
@@ -81,6 +114,15 @@ namespace Messenger.Views.Controls
             }
 
             _timer.Start();
+        }
+
+        private void Emoji_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            string emoji = (sender as TextBlock).Text;
+
+            if (string.IsNullOrWhiteSpace(emoji)) return;
+
+            tbxContent.Text += emoji;
         }
 
         private void OnSearchTimer(object sender, object e)
