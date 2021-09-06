@@ -16,7 +16,7 @@ namespace Messenger.Core.Helpers
 
         public EmojiPicker()
         {
-            string fileContent = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "emojis.json"));
+            string fileContent = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Assets/emojis.json"));
             emojisOriginal = JsonConvert.DeserializeObject<Dictionary<string, List<Emoji>>>(fileContent)["emojis"];
             emojiCategorieFilter = EmojiCategory.None;
         }
