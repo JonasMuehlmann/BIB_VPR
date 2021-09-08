@@ -113,7 +113,7 @@ namespace Messenger.ViewModels.Pages
 
             foreach (TeamViewModel team in CacheQuery.GetMyTeams())
             {
-                Teams.Add(team);
+                Teams.Add(new TeamViewModel(team));
             }
         }
 
@@ -142,7 +142,7 @@ namespace Messenger.ViewModels.Pages
 
                 foreach (TeamViewModel team in teams)
                 {
-                    Teams.Add(team);
+                    Teams.Add(new TeamViewModel(team));
                 }
             }
 
@@ -163,18 +163,18 @@ namespace Messenger.ViewModels.Pages
 
             if (e.Reason == BroadcastReasons.Created)
             {
-                _teams.Add(team);
+                _teams.Add(new TeamViewModel(team));
             }
             else if (e.Reason == BroadcastReasons.Updated)
             {
-                TeamViewModel target = _teams.Single(t => t.Id == team.Id);
+                TeamViewModel target = _teams.SingleOrDefault(t => t.Id == team.Id);
                 int index = _teams.IndexOf(target);
 
-                _teams[index] = team;
+                _teams[index] = new TeamViewModel(team);
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                TeamViewModel target = _teams.Single(t => t.Id == team.Id);
+                TeamViewModel target = _teams.SingleOrDefault(t => t.Id == team.Id);
 
                 if (target != null)
                 {

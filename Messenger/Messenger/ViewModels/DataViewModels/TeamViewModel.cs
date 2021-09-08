@@ -70,9 +70,21 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get => new RemoveTeamCommand();
         }
+
         public TeamViewModel()
         {
 
+        }
+
+        public TeamViewModel(TeamViewModel viewModel)
+        {
+            Id = viewModel.Id;
+            TeamName = viewModel.TeamName;
+            TeamRoles = viewModel.TeamRoles;
+            Channels = viewModel.Channels;
+            CreationDate = viewModel.CreationDate;
+            Description = viewModel.Description;
+            Members = viewModel.Members;
         }
     }
 }
