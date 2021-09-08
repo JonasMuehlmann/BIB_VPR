@@ -631,10 +631,20 @@ namespace Messenger.Services.Providers
             UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
-            Broadcast(
-                BroadcastOptions.TeamUpdated,
-                BroadcastReasons.Updated,
-                teamViewModel);
+            if (user.Id == App.StateProvider.CurrentUser.Id)
+            {
+                Broadcast(
+                    BroadcastOptions.TeamUpdated,
+                    BroadcastReasons.Deleted,
+                    teamViewModel);
+            }
+            else
+            {
+                Broadcast(
+                    BroadcastOptions.TeamUpdated,
+                    BroadcastReasons.Updated,
+                    teamViewModel);
+            }
         }
 
         #endregion
