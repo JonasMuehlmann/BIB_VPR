@@ -577,6 +577,9 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="App.config" />
+    <None Include="Assets\emojis.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Messenger_TemporaryKey.pfx" />
     <None Include="Settings.XamlStyler" />
     <PRIResource Include="Strings\kr-KR\Resources.resw" />
