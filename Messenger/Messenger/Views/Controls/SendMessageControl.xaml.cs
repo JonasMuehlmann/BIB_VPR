@@ -1,7 +1,10 @@
 ﻿using Messenger.Core.Models;
+using Messenger.Core.Services;
+using Messenger.Helpers;
 using Messenger.ViewModels.Controls;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,12 +24,14 @@ namespace Messenger.Views.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register("ViewModel", typeof(SendMessageControlViewModel), typeof(SendMessageControl), new PropertyMetadata(null));
 
+        private bool isInSearchMode;
         private DispatcherTimer _timer;
         private string _searchTerm;
 
         public SendMessageControl()
         {
             InitializeComponent();
+            isInSearchMode = false;
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(300);
             _timer.Tick += OnSearchTimer;
@@ -34,34 +39,12 @@ namespace Messenger.Views.Controls
 
         private void Reset_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            foreach (var item in FindVisualChildren<ToggleButton>(ctlCategory))
+            foreach (ToggleButton button in ctlCategory.FindVisualChildren<ToggleButton>())
             {
-                ToggleButton button = item as ToggleButton;
-
-                if (button.IsChecked == true)
-                {
-                    button.IsChecked = false;
-                }
+                if (button.IsChecked == true) button.IsChecked = false;
             }
 
             ViewModel.ResetEmojisCommand.Execute(null);
-        }
-
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj == null)
-                yield break;
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-            {
-                var child = VisualTreeHelper.GetChild(depObj, i);
-
-                if (child != null && child is T)
-                    yield return (T)child;
-
-                foreach (T childOfChild in FindVisualChildren<T>(child))
-                    yield return childOfChild;
-            }
         }
 
         private void tbxContent_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
@@ -78,6 +61,31 @@ namespace Messenger.Views.Controls
                 default:
                     break;
             }
+        }
+
+        private void tbxContent_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            string newText = args.NewText;
+
+            if (isInSearchMode
+                && newText == " ")
+            {
+                isInSearchMode = false;
+                return;
+            }
+
+            // Enter search mode
+            if (!string.IsNullOrEmpty(newText)
+                && newText[newText.Length - 1] == '@'
+                && !isInSearchMode)
+            {
+                isInSearchMode = true;
+                return;
+            }
+
+            if (!isInSearchMode) return;
+
+            ViewModel.SearchMentionables(newText);
         }
 
         private void RemoveReply_Tapped(object sender, TappedRoutedEventArgs e)
@@ -108,10 +116,7 @@ namespace Messenger.Views.Controls
 
             _searchTerm = term;
 
-            if (_timer.IsEnabled)
-            {
-                _timer.Stop();
-            }
+            if (_timer.IsEnabled) _timer.Stop();
 
             _timer.Start();
         }
