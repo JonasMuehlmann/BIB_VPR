@@ -2,6 +2,7 @@
 using Messenger.Commands.Messenger;
 using Messenger.Core.Helpers;
 using Messenger.Core.Models;
+using Messenger.Core.Services;
 using Messenger.Helpers;
 using Messenger.ViewModels.Pages;
 using System;
@@ -36,6 +37,14 @@ namespace Messenger.ViewModels.Controls
             set { Set(ref _appliedFilters, value); }
         }
 
+        private ObservableCollection<Mentionable> _searchedMentionables;
+
+        public ObservableCollection<Mentionable> SearchedMentionables
+        {
+            get { return _searchedMentionables; }
+            set { Set(ref _searchedMentionables, value); }
+        }
+
         public IEnumerable<string> EmojiCategories { get => Enum.GetNames(typeof(EmojiCategory)).Where(c => c != "None"); }
 
         public ICommand AttachFileCommand { get => new AttachFileCommand(ParentViewModel); }
@@ -49,7 +58,27 @@ namespace Messenger.ViewModels.Controls
             ParentViewModel = parentViewModel;
             EmojiPicker = new EmojiPicker();
             Emojis = new ObservableCollection<Emoji>();
+            SearchedMentionables = new ObservableCollection<Mentionable>();
             AppliedFilters = new ObservableCollection<EmojiCategory>();
+        }
+
+        public async void SearchMentionables(string newText)
+        {
+            int lastMentionSymbolIndex = newText.LastIndexOf('@');
+            string searchTerm = newText.Substring(lastMentionSymbolIndex + 1);
+            char[] categories = new char[] { 'r', 'u', 'c', 'm' };
+
+            SearchedMentionables.Clear();
+
+            if (searchTerm.Length > 2
+                && categories.Any(c => c == searchTerm[0])
+                && searchTerm[1] == ':')
+            {
+                foreach (Mentionable mentionable in await MentionService.SearchMentionable(searchTerm, App.StateProvider.SelectedTeam.Id))
+                {
+                    SearchedMentionables.Add(mentionable);
+                }
+            }
         }
 
         public void AddEmojiFilter(EmojiCategory category)
