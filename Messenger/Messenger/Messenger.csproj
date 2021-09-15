@@ -183,6 +183,7 @@
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
     <Compile Include="Helpers\Converters\CountToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NotificationTypeToStringConverter.cs" />
+    <Compile Include="Helpers\ViewExtensions.cs" />
     <Compile Include="ViewModels\DataViewModels\NotificationMessageViewModel.cs" />
     <Compile Include="ViewModels\Controls\InboxControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\UserSearchPanelViewModel.cs" />
