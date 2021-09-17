@@ -1,0 +1,8 @@
+MainPackage=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_ARM.msix
+SymbolPackage=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\obj\ARM\Release\Symbols\Messenger_1.0.0.0_ARM.appxsym
+ResourcePack=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_language-de.msix
+ResourcePack=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_language-en.msix
+ResourcePack=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_scale-100.msix
+ResourcePack=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_scale-125.msix
+ResourcePack=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_scale-150.msix
+ResourcePack=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\ARM\Release\Messenger_1.0.0.0_scale-400.msix

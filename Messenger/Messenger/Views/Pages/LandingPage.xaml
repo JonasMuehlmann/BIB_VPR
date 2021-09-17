@@ -29,11 +29,11 @@
         </Button>
             <StackPanel
             Opacity=".5"
-            Spacing="25"
+            Spacing="20"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <Viewbox
-                Width="45">
+                Width="65">
                 <SymbolIcon
                     Symbol="OtherUser"
                     Foreground="{ThemeResource PrimaryAccent_A}"
@@ -41,18 +41,19 @@
             </Viewbox>
             <TextBlock
                 Text="Select a team/chat from the list."
+                FontSize="16"
                 HorizontalAlignment="Center"
                 />
             <MenuFlyoutSeparator
-                Opacity=".25"
+                Opacity=".45"
                 />
             <StackPanel
-                Opacity=".5"
+                Opacity=".65"
                 Spacing="5"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
-                    FontSize="12">
+                    FontSize="13">
                     <Run
                         Text="Messenger can be installed on any device with"
                         />
