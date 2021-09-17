@@ -33,12 +33,22 @@ namespace Messenger.Views.DialogBoxes
             InitializeComponent();
         }
 
-        public static ResultConfirmationDialog Set(bool isSuccess, string message)
+        public static ResultConfirmationDialog Set(bool isSuccess, object message)
         {
-            var dialog = new ResultConfirmationDialog();
-
-            dialog.IsSuccess = isSuccess;
-            dialog.ContentText = message;
+            string m;
+            try
+            {
+                m = (string)message;
+            }
+            catch (System.Exception e)
+            {
+                return null;
+            }
+            ResultConfirmationDialog dialog = new ResultConfirmationDialog
+            {
+                IsSuccess = isSuccess,
+                ContentText = m
+            };
 
             if (isSuccess)
             {
