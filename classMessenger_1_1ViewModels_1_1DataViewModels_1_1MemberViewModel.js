@@ -2,7 +2,27 @@ var classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel =
 [
     [ "MemberViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a331bf1af5ea24975141b4fe5423f3e3c", null ],
     [ "MemberViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#ae164cbdf3bd77784ad82fdb7cd760226", null ],
+    [ "OnPropertyChanged", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a6017c02d3a44586fbd75ff0181d3afea", null ],
+    [ "Set< T >", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#ae8cf458aa24cfd172c194942009a5c62", null ],
+    [ "ToMemberViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a38dc708e2ea74cd6ccfc10d044322e63", null ],
+    [ "ToUserObject", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#ad74b7c9e1ee067d866605f268f3e87a1", null ],
+    [ "_assignableMemberRoles", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a1401c82daf6c8e4afab7b6e75d84583f", null ],
+    [ "_bio", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#aebeefb2f39d4857fd4ec2850cf578e86", null ],
+    [ "_id", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a7a9800c185a42d3548ef284035bca2dd", null ],
+    [ "_mail", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#af01978926c01dca64d17acea27f2e08b", null ],
+    [ "_memberRoles", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a43d428fbf870f51d4d5cac22913378db", null ],
+    [ "_name", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#ae0d52f2117c837775bfd04e7ec3ab00a", null ],
+    [ "_nameId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a288e276a9cbda8fe82231c08f9790f0c", null ],
+    [ "_photo", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#ae74f4bcbc5b13484dff9f2cca3cf2d6f", null ],
+    [ "_teamId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a1161aef0ad9f0512564649f4128df80f", null ],
     [ "AssignableMemberRoles", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#adc50a68ee8a1ed621b0adf5564b83729", null ],
+    [ "Bio", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a70f7732ee04cd7d14a2345acee2b37ae", null ],
+    [ "Id", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#ac0f9c2f9546b4773dd88ae873d7bdcec", null ],
+    [ "Mail", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a9f66988e1a00decbce19297dfe7890a1", null ],
     [ "MemberRoles", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a579640d95731ed4e9090700eda69102b", null ],
-    [ "TeamId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a61b3a926b83dc04c81c8e283c663bee0", null ]
+    [ "Name", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a0bb95c61f6e785a263bf0b2b3cad233b", null ],
+    [ "NameId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a63209a0c4f6154d933d9f9e14ac0ed5b", null ],
+    [ "Photo", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a725cd3b6ce76bad9f680c75b1fd112a9", null ],
+    [ "TeamId", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#a61b3a926b83dc04c81c8e283c663bee0", null ],
+    [ "PropertyChanged", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html#abfb33e2ab5ee82b41173e8a9d79fc08d", null ]
 ];

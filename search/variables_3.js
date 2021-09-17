@@ -1,7 +1,20 @@
 var searchData=
 [
-  ['headercontextproperty_1771',['HeaderContextProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ac606a2aa4c71a11396a0ad3cfa453eb3',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
-  ['headermodeproperty_1772',['HeaderModeProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a1f06006663e06a55690c67360354c3d9',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
-  ['headertemplateproperty_1773',['HeaderTemplateProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2013638f0ca1a9b13a74b588a2367b6d',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
-  ['horizontalalignbindingpathproperty_1774',['HorizontalAlignBindingPathProperty',['../classMessenger_1_1Helpers_1_1BindingHelper.html#a3926b5fce5fb353b574e63d22cb307d4',1,'Messenger::Helpers::BindingHelper']]]
+  ['defaultheaderproperty_2225',['DefaultHeaderProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2bb522c95f20e4aef06269512bf63f1d',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['deletemessagecommandproperty_2226',['DeleteMessageCommandProperty',['../classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5c5b00eade8eb29be0e37517dc0de32e',1,'Messenger::Views::Subcontrols::MessageView']]],
+  ['dragentercommandproperty_2227',['DragEnterCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad633226c35abf79bb31364d4ad37dbb2',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dragitemscompletedcommandproperty_2228',['DragItemsCompletedCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a765fde8dc3a11bf1aba246fb6a18c238',1,'Messenger::Services::DragAndDrop::ListViewDropConfiguration']]],
+  ['dragitemsstartingcommandproperty_2229',['DragItemsStartingCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1ListViewDropConfiguration.html#a7fd49e2503c504d59664e57a6569d827',1,'Messenger::Services::DragAndDrop::ListViewDropConfiguration']]],
+  ['dragleavecommandproperty_2230',['DragLeaveCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ab366b125b1fb77323a9e4979fcc5dbfa',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dragovercommandproperty_2231',['DragOverCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a7a7e3111bb9a56c28d98511e8da83f4c',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dragstartingimageproperty_2232',['DragStartingImageProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#ae5e6e4e4732989fe337be7cc23ed8170',1,'Messenger::Services::DragAndDrop::VisualDropConfiguration']]],
+  ['dropapplicationlinkcommandproperty_2233',['DropApplicationLinkCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a56d5a94064d2a032483399b2dfea202d',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dropbitmapcommandproperty_2234',['DropBitmapCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a761a37f9b36c4510296bf51db6fead1d',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dropdataviewcommandproperty_2235',['DropDataViewCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aa0c36c1ab72b9869691247944d4089e3',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['drophtmlcommandproperty_2236',['DropHtmlCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ae1068c84a77bb6017a05f2c02eb21fb2',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dropoverimageproperty_2237',['DropOverImageProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1VisualDropConfiguration.html#aab1760db4331c84a8b6b2ab63cd8592e',1,'Messenger::Services::DragAndDrop::VisualDropConfiguration']]],
+  ['droprtfcommandproperty_2238',['DropRtfCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ade54d6a27fb2575ccb0b012fac56f5d5',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dropstorageitemscommandproperty_2239',['DropStorageItemsCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a537b069e655579733e2ce9500ae585aa',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['droptextcommandproperty_2240',['DropTextCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#a80f7331e537cb0a40318116680eca32f',1,'Messenger::Services::DragAndDrop::DropConfiguration']]],
+  ['dropweblinkcommandproperty_2241',['DropWebLinkCommandProperty',['../classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#aab738bb792141485791cdb57f229d4a8',1,'Messenger::Services::DragAndDrop::DropConfiguration']]]
 ];

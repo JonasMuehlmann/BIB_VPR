@@ -1,8 +1,20 @@
 var classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel =
 [
     [ "SettingsViewModel", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#abc620a1083446f4d2aa8ef0dbf3a04e5", null ],
+    [ "GetVersionDescription", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#ad8cec2e7ac773a3295cc69dc09673be7", null ],
     [ "InitializeAsync", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a80ae0a5f89112c8e107f3ac3fd5e69ae", null ],
+    [ "OnLoggedOut", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#aa78dd43e697d27dd7a2eaade103f4ad6", null ],
+    [ "OnLogout", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a3a3006d7d729b49be581961f54cd3a1e", null ],
+    [ "OnPropertyChanged", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a6017c02d3a44586fbd75ff0181d3afea", null ],
+    [ "OnUserDataUpdated", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a9fbab7447ab2876ce497952ef594fd67", null ],
+    [ "Set< T >", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#ae8cf458aa24cfd172c194942009a5c62", null ],
     [ "UnregisterEvents", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a2a28751d10e97bb2ed5817b95a4201b5", null ],
+    [ "_currentBio", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a89d82c92553cf905abf6bb28b33b9cef", null ],
+    [ "_elementTheme", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a9c76f8445fd4a27745249b3cca0acb25", null ],
+    [ "_logoutCommand", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#ae3d51c7695a6dd0f9b37393c46e09d1a", null ],
+    [ "_switchThemeCommand", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a697b5b8350991b7885ccf03ad2aa15e9", null ],
+    [ "_user", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a2a0c3fb440d8a60d2e7c3b71ac6d2e1c", null ],
+    [ "_versionDescription", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#ade40aec3fcb68e8c766d838a872b2f23", null ],
     [ "CurrentBio", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a10df1c4a0d994b879d2d67508e79ebea", null ],
     [ "ElementTheme", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a8f7b65eef0671a387229ba14ef329226", null ],
     [ "IdentityService", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a77a6e7846513b80fee1d6a60cae4728e", null ],
@@ -13,5 +25,6 @@ var classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel =
     [ "UpdateUsernameCommand", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a9d9d3787dc9cf1361cbafcc963b5beea", null ],
     [ "User", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a68620c1491a683e246a665c260949948", null ],
     [ "UserDataService", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#aec8b5f5897dac78a974af667a3ca8b78", null ],
-    [ "VersionDescription", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a6c5e9edec7a6fbfb46e229845e36208f", null ]
+    [ "VersionDescription", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#a6c5e9edec7a6fbfb46e229845e36208f", null ],
+    [ "PropertyChanged", "classMessenger_1_1ViewModels_1_1Pages_1_1SettingsViewModel.html#abfb33e2ab5ee82b41173e8a9d79fc08d", null ]
 ];

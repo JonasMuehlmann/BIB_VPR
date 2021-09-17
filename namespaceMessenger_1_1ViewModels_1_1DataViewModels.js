@@ -1,7 +1,7 @@
 var namespaceMessenger_1_1ViewModels_1_1DataViewModels =
 [
     [ "ChannelViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel" ],
-    [ "DataViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel.html", null ],
+    [ "DataViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel" ],
     [ "MemberViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel" ],
     [ "MessageViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel" ],
     [ "NotificationMessageViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel" ],

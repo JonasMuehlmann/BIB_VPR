@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Activation_1_1Scheme
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classMessenger_1_1Activation_1_1SchemeActivationData-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Activation.SchemeActivationData Class Reference</div>  </div>
@@ -100,14 +102,24 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a05e9e98231a903291979110a98a8408c"><td class="memItemLeft" align="right" valign="top">Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#a05e9e98231a903291979110a98a8408c">PageType</a><code> [get]</code></td></tr>
+<tr class="memitem:a05e9e98231a903291979110a98a8408c"><td class="memItemLeft" align="right" valign="top">Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#a05e9e98231a903291979110a98a8408c">PageType</a><code> [get, private set]</code></td></tr>
 <tr class="separator:a05e9e98231a903291979110a98a8408c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa75059ccfcaaf7a96a08db140e203cb7"><td class="memItemLeft" align="right" valign="top">Uri&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#aa75059ccfcaaf7a96a08db140e203cb7">Uri</a><code> [get]</code></td></tr>
+<tr class="memitem:aa75059ccfcaaf7a96a08db140e203cb7"><td class="memItemLeft" align="right" valign="top">Uri&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#aa75059ccfcaaf7a96a08db140e203cb7">Uri</a><code> [get, private set]</code></td></tr>
 <tr class="separator:aa75059ccfcaaf7a96a08db140e203cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f08ad73bccba5a5107296473e119ed"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#a46f08ad73bccba5a5107296473e119ed">Parameters</a> = new Dictionary&lt;string, string&gt;()<code> [get]</code></td></tr>
+<tr class="memitem:a46f08ad73bccba5a5107296473e119ed"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#a46f08ad73bccba5a5107296473e119ed">Parameters</a> = new Dictionary&lt;string, string&gt;()<code> [get, private set]</code></td></tr>
 <tr class="separator:a46f08ad73bccba5a5107296473e119ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6adb1503275ec96fbb46fa89cddb556"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#ae6adb1503275ec96fbb46fa89cddb556">IsValid</a><code> [get]</code></td></tr>
 <tr class="separator:ae6adb1503275ec96fbb46fa89cddb556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ad5776b322277d3893c7774e29ce9134c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#aa75059ccfcaaf7a96a08db140e203cb7">Uri</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#ad5776b322277d3893c7774e29ce9134c">BuildUri</a> ()</td></tr>
+<tr class="separator:ad5776b322277d3893c7774e29ce9134c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:accb2908d9b95546c8e9fc61109e40b02"><td class="memItemLeft" align="right" valign="top">const string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#accb2908d9b95546c8e9fc61109e40b02">ProtocolName</a> = &quot;wtsapp&quot;</td></tr>
+<tr class="separator:accb2908d9b95546c8e9fc61109e40b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -179,7 +191,64 @@ Properties</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SchemeActivationData_8cs_source.html#l00039">39</a> of file <a class="el" href="SchemeActivationData_8cs_source.html">SchemeActivationData.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SchemeActivationData_8cs_source.html#l00015">Messenger.Activation.SchemeActivationData.PageType</a>, <a class="el" href="SchemeActivationData_8cs_source.html#l00019">Messenger.Activation.SchemeActivationData.Parameters</a>, and <a class="el" href="SchemeActivationData_8cs_source.html#l00017">Messenger.Activation.SchemeActivationData.Uri</a>.</p>
+<p class="reference">References <a class="el" href="SchemeActivationData_8cs_source.html#l00046">Messenger.Activation.SchemeActivationData.BuildUri()</a>, <a class="el" href="SchemeActivationData_8cs_source.html#l00015">Messenger.Activation.SchemeActivationData.PageType</a>, <a class="el" href="SchemeActivationData_8cs_source.html#l00019">Messenger.Activation.SchemeActivationData.Parameters</a>, and <a class="el" href="SchemeActivationData_8cs_source.html#l00017">Messenger.Activation.SchemeActivationData.Uri</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad5776b322277d3893c7774e29ce9134c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5776b322277d3893c7774e29ce9134c">&#9670;&nbsp;</a></span>BuildUri()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationData.html#aa75059ccfcaaf7a96a08db140e203cb7">Uri</a> Messenger.Activation.SchemeActivationData.BuildUri </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SchemeActivationData_8cs_source.html#l00046">46</a> of file <a class="el" href="SchemeActivationData_8cs_source.html">SchemeActivationData.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SchemeActivationConfig_8cs_source.html#l00022">Messenger.Activation.SchemeActivationConfig.GetPageKey()</a>, <a class="el" href="SchemeActivationData_8cs_source.html#l00015">Messenger.Activation.SchemeActivationData.PageType</a>, <a class="el" href="SchemeActivationData_8cs_source.html#l00019">Messenger.Activation.SchemeActivationData.Parameters</a>, and <a class="el" href="SchemeActivationData_8cs_source.html#l00017">Messenger.Activation.SchemeActivationData.Uri</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00039">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="accb2908d9b95546c8e9fc61109e40b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb2908d9b95546c8e9fc61109e40b02">&#9670;&nbsp;</a></span>ProtocolName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const string Messenger.Activation.SchemeActivationData.ProtocolName = &quot;wtsapp&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SchemeActivationData_8cs_source.html#l00013">13</a> of file <a class="el" href="SchemeActivationData_8cs_source.html">SchemeActivationData.cs</a>.</p>
 
 </div>
 </div>
@@ -225,14 +294,14 @@ Properties</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private set</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="SchemeActivationData_8cs_source.html#l00015">15</a> of file <a class="el" href="SchemeActivationData_8cs_source.html">SchemeActivationData.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00023">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00046">Messenger.Activation.SchemeActivationData.BuildUri()</a>, and <a class="el" href="SchemeActivationData_8cs_source.html#l00023">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>.</p>
 
 </div>
 </div>
@@ -251,14 +320,14 @@ Properties</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private set</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="SchemeActivationData_8cs_source.html#l00019">19</a> of file <a class="el" href="SchemeActivationData_8cs_source.html">SchemeActivationData.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00023">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00046">Messenger.Activation.SchemeActivationData.BuildUri()</a>, and <a class="el" href="SchemeActivationData_8cs_source.html#l00023">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>.</p>
 
 </div>
 </div>
@@ -277,14 +346,14 @@ Properties</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private set</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="SchemeActivationData_8cs_source.html#l00017">17</a> of file <a class="el" href="SchemeActivationData_8cs_source.html">SchemeActivationData.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00039">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00046">Messenger.Activation.SchemeActivationData.BuildUri()</a>, <a class="el" href="SchemeActivationData_8cs_source.html#l00039">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>, and <a class="el" href="UserActivityData_8cs_source.html#l00032">Messenger.Services.UserActivityData.ToUserActivity()</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,32 @@
 var classMessenger_1_1Core_1_1Services_1_1PrivateChatService =
 [
+    [ "AddMember", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a71e7113d4f2bf94929884d5cbb5ca7df", null ],
+    [ "AddRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#ae5f722037537d2b09850eeae0b6d3117", null ],
+    [ "AssignRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#ac7e71844865b0a106d5d36e6d0221452", null ],
+    [ "ChangeTeamDescription", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#afc9dcbc65164fe083249096e35bb0b3e", null ],
+    [ "ChangeTeamName", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a455351a1c7e584a9a67932fe3e2a4ec4", null ],
     [ "CreatePrivateChat", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a8ed7d6d7887dc14f767a8c1361997ac1", null ],
+    [ "CreateTeam", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a250de2dabac7790655a8888d04ff13fe", null ],
+    [ "DeleteTeam", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a4b0651f74678710a739ee75884aaa075", null ],
+    [ "GetAllChannelsByTeamId", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a3280e25fe2932519743b83161a423624", null ],
+    [ "GetAllMembers", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#aa57d048a3cfd663ed2cb88eee57e0f12", null ],
+    [ "GetAllMembershipByUserId", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#aaf5514d08f5a7a2abbd6742f41209dc8", null ],
     [ "GetAllPrivateChatsFromUser", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#ab9175da3e4f11f3212d4efb446822e53", null ],
-    [ "GetPartner", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a3e8fa40ecbae39aca562fcf1d6e4ff2c", null ]
+    [ "GetAllTeams", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a5c8049fa057888a5b7483985d40696a0", null ],
+    [ "GetAllTeamsByUserId", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#ad0fbb59d504d0bcba5a0be169e7755be", null ],
+    [ "GetPartner", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a3e8fa40ecbae39aca562fcf1d6e4ff2c", null ],
+    [ "GetPermissionsOfRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a37b6e39fc8794f86a200ced7ad8702b6", null ],
+    [ "GetRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#aeddc05b8cae12801dd4360a3425609c1", null ],
+    [ "GetTeam", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#afb5b3ce75e4fd6ff9f425d03a405c785", null ],
+    [ "GetUsersRoles", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#ab431c7fd69522089e69c7c2e3398e953", null ],
+    [ "GetUsersWithRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a1582ef2a99db4d382aff1f4024527584", null ],
+    [ "GrantPermission", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a4f904f5163e93e69a33be7677a4c71cf", null ],
+    [ "HasPermission", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a6acd267c3c3b82540193d467703e1eac", null ],
+    [ "ListRoles", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a48ac69b2ba2aaec35ce4e4d3ce94ff8b", null ],
+    [ "RemoveMember", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a19c94e4d0833b3713482f344c5d98fec", null ],
+    [ "RemoveRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#aca5bf5c0c783dbb36fddfc1f5e8e6de7", null ],
+    [ "RevokePermission", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a8908d1618465db976f4bcb3519e5a0e0", null ],
+    [ "UnAssignRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#a94a8e6f8f14271fc49a5da51216d3b19", null ],
+    [ "UpdateRole", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#abaa695d221afd6a98bb1e81477daa6f3", null ],
+    [ "UpdateTeam", "classMessenger_1_1Core_1_1Services_1_1PrivateChatService.html#ac8614e542091b6ebaf1d95d469937653", null ]
 ];

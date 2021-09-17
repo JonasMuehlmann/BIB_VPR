@@ -84,7 +84,9 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Commands_1_1Messenge
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Commands.Messenger.SendMessageCommand Class Reference</div>  </div>
@@ -110,10 +112,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae09f4a1fe0a403b64020f4ae86947bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a new message to the hub and saves it to database  <a href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ae09f4a1fe0a403b64020f4ae86947bb3">More...</a><br /></td></tr>
 <tr class="separator:ae09f4a1fe0a403b64020f4ae86947bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a8d5d9aab58d35f228a815b839ab99947"><td class="memItemLeft" align="right" valign="top">ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#a8d5d9aab58d35f228a815b839ab99947">_logger</a><code> [get]</code></td></tr>
+<tr class="separator:a8d5d9aab58d35f228a815b839ab99947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
 <tr class="memitem:ab09108538b47d30be5af792955835629"><td class="memItemLeft" align="right" valign="top">EventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ab09108538b47d30be5af792955835629">CanExecuteChanged</a></td></tr>
 <tr class="separator:ab09108538b47d30be5af792955835629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ade93321e317b2786fb6f84b83d7b8f65"><td class="memItemLeft" align="right" valign="top">readonly <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1SendMessageCommand.html#ade93321e317b2786fb6f84b83d7b8f65">_viewModel</a></td></tr>
+<tr class="separator:ade93321e317b2786fb6f84b83d7b8f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -144,6 +156,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00018">18</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SendMessageCommand_8cs_source.html#l00015">Messenger.Commands.Messenger.SendMessageCommand._viewModel</a>.</p>
 
 </div>
 </div>
@@ -206,7 +220,61 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00036">36</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="Message_8cs_source.html#l00030">Messenger.Core.Models.Message.CreationTime</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, and <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>.</p>
+<p class="reference">References <a class="el" href="SendMessageCommand_8cs_source.html#l00016">Messenger.Commands.Messenger.SendMessageCommand._logger</a>, <a class="el" href="SendMessageCommand_8cs_source.html#l00015">Messenger.Commands.Messenger.SendMessageCommand._viewModel</a>, <a class="el" href="Message_8cs_source.html#l00025">Messenger.Core.Models.Message.Content</a>, <a class="el" href="Message_8cs_source.html#l00030">Messenger.Core.Models.Message.CreationTime</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="ChatViewModel_8cs_source.html#l00047">Messenger.ViewModels.Pages.ChatViewModel.MessageToSend</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="ChatViewModel_8cs_source.html#l00031">Messenger.ViewModels.Pages.ChatViewModel.ReplyMessage</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, and <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ade93321e317b2786fb6f84b83d7b8f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade93321e317b2786fb6f84b83d7b8f65">&#9670;&nbsp;</a></span>_viewModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a> Messenger.Commands.Messenger.SendMessageCommand._viewModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00015">15</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>, and <a class="el" href="SendMessageCommand_8cs_source.html#l00018">Messenger.Commands.Messenger.SendMessageCommand.SendMessageCommand()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a8d5d9aab58d35f228a815b839ab99947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d5d9aab58d35f228a815b839ab99947">&#9670;&nbsp;</a></span>_logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.Commands.Messenger.SendMessageCommand._logger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SendMessageCommand_8cs_source.html#l00016">16</a> of file <a class="el" href="SendMessageCommand_8cs_source.html">SendMessageCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>.</p>
 
 </div>
 </div>

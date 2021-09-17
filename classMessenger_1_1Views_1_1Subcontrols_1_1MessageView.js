@@ -1,6 +1,18 @@
 var classMessenger_1_1Views_1_1Subcontrols_1_1MessageView =
 [
     [ "MessageView", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae8c0c8c574f5c6216fd5f40ee028efb2", null ],
+    [ "AngryButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a44f84e89fbcafaeadeb2b61fb2ea7307", null ],
+    [ "AppBarButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ad3ef91db8d864dc34c3f6bc6caf8b7d8", null ],
+    [ "DeleteButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a95c0f78035527400ada6f8d8e5ac49bc", null ],
+    [ "DislikeButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a6d9b82046c599c36bfbcb222d2337e38", null ],
+    [ "EditAcceptButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#af0ca236424bb3ced2cddef2e9c0fc91a", null ],
+    [ "EditButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a82b35e4e67f968386ccabf0e3a27f8fb", null ],
+    [ "EditCancelButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a2030bcfe73d5438f404b63c0fa44e4b6", null ],
+    [ "EnterEditMode", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#aca4c7e525ec7003c02da460d50955b36", null ],
+    [ "ExitEditMode", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5266d31f5c9f06376a937560a64094fc", null ],
+    [ "LikeButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ae52a3cca4cf699d40e7796ac12b14919", null ],
+    [ "ReplyButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ab891511da9cff4e464f935c7133fc2e4", null ],
+    [ "SurprisedButton_Tapped", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a3f2985972c8f984852ad8376630221df", null ],
     [ "DeleteMessageCommandProperty", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a5c5b00eade8eb29be0e37517dc0de32e", null ],
     [ "MessageProperty", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a876cfa4c341a66ad38d60fae64bbe982", null ],
     [ "ReplyToCommandProperty", "classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#ac67d49467c55e2ff63c608361dbcd195", null ],

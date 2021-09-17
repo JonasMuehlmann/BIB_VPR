@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('classMessenger_1_1SignalR_1_1ChatHub.h
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classMessenger_1_1SignalR_1_1ChatHub-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.SignalR.ChatHub Class Reference</div>  </div>
@@ -151,6 +152,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aed6f31ccda2e0987fe8cd8d774163e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a239fca42c126f316ed102582f9469211"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a239fca42c126f316ed102582f9469211">UpdateUser</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> user)</td></tr>
 <tr class="separator:a239fca42c126f316ed102582f9469211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a924145fee39ac0e2dbcd91891999edd4"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1SignalR_1_1ChatHub.html#a924145fee39ac0e2dbcd91891999edd4">_connections</a> = new <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a>()</td></tr>
+<tr class="separator:a924145fee39ac0e2dbcd91891999edd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Hub definition for <a class="el" href="namespaceMessenger_1_1SignalR.html">SignalR</a> service, that clients can connect to Defines various hub methods to be consumed by application service </p>
@@ -480,6 +486,8 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00041">41</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, and <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>.</p>
+
 </div>
 </div>
 <a id="ac4cd9d459cd33671d6dc8a73ba4614f5"></a>
@@ -518,6 +526,8 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00049">49</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, and <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>.</p>
+
 </div>
 </div>
 <a id="ade20eb6be5f2d54ffdd4c0215860454a"></a>
@@ -554,6 +564,8 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Task to be awaited</dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00029">29</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, and <a class="el" href="ConnectionMapping_8cs_source.html#l00031">Messenger.SignalR.Models.ConnectionMapping.Add()</a>.</p>
 
 </div>
 </div>
@@ -593,7 +605,7 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00190">190</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>, and <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>.</p>
 
 </div>
 </div>
@@ -633,7 +645,7 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00166">166</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00180">Messenger.SignalR.ChatHub.AddMember()</a>.</p>
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, <a class="el" href="ChatHub_8cs_source.html#l00180">Messenger.SignalR.ChatHub.AddMember()</a>, and <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>.</p>
 
 </div>
 </div>
@@ -710,7 +722,7 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00061">61</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="Notification_8cs_source.html#l00020">Messenger.Core.Models.Notification.RecipientId</a>.</p>
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>, and <a class="el" href="Notification_8cs_source.html#l00020">Messenger.Core.Models.Notification.RecipientId</a>.</p>
 
 </div>
 </div>
@@ -925,7 +937,34 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00206">206</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="User_8cs_source.html#l00014">Messenger.Core.Models.User.Id</a>.</p>
+<p class="reference">References <a class="el" href="ChatHub_8cs_source.html#l00018">Messenger.SignalR.ChatHub._connections</a>, <a class="el" href="ConnectionMapping_8cs_source.html#l00063">Messenger.SignalR.Models.ConnectionMapping.GetConnections()</a>, and <a class="el" href="User_8cs_source.html#l00014">Messenger.Core.Models.User.Id</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a924145fee39ac0e2dbcd91891999edd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a924145fee39ac0e2dbcd91891999edd4">&#9670;&nbsp;</a></span>_connections</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a> Messenger.SignalR.ChatHub._connections = new <a class="el" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatHub_8cs_source.html#l00018">18</a> of file <a class="el" href="ChatHub_8cs_source.html">ChatHub.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatHub_8cs_source.html#l00041">Messenger.SignalR.ChatHub.JoinTeam()</a>, <a class="el" href="ChatHub_8cs_source.html#l00049">Messenger.SignalR.ChatHub.LeaveTeam()</a>, <a class="el" href="ChatHub_8cs_source.html#l00029">Messenger.SignalR.ChatHub.Register()</a>, <a class="el" href="ChatHub_8cs_source.html#l00190">Messenger.SignalR.ChatHub.RemoveMember()</a>, <a class="el" href="ChatHub_8cs_source.html#l00166">Messenger.SignalR.ChatHub.SendInvitation()</a>, <a class="el" href="ChatHub_8cs_source.html#l00061">Messenger.SignalR.ChatHub.SendNotificationToUser()</a>, and <a class="el" href="ChatHub_8cs_source.html#l00206">Messenger.SignalR.ChatHub.UpdateUser()</a>.</p>
 
 </div>
 </div>

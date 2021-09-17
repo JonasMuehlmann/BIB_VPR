@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Core.Services.MessengerService Class Reference</div>  </div>
@@ -205,6 +206,12 @@ Properties</h2></td></tr>
 <tr class="separator:a166cc663374b23a6f3908442487df9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65cf5588551168c6535da06de1cb55fa"><td class="memItemLeft" align="right" valign="top">static ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a65cf5588551168c6535da06de1cb55fa">logger</a><code> [get]</code></td></tr>
 <tr class="separator:a65cf5588551168c6535da06de1cb55fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:aa250277a4d60fdc97568d6b6375580f7"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa250277a4d60fdc97568d6b6375580f7">ValidateMessage</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> message)</td></tr>
+<tr class="memdesc:aa250277a4d60fdc97568d6b6375580f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the validity of the message to be sent  <a href="classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa250277a4d60fdc97568d6b6375580f7">More...</a><br /></td></tr>
+<tr class="separator:aa250277a4d60fdc97568d6b6375580f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds static wrappers around other Service's methods and adds Message passing to notify other clients of changes </p>
@@ -1221,6 +1228,8 @@ Properties</h2></td></tr>
 
 <p class="reference">References <a class="el" href="TeamService_8cs_source.html#l00243">Messenger.Core.Services.TeamService.GetAllTeamsByUserId()</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00107">Messenger.Core.Services.SignalRService.OpenConnection()</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00132">Messenger.Services.UserDataService.InitializeSignalR()</a>.</p>
+
 </div>
 </div>
 <a id="a70dac26bef9f6990e399b887af88c401"></a>
@@ -1481,7 +1490,7 @@ Properties</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00119">119</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="Message_8cs_source.html#l00025">Messenger.Core.Models.Message.Content</a>, <a class="el" href="MessageService_8cs_source.html#l00026">Messenger.Core.Services.MessageService.CreateMessage()</a>, <a class="el" href="Message_8cs_source.html#l00015">Messenger.Core.Models.Message.Id</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="Message_8cs_source.html#l00040">Messenger.Core.Models.Message.ParentMessageId</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="FileSharingService_8cs_source.html#l00089">Messenger.Core.Services.FileSharingService.Upload()</a>, and <a class="el" href="Message_8cs_source.html#l00052">Messenger.Core.Models.Message.UploadFileData</a>.</p>
+<p class="reference">References <a class="el" href="Message_8cs_source.html#l00025">Messenger.Core.Models.Message.Content</a>, <a class="el" href="MessageService_8cs_source.html#l00026">Messenger.Core.Services.MessageService.CreateMessage()</a>, <a class="el" href="Message_8cs_source.html#l00015">Messenger.Core.Models.Message.Id</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, <a class="el" href="Message_8cs_source.html#l00040">Messenger.Core.Models.Message.ParentMessageId</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="FileSharingService_8cs_source.html#l00089">Messenger.Core.Services.FileSharingService.Upload()</a>, <a class="el" href="Message_8cs_source.html#l00052">Messenger.Core.Models.Message.UploadFileData</a>, and <a class="el" href="MessengerService_8cs_source.html#l01158">Messenger.Core.Services.MessengerService.ValidateMessage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="SendMessageCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.SendMessageCommand.Execute()</a>.</p>
 
@@ -2026,6 +2035,47 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="aa250277a4d60fdc97568d6b6375580f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa250277a4d60fdc97568d6b6375580f7">&#9670;&nbsp;</a></span>ValidateMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool Messenger.Core.Services.MessengerService.ValidateMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a>&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks the validity of the message to be sent </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>A complete message object to be sent</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on valid, false on invalid</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l01158">1158</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="Message_8cs_source.html#l00025">Messenger.Core.Models.Message.Content</a>, <a class="el" href="MessengerService_8cs_source.html#l00026">Messenger.Core.Services.MessengerService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00020">Messenger.Core.Models.Message.SenderId</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Property Documentation</h2>
 <a id="a65cf5588551168c6535da06de1cb55fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65cf5588551168c6535da06de1cb55fa">&#9670;&nbsp;</a></span>logger</h2>
@@ -2049,7 +2099,7 @@ Properties</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="MessengerService_8cs_source.html#l00026">26</a> of file <a class="el" href="MessengerService_8cs_source.html">MessengerService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00514">Messenger.Core.Services.MessengerService.CreateChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00852">Messenger.Core.Services.MessengerService.CreateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00544">Messenger.Core.Services.MessengerService.DeleteChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00456">Messenger.Core.Services.MessengerService.DeleteTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00590">Messenger.Core.Services.MessengerService.GetChannelsForTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00100">Messenger.Core.Services.MessengerService.GetMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00086">Messenger.Core.Services.MessengerService.GetMessages()</a>, <a class="el" href="MessengerService_8cs_source.html#l00229">Messenger.Core.Services.MessengerService.GetReactions()</a>, <a class="el" href="MessengerService_8cs_source.html#l00338">Messenger.Core.Services.MessengerService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00612">Messenger.Core.Services.MessengerService.GetTeamMembers()</a>, <a class="el" href="MessengerService_8cs_source.html#l00320">Messenger.Core.Services.MessengerService.GetTeams()</a>, <a class="el" href="MessengerService_8cs_source.html#l00632">Messenger.Core.Services.MessengerService.GetUserWithNameId()</a>, <a class="el" href="MessengerService_8cs_source.html#l01018">Messenger.Core.Services.MessengerService.GrantPermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MessengerService_8cs_source.html#l00567">Messenger.Core.Services.MessengerService.RenameChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l01047">Messenger.Core.Services.MessengerService.RevokePermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00212">Messenger.Core.Services.MessengerService.UpdateMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00491">Messenger.Core.Services.MessengerService.UpdateTeamDescription()</a>, <a class="el" href="MessengerService_8cs_source.html#l00434">Messenger.Core.Services.MessengerService.UpdateTeamName()</a>, <a class="el" href="MessengerService_8cs_source.html#l00880">Messenger.Core.Services.MessengerService.UpdateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00514">Messenger.Core.Services.MessengerService.CreateChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00852">Messenger.Core.Services.MessengerService.CreateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00544">Messenger.Core.Services.MessengerService.DeleteChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>, <a class="el" href="MessengerService_8cs_source.html#l00456">Messenger.Core.Services.MessengerService.DeleteTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00590">Messenger.Core.Services.MessengerService.GetChannelsForTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00100">Messenger.Core.Services.MessengerService.GetMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00086">Messenger.Core.Services.MessengerService.GetMessages()</a>, <a class="el" href="MessengerService_8cs_source.html#l00229">Messenger.Core.Services.MessengerService.GetReactions()</a>, <a class="el" href="MessengerService_8cs_source.html#l00338">Messenger.Core.Services.MessengerService.GetTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00612">Messenger.Core.Services.MessengerService.GetTeamMembers()</a>, <a class="el" href="MessengerService_8cs_source.html#l00320">Messenger.Core.Services.MessengerService.GetTeams()</a>, <a class="el" href="MessengerService_8cs_source.html#l00632">Messenger.Core.Services.MessengerService.GetUserWithNameId()</a>, <a class="el" href="MessengerService_8cs_source.html#l01018">Messenger.Core.Services.MessengerService.GrantPermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MessengerService_8cs_source.html#l00567">Messenger.Core.Services.MessengerService.RenameChannel()</a>, <a class="el" href="MessengerService_8cs_source.html#l01047">Messenger.Core.Services.MessengerService.RevokePermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00212">Messenger.Core.Services.MessengerService.UpdateMessage()</a>, <a class="el" href="MessengerService_8cs_source.html#l00491">Messenger.Core.Services.MessengerService.UpdateTeamDescription()</a>, <a class="el" href="MessengerService_8cs_source.html#l00434">Messenger.Core.Services.MessengerService.UpdateTeamName()</a>, <a class="el" href="MessengerService_8cs_source.html#l00880">Messenger.Core.Services.MessengerService.UpdateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>, and <a class="el" href="MessengerService_8cs_source.html#l01158">Messenger.Core.Services.MessengerService.ValidateMessage()</a>.</p>
 
 </div>
 </div>

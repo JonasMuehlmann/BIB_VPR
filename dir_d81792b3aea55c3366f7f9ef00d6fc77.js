@@ -4,7 +4,7 @@ var dir_d81792b3aea55c3366f7f9ef00d6fc77 =
     [ "Providers", "dir_6dc95c3f0b4367755d45c5caa9d38356.html", "dir_6dc95c3f0b4367755d45c5caa9d38356" ],
     [ "ActivationService.cs", "ActivationService_8cs.html", null ],
     [ "FirstRunDisplayService.cs", "FirstRunDisplayService_8cs.html", [
-      [ "FirstRunDisplayService", "classMessenger_1_1Services_1_1FirstRunDisplayService.html", null ]
+      [ "FirstRunDisplayService", "classMessenger_1_1Services_1_1FirstRunDisplayService.html", "classMessenger_1_1Services_1_1FirstRunDisplayService" ]
     ] ],
     [ "NavigationService.cs", "NavigationService_8cs.html", [
       [ "NavigationService", "classMessenger_1_1Services_1_1NavigationService.html", "classMessenger_1_1Services_1_1NavigationService" ]

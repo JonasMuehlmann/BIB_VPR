@@ -84,7 +84,11 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Helpers_1_1TeamHelpe
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Helpers.TeamHelpers.TeamManager Class Reference</div>  </div>
@@ -133,6 +137,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae98ce42a3dcb23a9cf34042828b9a055"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html">MemberViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#ae98ce42a3dcb23a9cf34042828b9a055">RemoveMember</a> (uint teamId, string userId)</td></tr>
 <tr class="separator:ae98ce42a3dcb23a9cf34042828b9a055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="separator:ae8cf458aa24cfd172c194942009a5c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
+<tr class="separator:a6017c02d3a44586fbd75ff0181d3afea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a65d9be34b7c958ac3673f1eb05c7e2b2"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a65d9be34b7c958ac3673f1eb05c7e2b2">MyTeams</a><code> [get]</code></td></tr>
@@ -140,16 +151,25 @@ Properties</h2></td></tr>
 <tr class="memitem:a4b15d72bef24bf20987d1eadf50a9262"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a4b15d72bef24bf20987d1eadf50a9262">MyChats</a><code> [get]</code></td></tr>
 <tr class="separator:a4b15d72bef24bf20987d1eadf50a9262"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
-<tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
-<tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
-<tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+Events</h2></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
+<tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a0e91d3b14f523976fc9191c7403f10bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a0e91d3b14f523976fc9191c7403f10bc">OnMessagesLoadedForChannel</a> (object sender, <a class="el" href="classMessenger_1_1Models_1_1ManagerEventArgs.html">ManagerEventArgs</a> args)</td></tr>
+<tr class="memdesc:a0e91d3b14f523976fc9191c7403f10bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fires only when initializing, to set the last message of the channel to be shown on the navigation panel  <a href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a0e91d3b14f523976fc9191c7403f10bc">More...</a><br /></td></tr>
+<tr class="separator:a0e91d3b14f523976fc9191c7403f10bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a18d2ca1f65cfad83281efa7a8e22b8a9"><td class="memItemLeft" align="right" valign="top">readonly <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html">StateProvider</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a18d2ca1f65cfad83281efa7a8e22b8a9">_provider</a></td></tr>
+<tr class="separator:a18d2ca1f65cfad83281efa7a8e22b8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b889b9334b3fe6f34f3baf545caa57"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a54b889b9334b3fe6f34f3baf545caa57">_myTeams</a> = new ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a>&gt;()</td></tr>
+<tr class="separator:a54b889b9334b3fe6f34f3baf545caa57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f83c384c98f0e01713eed8f9aa2e8e5"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a9f83c384c98f0e01713eed8f9aa2e8e5">_myChats</a> = new ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a>&gt;()</td></tr>
+<tr class="separator:a9f83c384c98f0e01713eed8f9aa2e8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -181,6 +201,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00040">40</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00016">Messenger.Helpers.TeamHelpers.TeamManager._provider</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -210,7 +232,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00164">164</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamViewModel.Channels</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamViewModel.Channels</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00138">Messenger.Helpers.CacheQuery.AddOrUpdate&lt; T &gt;()</a>, and <a class="el" href="TeamManager_8cs_source.html#l00190">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateChannel()</a>.</p>
 
@@ -322,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00202">202</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="UserViewModel_8cs_source.html#l00017">Messenger.ViewModels.DataViewModels.UserViewModel.Id</a>, <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00046">Messenger.ViewModels.DataViewModels.TeamViewModel.Members</a>, and <a class="el" href="MemberViewModel_8cs_source.html#l00028">Messenger.ViewModels.DataViewModels.MemberViewModel.TeamId</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="UserViewModel_8cs_source.html#l00017">Messenger.ViewModels.DataViewModels.UserViewModel.Id</a>, <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00046">Messenger.ViewModels.DataViewModels.TeamViewModel.Members</a>, and <a class="el" href="MemberViewModel_8cs_source.html#l00028">Messenger.ViewModels.DataViewModels.MemberViewModel.TeamId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00138">Messenger.Helpers.CacheQuery.AddOrUpdate&lt; T &gt;()</a>, and <a class="el" href="TeamManager_8cs_source.html#l00233">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateMember()</a>.</p>
 
@@ -384,7 +406,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00107">107</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamBuilder_8cs_source.html#l00019">Messenger.Helpers.TeamHelpers.TeamBuilder.Build()</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00020">Messenger.Helpers.TeamHelpers.TeamManager._myChats</a>, <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="TeamManager_8cs_source.html#l00016">Messenger.Helpers.TeamHelpers.TeamManager._provider</a>, <a class="el" href="TeamBuilder_8cs_source.html#l00019">Messenger.Helpers.TeamHelpers.TeamBuilder.Build()</a>, <a class="el" href="StateProvider_8cs_source.html#l00065">Messenger.Services.Providers.StateProvider.CurrentUser</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, and <a class="el" href="UserViewModel_8cs_source.html#l00017">Messenger.ViewModels.DataViewModels.UserViewModel.Id</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00138">Messenger.Helpers.CacheQuery.AddOrUpdate&lt; T &gt;()</a>, <a class="el" href="TeamManager_8cs_source.html#l00151">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, and <a class="el" href="TeamManager_8cs_source.html#l00085">Messenger.Helpers.TeamHelpers.TeamManager.LoadTeamsFromDatabase()</a>.</p>
 
@@ -416,7 +438,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00247">247</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamRoleViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Id</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00058">Messenger.ViewModels.DataViewModels.TeamViewModel.TeamRoles</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.Id</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="TeamBuilder_8cs_source.html#l00217">Messenger.Helpers.TeamHelpers.TeamBuilder.Map()</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00058">Messenger.ViewModels.DataViewModels.TeamViewModel.TeamRoles</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00138">Messenger.Helpers.CacheQuery.AddOrUpdate&lt; T &gt;()</a>.</p>
 
@@ -448,7 +470,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00045">45</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00085">Messenger.Helpers.TeamHelpers.TeamManager.LoadTeamsFromDatabase()</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00016">Messenger.Helpers.TeamHelpers.TeamManager._provider</a>, <a class="el" href="TeamManager_8cs_source.html#l00085">Messenger.Helpers.TeamHelpers.TeamManager.LoadTeamsFromDatabase()</a>, <a class="el" href="StateProvider_8cs_source.html#l00041">Messenger.Services.Providers.StateProvider.MessageManager</a>, and <a class="el" href="TeamManager_8cs_source.html#l00057">Messenger.Helpers.TeamHelpers.TeamManager.OnMessagesLoadedForChannel()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="StateProvider_8cs_source.html#l00096">Messenger.Services.Providers.StateProviderExtension.Initialize()</a>.</p>
 
@@ -480,9 +502,88 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00085">85</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00107">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00014">Messenger.Helpers.TeamHelpers.TeamBuilder.GetTeamsFromDatabase()</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00020">Messenger.Helpers.TeamHelpers.TeamManager._myChats</a>, <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="TeamManager_8cs_source.html#l00107">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, and <a class="el" href="TeamBuilder_8cs_source.html#l00014">Messenger.Helpers.TeamHelpers.TeamBuilder.GetTeamsFromDatabase()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00045">Messenger.Helpers.TeamHelpers.TeamManager.Initialize()</a>, and <a class="el" href="CacheQuery_8cs_source.html#l00019">Messenger.Helpers.CacheQuery.Reload()</a>.</p>
+
+</div>
+</div>
+<a id="a0e91d3b14f523976fc9191c7403f10bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e91d3b14f523976fc9191c7403f10bc">&#9670;&nbsp;</a></span>OnMessagesLoadedForChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.TeamHelpers.TeamManager.OnMessagesLoadedForChannel </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Models_1_1ManagerEventArgs.html">ManagerEventArgs</a>&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fires only when initializing, to set the last message of the channel to be shown on the navigation panel </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>Message Manager</td></tr>
+    <tr><td class="paramname">args</td><td>Argument containing the messages, team and channel</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00057">57</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00020">Messenger.Helpers.TeamHelpers.TeamManager._myChats</a>, <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="ManagerEventArgs_8cs_source.html#l00013">Messenger.Models.ManagerEventArgs.Channel</a>, <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamViewModel.Channels</a>, <a class="el" href="ChannelViewModel_8cs_source.html#l00053">Messenger.ViewModels.DataViewModels.ChannelViewModel.LastMessage</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00020">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.LastMessage</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00026">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.MainChannel</a>, <a class="el" href="ManagerEventArgs_8cs_source.html#l00009">Messenger.Models.ManagerEventArgs.Messages</a>, and <a class="el" href="ManagerEventArgs_8cs_source.html#l00011">Messenger.Models.ManagerEventArgs.Team</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00045">Messenger.Helpers.TeamHelpers.TeamManager.Initialize()</a>.</p>
+
+</div>
+</div>
+<a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6017c02d3a44586fbd75ff0181d3afea">&#9670;&nbsp;</a></span>OnPropertyChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.Observable.OnPropertyChanged </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>propertyName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="Observable_8cs_source.html#l00011">Messenger.Helpers.Observable.Set&lt; T &gt;()</a>.</p>
 
 </div>
 </div>
@@ -512,7 +613,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00309">309</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="Channel_8cs_source.html#l00011">Messenger.Core.Models.Channel.ChannelId</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamViewModel.Channels</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, and <a class="el" href="ChannelViewModel_8cs_source.html#l00042">Messenger.ViewModels.DataViewModels.ChannelViewModel.TeamId</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="Channel_8cs_source.html#l00011">Messenger.Core.Models.Channel.ChannelId</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamViewModel.Channels</a>, and <a class="el" href="ChannelViewModel_8cs_source.html#l00042">Messenger.ViewModels.DataViewModels.ChannelViewModel.TeamId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00202">Messenger.Helpers.CacheQuery.Remove&lt; T &gt;()</a>.</p>
 
@@ -554,7 +655,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00325">325</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00046">Messenger.ViewModels.DataViewModels.TeamViewModel.Members</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00046">Messenger.ViewModels.DataViewModels.TeamViewModel.Members</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00202">Messenger.Helpers.CacheQuery.Remove&lt; T &gt;()</a>.</p>
 
@@ -586,7 +687,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00279">279</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00202">Messenger.Helpers.CacheQuery.Remove&lt; T &gt;()</a>.</p>
 
@@ -618,9 +719,134 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00293">293</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamRoleViewModel_8cs_source.html#l00040">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamId</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00058">Messenger.ViewModels.DataViewModels.TeamViewModel.TeamRoles</a>.</p>
+<p class="reference">References <a class="el" href="TeamManager_8cs_source.html#l00018">Messenger.Helpers.TeamHelpers.TeamManager._myTeams</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00040">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamId</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00058">Messenger.ViewModels.DataViewModels.TeamViewModel.TeamRoles</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00202">Messenger.Helpers.CacheQuery.Remove&lt; T &gt;()</a>.</p>
+
+</div>
+</div>
+<a id="ae8cf458aa24cfd172c194942009a5c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cf458aa24cfd172c194942009a5c62">&#9670;&nbsp;</a></span>Set&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.Observable.Set&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">ref T&#160;</td>
+          <td class="paramname"><em>storage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">[CallerMemberName] string&#160;</td>
+          <td class="paramname"><em>propertyName</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Observable_8cs_source.html#l00011">11</a> of file <a class="el" href="Observable_8cs_source.html">Observable.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">Messenger.Helpers.Observable.OnPropertyChanged()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9f83c384c98f0e01713eed8f9aa2e8e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f83c384c98f0e01713eed8f9aa2e8e5">&#9670;&nbsp;</a></span>_myChats</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a>&gt; Messenger.Helpers.TeamHelpers.TeamManager._myChats = new ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a>&gt;()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00020">20</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00107">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, <a class="el" href="TeamManager_8cs_source.html#l00085">Messenger.Helpers.TeamHelpers.TeamManager.LoadTeamsFromDatabase()</a>, and <a class="el" href="TeamManager_8cs_source.html#l00057">Messenger.Helpers.TeamHelpers.TeamManager.OnMessagesLoadedForChannel()</a>.</p>
+
+</div>
+</div>
+<a id="a54b889b9334b3fe6f34f3baf545caa57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b889b9334b3fe6f34f3baf545caa57">&#9670;&nbsp;</a></span>_myTeams</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a>&gt; Messenger.Helpers.TeamHelpers.TeamManager._myTeams = new ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a>&gt;()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00018">18</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00164">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateChannel()</a>, <a class="el" href="TeamManager_8cs_source.html#l00202">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateMember()</a>, <a class="el" href="TeamManager_8cs_source.html#l00107">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, <a class="el" href="TeamManager_8cs_source.html#l00247">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeamRole()</a>, <a class="el" href="TeamManager_8cs_source.html#l00085">Messenger.Helpers.TeamHelpers.TeamManager.LoadTeamsFromDatabase()</a>, <a class="el" href="TeamManager_8cs_source.html#l00057">Messenger.Helpers.TeamHelpers.TeamManager.OnMessagesLoadedForChannel()</a>, <a class="el" href="TeamManager_8cs_source.html#l00309">Messenger.Helpers.TeamHelpers.TeamManager.RemoveChannel()</a>, <a class="el" href="TeamManager_8cs_source.html#l00325">Messenger.Helpers.TeamHelpers.TeamManager.RemoveMember()</a>, <a class="el" href="TeamManager_8cs_source.html#l00279">Messenger.Helpers.TeamHelpers.TeamManager.RemoveTeam()</a>, and <a class="el" href="TeamManager_8cs_source.html#l00293">Messenger.Helpers.TeamHelpers.TeamManager.RemoveTeamRole()</a>.</p>
+
+</div>
+</div>
+<a id="a18d2ca1f65cfad83281efa7a8e22b8a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18d2ca1f65cfad83281efa7a8e22b8a9">&#9670;&nbsp;</a></span>_provider</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="classMessenger_1_1Services_1_1Providers_1_1StateProvider.html">StateProvider</a> Messenger.Helpers.TeamHelpers.TeamManager._provider</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00016">16</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TeamManager_8cs_source.html#l00107">Messenger.Helpers.TeamHelpers.TeamManager.AddOrUpdateTeam()</a>, <a class="el" href="TeamManager_8cs_source.html#l00045">Messenger.Helpers.TeamHelpers.TeamManager.Initialize()</a>, and <a class="el" href="TeamManager_8cs_source.html#l00040">Messenger.Helpers.TeamHelpers.TeamManager.TeamManager()</a>.</p>
 
 </div>
 </div>
@@ -674,6 +900,31 @@ Additional Inherited Members</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="TeamManager_8cs_source.html#l00024">24</a> of file <a class="el" href="TeamManager_8cs_source.html">TeamManager.cs</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00079">Messenger.Helpers.CacheQuery.Get&lt; T &gt;()</a>, and <a class="el" href="StateProvider_8cs_source.html#l00131">Messenger.Services.Providers.StateProviderExtension.LoadAllMessages()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Event Documentation</h2>
+<a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb33e2ab5ee82b41173e8a9d79fc08d">&#9670;&nbsp;</a></span>PropertyChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PropertyChangedEventHandler Messenger.Helpers.Observable.PropertyChanged</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Observable_8cs_source.html#l00009">9</a> of file <a class="el" href="Observable_8cs_source.html">Observable.cs</a>.</p>
 
 </div>
 </div>

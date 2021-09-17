@@ -36,6 +36,7 @@ var classMessenger_1_1Core_1_1Services_1_1MessengerService =
     [ "UpdateUserEmail", "classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a03e8e675a894e551aeaa79629a9877d3", null ],
     [ "UpdateUserPhoto", "classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a9a9ee61c44d1255f0913e617ed04aeda", null ],
     [ "UpdateUserUsername", "classMessenger_1_1Core_1_1Services_1_1MessengerService.html#af39da3130ead71c475843f078e776256", null ],
+    [ "ValidateMessage", "classMessenger_1_1Core_1_1Services_1_1MessengerService.html#aa250277a4d60fdc97568d6b6375580f7", null ],
     [ "logger", "classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a65cf5588551168c6535da06de1cb55fa", null ],
     [ "SignalRService", "classMessenger_1_1Core_1_1Services_1_1MessengerService.html#a166cc663374b23a6f3908442487df9b1", null ]
 ];

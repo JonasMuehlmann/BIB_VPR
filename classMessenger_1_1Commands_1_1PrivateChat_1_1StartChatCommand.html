@@ -84,7 +84,9 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Commands_1_1PrivateC
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Commands.PrivateChat.StartChatCommand Class Reference</div>  </div>
@@ -109,10 +111,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adb80519e16c5bf2c403ec0afb7c1c6d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the dialog to start a new private chat  <a href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#adb80519e16c5bf2c403ec0afb7c1c6d8">More...</a><br /></td></tr>
 <tr class="separator:adb80519e16c5bf2c403ec0afb7c1c6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:af9b2ad471e98c68611dfb8e0d534c66f"><td class="memItemLeft" align="right" valign="top">ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#af9b2ad471e98c68611dfb8e0d534c66f">_logger</a><code> [get]</code></td></tr>
+<tr class="separator:af9b2ad471e98c68611dfb8e0d534c66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
 <tr class="memitem:a6274423072025f5bc7be1acb59ff89ed"><td class="memItemLeft" align="right" valign="top">EventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#a6274423072025f5bc7be1acb59ff89ed">CanExecuteChanged</a></td></tr>
 <tr class="separator:a6274423072025f5bc7be1acb59ff89ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a70854745de17439b6355ca5ebf39adfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1PrivateChat_1_1StartChatCommand.html#a70854745de17439b6355ca5ebf39adfc">SwitchToChatPage</a> (<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a> chat)</td></tr>
+<tr class="separator:a70854745de17439b6355ca5ebf39adfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -202,7 +214,66 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="StartChatCommand_8cs_source.html#l00033">33</a> of file <a class="el" href="StartChatCommand_8cs_source.html">StartChatCommand.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a765098283d02a96b5cb171e396d0c52a">Messenger.Helpers.CacheQuery.GetMyChats()</a>, <a class="el" href="UserViewModel_8cs_source.html#l00017">Messenger.ViewModels.DataViewModels.UserViewModel.Id</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00014">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.Partner</a>, <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, and <a class="el" href="CreateChatDialog_8xaml_8cs_source.html#l00010">Messenger.Views.DialogBoxes.CreateChatDialog.ViewModel</a>.</p>
+<p class="reference">References <a class="el" href="StartChatCommand_8cs_source.html#l00017">Messenger.Commands.PrivateChat.StartChatCommand._logger</a>, <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a765098283d02a96b5cb171e396d0c52a">Messenger.Helpers.CacheQuery.GetMyChats()</a>, <a class="el" href="UserViewModel_8cs_source.html#l00017">Messenger.ViewModels.DataViewModels.UserViewModel.Id</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00014">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.Partner</a>, <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>, <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>, <a class="el" href="StartChatCommand_8cs_source.html#l00079">Messenger.Commands.PrivateChat.StartChatCommand.SwitchToChatPage()</a>, and <a class="el" href="CreateChatDialog_8xaml_8cs_source.html#l00010">Messenger.Views.DialogBoxes.CreateChatDialog.ViewModel</a>.</p>
+
+</div>
+</div>
+<a id="a70854745de17439b6355ca5ebf39adfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70854745de17439b6355ca5ebf39adfc">&#9670;&nbsp;</a></span>SwitchToChatPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Commands.PrivateChat.StartChatCommand.SwitchToChatPage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a>&#160;</td>
+          <td class="paramname"><em>chat</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="StartChatCommand_8cs_source.html#l00079">79</a> of file <a class="el" href="StartChatCommand_8cs_source.html">StartChatCommand.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="PrivateChatViewModel_8cs_source.html#l00026">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.MainChannel</a>, and <a class="el" href="NavigationService_8cs_source.html#l00065">Messenger.Services.NavigationService.Navigate()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="StartChatCommand_8cs_source.html#l00033">Messenger.Commands.PrivateChat.StartChatCommand.Execute()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="af9b2ad471e98c68611dfb8e0d534c66f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9b2ad471e98c68611dfb8e0d534c66f">&#9670;&nbsp;</a></span>_logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.Commands.PrivateChat.StartChatCommand._logger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="StartChatCommand_8cs_source.html#l00017">17</a> of file <a class="el" href="StartChatCommand_8cs_source.html">StartChatCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="StartChatCommand_8cs_source.html#l00033">Messenger.Commands.PrivateChat.StartChatCommand.Execute()</a>.</p>
 
 </div>
 </div>

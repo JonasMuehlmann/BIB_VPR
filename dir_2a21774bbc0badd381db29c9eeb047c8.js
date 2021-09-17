@@ -4,7 +4,7 @@ var dir_2a21774bbc0badd381db29c9eeb047c8 =
       [ "ChannelViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel" ]
     ] ],
     [ "DataViewModel.cs", "DataViewModel_8cs.html", [
-      [ "DataViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel.html", null ]
+      [ "DataViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel" ]
     ] ],
     [ "MemberViewModel.cs", "MemberViewModel_8cs.html", [
       [ "MemberViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel" ]

@@ -2,7 +2,7 @@ var namespaceMessenger_1_1Services =
 [
     [ "DragAndDrop", "namespaceMessenger_1_1Services_1_1DragAndDrop.html", "namespaceMessenger_1_1Services_1_1DragAndDrop" ],
     [ "Providers", "namespaceMessenger_1_1Services_1_1Providers.html", "namespaceMessenger_1_1Services_1_1Providers" ],
-    [ "FirstRunDisplayService", "classMessenger_1_1Services_1_1FirstRunDisplayService.html", null ],
+    [ "FirstRunDisplayService", "classMessenger_1_1Services_1_1FirstRunDisplayService.html", "classMessenger_1_1Services_1_1FirstRunDisplayService" ],
     [ "NavigationService", "classMessenger_1_1Services_1_1NavigationService.html", "classMessenger_1_1Services_1_1NavigationService" ],
     [ "ThemeSelectorService", "classMessenger_1_1Services_1_1ThemeSelectorService.html", "classMessenger_1_1Services_1_1ThemeSelectorService" ],
     [ "UserActivityData", "classMessenger_1_1Services_1_1UserActivityData.html", "classMessenger_1_1Services_1_1UserActivityData" ],

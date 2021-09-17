@@ -86,6 +86,8 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Core.Services.SignalRService Class Reference</div>  </div>
@@ -208,6 +210,28 @@ Events</h2></td></tr>
 <tr class="separator:a0dc3442222a835a1fff1475e52fe46f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8552880edf8c8b696673fd02452cbde4"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a8552880edf8c8b696673fd02452cbde4">UserUpdated</a></td></tr>
 <tr class="separator:a8552880edf8c8b696673fd02452cbde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a408e32327a198b3a609a6fbde7d16386"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a408e32327a198b3a609a6fbde7d16386">Reconnect</a> (Exception e)</td></tr>
+<tr class="memdesc:a408e32327a198b3a609a6fbde7d16386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconnect to the signalR hub after a 500ms delay  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a408e32327a198b3a609a6fbde7d16386">More...</a><br /></td></tr>
+<tr class="separator:a408e32327a198b3a609a6fbde7d16386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a203bbc1b37ed73c0e2c20f120dd08578"><td class="memItemLeft" align="right" valign="top">async Task&lt; HubConnection &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a203bbc1b37ed73c0e2c20f120dd08578">CreateHubConnection</a> ()</td></tr>
+<tr class="memdesc:a203bbc1b37ed73c0e2c20f120dd08578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect to the configured signalR hub  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a203bbc1b37ed73c0e2c20f120dd08578">More...</a><br /></td></tr>
+<tr class="separator:a203bbc1b37ed73c0e2c20f120dd08578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad70e450186c806f84c2857c75745b8e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ad70e450186c806f84c2857c75745b8e8">BuildArgument&lt; T &gt;</a> (T value)</td></tr>
+<tr class="memdesc:ad70e450186c806f84c2857c75745b8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a SignalREventArgs instance with one value  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ad70e450186c806f84c2857c75745b8e8">More...</a><br /></td></tr>
+<tr class="separator:ad70e450186c806f84c2857c75745b8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae33fb92e9bcd58c7031b36aa81f59add"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; TOne, TTwo &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ae33fb92e9bcd58c7031b36aa81f59add">BuildArgument&lt; TOne, TTwo &gt;</a> (TOne firstValue, TTwo secondValue)</td></tr>
+<tr class="memdesc:ae33fb92e9bcd58c7031b36aa81f59add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a SignalREventArgs instance with two values  <a href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#ae33fb92e9bcd58c7031b36aa81f59add">More...</a><br /></td></tr>
+<tr class="separator:ae33fb92e9bcd58c7031b36aa81f59add"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a0a7ca014d697785d954d4e8f742faa50"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a0a7ca014d697785d954d4e8f742faa50">HUB_URL</a> = @&quot;https://vpr.azurewebsites.net/chathub&quot;</td></tr>
+<tr class="separator:a0a7ca014d697785d954d4e8f742faa50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a629e827b685d0baab12d2f44eb78b0aa"><td class="memItemLeft" align="right" valign="top">HubConnection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a629e827b685d0baab12d2f44eb78b0aa">_connection</a></td></tr>
+<tr class="separator:a629e827b685d0baab12d2f44eb78b0aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds definitions for messages to send to the signalR hub </p>
@@ -260,7 +284,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00476">476</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 </div>
 </div>
@@ -299,9 +323,79 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00419">419</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00852">Messenger.Core.Services.MessengerService.CreateTeamRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l01018">Messenger.Core.Services.MessengerService.GrantPermission()</a>, <a class="el" href="MessengerService_8cs_source.html#l01047">Messenger.Core.Services.MessengerService.RevokePermission()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00880">Messenger.Core.Services.MessengerService.UpdateTeamRole()</a>.</p>
+
+</div>
+</div>
+<a id="ad70e450186c806f84c2857c75745b8e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad70e450186c806f84c2857c75745b8e8">&#9670;&nbsp;</a></span>BuildArgument&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt;T&gt; Messenger.Core.Services.SignalRService.BuildArgument&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build a SignalREventArgs instance with one value </p>
+
+<p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00588">588</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
+
+</div>
+</div>
+<a id="ae33fb92e9bcd58c7031b36aa81f59add"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae33fb92e9bcd58c7031b36aa81f59add">&#9670;&nbsp;</a></span>BuildArgument&lt; TOne, TTwo &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt;TOne, TTwo&gt; Messenger.Core.Services.SignalRService.BuildArgument&lt; TOne, TTwo &gt; </td>
+          <td>(</td>
+          <td class="paramtype">TOne&#160;</td>
+          <td class="paramname"><em>firstValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTwo&#160;</td>
+          <td class="paramname"><em>secondValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build a SignalREventArgs instance with two values </p>
+
+<p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00596">596</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
 </div>
 </div>
@@ -333,7 +427,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00132">132</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 </div>
 </div>
@@ -372,9 +466,43 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00364">364</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00514">Messenger.Core.Services.MessengerService.CreateChannel()</a>.</p>
+
+</div>
+</div>
+<a id="a203bbc1b37ed73c0e2c20f120dd08578"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a203bbc1b37ed73c0e2c20f120dd08578">&#9670;&nbsp;</a></span>CreateHubConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;HubConnection&gt; Messenger.Core.Services.SignalRService.CreateHubConnection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Connect to the configured signalR hub </p>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00565">565</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00019">Messenger.Core.Services.SignalRService.HUB_URL</a>, <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="SignalRService_8cs_source.html#l00547">Messenger.Core.Services.SignalRService.Reconnect()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00547">Messenger.Core.Services.SignalRService.Reconnect()</a>.</p>
 
 </div>
 </div>
@@ -413,7 +541,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00309">309</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, and <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>.</p>
 
@@ -454,7 +582,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00398">398</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00544">Messenger.Core.Services.MessengerService.DeleteChannel()</a>.</p>
 
@@ -506,7 +634,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00265">265</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00176">Messenger.Core.Services.MessengerService.DeleteMessage()</a>.</p>
 
@@ -547,7 +675,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00343">343</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00456">Messenger.Core.Services.MessengerService.DeleteTeam()</a>.</p>
 
@@ -588,7 +716,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00436">436</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00907">Messenger.Core.Services.MessengerService.DeleteTeamRole()</a>.</p>
 
@@ -626,7 +754,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00055">55</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00042">Messenger.Core.Services.SignalRService.ChannelCreated</a>, <a class="el" href="SignalRService_8cs_source.html#l00044">Messenger.Core.Services.SignalRService.ChannelDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00043">Messenger.Core.Services.SignalRService.ChannelUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00049">Messenger.Core.Services.SignalRService.MemberAdded</a>, <a class="el" href="SignalRService_8cs_source.html#l00051">Messenger.Core.Services.SignalRService.MemberRemoved</a>, <a class="el" href="SignalRService_8cs_source.html#l00050">Messenger.Core.Services.SignalRService.MemberUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00035">Messenger.Core.Services.SignalRService.MessageDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00036">Messenger.Core.Services.SignalRService.MessageReactionsUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00034">Messenger.Core.Services.SignalRService.MessageUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00031">Messenger.Core.Services.SignalRService.ReceiveInvitation</a>, <a class="el" href="SignalRService_8cs_source.html#l00030">Messenger.Core.Services.SignalRService.ReceiveMessage</a>, <a class="el" href="SignalRService_8cs_source.html#l00032">Messenger.Core.Services.SignalRService.ReceiveNotification</a>, <a class="el" href="SignalRService_8cs_source.html#l00038">Messenger.Core.Services.SignalRService.TeamCreated</a>, <a class="el" href="SignalRService_8cs_source.html#l00040">Messenger.Core.Services.SignalRService.TeamDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00047">Messenger.Core.Services.SignalRService.TeamRoleDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00046">Messenger.Core.Services.SignalRService.TeamRoleUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00039">Messenger.Core.Services.SignalRService.TeamUpdated</a>, and <a class="el" href="SignalRService_8cs_source.html#l00053">Messenger.Core.Services.SignalRService.UserUpdated</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, <a class="el" href="SignalRService_8cs_source.html#l00042">Messenger.Core.Services.SignalRService.ChannelCreated</a>, <a class="el" href="SignalRService_8cs_source.html#l00044">Messenger.Core.Services.SignalRService.ChannelDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00043">Messenger.Core.Services.SignalRService.ChannelUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00019">Messenger.Core.Services.SignalRService.HUB_URL</a>, <a class="el" href="SignalRService_8cs_source.html#l00049">Messenger.Core.Services.SignalRService.MemberAdded</a>, <a class="el" href="SignalRService_8cs_source.html#l00051">Messenger.Core.Services.SignalRService.MemberRemoved</a>, <a class="el" href="SignalRService_8cs_source.html#l00050">Messenger.Core.Services.SignalRService.MemberUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00035">Messenger.Core.Services.SignalRService.MessageDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00036">Messenger.Core.Services.SignalRService.MessageReactionsUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00034">Messenger.Core.Services.SignalRService.MessageUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00031">Messenger.Core.Services.SignalRService.ReceiveInvitation</a>, <a class="el" href="SignalRService_8cs_source.html#l00030">Messenger.Core.Services.SignalRService.ReceiveMessage</a>, <a class="el" href="SignalRService_8cs_source.html#l00032">Messenger.Core.Services.SignalRService.ReceiveNotification</a>, <a class="el" href="SignalRService_8cs_source.html#l00038">Messenger.Core.Services.SignalRService.TeamCreated</a>, <a class="el" href="SignalRService_8cs_source.html#l00040">Messenger.Core.Services.SignalRService.TeamDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00047">Messenger.Core.Services.SignalRService.TeamRoleDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00046">Messenger.Core.Services.SignalRService.TeamRoleUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00039">Messenger.Core.Services.SignalRService.TeamUpdated</a>, and <a class="el" href="SignalRService_8cs_source.html#l00053">Messenger.Core.Services.SignalRService.UserUpdated</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>.</p>
 
@@ -678,7 +806,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00157">157</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>, and <a class="el" href="MessengerService_8cs_source.html#l01084">Messenger.Core.Services.MessengerService.StartChat()</a>.</p>
 
@@ -730,7 +858,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00182">182</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 </div>
 </div>
@@ -769,9 +897,44 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00107">107</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>.</p>
+
+</div>
+</div>
+<a id="a408e32327a198b3a609a6fbde7d16386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a408e32327a198b3a609a6fbde7d16386">&#9670;&nbsp;</a></span>Reconnect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task Messenger.Core.Services.SignalRService.Reconnect </td>
+          <td>(</td>
+          <td class="paramtype">Exception&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconnect to the signalR hub after a 500ms delay </p>
+<dl class="section return"><dt>Returns</dt><dd>Asynchronous task to be awaited</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00547">547</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, <a class="el" href="SignalRService_8cs_source.html#l00565">Messenger.Core.Services.SignalRService.CreateHubConnection()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00565">Messenger.Core.Services.SignalRService.CreateHubConnection()</a>.</p>
 
 </div>
 </div>
@@ -821,7 +984,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00506">506</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>.</p>
 
@@ -873,7 +1036,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00458">458</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>.</p>
 
@@ -925,7 +1088,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00227">227</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>, and <a class="el" href="Message_8cs_source.html#l00052">Messenger.Core.Models.Message.UploadFileData</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>, and <a class="el" href="Message_8cs_source.html#l00052">Messenger.Core.Models.Message.UploadFileData</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00119">Messenger.Core.Services.MessengerService.SendMessage()</a>.</p>
 
@@ -957,7 +1120,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00205">205</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>.</p>
 
@@ -998,7 +1161,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00381">381</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00567">Messenger.Core.Services.MessengerService.RenameChannel()</a>.</p>
 
@@ -1040,7 +1203,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00488">488</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>.</p>
 
@@ -1092,7 +1255,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00247">247</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00212">Messenger.Core.Services.MessengerService.UpdateMessage()</a>.</p>
 
@@ -1144,7 +1307,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00283">283</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>, and <a class="el" href="Message_8cs_source.html#l00066">Messenger.Core.Models.Message.ToString()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00249">Messenger.Core.Services.MessengerService.CreateMessageReaction()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00282">Messenger.Core.Services.MessengerService.DeleteMessageReaction()</a>.</p>
 
@@ -1185,7 +1348,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00326">326</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00491">Messenger.Core.Services.MessengerService.UpdateTeamDescription()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00434">Messenger.Core.Services.MessengerService.UpdateTeamName()</a>.</p>
 
@@ -1226,9 +1389,62 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00527">527</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00021">Messenger.Core.Services.SignalRService._connection</a>, and <a class="el" href="SignalRService_8cs_source.html#l00023">Messenger.Core.Services.SignalRService.logger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a629e827b685d0baab12d2f44eb78b0aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a629e827b685d0baab12d2f44eb78b0aa">&#9670;&nbsp;</a></span>_connection</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">HubConnection Messenger.Core.Services.SignalRService._connection</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00021">21</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00476">Messenger.Core.Services.SignalRService.AddMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="SignalRService_8cs_source.html#l00132">Messenger.Core.Services.SignalRService.CloseConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00364">Messenger.Core.Services.SignalRService.CreateChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00309">Messenger.Core.Services.SignalRService.CreateTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00398">Messenger.Core.Services.SignalRService.DeleteChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00265">Messenger.Core.Services.SignalRService.DeleteMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00343">Messenger.Core.Services.SignalRService.DeleteTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00436">Messenger.Core.Services.SignalRService.DeleteTeamRole()</a>, <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00182">Messenger.Core.Services.SignalRService.LeaveTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00107">Messenger.Core.Services.SignalRService.OpenConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00547">Messenger.Core.Services.SignalRService.Reconnect()</a>, <a class="el" href="SignalRService_8cs_source.html#l00506">Messenger.Core.Services.SignalRService.RemoveMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00458">Messenger.Core.Services.SignalRService.SendInvitation()</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00205">Messenger.Core.Services.SignalRService.SendNotificationToUser()</a>, <a class="el" href="SignalRService_8cs_source.html#l00381">Messenger.Core.Services.SignalRService.UpdateChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00488">Messenger.Core.Services.SignalRService.UpdateMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00247">Messenger.Core.Services.SignalRService.UpdateMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00283">Messenger.Core.Services.SignalRService.UpdateMessageReactions()</a>, <a class="el" href="SignalRService_8cs_source.html#l00326">Messenger.Core.Services.SignalRService.UpdateTeam()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>.</p>
+
+</div>
+</div>
+<a id="a0a7ca014d697785d954d4e8f742faa50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7ca014d697785d954d4e8f742faa50">&#9670;&nbsp;</a></span>HUB_URL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Core.Services.SignalRService.HUB_URL = @&quot;https://vpr.azurewebsites.net/chathub&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00019">19</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00565">Messenger.Core.Services.SignalRService.CreateHubConnection()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
 
 </div>
 </div>
@@ -1255,7 +1471,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00023">23</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00476">Messenger.Core.Services.SignalRService.AddMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="SignalRService_8cs_source.html#l00132">Messenger.Core.Services.SignalRService.CloseConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00364">Messenger.Core.Services.SignalRService.CreateChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00309">Messenger.Core.Services.SignalRService.CreateTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00398">Messenger.Core.Services.SignalRService.DeleteChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00265">Messenger.Core.Services.SignalRService.DeleteMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00343">Messenger.Core.Services.SignalRService.DeleteTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00436">Messenger.Core.Services.SignalRService.DeleteTeamRole()</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00182">Messenger.Core.Services.SignalRService.LeaveTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00107">Messenger.Core.Services.SignalRService.OpenConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00506">Messenger.Core.Services.SignalRService.RemoveMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00458">Messenger.Core.Services.SignalRService.SendInvitation()</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00205">Messenger.Core.Services.SignalRService.SendNotificationToUser()</a>, <a class="el" href="SignalRService_8cs_source.html#l00381">Messenger.Core.Services.SignalRService.UpdateChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00488">Messenger.Core.Services.SignalRService.UpdateMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00247">Messenger.Core.Services.SignalRService.UpdateMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00283">Messenger.Core.Services.SignalRService.UpdateMessageReactions()</a>, <a class="el" href="SignalRService_8cs_source.html#l00326">Messenger.Core.Services.SignalRService.UpdateTeam()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00476">Messenger.Core.Services.SignalRService.AddMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00419">Messenger.Core.Services.SignalRService.AddOrUpdateTeamRole()</a>, <a class="el" href="SignalRService_8cs_source.html#l00132">Messenger.Core.Services.SignalRService.CloseConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00364">Messenger.Core.Services.SignalRService.CreateChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00565">Messenger.Core.Services.SignalRService.CreateHubConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00309">Messenger.Core.Services.SignalRService.CreateTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00398">Messenger.Core.Services.SignalRService.DeleteChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00265">Messenger.Core.Services.SignalRService.DeleteMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00343">Messenger.Core.Services.SignalRService.DeleteTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00436">Messenger.Core.Services.SignalRService.DeleteTeamRole()</a>, <a class="el" href="SignalRService_8cs_source.html#l00157">Messenger.Core.Services.SignalRService.JoinTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00182">Messenger.Core.Services.SignalRService.LeaveTeam()</a>, <a class="el" href="SignalRService_8cs_source.html#l00107">Messenger.Core.Services.SignalRService.OpenConnection()</a>, <a class="el" href="SignalRService_8cs_source.html#l00547">Messenger.Core.Services.SignalRService.Reconnect()</a>, <a class="el" href="SignalRService_8cs_source.html#l00506">Messenger.Core.Services.SignalRService.RemoveMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00458">Messenger.Core.Services.SignalRService.SendInvitation()</a>, <a class="el" href="SignalRService_8cs_source.html#l00227">Messenger.Core.Services.SignalRService.SendMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00205">Messenger.Core.Services.SignalRService.SendNotificationToUser()</a>, <a class="el" href="SignalRService_8cs_source.html#l00381">Messenger.Core.Services.SignalRService.UpdateChannel()</a>, <a class="el" href="SignalRService_8cs_source.html#l00488">Messenger.Core.Services.SignalRService.UpdateMember()</a>, <a class="el" href="SignalRService_8cs_source.html#l00247">Messenger.Core.Services.SignalRService.UpdateMessage()</a>, <a class="el" href="SignalRService_8cs_source.html#l00283">Messenger.Core.Services.SignalRService.UpdateMessageReactions()</a>, <a class="el" href="SignalRService_8cs_source.html#l00326">Messenger.Core.Services.SignalRService.UpdateTeam()</a>, and <a class="el" href="SignalRService_8cs_source.html#l00527">Messenger.Core.Services.SignalRService.UpdateUser()</a>.</p>
 
 </div>
 </div>
@@ -1274,7 +1490,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00042">42</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1292,7 +1508,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00044">44</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1310,7 +1526,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00043">43</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1328,7 +1544,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00049">49</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1346,7 +1562,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00051">51</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1364,7 +1580,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00050">50</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1382,7 +1598,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00035">35</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1400,7 +1616,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00036">36</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1418,7 +1634,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00034">34</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1652,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00031">31</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1456,7 +1672,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00030">30</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1474,7 +1690,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00032">32</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1492,7 +1708,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00038">38</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1510,7 +1726,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00040">40</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1528,7 +1744,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00047">47</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1546,7 +1762,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00046">46</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1564,7 +1780,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00039">39</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -1582,7 +1798,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SignalRService_8cs_source.html#l00053">53</a> of file <a class="el" href="SignalRService_8cs_source.html">SignalRService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SignalRService_8cs_source.html#l00055">Messenger.Core.Services.SignalRService.Initialize()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>

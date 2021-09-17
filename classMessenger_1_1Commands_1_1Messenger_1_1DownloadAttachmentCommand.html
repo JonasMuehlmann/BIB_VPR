@@ -84,7 +84,9 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Commands_1_1Messenge
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Commands.Messenger.DownloadAttachmentCommand Class Reference</div>  </div>
@@ -112,10 +114,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a699e24c43d908556d5e7e6cf1ab8fbc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safes an attachment to the local storage  <a href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a699e24c43d908556d5e7e6cf1ab8fbc3">More...</a><br /></td></tr>
 <tr class="separator:a699e24c43d908556d5e7e6cf1ab8fbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a199300f3685e7c80ba35bd3d0ba7f39d"><td class="memItemLeft" align="right" valign="top">ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a199300f3685e7c80ba35bd3d0ba7f39d">_logger</a><code> [get]</code></td></tr>
+<tr class="separator:a199300f3685e7c80ba35bd3d0ba7f39d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
 <tr class="memitem:ac7da12d3dc1a82e9d80c62ba66d527c4"><td class="memItemLeft" align="right" valign="top">EventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#ac7da12d3dc1a82e9d80c62ba66d527c4">CanExecuteChanged</a></td></tr>
 <tr class="separator:ac7da12d3dc1a82e9d80c62ba66d527c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a50593d6f6a7c99a6bc86aad6aaa66e0b"><td class="memItemLeft" align="right" valign="top">readonly <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a50593d6f6a7c99a6bc86aad6aaa66e0b">_viewModel</a></td></tr>
+<tr class="separator:a50593d6f6a7c99a6bc86aad6aaa66e0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -146,6 +158,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00023">23</a> of file <a class="el" href="DownloadAttachmentCommand_8cs_source.html">DownloadAttachmentCommand.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00018">Messenger.Commands.Messenger.DownloadAttachmentCommand._viewModel</a>.</p>
 
 </div>
 </div>
@@ -206,7 +220,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00036">36</a> of file <a class="el" href="DownloadAttachmentCommand_8cs_source.html">DownloadAttachmentCommand.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="FileSharingService_8cs_source.html#l00054">Messenger.Core.Services.FileSharingService.Download()</a>, <a class="el" href="Attachment_8cs_source.html#l00005">Messenger.Models.Attachment.FileName</a>, <a class="el" href="Attachment_8cs_source.html#l00007">Messenger.Models.Attachment.FileType</a>, <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00086">Messenger.Commands.Messenger.DownloadAttachmentCommand.SaveToStorage()</a>, <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>, and <a class="el" href="classMessenger_1_1Models_1_1Attachment.html#a74252b7e8ad109b769079aed0763e770">Messenger.Models.Attachment.ToBlobName()</a>.</p>
+<p class="reference">References <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00019">Messenger.Commands.Messenger.DownloadAttachmentCommand._logger</a>, <a class="el" href="FileSharingService_8cs_source.html#l00054">Messenger.Core.Services.FileSharingService.Download()</a>, <a class="el" href="Attachment_8cs_source.html#l00005">Messenger.Models.Attachment.FileName</a>, <a class="el" href="Attachment_8cs_source.html#l00007">Messenger.Models.Attachment.FileType</a>, <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00086">Messenger.Commands.Messenger.DownloadAttachmentCommand.SaveToStorage()</a>, <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>, and <a class="el" href="classMessenger_1_1Models_1_1Attachment.html#a74252b7e8ad109b769079aed0763e770">Messenger.Models.Attachment.ToBlobName()</a>.</p>
 
 </div>
 </div>
@@ -262,6 +276,60 @@ Events</h2></td></tr>
 <p>&lt;return&gt;&lt;/return&gt; </p>
 
 <p class="definition">Definition at line <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00086">86</a> of file <a class="el" href="DownloadAttachmentCommand_8cs_source.html">DownloadAttachmentCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.DownloadAttachmentCommand.Execute()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a50593d6f6a7c99a6bc86aad6aaa66e0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50593d6f6a7c99a6bc86aad6aaa66e0b">&#9670;&nbsp;</a></span>_viewModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> Messenger.Commands.Messenger.DownloadAttachmentCommand._viewModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00018">18</a> of file <a class="el" href="DownloadAttachmentCommand_8cs_source.html">DownloadAttachmentCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00023">Messenger.Commands.Messenger.DownloadAttachmentCommand.DownloadAttachmentCommand()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a199300f3685e7c80ba35bd3d0ba7f39d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a199300f3685e7c80ba35bd3d0ba7f39d">&#9670;&nbsp;</a></span>_logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.Commands.Messenger.DownloadAttachmentCommand._logger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00019">19</a> of file <a class="el" href="DownloadAttachmentCommand_8cs_source.html">DownloadAttachmentCommand.cs</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="DownloadAttachmentCommand_8cs_source.html#l00036">Messenger.Commands.Messenger.DownloadAttachmentCommand.Execute()</a>.</p>
 

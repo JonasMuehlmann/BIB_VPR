@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('ConnectionMapping_8cs_source.html','')
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">   12</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html">ConnectionMapping</a></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keyword">private</span> readonly Dictionary&lt;string, HashSet&lt;string&gt;&gt; _connections = <span class="keyword">new</span> Dictionary&lt;string, HashSet&lt;string&gt;&gt;();</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">   14</a></span>&#160;        <span class="keyword">private</span> readonly Dictionary&lt;string, HashSet&lt;string&gt;&gt; <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a> = <span class="keyword">new</span> Dictionary&lt;string, HashSet&lt;string&gt;&gt;();</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#af2cbe58bb06ab361d6e73f5563a0d149">   16</a></span>&#160;        <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#af2cbe58bb06ab361d6e73f5563a0d149">Count</a></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <span class="keyword">get</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                <span class="keywordflow">return</span> _connections.Count;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>.Count;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            }</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        }</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
@@ -117,13 +117,13 @@ $(document).ready(function(){initNavTree('ConnectionMapping_8cs_source.html','')
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="comment">// Locks other thread access to the shared resource</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="comment">// Any other thread waits until the lock is released</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            lock (_connections)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            lock (<a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                HashSet&lt;string&gt; connections;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keywordflow">if</span> (!_connections.TryGetValue(userId, out connections))</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keywordflow">if</span> (!<a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>.TryGetValue(userId, out connections))</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                    connections = <span class="keyword">new</span> HashSet&lt;string&gt;();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    _connections.Add(userId, connections);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>.Add(userId, connections);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                lock (connections)</div>
@@ -143,7 +143,7 @@ $(document).ready(function(){initNavTree('ConnectionMapping_8cs_source.html','')
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">logger</a>.Information($<span class="stringliteral">&quot;Function called with parameter userId={userId}&quot;</span>);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            HashSet&lt;string&gt; connections;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> (_connections.TryGetValue(userId, out connections))</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>.TryGetValue(userId, out connections))</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            {</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">logger</a>.Information(<span class="stringliteral">&quot;Returning established connections of the user identified by userId={userId}&quot;</span>);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">return</span> connections;</div>
@@ -160,10 +160,10 @@ $(document).ready(function(){initNavTree('ConnectionMapping_8cs_source.html','')
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">logger</a>.Information($<span class="stringliteral">&quot;Function called with parameters userId={userId}, connectionId={connectionId}&quot;</span>);</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            lock (_connections)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            lock (<a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>)</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            {</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                HashSet&lt;string&gt; connections;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">if</span> (!_connections.TryGetValue(userId, out connections))</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">if</span> (!<a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>.TryGetValue(userId, out connections))</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                {</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">logger</a>.Information($<span class="stringliteral">&quot;No established connections exist for the user identified by userId={userId}&quot;</span>);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    <span class="keywordflow">return</span>;</div>
@@ -175,7 +175,7 @@ $(document).ready(function(){initNavTree('ConnectionMapping_8cs_source.html','')
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    <span class="keywordflow">if</span> (connections.Count == 0)</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                        _connections.Remove(userId);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                        <a class="code" href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">_connections</a>.Remove(userId);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                }</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            }</div>
@@ -190,6 +190,7 @@ $(document).ready(function(){initNavTree('ConnectionMapping_8cs_source.html','')
 <div class="ttc" id="aclassMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping_html_a6dc3a4b24721e871a27826e1172a379b"><div class="ttname"><a href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#a6dc3a4b24721e871a27826e1172a379b">Messenger.SignalR.Models.ConnectionMapping.GetConnections</a></div><div class="ttdeci">IEnumerable&lt; string &gt; GetConnections(string userId)</div><div class="ttdoc">Gets all connection ids registered under the user id</div><div class="ttdef"><b>Definition:</b> <a href="ConnectionMapping_8cs_source.html#l00063">ConnectionMapping.cs:63</a></div></div>
 <div class="ttc" id="aclassMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping_html_a930e88414753434f576c00f199d36a34"><div class="ttname"><a href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#a930e88414753434f576c00f199d36a34">Messenger.SignalR.Models.ConnectionMapping.Remove</a></div><div class="ttdeci">void Remove(string userId, string connectionId)</div><div class="ttdoc">Safely removes the connection id from the registered list under the user id</div><div class="ttdef"><b>Definition:</b> <a href="ConnectionMapping_8cs_source.html#l00086">ConnectionMapping.cs:86</a></div></div>
 <div class="ttc" id="aclassMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping_html_aa70829c6e00a1ac8a5bed388c02e638d"><div class="ttname"><a href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#aa70829c6e00a1ac8a5bed388c02e638d">Messenger.SignalR.Models.ConnectionMapping.logger</a></div><div class="ttdeci">ILogger logger</div><div class="ttdef"><b>Definition:</b> <a href="ConnectionMapping_8cs_source.html#l00024">ConnectionMapping.cs:24</a></div></div>
+<div class="ttc" id="aclassMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping_html_ac696fbaf8b4d76fa6b5a5eaf397d9951"><div class="ttname"><a href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#ac696fbaf8b4d76fa6b5a5eaf397d9951">Messenger.SignalR.Models.ConnectionMapping._connections</a></div><div class="ttdeci">readonly Dictionary&lt; string, HashSet&lt; string &gt; &gt; _connections</div><div class="ttdef"><b>Definition:</b> <a href="ConnectionMapping_8cs_source.html#l00014">ConnectionMapping.cs:14</a></div></div>
 <div class="ttc" id="aclassMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping_html_af2cbe58bb06ab361d6e73f5563a0d149"><div class="ttname"><a href="classMessenger_1_1SignalR_1_1Models_1_1ConnectionMapping.html#af2cbe58bb06ab361d6e73f5563a0d149">Messenger.SignalR.Models.ConnectionMapping.Count</a></div><div class="ttdeci">int Count</div><div class="ttdef"><b>Definition:</b> <a href="ConnectionMapping_8cs_source.html#l00016">ConnectionMapping.cs:17</a></div></div>
 <div class="ttc" id="anamespaceMessenger_1_1Core_1_1Helpers_html"><div class="ttname"><a href="namespaceMessenger_1_1Core_1_1Helpers.html">Messenger.Core.Helpers</a></div><div class="ttdef"><b>Definition:</b> <a href="GlobalLogger_8cs_source.html#l00004">GlobalLogger.cs:5</a></div></div>
 <div class="ttc" id="anamespaceMessenger_1_1Core_html"><div class="ttname"><a href="namespaceMessenger_1_1Core.html">Messenger.Core</a></div><div class="ttdef"><b>Definition:</b> <a href="GlobalLogger_8cs_source.html#l00004">GlobalLogger.cs:5</a></div></div>

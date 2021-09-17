@@ -84,6 +84,8 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Core.Services.MicrosoftGraphService Class Reference</div>  </div>
@@ -102,12 +104,66 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4c5ec7da88c0814d17b19465f20c0132"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a4c5ec7da88c0814d17b19465f20c0132">GetUserPhoto</a> (string accessToken)</td></tr>
 <tr class="memdesc:a4c5ec7da88c0814d17b19465f20c0132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a user's profile photo from a specified accessToken  <a href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a4c5ec7da88c0814d17b19465f20c0132">More...</a><br /></td></tr>
 <tr class="separator:a4c5ec7da88c0814d17b19465f20c0132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a8746c187dbbe81827131dac64521647f"><td class="memItemLeft" align="right" valign="top">static async Task&lt; HttpContent &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a8746c187dbbe81827131dac64521647f">GetDataAsync</a> (string url, string accessToken)</td></tr>
+<tr class="separator:a8746c187dbbe81827131dac64521647f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a3249f20c11e3c4e4c1458a4d70ed72f9"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a3249f20c11e3c4e4c1458a4d70ed72f9">_graphAPIEndpoint</a> = &quot;https://graph.microsoft.com/v1.0/&quot;</td></tr>
+<tr class="separator:a3249f20c11e3c4e4c1458a4d70ed72f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8c7402a13de6bd22f2358c2d4b8140e"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#ad8c7402a13de6bd22f2358c2d4b8140e">_apiServiceMe</a> = &quot;me/&quot;</td></tr>
+<tr class="separator:ad8c7402a13de6bd22f2358c2d4b8140e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329eaf3c6646717d15b9b5f6435bb088"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1MicrosoftGraphService.html#a329eaf3c6646717d15b9b5f6435bb088">_apiServiceMePhoto</a> = &quot;me/photo/$value&quot;</td></tr>
+<tr class="separator:a329eaf3c6646717d15b9b5f6435bb088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds static methods to interact with the microsoft graph service used to authenticate users and retrieve initial user data </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00015">15</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8746c187dbbe81827131dac64521647f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8746c187dbbe81827131dac64521647f">&#9670;&nbsp;</a></span>GetDataAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;HttpContent&gt; Messenger.Core.Services.MicrosoftGraphService.GetDataAsync </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>accessToken</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00065">65</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MicrosoftGraphService_8cs_source.html#l00031">Messenger.Core.Services.MicrosoftGraphService.GetUserInfoAsync()</a>, and <a class="el" href="MicrosoftGraphService_8cs_source.html#l00052">Messenger.Core.Services.MicrosoftGraphService.GetUserPhoto()</a>.</p>
+
+</div>
+</div>
 <a id="accb64c665719443d909203316fdf1c9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#accb64c665719443d909203316fdf1c9e">&#9670;&nbsp;</a></span>GetUserInfoAsync()</h2>
 
@@ -142,6 +198,10 @@ Static Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A user object holding the authenticated user's data</dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00031">31</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MicrosoftGraphService_8cs_source.html#l00065">Messenger.Core.Services.MicrosoftGraphService.GetDataAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00072">Messenger.Services.UserDataService.GetUserFromGraphApiAsync()</a>.</p>
 
 </div>
 </div>
@@ -179,6 +239,83 @@ Static Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A user's profile photo as a base64 encoded string</dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00052">52</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MicrosoftGraphService_8cs_source.html#l00065">Messenger.Core.Services.MicrosoftGraphService.GetDataAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00072">Messenger.Services.UserDataService.GetUserFromGraphApiAsync()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad8c7402a13de6bd22f2358c2d4b8140e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8c7402a13de6bd22f2358c2d4b8140e">&#9670;&nbsp;</a></span>_apiServiceMe</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Core.Services.MicrosoftGraphService._apiServiceMe = &quot;me/&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00023">23</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
+
+</div>
+</div>
+<a id="a329eaf3c6646717d15b9b5f6435bb088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329eaf3c6646717d15b9b5f6435bb088">&#9670;&nbsp;</a></span>_apiServiceMePhoto</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Core.Services.MicrosoftGraphService._apiServiceMePhoto = &quot;me/photo/$value&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00024">24</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
+
+</div>
+</div>
+<a id="a3249f20c11e3c4e4c1458a4d70ed72f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3249f20c11e3c4e4c1458a4d70ed72f9">&#9670;&nbsp;</a></span>_graphAPIEndpoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Messenger.Core.Services.MicrosoftGraphService._graphAPIEndpoint = &quot;https://graph.microsoft.com/v1.0/&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MicrosoftGraphService_8cs_source.html#l00022">22</a> of file <a class="el" href="MicrosoftGraphService_8cs_source.html">MicrosoftGraphService.cs</a>.</p>
 
 </div>
 </div>

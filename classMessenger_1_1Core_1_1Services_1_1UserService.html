@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="classMessenger_1_1Core_1_1Services_1_1UserService-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Core.Services.UserService Class Reference</div>  </div>
@@ -174,6 +175,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:af7e4f61a320c6ee9f039437917843ce2"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IList&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#af7e4f61a320c6ee9f039437917843ce2">SearchUser</a> (string userName)</td></tr>
 <tr class="memdesc:af7e4f61a320c6ee9f039437917843ce2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the UserNames and NameIds of the top 10 matches for the given userName  <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#af7e4f61a320c6ee9f039437917843ce2">More...</a><br /></td></tr>
 <tr class="separator:af7e4f61a320c6ee9f039437917843ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:ac6d6e162d5503235734dc10940c0c5e9"><td class="memItemLeft" align="right" valign="top">static async Task&lt; uint?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1UserService.html#ac6d6e162d5503235734dc10940c0c5e9">DetermineNewNameId</a> (string username, SqlConnection connection)</td></tr>
+<tr class="memdesc:ac6d6e162d5503235734dc10940c0c5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine a usernames new NameId.  <a href="classMessenger_1_1Core_1_1Services_1_1UserService.html#ac6d6e162d5503235734dc10940c0c5e9">More...</a><br /></td></tr>
+<tr class="separator:ac6d6e162d5503235734dc10940c0c5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds helpers and static methods to interact with users on the DB </p>
@@ -219,6 +226,56 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac6d6e162d5503235734dc10940c0c5e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6d6e162d5503235734dc10940c0c5e9">&#9670;&nbsp;</a></span>DetermineNewNameId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt;uint?&gt; Messenger.Core.Services.UserService.DetermineNewNameId </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SqlConnection&#160;</td>
+          <td class="paramname"><em>connection</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determine a usernames new NameId. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>A username whose nameid is the be determined</td></tr>
+    <tr><td class="paramname">connection</td><td>A connection to the sql database</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>returns&gt;Null on database errors, the appropriate NameId otherwise</p>
+
+<p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00396">396</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserService_8cs_source.html#l00180">Messenger.Core.Services.UserService.GetOrCreateApplicationUser()</a>, and <a class="el" href="UserService_8cs_source.html#l00063">Messenger.Core.Services.UserService.UpdateUsername()</a>.</p>
+
+</div>
+</div>
 <a id="ac11b0f0e3816153cccd4da715356c0c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac11b0f0e3816153cccd4da715356c0c9">&#9670;&nbsp;</a></span>GetOrCreateApplicationUser()</h2>
 
@@ -254,7 +311,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00180">180</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="User_8cs_source.html#l00019">Messenger.Core.Models.User.DisplayName</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, <a class="el" href="User_8cs_source.html#l00024">Messenger.Core.Models.User.NameId</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>, <a class="el" href="User_8cs_source.html#l00029">Messenger.Core.Models.User.Photo</a>, <a class="el" href="FileSharingService_8cs_source.html#l00127">Messenger.Core.Services.FileSharingService.UploadFromBase64()</a>, <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>, and <a class="el" href="Mapper_8cs_source.html#l00043">Messenger.Core.Helpers.Mapper.UserFromMSGraph()</a>.</p>
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00396">Messenger.Core.Services.UserService.DetermineNewNameId()</a>, <a class="el" href="User_8cs_source.html#l00019">Messenger.Core.Models.User.DisplayName</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, <a class="el" href="User_8cs_source.html#l00024">Messenger.Core.Models.User.NameId</a>, <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>, <a class="el" href="User_8cs_source.html#l00029">Messenger.Core.Models.User.Photo</a>, <a class="el" href="FileSharingService_8cs_source.html#l00127">Messenger.Core.Services.FileSharingService.UploadFromBase64()</a>, <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>, and <a class="el" href="Mapper_8cs_source.html#l00043">Messenger.Core.Helpers.Mapper.UserFromMSGraph()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00090">Messenger.Services.UserDataService.GetUserViewModelFromData()</a>.</p>
 
 </div>
 </div>
@@ -295,7 +354,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>, and <a class="el" href="Mapper_8cs_source.html#l00025">Messenger.Core.Helpers.Mapper.UserFromDataRow()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="RemoveUserCommand_8cs_source.html#l00023">Messenger.Commands.TeamManage.RemoveUserCommand.Execute()</a>, <a class="el" href="MessengerService_8cs_source.html#l00632">Messenger.Core.Services.MessengerService.GetUserWithNameId()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MentionService_8cs_source.html#l00101">Messenger.Core.Services.MentionService.ResolveMentions()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00133">Messenger.Helpers.MessageHelpers.MessageBuilder.WithSender()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="MessengerService_8cs_source.html#l00947">Messenger.Core.Services.MessengerService.AssignUserRole()</a>, <a class="el" href="RemoveUserCommand_8cs_source.html#l00023">Messenger.Commands.TeamManage.RemoveUserCommand.Execute()</a>, <a class="el" href="UserSearchPanelViewModel_8cs_source.html#l00078">Messenger.ViewModels.Controls.UserSearchPanelViewModel.GetSelectedUser()</a>, <a class="el" href="MessengerService_8cs_source.html#l00632">Messenger.Core.Services.MessengerService.GetUserWithNameId()</a>, <a class="el" href="MessengerService_8cs_source.html#l00713">Messenger.Core.Services.MessengerService.RemoveMember()</a>, <a class="el" href="MentionService_8cs_source.html#l00101">Messenger.Core.Services.MentionService.ResolveMentions()</a>, <a class="el" href="MessengerService_8cs_source.html#l00652">Messenger.Core.Services.MessengerService.SendInvitation()</a>, <a class="el" href="MessengerService_8cs_source.html#l00983">Messenger.Core.Services.MessengerService.UnassignUserRole()</a>, <a class="el" href="MessengerService_8cs_source.html#l00792">Messenger.Core.Services.MessengerService.UpdateUserBio()</a>, <a class="el" href="MessengerService_8cs_source.html#l00746">Messenger.Core.Services.MessengerService.UpdateUserEmail()</a>, <a class="el" href="MessengerService_8cs_source.html#l00814">Messenger.Core.Services.MessengerService.UpdateUserPhoto()</a>, <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>, and <a class="el" href="MessageBuilder_8cs_source.html#l00133">Messenger.Helpers.MessageHelpers.MessageBuilder.WithSender()</a>.</p>
 
 </div>
 </div>
@@ -385,6 +444,8 @@ Static Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00362">362</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
 
 <p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00140">Messenger.Core.Helpers.SqlHelpers.GetRows()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserSearchPanelViewModel_8cs_source.html#l00051">Messenger.ViewModels.Controls.UserSearchPanelViewModel.Search()</a>.</p>
 
 </div>
 </div>
@@ -595,7 +656,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="UserService_8cs_source.html#l00063">63</a> of file <a class="el" href="UserService_8cs_source.html">UserService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
+<p class="reference">References <a class="el" href="UserService_8cs_source.html#l00396">Messenger.Core.Services.UserService.DetermineNewNameId()</a>, and <a class="el" href="SqlHelpers_8cs_source.html#l00025">Messenger.Core.Helpers.SqlHelpers.NonQueryAsync()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="UserService_8cs_source.html#l00027">Messenger.Core.Services.UserService.Update()</a>, and <a class="el" href="MessengerService_8cs_source.html#l00769">Messenger.Core.Services.MessengerService.UpdateUserUsername()</a>.</p>
 

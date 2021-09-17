@@ -84,7 +84,11 @@ $(document).ready(function(){initNavTree('classMessenger_1_1ViewModels_1_1Pages_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.ViewModels.Pages.ChatNavViewModel Class Reference</div>  </div>
@@ -116,8 +120,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a066965467f5377f489c44e1816e96bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired by EventProvider on MessageUpdated(for LastMessage)  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a066965467f5377f489c44e1816e96bd9">More...</a><br /></td></tr>
 <tr class="separator:a066965467f5377f489c44e1816e96bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="separator:ae8cf458aa24cfd172c194942009a5c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
+<tr class="separator:a6017c02d3a44586fbd75ff0181d3afea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a93368af76a6e033956bde6c628eb6020"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html">UserDataService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a93368af76a6e033956bde6c628eb6020">UserDataService</a><code> [get]</code></td></tr>
+<tr class="separator:a93368af76a6e033956bde6c628eb6020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac35713e9f8d2f9e8830aa7c23f4f8bdb"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#ac35713e9f8d2f9e8830aa7c23f4f8bdb">Chats</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ac35713e9f8d2f9e8830aa7c23f4f8bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loaded chats list of the current user  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#ac35713e9f8d2f9e8830aa7c23f4f8bdb">More...</a><br /></td></tr>
 <tr class="separator:ac35713e9f8d2f9e8830aa7c23f4f8bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,16 +150,29 @@ Properties</h2></td></tr>
 <tr class="memdesc:a7bae087ec4814ed48177bc8a4dc604c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually reloads all chats and messages  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a7bae087ec4814ed48177bc8a4dc604c3">More...</a><br /></td></tr>
 <tr class="separator:a7bae087ec4814ed48177bc8a4dc604c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
-<tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
-<tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
-<tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+Events</h2></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
+<tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a1d03e7bc1b487c182194a9dcd2f80139"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a1d03e7bc1b487c182194a9dcd2f80139">Initialize</a> ()</td></tr>
+<tr class="memdesc:a1d03e7bc1b487c182194a9dcd2f80139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes view model with currently logged-in user and chats list, if already loaded in cache  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a1d03e7bc1b487c182194a9dcd2f80139">More...</a><br /></td></tr>
+<tr class="separator:a1d03e7bc1b487c182194a9dcd2f80139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae609f45ffa1733a685aba218e3ac327a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#ae609f45ffa1733a685aba218e3ac327a">LoadFromCache</a> ()</td></tr>
+<tr class="memdesc:ae609f45ffa1733a685aba218e3ac327a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the chats list from the cache  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#ae609f45ffa1733a685aba218e3ac327a">More...</a><br /></td></tr>
+<tr class="separator:ae609f45ffa1733a685aba218e3ac327a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d544bfeeab6898e46e01b085b63bfe2"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a4d544bfeeab6898e46e01b085b63bfe2">Reload</a> ()</td></tr>
+<tr class="memdesc:a4d544bfeeab6898e46e01b085b63bfe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually reloads all chats list and messages  <a href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a4d544bfeeab6898e46e01b085b63bfe2">More...</a><br /></td></tr>
+<tr class="separator:a4d544bfeeab6898e46e01b085b63bfe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3ebd42f0ce263b1708db8aab1b57744f"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a3ebd42f0ce263b1708db8aab1b57744f">_chats</a></td></tr>
+<tr class="separator:a3ebd42f0ce263b1708db8aab1b57744f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f27953f093f2bed52d336b8f582ed31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatNavViewModel.html#a8f27953f093f2bed52d336b8f582ed31">_isBusy</a></td></tr>
+<tr class="separator:a8f27953f093f2bed52d336b8f582ed31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -177,11 +203,78 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00088">88</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00149">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatsLoaded()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00170">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatUpdated()</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00204">Messenger.ViewModels.Pages.ChatNavViewModel.OnMessageUpdated()</a>.</p>
+<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00149">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatsLoaded()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00170">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatUpdated()</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00204">Messenger.ViewModels.Pages.ChatNavViewModel.OnMessageUpdated()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1d03e7bc1b487c182194a9dcd2f80139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d03e7bc1b487c182194a9dcd2f80139">&#9670;&nbsp;</a></span>Initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.ViewModels.Pages.ChatNavViewModel.Initialize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes view model with currently logged-in user and chats list, if already loaded in cache </p>
+<p>GET DATA FROM CACHE IF ALREADY INITIALIZED</p>
+
+<p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">100</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00036">Messenger.ViewModels.Pages.ChatNavViewModel.Chats</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00065">Messenger.ViewModels.Pages.ChatNavViewModel.CurrentUser</a>, <a class="el" href="UserDataService_8cs_source.html#l00038">Messenger.Services.UserDataService.GetUserAsync()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00051">Messenger.ViewModels.Pages.ChatNavViewModel.IsBusy</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00121">Messenger.ViewModels.Pages.ChatNavViewModel.LoadFromCache()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00088">Messenger.ViewModels.Pages.ChatNavViewModel.ChatNavViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="ae609f45ffa1733a685aba218e3ac327a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae609f45ffa1733a685aba218e3ac327a">&#9670;&nbsp;</a></span>LoadFromCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.ViewModels.Pages.ChatNavViewModel.LoadFromCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads the chats list from the cache </p>
+
+<p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00121">121</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00036">Messenger.ViewModels.Pages.ChatNavViewModel.Chats</a>, and <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a765098283d02a96b5cb171e396d0c52a">Messenger.Helpers.CacheQuery.GetMyChats()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()</a>.</p>
+
+</div>
+</div>
 <a id="a9e38bc0acc553041123fa3bc2cb657b8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e38bc0acc553041123fa3bc2cb657b8">&#9670;&nbsp;</a></span>OnChatsLoaded()</h2>
 
@@ -264,7 +357,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00170">170</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="BroadcastArgs_8cs_source.html#l00005">Messenger.Models.BroadcastArgs.Payload</a>, and <a class="el" href="BroadcastArgs_8cs_source.html#l00007">Messenger.Models.BroadcastArgs.Reason</a>.</p>
+<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00024">Messenger.ViewModels.Pages.ChatNavViewModel._chats</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>, <a class="el" href="BroadcastArgs_8cs_source.html#l00005">Messenger.Models.BroadcastArgs.Payload</a>, and <a class="el" href="BroadcastArgs_8cs_source.html#l00007">Messenger.Models.BroadcastArgs.Reason</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00088">Messenger.ViewModels.Pages.ChatNavViewModel.ChatNavViewModel()</a>.</p>
 
@@ -308,9 +401,165 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00204">204</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00020">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.LastMessage</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00026">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.MainChannel</a>, <a class="el" href="BroadcastArgs_8cs_source.html#l00005">Messenger.Models.BroadcastArgs.Payload</a>, and <a class="el" href="BroadcastArgs_8cs_source.html#l00007">Messenger.Models.BroadcastArgs.Reason</a>.</p>
+<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00024">Messenger.ViewModels.Pages.ChatNavViewModel._chats</a>, <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00020">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.LastMessage</a>, <a class="el" href="PrivateChatViewModel_8cs_source.html#l00026">Messenger.ViewModels.DataViewModels.PrivateChatViewModel.MainChannel</a>, <a class="el" href="BroadcastArgs_8cs_source.html#l00005">Messenger.Models.BroadcastArgs.Payload</a>, and <a class="el" href="BroadcastArgs_8cs_source.html#l00007">Messenger.Models.BroadcastArgs.Reason</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00088">Messenger.ViewModels.Pages.ChatNavViewModel.ChatNavViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6017c02d3a44586fbd75ff0181d3afea">&#9670;&nbsp;</a></span>OnPropertyChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.Observable.OnPropertyChanged </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>propertyName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="Observable_8cs_source.html#l00011">Messenger.Helpers.Observable.Set&lt; T &gt;()</a>.</p>
+
+</div>
+</div>
+<a id="a4d544bfeeab6898e46e01b085b63bfe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d544bfeeab6898e46e01b085b63bfe2">&#9670;&nbsp;</a></span>Reload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.ViewModels.Pages.ChatNavViewModel.Reload </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Manually reloads all chats list and messages </p>
+
+<p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00134">134</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChatNavViewModel_8cs_source.html#l00036">Messenger.ViewModels.Pages.ChatNavViewModel.Chats</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00051">Messenger.ViewModels.Pages.ChatNavViewModel.IsBusy</a>, and <a class="el" href="CacheQuery_8cs_source.html#l00019">Messenger.Helpers.CacheQuery.Reload()</a>.</p>
+
+</div>
+</div>
+<a id="ae8cf458aa24cfd172c194942009a5c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cf458aa24cfd172c194942009a5c62">&#9670;&nbsp;</a></span>Set&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.Observable.Set&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">ref T&#160;</td>
+          <td class="paramname"><em>storage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">[CallerMemberName] string&#160;</td>
+          <td class="paramname"><em>propertyName</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Observable_8cs_source.html#l00011">11</a> of file <a class="el" href="Observable_8cs_source.html">Observable.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">Messenger.Helpers.Observable.OnPropertyChanged()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3ebd42f0ce263b1708db8aab1b57744f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ebd42f0ce263b1708db8aab1b57744f">&#9670;&nbsp;</a></span>_chats</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1PrivateChatViewModel.html">PrivateChatViewModel</a>&gt; Messenger.ViewModels.Pages.ChatNavViewModel._chats</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00024">24</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00170">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatUpdated()</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00204">Messenger.ViewModels.Pages.ChatNavViewModel.OnMessageUpdated()</a>.</p>
+
+</div>
+</div>
+<a id="a8f27953f093f2bed52d336b8f582ed31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f27953f093f2bed52d336b8f582ed31">&#9670;&nbsp;</a></span>_isBusy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Messenger.ViewModels.Pages.ChatNavViewModel._isBusy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00026">26</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
 </div>
 </div>
@@ -339,7 +588,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00035">35</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00149">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatsLoaded()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00121">Messenger.ViewModels.Pages.ChatNavViewModel.LoadFromCache()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00149">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatsLoaded()</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00134">Messenger.ViewModels.Pages.ChatNavViewModel.Reload()</a>.</p>
 
 </div>
 </div>
@@ -367,6 +616,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00065">65</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()</a>.</p>
+
 </div>
 </div>
 <a id="a36a2f512c1ca027aa60c7e1fe1104f72"></a>
@@ -393,7 +644,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00050">50</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00149">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatsLoaded()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()</a>, <a class="el" href="ChatNavViewModel_8cs_source.html#l00149">Messenger.ViewModels.Pages.ChatNavViewModel.OnChatsLoaded()</a>, and <a class="el" href="ChatNavViewModel_8cs_source.html#l00134">Messenger.ViewModels.Pages.ChatNavViewModel.Reload()</a>.</p>
 
 </div>
 </div>
@@ -472,6 +723,57 @@ Additional Inherited Members</h2></td></tr>
 <p>Switches to another private chat </p>
 
 <p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00074">74</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatNavPage_8xaml_8cs_source.html#l00017">Messenger.Views.Pages.ChatNavPage.treeView_ItemInvoked()</a>.</p>
+
+</div>
+</div>
+<a id="a93368af76a6e033956bde6c628eb6020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93368af76a6e033956bde6c628eb6020">&#9670;&nbsp;</a></span>UserDataService</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html">UserDataService</a> Messenger.ViewModels.Pages.ChatNavViewModel.UserDataService</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ChatNavViewModel_8cs_source.html#l00022">22</a> of file <a class="el" href="ChatNavViewModel_8cs_source.html">ChatNavViewModel.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Event Documentation</h2>
+<a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb33e2ab5ee82b41173e8a9d79fc08d">&#9670;&nbsp;</a></span>PropertyChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PropertyChangedEventHandler Messenger.Helpers.Observable.PropertyChanged</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Observable_8cs_source.html#l00009">9</a> of file <a class="el" href="Observable_8cs_source.html">Observable.cs</a>.</p>
 
 </div>
 </div>

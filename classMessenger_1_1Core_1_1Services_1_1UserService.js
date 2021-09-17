@@ -1,6 +1,7 @@
 var classMessenger_1_1Core_1_1Services_1_1UserService =
 [
     [ "DeleteUser", "classMessenger_1_1Core_1_1Services_1_1UserService.html#a0bb00f415851f9b6009b10150f010f5e", null ],
+    [ "DetermineNewNameId", "classMessenger_1_1Core_1_1Services_1_1UserService.html#ac6d6e162d5503235734dc10940c0c5e9", null ],
     [ "GetOrCreateApplicationUser", "classMessenger_1_1Core_1_1Services_1_1UserService.html#ac11b0f0e3816153cccd4da715356c0c9", null ],
     [ "GetUser", "classMessenger_1_1Core_1_1Services_1_1UserService.html#ae284599a84ca261552fd06ed48fcbdfb", null ],
     [ "GetUser", "classMessenger_1_1Core_1_1Services_1_1UserService.html#ade881cc9dbad4fbd97ac0fe1b8f8cd78", null ],

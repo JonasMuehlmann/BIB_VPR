@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Commands_1_1TeamMana
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Commands.TeamManage.CreateTeamCommand Class Reference</div>  </div>
@@ -112,6 +113,13 @@ Public Member Functions</h2></td></tr>
 Events</h2></td></tr>
 <tr class="memitem:a18aa88cb26e043d4ff951d78bee56891"><td class="memItemLeft" align="right" valign="top">EventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand.html#a18aa88cb26e043d4ff951d78bee56891">CanExecuteChanged</a></td></tr>
 <tr class="separator:a18aa88cb26e043d4ff951d78bee56891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af760fc7d9407267209ef5ec03b94535e"><td class="memItemLeft" align="right" valign="top">ILogger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand.html#af760fc7d9407267209ef5ec03b94535e">_log</a> = GlobalLogger.Instance</td></tr>
+<tr class="separator:af760fc7d9407267209ef5ec03b94535e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6864c2dc7e4bbb60d130f6a296c243d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html">CreateTeamDialog</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Commands_1_1TeamManage_1_1CreateTeamCommand.html#ad6864c2dc7e4bbb60d130f6a296c243d">_dialog</a></td></tr>
+<tr class="separator:ad6864c2dc7e4bbb60d130f6a296c243d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -141,6 +149,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="CreateTeamCommand_8cs_source.html#l00017">17</a> of file <a class="el" href="CreateTeamCommand_8cs_source.html">CreateTeamCommand.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="CreateTeamCommand_8cs_source.html#l00015">Messenger.Commands.TeamManage.CreateTeamCommand._dialog</a>.</p>
 
 </div>
 </div>
@@ -199,7 +209,60 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="CreateTeamCommand_8cs_source.html#l00029">29</a> of file <a class="el" href="CreateTeamCommand_8cs_source.html">CreateTeamCommand.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>, <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00021">Messenger.Views.DialogBoxes.CreateTeamDialog.TeamDescription</a>, and <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00009">Messenger.Views.DialogBoxes.CreateTeamDialog.TeamName</a>.</p>
+<p class="reference">References <a class="el" href="CreateTeamCommand_8cs_source.html#l00015">Messenger.Commands.TeamManage.CreateTeamCommand._dialog</a>, <a class="el" href="CreateTeamCommand_8cs_source.html#l00013">Messenger.Commands.TeamManage.CreateTeamCommand._log</a>, <a class="el" href="MessengerService_8cs_source.html#l00358">Messenger.Core.Services.MessengerService.CreateTeam()</a>, <a class="el" href="ResultConfirmationDialog_8xaml_8cs_source.html#l00036">Messenger.Views.DialogBoxes.ResultConfirmationDialog.Set()</a>, <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00021">Messenger.Views.DialogBoxes.CreateTeamDialog.TeamDescription</a>, and <a class="el" href="CreateTeamDialog_8xaml_8cs_source.html#l00009">Messenger.Views.DialogBoxes.CreateTeamDialog.TeamName</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad6864c2dc7e4bbb60d130f6a296c243d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6864c2dc7e4bbb60d130f6a296c243d">&#9670;&nbsp;</a></span>_dialog</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Views_1_1DialogBoxes_1_1CreateTeamDialog.html">CreateTeamDialog</a> Messenger.Commands.TeamManage.CreateTeamCommand._dialog</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamCommand_8cs_source.html#l00015">15</a> of file <a class="el" href="CreateTeamCommand_8cs_source.html">CreateTeamCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateTeamCommand_8cs_source.html#l00017">Messenger.Commands.TeamManage.CreateTeamCommand.CreateTeamCommand()</a>, and <a class="el" href="CreateTeamCommand_8cs_source.html#l00029">Messenger.Commands.TeamManage.CreateTeamCommand.Execute()</a>.</p>
+
+</div>
+</div>
+<a id="af760fc7d9407267209ef5ec03b94535e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af760fc7d9407267209ef5ec03b94535e">&#9670;&nbsp;</a></span>_log</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ILogger Messenger.Commands.TeamManage.CreateTeamCommand._log = GlobalLogger.Instance</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CreateTeamCommand_8cs_source.html#l00013">13</a> of file <a class="el" href="CreateTeamCommand_8cs_source.html">CreateTeamCommand.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="CreateTeamCommand_8cs_source.html#l00029">Messenger.Commands.TeamManage.CreateTeamCommand.Execute()</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['memberproperty_1783',['MemberProperty',['../classMessenger_1_1Views_1_1Subcontrols_1_1UserProfileFlyout.html#a4a42b8fb3a7c8f2a8de9c054004af231',1,'Messenger::Views::Subcontrols::UserProfileFlyout']]],
-  ['messagemanager_1784',['MessageManager',['../classMessenger_1_1Services_1_1Providers_1_1StateProvider.html#a11140609dba9e5b63689c255544463ab',1,'Messenger::Services::Providers::StateProvider']]],
-  ['messageproperty_1785',['MessageProperty',['../classMessenger_1_1Views_1_1Subcontrols_1_1MessageView.html#a876cfa4c341a66ad38d60fae64bbe982',1,'Messenger::Views::Subcontrols::MessageView']]]
+  ['headercontextproperty_2244',['HeaderContextProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#ac606a2aa4c71a11396a0ad3cfa453eb3',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['headermodeproperty_2245',['HeaderModeProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a1f06006663e06a55690c67360354c3d9',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['headertemplateproperty_2246',['HeaderTemplateProperty',['../classMessenger_1_1Behaviors_1_1NavigationViewHeaderBehavior.html#a2013638f0ca1a9b13a74b588a2367b6d',1,'Messenger::Behaviors::NavigationViewHeaderBehavior']]],
+  ['horizontalalignbindingpathproperty_2247',['HorizontalAlignBindingPathProperty',['../classMessenger_1_1Helpers_1_1BindingHelper.html#a3926b5fce5fb353b574e63d22cb307d4',1,'Messenger::Helpers::BindingHelper']]],
+  ['hub_5furl_2248',['HUB_URL',['../classMessenger_1_1Core_1_1Services_1_1SignalRService.html#a0a7ca014d697785d954d4e8f742faa50',1,'Messenger::Core::Services::SignalRService']]]
 ];

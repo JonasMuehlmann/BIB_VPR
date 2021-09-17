@@ -86,6 +86,9 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Services_1_1UserData
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classMessenger_1_1Services_1_1UserDataService-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Services.UserDataService Class Reference</div>  </div>
@@ -103,6 +106,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a15832c0d01f7d4d1db2ad4cf715b42b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html">IdentityService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a15832c0d01f7d4d1db2ad4cf715b42b7">IdentityService</a><code> [get]</code></td></tr>
+<tr class="separator:a15832c0d01f7d4d1db2ad4cf715b42b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ff90ab1b1854d18a0192f7445cfe07d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a9ff90ab1b1854d18a0192f7445cfe07d">IsOnline</a><code> [get]</code></td></tr>
 <tr class="separator:a9ff90ab1b1854d18a0192f7445cfe07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -110,6 +115,33 @@ Properties</h2></td></tr>
 Events</h2></td></tr>
 <tr class="memitem:a3a75519b4114df2cbc79e1b07cedfc3b"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a3a75519b4114df2cbc79e1b07cedfc3b">UserDataUpdated</a></td></tr>
 <tr class="separator:a3a75519b4114df2cbc79e1b07cedfc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:afcfefa77bc8e0e51faad335b304af38f"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#afcfefa77bc8e0e51faad335b304af38f">OnLoggedIn</a> (object sender, EventArgs e)</td></tr>
+<tr class="separator:afcfefa77bc8e0e51faad335b304af38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f6977073b930b59d871f0da713e18f4"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a9f6977073b930b59d871f0da713e18f4">OnLoggedOut</a> (object sender, EventArgs e)</td></tr>
+<tr class="separator:a9f6977073b930b59d871f0da713e18f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab68ab3751f1a89e4fb7497a291e069ac"><td class="memItemLeft" align="right" valign="top">async Task&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#ab68ab3751f1a89e4fb7497a291e069ac">GetUserFromCacheAsync</a> ()</td></tr>
+<tr class="separator:ab68ab3751f1a89e4fb7497a291e069ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae46cd31babaafcaf3e64f6517d6ee88b"><td class="memItemLeft" align="right" valign="top">async Task&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#ae46cd31babaafcaf3e64f6517d6ee88b">GetUserFromGraphApiAsync</a> ()</td></tr>
+<tr class="separator:ae46cd31babaafcaf3e64f6517d6ee88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a744c834fec23ad0714da846c1b09ddbc"><td class="memItemLeft" align="right" valign="top">async Task&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a744c834fec23ad0714da846c1b09ddbc">GetUserViewModelFromData</a> (<a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> userData)</td></tr>
+<tr class="separator:a744c834fec23ad0714da846c1b09ddbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac3713b86b5aaf51bb5c94f5434e894f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#aac3713b86b5aaf51bb5c94f5434e894f">GetDefaultUserData</a> ()</td></tr>
+<tr class="separator:aac3713b86b5aaf51bb5c94f5434e894f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0958e14d853719daf2fcdb25b9ff8e48"><td class="memItemLeft" align="right" valign="top">async Task&lt; IList&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a0958e14d853719daf2fcdb25b9ff8e48">InitializeSignalR</a> (string userId)</td></tr>
+<tr class="separator:a0958e14d853719daf2fcdb25b9ff8e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a530ff4ed82d476bb0501868e24716bbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a530ff4ed82d476bb0501868e24716bbe">_user</a></td></tr>
+<tr class="separator:a530ff4ed82d476bb0501868e24716bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a59dabd7ca66a1144ecd39ba14879051a"><td class="memItemLeft" align="right" valign="top">const string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1UserDataService.html#a59dabd7ca66a1144ecd39ba14879051a">_userSettingsKey</a> = &quot;IdentityUser&quot;</td></tr>
+<tr class="separator:a59dabd7ca66a1144ecd39ba14879051a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -143,6 +175,37 @@ Events</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aac3713b86b5aaf51bb5c94f5434e894f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac3713b86b5aaf51bb5c94f5434e894f">&#9670;&nbsp;</a></span>GetDefaultUserData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> Messenger.Services.UserDataService.GetDefaultUserData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00123">123</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00118">Messenger.Core.Services.IdentityService.GetAccountUserName()</a>, and <a class="el" href="ImageHelper_8cs_source.html#l00026">Messenger.Helpers.ImageHelper.ImageFromAssetsFile()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00038">Messenger.Services.UserDataService.GetUserAsync()</a>.</p>
+
+</div>
+</div>
 <a id="aea2d88177b172125321b81c36b53ecb4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea2d88177b172125321b81c36b53ecb4">&#9670;&nbsp;</a></span>GetUserAsync()</h2>
 
@@ -168,7 +231,103 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00038">38</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SettingsViewModel_8cs_source.html#l00097">Messenger.ViewModels.Pages.SettingsViewModel.InitializeAsync()</a>.</p>
+<p class="reference">References <a class="el" href="UserDataService_8cs_source.html#l00020">Messenger.Services.UserDataService._user</a>, <a class="el" href="UserDataService_8cs_source.html#l00123">Messenger.Services.UserDataService.GetDefaultUserData()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00065">Messenger.Services.UserDataService.GetUserFromCacheAsync()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ChatNavViewModel_8cs_source.html#l00100">Messenger.ViewModels.Pages.ChatNavViewModel.Initialize()</a>, <a class="el" href="TeamNavViewModel_8cs_source.html#l00093">Messenger.ViewModels.Pages.TeamNavViewModel.Initialize()</a>, and <a class="el" href="SettingsViewModel_8cs_source.html#l00097">Messenger.ViewModels.Pages.SettingsViewModel.InitializeAsync()</a>.</p>
+
+</div>
+</div>
+<a id="ab68ab3751f1a89e4fb7497a291e069ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab68ab3751f1a89e4fb7497a291e069ac">&#9670;&nbsp;</a></span>GetUserFromCacheAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&gt; Messenger.Services.UserDataService.GetUserFromCacheAsync </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00065">65</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserDataService_8cs_source.html#l00018">Messenger.Services.UserDataService._userSettingsKey</a>, and <a class="el" href="UserDataService_8cs_source.html#l00090">Messenger.Services.UserDataService.GetUserViewModelFromData()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00038">Messenger.Services.UserDataService.GetUserAsync()</a>.</p>
+
+</div>
+</div>
+<a id="ae46cd31babaafcaf3e64f6517d6ee88b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae46cd31babaafcaf3e64f6517d6ee88b">&#9670;&nbsp;</a></span>GetUserFromGraphApiAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&gt; Messenger.Services.UserDataService.GetUserFromGraphApiAsync </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00072">72</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserDataService_8cs_source.html#l00018">Messenger.Services.UserDataService._userSettingsKey</a>, <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a90f7a1665a86714fbd720ef5299ea2d6">Messenger.Core.Services.IdentityService.GetAccessTokenForGraphAsync()</a>, <a class="el" href="MicrosoftGraphService_8cs_source.html#l00031">Messenger.Core.Services.MicrosoftGraphService.GetUserInfoAsync()</a>, <a class="el" href="MicrosoftGraphService_8cs_source.html#l00052">Messenger.Core.Services.MicrosoftGraphService.GetUserPhoto()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00090">Messenger.Services.UserDataService.GetUserViewModelFromData()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00052">Messenger.Services.UserDataService.OnLoggedIn()</a>.</p>
+
+</div>
+</div>
+<a id="a744c834fec23ad0714da846c1b09ddbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a744c834fec23ad0714da846c1b09ddbc">&#9670;&nbsp;</a></span>GetUserViewModelFromData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a>&gt; Messenger.Services.UserDataService.GetUserViewModelFromData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>&#160;</td>
+          <td class="paramname"><em>userData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00090">90</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="User_8cs_source.html#l00039">Messenger.Core.Models.User.Bio</a>, <a class="el" href="User_8cs_source.html#l00019">Messenger.Core.Models.User.DisplayName</a>, <a class="el" href="UserService_8cs_source.html#l00180">Messenger.Core.Services.UserService.GetOrCreateApplicationUser()</a>, <a class="el" href="User_8cs_source.html#l00014">Messenger.Core.Models.User.Id</a>, <a class="el" href="UserViewModel_8cs_source.html#l00017">Messenger.ViewModels.DataViewModels.UserViewModel.Id</a>, <a class="el" href="ImageHelper_8cs_source.html#l00026">Messenger.Helpers.ImageHelper.ImageFromAssetsFile()</a>, <a class="el" href="ImageHelper_8cs_source.html#l00012">Messenger.Helpers.ImageHelper.ImageFromStringAsync()</a>, <a class="el" href="UserDataService_8cs_source.html#l00132">Messenger.Services.UserDataService.InitializeSignalR()</a>, <a class="el" href="Singleton_8cs_source.html#l00019">Messenger.Core.Helpers.Singleton&lt; T &gt;.Instance</a>, <a class="el" href="User_8cs_source.html#l00034">Messenger.Core.Models.User.Mail</a>, <a class="el" href="User_8cs_source.html#l00024">Messenger.Core.Models.User.NameId</a>, and <a class="el" href="User_8cs_source.html#l00029">Messenger.Core.Models.User.Photo</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00065">Messenger.Services.UserDataService.GetUserFromCacheAsync()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00072">Messenger.Services.UserDataService.GetUserFromGraphApiAsync()</a>.</p>
 
 </div>
 </div>
@@ -197,11 +356,204 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00032">32</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00034">Messenger.Core.Services.IdentityService.LoggedIn</a>, and <a class="el" href="IdentityService_8cs_source.html#l00036">Messenger.Core.Services.IdentityService.LoggedOut</a>.</p>
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00034">Messenger.Core.Services.IdentityService.LoggedIn</a>, <a class="el" href="IdentityService_8cs_source.html#l00036">Messenger.Core.Services.IdentityService.LoggedOut</a>, <a class="el" href="UserDataService_8cs_source.html#l00052">Messenger.Services.UserDataService.OnLoggedIn()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00059">Messenger.Services.UserDataService.OnLoggedOut()</a>.</p>
+
+</div>
+</div>
+<a id="a0958e14d853719daf2fcdb25b9ff8e48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0958e14d853719daf2fcdb25b9ff8e48">&#9670;&nbsp;</a></span>InitializeSignalR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;IList&lt;<a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a>&gt; &gt; Messenger.Services.UserDataService.InitializeSignalR </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>userId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00132">132</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessengerService_8cs_source.html#l00036">Messenger.Core.Services.MessengerService.Initialize()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00090">Messenger.Services.UserDataService.GetUserViewModelFromData()</a>.</p>
+
+</div>
+</div>
+<a id="afcfefa77bc8e0e51faad335b304af38f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcfefa77bc8e0e51faad335b304af38f">&#9670;&nbsp;</a></span>OnLoggedIn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.UserDataService.OnLoggedIn </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00052">52</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserDataService_8cs_source.html#l00020">Messenger.Services.UserDataService._user</a>, <a class="el" href="UserDataService_8cs_source.html#l00072">Messenger.Services.UserDataService.GetUserFromGraphApiAsync()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00026">Messenger.Services.UserDataService.UserDataUpdated</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00032">Messenger.Services.UserDataService.Initialize()</a>.</p>
+
+</div>
+</div>
+<a id="a9f6977073b930b59d871f0da713e18f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f6977073b930b59d871f0da713e18f4">&#9670;&nbsp;</a></span>OnLoggedOut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.UserDataService.OnLoggedOut </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00059">59</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="UserDataService_8cs_source.html#l00020">Messenger.Services.UserDataService._user</a>, and <a class="el" href="UserDataService_8cs_source.html#l00018">Messenger.Services.UserDataService._userSettingsKey</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00032">Messenger.Services.UserDataService.Initialize()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a530ff4ed82d476bb0501868e24716bbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a530ff4ed82d476bb0501868e24716bbe">&#9670;&nbsp;</a></span>_user</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1UserViewModel.html">UserViewModel</a> Messenger.Services.UserDataService._user</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00020">20</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00038">Messenger.Services.UserDataService.GetUserAsync()</a>, <a class="el" href="UserDataService_8cs_source.html#l00052">Messenger.Services.UserDataService.OnLoggedIn()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00059">Messenger.Services.UserDataService.OnLoggedOut()</a>.</p>
+
+</div>
+</div>
+<a id="a59dabd7ca66a1144ecd39ba14879051a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59dabd7ca66a1144ecd39ba14879051a">&#9670;&nbsp;</a></span>_userSettingsKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const string Messenger.Services.UserDataService._userSettingsKey = &quot;IdentityUser&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00018">18</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00065">Messenger.Services.UserDataService.GetUserFromCacheAsync()</a>, <a class="el" href="UserDataService_8cs_source.html#l00072">Messenger.Services.UserDataService.GetUserFromGraphApiAsync()</a>, and <a class="el" href="UserDataService_8cs_source.html#l00059">Messenger.Services.UserDataService.OnLoggedOut()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a15832c0d01f7d4d1db2ad4cf715b42b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15832c0d01f7d4d1db2ad4cf715b42b7">&#9670;&nbsp;</a></span>IdentityService</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html">IdentityService</a> Messenger.Services.UserDataService.IdentityService</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00022">22</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
+
+</div>
+</div>
 <a id="a9ff90ab1b1854d18a0192f7445cfe07d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ff90ab1b1854d18a0192f7445cfe07d">&#9670;&nbsp;</a></span>IsOnline</h2>
 
@@ -241,7 +593,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="UserDataService_8cs_source.html#l00026">26</a> of file <a class="el" href="UserDataService_8cs_source.html">UserDataService.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SettingsViewModel_8cs_source.html#l00097">Messenger.ViewModels.Pages.SettingsViewModel.InitializeAsync()</a>, and <a class="el" href="SettingsViewModel_8cs_source.html#l00115">Messenger.ViewModels.Pages.SettingsViewModel.UnregisterEvents()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SettingsViewModel_8cs_source.html#l00097">Messenger.ViewModels.Pages.SettingsViewModel.InitializeAsync()</a>, <a class="el" href="UserDataService_8cs_source.html#l00052">Messenger.Services.UserDataService.OnLoggedIn()</a>, and <a class="el" href="SettingsViewModel_8cs_source.html#l00115">Messenger.ViewModels.Pages.SettingsViewModel.UnregisterEvents()</a>.</p>
 
 </div>
 </div>

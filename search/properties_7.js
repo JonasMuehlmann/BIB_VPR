@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['haschanged_1937',['HasChanged',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a30dd7d0b67e64ee356b06936084da720',1,'Messenger::ViewModels::DialogBoxes::ManageRolesDialogViewModel']]],
-  ['hasfullpermissions_1938',['HasFullPermissions',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#aec17b260427957a76518f69fbb4d91bb',1,'Messenger::ViewModels::DialogBoxes::ManageRolesDialogViewModel']]],
-  ['hasreacted_1939',['HasReacted',['../classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html#a58b3c2ab79bb1d9dc90d2399e45c5321',1,'Messenger::ViewModels::DataViewModels::MessageViewModel']]],
-  ['hub_1940',['Hub',['../classMessenger_1_1ViewModels_1_1MainViewModel.html#aedd4acf193752b19d231f6a9e65f92eb',1,'Messenger::ViewModels::MainViewModel']]]
+  ['getselectedusercommand_2416',['GetSelectedUserCommand',['../classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html#a5e4e0ddcc30590c1ec9e62390a960308',1,'Messenger::ViewModels::Controls::UserSearchPanelViewModel']]],
+  ['grantablepermissions_2417',['GrantablePermissions',['../classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1879117d9aea2ae7cca94c701017919e',1,'Messenger::ViewModels::DialogBoxes::ManageRolesDialogViewModel']]]
 ];

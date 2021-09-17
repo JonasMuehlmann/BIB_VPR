@@ -20,5 +20,6 @@ var classMessenger_1_1SignalR_1_1ChatHub =
     [ "UpdateMessage", "classMessenger_1_1SignalR_1_1ChatHub.html#aa685aaf925ae62944db1cb5efaf605db", null ],
     [ "UpdateMessageReactions", "classMessenger_1_1SignalR_1_1ChatHub.html#abde6c37cf202390d49425df314bb6bf6", null ],
     [ "UpdateTeam", "classMessenger_1_1SignalR_1_1ChatHub.html#aa122e317c2bfb4785cf49a76e944f4d0", null ],
-    [ "UpdateUser", "classMessenger_1_1SignalR_1_1ChatHub.html#a239fca42c126f316ed102582f9469211", null ]
+    [ "UpdateUser", "classMessenger_1_1SignalR_1_1ChatHub.html#a239fca42c126f316ed102582f9469211", null ],
+    [ "_connections", "classMessenger_1_1SignalR_1_1ChatHub.html#a924145fee39ac0e2dbcd91891999edd4", null ]
 ];

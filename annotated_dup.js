@@ -138,7 +138,7 @@ var annotated_dup =
           [ "StateProvider", "classMessenger_1_1Services_1_1Providers_1_1StateProvider.html", "classMessenger_1_1Services_1_1Providers_1_1StateProvider" ],
           [ "StateProviderExtension", "classMessenger_1_1Services_1_1Providers_1_1StateProviderExtension.html", "classMessenger_1_1Services_1_1Providers_1_1StateProviderExtension" ]
         ] ],
-        [ "FirstRunDisplayService", "classMessenger_1_1Services_1_1FirstRunDisplayService.html", null ],
+        [ "FirstRunDisplayService", "classMessenger_1_1Services_1_1FirstRunDisplayService.html", "classMessenger_1_1Services_1_1FirstRunDisplayService" ],
         [ "NavigationService", "classMessenger_1_1Services_1_1NavigationService.html", "classMessenger_1_1Services_1_1NavigationService" ],
         [ "ThemeSelectorService", "classMessenger_1_1Services_1_1ThemeSelectorService.html", "classMessenger_1_1Services_1_1ThemeSelectorService" ],
         [ "UserActivityData", "classMessenger_1_1Services_1_1UserActivityData.html", "classMessenger_1_1Services_1_1UserActivityData" ],
@@ -166,7 +166,7 @@ var annotated_dup =
         ] ],
         [ "DataViewModels", "namespaceMessenger_1_1ViewModels_1_1DataViewModels.html", [
           [ "ChannelViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1ChannelViewModel" ],
-          [ "DataViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel.html", null ],
+          [ "DataViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1DataViewModel" ],
           [ "MemberViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MemberViewModel" ],
           [ "MessageViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel" ],
           [ "NotificationMessageViewModel", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel.html", "classMessenger_1_1ViewModels_1_1DataViewModels_1_1NotificationMessageViewModel" ],

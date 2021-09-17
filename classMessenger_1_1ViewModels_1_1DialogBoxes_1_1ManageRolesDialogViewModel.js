@@ -2,7 +2,17 @@ var classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel =
 [
     [ "ManageRolesDialogViewModel", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a2cd3928045ea462569f5c41c9c441ded", null ],
     [ "FilterGrantablePermissions", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a33350342c51af0e98b07f11bb7f2d8be", null ],
+    [ "OnPropertyChanged", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a6017c02d3a44586fbd75ff0181d3afea", null ],
     [ "OnTeamUpdated", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a2799b22f9ee0363127dc683e30622ae9", null ],
+    [ "Set< T >", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#ae8cf458aa24cfd172c194942009a5c62", null ],
+    [ "_grantablePermissions", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#ac59b8a86e084504a7b199bca38b966b2", null ],
+    [ "_hasChanged", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1085d6ad40530416c4c829e61a9b1071", null ],
+    [ "_hasFullPermissions", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a6cb08ef1afa3725ba9a60a978ea2ecad", null ],
+    [ "_isInEditMode", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a9cf6696657d639f239d218afafacc343", null ],
+    [ "_newRoleTitle", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#ad3e48e45a57ea70a7bcba541e1ffb530", null ],
+    [ "_pendingChange", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a695790d93fbf1f9e5d6285fcffb864e2", null ],
+    [ "_selectedTeamRole", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a7f4e3d71db7849a67ad84bb5177fdb5d", null ],
+    [ "_teamRoles", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a60955e945782d229ac64bdd860f1b944", null ],
     [ "CreateTeamRoleCommand", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1f7d17a54183fae176bcddd309cb8e06", null ],
     [ "GrantablePermissions", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1879117d9aea2ae7cca94c701017919e", null ],
     [ "HasChanged", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a30dd7d0b67e64ee356b06936084da720", null ],
@@ -14,5 +24,6 @@ var classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel =
     [ "RevokePermissionCommand", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#ac092623a425f4dc44638032127865c14", null ],
     [ "SelectedTeamRole", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a317d51e5e3ae75968592babbe2f95bc2", null ],
     [ "TeamRoles", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#ac0ba2c5169c98eb292e7c96114deca58", null ],
-    [ "UpdateTeamRoleCommand", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#accaf14219b720f0f9e93467dcb27a2b3", null ]
+    [ "UpdateTeamRoleCommand", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#accaf14219b720f0f9e93467dcb27a2b3", null ],
+    [ "PropertyChanged", "classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#abfb33e2ab5ee82b41173e8a9d79fc08d", null ]
 ];

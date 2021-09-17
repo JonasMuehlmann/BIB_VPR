@@ -84,7 +84,11 @@ $(document).ready(function(){initNavTree('classMessenger_1_1ViewModels_1_1Contro
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.ViewModels.Controls.MessagesListControlViewModel Class Reference</div>  </div>
@@ -111,12 +115,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af02ae6dbd8d9a45de26ce354f3629900"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#af02ae6dbd8d9a45de26ce354f3629900">OnMessagesSwitched</a> (object sender, <a class="el" href="classMessenger_1_1Models_1_1BroadcastArgs.html">BroadcastArgs</a> e)</td></tr>
 <tr class="separator:af02ae6dbd8d9a45de26ce354f3629900"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
+<tr class="separator:ae8cf458aa24cfd172c194942009a5c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
+<tr class="separator:a6017c02d3a44586fbd75ff0181d3afea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a607e5a1f0cd35e5bb1191dfe998b18c2"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a607e5a1f0cd35e5bb1191dfe998b18c2">Messages</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a607e5a1f0cd35e5bb1191dfe998b18c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loaded messages of the current team/chat  <a href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a607e5a1f0cd35e5bb1191dfe998b18c2">More...</a><br /></td></tr>
 <tr class="separator:a607e5a1f0cd35e5bb1191dfe998b18c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4aaba327fa0ad6c4fa0546a24c2ddd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#ad4aaba327fa0ad6c4fa0546a24c2ddd4">ParentViewModel</a><code> [get]</code></td></tr>
+<tr class="memitem:ad4aaba327fa0ad6c4fa0546a24c2ddd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1ViewModels_1_1Pages_1_1ChatViewModel.html">ChatViewModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#ad4aaba327fa0ad6c4fa0546a24c2ddd4">ParentViewModel</a><code> [get, private set]</code></td></tr>
 <tr class="separator:ad4aaba327fa0ad6c4fa0546a24c2ddd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94ed2b85eabcea8fb88693314e3bf772"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a94ed2b85eabcea8fb88693314e3bf772">ToggleReactionCommand</a><code> [get]</code></td></tr>
 <tr class="separator:a94ed2b85eabcea8fb88693314e3bf772"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,16 +138,24 @@ Properties</h2></td></tr>
 <tr class="memitem:a18879eb693a247baa57dcb4749cb33cc"><td class="memItemLeft" align="right" valign="top">ICommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a18879eb693a247baa57dcb4749cb33cc">ReplyToCommand</a><code> [get]</code></td></tr>
 <tr class="separator:a18879eb693a247baa57dcb4749cb33cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#ae8cf458aa24cfd172c194942009a5c62">Set&lt; T &gt;</a> (ref T storage, T value, [CallerMemberName]string propertyName=null)</td></tr>
-<tr class="separator:ae8cf458aa24cfd172c194942009a5c62 inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">OnPropertyChanged</a> (string propertyName)</td></tr>
-<tr class="separator:a6017c02d3a44586fbd75ff0181d3afea inherit pro_methods_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header events_classMessenger_1_1Helpers_1_1Observable"><td colspan="2" onclick="javascript:toggleInherit('events_classMessenger_1_1Helpers_1_1Observable')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html">Messenger.Helpers.Observable</a></td></tr>
-<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
-<tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d inherit events_classMessenger_1_1Helpers_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+Events</h2></td></tr>
+<tr class="memitem:abfb33e2ab5ee82b41173e8a9d79fc08d"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#abfb33e2ab5ee82b41173e8a9d79fc08d">PropertyChanged</a></td></tr>
+<tr class="separator:abfb33e2ab5ee82b41173e8a9d79fc08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a96ee81abd1f6765e64b9259a2ac274b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a96ee81abd1f6765e64b9259a2ac274b7">Initialize</a> ()</td></tr>
+<tr class="memdesc:a96ee81abd1f6765e64b9259a2ac274b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the view model with messages list  <a href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#a96ee81abd1f6765e64b9259a2ac274b7">More...</a><br /></td></tr>
+<tr class="separator:a96ee81abd1f6765e64b9259a2ac274b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5b45ddef41506bf40fcafc74fafe2d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#ae5b45ddef41506bf40fcafc74fafe2d4">LoadFromCache</a> ()</td></tr>
+<tr class="memdesc:ae5b45ddef41506bf40fcafc74fafe2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the messages from the cache  <a href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#ae5b45ddef41506bf40fcafc74fafe2d4">More...</a><br /></td></tr>
+<tr class="separator:ae5b45ddef41506bf40fcafc74fafe2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ae757952efa15ddd5463c767a6d69e171"><td class="memItemLeft" align="right" valign="top">ObservableCollection&lt; <a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1ViewModels_1_1Controls_1_1MessagesListControlViewModel.html#ae757952efa15ddd5463c767a6d69e171">_messages</a></td></tr>
+<tr class="separator:ae757952efa15ddd5463c767a6d69e171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -168,11 +187,77 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00043">43</a> of file <a class="el" href="MessagesListControlViewModel_8cs_source.html">MessagesListControlViewModel.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00033">Messenger.ViewModels.Controls.MessagesListControlViewModel.ParentViewModel</a>.</p>
+<p class="reference">References <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00052">Messenger.ViewModels.Controls.MessagesListControlViewModel.Initialize()</a>, and <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00033">Messenger.ViewModels.Controls.MessagesListControlViewModel.ParentViewModel</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a96ee81abd1f6765e64b9259a2ac274b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96ee81abd1f6765e64b9259a2ac274b7">&#9670;&nbsp;</a></span>Initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.ViewModels.Controls.MessagesListControlViewModel.Initialize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes the view model with messages list </p>
+
+<p class="definition">Definition at line <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00052">52</a> of file <a class="el" href="MessagesListControlViewModel_8cs_source.html">MessagesListControlViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00065">Messenger.ViewModels.Controls.MessagesListControlViewModel.LoadFromCache()</a>, and <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00025">Messenger.ViewModels.Controls.MessagesListControlViewModel.Messages</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00043">Messenger.ViewModels.Controls.MessagesListControlViewModel.MessagesListControlViewModel()</a>.</p>
+
+</div>
+</div>
+<a id="ae5b45ddef41506bf40fcafc74fafe2d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5b45ddef41506bf40fcafc74fafe2d4">&#9670;&nbsp;</a></span>LoadFromCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.ViewModels.Controls.MessagesListControlViewModel.LoadFromCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads the messages from the cache </p>
+
+<p class="definition">Definition at line <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00065">65</a> of file <a class="el" href="MessagesListControlViewModel_8cs_source.html">MessagesListControlViewModel.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00025">Messenger.ViewModels.Controls.MessagesListControlViewModel.Messages</a>, and <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a6d7572f7a363492bd9354897c855cfb4">Messenger.Helpers.CacheQuery.TryGetMessages()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00052">Messenger.ViewModels.Controls.MessagesListControlViewModel.Initialize()</a>.</p>
+
+</div>
+</div>
 <a id="af02ae6dbd8d9a45de26ce354f3629900"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af02ae6dbd8d9a45de26ce354f3629900">&#9670;&nbsp;</a></span>OnMessagesSwitched()</h2>
 
@@ -257,6 +342,105 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a6017c02d3a44586fbd75ff0181d3afea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6017c02d3a44586fbd75ff0181d3afea">&#9670;&nbsp;</a></span>OnPropertyChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.Observable.OnPropertyChanged </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>propertyName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="Observable_8cs_source.html#l00011">Messenger.Helpers.Observable.Set&lt; T &gt;()</a>.</p>
+
+</div>
+</div>
+<a id="ae8cf458aa24cfd172c194942009a5c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cf458aa24cfd172c194942009a5c62">&#9670;&nbsp;</a></span>Set&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Helpers.Observable.Set&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">ref T&#160;</td>
+          <td class="paramname"><em>storage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">[CallerMemberName] string&#160;</td>
+          <td class="paramname"><em>propertyName</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Observable_8cs_source.html#l00011">11</a> of file <a class="el" href="Observable_8cs_source.html">Observable.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="classMessenger_1_1Helpers_1_1Observable.html#a6017c02d3a44586fbd75ff0181d3afea">Messenger.Helpers.Observable.OnPropertyChanged()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae757952efa15ddd5463c767a6d69e171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae757952efa15ddd5463c767a6d69e171">&#9670;&nbsp;</a></span>_messages</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ObservableCollection&lt;<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1MessageViewModel.html">MessageViewModel</a>&gt; Messenger.ViewModels.Controls.MessagesListControlViewModel._messages</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00019">19</a> of file <a class="el" href="MessagesListControlViewModel_8cs_source.html">MessagesListControlViewModel.cs</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Property Documentation</h2>
 <a id="a071ad27778b2dacd976cd68b4eeaf967"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a071ad27778b2dacd976cd68b4eeaf967">&#9670;&nbsp;</a></span>DeleteMessageCommand</h2>
@@ -306,7 +490,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00024">24</a> of file <a class="el" href="MessagesListControlViewModel_8cs_source.html">MessagesListControlViewModel.cs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00120">Messenger.ViewModels.Controls.MessagesListControlViewModel.OnMessagesSwitched()</a>, and <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00082">Messenger.ViewModels.Controls.MessagesListControlViewModel.OnMessageUpdated()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00052">Messenger.ViewModels.Controls.MessagesListControlViewModel.Initialize()</a>, <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00065">Messenger.ViewModels.Controls.MessagesListControlViewModel.LoadFromCache()</a>, <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00120">Messenger.ViewModels.Controls.MessagesListControlViewModel.OnMessagesSwitched()</a>, and <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00082">Messenger.ViewModels.Controls.MessagesListControlViewModel.OnMessageUpdated()</a>.</p>
 
 </div>
 </div>
@@ -325,7 +509,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private set</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -405,6 +589,31 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="MessagesListControlViewModel_8cs_source.html#l00039">39</a> of file <a class="el" href="MessagesListControlViewModel_8cs_source.html">MessagesListControlViewModel.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Event Documentation</h2>
+<a id="abfb33e2ab5ee82b41173e8a9d79fc08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb33e2ab5ee82b41173e8a9d79fc08d">&#9670;&nbsp;</a></span>PropertyChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PropertyChangedEventHandler Messenger.Helpers.Observable.PropertyChanged</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Observable_8cs_source.html#l00009">9</a> of file <a class="el" href="Observable_8cs_source.html">Observable.cs</a>.</p>
 
 </div>
 </div>

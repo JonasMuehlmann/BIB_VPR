@@ -84,7 +84,9 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Services_1_1Provider
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="classMessenger_1_1Services_1_1Providers_1_1EventProvider-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Services.Providers.EventProvider Class Reference</div>  </div>
@@ -98,6 +100,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6e015f0f56460d1005f45f368059c15d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a6e015f0f56460d1005f45f368059c15d">Broadcast</a> (<a class="el" href="namespaceMessenger_1_1Models.html#ad50ffd6c40fec329c4e96c706d46e686">BroadcastOptions</a> target, <a class="el" href="namespaceMessenger_1_1Models.html#aee7d172dca49981849ce6512777b5ad8">BroadcastReasons</a> reason=BroadcastReasons.Loaded, object parameter=null)</td></tr>
 <tr class="memdesc:a6e015f0f56460d1005f45f368059c15d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to raise events from outside of the provider  <a href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a6e015f0f56460d1005f45f368059c15d">More...</a><br /></td></tr>
 <tr class="separator:a6e015f0f56460d1005f45f368059c15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a35d05287c538fdda150f8946bb483b76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html">SignalRService</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a35d05287c538fdda150f8946bb483b76">SignalRService</a><code> [get]</code></td></tr>
+<tr class="separator:a35d05287c538fdda150f8946bb483b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf82c932603d9b56bc9df9bff36b031a"><td class="memItemLeft" align="right" valign="top">ToastNotificationsService&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#aaf82c932603d9b56bc9df9bff36b031a">Toast</a><code> [get]</code></td></tr>
+<tr class="separator:aaf82c932603d9b56bc9df9bff36b031a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
@@ -125,6 +134,49 @@ Events</h2></td></tr>
 <tr class="separator:af792e9e8587dc1fbdd26c9a69c05e5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76fe496944ff0ef1cea333b6e47462cb"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classMessenger_1_1Models_1_1BroadcastArgs.html">BroadcastArgs</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a76fe496944ff0ef1cea333b6e47462cb">MessagesSwitched</a></td></tr>
 <tr class="separator:a76fe496944ff0ef1cea333b6e47462cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:afb154693f985ed98adc255d431e5e04d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#afb154693f985ed98adc255d431e5e04d">SubscribeEvents</a> ()</td></tr>
+<tr class="separator:afb154693f985ed98adc255d431e5e04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c2e15ded05bb54541a4712f679c00e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a38c2e15ded05bb54541a4712f679c00e">OnReceiveNotification</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a> &gt; e)</td></tr>
+<tr class="separator:a38c2e15ded05bb54541a4712f679c00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4e2dbf6d4eb7c0b2b1b8358b2317272"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#ae4e2dbf6d4eb7c0b2b1b8358b2317272">OnReceiveMessage</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; args)</td></tr>
+<tr class="separator:ae4e2dbf6d4eb7c0b2b1b8358b2317272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70ed534d94e5ba6c0e4cf9b3d5cb4f90"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a70ed534d94e5ba6c0e4cf9b3d5cb4f90">OnMessageUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; args)</td></tr>
+<tr class="separator:a70ed534d94e5ba6c0e4cf9b3d5cb4f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f698db49b9fcd9aa89313ea1f3e2087"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a2f698db49b9fcd9aa89313ea1f3e2087">OnMessageDeleted</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; args)</td></tr>
+<tr class="separator:a2f698db49b9fcd9aa89313ea1f3e2087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaebc4887293c362897c9b95a3a0e7a8"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#acaebc4887293c362897c9b95a3a0e7a8">OnMessageReactionsUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt; args)</td></tr>
+<tr class="separator:acaebc4887293c362897c9b95a3a0e7a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596c74bb50f5a02c7bdde8437feef79f"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a596c74bb50f5a02c7bdde8437feef79f">OnReceiveInvitation</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:a596c74bb50f5a02c7bdde8437feef79f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616bdee93ca4e7a88c5ad8c64191deb9"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a616bdee93ca4e7a88c5ad8c64191deb9">OnTeamCreated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:a616bdee93ca4e7a88c5ad8c64191deb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743d3b61b3f29bf9afce81fe3b4bc75e"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a743d3b61b3f29bf9afce81fe3b4bc75e">OnTeamUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:a743d3b61b3f29bf9afce81fe3b4bc75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c60c8bf15686046302f6f88acdc5a51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a2c60c8bf15686046302f6f88acdc5a51">OnTeamDeleted</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:a2c60c8bf15686046302f6f88acdc5a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab99c6ca77c96a2172748702fd94b4b87"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#ab99c6ca77c96a2172748702fd94b4b87">OnTeamRoleUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; e)</td></tr>
+<tr class="separator:ab99c6ca77c96a2172748702fd94b4b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acafc3ea73ceee3d0fab76d3b8fd8c614"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#acafc3ea73ceee3d0fab76d3b8fd8c614">OnTeamRoleDeleted</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt; e)</td></tr>
+<tr class="separator:acafc3ea73ceee3d0fab76d3b8fd8c614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47f39c9b9c28b97f17396324049e291"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#ae47f39c9b9c28b97f17396324049e291">OnChannelCreated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; e)</td></tr>
+<tr class="separator:ae47f39c9b9c28b97f17396324049e291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a88ae7a47b1ee5e4b081e6b597fe0f5"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a6a88ae7a47b1ee5e4b081e6b597fe0f5">OnChannelUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; e)</td></tr>
+<tr class="separator:a6a88ae7a47b1ee5e4b081e6b597fe0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21c7caacd388c5753faa18633aca84d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a21c7caacd388c5753faa18633aca84d3">OnChannelDeleted</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt; e)</td></tr>
+<tr class="separator:a21c7caacd388c5753faa18633aca84d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed51397c2028eec8fce708e2e9d20f45"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#aed51397c2028eec8fce708e2e9d20f45">OnMemberAdded</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:aed51397c2028eec8fce708e2e9d20f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cdd31e66b1c225adbcc87d719fbdc2a"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a8cdd31e66b1c225adbcc87d719fbdc2a">OnMemberUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:a8cdd31e66b1c225adbcc87d719fbdc2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a217cb7a0f4b3087b8beb12f9c27f81f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a217cb7a0f4b3087b8beb12f9c27f81f8">OnMemberRemoved</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt; e)</td></tr>
+<tr class="separator:a217cb7a0f4b3087b8beb12f9c27f81f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adec412cea185da37fd9e088ad875a4d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#adec412cea185da37fd9e088ad875a4d7">OnUserUpdated</a> (object sender, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt; e)</td></tr>
+<tr class="separator:adec412cea185da37fd9e088ad875a4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a645d7fab74302d9cc1e65b6079a92abd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Services_1_1Providers_1_1EventProvider.html#a645d7fab74302d9cc1e65b6079a92abd">UpdateSelectedTeam</a> (<a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a> updatedViewModel)</td></tr>
+<tr class="separator:a645d7fab74302d9cc1e65b6079a92abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -154,6 +206,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00063">63</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
 
 </div>
 </div>
@@ -215,7 +269,907 @@ Events</h2></td></tr>
 
 <p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00045">Messenger.Services.Providers.EventProvider.ChannelUpdated</a>, <a class="el" href="EventProvider_8cs_source.html#l00029">Messenger.Services.Providers.EventProvider.ChatsLoaded</a>, <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a765098283d02a96b5cb171e396d0c52a">Messenger.Helpers.CacheQuery.GetMyChats()</a>, <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#af168cc661d0647d6ed58d5949f60fe50">Messenger.Helpers.CacheQuery.GetMyTeams()</a>, <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a185755b2fad80a47c843dbe0609704a6">Messenger.Helpers.CacheQuery.GetNotifications()</a>, <a class="el" href="EventProvider_8cs_source.html#l00031">Messenger.Services.Providers.EventProvider.MessagesLoaded</a>, <a class="el" href="EventProvider_8cs_source.html#l00049">Messenger.Services.Providers.EventProvider.MessageUpdated</a>, <a class="el" href="EventProvider_8cs_source.html#l00053">Messenger.Services.Providers.EventProvider.NotificationReceived</a>, <a class="el" href="EventProvider_8cs_source.html#l00033">Messenger.Services.Providers.EventProvider.NotificationsLoaded</a>, <a class="el" href="BroadcastArgs_8cs_source.html#l00005">Messenger.Models.BroadcastArgs.Payload</a>, <a class="el" href="EventProvider_8cs_source.html#l00047">Messenger.Services.Providers.EventProvider.PrivateChatUpdated</a>, <a class="el" href="EventProvider_8cs_source.html#l00027">Messenger.Services.Providers.EventProvider.TeamsLoaded</a>, <a class="el" href="EventProvider_8cs_source.html#l00043">Messenger.Services.Providers.EventProvider.TeamUpdated</a>, and <a class="el" href="classMessenger_1_1Helpers_1_1CacheQuery.html#a6d7572f7a363492bd9354897c855cfb4">Messenger.Helpers.CacheQuery.TryGetMessages()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CacheQuery_8cs_source.html#l00019">Messenger.Helpers.CacheQuery.Reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00483">Messenger.Services.Providers.EventProvider.OnChannelCreated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00533">Messenger.Services.Providers.EventProvider.OnChannelDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00505">Messenger.Services.Providers.EventProvider.OnChannelUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00559">Messenger.Services.Providers.EventProvider.OnMemberAdded()</a>, <a class="el" href="EventProvider_8cs_source.html#l00611">Messenger.Services.Providers.EventProvider.OnMemberRemoved()</a>, <a class="el" href="EventProvider_8cs_source.html#l00585">Messenger.Services.Providers.EventProvider.OnMemberUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00255">Messenger.Services.Providers.EventProvider.OnMessageDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00277">Messenger.Services.Providers.EventProvider.OnMessageReactionsUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00233">Messenger.Services.Providers.EventProvider.OnMessageUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00302">Messenger.Services.Providers.EventProvider.OnReceiveInvitation()</a>, <a class="el" href="EventProvider_8cs_source.html#l00204">Messenger.Services.Providers.EventProvider.OnReceiveMessage()</a>, <a class="el" href="EventProvider_8cs_source.html#l00182">Messenger.Services.Providers.EventProvider.OnReceiveNotification()</a>, <a class="el" href="EventProvider_8cs_source.html#l00337">Messenger.Services.Providers.EventProvider.OnTeamCreated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00404">Messenger.Services.Providers.EventProvider.OnTeamDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00459">Messenger.Services.Providers.EventProvider.OnTeamRoleDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00439">Messenger.Services.Providers.EventProvider.OnTeamRoleUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00365">Messenger.Services.Providers.EventProvider.OnTeamUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00641">Messenger.Services.Providers.EventProvider.OnUserUpdated()</a>, and <a class="el" href="CacheQuery_8cs_source.html#l00019">Messenger.Helpers.CacheQuery.Reload()</a>.</p>
+
+</div>
+</div>
+<a id="ae47f39c9b9c28b97f17396324049e291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae47f39c9b9c28b97f17396324049e291">&#9670;&nbsp;</a></span>OnChannelCreated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnChannelCreated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF TEAM IS NOT VALID</p>
+<p>ADD TO CACHE</p>
+<p>TRIGGER CHANNEL UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00483">483</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a21c7caacd388c5753faa18633aca84d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21c7caacd388c5753faa18633aca84d3">&#9670;&nbsp;</a></span>OnChannelDeleted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnChannelDeleted </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF TEAM IS NOT VALID</p>
+<p>REMOVE FROM CACHE</p>
+<p>TRIGGER CHANNEL UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00533">533</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a6a88ae7a47b1ee5e4b081e6b597fe0f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a88ae7a47b1ee5e4b081e6b597fe0f5">&#9670;&nbsp;</a></span>OnChannelUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnChannelUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Channel.html">Channel</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF TEAM IS NOT VALID</p>
+<p>ADD OR UPDATE TO CACHE</p>
+<p>UPDATE STATE IF SELECTED</p>
+<p>TRIGGER CHANNEL UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00505">505</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="aed51397c2028eec8fce708e2e9d20f45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed51397c2028eec8fce708e2e9d20f45">&#9670;&nbsp;</a></span>OnMemberAdded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnMemberAdded </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF INVITATION IS NOT VALID</p>
+<p>TRIGGER TEAM UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00559">559</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="SignalREventArgs_8cs_source.html#l00029">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.FirstValue</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="SignalREventArgs_8cs_source.html#l00034">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SecondValue</a>, and <a class="el" href="EventProvider_8cs_source.html#l00659">Messenger.Services.Providers.EventProvider.UpdateSelectedTeam()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a217cb7a0f4b3087b8beb12f9c27f81f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a217cb7a0f4b3087b8beb12f9c27f81f8">&#9670;&nbsp;</a></span>OnMemberRemoved()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnMemberRemoved </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF INVITATION IS NOT VALID</p>
+<p>TRIGGER TEAM UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00611">611</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="SignalREventArgs_8cs_source.html#l00029">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.FirstValue</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="User_8cs_source.html#l00014">Messenger.Core.Models.User.Id</a>, <a class="el" href="SignalREventArgs_8cs_source.html#l00034">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SecondValue</a>, and <a class="el" href="EventProvider_8cs_source.html#l00659">Messenger.Services.Providers.EventProvider.UpdateSelectedTeam()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a8cdd31e66b1c225adbcc87d719fbdc2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cdd31e66b1c225adbcc87d719fbdc2a">&#9670;&nbsp;</a></span>OnMemberUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnMemberUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a>, <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF INVITATION IS NOT VALID</p>
+<p>TRIGGER TEAM UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00585">585</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="SignalREventArgs_8cs_source.html#l00029">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.FirstValue</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="SignalREventArgs_8cs_source.html#l00034">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.SecondValue</a>, and <a class="el" href="EventProvider_8cs_source.html#l00659">Messenger.Services.Providers.EventProvider.UpdateSelectedTeam()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a2f698db49b9fcd9aa89313ea1f3e2087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f698db49b9fcd9aa89313ea1f3e2087">&#9670;&nbsp;</a></span>OnMessageDeleted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnMessageDeleted </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF MESSAGE IS NOT VALID</p>
+<p>REMOVE FROM CACHE</p>
+<p>TRIGGER MESSAGE UPDATED (DELETED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00255">255</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="acaebc4887293c362897c9b95a3a0e7a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaebc4887293c362897c9b95a3a0e7a8">&#9670;&nbsp;</a></span>OnMessageReactionsUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnMessageReactionsUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>RELOAD FROM DB</p>
+<p>TRIGGER MESSAGE UPDATED (DELETED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00277">277</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a70ed534d94e5ba6c0e4cf9b3d5cb4f90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ed534d94e5ba6c0e4cf9b3d5cb4f90">&#9670;&nbsp;</a></span>OnMessageUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnMessageUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF MESSAGE IS NOT VALID</p>
+<p>UPDATE IN CACHE</p>
+<p>TRIGGER MESSAGE UPDATED (UPDATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00233">233</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a596c74bb50f5a02c7bdde8437feef79f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596c74bb50f5a02c7bdde8437feef79f">&#9670;&nbsp;</a></span>OnReceiveInvitation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnReceiveInvitation </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00302">302</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="Team_8cs_source.html#l00023">Messenger.Core.Models.Team.Name</a>, <a class="el" href="EventProvider_8cs_source.html#l00017">Messenger.Services.Providers.EventProvider.Toast</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="ae4e2dbf6d4eb7c0b2b1b8358b2317272"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4e2dbf6d4eb7c0b2b1b8358b2317272">&#9670;&nbsp;</a></span>OnReceiveMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnReceiveMessage </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Message.html">Message</a> &gt;&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>EXIT IF MESSAGE IS NOT VALID</p>
+<p>ADD TO CACHE</p>
+<p>SEND TOAST IF CHANNEL CURRENTLY NOT SELECTED</p>
+<p>TRIGGER MESSAGE UPDATED (CREATED)</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00204">204</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="Message_8cs_source.html#l00035">Messenger.Core.Models.Message.RecipientId</a>, <a class="el" href="EventProvider_8cs_source.html#l00017">Messenger.Services.Providers.EventProvider.Toast</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a38c2e15ded05bb54541a4712f679c00e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c2e15ded05bb54541a4712f679c00e">&#9670;&nbsp;</a></span>OnReceiveNotification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnReceiveNotification </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Notification.html">Notification</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00182">182</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a616bdee93ca4e7a88c5ad8c64191deb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a616bdee93ca4e7a88c5ad8c64191deb9">&#9670;&nbsp;</a></span>OnTeamCreated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnTeamCreated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00337">337</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="Team_8cs_source.html#l00023">Messenger.Core.Models.Team.Name</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a2c60c8bf15686046302f6f88acdc5a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c60c8bf15686046302f6f88acdc5a51">&#9670;&nbsp;</a></span>OnTeamDeleted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnTeamDeleted </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00404">404</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="Team_8cs_source.html#l00018">Messenger.Core.Models.Team.Id</a>, <a class="el" href="Team_8cs_source.html#l00023">Messenger.Core.Models.Team.Name</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="acafc3ea73ceee3d0fab76d3b8fd8c614"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acafc3ea73ceee3d0fab76d3b8fd8c614">&#9670;&nbsp;</a></span>OnTeamRoleDeleted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnTeamRoleDeleted </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00459">459</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="TeamRole_8cs_source.html#l00011">Messenger.Core.Models.TeamRole.Id</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00040">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamId</a>, <a class="el" href="EventProvider_8cs_source.html#l00659">Messenger.Services.Providers.EventProvider.UpdateSelectedTeam()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="ab99c6ca77c96a2172748702fd94b4b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99c6ca77c96a2172748702fd94b4b87">&#9670;&nbsp;</a></span>OnTeamRoleUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnTeamRoleUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1TeamRole.html">TeamRole</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00439">439</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="TeamRoleViewModel_8cs_source.html#l00040">Messenger.ViewModels.DataViewModels.TeamRoleViewModel.TeamId</a>, <a class="el" href="EventProvider_8cs_source.html#l00659">Messenger.Services.Providers.EventProvider.UpdateSelectedTeam()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="a743d3b61b3f29bf9afce81fe3b4bc75e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743d3b61b3f29bf9afce81fe3b4bc75e">&#9670;&nbsp;</a></span>OnTeamUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async void Messenger.Services.Providers.EventProvider.OnTeamUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1Team.html">Team</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ADD PRIVATE CHAT TO CACHE</p>
+<p>ADD TEAM TO CACHE</p>
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00365">365</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, <a class="el" href="Team_8cs_source.html#l00023">Messenger.Core.Models.Team.Name</a>, <a class="el" href="EventProvider_8cs_source.html#l00659">Messenger.Services.Providers.EventProvider.UpdateSelectedTeam()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="adec412cea185da37fd9e088ad875a4d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adec412cea185da37fd9e088ad875a4d7">&#9670;&nbsp;</a></span>OnUserUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.OnUserUpdated </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1Core_1_1Models_1_1SignalREventArgs.html">SignalREventArgs</a>&lt; <a class="el" href="classMessenger_1_1Core_1_1Models_1_1User.html">User</a> &gt;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00641">641</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="EventProvider_8cs_source.html#l00097">Messenger.Services.Providers.EventProvider.Broadcast()</a>, and <a class="el" href="SignalREventArgs_8cs_source.html#l00013">Messenger.Core.Models.SignalREventArgs&lt; TOne, TTwo &gt;.Value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00068">Messenger.Services.Providers.EventProvider.SubscribeEvents()</a>.</p>
+
+</div>
+</div>
+<a id="afb154693f985ed98adc255d431e5e04d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb154693f985ed98adc255d431e5e04d">&#9670;&nbsp;</a></span>SubscribeEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.SubscribeEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00068">68</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SignalRService_8cs_source.html#l00042">Messenger.Core.Services.SignalRService.ChannelCreated</a>, <a class="el" href="SignalRService_8cs_source.html#l00044">Messenger.Core.Services.SignalRService.ChannelDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00043">Messenger.Core.Services.SignalRService.ChannelUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00049">Messenger.Core.Services.SignalRService.MemberAdded</a>, <a class="el" href="SignalRService_8cs_source.html#l00051">Messenger.Core.Services.SignalRService.MemberRemoved</a>, <a class="el" href="SignalRService_8cs_source.html#l00050">Messenger.Core.Services.SignalRService.MemberUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00035">Messenger.Core.Services.SignalRService.MessageDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00036">Messenger.Core.Services.SignalRService.MessageReactionsUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00034">Messenger.Core.Services.SignalRService.MessageUpdated</a>, <a class="el" href="EventProvider_8cs_source.html#l00483">Messenger.Services.Providers.EventProvider.OnChannelCreated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00533">Messenger.Services.Providers.EventProvider.OnChannelDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00505">Messenger.Services.Providers.EventProvider.OnChannelUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00559">Messenger.Services.Providers.EventProvider.OnMemberAdded()</a>, <a class="el" href="EventProvider_8cs_source.html#l00611">Messenger.Services.Providers.EventProvider.OnMemberRemoved()</a>, <a class="el" href="EventProvider_8cs_source.html#l00585">Messenger.Services.Providers.EventProvider.OnMemberUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00255">Messenger.Services.Providers.EventProvider.OnMessageDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00277">Messenger.Services.Providers.EventProvider.OnMessageReactionsUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00233">Messenger.Services.Providers.EventProvider.OnMessageUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00302">Messenger.Services.Providers.EventProvider.OnReceiveInvitation()</a>, <a class="el" href="EventProvider_8cs_source.html#l00204">Messenger.Services.Providers.EventProvider.OnReceiveMessage()</a>, <a class="el" href="EventProvider_8cs_source.html#l00182">Messenger.Services.Providers.EventProvider.OnReceiveNotification()</a>, <a class="el" href="EventProvider_8cs_source.html#l00337">Messenger.Services.Providers.EventProvider.OnTeamCreated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00404">Messenger.Services.Providers.EventProvider.OnTeamDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00459">Messenger.Services.Providers.EventProvider.OnTeamRoleDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00439">Messenger.Services.Providers.EventProvider.OnTeamRoleUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00365">Messenger.Services.Providers.EventProvider.OnTeamUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00641">Messenger.Services.Providers.EventProvider.OnUserUpdated()</a>, <a class="el" href="SignalRService_8cs_source.html#l00031">Messenger.Core.Services.SignalRService.ReceiveInvitation</a>, <a class="el" href="SignalRService_8cs_source.html#l00030">Messenger.Core.Services.SignalRService.ReceiveMessage</a>, <a class="el" href="SignalRService_8cs_source.html#l00032">Messenger.Core.Services.SignalRService.ReceiveNotification</a>, <a class="el" href="SignalRService_8cs_source.html#l00038">Messenger.Core.Services.SignalRService.TeamCreated</a>, <a class="el" href="SignalRService_8cs_source.html#l00040">Messenger.Core.Services.SignalRService.TeamDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00047">Messenger.Core.Services.SignalRService.TeamRoleDeleted</a>, <a class="el" href="SignalRService_8cs_source.html#l00046">Messenger.Core.Services.SignalRService.TeamRoleUpdated</a>, <a class="el" href="SignalRService_8cs_source.html#l00039">Messenger.Core.Services.SignalRService.TeamUpdated</a>, and <a class="el" href="SignalRService_8cs_source.html#l00053">Messenger.Core.Services.SignalRService.UserUpdated</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00063">Messenger.Services.Providers.EventProvider.EventProvider()</a>.</p>
+
+</div>
+</div>
+<a id="a645d7fab74302d9cc1e65b6079a92abd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a645d7fab74302d9cc1e65b6079a92abd">&#9670;&nbsp;</a></span>UpdateSelectedTeam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Messenger.Services.Providers.EventProvider.UpdateSelectedTeam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMessenger_1_1ViewModels_1_1DataViewModels_1_1TeamViewModel.html">TeamViewModel</a>&#160;</td>
+          <td class="paramname"><em>updatedViewModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00659">659</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="ChannelViewModel_8cs_source.html#l00030">Messenger.ViewModels.DataViewModels.ChannelViewModel.ChannelId</a>, <a class="el" href="TeamViewModel_8cs_source.html#l00052">Messenger.ViewModels.DataViewModels.TeamViewModel.Channels</a>, and <a class="el" href="TeamViewModel_8cs_source.html#l00022">Messenger.ViewModels.DataViewModels.TeamViewModel.Id</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00559">Messenger.Services.Providers.EventProvider.OnMemberAdded()</a>, <a class="el" href="EventProvider_8cs_source.html#l00611">Messenger.Services.Providers.EventProvider.OnMemberRemoved()</a>, <a class="el" href="EventProvider_8cs_source.html#l00585">Messenger.Services.Providers.EventProvider.OnMemberUpdated()</a>, <a class="el" href="EventProvider_8cs_source.html#l00459">Messenger.Services.Providers.EventProvider.OnTeamRoleDeleted()</a>, <a class="el" href="EventProvider_8cs_source.html#l00439">Messenger.Services.Providers.EventProvider.OnTeamRoleUpdated()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00365">Messenger.Services.Providers.EventProvider.OnTeamUpdated()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a35d05287c538fdda150f8946bb483b76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35d05287c538fdda150f8946bb483b76">&#9670;&nbsp;</a></span>SignalRService</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1SignalRService.html">SignalRService</a> Messenger.Services.Providers.EventProvider.SignalRService</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00015">15</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+</div>
+</div>
+<a id="aaf82c932603d9b56bc9df9bff36b031a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf82c932603d9b56bc9df9bff36b031a">&#9670;&nbsp;</a></span>Toast</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ToastNotificationsService Messenger.Services.Providers.EventProvider.Toast</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EventProvider_8cs_source.html#l00017">17</a> of file <a class="el" href="EventProvider_8cs_source.html">EventProvider.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EventProvider_8cs_source.html#l00302">Messenger.Services.Providers.EventProvider.OnReceiveInvitation()</a>, and <a class="el" href="EventProvider_8cs_source.html#l00204">Messenger.Services.Providers.EventProvider.OnReceiveMessage()</a>.</p>
 
 </div>
 </div>

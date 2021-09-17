@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Activation_1_1Scheme
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classMessenger_1_1Activation_1_1SchemeActivationConfig-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Activation.SchemeActivationConfig Class Reference</div>  </div>
@@ -96,6 +97,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a2a4ec96b851561792518cdd0a767b9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc4cb599a0a53939275b6bb5d33a4766"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationConfig.html#abc4cb599a0a53939275b6bb5d33a4766">GetPageKey</a> (Type pageType)</td></tr>
 <tr class="separator:abc4cb599a0a53939275b6bb5d33a4766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a9c4390f7d77b5162ff627462e96de009"><td class="memItemLeft" align="right" valign="top">static readonly Dictionary&lt; string, Type &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Activation_1_1SchemeActivationConfig.html#a9c4390f7d77b5162ff627462e96de009">_activationPages</a></td></tr>
+<tr class="separator:a9c4390f7d77b5162ff627462e96de009"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -127,6 +133,8 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="SchemeActivationConfig_8cs_source.html#l00015">15</a> of file <a class="el" href="SchemeActivationConfig_8cs_source.html">SchemeActivationConfig.cs</a>.</p>
 
+<p class="reference">References <a class="el" href="SchemeActivationConfig_8cs_source.html#l00009">Messenger.Activation.SchemeActivationConfig._activationPages</a>.</p>
+
 <p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00023">Messenger.Activation.SchemeActivationData.SchemeActivationData()</a>.</p>
 
 </div>
@@ -156,6 +164,42 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="SchemeActivationConfig_8cs_source.html#l00022">22</a> of file <a class="el" href="SchemeActivationConfig_8cs_source.html">SchemeActivationConfig.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="SchemeActivationConfig_8cs_source.html#l00009">Messenger.Activation.SchemeActivationConfig._activationPages</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SchemeActivationData_8cs_source.html#l00046">Messenger.Activation.SchemeActivationData.BuildUri()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9c4390f7d77b5162ff627462e96de009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c4390f7d77b5162ff627462e96de009">&#9670;&nbsp;</a></span>_activationPages</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly Dictionary&lt;string, Type&gt; Messenger.Activation.SchemeActivationConfig._activationPages</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">new</span> Dictionary&lt;string, Type&gt;()</div>
+<div class="line">        {</div>
+<div class="line">            </div>
+<div class="line">            { <span class="stringliteral">&quot;sample&quot;</span>, typeof(Views.Pages.SchemeActivationSamplePage) }</div>
+<div class="line">        }</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="SchemeActivationConfig_8cs_source.html#l00009">9</a> of file <a class="el" href="SchemeActivationConfig_8cs_source.html">SchemeActivationConfig.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SchemeActivationConfig_8cs_source.html#l00015">Messenger.Activation.SchemeActivationConfig.GetPage()</a>, and <a class="el" href="SchemeActivationConfig_8cs_source.html#l00022">Messenger.Activation.SchemeActivationConfig.GetPageKey()</a>.</p>
 
 </div>
 </div>

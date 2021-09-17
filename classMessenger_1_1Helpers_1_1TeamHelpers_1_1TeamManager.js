@@ -10,10 +10,17 @@ var classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager =
     [ "AddOrUpdateTeamRole", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a5600c579da6cdfcc35cc99238f7732d3", null ],
     [ "Initialize", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a7b910334ef3277be02e4f5ce2e483860", null ],
     [ "LoadTeamsFromDatabase", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#aba32f289c1aabedb5686d3f4e74c9a62", null ],
+    [ "OnMessagesLoadedForChannel", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a0e91d3b14f523976fc9191c7403f10bc", null ],
+    [ "OnPropertyChanged", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a6017c02d3a44586fbd75ff0181d3afea", null ],
     [ "RemoveChannel", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#ac9f5bd5a0de2f5ddbc537da367fb3b0d", null ],
     [ "RemoveMember", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#ae98ce42a3dcb23a9cf34042828b9a055", null ],
     [ "RemoveTeam", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#aeb7665ad101b65dbc03bf7bdf98c0c35", null ],
     [ "RemoveTeamRole", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a7cc165e6c39b01fdbd1ca38833bd6066", null ],
+    [ "Set< T >", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#ae8cf458aa24cfd172c194942009a5c62", null ],
+    [ "_myChats", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a9f83c384c98f0e01713eed8f9aa2e8e5", null ],
+    [ "_myTeams", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a54b889b9334b3fe6f34f3baf545caa57", null ],
+    [ "_provider", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a18d2ca1f65cfad83281efa7a8e22b8a9", null ],
     [ "MyChats", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a4b15d72bef24bf20987d1eadf50a9262", null ],
-    [ "MyTeams", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a65d9be34b7c958ac3673f1eb05c7e2b2", null ]
+    [ "MyTeams", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#a65d9be34b7c958ac3673f1eb05c7e2b2", null ],
+    [ "PropertyChanged", "classMessenger_1_1Helpers_1_1TeamHelpers_1_1TeamManager.html#abfb33e2ab5ee82b41173e8a9d79fc08d", null ]
 ];

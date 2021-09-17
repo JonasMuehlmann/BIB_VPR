@@ -1,10 +1,17 @@
 var classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel =
 [
     [ "TeamNavViewModel", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a69ed5206dfa42be0479cfe0c00ad3cad", null ],
+    [ "Initialize", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a2e9a273fb07bbe801d459ef5dd6a1f7e", null ],
+    [ "LoadFromCache", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#ac4bf06596bfa1e4e591e67c5e13d49fa", null ],
     [ "OnChannelUpdated", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a6a0fdefb8106e9e3712d024ddd5c0d61", null ],
     [ "OnMessageUpdated", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a653d348865f671d36315c724538c385b", null ],
+    [ "OnPropertyChanged", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a6017c02d3a44586fbd75ff0181d3afea", null ],
     [ "OnTeamsLoaded", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a3eaab9d593308c79ade7fb303e75e583", null ],
     [ "OnTeamUpdated", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#ad95aa481a4c00d2fb22887cf72ef450c", null ],
+    [ "Reload", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#abee879f25da4e3400fc3ac472d5bc6d2", null ],
+    [ "Set< T >", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#ae8cf458aa24cfd172c194942009a5c62", null ],
+    [ "_isBusy", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#aec768a90c59ede1bee6a7e7d2888ab08", null ],
+    [ "_teams", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a92ed13f82de7fb462831865edaa6f08f", null ],
     [ "CreateTeamCommand", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#af52da1102659ab5e3048ecc327196bfe", null ],
     [ "CurrentUser", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a5d4317f57018ba5eae95618d83b8d7dd", null ],
     [ "IsBusy", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a0a00f3e3830ec7487e3ec1e3e2461db8", null ],
@@ -13,5 +20,6 @@ var classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel =
     [ "RemoveTeamCommand", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a2c4eaaeaf5c56b56ae441b6c3bedc565", null ],
     [ "TeamChannelSwitchCommand", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a9149e0e28e951a65625c3321bf2f799f", null ],
     [ "Teams", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a84a622e5b192584d008ce63f8054faef", null ],
-    [ "UserDataService", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a61c620b264f0517982421280b8f44d4f", null ]
+    [ "UserDataService", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#a61c620b264f0517982421280b8f44d4f", null ],
+    [ "PropertyChanged", "classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#abfb33e2ab5ee82b41173e8a9d79fc08d", null ]
 ];

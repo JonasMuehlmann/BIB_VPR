@@ -63,7 +63,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Properties", "functions_prop.html", "functions_prop" ],
         [ "Events", "functions_evnt.html", null ]
       ] ]
@@ -82,12 +82,14 @@ var NAVTREEINDEX =
 [
 "ActivationHandler_8cs.html",
 "NotificationType_8cs.html#a13cd00e86df58886f8982650917cebaba64e9eb4017d886bc4aeaf4ed8c84e2a5",
-"classMessenger_1_1Commands_1_1Messenger_1_1DownloadAttachmentCommand.html#a287223e2a28917311881b3f3d92bff4c",
-"classMessenger_1_1Core_1_1Models_1_1Team.html#a0ff60b67201f09cc6d7be68ba21ad408",
-"classMessenger_1_1Helpers_1_1Converters_1_1DateToStringConverter.html",
-"classMessenger_1_1SignalR_1_1ChatHub.html#ac4cd9d459cd33671d6dc8a73ba4614f5",
-"classMessenger_1_1ViewModels_1_1Pages_1_1TeamNavViewModel.html#af52da1102659ab5e3048ecc327196bfe",
-"functions_vars.html"
+"classMessenger_1_1Commands_1_1Messenger_1_1AttachFileCommand.html",
+"classMessenger_1_1Core_1_1Models_1_1Message.html#a97fed67252ac0a193529ffb55b16d061",
+"classMessenger_1_1Core_1_1Services_1_1SignalRService.html#abe281968446f652babfcaa6acddda11d",
+"classMessenger_1_1Services_1_1DragAndDrop_1_1DropConfiguration.html#ad633226c35abf79bb31364d4ad37dbb2",
+"classMessenger_1_1ViewModels_1_1Controls_1_1UserSearchPanelViewModel.html",
+"classMessenger_1_1ViewModels_1_1DialogBoxes_1_1ManageRolesDialogViewModel.html#a1f7d17a54183fae176bcddd309cb8e06",
+"classMessenger_1_1Views_1_1DialogBoxes_1_1OperationConfirmationDialog.html#a2ad2fdabf3b79ddb4152f53cc00dfa4f",
+"hierarchy.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

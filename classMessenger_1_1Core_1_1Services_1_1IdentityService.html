@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('classMessenger_1_1Core_1_1Services_1_1
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#events">Events</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMessenger_1_1Core_1_1Services_1_1IdentityService-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Messenger.Core.Services.IdentityService Class Reference</div>  </div>
@@ -124,13 +126,31 @@ Events</h2></td></tr>
 <tr class="separator:a1c736415510e6276d6dccd4660c961da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62d52496a8773445ca511f303c6f2837"><td class="memItemLeft" align="right" valign="top">EventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a62d52496a8773445ca511f303c6f2837">LoggedOut</a></td></tr>
 <tr class="separator:a62d52496a8773445ca511f303c6f2837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a52988d7dbae0f6f41c89856c4df4f0c5"><td class="memItemLeft" align="right" valign="top">async Task&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a52988d7dbae0f6f41c89856c4df4f0c5">AcquireTokenSilentAsync</a> (string[] scopes)</td></tr>
+<tr class="separator:a52988d7dbae0f6f41c89856c4df4f0c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a00e4f52a38418360becc62bc669597b4"><td class="memItemLeft" align="right" valign="top">readonly string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a00e4f52a38418360becc62bc669597b4">_clientId</a> = ConfigurationManager.AppSettings[&quot;IdentityClientId&quot;]</td></tr>
+<tr class="separator:a00e4f52a38418360becc62bc669597b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ee7df64d958525542796068a219ac0a"><td class="memItemLeft" align="right" valign="top">readonly string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a9ee7df64d958525542796068a219ac0a">_graphScopes</a> = new string[] { &quot;user.read&quot; }</td></tr>
+<tr class="separator:a9ee7df64d958525542796068a219ac0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6313e43acae58443444c433eb92cf40b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a6313e43acae58443444c433eb92cf40b">_integratedAuthAvailable</a></td></tr>
+<tr class="separator:a6313e43acae58443444c433eb92cf40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac08e3dc5a845268178b95f864829e47c"><td class="memItemLeft" align="right" valign="top">IPublicClientApplication&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#ac08e3dc5a845268178b95f864829e47c">_client</a></td></tr>
+<tr class="separator:ac08e3dc5a845268178b95f864829e47c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05c3820e0f027a2309cca2c26d41aa06"><td class="memItemLeft" align="right" valign="top">AuthenticationResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a05c3820e0f027a2309cca2c26d41aa06">_authenticationResult</a></td></tr>
+<tr class="separator:a05c3820e0f027a2309cca2c26d41aa06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00013">13</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a77d1df7506907824afd7f84f84eb9615"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77d1df7506907824afd7f84f84eb9615">&#9670;&nbsp;</a></span>AcquireTokenSilentAsync()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d1df7506907824afd7f84f84eb9615">&#9670;&nbsp;</a></span>AcquireTokenSilentAsync() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +165,36 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">Referenced by <a class="el" href="IdentityService_8cs_source.html#l00147">Messenger.Core.Services.IdentityService.GetAccessTokenAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a52988d7dbae0f6f41c89856c4df4f0c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52988d7dbae0f6f41c89856c4df4f0c5">&#9670;&nbsp;</a></span>AcquireTokenSilentAsync() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">async Task&lt;bool&gt; Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync </td>
+          <td>(</td>
+          <td class="paramtype">string[]&#160;</td>
+          <td class="paramname"><em>scopes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00177">177</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00032">Messenger.Core.Services.IdentityService._authenticationResult</a>, <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, <a class="el" href="IdentityService_8cs_source.html#l00028">Messenger.Core.Services.IdentityService._graphScopes</a>, and <a class="el" href="IdentityService_8cs_source.html#l00030">Messenger.Core.Services.IdentityService._integratedAuthAvailable</a>.</p>
 
 </div>
 </div>
@@ -174,7 +224,7 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00147">147</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a77d1df7506907824afd7f84f84eb9615">Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00036">Messenger.Core.Services.IdentityService.LoggedOut</a>.</p>
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00032">Messenger.Core.Services.IdentityService._authenticationResult</a>, <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, <a class="el" href="classMessenger_1_1Core_1_1Services_1_1IdentityService.html#a77d1df7506907824afd7f84f84eb9615">Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00036">Messenger.Core.Services.IdentityService.LoggedOut</a>.</p>
 
 </div>
 </div>
@@ -192,6 +242,8 @@ Events</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00072">Messenger.Services.UserDataService.GetUserFromGraphApiAsync()</a>.</p>
 
 </div>
 </div>
@@ -219,6 +271,10 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00118">118</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00032">Messenger.Core.Services.IdentityService._authenticationResult</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserDataService_8cs_source.html#l00123">Messenger.Services.UserDataService.GetDefaultUserData()</a>.</p>
 
 </div>
 </div>
@@ -248,6 +304,8 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00063">63</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
 
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, and <a class="el" href="IdentityService_8cs_source.html#l00030">Messenger.Core.Services.IdentityService._integratedAuthAvailable</a>.</p>
+
 </div>
 </div>
 <a id="af65cd4624aaf54e2e4d98a2c37f2b691"></a>
@@ -274,6 +332,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00038">38</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, <a class="el" href="IdentityService_8cs_source.html#l00026">Messenger.Core.Services.IdentityService._clientId</a>, and <a class="el" href="IdentityService_8cs_source.html#l00030">Messenger.Core.Services.IdentityService._integratedAuthAvailable</a>.</p>
 
 </div>
 </div>
@@ -302,6 +362,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00047">47</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, <a class="el" href="IdentityService_8cs_source.html#l00026">Messenger.Core.Services.IdentityService._clientId</a>, and <a class="el" href="IdentityService_8cs_source.html#l00030">Messenger.Core.Services.IdentityService._integratedAuthAvailable</a>.</p>
 
 </div>
 </div>
@@ -340,6 +402,8 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00055">55</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, <a class="el" href="IdentityService_8cs_source.html#l00026">Messenger.Core.Services.IdentityService._clientId</a>, and <a class="el" href="IdentityService_8cs_source.html#l00030">Messenger.Core.Services.IdentityService._integratedAuthAvailable</a>.</p>
 
 </div>
 </div>
@@ -414,7 +478,9 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00074">74</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00111">Messenger.Core.Services.IdentityService.IsAuthorized()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00034">Messenger.Core.Services.IdentityService.LoggedIn</a>.</p>
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00032">Messenger.Core.Services.IdentityService._authenticationResult</a>, <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, <a class="el" href="IdentityService_8cs_source.html#l00028">Messenger.Core.Services.IdentityService._graphScopes</a>, <a class="el" href="IdentityService_8cs_source.html#l00111">Messenger.Core.Services.IdentityService.IsAuthorized()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00034">Messenger.Core.Services.IdentityService.LoggedIn</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="LogInViewModel_8cs_source.html#l00040">Messenger.ViewModels.Pages.LogInViewModel.OnLogin()</a>.</p>
 
 </div>
 </div>
@@ -443,7 +509,140 @@ Events</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00123">123</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
 
-<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00036">Messenger.Core.Services.IdentityService.LoggedOut</a>.</p>
+<p class="reference">References <a class="el" href="IdentityService_8cs_source.html#l00032">Messenger.Core.Services.IdentityService._authenticationResult</a>, <a class="el" href="IdentityService_8cs_source.html#l00031">Messenger.Core.Services.IdentityService._client</a>, and <a class="el" href="IdentityService_8cs_source.html#l00036">Messenger.Core.Services.IdentityService.LoggedOut</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SettingsViewModel_8cs_source.html#l00126">Messenger.ViewModels.Pages.SettingsViewModel.OnLogout()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a05c3820e0f027a2309cca2c26d41aa06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05c3820e0f027a2309cca2c26d41aa06">&#9670;&nbsp;</a></span>_authenticationResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AuthenticationResult Messenger.Core.Services.IdentityService._authenticationResult</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00032">32</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IdentityService_8cs_source.html#l00177">Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync()</a>, <a class="el" href="IdentityService_8cs_source.html#l00147">Messenger.Core.Services.IdentityService.GetAccessTokenAsync()</a>, <a class="el" href="IdentityService_8cs_source.html#l00118">Messenger.Core.Services.IdentityService.GetAccountUserName()</a>, <a class="el" href="IdentityService_8cs_source.html#l00074">Messenger.Core.Services.IdentityService.LoginAsync()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00123">Messenger.Core.Services.IdentityService.LogoutAsync()</a>.</p>
+
+</div>
+</div>
+<a id="ac08e3dc5a845268178b95f864829e47c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac08e3dc5a845268178b95f864829e47c">&#9670;&nbsp;</a></span>_client</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IPublicClientApplication Messenger.Core.Services.IdentityService._client</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00031">31</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IdentityService_8cs_source.html#l00177">Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync()</a>, <a class="el" href="IdentityService_8cs_source.html#l00147">Messenger.Core.Services.IdentityService.GetAccessTokenAsync()</a>, <a class="el" href="IdentityService_8cs_source.html#l00063">Messenger.Core.Services.IdentityService.InitializeConsoleForAadMultipleOrgs()</a>, <a class="el" href="IdentityService_8cs_source.html#l00038">Messenger.Core.Services.IdentityService.InitializeWithAadAndPersonalMsAccounts()</a>, <a class="el" href="IdentityService_8cs_source.html#l00047">Messenger.Core.Services.IdentityService.InitializeWithAadMultipleOrgs()</a>, <a class="el" href="IdentityService_8cs_source.html#l00055">Messenger.Core.Services.IdentityService.InitializeWithAadSingleOrg()</a>, <a class="el" href="IdentityService_8cs_source.html#l00074">Messenger.Core.Services.IdentityService.LoginAsync()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00123">Messenger.Core.Services.IdentityService.LogoutAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a00e4f52a38418360becc62bc669597b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00e4f52a38418360becc62bc669597b4">&#9670;&nbsp;</a></span>_clientId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly string Messenger.Core.Services.IdentityService._clientId = ConfigurationManager.AppSettings[&quot;IdentityClientId&quot;]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00026">26</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IdentityService_8cs_source.html#l00038">Messenger.Core.Services.IdentityService.InitializeWithAadAndPersonalMsAccounts()</a>, <a class="el" href="IdentityService_8cs_source.html#l00047">Messenger.Core.Services.IdentityService.InitializeWithAadMultipleOrgs()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00055">Messenger.Core.Services.IdentityService.InitializeWithAadSingleOrg()</a>.</p>
+
+</div>
+</div>
+<a id="a9ee7df64d958525542796068a219ac0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ee7df64d958525542796068a219ac0a">&#9670;&nbsp;</a></span>_graphScopes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly string [] Messenger.Core.Services.IdentityService._graphScopes = new string[] { &quot;user.read&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00028">28</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IdentityService_8cs_source.html#l00177">Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00074">Messenger.Core.Services.IdentityService.LoginAsync()</a>.</p>
+
+</div>
+</div>
+<a id="a6313e43acae58443444c433eb92cf40b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6313e43acae58443444c433eb92cf40b">&#9670;&nbsp;</a></span>_integratedAuthAvailable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Messenger.Core.Services.IdentityService._integratedAuthAvailable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="IdentityService_8cs_source.html#l00030">30</a> of file <a class="el" href="IdentityService_8cs_source.html">IdentityService.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IdentityService_8cs_source.html#l00177">Messenger.Core.Services.IdentityService.AcquireTokenSilentAsync()</a>, <a class="el" href="IdentityService_8cs_source.html#l00063">Messenger.Core.Services.IdentityService.InitializeConsoleForAadMultipleOrgs()</a>, <a class="el" href="IdentityService_8cs_source.html#l00038">Messenger.Core.Services.IdentityService.InitializeWithAadAndPersonalMsAccounts()</a>, <a class="el" href="IdentityService_8cs_source.html#l00047">Messenger.Core.Services.IdentityService.InitializeWithAadMultipleOrgs()</a>, and <a class="el" href="IdentityService_8cs_source.html#l00055">Messenger.Core.Services.IdentityService.InitializeWithAadSingleOrg()</a>.</p>
 
 </div>
 </div>
