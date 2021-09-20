@@ -15,20 +15,20 @@
     d:DesignWidth="800">
     <UserControl.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+        <converters:FilePathFilenameConverter x:Key="FilePathFilenameConverter" />
         <Style x:Key="OuterPanel" TargetType="StackPanel">
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="20 10" />
             <Setter Property="Margin" Value="20 0 20 20" />
             <Setter Property="MaxWidth" Value="850" />
         </Style>
-        <Style x:Key="AttachmentsList" TargetType="ListView">
-            <Setter Property="Height" Value="80" />
+        <Style x:Key="AttachmentsList" TargetType="GridView">
+            <Setter Property="Margin" Value="5 10" />
+            <Setter Property="MaxHeight" Value="110" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Visibility" Value="Visible" />
-            <Setter Property="Background" Value="{StaticResource SystemChromeLowColor}" />
-        </Style>
-        <Style x:Key="AttachmentsListItem" TargetType="ListViewItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Transparent" />
         </Style>
         <Style x:Key="MessageContent" TargetType="TextBox">
             <Setter Property="Padding" Value="20 10" />
@@ -48,18 +48,6 @@
         </Style>
         <Style x:Key="OpenFilesButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
         </Style>
-        <DataTemplate x:Key="Attachment">
-            <Border
-                Background="{ThemeResource SystemAccentColorDark3}"
-                Padding="10,8,10,8"
-                HorizontalAlignment="Stretch"
-                CornerRadius="5">
-                <TextBlock
-                    Text="{Binding DisplayName}"
-                    Foreground="White"
-                    />
-            </Border>
-        </DataTemplate>
         <Style x:Key="ReplyPanel" TargetType="Grid">
             <Setter Property="Padding" Value="15 0" />
             <Setter Property="Margin" Value="5 10" />
@@ -71,6 +59,42 @@
 
     <StackPanel Style="{StaticResource OuterPanel}">
         <MenuFlyoutSeparator Margin="0 20" Opacity=".25"/>
+        <GridView Visibility="{x:Bind
+            ViewModel.ParentViewModel.MessageToSend.UploadFileData.Count,
+            Mode=OneWay,
+            Converter={StaticResource CountToVisibilityConverter}}"
+            ItemsSource="{x:Bind ViewModel.ParentViewModel.MessageToSend.UploadFileData, Mode=OneWay}"
+            Style="{StaticResource AttachmentsList}"
+            SelectionMode="None"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:UploadData">
+                    <Border
+                        BorderBrush="{ThemeResource PrimaryAccent_A}"
+                        BorderThickness="2"
+                        Padding="10,8,10,8"
+                        HorizontalAlignment="Stretch"
+                        CornerRadius="5"
+                        Margin="0 5">
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox
+                                Width="25">
+                                <icons:PackIconFontAwesome
+                                Kind="FileSolid"
+                            />
+                            </Viewbox>
+                            <TextBlock
+                                Margin="10 0"
+                                Text="{Binding FilePath, Converter={StaticResource FilePathFilenameConverter}}"
+                                Foreground="{ThemeResource SystemBaseHighColor}"
+                            />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
         <Grid
             Style="{StaticResource ReplyPanel}"
             Visibility="{x:Bind
@@ -78,6 +102,7 @@
                 Mode=OneWay,
                 Converter={StaticResource NullToVisibilityConverter}}">
             <StackPanel
+
                 DataContext="{x:Bind
                     ViewModel.ParentViewModel.ReplyMessage,
                     Mode=OneWay}">
@@ -212,22 +237,22 @@
                                     Width="400"
                                     HorizontalScrollBarVisibility="Visible"
                                     VerticalScrollBarVisibility="Disabled">
-                                        <ItemsControl
+                                    <ItemsControl
                                             x:Name="ctlCategory"
                                             Margin="0 0 0 20"
                                             ItemsSource="{x:Bind
                                                 ViewModel.EmojiCategories,
                                                 Mode=OneWay}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <ItemsStackPanel
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsStackPanel
                                                         Orientation="Horizontal"
                                                         />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ToggleButton
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ToggleButton
                                                         Name="buttonCategory"
                                                         Checked="ToggleButton_Checked"
                                                         Unchecked="ToggleButton_Unchecked"
@@ -238,9 +263,9 @@
                                                         FontSize="10"
                                                         Content="{Binding}"
                                                         />
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </ScrollViewer>
                                 <StackPanel
                                     Visibility="{x:Bind
