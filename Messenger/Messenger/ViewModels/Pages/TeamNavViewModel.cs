@@ -154,6 +154,7 @@ namespace Messenger.ViewModels.Pages
         /// </summary>
         public void OnTeamUpdated(object sender, BroadcastArgs e)
         {
+
             TeamViewModel team = e.Payload as TeamViewModel;
 
             if (team == null)
@@ -168,9 +169,18 @@ namespace Messenger.ViewModels.Pages
             else if (e.Reason == BroadcastReasons.Updated)
             {
                 TeamViewModel target = _teams.SingleOrDefault(t => t.Id == team.Id);
-                int index = _teams.IndexOf(target);
+                if (target != null)
+                {
+                    int index = _teams.IndexOf(target);
 
-                _teams[index] = new TeamViewModel(team);
+                    _teams[index].Id = team.Id;
+                    _teams[index].Channels = team.Channels;
+                    _teams[index].CreationDate = team.CreationDate;
+                    _teams[index].Description = team.Description;
+                    _teams[index].Members = team.Members;
+                    _teams[index].TeamName = team.TeamName;
+                    _teams[index].TeamRoles = team.TeamRoles;
+                }
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
@@ -181,6 +191,7 @@ namespace Messenger.ViewModels.Pages
                     _teams.Remove(target);
                 }
             }
+
         }
 
         /// <summary>
