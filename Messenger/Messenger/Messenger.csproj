@@ -189,6 +189,7 @@
     <Compile Include="Commands\TeamManage\RevokePermissionCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserNameCommand.cs" />
     <Compile Include="Commands\UserData\UpdateUserBioCommand.cs" />
+    <Compile Include="Helpers\Converters\FilePathFilenameConverter.cs" />
     <Compile Include="Helpers\Converters\CountToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NotificationTypeToStringConverter.cs" />
     <Compile Include="ViewModels\DataViewModels\NotificationMessageViewModel.cs" />
