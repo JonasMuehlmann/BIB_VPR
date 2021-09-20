@@ -4,6 +4,7 @@ using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using System;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage

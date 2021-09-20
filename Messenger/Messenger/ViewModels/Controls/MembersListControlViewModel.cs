@@ -1,6 +1,7 @@
 ﻿using Messenger.Commands;
 using Messenger.Commands.TeamManage;
 using Messenger.Helpers;
+using Messenger.Models;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.Pages;
 using Messenger.Views.DialogBoxes;
@@ -30,9 +31,36 @@ namespace Messenger.ViewModels.Controls
 
         public MembersListControlViewModel(TeamManageViewModel parentViewModel)
         {
-            Members = App.StateProvider.SelectedTeam.Members;
+            Members = new ObservableCollection<MemberViewModel>();
+
+            foreach (MemberViewModel member in App.StateProvider.SelectedTeam.Members)
+            {
+                Members.Add(member);
+            }
 
             ParentViewModel = parentViewModel;
+
+            App.EventProvider.TeamUpdated += OnTeamUpdated;
+        }
+
+        public void OnTeamUpdated(object sender, BroadcastArgs e)
+        {
+            TeamViewModel team = new TeamViewModel(e.Payload as TeamViewModel);
+
+            if (team == null)
+            {   
+                return;
+            }
+
+            if (e.Reason == BroadcastReasons.Updated)
+            {
+                Members.Clear();
+
+                foreach (MemberViewModel member in team.Members)
+                {
+                    Members.Add(member);
+                }
+            }
         }
     }
 }
