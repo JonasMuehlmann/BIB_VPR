@@ -10,7 +10,7 @@
   <Identity
     Name="EB53FA9D-7193-4A06-A0A7-75655B76EEBA"
     Publisher="CN=legom"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="EB53FA9D-7193-4A06-A0A7-75655B76EEBA" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
