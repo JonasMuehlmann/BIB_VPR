@@ -129,6 +129,36 @@
                 </Viewbox>
             </Button>
         </Grid>
+        <ScrollViewer
+            HorizontalScrollMode="Enabled"
+            VerticalScrollBarVisibility="Disabled">
+            <ListBox
+                ItemsSource="{x:Bind
+                    ViewModel.SearchedMentionables}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:Mentionable">
+                        <Grid
+                            MinWidth="250">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Text="{Binding TargetType}"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource PrimaryAccent_A}"
+                                />
+                            <TextBlock
+                                Grid.Column="1"
+                                FontWeight="SemiBold"
+                                Text="{Binding TargetName}"
+                                />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
         <!-- CONTENT BAR -->
         <Grid
             VerticalAlignment="Center">
@@ -138,6 +168,7 @@
                 Background="{ThemeResource Elevation_2}"
                 PlaceholderText="Write something..."
                 PreviewKeyDown="tbxContent_PreviewKeyDown"
+                BeforeTextChanging="tbxContent_BeforeTextChanging"
                 Text="{x:Bind
                     ViewModel.ParentViewModel.MessageToSend.Content,
                     Mode=TwoWay,
