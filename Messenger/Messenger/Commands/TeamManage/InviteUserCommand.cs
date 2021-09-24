@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Invite the user to the current team
+    /// </summary>
     public class InviteUserCommand : ICommand
     {
         private ILogger _logger = GlobalLogger.Instance;

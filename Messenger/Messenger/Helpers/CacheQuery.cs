@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.Helpers
 {
+    /// <summary>
+    /// Helper class responsible for writing/retrieving data from the cache
+    /// </summary>
     public static class CacheQuery
     {
         public static async Task Reload()

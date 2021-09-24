@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace Messenger.Services.Providers
 {
+    /// <summary>
+    /// Manages events between SignalR and view models
+    /// </summary>
     public class EventProvider
     {
         private SignalRService SignalRService => Singleton<SignalRService>.Instance;
@@ -85,7 +88,6 @@ namespace Messenger.Services.Providers
             SignalRService.MemberUpdated += OnMemberUpdated;
             SignalRService.MemberRemoved += OnMemberRemoved;
             SignalRService.UserUpdated += OnUserUpdated;
-            SignalRService.ReceiveInvitation += OnReceiveInvitation;
         }
 
         /// <summary>
@@ -318,7 +320,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.ChatUpdated,
-                    BroadcastReasons.Updated,
+                    BroadcastReasons.Created,
                     chatViewModel);
             }
             else
@@ -329,7 +331,7 @@ namespace Messenger.Services.Providers
 
                 Broadcast(
                     BroadcastOptions.TeamUpdated,
-                    BroadcastReasons.Updated,
+                    BroadcastReasons.Created,
                     teamViewModel);
             }
         }
@@ -543,7 +545,7 @@ namespace Messenger.Services.Providers
             Channel channel = e.Value;
 
             /** REMOVE FROM CACHE **/
-            ChannelViewModel viewModel = CacheQuery.Remove<ChannelViewModel>(channel);
+            ChannelViewModel viewModel = CacheQuery.Remove<ChannelViewModel>(channel.ChannelId);
 
             /** TRIGGER CHANNEL UPDATED (UPDATED) **/
             Broadcast(
@@ -628,10 +630,20 @@ namespace Messenger.Services.Providers
             UpdateSelectedTeam(teamViewModel);
 
             /** TRIGGER TEAM UPDATED (UPDATED) **/
-            Broadcast(
-                BroadcastOptions.TeamUpdated,
-                BroadcastReasons.Updated,
-                teamViewModel);
+            if (user.Id == App.StateProvider.CurrentUser.Id)
+            {
+                Broadcast(
+                    BroadcastOptions.TeamUpdated,
+                    BroadcastReasons.Deleted,
+                    teamViewModel);
+            }
+            else
+            {
+                Broadcast(
+                    BroadcastOptions.TeamUpdated,
+                    BroadcastReasons.Updated,
+                    teamViewModel);
+            }
         }
 
         #endregion

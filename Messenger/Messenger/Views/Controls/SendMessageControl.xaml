@@ -8,25 +8,27 @@
     xmlns:local="using:Messenger.Views.Controls"
     xmlns:icons="using:MahApps.Metro.IconPacks"
     xmlns:converters="using:Messenger.Helpers.Converters"
+    xmlns:ms="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:Messenger.Core.Models"
     mc:Ignorable="d"
     d:DesignHeight="400"
     d:DesignWidth="800">
     <UserControl.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+        <converters:FilePathFilenameConverter x:Key="FilePathFilenameConverter" />
         <Style x:Key="OuterPanel" TargetType="StackPanel">
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="20 10" />
             <Setter Property="Margin" Value="20 0 20 20" />
             <Setter Property="MaxWidth" Value="850" />
         </Style>
-        <Style x:Key="AttachmentsList" TargetType="ListView">
-            <Setter Property="Height" Value="80" />
+        <Style x:Key="AttachmentsList" TargetType="GridView">
+            <Setter Property="Margin" Value="5 10" />
+            <Setter Property="MaxHeight" Value="110" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Visibility" Value="Visible" />
-            <Setter Property="Background" Value="{StaticResource SystemChromeLowColor}" />
-        </Style>
-        <Style x:Key="AttachmentsListItem" TargetType="ListViewItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Transparent" />
         </Style>
         <Style x:Key="MessageContent" TargetType="TextBox">
             <Setter Property="Padding" Value="20 10" />
@@ -46,18 +48,6 @@
         </Style>
         <Style x:Key="OpenFilesButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
         </Style>
-        <DataTemplate x:Key="Attachment">
-            <Border
-                Background="{ThemeResource SystemAccentColorDark3}"
-                Padding="10,8,10,8"
-                HorizontalAlignment="Stretch"
-                CornerRadius="5">
-                <TextBlock
-                    Text="{Binding DisplayName}"
-                    Foreground="White"
-                    />
-            </Border>
-        </DataTemplate>
         <Style x:Key="ReplyPanel" TargetType="Grid">
             <Setter Property="Padding" Value="15 0" />
             <Setter Property="Margin" Value="5 10" />
@@ -69,6 +59,42 @@
 
     <StackPanel Style="{StaticResource OuterPanel}">
         <MenuFlyoutSeparator Margin="0 20" Opacity=".25"/>
+        <GridView Visibility="{x:Bind
+            ViewModel.ParentViewModel.MessageToSend.UploadFileData.Count,
+            Mode=OneWay,
+            Converter={StaticResource CountToVisibilityConverter}}"
+            ItemsSource="{x:Bind ViewModel.ParentViewModel.MessageToSend.UploadFileData, Mode=OneWay}"
+            Style="{StaticResource AttachmentsList}"
+            SelectionMode="None"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:UploadData">
+                    <Border
+                        BorderBrush="{ThemeResource PrimaryAccent_A}"
+                        BorderThickness="2"
+                        Padding="10,8,10,8"
+                        HorizontalAlignment="Stretch"
+                        CornerRadius="5"
+                        Margin="0 5">
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox
+                                Width="25">
+                                <icons:PackIconFontAwesome
+                                Kind="FileSolid"
+                            />
+                            </Viewbox>
+                            <TextBlock
+                                Margin="10 0"
+                                Text="{Binding FilePath, Converter={StaticResource FilePathFilenameConverter}}"
+                                Foreground="{ThemeResource SystemBaseHighColor}"
+                            />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
         <Grid
             Style="{StaticResource ReplyPanel}"
             Visibility="{x:Bind
@@ -76,6 +102,7 @@
                 Mode=OneWay,
                 Converter={StaticResource NullToVisibilityConverter}}">
             <StackPanel
+
                 DataContext="{x:Bind
                     ViewModel.ParentViewModel.ReplyMessage,
                     Mode=OneWay}">
@@ -143,6 +170,160 @@
                             Kind="SmileRegular"
                             />
                     </Viewbox>
+                    <Button.Flyout>
+                        <Flyout
+                            Placement="TopEdgeAlignedRight">
+                            <StackPanel
+                                Spacing="10">
+                                <TextBox
+                                    PlaceholderText="Search Emojis.."
+                                    TextChanged="TextBox_TextChanged"
+                                    />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Text="Applied Filters"
+                                        VerticalAlignment="Center"
+                                        Opacity=".55"
+                                        FontSize="12"
+                                        Padding="5 0 0 0"
+                                        />
+                                    <Button
+                                        Visibility="{x:Bind
+                                            ViewModel.AppliedFilters.Count,
+                                            Mode=OneWay,
+                                            Converter={StaticResource NullToVisibilityConverter}}"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Content="Reset"
+                                        Foreground="IndianRed"
+                                        Background="Transparent"
+                                        Tapped="Reset_Tapped"
+                                        />
+                                </Grid>
+                                <ListBox
+                                    Background="Transparent"
+                                    ItemsSource="{x:Bind
+                                        ViewModel.AppliedFilters,
+                                        Mode=OneWay}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    Text="{Binding}"
+                                                    FontSize="14"
+                                                    FontWeight="SemiBold"
+                                                    Foreground="{ThemeResource PrimaryAccent_A}"
+                                                    />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <ScrollViewer
+                                    Width="400"
+                                    HorizontalScrollBarVisibility="Visible"
+                                    VerticalScrollBarVisibility="Disabled">
+                                    <ItemsControl
+                                            x:Name="ctlCategory"
+                                            Margin="0 0 0 20"
+                                            ItemsSource="{x:Bind
+                                                ViewModel.EmojiCategories,
+                                                Mode=OneWay}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsStackPanel
+                                                        Orientation="Horizontal"
+                                                        />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ToggleButton
+                                                        Name="buttonCategory"
+                                                        Checked="ToggleButton_Checked"
+                                                        Unchecked="ToggleButton_Unchecked"
+                                                        Background="Transparent"
+                                                        CornerRadius="0"
+                                                        BorderThickness="1 1 1 0"
+                                                        BorderBrush="{ThemeResource Elevation_2}"
+                                                        FontSize="10"
+                                                        Content="{Binding}"
+                                                        />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                                <StackPanel
+                                    Visibility="{x:Bind
+                                        ViewModel.Emojis.Count,
+                                        Mode=OneWay,
+                                        Converter={StaticResource NullToVisibilityConverter},
+                                        ConverterParameter='invert'}"
+                                    Opacity=".55"
+                                    Margin="0 50"
+                                    Spacing="5">
+                                    <TextBlock
+                                        TextAlignment="Center"
+                                        Text="Select a category"
+                                        />
+                                    <Viewbox
+                                        Width="22"
+                                        Height="22">
+                                        <icons:PackIconFontAwesome
+                                            Kind="SmileRegular"
+                                            />
+                                    </Viewbox>
+                                </StackPanel>
+                                <ListBox
+                                    x:Name="lbxEmojis"
+                                    MaxHeight="150"
+                                    Width="400"
+                                    Visibility="{x:Bind
+                                        ViewModel.Emojis.Count,
+                                        Mode=OneWay,
+                                        Converter={StaticResource NullToVisibilityConverter}}"
+                                    ItemsSource="{x:Bind
+                                        ViewModel.Emojis,
+                                        Mode=OneWay}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ms:WrapPanel
+                                                />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Emoji">
+                                            <Grid
+                                                Width="25">
+                                                <TextBlock
+                                                    TextAlignment="Center"
+                                                    Text="{Binding Emoji_}"
+                                                    Tapped="Emoji_Tapped">
+                                                    <ToolTipService.ToolTip>
+                                                        <ToolTip Content="{Binding Name}" />
+                                                    </ToolTipService.ToolTip>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
                 </Button>
             </StackPanel>
             <Button

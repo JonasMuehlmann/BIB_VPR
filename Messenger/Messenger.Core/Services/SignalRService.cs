@@ -16,7 +16,7 @@ namespace Messenger.Core.Services
     {
         #region Private
 
-        private string HUB_URL = @"https://vpr.azurewebsites.net/chathub";
+        private string HUB_URL = @"https://bib-vpr.azurewebsites.net/chathub";
 
         private HubConnection _connection;
 

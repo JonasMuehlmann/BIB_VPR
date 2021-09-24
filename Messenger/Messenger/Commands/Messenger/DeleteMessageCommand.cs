@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Permanently delete the selected message from the channel
+    /// </summary>
     public class DeleteMessageCommand : ICommand
     {
         private ILogger _logger => GlobalLogger.Instance;

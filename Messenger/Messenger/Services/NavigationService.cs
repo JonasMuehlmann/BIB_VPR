@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Messenger.Services
 {
+    /// <summary>
+    /// Provides application UI navigation methods
+    /// </summary>
     public static class NavigationService
     {
         public static event NavigatedEventHandler Navigated;

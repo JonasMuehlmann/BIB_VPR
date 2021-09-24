@@ -13,6 +13,9 @@ using Windows.Storage.Pickers;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Download selected attachment to local storage
+    /// </summary>
     public class DownloadAttachmentCommand : ICommand
     {
         private readonly MessageViewModel _viewModel;

@@ -1,0 +1,2 @@
+MainPackage=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\bin\x64\Debug\Messenger_1.0.1.0_x64_Debug.msix
+SymbolPackage=C:\Users\legom\git\BIB_VPR\Messenger\Messenger\obj\x64\Debug\Symbols\Messenger_1.0.1.0_x64_Debug.appxsym

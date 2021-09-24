@@ -1,6 +1,4 @@
-﻿using Messenger.Core.Models;
-using Messenger.Core.Services;
-using Messenger.ViewModels;
+﻿using Messenger.Core.Services;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.ViewModels.DialogBoxes;
 using Messenger.Views.DialogBoxes;
@@ -9,6 +7,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Assign the selected team role to the current member
+    /// </summary>
     public class AssignTeamRoleCommand : ICommand
     {
         private ManageMemberRolesDialogViewModel _vm;

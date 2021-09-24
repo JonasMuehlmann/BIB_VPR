@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Open a dialog for starting a new team
+    /// </summary>
     public class CreateTeamCommand : ICommand
     {
         private ILogger _log = GlobalLogger.Instance;

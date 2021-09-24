@@ -4,10 +4,14 @@ using Messenger.Helpers;
 using Messenger.ViewModels.DataViewModels;
 using Messenger.Views.DialogBoxes;
 using System;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Remove the channel from the team
+    /// </summary>
     public class RemoveChannelCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
@@ -43,6 +47,7 @@ namespace Messenger.Commands.TeamManage
                     await ResultConfirmationDialog
                         .Set(false, $"No channel was found with id: {channelId}")
                         .ShowAsync();
+                    return;
                 }
 
                 Channel deleted = await MessengerService.DeleteChannel(channel.ChannelId);

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.Helpers.TeamHelpers
 {
+    /// <summary>
+    /// Manages all TeamViewModels dwelling in application cache
+    /// </summary>
     public class TeamManager : Observable
     {
         #region Private
@@ -317,7 +320,21 @@ namespace Messenger.Helpers.TeamHelpers
 
             TeamViewModel teamViewModel = _myTeams.SingleOrDefault(team => team.Id == channelViewModel.TeamId);
 
-            teamViewModel.Channels.Remove(channelViewModel);
+            ObservableCollection<ChannelViewModel> clone = new ObservableCollection<ChannelViewModel>();
+
+            foreach (ChannelViewModel item in teamViewModel.Channels)
+            {
+                clone.Add(new ChannelViewModel().Clone(item));
+            }
+
+            teamViewModel.Channels.Clear();
+
+            foreach (ChannelViewModel item in clone)
+            {
+                teamViewModel.Channels.Add(item);
+            }
+
+            //teamViewModel.Channels.Remove(channelViewModel);
 
             return channelViewModel;
         }

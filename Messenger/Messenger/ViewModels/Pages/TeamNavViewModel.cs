@@ -55,6 +55,7 @@ namespace Messenger.ViewModels.Pages
 
         public UserViewModel CurrentUser { get; set; }
 
+
         #endregion
 
         #region Commands
@@ -112,7 +113,7 @@ namespace Messenger.ViewModels.Pages
 
             foreach (TeamViewModel team in CacheQuery.GetMyTeams())
             {
-                Teams.Add(team);
+                Teams.Add(new TeamViewModel(team));
             }
         }
 
@@ -141,7 +142,7 @@ namespace Messenger.ViewModels.Pages
 
                 foreach (TeamViewModel team in teams)
                 {
-                    Teams.Add(team);
+                    Teams.Add(new TeamViewModel(team));
                 }
             }
 
@@ -153,6 +154,7 @@ namespace Messenger.ViewModels.Pages
         /// </summary>
         public void OnTeamUpdated(object sender, BroadcastArgs e)
         {
+
             TeamViewModel team = e.Payload as TeamViewModel;
 
             if (team == null)
@@ -162,24 +164,34 @@ namespace Messenger.ViewModels.Pages
 
             if (e.Reason == BroadcastReasons.Created)
             {
-                _teams.Add(team);
+                _teams.Add(new TeamViewModel(team));
             }
             else if (e.Reason == BroadcastReasons.Updated)
             {
-                TeamViewModel target = _teams.Single(t => t.Id == team.Id);
-                int index = _teams.IndexOf(target);
+                TeamViewModel target = _teams.SingleOrDefault(t => t.Id == team.Id);
+                if (target != null)
+                {
+                    int index = _teams.IndexOf(target);
 
-                _teams[index] = team;
+                    _teams[index].Id = team.Id;
+                    _teams[index].Channels = team.Channels;
+                    _teams[index].CreationDate = team.CreationDate;
+                    _teams[index].Description = team.Description;
+                    _teams[index].Members = team.Members;
+                    _teams[index].TeamName = team.TeamName;
+                    _teams[index].TeamRoles = team.TeamRoles;
+                }
             }
             else if (e.Reason == BroadcastReasons.Deleted)
             {
-                TeamViewModel target = _teams.Single(t => t.Id == team.Id);
+                TeamViewModel target = _teams.SingleOrDefault(t => t.Id == team.Id);
 
                 if (target != null)
                 {
                     _teams.Remove(target);
                 }
             }
+
         }
 
         /// <summary>
@@ -198,7 +210,7 @@ namespace Messenger.ViewModels.Pages
             {
                 foreach (TeamViewModel team in _teams)
                 {
-                    if (team.Id == channel.TeamId)
+                    if (team.Id == channel.TeamId && !team.Channels.Contains(channel))
                     {
                         team.Channels.Add(channel);
                         break;
@@ -224,9 +236,11 @@ namespace Messenger.ViewModels.Pages
                 {
                     if (team.Id == channel.TeamId)
                     {
-                        ChannelViewModel target = team.Channels.Single(ch => ch.ChannelId == channel.ChannelId);
+                        ChannelViewModel target = team.Channels.FirstOrDefault(ch => ch.ChannelId == channel.ChannelId);
 
                         team.Channels.Remove(target);
+                        ChannelViewModel newSelected = team.Channels.FirstOrDefault();
+                        TeamChannelSwitchCommand.Execute(newSelected);
                     }
                 }
             }

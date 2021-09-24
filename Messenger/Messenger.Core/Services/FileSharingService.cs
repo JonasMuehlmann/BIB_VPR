@@ -16,7 +16,7 @@ namespace Messenger.Core.Services
     public class FileSharingService
     {
         // TODO: This should not actually be hardcoded...
-        private const string blobServiceConnectionString = "DefaultEndpointsProtocol=https;AccountName=vpr;AccountKey=Y/A3PMNyH7ASxIB5KobgLqeJrBGW/vNKou0Ff8MWxs3B1PbNTZ0j+Ew9PAhiMkGObziTErqZ0j693pOc+hkVHQ==;EndpointSuffix=core.windows.net";
+        private const string blobServiceConnectionString = "DefaultEndpointsProtocol=https;AccountName=bibvpr;AccountKey=5+y6T94jqFImoHa5WZLCVD+X2akF1vPJEEqZRrUeDTWlxF4TbPI7I1GMPoYX+nSzIzMXiAWxHR2Cptd/G8oJdg==;EndpointSuffix=core.windows.net";
 
 
         /// <summary>

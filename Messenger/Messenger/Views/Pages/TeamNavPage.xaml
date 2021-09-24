@@ -111,7 +111,7 @@
                         Background="Transparent"
                         Foreground="{StaticResource SystemChromeGrayColor}"
                         Command="{Binding RemoveChannelCommand}"
-                        CommandParameter="{x:Bind TeamId, Mode=OneWay}"
+                        CommandParameter="{x:Bind ChannelId, Mode=OneWay}"
                         Grid.Column="1">
                         <Viewbox
                             Width="14"

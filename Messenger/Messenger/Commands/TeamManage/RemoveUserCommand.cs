@@ -7,6 +7,9 @@ using Messenger.Views.DialogBoxes;
 
 namespace Messenger.Commands.TeamManage
 {
+    /// <summary>
+    /// Remove the user from the selected team
+    /// </summary>
     public class RemoveUserCommand : ICommand
     {
         public RemoveUserCommand()

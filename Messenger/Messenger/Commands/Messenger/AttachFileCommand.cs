@@ -1,17 +1,18 @@
 ﻿using Messenger.Core.Helpers;
-using Messenger.ViewModels;
 using Messenger.ViewModels.Pages;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
 namespace Messenger.Commands.Messenger
 {
+    /// <summary>
+    /// Attach the selected file to the message to be sent
+    /// </summary>
     public class AttachFileCommand : ICommand
     {
         private readonly ChatViewModel _viewModel;
@@ -51,7 +52,7 @@ namespace Messenger.Commands.Messenger
                 if (files.Count > 0)
                 {
 
-                    _viewModel.MessageToSend.UploadFileData = new List<Core.Models.UploadData>();
+                    _viewModel.MessageToSend.UploadFileData.Clear();
                     foreach (StorageFile file in files)
                     {
                         var str = new Core.Models.UploadData((await file.OpenReadAsync()).AsStream(),file.Path);

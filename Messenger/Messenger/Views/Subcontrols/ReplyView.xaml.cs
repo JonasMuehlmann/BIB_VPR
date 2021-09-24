@@ -42,6 +42,7 @@ namespace Messenger.Views.Subcontrols
                 Type = ReactionType.Like,
                 Message = Reply
             });
+            ReactionFlyout.Hide();
         }
         private void DislikeButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -50,6 +51,7 @@ namespace Messenger.Views.Subcontrols
                 Type = ReactionType.Dislike,
                 Message = Reply
             });
+            ReactionFlyout.Hide();
         }
 
         private void SurprisedButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -59,6 +61,7 @@ namespace Messenger.Views.Subcontrols
                 Type = ReactionType.Surprised,
                 Message = Reply
             });
+            ReactionFlyout.Hide();
         }
 
         private void AngryButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -68,6 +71,7 @@ namespace Messenger.Views.Subcontrols
                 Type = ReactionType.Angry,
                 Message = Reply
             });
+            ReactionFlyout.Hide();
         }
     }
 }

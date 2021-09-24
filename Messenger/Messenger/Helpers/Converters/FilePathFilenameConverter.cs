@@ -1,19 +1,19 @@
 ﻿using System;
-using Windows.UI;
+using System.IO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
 namespace Messenger.Helpers.Converters
 {
     /// <summary>
-    /// Returns matching color for the current theme
+    /// Returns collapsed visibility option if the value is false, else visible
     /// </summary>
-    public class ThemeToFillBrushConverter : IValueConverter
+    public class FilePathFilenameConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (ElementTheme)value == ElementTheme.Dark ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.WhiteSmoke);
+
+            return Path.GetFileName((string)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

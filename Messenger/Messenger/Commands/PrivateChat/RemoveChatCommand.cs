@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace Messenger.Commands.PrivateChat
 {
+    /// <summary>
+    /// Permanently remove the selected private chat from the list
+    /// </summary>
     public class RemoveChatCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

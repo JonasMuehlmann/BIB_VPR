@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Messenger.Helpers.MessageHelpers
 {
     /// <summary>
-    /// Converts and completes MessageViewModels to be shown on UI
+    /// Loads and creates complete MessageViewModels to be saved in MessageManager
     /// </summary>
     public static class MessageBuilder
     {
