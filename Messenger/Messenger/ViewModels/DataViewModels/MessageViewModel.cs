@@ -30,6 +30,7 @@ namespace Messenger.ViewModels.DataViewModels
         private MemberViewModel _sender;
         private ObservableCollection<MessageViewModel> _replies;
         private ObservableCollection<Reaction> _reactions;
+        private List<UploadData> _uploadFileData;
         private int _reachtionLikeCount;
         private int _reachtionDislikeCount;
         private int _reachtionSurprisedCount;
@@ -37,6 +38,7 @@ namespace Messenger.ViewModels.DataViewModels
         private List<Attachment> _attachments;
         private bool _isMyMessage;
         private ObservableCollection<BitmapImage> _images;
+        private List<Mentionable> _mentionables;
 
         #endregion
 
@@ -86,6 +88,12 @@ namespace Messenger.ViewModels.DataViewModels
         {
             get { return _replies; }
             set { Set(ref _replies, value); }
+        }
+
+        public List<UploadData> UploadFileData
+        {
+            get { return _uploadFileData; }
+            set { Set(ref _uploadFileData, value); }
         }
 
         public ObservableCollection<Reaction> Reactions
@@ -164,6 +172,12 @@ namespace Messenger.ViewModels.DataViewModels
             set { Set(ref _images, value); }
         }
 
+        public List<Mentionable> Mentionables
+        {
+            get { return _mentionables; }
+            set { Set(ref _mentionables, value); }
+        }
+
         public bool IsReply
         {
             get { return _isReply; }
@@ -210,8 +224,22 @@ namespace Messenger.ViewModels.DataViewModels
             Reactions = new ObservableCollection<Reaction>();
             Attachments = new List<Attachment>();
             Images = new ObservableCollection<BitmapImage>();
+            Mentionables = new List<Mentionable>();
         }
 
+        public Message ToDatabaseModel()
+        {
+            return new Message()
+            {
+                Id = Id.GetValueOrDefault(),
+                ParentMessageId = ParentMessageId,
+                SenderId = SenderId,
+                UploadFileData = UploadFileData,
+                RecipientId = ChannelId.GetValueOrDefault(),
+                Content = Content,
+                CreationTime = CreationTime
+            };
+        }
 
         #region Image
         /// <summary>

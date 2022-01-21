@@ -50,33 +50,45 @@ namespace Messenger.Commands.Messenger
 
             try
             {
-                Message message = _viewModel.MessageToSend;
+                MessageViewModel message = _viewModel.MessageToSend;
                 TeamViewModel team = App.StateProvider.SelectedTeam;
 
                 // Records created timestamp
                 message.CreationTime = DateTime.Now;
                 message.SenderId = App.StateProvider.CurrentUser.Id;
-                message.RecipientId = App.StateProvider.SelectedChannel.ChannelId;
-
-                bool success = await MessengerService.SendMessage(message, team.Id);
-                //bool success = await MessengerService.SendMessage(_viewModel.MessageToSend, team.Id);
-
-                if (success)
+                message.ChannelId = App.StateProvider.SelectedChannel.ChannelId;
+                
+                if (message.Mentionables.Count > 0)
                 {
-                    // Resets the models in the view model
-                    _viewModel.ReplyMessage = null;
-                    _viewModel.MessageToSend = new Message();
+                    foreach (Mentionable mentionable in message.Mentionables)
+                    {
+                        mentionable.IndexAndLength.Deconstruct(out int index, out int length);
+                        string mentionString = message.Content.Substring(index, length);
+
+                        // CreateMention
+                        uint? mentionId = await MentionService.CreateMention(mentionable.TargetType, mentionable.TargetId, App.StateProvider.CurrentUser.Id);
+
+                        if (mentionId == null) break;
+
+                        // Replaced mention id to send to database
+                        message.Content = message.Content.Replace(mentionString, "@" + mentionId);
+                    }
                 }
-                else
-                {
-                    await ResultConfirmationDialog
-                        .Set(false, $"{message}")
-                        .ShowAsync();
-                }
+
+                bool success = await MessengerService.SendMessage(message.ToDatabaseModel(), team.Id);
             }
             catch (Exception e)
             {
                 _logger.Information($"Error while sending message: {e.Message}");
+                await ResultConfirmationDialog
+                        .Set(false, $"{e.Message}")
+                        .ShowAsync();
+            }
+            finally
+            {
+                // Resets the models in the view model
+                _viewModel.ReplyMessage = null;
+                _viewModel.MessageToSend = new MessageViewModel();
             }
         }
     }

@@ -35,11 +35,12 @@ namespace Messenger.Helpers.MessageHelpers
         /// <returns>A complete MessageViewModel object</returns>
         public static async Task<MessageViewModel> Build(this Message message)
         {
-            MessageViewModel withReactions = await Map(message).WithReactions();
+            MessageViewModel withSender = await Map(message).WithSender();
+            MessageViewModel withReactions = await withSender.WithReactions();
             MessageViewModel withReplies = await withReactions.WithReplies();
             MessageViewModel withAttachments = await withReplies.WithAttachments();
 
-            return withAttachments.Sender == null ? await withAttachments.WithSender() : withAttachments;
+            return await withAttachments.WithParsedMentions();
         }
 
         /// <summary>
@@ -173,6 +174,13 @@ namespace Messenger.Helpers.MessageHelpers
                     viewModel.AddImages(imageStreams);
                 }
             }
+
+            return viewModel;
+        }
+
+        public static async Task<MessageViewModel> WithParsedMentions(this MessageViewModel viewModel)
+        {
+            viewModel.Content = await MentionService.ResolveMentions(viewModel.Content);
 
             return viewModel;
         }

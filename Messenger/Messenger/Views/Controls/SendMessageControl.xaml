@@ -108,6 +108,9 @@
             HorizontalScrollMode="Enabled"
             VerticalScrollBarVisibility="Disabled">
             <ListBox
+                x:Name="lbxMentionables"
+                SelectionMode="Single"
+                SelectionChanged="lbxMentionables_SelectionChanged"
                 ItemsSource="{x:Bind
                     ViewModel.SearchedMentionables}">
                 <ListBox.ItemTemplate>

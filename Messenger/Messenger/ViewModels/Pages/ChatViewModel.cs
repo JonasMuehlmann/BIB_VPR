@@ -13,7 +13,7 @@ namespace Messenger.ViewModels.Pages
 
         private MessageViewModel _replyMessage;
 
-        private Message _messageToSend;
+        private MessageViewModel _messageToSend;
 
         private TeamViewModel _selectedTeam;
 
@@ -43,7 +43,7 @@ namespace Messenger.ViewModels.Pages
         /// Message object to be sent,
         /// update is triggered by SendMessageControl, data is injected to SendMessageCommand
         /// </summary>
-        public Message MessageToSend
+        public MessageViewModel MessageToSend
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Messenger.ViewModels.Pages
         {
             MessagesListViewModel = new MessagesListControlViewModel(this);
             SendMessageControlViewModel = new SendMessageControlViewModel(this);
-            MessageToSend = new Message();
+            MessageToSend = new MessageViewModel();
 
             /** REFERENCE TO GLOBAL STATE **/
             SelectedTeam = App.StateProvider.SelectedTeam;

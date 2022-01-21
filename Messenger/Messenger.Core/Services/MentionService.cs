@@ -333,10 +333,10 @@ namespace Messenger.Core.Services
             }
             else
             {
-                mentionables.AddRange(await SearchUsers(searchString.Substring(2), teamId));
-                mentionables.AddRange(await SearchRoles(searchString.Substring(2), teamId));
-                mentionables.AddRange(await SearchChannels(searchString.Substring(2), teamId));
-                mentionables.AddRange(await SearchMessages(searchString.Substring(2), teamId));
+                mentionables.AddRange(await SearchUsers(searchString, teamId));
+                mentionables.AddRange(await SearchRoles(searchString, teamId));
+                mentionables.AddRange(await SearchChannels(searchString, teamId));
+                mentionables.AddRange(await SearchMessages(searchString, teamId));
             }
 
             return mentionables;

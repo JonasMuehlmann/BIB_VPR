@@ -139,9 +139,9 @@ namespace Messenger.Core.Services
                     string blob = await FileSharingService.Upload(file);
                     blobNames.Add(blob);
                 }
+                
+                logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFileData)}");
             }
-
-            logger.Information($"added the following attachments to the message: {string.Join(",", message.UploadFileData)}");
 
             // Save to database
             uint? id = await MessageService.CreateMessage(

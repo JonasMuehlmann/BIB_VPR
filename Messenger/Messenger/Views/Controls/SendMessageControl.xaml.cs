@@ -26,7 +26,8 @@ namespace Messenger.Views.Controls
 
         private bool isInSearchMode;
         private DispatcherTimer _timer;
-        private string _searchTerm;
+        private string searchTerm;
+        private int currentMentionStartIndex;
 
         public SendMessageControl()
         {
@@ -70,22 +71,67 @@ namespace Messenger.Views.Controls
             if (isInSearchMode
                 && newText == " ")
             {
-                isInSearchMode = false;
+                QuitSearchMode();
                 return;
             }
 
             // Enter search mode
             if (!string.IsNullOrEmpty(newText)
-                && newText[newText.Length - 1] == '@'
+                && newText.EndsWith('@')
                 && !isInSearchMode)
             {
                 isInSearchMode = true;
+                currentMentionStartIndex = newText.Length - 1;
                 return;
             }
 
-            if (!isInSearchMode) return;
+            if (!isInSearchMode || newText.Length <= currentMentionStartIndex + 1) return;
 
-            ViewModel.SearchMentionables(newText);
+            searchTerm = newText.Substring(currentMentionStartIndex + 1);
+
+            ViewModel.SearchMentionables(searchTerm);
+        }
+
+        private void lbxMentionables_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           Mentionable target = (sender as ListBox).SelectedItem as Mentionable;
+
+            if (target == null || string.IsNullOrEmpty(target.TargetId)) return;
+
+            switch (target.TargetType)
+            {
+                case MentionTarget.User:
+                    string username = target.TargetName.Substring(0, target.TargetName.LastIndexOf('#'));
+                    AddAndReplaceMentionableString(username, target);
+                    break;
+                case MentionTarget.Role:
+                case MentionTarget.Channel:
+                case MentionTarget.Message:
+                case MentionTarget.All:
+                    AddAndReplaceMentionableString(target.TargetName, target);
+                    break;
+                default:
+                    break;
+            }
+
+            QuitSearchMode();
+        }
+
+        private void QuitSearchMode()
+        {
+            searchTerm = null;
+            isInSearchMode = false;
+            currentMentionStartIndex = -1;
+            ViewModel.ResetSearchedMentionables();
+        }
+
+        private void AddAndReplaceMentionableString(string replaceString, Mentionable target)
+        {
+            target.IndexAndLength = new Tuple<int, int>(currentMentionStartIndex, replaceString.Length + 1);
+
+            tbxContent.Text = tbxContent.Text.Replace("@" + searchTerm, "@" + replaceString + " ");
+            tbxContent.Select(tbxContent.Text.Length, 0);
+            ViewModel.ParentViewModel.MessageToSend.Mentionables.Add(target);
         }
 
         private void RemoveReply_Tapped(object sender, TappedRoutedEventArgs e)
@@ -114,7 +160,7 @@ namespace Messenger.Views.Controls
 
             if (string.IsNullOrWhiteSpace(term) || term.Length <= 2) return;
 
-            _searchTerm = term;
+            searchTerm = term;
 
             if (_timer.IsEnabled) _timer.Stop();
 
@@ -132,9 +178,9 @@ namespace Messenger.Views.Controls
 
         private void OnSearchTimer(object sender, object e)
         {
-            if (string.IsNullOrWhiteSpace(_searchTerm)) return;
+            if (string.IsNullOrWhiteSpace(searchTerm)) return;
 
-            ViewModel.SearchEmojis(_searchTerm);
+            ViewModel.SearchEmojis(searchTerm);
 
             _timer.Stop();
         }

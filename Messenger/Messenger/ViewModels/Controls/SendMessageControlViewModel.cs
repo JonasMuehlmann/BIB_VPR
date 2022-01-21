@@ -62,23 +62,22 @@ namespace Messenger.ViewModels.Controls
             AppliedFilters = new ObservableCollection<EmojiCategory>();
         }
 
-        public async void SearchMentionables(string newText)
+        public async void SearchMentionables(string searchTerm)
         {
-            int lastMentionSymbolIndex = newText.LastIndexOf('@');
-            string searchTerm = newText.Substring(lastMentionSymbolIndex + 1);
-            char[] categories = new char[] { 'r', 'u', 'c', 'm' };
-
             SearchedMentionables.Clear();
 
-            if (searchTerm.Length > 2
-                && categories.Any(c => c == searchTerm[0])
-                && searchTerm[1] == ':')
+            if (searchTerm.Length > 2)
             {
                 foreach (Mentionable mentionable in await MentionService.SearchMentionable(searchTerm, App.StateProvider.SelectedTeam.Id))
                 {
                     SearchedMentionables.Add(mentionable);
                 }
             }
+        }
+
+        public void ResetSearchedMentionables()
+        {
+            SearchedMentionables.Clear();
         }
 
         public void AddEmojiFilter(EmojiCategory category)

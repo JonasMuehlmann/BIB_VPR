@@ -1,3 +1,5 @@
+using System;
+
 namespace Messenger.Core.Models
 {
     /// <summary>
@@ -20,6 +22,8 @@ namespace Messenger.Core.Models
         /// The name of the concrete entity to mention
         /// </summary>
         public string TargetName { get; set; }
+
+        public Tuple<int, int> IndexAndLength { get; set; }
 
         /// <summary>
         /// Default initialize all members(string values get initialized to "" instead of null)
