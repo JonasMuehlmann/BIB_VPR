@@ -53,7 +53,7 @@ namespace Messenger.Core.Services
                                 VALUES (
                                         '{senderId}',
                                          {correctedParentMessageId},
-                                        '{message}',
+                                        N'{message}',
                                          GETDATE(),
                                         '{correctedAttachmentBlobNames}',
                                          {recipientsId}
