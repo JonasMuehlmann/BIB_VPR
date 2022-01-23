@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
+using System;
 using Messenger.Core.Models;
 using Messenger.Core.Services;
 
@@ -21,16 +23,10 @@ namespace Messenger.Tests.MSTest
 
             Task.Run(async () =>
             {
-                var _ = await UserService.GetOrCreateApplicationUser(new User(){Id= testName + "User"});
-
-                var teamId = await TeamService.CreateTeam(testName + "Team");
-                Assert.IsNotNull(teamId);
-
-                var channelId = await ChannelService.CreateChannel(testName + "Channel", teamId.Value);
-                Assert.IsNotNull(channelId);
-
-                var result = await MessageService.CreateMessage(channelId.Value, testName + "User", testName + "Message");
-                Assert.IsTrue(result.Value > 0);
+                var data = await DataGenerator.SetupData(testName);
+                
+                var result = await MessageService.CreateMessage(data["Channel"].ChannelId, data["User"].Id, data["Message"].Content);
+                Assert.IsNotNull(result);
 
             }).GetAwaiter().GetResult();
         }
